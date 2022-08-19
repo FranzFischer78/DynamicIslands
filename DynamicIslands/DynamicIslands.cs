@@ -88,6 +88,10 @@ public class DynamicIslands : Mod
 
 	public void OnModUnload()
 	{
+		foreach (landmarkBundle bundle in landmarkBundles)
+		{
+			bundle.bundle.Unload(true);
+		}
 		Debug.Log("Mod DynamicIslands has been unloaded!");
 	}
 
