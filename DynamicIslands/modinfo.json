@@ -1,14 +1,14 @@
 {
-  "name": "DynamicIslands",
-  "author": "",
-  "description": "",
+  "name": "Custom Islands",
+  "author": "FranzFischer78 + MegaMatrixs",
+  "description": "Allows you to spawn your own custom islands ingame!",
   "version": "1.0",
   "license": "GNU AGPLv3",
   "icon": "icon.png",
   "banner": "banner.jpg",
   "gameVersion": "1.0",
-  "requiredByAllPlayers": false,
-  "updateUrl": "https://www.raftmodding.com/api/v1/mods/YOUR-MOD-SLUG-HERE/version.txt",
+  "requiredByAllPlayers": true,
+  "updateUrl": "https://www.raftmodding.com/api/v1/mods/custom-islands/version.txt",
   "isModPermanent": false,
   "excludedFiles": []
 }
