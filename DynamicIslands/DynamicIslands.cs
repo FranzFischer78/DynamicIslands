@@ -13,6 +13,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine.Networking;
 using System.Threading.Tasks;
 using Steamworks;
+using System.Linq;
 
 public class landmarkBundle
 {
@@ -48,11 +49,21 @@ public class DynamicIslands : Mod
 		loadSceneManagerinstance= FindObjectOfType<LoadSceneManager>();
 		var harmony = new Harmony("com.franzfischer.dynamicislands");
 		harmony.PatchAll();
+
+		//INIT FOLDER
+		if (!Directory.Exists(assetpath))
+		{
+			Directory.CreateDirectory(assetpath);
+		}
+		if(Directory.EnumerateFiles(assetpath).Count() == 0) {
+			Debug.LogWarning("There are no custom Landmarks installed!");
+		}
+
 		Debug.Log("[DYNAMIC ISLANDS] Loading custom Landmarks");
 
 		RefreshLandmarkBundles(new string[1]);
 
-		Debug.Log("Mod DynamicIslands has been loaded!");
+		Debug.Log("[DYNAMIC ISLANDS] Mod DynamicIslands has been loaded!");
 	}
 
 	private void Update()
