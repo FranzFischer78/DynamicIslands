@@ -59,9 +59,14 @@ public class DynamicIslands : Mod
 			Debug.LogWarning("There are no custom Landmarks installed!");
 		}
 
+		//AssetBundle bundle = AssetBundle.LoadFromMemory(File.ReadAllBytes(assetpath + @"\Shader\builtincustomshaders.assets"));
+
+
 		Debug.Log("[DYNAMIC ISLANDS] Loading custom Landmarks");
 
 		RefreshLandmarkBundles(new string[1]);
+
+
 
 		Debug.Log("[DYNAMIC ISLANDS] Mod DynamicIslands has been loaded!");
 	}
@@ -264,6 +269,7 @@ public class DynamicIslands : Mod
 
 		GameObject[] rootgoisland = SceneManager.GetSceneByName(Utils.SceneNameFromPath(scenePath[0])).GetRootGameObjects();
 
+
 		//bundle.Unload(true);
 
 		Vector3 spawnOffset = Raft.direction * 200;
@@ -297,6 +303,9 @@ public class DynamicIslands : Mod
 
 			RAPI.SendNetworkMessage(islandMessage, 6969, EP2PSend.k_EP2PSendReliable);
 		}
+
+		//REAPPLY SHADERS
+		CustomLandmark.AddComponent<ReApplyShaders>();
 
 		//We just need the first. Keep for later if we want to load multiple
 		/*foreach (string scene in scenePath)
@@ -353,6 +362,40 @@ public static class Utils
 		string text = scenePathByBuildIndex.Substring(num + 1);
 		int length = text.LastIndexOf('.');
 		return text.Substring(0, length);
+	}
+}
+
+//SHADER FIX 
+public class ReApplyShaders : MonoBehaviour
+{
+	public Renderer[] renderers;
+	public Material[] materials;
+	public string[] shaders;
+
+	void Awake()
+	{
+		Debug.Log("Getting renderers");
+		renderers = GetComponentsInChildren<Renderer>();
+	}
+
+	void Start()
+	{
+		Debug.Log("FIXING SHADERS");
+		foreach (var rend in renderers)
+		{
+			materials = rend.sharedMaterials;
+			shaders = new string[materials.Length];
+
+			for (int i = 0; i < materials.Length; i++)
+			{
+				shaders[i] = materials[i].shader.name;
+			}
+
+			for (int i = 0; i < materials.Length; i++)
+			{
+				materials[i].shader = Shader.Find(shaders[i]);
+			}
+		}
 	}
 }
 
