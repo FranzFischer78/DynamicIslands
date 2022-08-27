@@ -14,6 +14,9 @@ using UnityEngine.Networking;
 using System.Threading.Tasks;
 using Steamworks;
 using System.Linq;
+using System.Threading.Tasks;
+using AsyncOperation = UnityEngine.AsyncOperation;
+using UnityEngine.Playables;
 
 public class landmarkBundle
 {
@@ -100,7 +103,7 @@ public class DynamicIslands : Mod
 		Debug.Log("Mod DynamicIslands has been unloaded!");
 	}
 
-	public static List<landmarkBundle> readBundles()
+	public static async Task readBundles()
 	{
 		List<landmarkBundle> bundles = new List<landmarkBundle>();
 
@@ -109,22 +112,26 @@ public class DynamicIslands : Mod
 			landmarkBundle bundle = new landmarkBundle();
 			bundle.path = asset;
 			bundle.name = Path.GetFileNameWithoutExtension(asset);
-			bundle.bundle = AssetBundle.LoadFromMemory(File.ReadAllBytes(asset));
+			AssetBundleCreateRequest request = AssetBundle.LoadFromMemoryAsync(File.ReadAllBytes(asset));
+			await request;
+			bundle.bundle = request.assetBundle;
 			Debug.Log("Loaded Bundle");
 			bundles.Add(bundle);
 			Debug.Log(asset);
 		}
 
 
-		return bundles;
+		landmarkBundles= bundles;
 
 	}
 
 
 	[ConsoleCommand(name: "RefreshLandmarkBundles", docs: "Refreshes the Bundle cache")]
-	public static void RefreshLandmarkBundles(string[] args)
+	public static async void RefreshLandmarkBundles(string[] args)
 	{
-		if(landmarkBundles.Count != 0)
+		HNotification notification = FindObjectOfType<HNotify>().AddNotification(HNotify.NotificationType.spinning, "Loading CustomIslands...");
+
+		if (landmarkBundles.Count != 0)
 		{
 			foreach(landmarkBundle bundle in landmarkBundles)
 			{
@@ -132,7 +139,11 @@ public class DynamicIslands : Mod
 			}
 		}
 
-		landmarkBundles = readBundles();
+		Task readbundletask = (Task)readBundles();
+		await readbundletask;
+		//landmarkBundles = readBundles();
+
+		notification.Close();
 
 	}
 
@@ -210,6 +221,12 @@ public class DynamicIslands : Mod
 			}
 		}
 
+
+	[ConsoleCommand(name: "TpToLandmark", docs: "ddssdccsscd")]
+	public static void tptolandmark()
+	{
+
+	}
 
 	public IEnumerator customlandmarkienum(string[] args)
 	{
@@ -307,6 +324,8 @@ public class DynamicIslands : Mod
 		//REAPPLY SHADERS
 		CustomLandmark.AddComponent<ReApplyShaders>();
 
+		//RAPI.GetLocalPlayer().transform.position = CustomLandmark.GetComponentInChildren<Transform>().position;
+
 		//We just need the first. Keep for later if we want to load multiple
 		/*foreach (string scene in scenePath)
 		{
@@ -396,6 +415,43 @@ public class ReApplyShaders : MonoBehaviour
 				materials[i].shader = Shader.Find(shaders[i]);
 			}
 		}
+	}
+}
+
+
+//This i created on my own and totally not based on the other one XD
+public class UnityAssetBundleRequestAwaiter : INotifyCompletion
+{
+	private AssetBundleCreateRequest asyncOp;
+	private Action continuation;
+
+	public UnityAssetBundleRequestAwaiter(AssetBundleCreateRequest asyncOp)
+	{
+		this.asyncOp = asyncOp;
+		asyncOp.completed += OnRequestCompleted;
+	}
+
+	public bool IsCompleted { get { return asyncOp.isDone; } }
+
+	public void GetResult() { }
+
+	public void OnCompleted(Action continuation)
+	{
+		this.continuation = continuation;
+	}
+
+	private void OnRequestCompleted(AsyncOperation obj)
+	{
+		continuation();
+	}
+}
+
+public static class ExtensionMethods
+{
+
+	public static UnityAssetBundleRequestAwaiter GetAwaiter(this AssetBundleCreateRequest asyncOp)
+	{
+		return new UnityAssetBundleRequestAwaiter(asyncOp);
 	}
 }
 
