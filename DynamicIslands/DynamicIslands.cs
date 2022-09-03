@@ -17,6 +17,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AsyncOperation = UnityEngine.AsyncOperation;
 using UnityEngine.Playables;
+using System.Reflection.Emit;
+using RaftGame.Private;
 
 public class landmarkBundle
 {
@@ -72,6 +74,7 @@ public class DynamicIslands : Mod
 
 
 		Debug.Log("[DYNAMIC ISLANDS] Mod DynamicIslands has been loaded!");
+
 	}
 
 	private void Update()
@@ -107,7 +110,7 @@ public class DynamicIslands : Mod
 	{
 		List<landmarkBundle> bundles = new List<landmarkBundle>();
 
-		foreach(string asset in Directory.EnumerateFiles(assetpath))
+		foreach(string asset in Directory.EnumerateFiles(assetpath, "*.assets"))
 		{
 			landmarkBundle bundle = new landmarkBundle();
 			bundle.path = asset;
@@ -308,6 +311,8 @@ public class DynamicIslands : Mod
 		{
 			Debug.LogWarning(e);
 		}
+		CustomLandmark.GetComponentInChildren<Terrain>().gameObject.layer = (LayerMask)16;
+		//Debug.Log("Layer is on " + CustomLandmark.GetComponentInChildren<Terrain>().gameObject.layer.ToString());
 		Debug.Log("Landmark spawned successfully");
 
 		if (Raft_Network.IsHost)
@@ -323,9 +328,61 @@ public class DynamicIslands : Mod
 
 		//REAPPLY SHADERS
 		CustomLandmark.AddComponent<ReApplyShaders>();
+		//Debug.Log(CustomLandmark.GetComponentInChildren<Terrain>().gameObject.name + "thats my name XD");
+
+		//spawn snowmobiles if there are any
+		if (CustomLandmark.GetComponentsInChildren<SnowmobileShed>().Length > 0)
+		{
+
+			SnowmobileShed prefabClass = new SnowmobileShed();
+
+			if (GameManager.GameMode == GameMode.Creative)
+			{
+				Debug.Log("We're in creative. Load temperance");
+
+				SceneManager.LoadScene("55#Landmark_Temperance#", LoadSceneMode.Additive);
+
+				var sceneTemperance = SceneManager.GetSceneByName("55#Landmark_Temperance#");
+				if (!sceneTemperance.isLoaded)
+				{
+					Debug.Log("scene not loaded, waiting");
+					yield return new WaitForSeconds(.1f);
+				}
+				prefabClass = sceneTemperance.GetRootGameObjects()[0].GetComponentsInChildren<SnowmobileShed>()[0];
+
+				Destroy(sceneTemperance.GetRootGameObjects()[0]);
+			}
+			else
+			{
+
+				var sceneTemperance = SceneManager.GetSceneByName("55#Landmark_Temperance#");
+				if (!sceneTemperance.isLoaded)
+				{
+					Debug.Log("scene not loaded, waiting");
+					yield return new WaitForSeconds(.1f);
+				}
+				prefabClass = sceneTemperance.GetRootGameObjects()[0].GetComponentsInChildren<SnowmobileShed>()[0];
+			}
+
+
+			foreach (SnowmobileShed shed in CustomLandmark.GetComponentsInChildren<SnowmobileShed>())
+			{
+				Debug.Log(shed.gameObject.name);
+				try
+				{
+					Debug.Log("tempfix");
+					//shed.gameObject.transform.GetChild(1).transform.position = new Vector3(0, 1, 0);
+					//shed.gameObject.transform.GetChild(1).transform.localPosition = new Vector3(0, 1, 0);
+				}
+				catch { };
+				shed.SetSnowmobilePrefab(prefabClass.GetSnowmobilePrefab());
+				shed.SpawnSnowmobileNetwork();
+			}
+		}
+
+
 
 		//RAPI.GetLocalPlayer().transform.position = CustomLandmark.GetComponentInChildren<Transform>().position;
-
 		//We just need the first. Keep for later if we want to load multiple
 		/*foreach (string scene in scenePath)
 		{
@@ -369,6 +426,42 @@ class AdditionalSceneLoadingPatch{
 
 }*/
 
+[HarmonyPatch(typeof(Snowmobile), nameof(RaftGame.Private.PrivateAccessor_Snowmobile.Start))]
+class snowmoobilenosound
+{
+	static void Postfix(ref Snowmobile __instance)
+	{
+		if(__instance.GetEmitter_engine() == null)
+		{
+			Debug.Log("EMMITER ENGINE IS NULL");
+		}
+		if (__instance.GetEmitter_impact() == null)
+		{
+			Debug.Log("EMMITER impact IS NULL");
+		}
+	}
+}
+
+//SNOWMOBILES ANYWHERE!
+
+/*[HarmonyPatch(typeof(Snowmobile), "Update")]
+static class Patch_Snowmobile_Update
+{
+	static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+	{
+		var code = instructions.ToList();
+		code.Insert(code.FindLastIndex(code.FindIndex(x => x.opcode == OpCodes.Call && (x.operand as MethodInfo).Name == "Raycast"), x => x.opcode == OpCodes.Ldsfld && (x.operand as FieldInfo).Name == "MASK_Obstruction") + 1, new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(Patch_Snowmobile_Update), nameof(EditMask))));
+		return code;
+	}
+	public static LayerMask EditMask(LayerMask original) => original | (LayerMask)1;
+	/*static void Postfix(Snowmobile __instance, Transform ___groundCheckPoint, Rigidbody ___body)
+	{
+		var flag = Physics.Raycast(___groundCheckPoint.position, Vector3.down, out var hit, 100, (LayerMask)16) && hit.collider.transform.IsChildOf(SingletonGeneric<GameManager>.Singleton.lockedPivot);
+		if (___body.transform.ParentedToRaft() != flag)
+			___body.transform.SetParent(flag ? SingletonGeneric<GameManager>.Singleton.lockedPivot : null, true);
+	}*/
+//}
+
 
 
 
@@ -402,17 +495,32 @@ public class ReApplyShaders : MonoBehaviour
 		Debug.Log("FIXING SHADERS");
 		foreach (var rend in renderers)
 		{
-			materials = rend.sharedMaterials;
-			shaders = new string[materials.Length];
-
-			for (int i = 0; i < materials.Length; i++)
+			try
 			{
-				shaders[i] = materials[i].shader.name;
+				materials = rend.sharedMaterials;
+				shaders = new string[materials.Length];
+
+				for (int i = 0; i < materials.Length; i++)
+				{
+					try
+					{
+						shaders[i] = materials[i].shader.name;
+					}
+					catch { }
+				}
+
+				for (int i = 0; i < materials.Length; i++)
+				{
+					try
+					{
+						materials[i].shader = Shader.Find(shaders[i]);
+					}
+					catch { }
+				}
 			}
-
-			for (int i = 0; i < materials.Length; i++)
+			catch
 			{
-				materials[i].shader = Shader.Find(shaders[i]);
+
 			}
 		}
 	}

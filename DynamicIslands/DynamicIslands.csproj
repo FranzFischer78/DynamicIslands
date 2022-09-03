@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DynamicIslands.cs" />
+    <Compile Include="PrivateAccessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
