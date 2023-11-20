@@ -36,15 +36,54 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AwaitExtensions\Engine\ContextHelper.cs" />
+    <Compile Include="AwaitExtensions\Engine\ExtensionsHelper.cs" />
+    <Compile Include="AwaitExtensions\Engine\ManualAwaiter.cs" />
+    <Compile Include="AwaitExtensions\Engine\RoutineHelper.cs" />
+    <Compile Include="AwaitExtensions\Extensions.cs" />
+    <Compile Include="AwaitExtensions\WaitForBackgroundThread.cs" />
+    <Compile Include="AwaitExtensions\WaitForUpdate.cs" />
+    <Compile Include="CameraMovementScript.cs" />
     <Compile Include="DynamicIslands.cs" />
+    <Compile Include="EditorGameObject.cs" />
+    <Compile Include="IslandData.cs" />
+    <Compile Include="ObjectPlacer.cs" />
     <Compile Include="PrivateAccessor.cs" />
+    <Compile Include="ProceduralTerrainGenerator.cs" />
+    <Compile Include="RTSCamera.cs" />
+    <Compile Include="RuntimeGizmo\Custom\TransformGizmoCustomGizmo.cs" />
+    <Compile Include="RuntimeGizmo\Helpers\ExtMathf.cs" />
+    <Compile Include="RuntimeGizmo\Helpers\ExtTransform.cs" />
+    <Compile Include="RuntimeGizmo\Helpers\ExtTransformType.cs" />
+    <Compile Include="RuntimeGizmo\Helpers\ExtVector3.cs" />
+    <Compile Include="RuntimeGizmo\Helpers\Geometry.cs" />
+    <Compile Include="RuntimeGizmo\Objects\AxisInfo.cs" />
+    <Compile Include="RuntimeGizmo\Objects\AxisVectors.cs" />
+    <Compile Include="RuntimeGizmo\Objects\Commands\SelectCommand.cs" />
+    <Compile Include="RuntimeGizmo\Objects\Commands\TransformCommand.cs" />
+    <Compile Include="RuntimeGizmo\Objects\Enums.cs" />
+    <Compile Include="RuntimeGizmo\Objects\IntersectPoints.cs" />
+    <Compile Include="RuntimeGizmo\Objects\Square.cs" />
+    <Compile Include="RuntimeGizmo\Objects\TargetInfo.cs" />
+    <Compile Include="RuntimeGizmo\TransformGizmo.cs" />
+    <Compile Include="RuntimeGizmo\UndoRedo\CommandGroup.cs" />
+    <Compile Include="RuntimeGizmo\UndoRedo\DropoutStack.cs" />
+    <Compile Include="RuntimeGizmo\UndoRedo\ICommand.cs" />
+    <Compile Include="RuntimeGizmo\UndoRedo\UndoRedo.cs" />
+    <Compile Include="RuntimeGizmo\UndoRedo\UndoRedoManager.cs" />
+    <Compile Include="terraineditor.cs" />
+    <Compile Include="UnityScripts\TabSelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
+    <None Include="editorsceneci.assets" />
+    <None Include="maincustomislandsbundle.assets" />
     <None Include="modinfo.json" />
+    <None Include="RuntimeGizmo\TransformGizmo.cs.meta" />
+    <None Include="UnityScripts\TabSelector.cs.meta" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp-firstpass.dll">
