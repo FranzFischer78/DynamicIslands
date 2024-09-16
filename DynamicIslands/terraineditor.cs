@@ -149,71 +149,7 @@ namespace DynamicIslands
 
 						// Get the position of the camera
 						Vector3 cameraPos = Camera.main.transform.position;
-
-						//Debug.Log(cameraPos.ToString());
-
-						//Debug.Log("Screentoworld: " + Camera.main.ScreenToWorldPoint(modifiedMousePos).ToString());
-
-						// Get the direction from the camera to the mouse position
-						Vector3 rayDirection = (worldPos - cameraPos).normalized;
-						//Debug.Log((worldPos - cameraPos).ToString());
-						//Debug.Log("Preparing raycast on layer: " + terrain.gameObject.layer.ToString() + "at position "+rayDirection.ToString());
-
-						// Cast a ray against the terrain to find the point on the terrain that was clicked
-						RaycastHit hit;
-						Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-						if (terrain.GetComponent<TerrainCollider>().Raycast(ray, out hit, Mathf.Infinity))
-						{
-							// Get the coordinates of the point on the terrain that was clicked
-							Vector3 terrainPos = hit.point;
-
-							// Get the size of the terrain in terrain units
-							int terrainWidth = terrain.terrainData.heightmapWidth;
-							int terrainHeight = terrain.terrainData.heightmapHeight;
-
-							// Convert the terrain coordinates to terrain heightmap coordinates
-							float mapX = (terrainPos.x - terrain.transform.position.x) / terrain.terrainData.size.x * terrainWidth;
-							float mapZ = (terrainPos.z - terrain.transform.position.z) / terrain.terrainData.size.z * terrainHeight;
-
-							// Get the heights of the terrain at the clicked point
-							float[,] heights = terrain.terrainData.GetHeights(Mathf.RoundToInt(mapX) - Mathf.RoundToInt(brushSize), Mathf.RoundToInt(mapZ) - Mathf.RoundToInt(brushSize), Mathf.RoundToInt(brushSize) * 2, Mathf.RoundToInt(brushSize) * 2);
-
-							Debug.Log("Hit terrain at position: " + hit.point);
-
-							// Modify the heights of the terrain
-							for (int y = 0; y < Mathf.RoundToInt(brushSize) * 2; y++)
-							{
-								for (int x = 0; x < Mathf.RoundToInt(brushSize) * 2; x++)
-								{
-									// Calculate the distance of the current point from the center of the brush
-									float distance = Vector2.Distance(new Vector2(x, y), new Vector2(Mathf.RoundToInt(brushSize), Mathf.RoundToInt(brushSize)));
-
-									// Only modify the height if the current point is within the brush size
-									if (distance < brushSize)
-									{
-										// Raise or lower the height depending on the mouse button that was clicked
-										if (Input.GetMouseButton(0))
-										{
-											heights[y, x] += brushStrength * (1.0f - distance / brushSize);
-										}
-										else if (Input.GetMouseButton(1))
-										{
-											heights[y, x] -= brushStrength * (1.0f - distance / brushSize);
-										}
-									}
-								}
-							}
-							// Set the modified heights on the terrain
-							terrain.terrainData.SetHeights(Mathf.RoundToInt(mapX) - Mathf.RoundToInt(brushSize), Mathf.RoundToInt(mapZ) - Mathf.RoundToInt(brushSize), heights);
-
-							// Apply the changes to the terrain
-							terrain.Flush();
-
-
-
-
-
-						}
+					
 
 					}
 				}

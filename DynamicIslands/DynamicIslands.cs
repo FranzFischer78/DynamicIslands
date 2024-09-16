@@ -402,23 +402,26 @@ namespace DynamicIslands
 				}
 			});
 
-
-			TabSelector tabbSelector = GameObject.Find("TabSelector").AddComponent<TabSelector>();
-			tabbSelector.SelectedTab = TAB.ObjectPlace;
-			tabbSelector.ToolList = GameObject.Find("ToolList");
-			for(int i=0; i < tabbSelector.ToolList.transform.childCount; i++)
+			try
 			{
-				int temp = i;
-				 
-				tabbSelector.transform.GetChild(temp).gameObject.GetComponent<Button>().onClick.AddListener(() =>
+
+				TabSelector tabbSelector = GameObject.Find("TabSelector").AddComponent<TabSelector>();
+				tabbSelector.SelectedTab = TAB.ObjectPlace;
+				tabbSelector.ToolList = GameObject.Find("ToolList");
+				for (int i = 0; i < tabbSelector.ToolList.transform.childCount; i++)
 				{
-					tabbSelector.UpdateTabSelection(temp);
+					int temp = i;
+
+					tabbSelector.transform.GetChild(temp).gameObject.GetComponent<Button>().onClick.AddListener(() =>
+					{
+						tabbSelector.UpdateTabSelection(temp);
 
 
-				});
-				Debug.Log("added event to " + tabbSelector.transform.GetChild(temp).name);
+					});
+					Debug.Log("added event to " + tabbSelector.transform.GetChild(temp).name);
+				}
 			}
-
+			catch (Exception e) { }
 
 			SceneManager.LoadScene("44#Landmark_Vasagatan", LoadSceneMode.Additive);
 			await Task.Delay(1000);
@@ -1174,7 +1177,6 @@ namespace DynamicIslands
 	}
 
 
-	//This i created on my own and totally not based on the other one XD
 	public class UnityAssetBundleRequestAwaiter : INotifyCompletion
 	{
 		private AssetBundleCreateRequest asyncOp;
