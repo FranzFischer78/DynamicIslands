@@ -8,6 +8,7 @@ namespace DynamicIslands.Editor
 	public class IslandDataList
 	{
 		public List<IslandData> list = new List<IslandData>();
+		public string TerrainBinaryString = "";
 	}
 
 

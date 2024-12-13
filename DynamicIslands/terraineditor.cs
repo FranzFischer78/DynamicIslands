@@ -10,8 +10,8 @@ namespace DynamicIslands
 	public class terraineditor : MonoBehaviour
 	{
 		// Reference to the terrain in the scene
-		Terrain terrain;
-		TerrainData terrainData;
+		public static Terrain terrain;
+		public static TerrainData terrainData;
 
 		// The brush size and strength
 		public float brushSize = 1.0f;
@@ -102,7 +102,7 @@ namespace DynamicIslands
 			catch { terrainCollider = terrain.gameObject.GetComponent<TerrainCollider>(); }
 
 			ProceduralTerrainGenerator generator = new ProceduralTerrainGenerator();
-			generator.TerrainGenerator(terrain);
+			//generator.TerrainGenerator(terrain);
 
 			terrainCollider.terrainData = terrain.terrainData;
 

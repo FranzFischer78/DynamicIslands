@@ -20,6 +20,7 @@ using DynamicIslands.Editor;
 using System.Reflection;
 using RuntimeGizmos;
 using Newtonsoft.Json;
+using System.Globalization;
 
 namespace DynamicIslands
 {
@@ -85,25 +86,15 @@ namespace DynamicIslands
 
 		public void Start()
 		{
+			//Pushing notification for mod loading
 			HNotification DynamicIslandsLoad = FindObjectOfType<HNotify>().AddNotification(HNotify.NotificationType.spinning, "Loading Custom Islands...");
 
 			//ChunkPointType newValue = MyIslands.Landmark_TestIsland.AddValue("Landmark_NewValue");
 
 			instance = this;
 			loadSceneManagerinstance = FindObjectOfType<LoadSceneManager>();
-			var harmony = new Harmony("com.franzfischer.dynamicislands");
+			var harmony = new Harmony("com.franzfischer.customislands");
 			harmony.PatchAll();
-
-
-
-			Debug.Log(System.Reflection.Assembly.GetAssembly(typeof(TabSelector)).FullName);
-
-			var assemblyBinder = new MyAssemblyBinder(System.Reflection.Assembly.GetAssembly(typeof(TabSelector)));
-
-			// Ajouter notre assembly binder à la liste des resolveurs d'assembly.
-			AppDomain.CurrentDomain.TypeResolve += assemblyBinder.ResolveType;
-
-			
 
 			//INIT FOLDER
 			if (!Directory.Exists(assetpath))
@@ -112,7 +103,7 @@ namespace DynamicIslands
 			}
 			if (Directory.EnumerateFiles(assetpath).Count() == 0)
 			{
-				Debug.LogWarning("There are no custom Landmarks installed!");
+				Debug.LogWarning("There are no custom Islands installed!");
 			}
 
 			if (GetEmbeddedFileBytes("editorsceneci.assets").Length == 0)
@@ -120,65 +111,15 @@ namespace DynamicIslands
 				Debug.Log("embeddedfilebytes are null");
 			}
 
-
 			mainbundle = AssetBundle.LoadFromMemory(GetEmbeddedFileBytes("editorsceneci.assets"));
 			helperbundle = AssetBundle.LoadFromMemory(GetEmbeddedFileBytes("maincustomislandsbundle.assets"));
-			//bundle.
 
-			//AssetBundle bundle = AssetBundle.LoadFromMemory(File.ReadAllBytes(assetpath + @"\Shader\builtincustomshaders.assets"));
-			//landmarkBundle bundle = new landmarkBundle();
-
-			//bundle.path = asset;
-			/*	bundle.name = Path.GetFileNameWithoutExtension(assetpath + @"\testscene.assets");
-				bundle.bundle = AssetBundle.LoadFromMemory(File.ReadAllBytes(assetpath + @"\testscene.assets"));
-				Debug.Log("Loaded Bundle");
-				landmarkBundles.Add(bundle);
-				AssetBundle bundle2 = AssetBundle.LoadFromMemory(File.ReadAllBytes(assetpath + @"\testscenedata.assets"));
-				SO_ChunkSpawnRuleAsset newcpt = bundle2.LoadAsset<SO_ChunkSpawnRuleAsset>("testscene_rule");
-				Traverse traverseRules = Traverse.Create(ComponentManager<ChunkManager>.Value).Field("allChunkPointRules");
-				SO_ChunkSpawnRuleAsset[] existingrules = traverseRules.GetValue<SO_ChunkSpawnRuleAsset[]>();
-				List<SO_ChunkSpawnRuleAsset> existingruleslist = existingrules.ToList();
-				existingruleslist.Add(newcpt);
-				traverseRules.SetValue(existingruleslist.ToArray());*/
-
-			Debug.Log("[DYNAMIC ISLANDS] Loading custom Landmarks");
-
-			//RefreshLandmarkBundles(new string[1]);
-
-
+			//Adding the Editor button to the main menu
 			HookUI();
-
 
 			DynamicIslandsLoad.Close();
 			DynamicIslandsLoad = FindObjectOfType<HNotify>().AddNotification(HNotify.NotificationType.normal, "Custom Islands has been loaded!", 5);
-			Debug.Log("[DYNAMIC ISLANDS] Mod DynamicIslands has been loaded!");
-
-		}
-
-		private class MyAssemblyBinder
-		{
-			private readonly Assembly _customAssemblyName;
-
-			public MyAssemblyBinder(Assembly customAssemblyName)
-			{
-				_customAssemblyName = customAssemblyName;
-			}
-
-			public Assembly ResolveType(object sender, ResolveEventArgs args)
-			{
-				Debug.Log("TypeResolve event: Attempting to load type " +args.Name);
-				// Vérifier si l'assembly que nous recherchons est notre assembly personnalisé.
-				if (typeof(TabSelector).Assembly == args.RequestingAssembly)
-				{
-					
-					// Retourner l'assembly personnalisé que nous avons chargé.
-					return typeof(TabSelector).Assembly;
-				}
-
-				Debug.Log("Assemblylol");
-				// Si l'assembly n'est pas notre assembly personnalisé, laisser le CLR le gérer.
-				return null;
-			}
+			Debug.Log("[CUSTOM ISLANDS] Mod Custom Islands has been loaded successfully!");
 		}
 
 		private void HookUI()
@@ -254,58 +195,13 @@ namespace DynamicIslands
 
 		public void OnModUnload()
 		{
-			foreach (landmarkBundle bundle in landmarkBundles)
-			{
-				bundle.bundle.Unload(true);
-			}
-			Debug.Log("Mod DynamicIslands has been unloaded!");
-		}
-
-		public static async Task readBundles()
-		{
-			List<landmarkBundle> bundles = new List<landmarkBundle>();
-
-			foreach (string asset in Directory.EnumerateFiles(assetpath, "*.assets"))
-			{
-				landmarkBundle bundle = new landmarkBundle();
-				bundle.path = asset;
-				bundle.name = Path.GetFileNameWithoutExtension(asset);
-				AssetBundleCreateRequest request = AssetBundle.LoadFromMemoryAsync(File.ReadAllBytes(asset));
-				await request;
-				bundle.bundle = request.assetBundle;
-				Debug.Log("Loaded Bundle");
-				bundles.Add(bundle);
-				Debug.Log(asset);
-			}
-
-
-			landmarkBundles = bundles;
-
+			//The mod will not be able to be unloaded, therefore this will be unused
+			Debug.Log("Mod Custom Islands has been unloaded!");
 		}
 
 
-		[ConsoleCommand(name: "RefreshLandmarkBundles", docs: "Refreshes the Bundle cache")]
-		public static async void RefreshLandmarkBundles(string[] args)
-		{
-			HNotification notification = FindObjectOfType<HNotify>().AddNotification(HNotify.NotificationType.spinning, "Loading CustomIslands...");
 
-			if (landmarkBundles.Count != 0)
-			{
-				foreach (landmarkBundle bundle in landmarkBundles)
-				{
-					bundle.bundle.Unload(true);
-				}
-			}
-
-			Task readbundletask = (Task)readBundles();
-			await readbundletask;
-			//landmarkBundles = readBundles();
-
-			notification.Close();
-
-		}
-
-		[ConsoleCommand(name: "LoadEditor", docs: "Refreshes the Bundle cache")]
+		[ConsoleCommand(name: "LoadEditor", docs: "Loads into the Editor via Command")]
 		public static async void LoadEditor(string[] args)
 		{
 			if (instance.mainbundle == null)
@@ -396,7 +292,7 @@ namespace DynamicIslands
 						SaveIsland();
 						break;
 					case 2:
-						//Save the island
+						//Load the island
 						LoadIsland("test.json");
 						break;
 				}
@@ -504,6 +400,28 @@ namespace DynamicIslands
 
 			islandDataList.list = islandData;
 
+			// Get a reference to the active terrain
+			Terrain terrain = terraineditor.terrain;
+
+			// Get the terrain data
+			TerrainData terrainData = terrain.terrainData;
+
+			// Get the heightmap data
+			float[,] heightmap = terrainData.GetHeights(0, 0, terrainData.heightmapResolution, terrainData.heightmapResolution);
+
+			// Convert the heightmap data to a string
+			string heightmapString = "";
+
+			for (int y = 0; y < terrainData.heightmapResolution; y++)
+			{
+				for (int x = 0; x < terrainData.heightmapResolution; x++)
+				{
+					heightmapString += heightmap[y, x].ToString() + " ";
+				}
+				heightmapString += "\n";
+			}
+			islandDataList.TerrainBinaryString = heightmapString;
+
 			string JsonOutput = JsonConvert.SerializeObject(islandDataList);
 
 			Debug.Log(JsonOutput);
@@ -574,7 +492,25 @@ namespace DynamicIslands
 
 				GoInst.gameObject.transform.parent = GameObject.Find("PlacedObjects").transform;
 
+
+
 			}
+
+			string[] rows = islandDataList.TerrainBinaryString.Split(new char['\n'], StringSplitOptions.RemoveEmptyEntries);
+			int resolution = rows.Length;
+			float[,] heightmap = new float[resolution, resolution];
+			var culture = (CultureInfo)CultureInfo.CurrentCulture.Clone();
+			culture.NumberFormat.NumberDecimalSeparator = ",";
+
+			for (int y = 0; y < resolution; y++)
+			{
+				string[] values = rows[y].Split(new char[' '], StringSplitOptions.RemoveEmptyEntries);
+				for (int x = 0; x < resolution; x++)
+				{
+					heightmap[y, x] = float.Parse(values[x], culture);
+				}
+			}
+			terraineditor.terrain.terrainData.SetHeights(0, 0, heightmap);
 		}
 
 		public static void HideSceneGameObjects(Scene scene)
@@ -636,37 +572,6 @@ namespace DynamicIslands
 			{
 				Debug.LogWarning("You're not the host or you're not ingame");
 			}
-		}
-
-		[ConsoleCommand(name: "UploadFileTest", docs: "Spawns a custom landmark")]
-		public static void uploadIsland(string[] args)
-		{
-			instance.StartCoroutine(instance.UploadIsland("user", "password", "arandomisland"));
-		}
-
-		IEnumerator UploadIsland(string username, string password, string islandname)
-		{
-
-
-			WWWForm form = new WWWForm();
-			form.AddBinaryData("islandfile", File.ReadAllBytes(@"Mods\demoisland1.assets"), "demoisland1.assets", "binary/octet-stream");
-			form.AddField("username", username);
-			form.AddField("password", System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(password)));
-			form.AddField("islandname", islandname);
-
-			var uwr = new UnityWebRequest();
-			uwr = UnityWebRequest.Post("http://localhost/CustomIslandsWebapp/upload.php", form);
-
-			//uwr.uploadHandler = new UploadHandlerFile(@"Mods\hello.txt");
-			yield return uwr.SendWebRequest();
-			if (uwr.isNetworkError || uwr.isHttpError)
-				Debug.LogError(uwr.error);
-			else
-			{
-				// file data successfully sent
-				Debug.Log("file uploaded" + uwr.downloadHandler.text + " with code " + uwr.responseCode);
-			}
-
 		}
 
 		public static void ForceSpawnNewLandmark(string[] args)
@@ -926,14 +831,42 @@ namespace DynamicIslands
 		}
 
 
+		#region OnlineIslandDatabaseHandling
+		//Logic to up or download custom islands from the custom islands server.
+
+		[ConsoleCommand(name: "UploadFileTest", docs: "Upload Custom Island to the Server (left here for further development, is currently unused)")]
+		public static void uploadIsland(string[] args)
+		{
+			instance.StartCoroutine(instance.UploadIsland("user", "password", "arandomisland"));
+		}
+
+		IEnumerator UploadIsland(string username, string password, string islandname)
+		{
 
 
+			WWWForm form = new WWWForm();
+			form.AddBinaryData("islandfile", File.ReadAllBytes(@"Mods\demoisland1.assets"), "demoisland1.assets", "binary/octet-stream");
+			form.AddField("username", username);
+			form.AddField("password", System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(password)));
+			form.AddField("islandname", islandname);
+
+			var uwr = new UnityWebRequest();
+			uwr = UnityWebRequest.Post("http://localhost/CustomIslandsWebapp/upload.php", form);
+
+			//uwr.uploadHandler = new UploadHandlerFile(@"Mods\hello.txt");
+			yield return uwr.SendWebRequest();
+			if (uwr.isNetworkError || uwr.isHttpError)
+				Debug.LogError(uwr.error);
+			else
+			{
+				// file data successfully sent
+				Debug.Log("file uploaded" + uwr.downloadHandler.text + " with code " + uwr.responseCode);
+			}
+
+		}
 
 
-
-
-
-
+		#endregion
 
 
 		#region Commands
@@ -1029,19 +962,10 @@ namespace DynamicIslands
 
 		#endregion
 
-
-
-
-
-
 	}
-
-
-
 
 	//HARMONY PATCHES
 	//Scene Loader
-
 	[HarmonyPatch(typeof(SceneLoader), nameof(SceneLoader.LoadScenes))]
 	class AdditionalSceneLoadingPatch{
 
@@ -1075,6 +999,8 @@ namespace DynamicIslands
 		}
 
 	}
+
+	#region MiscStuff
 
 	[HarmonyPatch(typeof(Snowmobile), nameof(RaftGame.Private.PrivateAccessor_Snowmobile.Start))]
 	class snowmoobilenosound
@@ -1215,13 +1141,6 @@ namespace DynamicIslands
 
 
 
-
-
-
-
-	
+	#endregion
 
 }
-
-
-
