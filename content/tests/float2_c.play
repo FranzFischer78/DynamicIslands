@@ -1,0 +1,32 @@
+# FLOAT2 round 3d: Raft's zipline on Thunderhead, Pendulum and Altitude Market (pivots from the built islands) - from
+# straight above, then low from two sides with the boarding floor's feet in frame; Altitude's iron post
+island Thunderhead Array
+hour 11
+weather Calm
+at 0 -30
+wait 3
+picture f2c_thunder_top 12 +22 -20 12 +0 -14
+picture f2c_thunder_sw 2 +1.5 -20 11 +0.6 -14
+picture f2c_thunder_n 9 +1.5 -5 11 +0.6 -14
+island Altitude Market
+hour 11
+weather Calm
+at 0 0
+wait 3
+picture f2c_alt_top 8 +20 4 8 +0 8.5
+picture f2c_alt_w -1 +1.2 9 6 +0.5 9
+picture f2c_alt_s 6 +1.2 1 6 +0.5 9
+island Pendulum Isle
+hour 11
+weather Calm
+at 0 0
+wait 3
+picture f2c_pend_top -22 +20 -6 -22 +0 -1
+picture f2c_pend_s -24 +1.5 -9 -24 +0.6 -0.5
+picture f2c_pend_e -14 +1.5 -2 -24 +0.6 -0.5
+island Tangaroa Remade
+hour 11
+weather Calm
+at 60 -4
+wait 3
+picture f2c_tang_west 54 +2.5 -10 54 +0.5 -17.5

@@ -1,0 +1,33 @@
+# Play test of Sulphur Vent (CIPlay sulphur_vent, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The works on the north shoulder (-7 15, 10.3 m), the vent's cap on the summit (-6 -3, 20.5 m) with the reset lever, the
+# boathouse on the north-east beach (x 9..15, z 35.5..44.5, floor 1.05 m; its shutter on the south side).
+island Sulphur Vent
+offset 0 0
+expect step 0
+expect title Forty Seconds
+wait 5
+expect animals Dolphin 2
+at -1 20.5 h=11.5
+walk -1 20 to -2 16 h=10.3
+zone works
+expect step 0
+read Works manager's note
+expect step 1
+open Works store box
+expect step 2
+open Bunkhouse locker
+open Sulphur barrel
+use ventlever
+expect message The case is still on the cap
+at -6 0 h=21
+zone vent
+open Sample case
+expect story sample 1
+expect step 3
+expect shown ventgas
+at 12 32.5 h=2.5
+walk 12 33 to 12 39.5 h=1.05
+zone boathouse
+expect step 4
+open Works safe
+expect done

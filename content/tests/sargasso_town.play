@@ -1,0 +1,101 @@
+# Play test of Sargasso Town (CIPlay sargasso_town, in a test world 'CI ...'). Points as in its recipe: the quay x
+# -1.5..1.5, z -26..-3.5 (deck 1 m) and the streets; the council house at 0 0; Mbeki's islet at -16 2, Rourke's galley at
+# 16 2, Ilka's islet at 16 -16 and the scrap barge at 25 -14; the capsized hull at -26 -12 (the strongbox at -23 -12 on
+# the floor 8 m down); Fen's pier's end at 0.75 21; the spring at 0 46 (2.4 m); the lookout at 51 -4 (deck 12.1 m, its
+# ladder at 51.75 -5.7)
+island Sargasso Town
+offset 0.0553 1.1623
+expect step 0
+expect title Five Votes
+expect animals Chicken 3
+expect animals Goat 2
+expect animals Turtle 2
+expect animals Dolphin 2
+expect hidden rourkechest
+wait 5
+
+# The quay: the notice, the fish barrel; along the quay to the council's islet
+walk 0.75 -25 to 0.75 -20 h=1
+zone quay
+expect step 1
+read Notice of the Council
+expect step 2
+open Quay fish barrel
+walk 0.75 -19.25 to 0.75 -4.5 h=1
+
+# Mbeki: her note; the spring on the north rim; her water butt
+walk -6.5 2 to -11.5 2 to -14 2 h=1
+read Captain Mbeki's note
+use mbekibutt
+expect message dry as a bone
+walk 0.5 44.2 to -0.5 45.4 h=2.4
+zone spring
+use springtap
+expect story springwater 1
+expect step 3
+use mbekibutt
+expect story vote 1
+expect step 4
+
+# Rourke: the galley's rats; his vote
+walk 6.5 2 to 11.5 2 to 12.6 2 h=1
+read Captain Rourke's note
+zone galley
+kill Tangaroa rat
+expect step 5
+expect shown rourkechest
+open Rourke's vote, on the stove
+expect story vote 2
+expect step 6
+
+# Yusuf: his note on the keel; the dive under the hull; the air; the strongbox
+read Captain Yusuf's note
+zone sunkhull
+expect step 7
+air hullair
+open Yusuf's strongbox
+expect story vote 3
+expect step 8
+
+# Ilka: her note; the scrap barge's box (the handle); her pump
+walk 2 -14.75 to 13.4 -14.75 h=1
+read Captain Ilka's note
+use ilkapump
+expect message no handle
+open Scrap barge box
+expect story pumphandle 1
+expect step 9
+use ilkapump
+expect story vote 4
+expect step 10
+
+# Fen: his note on the pier; the lookout tower on the east rim; the spyglass back on his wheel
+walk 0.75 9 to 0.75 20 h=1
+read Captain Fen's note
+use fenwheel
+expect message empty brass hook
+walk 54.5 -2 to 52.5 -6.8 to 51.75 -6.6 h=4.6
+climb 51.75 -5.7 h=4.6
+climb 51.75 -5.7 h=7.02
+climb 51.75 -5.7 h=9.44
+climb 51.75 -5.7 h=11.86
+expect stand 51.75 -3.25 h=12.1 below=14
+zone lookout
+expect step 11
+open Lookout's box
+expect story spyglass 1
+use fenwheel
+expect story vote 5
+expect step 12
+
+# The council house: the charter; the ballot; the town chest
+walk 0.75 -10 to 0.75 -4.5 to 0.4 -1.2 h=0.5
+zone council
+expect step 13
+use ballotbox
+expect message read the charter
+read The Council's charter
+expect step 14
+use ballotbox
+open The town chest
+expect done

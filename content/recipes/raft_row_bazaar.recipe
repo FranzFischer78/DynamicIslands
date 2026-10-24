@@ -1,0 +1,246 @@
+# Raft Row Bazaar - the second island of the library's plan The City That Never Sank (SL13, Highwater, chapter 2)
+# Highwater's black market: a raft of Raft's own foundations lashed between four drowned towers' roofs off a small green
+# key, stalls under wooden roofs, string lights, flags, a vending machine on the key. The key is the market's garden:
+# hens and goats, flowers in five colours, pineapples, watermelons, strawberries and beet planters. Quest "Prices
+# Without Rules" (14 steps): the market, the price board, the engine stall's plans (motor wheel), the shortage list,
+# the Free Fleet's stall, the steering wheel's plans, the merchant's back room (key from his drawer), the withheld
+# stock ledger, a hen for the Fleet's coop, the merchant's warning.
+#
+# Points: the key 0 0 (r about 40, levelled at 2 round -4 4); the causeway along x 0 from z 36 to 46; the market's
+# foundations x -9..9, z 46..58 (deck about 1 m); tower roofs x -15..-9 and 9..15, z 42.5..51.5 and 52.5..61.5
+# (deck 1 m); the back room (a storey) on the north-east roof.
+include lib_features
+include lib_sea
+include lib_rt
+include lib_huts
+include lib_highwater
+include lib_areas
+# RESIZE 10-24: Radius 40 -> 85 (Height 5 -> 5), the old content moved 0 24.8 as one frame (push) so its sea side stays at the coast; the island grows behind it.
+new
+gen Trees=0.28 Bushes=0.3 Rocks=0.3 Harvest=0.4 BeachThings=0.25
+gen Seed=13201 Radius=85 Height=5 Roughness=0.25 Peaks=1 Shape=0 Style=0 PeakShape=0.3 Cliffs=0.1 BeachWidth=0.6
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.4 Sunken=0.2 Hostiles=0 Friendly=0.3 SeaLife=0.3
+generate
+push at 0 24.8
+
+# --- Terrain: the garden levelled ------------------------------------------------------------------------------------
+brush flatten at -4 4 r=12 s=20 frames=300 h=2
+brush grass at -4 4 r=14 s=3 frames=30
+# (a sandbar under the causeway's far end, whose foundations stood up to 0.9 m over a hollow)
+brush flatten at 0 43 r=3.5 s=20 frames=200 h=-0.5
+pop
+brush flatten at -4.7 -29.6 r=5 s=8 frames=40
+origin
+clear at -4.7 -29.6 r=6
+push at 0 24.8
+clear at -4 4 r=11
+clear from 0 30 to 0 62 r=16
+
+# --- The market: Raft's foundations lashed between the towers, a causeway from the key ------------------------------
+line Block_Foundation from 0 34.75 to 0 45.25 step=1.5 h=0.35
+for mz 46.75 57.25 1.5
+line Block_Foundation from -8.25 $mz to 8.25 $mz step=1.5 h=0.35
+next
+place Zone_Trigger marketzone at 0 50 h=1.2
+
+# --- Four drowned towers' roofs at the market's corners ---------------------------------------------------------------
+push at -9 47 h=1
+call hw_roof d=12 a=concrete rm=none
+place Loot_Chest enginecrate at -3 0 y=0.05 sit yaw=90
+place "VG_DecorationPrefabBase_Engine Variant" - at -4.5 -2.5 y=0.05 sit
+pop
+push at -9 57 h=1
+call hw_roof d=12 a=concrete rm=none
+place Placeable_Flag_01 - at -5.5 3.5 y=0.05 sit
+place "Box Small" - at -3 2 y=0.05 sit
+place "Box Small" - at -3.6 2.8 y=0.05 sit
+pop
+push at 15 47 h=1
+call hw_roof d=12 a=concrete lm=none
+place Placeable_Flag_02 fleetflag at -1 -3.5 y=0.05 sit
+place "Table Office" - at -3 0 y=0.05 sit
+place Loot_Chest fleetstall at -3 2.4 y=0.05 sit
+place Note_Paper teoschalk at -3 0 y=0.85 drop
+place Zone_Trigger fleetzone at -3 0 y=0.5
+pop
+push at 15 57 h=1
+call hw_penthouse d=12 a=concrete f2=RT_Wall1 l2=RT_WallDoor1
+place Loot_Chest backroom at -4.6 3.4 y=0.1 sit yaw=180
+place Note_Paper ledger at -1.5 3.4 y=0.1 drop
+place "Box Small" - at -5.2 -3.6 y=0.1 sit
+place "Box Small" - at -4.4 -3.6 y=0.1 sit
+place Placeable_Lantern_Metal - at -3 0 y=0.1 drop
+pop
+
+# --- Stalls on the market's deck --------------------------------------------------------------------------------------
+push at -7.5 47.5 h=1.05
+call hw_stall w=2 d=2
+place Loot_ChestSmall drawer at 1.5 2 y=0.1 sit
+pop
+push at -1.5 47.5 h=1.05
+call hw_stall w=2 d=2
+place Pickup_Landmark_MarketGood_Banana_CrateSmall01 - at 1.5 1.5 y=0.1 sit
+pop
+push at 4.5 47.5 h=1.05
+call hw_stall w=2 d=2
+place "Box Small" - at 1 1.5 y=0.1 sit
+pop
+push at -7.5 53.5 h=1.05
+call hw_stall w=2 d=2
+place Pickup_Landmark_MarketGood_Banana_Basket01 - at 1.5 1.5 y=0.1 sit
+pop
+push at 4.5 53.5 h=1.05
+call hw_stall w=2 d=2
+place Note_Sign shortage at 1.5 0.4 y=0.1 sit
+pop
+place Note_Sign pricesign at 0 46.2 h=1.05 sit yaw=180
+push at -6 52 h=1.05
+call hw_laundry n=4
+pop
+push at 2 52 h=1.05
+call hw_laundry n=4
+pop
+
+# --- The key: the market's garden ---------------------------------------------------------------------------------------
+vending bazaarvend at 2 4 ground
+place QuestItemPickup_Tangaroa_Token - at 4 7 ground
+place QuestItemPickup_Tangaroa_Token - at -1 6.5 ground
+place QuestItemPickup_Tangaroa_Token - at 5 1 ground
+place QuestItemPickup_Tangaroa_Token - at 0 1.5 ground
+place Placeable_Cropplot_Medium - at -8 0 ground sit
+place Placeable_Cropplot_Medium - at -4.5 0 ground sit
+place Placeable_Cropplot_Medium - at -1 0 ground sit
+place Loot_ChestSmall seedbox at -11 1.5 ground sit yaw=90
+place Pickup_Landmark_Flower_Red - at -8 7 ground sit
+place Pickup_Landmark_Flower_Yellow - at -6 9 ground sit
+place Pickup_Landmark_Flower_Blue - at -3.5 8 ground sit
+place Pickup_Landmark_Flower_White - at -1 10 ground sit
+place Pickup_Landmark_Flower_Black - at -10 10 ground sit
+place Pickup_Landmark_PineappleLandmark - at 8 -6 ground sit
+place Pickup_Landmark_WatermelonLandmark - at 11 -3 ground sit
+place Pickup_Landmark_Strawberry - at 9 -10 ground sit
+place Pickup_Landmark_Strawberry - at 12 -8 ground sit
+place Creature_Chicken hens at -12 -6 ground
+place Creature_Goat goats at 10 10 ground
+place Block_Wall_Fence_Rope - at -14 -8 ground
+place Block_Wall_Fence_Rope - at -12.5 -8 ground
+scatter "Pickup_Landmark_Tree_Palm 2" 3 at 0 -14 r=16 seed=13202 free=3
+call shallows x=0 z=-24.8 r=119 deep=5 n=2 seed=13203
+call hw_reef x=-12 z=52 r=3 seed=13204
+call hw_reef x=12 z=52 r=3 seed=13208
+pop
+
+# --- DISCOVERIES 10-24 (optional, no quest needs them): camp + note; RT_PlasticBoat + chest; hatch with a chest; buried treasure; viewpoint ---
+place campfire_1 - at -4.7 -29.6 ground sit
+place Balboa_DecorationPrefabBase_SimpleTent - at -1.7 -27.6 ground sit yaw=277
+place "Box Small" - at -6.7 -27.1 ground sit
+place Note_Paper dnote at -6.7 -27.1 ground y=0.7 drop yaw=20
+note dnote Salvager's note | SALVAGE CLAIM - this side is ours. Union stamp below (smudged).\nGood copper in the roofs off shore. Bad currents at the turn of the tide.\nDon't dive alone.
+place RT_PlasticBoat dvan at 18.9 34.1 ground yaw=37
+prop dvan tint.color=#4a6b7a
+prop dvan tint.amount=0.5
+place Loot_ChestSmall dwreckchest at 14.9 37.1 ground sit yaw=337
+note dwreckchest Runner's stash | A runner's stash in the glovebox: plastic, glass, a few nails.
+loot dwreckchest Plastic*5;Glass*2;Nail*8
+prop dwreckchest loot.refill=0
+call hatchcache x=-34.1 z=18.9 r=4 seed=13291 alias=dhatch chest=dhatchchest items=MetalIngot*2;CopperIngot*2;Bolt*3
+call treasure x=36.9 z=-12.7 r=6 n=1 seed=13292
+prop treasure13292 treasure.loot=CopperOre*3;TitaniumOre*1
+place Zone_Trigger dview at -36.4 -14 ground
+prop dview zone.id=raft_row_bazaar_view
+prop dview zone.radius=7
+prop dview zone.repeat=never
+prop dview zone.message=The bazaar's raft lies between the four drowned towers, all lanterns and noise.
+
+# --- Areas (10-24: every story island has places all over it and its quest crosses it): Rubbish Hill in the south, the burnt stall
+# row in the west, the pedlars' caravans and their cave in the east, a chained cage for bolt cutters
+call ar_ridge x1=-35 z1=-62 x2=15 z2=-66 h=8 top=8 r=10
+call ar_plants_tropical x=-10 z=-64 r=32 seed=13211
+call hw_zone x=-10 z=-64 al=rubbishhill id=rubbish_hill r=7 msg="Rubbish Hill: what Raft Row throws away, grown over with palms. From the top the market looks small - and the Authority's patrol boat is always in sight."
+call ar_ruin x=-58 z=-28 h=3 yaw=0 w=4 d=2 al=burntrow
+call hw_note x=-55 z=-32.5 yaw=10 al=wardenreport
+call hw_wreck x=52 z=-38 h=3 yaw=30 obj=Caravan_Blue_01 al=pedlarvan crate=pedlarcrate r=10
+place Caravan_Green_02 pedlarvan at 60 -50 ground sit yaw=75
+call ar_cave x=64 z=2 h=3 yaw=0 al=pedlarcave chest=pedlarcavechest
+call hw_zone x=64 z=16 al=pedlarcavezone id=pedlars_cave r=4 msg="The pedlars' cave. Whatever the Authority bans, the pedlars keep in here until it is worth more."
+call cagecache x=20 z=-38 yaw=200 alias=pedlarcage sig=pedlarcage chest=pedlarcagechest items=TradeToken*3;Leather*2;Glass*2 title="Pedlar's caged chest" kx=-58 kz=-28 kr=8 seed=13221 keychest=wardencutters keytitle="Fire warden's tools" keyitems=Rope*2
+call ar_plants_tropical x=-50 z=-55 r=12 seed=13231
+call ar_plants_tropical x=40 z=-65 r=12 seed=13241
+
+# --- Settings, story items, notes, behaviours, quest ------------------------------------------------------------------
+info title=Raft Row Bazaar
+info author=Custom Islands
+info description=Highwater's black market, lashed between four drowned towers: stalls, string lights, a garden key with hens, goats and fruit - and a back room the Authority doesn't know about. The second island of The City That Never Sank.
+island on.arrive=message||Music, smoke, a hundred voices. A market floats between the roofs of four drowned towers, and nobody here asks to see a permit.
+
+story backkey|Back room key|Placeable_Lantern_Metal|The merchant's back room key, from the drawer of his stall.
+
+prop concrete tint.color=#9a9a94
+prop concrete tint.amount=0.35
+prop hens creature.count=3
+prop goats creature.count=2
+prop backroom if.open=has|story:backkey|1
+prop backroom else.open=message||Locked. The merchant keeps the key on him - or in his stall's drawer.
+
+note pricesign Bazaar price board | RAFT ROW - TODAY'S PRICES\n\nNails - cheap\nRope - cheap\nScrap - cheaper\nFilters - ASK\nClean water - ASK\n\nNo permits. No questions. No credit.
+note shortage Shortage list | Chalked on a slate, rubbed out and written again many times -\n\nSHORT: filters, filter cloth, charcoal.\nSHORT: clean water.\nSHORT: anything the Authority stamps.\n\nAsk at the Free Fleet's stall. They find things.
+note teoschalk Free Fleet stall | FREE FLEET - WE FIND THINGS\n\nEngines, wheels, anything that floats.\nAsk for Teo.\n\nTeo is out. Take what you need - the Fleet trusts you or it doesn't.
+note ledger Withheld stock ledger | The merchant's real book.\n\nFilters received from the Authority: 400.\nFilters sold at the board: 0.\nFilters held back to raise the price: 400.\n\nThe Authority's cut, paid each week at Pumpcrown.\n\nSo the shortage is made. Someone should know.
+note drawer Merchant's drawer | The stall's drawer: string, a broken pencil, a key on a tag that says BACK.
+note enginecrate Engine stall crate | The engine stall's crate: the motor wheel's plans, bolts, a greasy rag.
+note fleetstall Free Fleet stall | The Fleet's crate: the steering wheel's plans, and a chalked note - for the one who reads the board.
+note backroom Back room | The back room's strongbox. Filters, stacked to the ceiling - and the merchant's warning.
+note seedbox Garden box | The garden's seed box: beets and potatoes to plant.
+loot enginecrate Blueprint_MotorWheel*1;Bolt*3;Nail*10
+prop enginecrate loot.refill=0
+loot fleetstall Blueprint_SteeringWheel*1;Rope*2;Plank*4
+prop fleetstall loot.refill=0
+loot drawer story:backkey*1;Rope*1
+prop drawer loot.refill=0
+loot backroom TradeToken*4;Plastic*4;Glass*2;story:raft-Vasagatan_BoltCutter*1
+prop backroom loot.refill=0
+loot seedbox Raw_Beet*4;Raw_Potato*2
+prop seedbox loot.refill=0
+place Note_Paper warning at 12 59 h=1.1 drop
+prop warning obj.name=warning
+prop warning beh.hidden=1
+prop backroom on.open=show|warning\nmessage||Filters, stacked to the ceiling. On the strongbox, a folded note.
+note warning Merchant's warning | Left on the strongbox, for whoever opened it -\n\nYou found the filters. Put them back and walk away.\n\nThe Authority takes its cut and leaves us alone. Tell the Fleet and they'll come with boats. Tell the Authority and they'll come with guns.\n\nEither way the market burns. Think about it.
+
+prop marketzone zone.id=market
+prop marketzone zone.radius=7
+prop marketzone zone.message=Raft Row. Stalls under wooden roofs, string lights, flags - and prices nobody stamped.
+prop fleetzone zone.id=fleet_stall
+prop fleetzone zone.radius=3
+prop fleetzone zone.message=The Free Fleet's stall. A flag with a gull on it, and nobody at the table.
+
+note wardenreport Fire warden's report | FIRE WARDEN'S REPORT - Raft Row, west stalls\n\nCause: a lamp knocked over. Or so the Authority's clerk wrote before he looked.\nSix stalls burnt. All six had refused to pay the Authority's 'market levy'.\nThe pedlars moved east, to their caravans. They keep their stock in a cave now.
+note pedlarcavechest Pedlars' stock | The pedlars' stock: the things a city on rafts runs out of first.
+loot pedlarcavechest Battery*1;Bolt*3;Rope*2;TradeToken*2
+prop pedlarcavechest loot.refill=0
+note pedlarcrate Pedlar's caravan | The caravan's stock crate: bottles of clean water at twice the Authority's price - and a list of who can't pay.
+loot pedlarcrate Plastic*3;Glass*2;Leather*2
+quest title=Prices Without Rules
+quest intro=The tip said the bazaar sells what the Authority says doesn't exist. Find the market.
+step reach|market|1|Walk onto the market between the towers
+step read|Bazaar price board|1|Read the price board
+step blueprint|Blueprint_MotorWheel|1|Take the motor wheel's plans from the engine stall's crate
+step read|Shortage list|1|Read the shortage list at the corner stall
+step reach|fleet_stall|1|Find the Free Fleet's stall on the east roof
+step blueprint|Blueprint_SteeringWheel|1|Take the steering wheel's plans from the Fleet's crate
+step open|Back room|1|Find the merchant's key and open the back room's strongbox
+step read|Withheld stock ledger|1|Read the ledger in the back room
+step catch|Chicken|1|Catch a hen from the garden for the Fleet's coop
+step reach|rubbish_hill|1|Climb Rubbish Hill south of the market
+step read|Fire warden's report|1|Read the fire warden's report in the burnt stall row
+step open|Pedlar's caravan|1|Open the stock crate at the pedlars' caravans on the east shore
+step reach|pedlars_cave|1|Find the pedlars' cave
+step read|Merchant's warning|1|Read the merchant's warning
+quest done=The shortage is made. The Free Fleet will want to know - their moorings are at Fleetbreak, band 700.
+quest reward=Raw_Beet*3;Egg*2
+
+# (the traders' vans, parked on the key by the causeway)
+place Van_4 - at -18 20 ground sit yaw=200
+place Caravan_Green_02 - at 17 22 ground sit yaw=250
+
+save Raft Row Bazaar

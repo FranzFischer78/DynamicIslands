@@ -1,0 +1,261 @@
+# The Seed Ark - the tenth island of the library's plan The Frozen Horizon (storyline SL12, finale part 2)
+# The Coldhold's lowest level, sunk 30 m when the glacier shifted: four pressure rooms in a row along the ridge with air
+# under their roofs, long halls of seed racks between them, lamps still burning; a timed gate of ice blocks between the
+# first two rooms, ice anglers (white-tinted) in the first hall, puffers, two under-ice reefs. In the last room the ark
+# valve. Quest "The Ark" (11 steps): the drop, room 1 and the Ark manifest, three ice anglers, the timed gate to room 2,
+# room 3 and the Ringwave file, room 4, the ark valve, the closing note, the surface hole.
+#
+# Built by the recipe player (CIRecipe seed_ark) through the editor's own operations. Points (metres over the island's
+# own water line, which lies 30 m under the sea): the floor at 3.8 m along the ridge from x -24 to 24; room 1 x -21..-15,
+# room 2 x -9..-3, room 3 x 3..9, room 4 x 15..21 (all z -4.5..4.5, floors at 4 m, roofs at 7 m); the racks in the halls
+# between; the timed gate across the first hall at x -12.25; the drop zone over room 1 at -18 0 (14 m); the surface hole
+# straight over room 4 at 18 0 (28 m).
+# (Adapted: the air pockets are placed inline at the rooms' floor height, not with the ground-placing airpocket macro.
+# The valve cannot read the Coldhold's choice - no cross-island signal check (NF3) - so the ending is neutral: the
+# racks light up whichever way was chosen, and the closing note speaks to all three.)
+include lib_gravity
+include lib_features
+include lib_sea
+include lib_rt
+include lib_frozen
+# RESIZE 10-24: Radius 40 -> 85 (Height 6 -> 6), the island grows round the old content, which stays where it was.
+new
+gen Trees=0 Bushes=0 Rocks=0.3 Harvest=0 BeachThings=0
+gen Seed=13001 Radius=85 Height=6 Roughness=0.4 Peaks=1 Shape=0 Style=1 BeachWidth=0.1 Cliffs=0.4 PeakShape=0.4
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.5 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+elevation -30
+
+# --- Terrain: the ark's bed along the ridge --------------------------------------------------------------------------
+brush flatten from -26 0 to 26 0 r=8 s=20 frames=400 h=3.8
+brush flatten at 5.6 35.6 r=4 s=8 frames=40
+origin
+clear at 5.6 35.6 r=5
+clear from -26 0 to 26 0 r=8
+
+# --- The four pressure rooms (doors east and west), their air under the roofs ----------------------------------------------
+push at -15 0 h=4
+call rt_storey a=arkwalls l2=RT_WallDoor1 r2=RT_WallDoor1
+place RT_Floor arkwalls at 0 4.5 y=3
+place Placeable_Table_Basic - at -3 2.6 y=0.1 sit yaw=0
+place Note_Book manifest at -3 2.6 y=0.95 drop yaw=20
+# REDO 10-24: the valve's three seals were stowed one in each of rooms 1-3
+place Loot_ChestSmall seal1 at -1.2 3.6 y=0.1 sit yaw=180
+place Placeable_Lantern_Metal - at -5.4 3.8 y=0.1 drop
+pop
+push at -3 0 h=4
+call rt_storey a=arkwalls l2=RT_WallDoor1 r2=RT_WallDoor1
+place RT_Floor arkwalls at 0 4.5 y=3
+place Shelf_Empty_02 - at -3 3.9 y=0.1 sit yaw=180
+place Placeable_Lantern_Metal - at -0.6 -3.8 y=0.1 drop
+place Loot_ChestSmall seal2 at -4.6 -3.4 y=0.1 sit yaw=0
+pop
+push at 9 0 h=4
+call rt_storey a=arkwalls l2=RT_WallDoor1 r2=RT_WallDoor1
+place RT_Floor arkwalls at 0 4.5 y=3
+place TP_CabinetCharts01 - at -3 3.9 y=0.1 sit yaw=180
+place Note_Book ringwavefile at -3 3.2 y=1.4 drop yaw=0
+place Loot_ChestSmall seal3 at -1.4 -3.4 y=0.1 sit yaw=0
+place Placeable_Lantern_Metal - at -5.4 -3.8 y=0.1 drop
+pop
+push at 21 0 h=4
+call rt_storey a=arkwalls l2=RT_WallDoor1 r3=RT_WallWindowBroken
+place RT_Floor arkwalls at 0 4.5 y=3
+place RT_Pillar - at -4.5 2 y=0 sy=0.4
+place TP_Selene_DoorCrankWheel arkvalve at -4.5 2 y=1.25 yaw=90
+place Note_Paper closingnote at -4.6 -3.2 y=0.1 drop yaw=40
+place RT_CommRadio - at -1 3.4 y=0.1 sit yaw=180
+# REDO 10-24 (optional): the last rack's locker - the Coldhold's control code (2240) on its keypad
+place Loot_Chest lastrack at -1.2 -3.6 y=0.1 sit yaw=0
+place RT_PowerBox rackpad at -2.6 -4.75 y=1.2 yaw=180
+pop
+prop arkwalls tint.color=#dcebf5
+prop arkwalls tint.amount=0.5
+# (the air: a pocket at each room's floor, its zone up under the roof)
+for rx -18 18 12
+place AirPocket_1 - at $rx 0 h=4.15 scale=0.6
+place Zone_Atmosphere - at $rx 0 h=5.2
+next
+place Zone_Trigger room1air at -18 0 h=5.6
+place Zone_Trigger room2air at -6 0 h=5.6
+place Zone_Trigger room3air at 6 0 h=5.6
+place Zone_Trigger room4air at 18 0 h=5.6
+
+# --- The seed racks in the halls between the rooms, the lamps still burning ------------------------------------------------
+for hx -13.5 10.5 12
+place Shelf_Empty_02 racks at $hx -3.5 h=3.9 yaw=90
+place Shelf_Empty_02 racks at $hx 3.5 h=3.9 yaw=90
+place Shelf_Empty_02 racks at {$hx+2.5} -3.5 h=3.9 yaw=90
+place Shelf_Empty_02 racks at {$hx+2.5} 3.5 h=3.9 yaw=90
+place Placeable_Lantern_Metal racklights at {$hx+1.2} 5.8 h=3.9
+place Placeable_Lantern_Metal racklights at {$hx+1.2} -5.8 h=3.9
+next
+prop racklights beh.hidden=1
+place Placeable_Lantern_Metal - at -12 5.5 h=3.9
+place Placeable_Lantern_Metal - at 12 -5.5 h=3.9
+
+# --- The timed gate: ice blocks across the first hall; its lever in room 1 -----------------------------------------------
+for gz -4.5 4.5 1.5
+place SmallRock_02 gate at -12.25 $gz h=3.9 scale=1.2 yaw={$gz*40}
+place SmallRock_02 gate at -12.25 $gz h=5.6 scale=1.1 yaw={$gz*70}
+next
+call icetint al=gate
+place UT_JumpPuzzle_LiftMechanism_Lever gatelever at -15.6 -2.6 h=4.1 yaw=270
+
+# --- The drop from the flood door, the surface hole, the ice anglers, puffers, reefs ---------------------------------------
+place Zone_Trigger dropzone at -18 0 h=14
+place Zone_Trigger surfacezone at 18 0 h=28
+place Creature_AnglerFish iceanglers at -12 0 h=6
+place Zone_Trigger anglerzone at -18 0 h=5.6
+prop anglerzone zone.id=ark_anglers
+prop anglerzone zone.radius=3
+prop iceanglers tint.color=#e4eef6
+prop iceanglers tint.amount=0.7
+place Creature_PufferFish puffers at 0 -14 h=8
+scatter VP_CoralDigitate01 4 at -10 -18 r=4 seed=13021 free=1
+scatter VP_CoralBulb04 3 at -10 -18 r=4 seed=13022 free=1
+scatter SeaVine3_klump 3 at 12 16 r=5 seed=13023 free=1
+scatter VP_CoralDigitate01 3 at 12 16 r=4 seed=13024 free=1
+scatter "Pickup_Landmark_Scrap 3_OceanBottom" 3 at 0 -12 r=6 seed=13025 free=1
+place Zone_Atmosphere arkdark at 0 0 h=6
+prop arkdark atmo.fog=#1c2c38
+prop arkdark atmo.fogAmount=0.45
+prop arkdark atmo.light=#9fc4dc
+prop arkdark atmo.lightAmount=0.35
+prop arkdark zone.radius=30
+
+# --- DISCOVERIES 10-24 (optional, no quest needs them): diver's cache + slate + air pocket; TP_SnowVehicle01 + chest; hatch with a chest; buried treasure; viewpoint ---
+place "Box Small" dcampbox at 5.6 35.6 ground sit
+place Note_Paper dnote at 5.6 35.6 ground y=0.7 drop yaw=30
+place Loot_ChestSmall dcamp at 7.6 37.1 ground sit yaw=77
+call airpocket x=3.1 z=33.6 id=seed_ark_dair al=dairzone bub=dairbub r=2.5 msg="Air trapped in a diver's bell-tent. Breathe."
+note dnote Diver's slate | A slate tied to a box:\n\nCOLD. TOO COLD FOR LONG DIVES.\nAIR IN THE ROOMS ONLY.\nGET OUT AT THE FIRST SHIVER.
+note dcamp Diver's cache | A diver's spare kit, wired shut against the current.
+loot dcamp Rope*2;Glass*3;Plastic*4
+prop dcamp loot.refill=0
+place TP_SnowVehicle01 dvan at -6.1 -38.5 ground yaw=197
+prop dvan tint.color=#8a9aa6
+prop dvan tint.amount=0.5
+place Loot_ChestSmall dwreckchest at -10.1 -35.5 ground sit yaw=137
+note dwreckchest Frozen chest | A chest frozen to the runner: wool, rope and a tin of nails.
+loot dwreckchest Wool*3;Rope*2;Nail*8
+prop dwreckchest loot.refill=0
+call hatchcache x=36.9 z=-12.7 r=15 seed=13091 alias=dhatch chest=dhatchchest items=MetalIngot*2;Wool*3;Bolt*2
+call vinecache x=-12.7 z=-36.9 r=15 seed=13093 chest=dvinechest vines=dvines items=Rope*3;Wool*2;Bolt*3
+call treasure x=-36.9 z=12.7 r=15 n=1 seed=13092
+prop treasure13092 treasure.loot=TitaniumOre*2;MetalOre*2
+# REDO 10-24 TREASURE2: a second buried treasure on the far side for the detector + shovel
+call treasure x=29.5 z=-10.2 r=12 n=1 seed=13142
+prop treasure13142 treasure.loot=TitaniumOre*1;MetalOre*2;TradeToken*2
+place Zone_Trigger dview at -33.4 -20.1 ground y=1.5
+prop dview zone.id=seed_ark_view
+prop dview zone.radius=7
+prop dview zone.repeat=never
+prop dview zone.message=The pressure rooms lie in a row along the ridge below, lights still on in some of them.
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------------
+# the generator's rocks that floated over the slope (ground check, 2026-10-23)
+clear at -0.91 24.6 r=1.5 only=TP_BigRock
+
+info title=The Seed Ark
+info author=Custom Islands
+info description=The Coldhold's lowest level, flooded 30 m down: pressure rooms with air under their roofs, long halls of seed racks, a gate of ice, white anglers - and the ark valve that finishes what the vault began. The last island of The Frozen Horizon.
+island on.arrive=message||Far below, lamps still burn along a row of drowned rooms.
+
+story arkvalve|The ark valve|Placeable_Lantern_Metal|The Seed Ark's valve, turned. The Coldhold's way is finished.
+
+note manifest Ark manifest | THE SEED ARK - MANIFEST\n\nRacks 1-40: grains. 41-80: fruit and tree seed. 81-96: flowers, for the bees, when there are bees again.\nPressure rooms 1-4 hold air for the keepers. The ice gate opens from room 1 - for forty breaths, then it shuts.
+note ringwavefile The Ringwave file | THE RINGWAVE - FILE\n\nThe founders did not invent the sign. They found it on the sea doors and the glacier wall, and in the old charts beside one word: ENGINE.\nThe charts put the engine in the south. The founders cut the sign over our door so the keepers would remember: whatever it is, it is still running.
+note closingnote The closing note | (the last keeper's hand)\n\nWhoever turns the valve: whatever you chose up there - keep, carry or broadcast - the Ark does the rest.\nThe racks will hold. The seeds will wait, or go, or be named on every band.\nThe surface hole is straight up. Go home.
+prop closingnote beh.hidden=1
+
+prop dropzone zone.id=drop
+prop dropzone zone.radius=7
+prop dropzone zone.message=Down through the flood door's shaft: the Seed Ark, lamps burning under thirty metres of water.
+prop room1air zone.id=room_1
+prop room1air zone.radius=2.5
+prop room1air zone.repeat=1
+prop room1air zone.air=1
+prop room1air zone.message=Pressure room 1. Air under the roof - breathe.
+prop room2air zone.id=room_2
+prop room2air zone.radius=2.5
+prop room2air zone.repeat=1
+prop room2air zone.air=1
+prop room2air zone.message=Pressure room 2. Past the ice gate - breathe.
+prop room3air zone.id=room_3
+prop room3air zone.radius=2.5
+prop room3air zone.repeat=1
+prop room3air zone.air=1
+prop room3air zone.message=Pressure room 3. Charts on the wall, air under the roof.
+prop room4air zone.id=room_4
+prop room4air zone.radius=2.5
+prop room4air zone.repeat=1
+prop room4air zone.air=1
+prop room4air zone.message=Pressure room 4. The ark valve, and a radio still on.
+prop surfacezone zone.id=surface_hole
+prop surfacezone zone.radius=6
+prop surfacezone zone.message=The surface hole: daylight through the ice. Up, and home.
+prop iceanglers creature.count=3
+prop iceanglers creature.respawn=0
+prop iceanglers creature.zone=ark_anglers
+prop puffers creature.count=3
+prop puffers creature.respawn=0
+
+prop gatelever obj.name=gatelever
+prop gatelever beh.use=Pull the ice gate's lever
+prop gatelever on.use=hide|gate\nmessage||The ice gate grinds aside. Forty breaths - swim!\nwait|40\nshow|gate
+prop arkvalve obj.name=arkvalve
+prop arkvalve beh.use=Turn the ark valve
+prop arkvalve if.use=!signal|arkvalve\ntake|story:arkseal|3
+prop arkvalve else.use=message||The valve's seal plate has three empty sockets. The manifest says: seals in rooms 1, 2 and 3.
+story arkseal|An ark seal|Placeable_Lantern_Metal|A brass seal for the ark valve's plate.
+story rackcode|The last rack's code|Placeable_Lantern_Metal|The Coldhold's control code opened the last rack.
+note seal1 Room 1 seal box | A box under the roof of pressure room 1: an ark seal in wax, and spare filters.
+loot seal1 story:arkseal*1;Plastic*3;Glass*2
+prop seal1 loot.refill=0
+note seal2 Room 2 seal box | A box under the roof of pressure room 2: an ark seal in wax, a dry torch.
+loot seal2 story:arkseal*1;Bolt*2;Rope*2
+prop seal2 loot.refill=0
+note seal3 Room 3 seal box | A box under the roof of pressure room 3: an ark seal in wax, the keeper's pencil.
+loot seal3 story:arkseal*1;CopperIngot*2;Scrap*2
+prop seal3 loot.refill=0
+note lastrack Last rack locker | Rack 96's locker: the keepers' own seeds and their pay.
+loot lastrack TradeToken*5;TitaniumIngot*1;Seed_Flower_Blue*2;Seed_Flower_Red*2
+prop lastrack loot.refill=0
+prop lastrack obj.name=lastrack
+prop lastrack if.open=signal|rackcode
+prop lastrack else.open=message||Locked. The keypad wants four digits - the same as the vault above, says a scratched note.
+prop rackpad obj.name=rackpad
+prop rackpad beh.use=Type the last rack's code
+prop rackpad lock.code=2240
+prop rackpad on.use=sound||event:/exploring/obstacles/keypad/keypad_correct\nmessage||The keypad beeps. The last rack's locker opens.\nsignal||rackcode\ngive||story:rackcode*1
+prop rackpad else.use=message||Four digits. The keepers used the control room's code for everything.
+prop arkvalve on.use=signal||arkvalve\ngive||story:arkvalve*1\nshow|racklights\nshow|closingnote\nmessage||The valve turns. Down every hall, the racks' lights come on, one after another.
+
+quest title=The Ark
+quest intro=Down through the flood door. Dive to the Seed Ark.
+step reach|drop|1|Dive down the flood door's shaft to the Seed Ark
+step reach|room_1|1|Get to pressure room 1 and breathe
+step read|Ark manifest|1|Read the Ark manifest
+step kill|Angler fish|3|Deal with the three ice anglers
+step reach|room_2|1|Pull the ice gate's lever and get through to pressure room 2 before it shuts
+step reach|room_3|1|Swim on to pressure room 3
+step read|The Ringwave file|1|Read the Ringwave file
+step reach|room_4|1|Swim on to pressure room 4
+step collect|story:arkseal|3|Find the valve's three seals (pressure rooms 1, 2 and 3)
+step collect|story:arkvalve|1|Turn the ark valve
+step read|The closing note|1|Read the closing note
+step reach|surface_hole|1|Swim up to the surface hole
+quest done=The Ark is turned, the vault's way finished. Up through the ice, and home.
+quest reward=MetalIngot*4;CopperIngot*4;TradeToken*8
+
+prop closingnote obj.name=closingnote
+prop gate obj.name=gate
+prop racklights obj.name=racklights
+# RESIZE 10-24 retest: the bigger island's generator rocks that floated over slopes (ground check)
+clear at 33.68 8.50 r=1.5 only=TP_BigRock
+clear at 37.46 10.26 r=1.5 only=TP_BigRock
+clear at 39.31 3.75 r=1.5 only=TP_BigRock
+clear at 14.77 8.89 r=1.5 only=TP_BigRock
+
+save The Seed Ark

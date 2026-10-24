@@ -1,0 +1,34 @@
+# Sinkmarket Floor (CIPlay sinkmarket_floor): 30 m down; the ballast stone, the ledger, the diving bell, the cistern valve
+# and its air, the stingrays, the cistern store (Marn's key), her cage, satchel and map, the cable car's bottom station.
+island Sinkmarket Floor
+offset 0 0
+expect step 0
+expect title The Sunken Square
+zone ballast_stone
+expect step 1
+read Sinkmarket ledger
+expect step 2
+air bell
+expect step 3
+read Bell keeper's log
+expect step 4
+use valve
+expect story drained 1
+expect step 5
+air cistern
+expect step 6
+zone cistern_hall
+kill Stingray
+expect step 7
+open Cistern store
+wait 3
+expect step 11
+use marncage
+expect survivor gravity_ilse
+open Marn's satchel
+wait 3
+expect step 12
+read Marn's map
+expect step 13
+zone cable_bottom
+expect done

@@ -1,0 +1,28 @@
+# Kestrel Strand (CIPlay vi_kestrel_strand; VI1 vehicle island): quest "Mayday", the six steps in order
+island Kestrel Strand
+offset 0 0
+expect step 0
+expect title Mayday
+expect hidden stash
+zone crash
+expect step 1
+read Pilot's logbook
+expect step 2
+kill Hyena
+expect animals Hyena 0
+expect step 3
+use plane
+expect message hatch is locked
+open Flight case
+wait 2
+expect story cargokey 1
+use plane
+expect story hatchopen 1
+expect shown stash
+expect step 4
+open Pilot's stash
+wait 2
+expect item CircuitBoard 1
+expect step 5
+read Last entry
+expect done

@@ -1,0 +1,235 @@
+# Viaduct Lagoon - a new island of the library, twice the size (x2)
+# A snowbound railway atoll: the line ran round the ring and crossed the lagoon on a tall viaduct; one winter night the
+# middle spans gave way under the mail train, and its cars lie on the lagoon's floor with the post still in them. The
+# station on the ring's west side (6 m), the viaduct west to east across the lagoon (deck 7 m, three middle spans gone,
+# a trench dug 11 m deep below the break), the brake van at the west end's edge, the signal cabin on the east side.
+# Quest "The Winter Post" (12 steps): the platform, a first look at the wreck, the crowbar, salvage dives with
+# air pockets - three mail bags and a sack from the silt - signed in at the cabin, the safe, two goats off the north ring.
+#
+# Built by the recipe player (CIRecipe viaduct_lagoon) through the editor's own operations.
+include lib_rt
+include lib_relay
+include lib_sea
+new
+# (nature: snowy, Like Raft's Temperance - a few pines and drifts along the ring; the line cleared)
+gen Trees=0.08 Bushes=0.15 Rocks=0.25 Harvest=0.05 BeachThings=0.3
+gen Seed=9206 Radius=63 Height=8 Roughness=0.35 Peaks=1 Shape=1 Style=1 BeachWidth=0.4 Cliffs=0.3 PeakShape=0.25
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the trench under the break (11 m down), the station's pad on the west ring (6 m), the cabin's on the east;
+# the line cleared across ---------------------------------------------------------------------------------------------------
+for tz -2 10 4
+brush flatten from -18 $tz to 16 $tz r=4 s=20 frames=150 h=-11
+next
+for sz -2 18 4
+brush flatten from -56 $sz to -40 $sz r=3.5 s=20 frames=100 h=6
+next
+for ez -1 12 4
+brush flatten from 38 $ez to 56 $ez r=3.5 s=20 frames=100 h=6
+next
+clear from -58 4 to 58 4 r=4
+clear at -48 10 r=12
+clear at 48 7 r=10
+
+# --- The station on the west ring: the station house (a relay-station house) north of the line, the platform along it
+# with the telegram on its board, a bench, the parcel box; the coal heap and its barrel -------------------------------------
+push at -41.5 18.5 h=6.1
+call relay_house
+pop
+place RT_Floor - at -40 7.6 h=6.05 sx=2 sz=0.233
+place Note_Sign telegram at -46 7.2 h=6.1 sit yaw=180
+place Bench_01 - at -50 7 h=6.1 sit yaw=180
+place "Box Small" parcelbox at -43 6.4 h=6.1 sit yaw=10
+place VP_RubblePile_Small03 coalheap at -54 0 ground sit
+place Loot_Barrel coalbarrel at -51.5 -1 ground sit
+place Zone_Trigger station at -46 8 h=7.5
+
+# --- The viaduct: piers of the radio tower's thick pillars from the trench's depth up to the deck (their feet buried where
+# the floor is higher), a deck of its floor pieces 3 m wide at 7 m; the three middle spans gone - their pieces and a pier
+# lying on the trench floor; railings at both ends of the break --------------------------------------------------------------
+for j 0 12 1
+place RT_PillarThick viaduct at {-40+6.04*$j} 4 h=-11 sy=3
+next
+for k 0 3 1
+place RT_Floor viaduct at {-40+6.04*($k+1)} 5.5 h=7 sx=1 sz=0.333
+next
+for k 7 11 1
+place RT_Floor viaduct at {-40+6.04*($k+1)} 5.5 h=7 sx=1 sz=0.333
+next
+place RT_Floor - at -10 3 h=-10 rot=12,20,18
+place RT_Floor - at -1 9 h=-10 rot=-8,70,14
+place RT_Floor - at 6 0 h=-10.5 rot=6,-15,-10
+place RT_PillarThick - at -3 -4 h=-10.3 rot=0,25,90
+place RT_Fence - at -15.85 2.5 h=7.05 yaw=90
+place RT_Fence - at -15.85 4 h=7.05 yaw=90
+place RT_Fence - at 2.3 4 h=7.05 yaw=270
+place RT_Fence - at 2.3 5.5 h=7.05 yaw=270
+
+# --- The brake van on the west end, at the break; the guard's locker in it -------------------------------------------------
+place CaravanBarebones1 brakevancar at -20 4 h=7.05 sit yaw=90
+place Loot_Chest brakevan at -19 4 h=8 drop yaw=270
+
+# --- The mail train on the trench floor: three cars (one on its side), each with its jammed mail locker and air under its
+# roof; the engine further off, coal round it, a sack in the silt; puffers in the deepest car ---------------------------------
+place Caravan_Blue_01 car1 at -9 6 ground sit yaw=80 roll=12
+place Loot_Chest locker1 at -9 6 h=-8 drop yaw=170
+place Zone_Trigger air1 at -9 6 h=-8.6
+place Zone_Atmosphere bubbles1 at -9 6 h=-9
+place Caravan_Green_01 car2 at -1 2 ground sit yaw=100 roll=80
+place Loot_Chest locker2 at -1 2 h=-8 drop yaw=10
+place Zone_Trigger air2 at -1 2 h=-8.6
+place Zone_Atmosphere bubbles2 at -1 2 h=-9
+place Caravan_Green_02 car3 at 7 5 ground sit yaw=60 rot=18,60,0
+place Loot_Chest locker3 at 7 5 h=-8 drop yaw=240
+place Zone_Trigger air3 at 7 5 h=-8.6
+place Zone_Atmosphere bubbles3 at 7 5 h=-9
+place Creature_PufferFish puffers at 9 7 h=-9
+place Van_4 - at 13 -5 ground sit scale=1.2 roll=85 yaw=20
+place VP_RubblePile_Small01 - at 10 -8 ground sit
+place Loot_SunkenBarrel silt at 2 -4 h=-9 drop
+place Zone_Trigger wreckage at 0 4 h=-8
+place Zone_Atmosphere lagoondark at 0 4 h=-6
+
+# --- The signal cabin on the east ring (a radio tower room, its door to the line): the counter with the receipt book, the
+# signal levers, a stove, the station master's safe --------------------------------------------------------------------------
+push at 50 4 h=6.1 yaw=90
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 l2=RT_WallWindow1 r2=RT_WallWindow1 b1=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+place "Counter Mid" counter at -3 -1 y=0 sit yaw=180
+place TP_LaserControlPanel_lever - at -5.92 2 y=0.9 yaw=90
+place TP_LaserControlPanel_lever - at -5.92 2.8 y=0.9 yaw=90
+place TP_LaserControlPanel_lever - at -5.92 3.6 y=0.9 yaw=90
+place "Balboa_DecorationPrefabBase_Old Stove" - at -0.8 3.6 y=0 sit yaw=270
+place VG_Safe - at -5 -3.4 y=0 sit yaw=90
+place Loot_ChestSmall safe at -4.2 -3.4 y=0 sit yaw=90
+place Zone_Trigger office at -3 0 y=1.5
+pop
+
+# --- The ring: pines to cut and snowy pines, drifts; goats on the north, dolphins in the lagoon, a whale passing outside;
+# the snow ---------------------------------------------------------------------------------------------------------------------
+scatter Pickup_Landmark_Tree_Pine 1 at -46 32 r=8 seed=601
+scatter Pickup_Landmark_Tree_Pine 1 at 44 -24 r=8 seed=602
+
+
+place Creature_Goat goats at 0 50 ground
+place Creature_Dolphin dolphins at 0 -18 h=-2
+place Creature_Whale whale at 0 -100 h=-8
+place Zone_Atmosphere snow at -30 10 y=12
+place Zone_Atmosphere snow at 30 10 y=12
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): berries, flowers ----------
+scatter "Pickup_Landmark_BerryBush" 6 at 0 0 r=44.1 seed=4544 free=3
+scatter "Pickup_Landmark_Flower_White" 4 at 0 0 r=44.1 seed=4554 free=3
+scatter "Pickup_Landmark_Flower_Blue" 4 at 0 0 r=44.1 seed=4555 free=3
+
+# --- Raft's finds in the shallows round the ring and in the lagoon (lib_sea) -------------------------------------------------
+call shallows r=83 deep=5 n=1
+
+# ===== Settings, story items, notes, behaviours, quest (12 steps) ==========================================================
+info title=Viaduct Lagoon
+info author=Custom Islands
+info description=A snowbound railway atoll whose viaduct gave way under the mail train one winter night. The cars lie on the lagoon's floor with air still under their roofs and the winter post still in their lockers - bring it up and sign it in.
+island on.arrive=message||A white ring of land round a dark lagoon, and across the lagoon a tall iron viaduct with a hole in the middle where the train went through.
+
+story crowbar|Brake van crowbar|quest:Vasagatan_Crowbar|A guard's crowbar from the brake van - for jammed lockers.
+story mailbag|Mail bag|quest:Tangaroa_Tape|A canvas mail bag, sealed with lead, wet through but whole.
+story receipt|Signed receipt|quest:Utopia_DettoCode|The station master's receipt book, signed: THREE BAGS - RECEIVED.
+
+note telegram Station master's telegram | (pinned on the platform's board)\n\nTO WHOEVER COMES - STOP - NIGHT MAIL WENT THROUGH VIADUCT MIDDLE SPANS - STOP - CREW SAFE CAME UP UNDER THE ROOFS - STOP - THREE MAIL BAGS STILL IN THE CAR LOCKERS - STOP - LOCKERS JAM - CROWBAR IN BRAKE VAN - STOP - BRING BAGS TO SIGNAL CABIN EAST SIDE AND SIGN IN AT COUNTER - STOP - SAFE KEY UNDER RECEIPT BOOK - STOP - P. LUNDGREN STATION MASTER
+note brakevan Brake van locker | The guard's locker in the brake van, hanging over the gap: a lamp, a flask, his whistle - and the crowbar.
+loot brakevan story:crowbar*1;PlasticBottle_Water*1;Rope*2
+prop brakevan loot.refill=0
+note locker1 Mail locker of car one | The first car's locker, crowbarred open: a mail bag, and a passenger's forgotten tin.
+loot locker1 story:mailbag*1;Cooked_GenericMeat*1
+prop locker1 loot.refill=0
+prop locker1 if.open=has|story:crowbar|1
+prop locker1 else.open=message||The locker's door is bent shut. The telegram said: crowbar in the brake van.
+note locker2 Mail locker of car two | The second car's locker: a mail bag, and a bundle of newspapers gone to pulp.
+loot locker2 story:mailbag*1;Plastic*1
+prop locker2 loot.refill=0
+prop locker2 if.open=has|story:crowbar|1
+prop locker2 else.open=message||The locker's door is bent shut. The telegram said: crowbar in the brake van.
+note locker3 Mail locker of car three | The last car's locker, down at the bottom: the third mail bag, heavy with parcels.
+loot locker3 story:mailbag*1;Scrap*2
+prop locker3 loot.refill=0
+prop locker3 if.open=has|story:crowbar|1
+prop locker3 else.open=message||The locker's door is bent shut. The telegram said: crowbar in the brake van.
+note safe Station master's safe | The station master's safe: the line's petty cash, the plans for the battery charger that ran the signals, a tin of tea and a wool scarf.
+loot safe TradeToken*8;Blueprint_BatteryCharger*1;Wool*2;MetalIngot*2
+prop safe loot.refill=0
+prop safe if.open=has|story:receipt|1
+prop safe else.open=message||The safe's key is under the receipt book on the counter - sign the post in first.
+note parcelbox Platform parcel box | A parcel box on the platform: rope, a tarp's worth of plastic, nails.
+loot parcelbox Rope*2;Plastic*2;Nail*6
+prop parcelbox loot.refill=0
+note coalbarrel Coal barrel | A barrel by the coal heap: lumps of coal - well, scrap and ore that will burn in a smelter.
+loot coalbarrel MetalOre*2;Scrap*2;Plank*3
+prop coalbarrel loot.refill=0
+note silt Mail sack in the silt | A sack that fell out of the train into the silt: somebody's parcel of nails and a hammer head.
+loot silt Nail*8;MetalOre*1;Scrap*2
+prop silt loot.refill=0
+
+prop counter obj.name=counter
+prop counter beh.use=Sign the three mail bags in
+prop counter if.use=quest|9\ntake|story:mailbag|3
+prop counter on.use=message||You drop the three wet bags on the counter and sign the receipt book: RECEIVED, with the date. Under the book, a small brass key.\ngive||story:receipt*1\nsound||event:/exploring/utopia/wood_putdown
+prop counter else.use=message||The counter's receipt book: THREE BAGS. Bring all three.
+
+prop station zone.id=station
+prop station zone.radius=8
+prop station zone.message=The station: a snowy platform, a clock stopped at ten past two, a telegram pinned on the platform.
+prop office zone.id=office
+prop office zone.radius=5
+prop office zone.message=The signal cabin: levers, a cold stove, a counter with a receipt book.
+prop wreckage zone.id=wreckage
+prop wreckage zone.radius=12
+prop wreckage zone.message=The mail train on the lagoon's floor - cars on their sides, and silver air shivering under their roofs.
+prop air1 zone.id=air1
+prop air1 zone.radius=2.5
+prop air1 zone.repeat=1
+prop air1 zone.air=1
+prop air2 zone.id=air2
+prop air2 zone.radius=2.5
+prop air2 zone.repeat=1
+prop air2 zone.air=1
+prop air3 zone.id=air3
+prop air3 zone.radius=2.5
+prop air3 zone.repeat=1
+prop air3 zone.air=1
+prop bubbles1 atmo.particles=bubbles
+prop bubbles1 zone.radius=3
+prop bubbles2 atmo.particles=bubbles
+prop bubbles2 zone.radius=3
+prop bubbles3 atmo.particles=bubbles
+prop bubbles3 zone.radius=3
+prop lagoondark atmo.fog=#0c1a24
+prop lagoondark atmo.fogAmount=0.45
+prop lagoondark atmo.light=#3a5a70
+prop lagoondark atmo.lightAmount=0.4
+prop lagoondark zone.radius=18
+prop puffers creature.count=2
+prop snow atmo.particles=snow
+prop snow zone.radius=45
+prop goats creature.count=3
+prop dolphins creature.count=2
+prop whale creature.count=1
+
+quest title=The Winter Post
+quest intro=A railway atoll with a broken viaduct and a train on the lagoon's floor. The station master left a telegram at the station.
+step reach|station|1|Walk up onto the station's platform
+step read|Station master's telegram|1|Read the telegram pinned on the platform
+step open|Platform parcel box|1|Check the parcel box on the platform - rope and nails for the dive
+step reach|wreckage|1|Dive through the break and find the mail train on the lagoon's floor
+step open|Brake van locker|1|The lockers are jammed - climb out to the brake van and take the crowbar
+step open|Mail locker of car one|1|Catch your breath under the first car's roof and crowbar its locker
+step collect|story:mailbag|3|Work down the other two cars and bring up all three mail bags
+step open|Mail sack in the silt|1|Dig out the sack that fell from the train into the silt
+step reach|office|1|Cross to the signal cabin on the east side of the lagoon
+step collect|story:receipt|1|Sign the three bags in at the counter
+step open|Station master's safe|1|Open the station master's safe
+step catch|Goat|2|Round up two of the goats on the north ring - the line owes the island its milk
+quest done=The winter post is signed in, a season late and a little wet. Somewhere letters will arrive that everyone thought were lost.
+quest reward=Wool*2;Cooked_GenericMeat*3;Rope*2
+
+save Viaduct Lagoon

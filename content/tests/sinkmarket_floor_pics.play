@@ -1,0 +1,9 @@
+# Guide pictures of Sinkmarket Floor (CIPlay sinkmarket_floor_pics): Raft's camera, midday, calm
+island Sinkmarket Floor
+offset 0 0
+hour 11
+weather Calm
+at 0 0 h=-3
+wait 3
+picture sl5_sinkmarket_floor_island 26 6 -30 0 -2 0
+picture sl5_sinkmarket_floor_bell 6 +3 -8 0 +1.2 0

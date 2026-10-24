@@ -1,0 +1,15 @@
+# Guide pictures of Shellback (CIPlay shellback_pics): Raft's camera, morning, calm
+island Shellback
+hour 10
+weather Calm
+at 1 -81
+wait 3
+picture shellback_island 0 70 -150 13 10 0
+picture shellback_tail 12 5 -92 -3 2 -77
+picture shellback_temple 13 18 56 13 12 76
+picture shellback_needle 46 14 30 58 12 44
+picture shellback_ring 48 16 -40 62 11 -50
+picture shellback_wing -38 7 38 -50 3 50
+at -86 -84 h=-6
+wait 2
+picture shellback_seacave -82 -7 -80 -90 -9 -88

@@ -1,0 +1,123 @@
+# Upfall Orchard - an island of the library's plan The Gravity Sea (a sky island, 30 m over the sea)
+# The hilltop torn off Lodestone Quay on Lift Day: an apple orchard on a jagged rock plate that floats 30 m up - fruit
+# trees and bushes, the Kristens' farmhouse (its hipped roof on corner posts) and in the middle the farm's well with its
+# rope winch, the shaft going "down to the sea". Players build up to it from the raft. Quest "The Apples Fall Up"
+# (7 steps): the rim, the keeper's diary, four baskets of upfall apples (for the cellar below), the two blueprints in
+# the farmhouse chest, the well notice, and the winch - its rope runs down to the cellar on the seabed (signal "roots",
+# the plan's done-when: it brings Rootcellar Deep).
+#
+# Built by the recipe player (CIRecipe upfall_orchard) through the editor's own operations. Points (metres over the
+# island's own water line; in the world it all floats 30 m higher): the orchard's flat top at 5 m (r 14 round 0 0); the
+# farmhouse x -12..-7.5, z -2..2.5; the well at 2 2, its winch post at 4.5 2; the diary's table at -2 -8.
+include lib_huts
+include lib_gravity
+new
+gen Trees=0.28 Bushes=0.3 Rocks=0.3 Harvest=0.35 BeachThings=0
+gen Seed=9521 Radius=30 Height=11 Roughness=0.45 Peaks=1 Shape=0 Style=0 BeachWidth=0.1 Cliffs=0.7 PeakShape=0.5
+gen Water=0 SeaRocks=0 SeaFinds=0 Sunken=0 Hostiles=0 Friendly=0 SeaLife=0
+generate
+elevation 30
+
+# --- Terrain: the orchard's flat top at 5 m --------------------------------------------------------------------------
+brush flatten at 0 0 r=14 s=20 frames=200 h=5
+brush flatten at -9 0 r=6 s=20 frames=60 h=5
+brush grass at 0 0 r=13 s=20 frames=20
+origin
+clear at -9.75 0.25 r=5
+clear at 2 2 r=4
+clear at -2 -8 r=2.5
+
+# --- The farmhouse (roof on its corner posts): the farmhouse chest inside -------------------------------------------
+push at -12 -2 h=5
+call hut w=3 d=3 y=0.1
+place Loot_Chest farmchest at 3.7 3.8 y=0.1 sit yaw=180
+place Placeable_Table_Basic - at 1.2 3.4 y=0.1 sit
+place Placeable_Lantern_Metal - at 1.2 3.4 y=1.1 drop
+pop
+
+# --- The keeper's diary on a table under the trees; the four apple baskets under the trees ----------------------------
+place Placeable_Table_Basic - at -2 -8 ground sit yaw=20
+place Note_Paper diary at -2 -8 ground y=1.1 drop yaw=30
+place UT_MarketBasket01 apple1 at 8 -5 ground sit yaw=10
+place UT_MarketBasket01 apple2 at 9 6 ground sit yaw=80
+place UT_MarketBasket01 apple3 at -4 9 ground sit yaw=150
+place UT_MarketBasket01 apple4 at 4 10 ground sit yaw=220
+prop apple1 tint.color=#b83a2a
+prop apple1 tint.amount=0.6
+prop apple2 tint.color=#b83a2a
+prop apple2 tint.amount=0.6
+prop apple3 tint.color=#b83a2a
+prop apple3 tint.amount=0.6
+prop apple4 tint.color=#b83a2a
+prop apple4 tint.amount=0.6
+
+# --- The well, its winch on a post, the notice; the edge rock the winch's camera looks at ----------------------------
+place Well - at 2 2 ground sit
+place RT_Pillar - at 4.5 2 ground sy=0.6
+push at 4.5 2 yaw=90
+place TP_Selene_DoorCrankWheel crank at 0 -0.09 ground y=1.2 rot=0,0,0
+pop
+place Note_Sign wellnotice at 2 -1.2 ground sit yaw=180
+place Placeable_Lantern_Metal wellcam at 0.6 2 ground y=1.1 drop
+place SmallRock_02 rimrock at 0 -15 ground y=-0.9 scale=0.7 yaw=30
+place Zone_Trigger rimzone at 0 -10 ground
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Upfall Orchard
+info author=Custom Islands
+info description=An apple orchard on a hilltop torn into the sky: fruit trees, a farmhouse and a well whose rope runs down to the sea, 30 m over the water. The second island of The Gravity Sea - build your way up from the raft.
+island on.arrive=message||An orchard in the sky. Apple trees, a farmhouse, a well - 30 m over the sea, with nothing underneath.
+
+story upapple|Upfall apple|Placeable_Lantern_Metal|An apple from the orchard in the sky. It tugs gently upward in your hand.
+story wellrope|Well rope let down|Rope|You let the orchard well's rope all the way down - to the cellar under the sea.
+
+note diary Orchard keeper's diary | ORCHARD DIARY - J. KRISTEN\n\nDay 3 after Lift Day. The apples still fall. They fall UP. I tie the baskets down at night.\nDay 9. Marta stayed below in the cellar when the hill tore loose. She has air down there, the Institute's bells. She asks for apples - our apples.\nDay 12. I will send them down the well. The rope is long enough. It must be.
+note wellnotice Well notice | THE WELL\n\nThe shaft goes all the way through: under the island, down to the sea, to the cellar.\nTo send something down: put it in the bucket, wind the winch until the rope runs out.\n\n(Apples for Marta - J.)
+note farmchest Farmhouse chest | Kristen's chest: two rolled plans from the boatyard, a motor wheel and a steering wheel - "for the raft we never built".
+loot farmchest Blueprint_MotorWheel*1;Blueprint_SteeringWheel*1;Plank*6;Rope*2
+prop farmchest loot.refill=0
+
+prop apple1 obj.name=apple1
+prop apple1 beh.use=Take the upfall apples
+prop apple1 on.use=give||story:upapple*1\nhide|\nmessage||You take the apples. They tug upward in your hand.
+prop apple2 obj.name=apple2
+prop apple2 beh.use=Take the upfall apples
+prop apple2 on.use=give||story:upapple*1\nhide|\nmessage||You take the apples. They tug upward in your hand.
+prop apple3 obj.name=apple3
+prop apple3 beh.use=Take the upfall apples
+prop apple3 on.use=give||story:upapple*1\nhide|\nmessage||You take the apples. They tug upward in your hand.
+prop apple4 obj.name=apple4
+prop apple4 beh.use=Take the upfall apples
+prop apple4 on.use=give||story:upapple*1\nhide|\nmessage||You take the apples. They tug upward in your hand.
+
+prop wellcam obj.name=wellcam
+prop rimrock obj.name=rimrock
+prop crank obj.name=crank
+prop crank beh.use=Wind the well winch
+prop crank if.use=!signal|roots
+prop crank on.use=signal||roots\ngive||story:wellrope*1\nsound||event:/exploring/obstacles/keypad/keypad_correct\nmessage||The winch spins and spins. The rope pays out down the shaft - past the rock, past the sky, down into the sea. Far below, something tugs back.\ncamera|wellcam|rimrock|5|30
+prop crank else.use=message||The rope is all the way down. Far below is the cellar - under the sea.
+
+prop rimzone zone.id=rim
+prop rimzone zone.radius=8
+prop rimzone zone.message=The orchard's rim. Apples in the grass - and the sea 30 m below.
+
+quest title=The Apples Fall Up
+quest intro=An orchard in the sky. You made it up - step onto the rim.
+step reach|rim|1|Climb onto the orchard's rim
+step read|Orchard keeper's diary|1|Read the orchard keeper's diary under the trees
+step collect|story:upapple|4|Take the four baskets of upfall apples
+step blueprint|Blueprint_MotorWheel|1|Take the motor wheel plans from the farmhouse chest
+step blueprint|Blueprint_SteeringWheel|1|Take the steering wheel plans from the farmhouse chest
+step read|Well notice|1|Read the notice by the well
+step collect|story:wellrope|1|Wind the well winch until the rope runs out
+quest done=The rope is down. Its end is in Marta's cellar on the seabed - the Receiver will find her bells on 600. Take the apples.
+quest reward=Plank*6;Rope*2
+
+# Farm animals in the orchard: a llama (wool, with shears) and hens (eggs, feathers)
+place Creature_Llama llamas at -9 0 ground
+prop llamas creature.count=1
+place Creature_Chicken hens at -5 -10 ground
+prop hens creature.count=3
+
+save Upfall Orchard

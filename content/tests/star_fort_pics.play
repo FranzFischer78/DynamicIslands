@@ -1,0 +1,14 @@
+# Guide pictures of Star Fort (CIPlay star_fort_pics): Raft's camera, midday, calm. Points as in its recipe ("offset").
+island Star Fort
+offset 0 0
+hour 11
+weather Calm
+at 82 -47 h=3.5
+wait 3
+picture star_fort_island 110 90 -110 5 20 0
+picture star_fort_gate 40 34 -36 23 30 -18
+picture star_fort_parade 20 36 -18 0 30 8
+picture star_fort_keep -12 38 -14 5 34 0
+picture star_fort_bastion 5 38 20 5 33 42
+picture star_fort_ramp 92 10 -56 60 12 -40
+picture star_fort_strongroom -8 31 5 -16 29.2 9

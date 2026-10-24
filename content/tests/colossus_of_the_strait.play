@@ -1,0 +1,14 @@
+# Colossus of the Strait - the quest "The Giant's Heart" played through (plan Relic of the Seventh Tide, island 6)
+# The gear wheel takes the three gears of the earlier islands; on its own the test fetches them from those islands'
+# chests first (the Sarcophagus, the mast cabin strongbox, the Fang's altar). Headlands at 5 m, the giant's chest
+# chamber floor at 18.3, its roof at 22.4. The heel room's door at -25.5 0, the lift inside.
+island Sandsunk Necropolis
+open Sarcophagus
+expect story gear1 1
+island Skyhook Mast
+open Mast cabin strongbox
+expect story gear2 1
+island The Hollow Fang
+open Altar
+expect story gear3 1
+include colossus_of_the_strait_body.play

@@ -1,0 +1,1312 @@
+# CustomIslands object index 5 raft=1.1.01
+# Every placeable object of Raft's island scenes that isn't in the core list: name, scene, category, flags (h = harvestable, x = left out of the list).
+# Made by the editor; delete this file to scan Raft's islands again.
+Bed_Simple	15#Landmark_Raft#Floating raft	Abandoned rafts	
+buoy	15#Landmark_Raft#Floating raft	Abandoned rafts	
+FL_Cloth	15#Landmark_Raft#Floating raft	Abandoned rafts	
+FL_Foundation1	15#Landmark_Raft#Floating raft	Abandoned rafts	
+FL_Foundation2	15#Landmark_Raft#Floating raft	Abandoned rafts	
+FL_Foundation3	15#Landmark_Raft#Floating raft	Abandoned rafts	
+FL_Roof1	15#Landmark_Raft#Floating raft	Abandoned rafts	
+FL_Roof2	15#Landmark_Raft#Floating raft	Abandoned rafts	
+Table_Floor	16#Landmark_Raft#Floating raft	Abandoned rafts	
+campfire_1	17#Landmark_Raft#Floating raft	Abandoned rafts	
+Scarecrow	17#Landmark_Raft#Floating raft	Abandoned rafts	
+Bird_Nest	18#Landmark_Raft#Floating raft	Abandoned rafts	
+cropplot_floor_dps	18#Landmark_Raft#Floating raft	Abandoned rafts	
+Box Big	19#Landmark_Radar#Big radio tower	Radio tower	
+Chair Office	19#Landmark_Radar#Big radio tower	Radio tower	
+Counter Left	19#Landmark_Radar#Big radio tower	Radio tower	
+Counter Mid	19#Landmark_Radar#Big radio tower	Radio tower	
+Counter Right	19#Landmark_Radar#Big radio tower	Radio tower	
+Cupboard	19#Landmark_Radar#Big radio tower	Radio tower	
+Fire Estinguisher	19#Landmark_Radar#Big radio tower	Radio tower	
+MechanicGirl_Body	19#Landmark_Radar#Big radio tower	Radio tower	
+MechanicGirl_Body_Dissolve	19#Landmark_Radar#Big radio tower	Radio tower	
+MechanicGirl_Head	19#Landmark_Radar#Big radio tower	Radio tower	
+MechanicGirl_Head_Dissolve	19#Landmark_Radar#Big radio tower	Radio tower	
+model	19#Landmark_Radar#Big radio tower	Radio tower	
+overgrowthIvy_long_01 Variant	19#Landmark_Radar#Big radio tower	Radio tower	
+overgrowthIvy_long_02 Variant	19#Landmark_Radar#Big radio tower	Radio tower	
+overgrowthIvy_medium Variant	19#Landmark_Radar#Big radio tower	Radio tower	
+overgrowthIvy_round Variant	19#Landmark_Radar#Big radio tower	Radio tower	
+overgrowthIvy_short	19#Landmark_Radar#Big radio tower	Radio tower	
+Phone	19#Landmark_Radar#Big radio tower	Radio tower	
+Picture of utopia	19#Landmark_Radar#Big radio tower	Radio tower	
+Pinboard	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_Beam	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_BeamCorner	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_BeamThick	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_BeamThickCorner	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_BrokenGlass	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_Camera	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_Clipboard	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_CommRadio	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_Crossbeam	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_Duct	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_DuctConnector	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_DuctCornerR	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_DuctTop	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_ExitSignCeiling1	19#Landmark_Radar#Big radio tower	Radio tower	x
+RT_ExitSignCeiling2	19#Landmark_Radar#Big radio tower	Radio tower	x
+RT_Fence	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_FenceCorner	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_FenceEndCap	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_Floodlight	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_Floodlight_WithoutLightSource	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_Floor	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_GroundPillar	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_GroundPillarCap	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_Pillar	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_PillarEndCap	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_PillarThick	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_Pipe	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_PipeBendL	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_PipeBendR	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_PipeDownBend	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_PipeDownBendShort	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_PipeDownStraight	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_PipeWallConnector	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_PlasticBoat	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_PowerBox	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_RadarScreen	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_RoofLamp	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_SatteliteDisc	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_SharkCage	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_Signs	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_Spear	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_Spotlight	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_Stair	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_Stair_Broken	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_Wall1	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_WallDoor1	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_WallDoor2	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_WallVent	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_WallWindow1	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_WallWindow2	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_WallWindowBroken	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_WallWindowBroken1	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_WallWindowBroken2	19#Landmark_Radar#Big radio tower	Radio tower	
+RT_WindMill	19#Landmark_Radar#Big radio tower	Radio tower	
+Table Office	19#Landmark_Radar#Big radio tower	Radio tower	
+UnlockCylinder	19#Landmark_Radar#Big radio tower	Radio tower	
+Vent	19#Landmark_Radar#Big radio tower	Radio tower	
+TradingPost	28#Landmark_Big#OG	Islands	
+VendingMachine	50#Landmark_Tangaroa#	Tangaroa	
+TradingPost_Register	28#Landmark_Big#OG	Islands	
+TradingPost_Register_Dollar1	28#Landmark_Big#OG	Islands	
+TradingPost_Register_Dollar2	28#Landmark_Big#OG	Islands	
+TradingPost_Register_Dollar3	28#Landmark_Big#OG	Islands	
+TradingPost_Register_Lever	28#Landmark_Big#OG	Islands	
+CaveVine1	29#Landmark_Big#Cresent	Islands	
+CaveVine2	29#Landmark_Big#Cresent	Islands	
+CaveVine3	29#Landmark_Big#Cresent	Islands	
+Parabol_1	29#Landmark_Big#Cresent	Islands	
+Parabol_2	29#Landmark_Big#Cresent	Islands	
+TinyCoral	29#Landmark_Big#Cresent	Islands	
+TP_Moontown_SealedCrate01_Clean	29#Landmark_Big#Cresent	Islands	
+TP_Moontown_TarpCrate01_Clean	29#Landmark_Big#Cresent	Islands	
+VP_MetalCrate05	29#Landmark_Big#Cresent	Islands	
+Parabol_2_Model	30#Landmark_Big#Twin peak	Islands	
+Parabol_3_Model	30#Landmark_Big#Twin peak	Islands	
+ReefHuts_Tarpaulin	30#Landmark_Big#Twin peak	Islands	
+ReefHuts_Wall2	30#Landmark_Big#Twin peak	Islands	
+Airplane	31#Landmark_Pilot#	Pilot island	
+BackWingBroken	31#Landmark_Pilot#	Pilot island	
+Banana_Bush_1(Clone	31#Landmark_Pilot#	Pilot island	
+Coral3	31#Landmark_Pilot#	Pilot island	
+Door_Left	31#Landmark_Pilot#	Pilot island	
+Door_Right	31#Landmark_Pilot#	Pilot island	
+PropellerBlade	31#Landmark_Pilot#	Pilot island	
+WingBroken	31#Landmark_Pilot#	Pilot island	
+ReefHuts_PlasticWall1	32#Landmark_Big#	Islands	
+BoatLandmark_Flag	33#Landmark_Boat#	Boat	
+BoatStranded	33#Landmark_Boat#	Boat	
+QuestItemPickup_Vasagatan_MechanicalPart	44#Landmark_Vasagatan	Vasagatan	
+QuestItemPickup_Vasagatan_BoltCutter	44#Landmark_Vasagatan	Vasagatan	
+QuestItemPickup_Vasagatan_BulletInsideBottle	44#Landmark_Vasagatan	Vasagatan	
+QuestItemPickup_Vasagatan_CrowbarRecorder	44#Landmark_Vasagatan	Vasagatan	
+QuestItemPickup_Vasagatan_ElectricalWires	44#Landmark_Vasagatan	Vasagatan	
+QuestItemPickup_Vasagatan_FourDigitCode	44#Landmark_Vasagatan	Vasagatan	
+QuestItemPickup_Vasagatan_GasTank	44#Landmark_Vasagatan	Vasagatan	
+QuestItemPickup_Vasagatan_KeyCardOffice	44#Landmark_Vasagatan	Vasagatan	
+QuestItemPickup_Vasagatan_Key_Blue	44#Landmark_Vasagatan	Vasagatan	
+QuestItemPickup_Vasagatan_Key_Green	44#Landmark_Vasagatan	Vasagatan	
+QuestItemPickup_Vasagatan_Key_Red	44#Landmark_Vasagatan	Vasagatan	
+QuestItemPickup_Vasagatan_Lighter	44#Landmark_Vasagatan	Vasagatan	
+AchievementBranch	45#Landmark_BalboaIsland	Balboa	
+Antenna_bowl	45#Landmark_BalboaIsland	Balboa	
+Antenna_cone	45#Landmark_BalboaIsland	Balboa	
+Antenna_dish	45#Landmark_BalboaIsland	Balboa	
+Antenna_pole	45#Landmark_BalboaIsland	Balboa	
+Antenna_support01	45#Landmark_BalboaIsland	Balboa	
+Antenna_support02	45#Landmark_BalboaIsland	Balboa	
+Antenna_support03	45#Landmark_BalboaIsland	Balboa	
+Antenna_teeth	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_BigElectronicRack	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Chair	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Coffee Cup	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_ComputerChassis	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_CRTScreen	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Desk	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Desk_Chair	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Doll_R	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_DrawerFort	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Electrical Box 1	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Electrical Box 2	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_ElectronicCloset 1	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_ElectronicCloset 2	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_ElectronicCloset 3	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_ElectronicCloset 4	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Fence_EndBroken	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Fence_EndL	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Fence_EndR	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Fence_Mid	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Fence_Sign	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Fridge	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Generator	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Lantern	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Microphone	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Old Stove	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Old TV	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_OldCouch	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Pan	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Pot	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Radiator	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_RadioDevice	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Sign02 Variant	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Sign04 Variant	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Sign06 Variant	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_SimpleTent	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_SmallLocker	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Table	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_ToxicBarrel	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Trash Bag 1	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Trash Bag 2	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Trash Bag 3	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Trashcan	45#Landmark_BalboaIsland	Balboa	
+Balboa_DecorationPrefabBase_Wooden Spikes	45#Landmark_BalboaIsland	Balboa	
+Balboa_DirectionSign	45#Landmark_BalboaIsland	Balboa	
+Balboa_Shack	45#Landmark_BalboaIsland	Balboa	
+BalboaBridge_Shimmer	45#Landmark_BalboaIsland	Balboa	
+BalboaCave_Bear	45#Landmark_BalboaIsland	Balboa	
+BalboaCave_DeadEnd	45#Landmark_BalboaIsland	Balboa	
+BalboaCave_Entrance	45#Landmark_BalboaIsland	Balboa	
+BalboaCave_Vines	45#Landmark_BalboaIsland	Balboa	
+BearBait	45#Landmark_BalboaIsland	Balboa	
+BearBait_Berries	45#Landmark_BalboaIsland	Balboa	
+BearSign1	45#Landmark_BalboaIsland	Balboa	
+BearSign2 Variant	45#Landmark_BalboaIsland	Balboa	
+BearSign3 Variant	45#Landmark_BalboaIsland	Balboa	
+BearSign4 Variant	45#Landmark_BalboaIsland	Balboa	
+BearSign5 Variant	45#Landmark_BalboaIsland	Balboa	
+BellShimmer	45#Landmark_BalboaIsland	Balboa	
+BigRock_1	45#Landmark_BalboaIsland	Balboa	
+BigRock_Low2_Sand	45#Landmark_BalboaIsland	Balboa	
+BigRock_Low3_Sand	45#Landmark_BalboaIsland	Balboa	
+BikerGuy_Body	45#Landmark_BalboaIsland	Balboa	
+BikerGuy_Body_Dissolve	45#Landmark_BalboaIsland	Balboa	
+BikerGuy_Head	45#Landmark_BalboaIsland	Balboa	
+BikerGuy_Head_Dissolve	45#Landmark_BalboaIsland	Balboa	
+Chair_01	45#Landmark_BalboaIsland	Balboa	
+ChoppableVines	45#Landmark_BalboaIsland	Balboa	
+Doll_B_ArmL	45#Landmark_BalboaIsland	Balboa	
+Doll_B_ArmR	45#Landmark_BalboaIsland	Balboa	
+Doll_B_FootL	45#Landmark_BalboaIsland	Balboa	
+Doll_B_FootR	45#Landmark_BalboaIsland	Balboa	
+Doll_B_Head	45#Landmark_BalboaIsland	Balboa	
+Doll_B_Lantern	45#Landmark_BalboaIsland	Balboa	
+Doll_B_LegL	45#Landmark_BalboaIsland	Balboa	
+Doll_B_LegR	45#Landmark_BalboaIsland	Balboa	
+Doll_B_Shimmer	45#Landmark_BalboaIsland	Balboa	
+Doll_B_Stand	45#Landmark_BalboaIsland	Balboa	
+EdgeGlow	45#Landmark_BalboaIsland	Balboa	
+EmergencyGenerator	45#Landmark_BalboaIsland	Balboa	
+Firewood_1	45#Landmark_BalboaIsland	Balboa	
+FirTree_Big1_LodGroup	45#Landmark_BalboaIsland	Balboa	
+FirTree_Big2_LodGroup	45#Landmark_BalboaIsland	Balboa	
+FrequencyText	45#Landmark_BalboaIsland	Balboa	
+Landfall1	45#Landmark_BalboaIsland	Balboa	
+Missing Prefab (Dummy)	45#Landmark_BalboaIsland	Balboa	
+Model_Radio	45#Landmark_BalboaIsland	Balboa	
+Model_TV	45#Landmark_BalboaIsland	Balboa	
+Obstacle_Moving_Base_PlasticBox_Blue	45#Landmark_BalboaIsland	Balboa	
+Obstacle_Moving_Base_PlasticContainer_Red	45#Landmark_BalboaIsland	Balboa	
+Obstacle_PoisonLake_WoodBox	45#Landmark_BalboaIsland	Balboa	
+QuestItemPickup_Balboa_BrunosTool_2	45#Landmark_BalboaIsland	Balboa	
+QuestItemPickup_Balboa_BrunosTool_3	45#Landmark_BalboaIsland	Balboa	
+QuestItemPickup_Balboa_BrunosTool_Saw	45#Landmark_BalboaIsland	Balboa	
+QuestItemPickup_Balboa_WildBerries	45#Landmark_BalboaIsland	Balboa	
+Reef_Wheelbarrow	45#Landmark_BalboaIsland	Balboa	
+Relay_beam_cap	45#Landmark_BalboaIsland	Balboa	
+Relay_beam_crosscap	45#Landmark_BalboaIsland	Balboa	
+Relay_beam_endCap	45#Landmark_BalboaIsland	Balboa	
+Relay_beam_TCap	45#Landmark_BalboaIsland	Balboa	
+Relay_Fence_pole	45#Landmark_BalboaIsland	Balboa	
+Relay_Fence_wood	45#Landmark_BalboaIsland	Balboa	
+Relay_Floor_deck	45#Landmark_BalboaIsland	Balboa	
+Relay_Roof_Drain	45#Landmark_BalboaIsland	Balboa	
+Relay_Roof_DrainPipe	45#Landmark_BalboaIsland	Balboa	
+Relay_Roof_End	45#Landmark_BalboaIsland	Balboa	
+Relay_Roof_Mid	45#Landmark_BalboaIsland	Balboa	
+Relay_stairs_30_short	45#Landmark_BalboaIsland	Balboa	
+Relay_stairs_30_tall	45#Landmark_BalboaIsland	Balboa	
+Relay_stairs_45_tall	45#Landmark_BalboaIsland	Balboa	
+Relay_stairs_platform	45#Landmark_BalboaIsland	Balboa	
+Relay_support_beam_metal	45#Landmark_BalboaIsland	Balboa	
+Relay_support_beam_metal_brace	45#Landmark_BalboaIsland	Balboa	
+Relay_support_beam_metal_thin	45#Landmark_BalboaIsland	Balboa	
+Relay_support_beam_wood	45#Landmark_BalboaIsland	Balboa	
+Relay_support_beam_wood_thin	45#Landmark_BalboaIsland	Balboa	
+Relay_Trim_metal	45#Landmark_BalboaIsland	Balboa	
+Relay_Wall	45#Landmark_BalboaIsland	Balboa	
+Relay_Wall_2smallwindows	45#Landmark_BalboaIsland	Balboa	
+Relay_Wall_door	45#Landmark_BalboaIsland	Balboa	
+Relay_Wall_DoorWindows	45#Landmark_BalboaIsland	Balboa	
+Relay_Wall_support	45#Landmark_BalboaIsland	Balboa	
+Relay_wall_trim_horizontal	45#Landmark_BalboaIsland	Balboa	
+Relay_Wall_Window	45#Landmark_BalboaIsland	Balboa	
+Relay_Wall_Windows	45#Landmark_BalboaIsland	Balboa	
+StationsActiveText	45#Landmark_BalboaIsland	Balboa	
+VG_DecorationPrefabBase_Book_Tall_3 Variant	45#Landmark_BalboaIsland	Balboa	
+VG_DecorationPrefabBase_Book_Tall_4 Variant	45#Landmark_BalboaIsland	Balboa	
+VG_DecorationPrefabBase_Cables_Straight Variant	45#Landmark_BalboaIsland	Balboa	x
+VG_DecorationPrefabBase_Carpet_Square Variant	45#Landmark_BalboaIsland	Balboa	
+VG_DecorationPrefabBase_Pipe_Plate3 Variant	45#Landmark_BalboaIsland	Balboa	
+VG_DecorationPrefabBase_Pipe_ThickShort Variant	45#Landmark_BalboaIsland	Balboa	
+AirPocket_1	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+AirPocket_2	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+AirPocket_3	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Banner_01	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Battlestick	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Bench_01	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+BenchTable_01	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+BoatMini	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Cableroll_01	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Cableroll_02	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Candle_01	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Candle_02	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Candle_03	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+CaravanBarebones1	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+caravanBaseDoor	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+CaravanHubBridge1	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+CaravanHubBridge2	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+CaravanHubBridge3	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+CaravanIsland_BigRoundRock_1	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+CaravanRocket	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+CaravanRocketDebris_Belt	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+CaravanRocketDebris_Body1	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+CaravanRocketDebris_Body2	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+CaravanRocketDebris_Bottom1	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+CaravanRocketDebris_Bottom2	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+CaravanRocketDebris_Canister	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+CaravanRocketDebris_Door	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+CaravanRocketDebris_Exhaust	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+CaravanRocketDebris_Leg1	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+CaravanRocketDebris_Leg2	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+CaravanRocketDebris_Leg3	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+CaravanRocketDebris_SidePlate	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+CaravanRocketDebris_Top1	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+CaravanRocketDebris_Top2	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+CaravanWorkbench	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+CaravanWorkbench_Tools	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Crate_Big_01	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Crate_Big_02	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Crate_Small_02	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+DeadTree1	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+DeadTree2	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+DeadTree3	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+DivePuzzle_Hose&Pump	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+door model	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+InfirmarySign	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Int_BenchDoor2A	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Int_Drawer3A	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Interior	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+LODGroup 1	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+LODGroup 2	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+MayorsChest	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+MetalTable_01	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+PathCreator_SupportCable	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Pillars	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+PlasticChair_01	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+PulauKafilahFlag	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Pump	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Pump_Handle	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+QuestItemPickup_Caravan_BatteryChargerPart	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+QuestItemPickup_Caravan_Key_Infirmary	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+QuestItemPickup_Caravan_Key_Mayor	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+QuestItemPickup_Caravan_ZipHandlePart	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+QuestItemPickup_Caravan_ZipLinePart	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+QuestItemPickup_Caravan_ZipLinePart_Rocket	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+RaftMonument	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Ramp	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Roof	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Seavine_tongue	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Sign	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Sign_01	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Sign_02	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Sign_03	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Sign_04	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Stairs	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+TangaroaScaleModel	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Tire_02	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Tire_03	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Van_1	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Van_2	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Van_4	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Van_5	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Van3	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+WaterPipe_BigCurve_1	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+WaterPipe_BigCurve_2	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+WaterPipe_In_1	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+WaterPipe_In_2	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+WaterPipe_Long_2	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+WaterPipe_Long_3	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+WaterPipe_Out_1	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+WaterPipe_Out_2	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+WaterPipe_PumpConnector	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+WaterPipe_Short_1	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Well	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+ZiplinePath_Landmark	49#Landmark_CaravanIsland#RealDeal	Caravan Town	
+Apartment_Ballroom_Fence_Corner	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Ballroom_Fence_Mid1	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Ballroom_Fence_Mid2	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Basement_ElevatorDoor	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_ElevatorRoom	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Ext_Balcony_Door_OpenableDoor	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Ext_Balcony_DoorCorner_OpenableDoor	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Ext_Balcony_Mid	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Ext_BaseMidMidWall	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Ext_Cube	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Ext_DecPillar01	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_ExtFound_Mid	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Int_BaseDoor01	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Int_BaseDoor02	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Int_BaseFloor	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Int_BaseMidCorner	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Int_BaseMidCornerMix	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Int_BaseMidCornerWindow	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Int_BaseMidMid	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Int_BaseMidMidWindow	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Int_BasePillar	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Int_BasePillar02	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Int_FoundCeiling	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Int_FoundMidCorner	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Int_FoundMidCornerDoorway	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Int_FoundMidWall	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Int_FoundStair	50#Landmark_Tangaroa#	Tangaroa	
+Apartment_Int_FoundStair_BlockedUp	50#Landmark_Tangaroa#	Tangaroa	
+Armchair_01	50#Landmark_Tangaroa#	Tangaroa	
+Arrows	50#Landmark_Tangaroa#	Tangaroa	
+AshTray_01	50#Landmark_Tangaroa#	Tangaroa	
+Balboa_DecorationPrefabBase_Cable 13	50#Landmark_Tangaroa#	Tangaroa	
+Balboa_DecorationPrefabBase_Cable 2	50#Landmark_Tangaroa#	Tangaroa	
+Balboa_DecorationPrefabBase_Cable 3	50#Landmark_Tangaroa#	Tangaroa	
+Balboa_DecorationPrefabBase_Cable 5	50#Landmark_Tangaroa#	Tangaroa	
+Balboa_DecorationPrefabBase_Cable 9	50#Landmark_Tangaroa#	Tangaroa	
+Balboa_DecorationPrefabBase_Flatscreen	50#Landmark_Tangaroa#	Tangaroa	
+Balboa_DecorationPrefabBase_PaperTrash 1	50#Landmark_Tangaroa#	Tangaroa	
+Balboa_DecorationPrefabBase_PaperTrash 2	50#Landmark_Tangaroa#	Tangaroa	
+Balboa_DecorationPrefabBase_PaperTrash 3	50#Landmark_Tangaroa#	Tangaroa	
+Balboa_DecorationPrefabBase_PaperTrash 5	50#Landmark_Tangaroa#	Tangaroa	
+Balcony01	50#Landmark_Tangaroa#	Tangaroa	
+Balcony02	50#Landmark_Tangaroa#	Tangaroa	
+BedDouble	50#Landmark_Tangaroa#	Tangaroa	
+Bedsidetable_01	50#Landmark_Tangaroa#	Tangaroa	
+BedSmall	50#Landmark_Tangaroa#	Tangaroa	
+Book_01	50#Landmark_Tangaroa#	Tangaroa	
+Book_02	50#Landmark_Tangaroa#	Tangaroa	
+Book_03	50#Landmark_Tangaroa#	Tangaroa	
+Book_04	50#Landmark_Tangaroa#	Tangaroa	
+Book_05	50#Landmark_Tangaroa#	Tangaroa	
+Book_06	50#Landmark_Tangaroa#	Tangaroa	
+Book_07	50#Landmark_Tangaroa#	Tangaroa	
+Book_08	50#Landmark_Tangaroa#	Tangaroa	
+Bookstop_01	50#Landmark_Tangaroa#	Tangaroa	
+Bottles_01	50#Landmark_Tangaroa#	Tangaroa	
+Bowl_01	50#Landmark_Tangaroa#	Tangaroa	
+Bowl_02	50#Landmark_Tangaroa#	Tangaroa	
+Button0	50#Landmark_Tangaroa#	Tangaroa	
+Button1	50#Landmark_Tangaroa#	Tangaroa	
+ButtonPanel	50#Landmark_Tangaroa#	Tangaroa	
+Cabinet_01	50#Landmark_Tangaroa#	Tangaroa	
+CannedGood	50#Landmark_Tangaroa#	Tangaroa	
+Carpet_01	50#Landmark_Tangaroa#	Tangaroa	
+Carpet_02	50#Landmark_Tangaroa#	Tangaroa	
+Carpet_03	50#Landmark_Tangaroa#	Tangaroa	
+Carpet_04	50#Landmark_Tangaroa#	Tangaroa	
+Claw_ControlBoard	50#Landmark_Tangaroa#	Tangaroa	
+Clock_01	50#Landmark_Tangaroa#	Tangaroa	
+Clock_02	50#Landmark_Tangaroa#	Tangaroa	
+Closet_01	50#Landmark_Tangaroa#	Tangaroa	
+Cockpit	50#Landmark_Tangaroa#	Tangaroa	
+CockpitExt	50#Landmark_Tangaroa#	Tangaroa	
+ControlBoard	50#Landmark_Tangaroa#	Tangaroa	
+Dinnerchair_01	50#Landmark_Tangaroa#	Tangaroa	
+Dome_Base_1	50#Landmark_Tangaroa#	Tangaroa	
+Dome_Base_2	50#Landmark_Tangaroa#	Tangaroa	
+Dome_DoorFrame01	50#Landmark_Tangaroa#	Tangaroa	
+Dome_Frame_1	50#Landmark_Tangaroa#	Tangaroa	
+Dome_Glass_01	50#Landmark_Tangaroa#	Tangaroa	
+Dome_Glass_02	50#Landmark_Tangaroa#	Tangaroa	
+Dome_Glass_03	50#Landmark_Tangaroa#	Tangaroa	
+DoorL	50#Landmark_Tangaroa#	Tangaroa	
+DoorR	50#Landmark_Tangaroa#	Tangaroa	
+Drawer_01	50#Landmark_Tangaroa#	Tangaroa	
+Elevator	50#Landmark_Tangaroa#	Tangaroa	
+EmergencyBridgeLaunch_sign	50#Landmark_Tangaroa#	Tangaroa	
+executive_character	50#Landmark_Tangaroa#	Tangaroa	
+executive_character_Dissolve	50#Landmark_Tangaroa#	Tangaroa	
+executive_head	50#Landmark_Tangaroa#	Tangaroa	
+executive_head_Dissolve	50#Landmark_Tangaroa#	Tangaroa	
+FloorIndicator	50#Landmark_Tangaroa#	Tangaroa	
+Floorlamp_01	50#Landmark_Tangaroa#	Tangaroa	
+Floorlamp_02	50#Landmark_Tangaroa#	Tangaroa	
+Flotation	50#Landmark_Tangaroa#	Tangaroa	
+FlotationBase_Ladders	50#Landmark_Tangaroa#	Tangaroa	
+FlotationLids	50#Landmark_Tangaroa#	Tangaroa	
+Flowerpot_01	50#Landmark_Tangaroa#	Tangaroa	
+Flowerpot_02	50#Landmark_Tangaroa#	Tangaroa	
+Flowerpot_03	50#Landmark_Tangaroa#	Tangaroa	
+Frame	50#Landmark_Tangaroa#	Tangaroa	
+Gate_Handle	50#Landmark_Tangaroa#	Tangaroa	
+Gate_LED_Locked	50#Landmark_Tangaroa#	Tangaroa	
+Gate_LED_Unlocked	50#Landmark_Tangaroa#	Tangaroa	
+Generator	50#Landmark_Tangaroa#	Tangaroa	
+Hanger_01	50#Landmark_Tangaroa#	Tangaroa	
+HangingPlant1	50#Landmark_Tangaroa#	Tangaroa	
+HarborGate	50#Landmark_Tangaroa#	Tangaroa	
+HarborPlatform	50#Landmark_Tangaroa#	Tangaroa	
+Hatch	50#Landmark_Tangaroa#	Tangaroa	
+Inside	50#Landmark_Tangaroa#	Tangaroa	
+KeyCard	50#Landmark_Tangaroa#	Tangaroa	
+LargePlant1	50#Landmark_Tangaroa#	Tangaroa	
+LargePlant2	50#Landmark_Tangaroa#	Tangaroa	
+Magnet_Base	50#Landmark_Tangaroa#	Tangaroa	
+MapTable	50#Landmark_Tangaroa#	Tangaroa	
+MediumPlant1	50#Landmark_Tangaroa#	Tangaroa	
+MediumPlant2	50#Landmark_Tangaroa#	Tangaroa	
+MediumPlant3	50#Landmark_Tangaroa#	Tangaroa	
+Mirror_01	50#Landmark_Tangaroa#	Tangaroa	
+Mirror_02	50#Landmark_Tangaroa#	Tangaroa	
+Model	50#Landmark_Tangaroa#	Tangaroa	
+NetCanister_Empty	50#Landmark_Tangaroa#	Tangaroa	
+OuterDoorFrame	50#Landmark_Tangaroa#	Tangaroa	
+OuterDoorL	50#Landmark_Tangaroa#	Tangaroa	
+OuterDoorR	50#Landmark_Tangaroa#	Tangaroa	
+OutOfOrderPoster	50#Landmark_Tangaroa#	Tangaroa	
+Outside	50#Landmark_Tangaroa#	Tangaroa	
+Painting_01	50#Landmark_Tangaroa#	Tangaroa	
+Painting_02	50#Landmark_Tangaroa#	Tangaroa	
+Painting_03	50#Landmark_Tangaroa#	Tangaroa	
+Painting_04	50#Landmark_Tangaroa#	Tangaroa	
+Painting_05	50#Landmark_Tangaroa#	Tangaroa	
+Painting_06	50#Landmark_Tangaroa#	Tangaroa	
+Painting_07	50#Landmark_Tangaroa#	Tangaroa	
+Painting_08	50#Landmark_Tangaroa#	Tangaroa	
+Painting_Architect	50#Landmark_Tangaroa#	Tangaroa	
+Painting_Captain	50#Landmark_Tangaroa#	Tangaroa	
+Pickup_Landmark_Tree_Banana	50#Landmark_Tangaroa#	Harvestable	h
+PlantationDoor	50#Landmark_Tangaroa#	Tangaroa	
+PlantationDoorFrame	50#Landmark_Tangaroa#	Tangaroa	
+PlantationDoorGreenLight	50#Landmark_Tangaroa#	Tangaroa	
+Plate_01	50#Landmark_Tangaroa#	Tangaroa	
+QuestItemPickup_Tangaroa_GeneratorPart 1	50#Landmark_Tangaroa#	Tangaroa	
+QuestItemPickup_Tangaroa_GeneratorPart 2	50#Landmark_Tangaroa#	Tangaroa	
+QuestItemPickup_Tangaroa_GeneratorPart 4	50#Landmark_Tangaroa#	Tangaroa	
+QuestItemPickup_Tangaroa_Tape	50#Landmark_Tangaroa#	Tangaroa	
+QuestItemPickup_Tangaroa_Token	50#Landmark_Tangaroa#	Tangaroa	
+RestaFence	50#Landmark_Tangaroa#	Tangaroa	
+RestaSunshadeGround	50#Landmark_Tangaroa#	Tangaroa	
+RestaSunshadeWall	50#Landmark_Tangaroa#	Tangaroa	
+RT_FloodlightBase	50#Landmark_Tangaroa#	Tangaroa	
+Rug_01	50#Landmark_Tangaroa#	Tangaroa	
+Rug_02	50#Landmark_Tangaroa#	Tangaroa	
+Rug_03	50#Landmark_Tangaroa#	Tangaroa	
+Rug_04	50#Landmark_Tangaroa#	Tangaroa	
+SeparatePickupModel_Blueprint	50#Landmark_Tangaroa#	Tangaroa	
+SeparatePickupModel_Safe	50#Landmark_Tangaroa#	Tangaroa	
+SeparatePickupModel_Safe_NextFrequency	50#Landmark_Tangaroa#	Tangaroa	
+SeparatePickupModel_Safe_Tulley	50#Landmark_Tangaroa#	Tangaroa	
+Shelf_Empty_01	50#Landmark_Tangaroa#	Tangaroa	
+Shelf_Empty_02	50#Landmark_Tangaroa#	Tangaroa	
+Shelf_Empty_03	50#Landmark_Tangaroa#	Tangaroa	
+Shower_01	50#Landmark_Tangaroa#	Tangaroa	
+SmallPlant1	50#Landmark_Tangaroa#	Tangaroa	
+SmallPlant2	50#Landmark_Tangaroa#	Tangaroa	
+SmallPlant3	50#Landmark_Tangaroa#	Tangaroa	
+Soap_01	50#Landmark_Tangaroa#	Tangaroa	
+Sofa_01	50#Landmark_Tangaroa#	Tangaroa	
+SofaU_01	50#Landmark_Tangaroa#	Tangaroa	
+Stairwell_CeilingLamp	50#Landmark_Tangaroa#	Tangaroa	
+Stairwell_CeilingLamp_NoLight	50#Landmark_Tangaroa#	Tangaroa	
+Stairwell_Gate	50#Landmark_Tangaroa#	Tangaroa	
+Stairwell_WallLamp	50#Landmark_Tangaroa#	Tangaroa	
+Stairwell_WallLamp_NoLight	50#Landmark_Tangaroa#	Tangaroa	
+Table_Coffee_01	50#Landmark_Tangaroa#	Tangaroa	
+Table_Common_01	50#Landmark_Tangaroa#	Tangaroa	
+Table_Dining_01	50#Landmark_Tangaroa#	Tangaroa	
+Tablelamp_01	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_ArtistKit_Canvas_Blank	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_ArtistKit_CanvasStack_Blank	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_ArtistKit_Easel1	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_ArtistKit_PaintBrushJar	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_ArtistKit_Painting1	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_ArtistKit_Painting2	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_ArtistKit_Painting3	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_ArtistKit_PaintJar_Black	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_ArtistKit_PaintJar_Blue	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_ArtistKit_PaintJar_Green	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_ArtistKit_PaintJar_Red	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_ArtistKit_PaintJar_White	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_BallroomKit_ChandelierOn	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_BallroomKit_GrandPiano	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_BathroomMirror	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_BathroomSink	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_BayDoor	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_BirthdayKit_BirthdayBanner	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_BirthdayKit_OldCake	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_BirthdayKit_PartyHat	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_BirthdayKit_PresentOpen	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_BirthdayKit_PresentPile1	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_BirthdayKit_PresentPile2	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_BirthdayKit_Streamers1	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_BirthdayKit_Streamers2	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_BirthdayKit_WallBalloons1	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_BirthdayKit_WallBalloons2	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_BirthdayKit_WallBalloons3	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_BoardRoomKit_ChartBoard	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_BoardRoomKit_Table	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_BoardRoomKit_WhiteBoard	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_Cockpit_Seats	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_CockpitLaunchKeypad	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_HangingTowel	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_OfficeKit_CoffeeCup	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_OfficeKit_CoffeeMachine	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_OfficeKit_ComputerChassis	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_OfficeKit_Cubicle1	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_OfficeKit_Cubicle2	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_OfficeKit_Cubicle3	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_OfficeKit_Cubicle4_NoDrawers	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_OfficeKit_Keyboard	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_OfficeKit_Mouse_Mousepad	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_OfficeKit_OfficeChair	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_OutdoorFurniture_Bench	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_OutdoorFurniture_Chair	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_OutdoorFurniture_Table	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_OutdoorFurniture_Tray	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_RolledTowel	50#Landmark_Tangaroa#	Tangaroa	
+Tangaroa_RoofTopDeco_Chimney	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaBench	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaBucket	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaFounderStatue	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaHandFork	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaHandSpade	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaHarbor_Tunnel	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaHatchLadder	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaHatchRoom	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaHatchRoom_Hatch	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_Bench4	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_Bench4_Sink	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_Bench5	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_Bench5_Sink	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_BenchCabinet1	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_BenchCabinet1_Openable	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_BenchCabinet2	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_BenchCabinet2_Openable	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_BenchDrawers	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_BenchDrawers_Openable	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_BenchFrontBlank	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_CuttingBoard	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_Fridge	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_Island_WineShelf	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_Spatula	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_Spoon1	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_Spoon2	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_StoveHood	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_StoveOven	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_TopCabinet1	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_TopCabinet1_Openable	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_TopCabinet2	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_TopCabinet2_Openable	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_TopEndcaps	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_TopEndcaps1	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_TopEndcaps2	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_TopEndcaps3	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_TopEndcaps4	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaKitchen_UtensilHanger	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaNumberSign1	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaNumberSign2	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaNumberSign3	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaNumberSign4	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaNumberSign5	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaNumberSign6	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaPaperPile1	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaPaperPile2	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaPaperPile3	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaPlantationDoor_Decoration	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaRoads_Combined	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaStoreSign_ChisBurgers	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaStoreSign_FloatingFashion	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaStoreSign_SeasideBarber	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaStoreSign_SeasideBarber_Pole	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaStoreSign_VRArcade	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaTapedDoor	50#Landmark_Tangaroa#	Tangaroa	
+TangaroaTapedDoor_Open	50#Landmark_Tangaroa#	Tangaroa	
+Tapeable_BrokenCable_Redirect_1	50#Landmark_Tangaroa#	Tangaroa	
+Tapeable_BrokenCable_Redirect_2	50#Landmark_Tangaroa#	Tangaroa	
+Tapeable_BrokenCable_Redirect_3	50#Landmark_Tangaroa#	Tangaroa	
+Tapeable_BrokenCable_Redirect_4	50#Landmark_Tangaroa#	Tangaroa	
+Text	50#Landmark_Tangaroa#	Tangaroa	
+Text_CurrentFloor	50#Landmark_Tangaroa#	Tangaroa	
+ThisRemovesLightBleedingIntoTunnelBelow	50#Landmark_Tangaroa#	Tangaroa	
+Toilet_01	50#Landmark_Tangaroa#	Tangaroa	
+Toiletpaper_01	50#Landmark_Tangaroa#	Tangaroa	
+TowerDoorHinges	50#Landmark_Tangaroa#	Tangaroa	
+TowerDoorL	50#Landmark_Tangaroa#	Tangaroa	
+TowerDoorR	50#Landmark_Tangaroa#	Tangaroa	
+TowerGravelPath	50#Landmark_Tangaroa#	Tangaroa	
+Trashcan_01	50#Landmark_Tangaroa#	Tangaroa	
+Tub_01	50#Landmark_Tangaroa#	Tangaroa	
+und_tunnel_Door	50#Landmark_Tangaroa#	Tangaroa	
+und_tunnel_DoorHinge	50#Landmark_Tangaroa#	Tangaroa	
+Underground_Room_Ceiling	50#Landmark_Tangaroa#	Tangaroa	
+Underground_Room_Floor	50#Landmark_Tangaroa#	Tangaroa	
+Underground_Room_Wall_Bot	50#Landmark_Tangaroa#	Tangaroa	
+Underground_Room_Wall_ElevatorDoor	50#Landmark_Tangaroa#	Tangaroa	
+Underground_Room_Wall_Top_Window	50#Landmark_Tangaroa#	Tangaroa	
+Underground_Stairwell	50#Landmark_Tangaroa#	Tangaroa	
+Underground_Tunnel_DoorFrame01	50#Landmark_Tangaroa#	Tangaroa	
+Underground_Tunnel_DoorFrameOneWayDoor	50#Landmark_Tangaroa#	Tangaroa	
+UndergroundToSurface_Tunnel	50#Landmark_Tangaroa#	Tangaroa	
+Utensilholder_01	50#Landmark_Tangaroa#	Tangaroa	
+Vases_01	50#Landmark_Tangaroa#	Tangaroa	
+Vases_02	50#Landmark_Tangaroa#	Tangaroa	
+Vases_03	50#Landmark_Tangaroa#	Tangaroa	
+VendingMachine_w_Animations	50#Landmark_Tangaroa#	Tangaroa	
+VG_DecorationPrefabBase_PillowDecor_4 Variant	50#Landmark_Tangaroa#	Tangaroa	x
+VG_DecorationPrefabBase_Pipe_3Crossing Variant	50#Landmark_Tangaroa#	Tangaroa	
+VG_DecorationPrefabBase_Pipe_ThinkSegment Variant	50#Landmark_Tangaroa#	Tangaroa	
+VG_DecorationPrefabBase_Tools_Saw2 Variant	50#Landmark_Tangaroa#	Tangaroa	
+VG_DecorationPrefabBase_Tools_Screwdriver Variant	50#Landmark_Tangaroa#	Tangaroa	
+VG_DecorationPrefabBase_Tools_Square Variant	50#Landmark_Tangaroa#	Tangaroa	
+Walldecor_01	50#Landmark_Tangaroa#	Tangaroa	
+Walldecor_02	50#Landmark_Tangaroa#	Tangaroa	
+Walldecor_03	50#Landmark_Tangaroa#	Tangaroa	
+WBottle_01	50#Landmark_Tangaroa#	Tangaroa	
+WBottle_02	50#Landmark_Tangaroa#	Tangaroa	
+ZiplinePath	50#Landmark_Tangaroa#	Tangaroa	
+AcaciaTree_Big1	51#Landmark_CaravanSmall#1	Caravan Town	
+AcaciaTree_Big3	51#Landmark_CaravanSmall#1	Caravan Town	
+Beam_Long_01	51#Landmark_CaravanSmall#1	Caravan Town	
+Caravan_Blue_01	51#Landmark_CaravanSmall#1	Caravan Town	
+Caravan_Green_01	51#Landmark_CaravanSmall#1	Caravan Town	
+DeadTree_TreeStumps_1	51#Landmark_CaravanSmall#1	Caravan Town	
+DeadTree_TreeStumps_2	51#Landmark_CaravanSmall#1	Caravan Town	
+DeadTree_TreeStumps_3	51#Landmark_CaravanSmall#1	Caravan Town	
+Exterior_CaravanStairs	51#Landmark_CaravanSmall#1	Caravan Town	
+FishingNets_02	51#Landmark_CaravanSmall#1	Caravan Town	
+MetalSheet_2	51#Landmark_CaravanSmall#1	Caravan Town	
+MetalSheet_3	51#Landmark_CaravanSmall#1	Caravan Town	
+MetalSheet_5	51#Landmark_CaravanSmall#1	Caravan Town	
+Pallet	51#Landmark_CaravanSmall#1	Caravan Town	
+Scaffolding_2x2m	51#Landmark_CaravanSmall#1	Caravan Town	
+Scrap_02	51#Landmark_CaravanSmall#1	Caravan Town	
+Stairway_1	51#Landmark_CaravanSmall#1	Caravan Town	
+Stairway_2	51#Landmark_CaravanSmall#1	Caravan Town	
+Caravan_Green_02	52#Landmark_CaravanSmall#2	Caravan Town	
+Caravan_Yellow_01	52#Landmark_CaravanSmall#2	Caravan Town	
+RopeFence_Short	52#Landmark_CaravanSmall#2	Caravan Town	
+Stairway_3	52#Landmark_CaravanSmall#2	Caravan Town	
+LandmarkLadder_6m	53#Landmark_CaravanSmall#3	Caravan Town	
+Scaffolding_6x4m	53#Landmark_CaravanSmall#3	Caravan Town	
+AirPillar	54#Landmark_VarunaPoint#	Varuna Point	
+Balboa_DecorationPrefabBase_Old Armchair	54#Landmark_VarunaPoint#	Varuna Point	
+Carriable_Barrel_Model	54#Landmark_VarunaPoint#	Varuna Point	
+Crate_Big_Base	54#Landmark_VarunaPoint#	Varuna Point	
+LightCone	54#Landmark_VarunaPoint#	Varuna Point	
+Model_Fill	54#Landmark_VarunaPoint#	Varuna Point	
+Model_Frame	54#Landmark_VarunaPoint#	Varuna Point	
+Model_key	54#Landmark_VarunaPoint#	Varuna Point	
+PlasticCup_Empty	54#Landmark_VarunaPoint#	Varuna Point	
+QuestInteractable_VP_Door_Executive	54#Landmark_VarunaPoint#	Varuna Point	
+QuestItemPickup_VP_CraneKey	54#Landmark_VarunaPoint#	Varuna Point	
+QuestItemPickup_VP_MotherloadKey	54#Landmark_VarunaPoint#	Varuna Point	
+QuestItemPickup_VP_SpotlightPart	54#Landmark_VarunaPoint#	Varuna Point	
+SeaWeed	54#Landmark_VarunaPoint#	Varuna Point	
+TEMP LIGHT CONE	54#Landmark_VarunaPoint#	Varuna Point	
+test_debris_plank	54#Landmark_VarunaPoint#	Varuna Point	
+Varuna BreakRoomBuilding	54#Landmark_VarunaPoint#	Varuna Point	
+VG_DecorationPrefabBase_Book_1 Variant	54#Landmark_VarunaPoint#	Varuna Point	
+VP_AirPocket_Buoy	54#Landmark_VarunaPoint#	Varuna Point	
+VP_AngleGrinder	54#Landmark_VarunaPoint#	Varuna Point	
+VP_ApexCrane	54#Landmark_VarunaPoint#	Varuna Point	
+VP_BlankForm	54#Landmark_VarunaPoint#	Varuna Point	
+VP_BrickStack01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_BrickStack02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_BrickStack03	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Cable_Floor01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Cable_Floor02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Cable_Floor03	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Cable_Roll01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Cable_Roll02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Cable_Roof01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Cable_Roof02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Cable_Wall01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Cable_Wall02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Cable_WallFloor01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Cable_WallFloor02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_ConcretePipe01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_ConcretePipe02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_ConcretePipeSlot	54#Landmark_VarunaPoint#	Varuna Point	
+VP_ConcretePipeSlot01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_ConcretePipeSlot02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_CoralBulb03	54#Landmark_VarunaPoint#	Varuna Point	
+VP_CoralBulb04	54#Landmark_VarunaPoint#	Varuna Point	
+VP_CoralBulb06	54#Landmark_VarunaPoint#	Varuna Point	
+VP_CoralDigitate01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_CoralDigitate02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_CoralDigitate03	54#Landmark_VarunaPoint#	Varuna Point	
+VP_CoralFoliose01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_CoralFoliose02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_CoralFoliose03	54#Landmark_VarunaPoint#	Varuna Point	
+VP_CoralTubular01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_CoralTubular03	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_Armchair	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_BedKingsize	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_BedKingsize_Cover	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_Bedside_Table	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_Book_1	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_Book_2	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_Book_3	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_Book_4	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_Book_Tall_1	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_Book_Tall_2	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_Book_Tall_4	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_Bookshelf	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_Bookshelf Filled 1	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_Bookshelf Filled 2	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_Bookshelf Filled 3	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_Carpet_Circle	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_Carpet_Rectangle	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_CeilingLamp_Fancy	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_Clock	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_Closet	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_Desk	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_DinnerChair	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_DinnerTable	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_DinnerTable_Oval	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_FloorLamp	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DecorationPrefabBase_OfficeChair	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Doll_Miranda	54#Landmark_VarunaPoint#	Varuna Point	
+VP_DoublDoor_Executive	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Dumpster01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Dumpster02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_ElevatorShaft	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Excavator	54#Landmark_VarunaPoint#	Varuna Point	
+VP_ExplosiveBarrel_Pile	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Folder	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Folder02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Folder03	54#Landmark_VarunaPoint#	Varuna Point	
+VP_FoldingLadder_Short	54#Landmark_VarunaPoint#	Varuna Point	
+VP_FoldingLadder_Tall	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Forklift	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Form02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Form03	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Form04	54#Landmark_VarunaPoint#	Varuna Point	
+VP_GarageDoor	54#Landmark_VarunaPoint#	Varuna Point	
+VP_GarageDoor_Frame	54#Landmark_VarunaPoint#	Varuna Point	
+VP_GarageDoor_KeyHole	54#Landmark_VarunaPoint#	Varuna Point	
+VP_GlassBridge	54#Landmark_VarunaPoint#	Varuna Point	
+VP_GlassBridge_Broken	54#Landmark_VarunaPoint#	Varuna Point	
+VP_HammerDrill	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Jigsaw	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MakeshiftReceiver	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MetalCrate01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MetalCrate02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MetalCrate03	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MetalCrate04	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MotherlodeBuildingPieces_Wall	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MotherlodeBuildingPieces_WallBreakable	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MotherlodeBuildingPieces_WallBreakable_Broken	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MotherlodeElevatorTrack_CompleteSet	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MotherlodeFloor1	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MotherlodeFloor2	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MotherlodeMap	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MotherlodePillar1_Exploded	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MotherlodePillar1_Stage1	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MotherlodePillar1_Stage2	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MotherlodePillar2_Exploded	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MotherlodePillar2_Stage1	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MotherlodePillar2_Stage2	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MotherlodePillar2_Stage3	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MotherlodePillar3_Exploded	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MotherlodePillar3_Stage1	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MotherlodePillar3_Stage2	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MotherlodePillar3_Stage3	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MotherlodePillar3_Stage4	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MovingBox01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MovingBox02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MovingBox03	54#Landmark_VarunaPoint#	Varuna Point	
+VP_MovingBox04	54#Landmark_VarunaPoint#	Varuna Point	
+VP_NailBoard_01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_NailBoard_02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_NailBoard_03	54#Landmark_VarunaPoint#	Varuna Point	
+VP_NailBoard_04	54#Landmark_VarunaPoint#	Varuna Point	
+VP_NailBoard_05	54#Landmark_VarunaPoint#	Varuna Point	
+VP_NailPole_01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_NailPole_02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Noteboard	54#Landmark_VarunaPoint#	Varuna Point	
+VP_OneWayDoor	54#Landmark_VarunaPoint#	Varuna Point	
+VP_PortableToilet	54#Landmark_VarunaPoint#	Varuna Point	
+VP_RotaryTool	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Rubble_Brick01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Rubble_Brick02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Rubble_Brick03	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Rubble_Brick04	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Rubble_Brick05	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Rubble_Cement01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Rubble_Cement02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Rubble_Cement03	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Rubble_Cement04	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Rubble_Cement05	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Rubble_Cement06	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Rubble_Cement07	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Rubble_MetalPiece01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Rubble_MetalPiece02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Rubble_MetalPiece03	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Rubble_Plank01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Rubble_Plank02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_RubblePile_Large01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_RubblePile_Large02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_RubblePile_Large03	54#Landmark_VarunaPoint#	Varuna Point	
+VP_RubblePile_Medium01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_RubblePile_Medium02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_RubblePile_Medium03	54#Landmark_VarunaPoint#	Varuna Point	
+VP_RubblePile_Small01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_RubblePile_Small02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_RubblePile_Small03	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Scaffolding_L_Extension	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Scaffolding_L_Open	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Scaffolding_L_Ramp	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Scaffolding_M_Extension	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Scaffolding_M_Open	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Scaffolding_M_Ramp	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Scaffolding_S_Extension	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Scaffolding_S_Open	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Scaffolding_S_Ramp	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Screwdriver	54#Landmark_VarunaPoint#	Varuna Point	
+VP_ShopVac	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Skylift	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Skylift_Extended	54#Landmark_VarunaPoint#	Varuna Point	
+VP_SpikeTrap_01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_SpikeTrap_03	54#Landmark_VarunaPoint#	Varuna Point	
+VP_SpikeTrap_04	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Spotlight	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Spotlight_LightBulb	54#Landmark_VarunaPoint#	Varuna Point	
+VP_SteelBeam01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_SteelBeam02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_SteelBeam03	54#Landmark_VarunaPoint#	Varuna Point	
+VP_StorageCrate01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_StorageCrate02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_StorageCrate03	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Wagon01	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Wagon02	54#Landmark_VarunaPoint#	Varuna Point	
+VP_WeldingTool	54#Landmark_VarunaPoint#	Varuna Point	
+VP_Whiteboard	54#Landmark_VarunaPoint#	Varuna Point	
+GameObject	55#Landmark_Temperance#	Temperance	
+Keypad	55#Landmark_Temperance#	Temperance	
+QuestInteractable_TP_WeatherStationSafe	55#Landmark_Temperance#	Temperance	
+QuestItemPickup_Tangaroa_ControlRod_Base	55#Landmark_Temperance#	Temperance	
+QuestItemPickup_Temperance_MasterKey	55#Landmark_Temperance#	Temperance	
+QuestItemPickup_TP_Blowtorch	55#Landmark_Temperance#	Temperance	
+QuestItemPickup_TP_ElectricityCable	55#Landmark_Temperance#	Temperance	
+QuestItemPickup_TP_SeleneGateKey	55#Landmark_Temperance#	Temperance	
+RadiationMap_Off	55#Landmark_Temperance#	Temperance	
+RadiationMap_On	55#Landmark_Temperance#	Temperance	
+Ravine_Cave	55#Landmark_Temperance#	Temperance	
+Ravine_Intact	55#Landmark_Temperance#	Temperance	
+SnowBlockParticle	55#Landmark_Temperance#	Temperance	
+SnowmobileShedMesh	55#Landmark_Temperance#	Temperance	
+Text (TMP)	55#Landmark_Temperance#	Temperance	
+TMP LAMP	55#Landmark_Temperance#	Temperance	
+TP_AirDuctConnector	55#Landmark_Temperance#	Temperance	
+TP_AirDuctCornerL	55#Landmark_Temperance#	Temperance	
+TP_AirDuctCornerR	55#Landmark_Temperance#	Temperance	
+TP_AirDuctStraight_Vent	55#Landmark_Temperance#	Temperance	
+TP_BigRock04_Unclimbable	55#Landmark_Temperance#	Temperance	
+TP_Blowtorch	55#Landmark_Temperance#	Temperance	
+TP_CabinetCharts01	55#Landmark_Temperance#	Temperance	
+TP_CabinetCharts02	55#Landmark_Temperance#	Temperance	
+TP_CabinetCharts03	55#Landmark_Temperance#	Temperance	
+TP_CabinetCharts04	55#Landmark_Temperance#	Temperance	
+TP_CablePoint	55#Landmark_Temperance#	Temperance	
+TP_CaveTunnel_Room_WeatherStationLadder	55#Landmark_Temperance#	Temperance	
+TP_CaveTunnel_SurfaceStaircase	55#Landmark_Temperance#	Temperance	
+TP_ComputerChallenge_Poster_CA	55#Landmark_Temperance#	Temperance	
+TP_ComputerChallenge_Poster_CE	55#Landmark_Temperance#	Temperance	
+TP_ComputerChallenge_Poster_CL	55#Landmark_Temperance#	Temperance	
+TP_ComputerChallenge_Poster_HG	55#Landmark_Temperance#	Temperance	
+TP_ComputerChallenge_Poster_NA	55#Landmark_Temperance#	Temperance	
+TP_ComputerChallenge_Poster_PM	55#Landmark_Temperance#	Temperance	
+TP_ComputerChallenge_Poster_PT	55#Landmark_Temperance#	Temperance	
+TP_ComputerChallenge_Poster_RB	55#Landmark_Temperance#	Temperance	
+TP_ComputerChallenge_Poster_SN	55#Landmark_Temperance#	Temperance	
+TP_ControlRod	55#Landmark_Temperance#	Temperance	
+TP_CoolingStation_Keysocket	55#Landmark_Temperance#	Temperance	
+TP_CoolingStation_Monitor	55#Landmark_Temperance#	Temperance	
+TP_CoolingStation_Monitor_Hatch01	55#Landmark_Temperance#	Temperance	
+TP_CoolingStation_Monitor_Hatch02	55#Landmark_Temperance#	Temperance	
+TP_CoolingStation_Monitor_Lever	55#Landmark_Temperance#	Temperance	
+TP_CoolingStation_Monitor_Light	55#Landmark_Temperance#	Temperance	
+TP_DeskLamp	55#Landmark_Temperance#	Temperance	
+TP_Doll_Henry	55#Landmark_Temperance#	Temperance	
+TP_Drawer	55#Landmark_Temperance#	Temperance	
+TP_ElectricalBuilding	55#Landmark_Temperance#	Temperance	
+TP_FileBox01	55#Landmark_Temperance#	Temperance	
+TP_FileBox02	55#Landmark_Temperance#	Temperance	
+TP_FileBox05	55#Landmark_Temperance#	Temperance	
+TP_FileBox06	55#Landmark_Temperance#	Temperance	
+TP_FoldingStool	55#Landmark_Temperance#	Temperance	
+TP_FoldingTable_Large	55#Landmark_Temperance#	Temperance	
+TP_IcePillar01	55#Landmark_Temperance#	Temperance	
+TP_IcePillar02	55#Landmark_Temperance#	Temperance	
+TP_IcePillar04_Snow	55#Landmark_Temperance#	Temperance	
+TP_IceShore	55#Landmark_Temperance#	Temperance	
+TP_Icicles03	55#Landmark_Temperance#	Temperance	
+TP_Icicles05	55#Landmark_Temperance#	Temperance	
+TP_Igloo_Large_1	55#Landmark_Temperance#	Temperance	
+TP_Igloo_Medium_1	55#Landmark_Temperance#	Temperance	
+TP_Igloo_Medium_2	55#Landmark_Temperance#	Temperance	
+TP_Igloo_Small	55#Landmark_Temperance#	Temperance	
+TP_Igloo_Small_1	55#Landmark_Temperance#	Temperance	
+TP_Igloo_Small_2	55#Landmark_Temperance#	Temperance	
+TP_Igloo_Small_3	55#Landmark_Temperance#	Temperance	
+TP_LabBottle01	55#Landmark_Temperance#	Temperance	
+TP_LabBottle02	55#Landmark_Temperance#	Temperance	
+TP_LabBottle03	55#Landmark_Temperance#	Temperance	
+TP_LabBottle04	55#Landmark_Temperance#	Temperance	
+TP_LabBottle05	55#Landmark_Temperance#	Temperance	
+TP_LaboratoryMachine_Large01	55#Landmark_Temperance#	Temperance	
+TP_LaboratoryMachine_Large02	55#Landmark_Temperance#	Temperance	
+TP_LaboratoryMachine_Small01	55#Landmark_Temperance#	Temperance	
+TP_LaboratoryMachine_Small02	55#Landmark_Temperance#	Temperance	
+TP_LaboratoryMachine_Small03	55#Landmark_Temperance#	Temperance	
+TP_Laptop01	55#Landmark_Temperance#	Temperance	
+TP_Laptop02	55#Landmark_Temperance#	Temperance	
+TP_Laptop03	55#Landmark_Temperance#	Temperance	
+TP_LaserControlPanel	55#Landmark_Temperance#	Temperance	
+TP_LaserControlPanel_lever	55#Landmark_Temperance#	Temperance	
+TP_LaserControlPanel_LightRed	55#Landmark_Temperance#	Temperance	
+TP_LaserDoorPanel	55#Landmark_Temperance#	Temperance	
+TP_LaserDoorPanel_broken	55#Landmark_Temperance#	Temperance	
+TP_LaserEmitter	55#Landmark_Temperance#	Temperance	
+TP_MirrorHousing_InteractableMirror	55#Landmark_Temperance#	Temperance	
+TP_MirrorHousing_Rotating	55#Landmark_Temperance#	Temperance	
+TP_MirrorHousing_StaticMirror	55#Landmark_Temperance#	Temperance	
+TP_Moontown_Barrel01_Clean	55#Landmark_Temperance#	Temperance	
+TP_Moontown_Barrel02	55#Landmark_Temperance#	Temperance	
+TP_Moontown_Barrel03_Clean	55#Landmark_Temperance#	Temperance	
+TP_Moontown_Barrel04_Clean	55#Landmark_Temperance#	Temperance	
+TP_Moontown_Bridge	55#Landmark_Temperance#	Temperance	
+TP_Moontown_SealedCrate02_Clean	55#Landmark_Temperance#	Temperance	
+TP_Moontown_SealedCrate03_Clean	55#Landmark_Temperance#	Temperance	
+TP_Moontown_Steps01	55#Landmark_Temperance#	Temperance	
+TP_Moontown_Steps02	55#Landmark_Temperance#	Temperance	
+TP_Moontown_Steps03	55#Landmark_Temperance#	Temperance	
+TP_Moontown_Steps04	55#Landmark_Temperance#	Temperance	
+TP_Moontown_Steps05	55#Landmark_Temperance#	Temperance	
+TP_Moontown_TarpCrate02_Clean	55#Landmark_Temperance#	Temperance	
+TP_Moontown_TarpCrate03_Clean	55#Landmark_Temperance#	Temperance	
+TP_RadiationCooling	55#Landmark_Temperance#	Temperance	
+TP_RotatingRedLight	55#Landmark_Temperance#	Temperance	
+TP_Selene_ComputerGeneric_01	55#Landmark_Temperance#	Temperance	
+TP_Selene_ComputerGeneric_02	55#Landmark_Temperance#	Temperance	
+TP_Selene_ComputerGeneric_03	55#Landmark_Temperance#	Temperance	
+TP_Selene_ComputerGeneric_Fake_CA	55#Landmark_Temperance#	Temperance	
+TP_Selene_ComputerGeneric_Fake_PT	55#Landmark_Temperance#	Temperance	
+TP_Selene_ComputerGeneric_Fake_SN	55#Landmark_Temperance#	Temperance	
+TP_Selene_ComputerRoom_HangingCable01	55#Landmark_Temperance#	Temperance	
+TP_Selene_ComputerRoom_HangingCable02	55#Landmark_Temperance#	Temperance	
+TP_Selene_ComputerRoom_HangingCable03	55#Landmark_Temperance#	Temperance	
+TP_Selene_ComputerRoom_HangingCable04	55#Landmark_Temperance#	Temperance	
+TP_Selene_ComputerRoom_Server01	55#Landmark_Temperance#	Temperance	
+TP_Selene_ComputerRoom_Server02	55#Landmark_Temperance#	Temperance	
+TP_Selene_ComputerRoom_Server03	55#Landmark_Temperance#	Temperance	
+TP_Selene_CryoChamber	55#Landmark_Temperance#	Temperance	
+TP_Selene_DoorCrank	55#Landmark_Temperance#	Temperance	
+TP_Selene_DoorCrankWheel	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_DoorFrame	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_DoorFrame_WithClosedDoor	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_DoorFrame_WithDoorOneWay	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_DoorFrame_WithDoorReactorKey	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_DoorFrame_WithDoorTimer	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_DoorLargeL	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_DoorLargeL_Light01	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_DoorLargeR	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_DoorLargeR_light01	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_DoorLight_Green	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_DoorLight_Green LAB1	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_DoorLight_Red	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_DoorLight_Red LAB1	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_MainRoom	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Room_Bars	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Room_Ceiling	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Room_Ceiling_Corner	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Room_Ceiling_Corner_Double	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Room_Ceiling_Corner_Inverted	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Room_Ceiling_Edge	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Room_Corner	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Room_Corner_Inverted	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Room_Entrance	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Room_Floor_Corner	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Room_Floor_Cross	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Room_Floor_CrossT	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Room_Floor_DeadEnd	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Room_Floor_Plain	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Room_Floor_Straight	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Room_Wall	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Tunnel_Corner	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Tunnel_CrossT	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Tunnel_Fight_Corner	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Tunnel_Fight_Entrance	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Tunnel_Fight_Straight	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Tunnel_Ladder_Bot	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Tunnel_Ladder_Top	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Tunnel_ReactorStaircase	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Tunnel_Stairs	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Tunnel_StairsLong	55#Landmark_Temperance#	Temperance	
+TP_Selene_Int_Tunnel_Straight	55#Landmark_Temperance#	Temperance	
+TP_SeleneComputerChallenge_Comp	55#Landmark_Temperance#	Temperance	
+TP_SeleneComputerChallenge_LampGreen	55#Landmark_Temperance#	Temperance	
+TP_SeleneComputerChallenge_LampRed	55#Landmark_Temperance#	Temperance	
+TP_SeleneEntranceGate	55#Landmark_Temperance#	Temperance	
+TP_SeleneEntranceKey_AnimKey	55#Landmark_Temperance#	Temperance	
+TP_SeleneEntranceKeyPanel_AnimIce01	55#Landmark_Temperance#	Temperance	
+TP_SeleneEntranceKeyPanel_AnimIce02	55#Landmark_Temperance#	Temperance	
+TP_SeleneEntranceKeyPanel_Base	55#Landmark_Temperance#	Temperance	
+TP_SeleneEntranceKeyPanel_IceMelted	55#Landmark_Temperance#	Temperance	
+TP_SeleneEntranceKeyPanel_IceUnmelted	55#Landmark_Temperance#	Temperance	
+TP_SeleneEntranceKeyPanel_Unlocked	55#Landmark_Temperance#	Temperance	
+TP_SeleneReactor_Water_Radiated	55#Landmark_Temperance#	Temperance	
+TP_SeleneReactorChimney	55#Landmark_Temperance#	Temperance	
+TP_SeleneReactorControls	55#Landmark_Temperance#	Temperance	
+TP_SeleneReactorControls_lights	55#Landmark_Temperance#	Temperance	
+TP_SeleneSigns_ControlRoom	55#Landmark_Temperance#	Temperance	
+TP_SeleneSigns_Lab1(lab2)	55#Landmark_Temperance#	Temperance	
+TP_SeleneSigns_Lab2 (lab 1)	55#Landmark_Temperance#	Temperance	
+TP_SeleneSigns_Reactor	55#Landmark_Temperance#	Temperance	
+TP_ServerCrate01	55#Landmark_Temperance#	Temperance	
+TP_ServerCrate02	55#Landmark_Temperance#	Temperance	
+TP_ServerCrate03	55#Landmark_Temperance#	Temperance	
+TP_ServerCrate04	55#Landmark_Temperance#	Temperance	
+TP_Shelf01	55#Landmark_Temperance#	Temperance	
+TP_Shelf02	55#Landmark_Temperance#	Temperance	
+TP_SmallRock02	55#Landmark_Temperance#	Temperance	
+TP_SnowShovel02	55#Landmark_Temperance#	Temperance	
+TP_SnowVehicle01	55#Landmark_Temperance#	Temperance	
+TP_SnowVehicle02	55#Landmark_Temperance#	Temperance	
+TP_StalagmiteCluster01	55#Landmark_Temperance#	Temperance	
+TP_StalagmiteCluster02	55#Landmark_Temperance#	Temperance	
+TP_StalagmiteCluster02_Snow	55#Landmark_Temperance#	Temperance	
+TP_StalagmiteCluster03	55#Landmark_Temperance#	Temperance	
+TP_TelephoneAntenna	55#Landmark_Temperance#	Temperance	
+TP_Telescope	55#Landmark_Temperance#	Temperance	
+TP_UnderwaterCaveTunnel_Corner	55#Landmark_Temperance#	Temperance	
+TP_UnderwaterCaveTunnel_CornerLong	55#Landmark_Temperance#	Temperance	
+TP_UnderwaterCaveTunnel_CrossT	55#Landmark_Temperance#	Temperance	
+TP_UnderwaterCaveTunnel_Straight	55#Landmark_Temperance#	Temperance	
+TP_UnderwaterCaveTunnel_StraightLong	55#Landmark_Temperance#	Temperance	
+TP_WeatherStation	55#Landmark_Temperance#	Temperance	
+BaseModel	56#Landmark_Utopia#	Utopia	
+boss_character	56#Landmark_Utopia#	Utopia	
+boss_head	56#Landmark_Utopia#	Utopia	
+BossRoomDoor01	56#Landmark_Utopia#	Utopia	
+BossRoomDoor02	56#Landmark_Utopia#	Utopia	
+bruno_character	56#Landmark_Utopia#	Utopia	
+bruno_head	56#Landmark_Utopia#	Utopia	
+Chains01_Closed	56#Landmark_Utopia#	Utopia	
+Chains02_Open	56#Landmark_Utopia#	Utopia	
+cogwheel	56#Landmark_Utopia#	Utopia	
+cogwheel model	56#Landmark_Utopia#	Utopia	
+detto_body	56#Landmark_Utopia#	Utopia	
+detto_head	56#Landmark_Utopia#	Utopia	
+Door01	56#Landmark_Utopia#	Utopia	
+Door02_Closed	56#Landmark_Utopia#	Utopia	
+Door02_Open	56#Landmark_Utopia#	Utopia	
+FakeLeanWall	56#Landmark_Utopia#	Utopia	
+hanne_character	56#Landmark_Utopia#	Utopia	
+hanne_head	56#Landmark_Utopia#	Utopia	
+LandmarkLadder_Bamboo_Medium01	56#Landmark_Utopia#	Utopia	
+LandmarkLadder_Bamboo_Small	56#Landmark_Utopia#	Utopia	
+LandmarkLadder_Bamboo_Small (BossDropDown)	56#Landmark_Utopia#	Utopia	
+LandmarkLadder_Bamboo_Small (JumpPuzzle)	56#Landmark_Utopia#	Utopia	
+MapPickup_Model	56#Landmark_Utopia#	Utopia	
+Meat	56#Landmark_Utopia#	Utopia	
+model_bench	56#Landmark_Utopia#	Utopia	
+QuestItemPickup_Utopia_Cable	56#Landmark_Utopia#	Utopia	
+QuestItemPickup_Utopia_Hammer	56#Landmark_Utopia#	Utopia	
+QuestItemPickup_Utopia_HarpoonPart	56#Landmark_Utopia#	Utopia	
+QuestItemPickup_Utopia_KeyEntrance	56#Landmark_Utopia#	Utopia	
+QuestItemPickup_Utopia_KeyPhase1	56#Landmark_Utopia#	Utopia	
+QuestItemPickup_Utopia_KeyRescue	56#Landmark_Utopia#	Utopia	
+QuestItemPickup_Utopia_ZiplineHarpoonPart	56#Landmark_Utopia#	Utopia	
+Rope	56#Landmark_Utopia#	Utopia	
+Tangaroa_OutdoorFurnitureSilver_Bench	56#Landmark_Utopia#	Utopia	
+Tangaroa_OutdoorFurnitureSilver_Chair	56#Landmark_Utopia#	Utopia	
+Tangaroa_OutdoorFurnitureSilver_Table	56#Landmark_Utopia#	Utopia	
+TangaroaBenchSilver	56#Landmark_Utopia#	Utopia	
+Tire_01	56#Landmark_Utopia#	Utopia	
+UT_Bridge02	56#Landmark_Utopia#	Utopia	
+UT_CablePoint	56#Landmark_Utopia#	Utopia	
+UT_ClothOverhangBig04	56#Landmark_Utopia#	Utopia	
+UT_ClothOverhangBig05	56#Landmark_Utopia#	Utopia	
+UT_ClothOverhangBig13	56#Landmark_Utopia#	Utopia	
+UT_ClothOverhangBig16	56#Landmark_Utopia#	Utopia	
+UT_ClothOverhangSmall01	56#Landmark_Utopia#	Utopia	
+UT_ClothOverhangSmall05	56#Landmark_Utopia#	Utopia	
+UT_ClothOverhangSmall07	56#Landmark_Utopia#	Utopia	
+UT_CoveredCrate01	56#Landmark_Utopia#	Utopia	
+UT_CoveredCrate02	56#Landmark_Utopia#	Utopia	
+UT_CoveredCrate03	56#Landmark_Utopia#	Utopia	
+UT_DanglyDecoration01	56#Landmark_Utopia#	Utopia	
+UT_DanglyDecoration02	56#Landmark_Utopia#	Utopia	
+UT_DanglyDecoration03	56#Landmark_Utopia#	Utopia	
+UT_DanglyDecoration04	56#Landmark_Utopia#	Utopia	
+UT_DettoDoor	56#Landmark_Utopia#	Utopia	
+UT_DettoDoorBase	56#Landmark_Utopia#	Utopia	
+UT_DettoDoorLock	56#Landmark_Utopia#	Utopia	
+UT_DIY_Decoration01	56#Landmark_Utopia#	Utopia	
+UT_DIY_Decoration02	56#Landmark_Utopia#	Utopia	
+UT_DIY_Decoration03	56#Landmark_Utopia#	Utopia	
+UT_DIY_Decoration04	56#Landmark_Utopia#	Utopia	
+UT_DogCage_Medium02	56#Landmark_Utopia#	Utopia	
+UT_Drawbridge	56#Landmark_Utopia#	Utopia	
+UT_DrawBridgeMechanism_Cogwheel01	56#Landmark_Utopia#	Utopia	
+UT_DreamCatcher01	56#Landmark_Utopia#	Utopia	
+UT_DreamCatcher02	56#Landmark_Utopia#	Utopia	
+UT_ElectricCable01	56#Landmark_Utopia#	Utopia	
+UT_ElectricCableHub01	56#Landmark_Utopia#	Utopia	
+UT_ElectricCableHub02	56#Landmark_Utopia#	Utopia	
+UT_ElectricCableHub03	56#Landmark_Utopia#	Utopia	
+UT_ElectricityIsland_Crane01	56#Landmark_Utopia#	Utopia	
+UT_ElectricityIsland_Crane02	56#Landmark_Utopia#	Utopia	
+UT_EndRoom_Chair	56#Landmark_Utopia#	Utopia	
+UT_EndRoom_Curtain	56#Landmark_Utopia#	Utopia	
+UT_EndRoom_Painting01	56#Landmark_Utopia#	Utopia	
+UT_EndRoom_Painting02	56#Landmark_Utopia#	Utopia	
+UT_EndRoom_Painting03	56#Landmark_Utopia#	Utopia	
+UT_EndRoom_Painting05	56#Landmark_Utopia#	Utopia	
+UT_EndRoom_Painting06	56#Landmark_Utopia#	Utopia	
+UT_EndRoom_Pot01	56#Landmark_Utopia#	Utopia	
+UT_EndRoom_Pot02	56#Landmark_Utopia#	Utopia	
+UT_EndRoom_Pot03	56#Landmark_Utopia#	Utopia	
+UT_EndRoom_Table	56#Landmark_Utopia#	Utopia	
+UT_Generator01	56#Landmark_Utopia#	Utopia	
+UT_Generator02	56#Landmark_Utopia#	Utopia	
+UT_Harpoon_Barrel	56#Landmark_Utopia#	Utopia	
+UT_Harpoon_Base	56#Landmark_Utopia#	Utopia	
+UT_HarpoonTower_Platform	56#Landmark_Utopia#	Utopia	
+UT_HookRoom_Lift	56#Landmark_Utopia#	Utopia	
+UT_HookRoom_Lift_Cogwheel	56#Landmark_Utopia#	Utopia	
+UT_HookRoom_Rig_1	56#Landmark_Utopia#	Utopia	
+UT_HookRoom_Rig_2	56#Landmark_Utopia#	Utopia	
+UT_HookRoom_Weight02	56#Landmark_Utopia#	Utopia	
+UT_Hut_LockedDoor_DoorL	56#Landmark_Utopia#	Utopia	
+UT_Hut_LockedDoor_DoorR	56#Landmark_Utopia#	Utopia	
+UT_Hut_OneWayDoor	56#Landmark_Utopia#	Utopia	
+UT_HyenaRoomDoor	56#Landmark_Utopia#	Utopia	
+UT_HyenaRoomDoorFrame	56#Landmark_Utopia#	Utopia	
+UT_JumpPuzzl_ElectricCable	56#Landmark_Utopia#	Utopia	
+UT_JumpPuzzle_Fan_Pole	56#Landmark_Utopia#	Utopia	
+UT_JumpPuzzle_Fan_Wings	56#Landmark_Utopia#	Utopia	
+UT_JumpPuzzle_Lift	56#Landmark_Utopia#	Utopia	
+UT_JumpPuzzle_LiftMechanism	56#Landmark_Utopia#	Utopia	
+UT_JumpPuzzle_LiftMechanism_Lever	56#Landmark_Utopia#	Utopia	
+UT_LightBottle01	56#Landmark_Utopia#	Utopia	
+UT_LightBottle02	56#Landmark_Utopia#	Utopia	
+UT_LightBottle03	56#Landmark_Utopia#	Utopia	
+UT_MainEntranceDoor	56#Landmark_Utopia#	Utopia	
+UT_MainEntranceDoor_Padlock02	56#Landmark_Utopia#	Utopia	
+UT_MarketBasket01	56#Landmark_Utopia#	Utopia	
+UT_MarketBasket02	56#Landmark_Utopia#	Utopia	
+UT_MarketBasket03	56#Landmark_Utopia#	Utopia	
+UT_MarketBasket03_Banana	56#Landmark_Utopia#	Utopia	
+UT_MarketCrateSmall01	56#Landmark_Utopia#	Utopia	
+UT_MarketCrateSmall02	56#Landmark_Utopia#	Utopia	
+UT_MarketCrateSmall03	56#Landmark_Utopia#	Utopia	
+UT_MarketStackBox01	56#Landmark_Utopia#	Utopia	
+UT_OlofRope	56#Landmark_Utopia#	Utopia	
+UT_OlofRope_PostOlof	56#Landmark_Utopia#	Utopia	
+UT_Set_BossRoom	56#Landmark_Utopia#	Utopia	
+UT_Set_Docks	56#Landmark_Utopia#	Utopia	
+UT_Set_GlassBridge	56#Landmark_Utopia#	Utopia	
+UT_Set_HookRoom01	56#Landmark_Utopia#	Utopia	
+UT_Set_HyenaRoom	56#Landmark_Utopia#	Utopia	
+UT_Set_JumpPuzzle	56#Landmark_Utopia#	Utopia	
+UT_Set_JumpPuzzle_Platforms	56#Landmark_Utopia#	Utopia	
+UT_Set_JumpPuzzle_SafetyNet	56#Landmark_Utopia#	Utopia	
+UT_Set_Market	56#Landmark_Utopia#	Utopia	
+UT_Set_Plantation01	56#Landmark_Utopia#	Utopia	
+UT_Set_Prison	56#Landmark_Utopia#	Utopia	
+UT_Set_Tower_EndRoom	56#Landmark_Utopia#	Utopia	
+UT_Set_Tower_EndRoom_Glass	56#Landmark_Utopia#	Utopia	
+UT_Set_Tower_Int_BrokenElevatorRoom	56#Landmark_Utopia#	Utopia	
+UT_Set_Tower_Int_HarpoonRoom	56#Landmark_Utopia#	Utopia	
+UT_Set_Tower_Int_MainEntrance	56#Landmark_Utopia#	Utopia	
+UT_Set_Tower_Int_PreJumpPuzzle	56#Landmark_Utopia#	Utopia	
+UT_Set_Tower_Int_RescueElevatorRoom	56#Landmark_Utopia#	Utopia	
+UT_Set_Tower01	56#Landmark_Utopia#	Utopia	
+UT_Set_Tower02	56#Landmark_Utopia#	Utopia	
+UT_Set_Tower03	56#Landmark_Utopia#	Utopia	
+UT_Set_TowerDeco01	56#Landmark_Utopia#	Utopia	
+UT_Set_TowerDeco02	56#Landmark_Utopia#	Utopia	
+UT_Set_TowerDeco03	56#Landmark_Utopia#	Utopia	
+UT_Set_TowerHarpoon	56#Landmark_Utopia#	Utopia	
+UT_Set_TowerHarpoon_WindowBroken	56#Landmark_Utopia#	Utopia	
+UT_Set_TowerHarpoon_WindowIntact	56#Landmark_Utopia#	Utopia	
+UT_Skyscraber01PadlockDoor	56#Landmark_Utopia#	Utopia	
+UT_Skyscraber01PadlockDoor_Lock02	56#Landmark_Utopia#	Utopia	
+UT_Skyscraber01PadlockDoorBase	56#Landmark_Utopia#	Utopia	
+UT_Skyscraper03Door	56#Landmark_Utopia#	Utopia	
+UT_Skyscraper03DoorBase	56#Landmark_Utopia#	Utopia	
+UT_Skyscraper03DoorLock	56#Landmark_Utopia#	Utopia	
+UT_Spinner	56#Landmark_Utopia#	Utopia	
+UT_WaterChallengeWheel1	56#Landmark_Utopia#	Utopia	
+UT_WaterChallengeWheel2	56#Landmark_Utopia#	Utopia	
+UT_WaterChallengeWheel3	56#Landmark_Utopia#	Utopia	
+UT_WaterPump	56#Landmark_Utopia#	Utopia	
+UT_WaterTank	56#Landmark_Utopia#	Utopia	
+VP_MotherlodeKey_Inserted	56#Landmark_Utopia#	Utopia	
+ZiplinePath_Caravan	56#Landmark_Utopia#	Utopia	
+ZiplinePath_JumpChallenge	56#Landmark_Utopia#	Utopia	
+ZiplinePath_Utopia_ZipineHook	56#Landmark_Utopia#	Utopia	
+TP_TelephoneAntenna_NoQuestItem	57#Landmark_TemperanceSmall#1	Temperance	
+TP_IceShore_Small2	58#Landmark_TemperanceSmall#2	Temperance	
+TP_IceShore_Small3	59#Landmark_TemperanceSmall#3	Temperance	
+Pickup_Landmark_Scrap 1_Land	19#Landmark_Radar#Big radio tower	Harvestable	h
+Pickup_Landmark_Scrap 2_Land	19#Landmark_Radar#Big radio tower	Harvestable	h
+Pickup_Landmark_Scrap 3_Land	19#Landmark_Radar#Big radio tower	Harvestable	h
+Pickup_Landmark_Plastic3_Land	19#Landmark_Radar#Big radio tower	Harvestable	h
+Pickup_Landmark_Plastic6_Land	19#Landmark_Radar#Big radio tower	Harvestable	h
+Pickup_Landmark_Palmtree 1	34#Landmark_Small#1	Harvestable	h
+Pickup_Landmark_Palmtree 3	34#Landmark_Small#1	Harvestable	h
+Pickup_Landmark_Palmtree 4	35#Landmark_Small#2	Harvestable	h
+Pickup_Landmark_Palmtree 2	36#Landmark_Small#3	Harvestable	h
+Pickup_Landmark_Scrap 4_Land	44#Landmark_Vasagatan	Harvestable	h
+Pickup_Landmark_Rock_2_Land	45#Landmark_BalboaIsland	Harvestable	h
+Pickup_Landmark_Mushroom 1	45#Landmark_BalboaIsland	Harvestable	h
+Pickup_Landmark_Mushroom 2	45#Landmark_BalboaIsland	Harvestable	h
+Pickup_Landmark_Mushroom 3	45#Landmark_BalboaIsland	Harvestable	h
+Pickup_Landmark_Tree_AcaciaTree_Big 1	49#Landmark_CaravanIsland#RealDeal	Harvestable	h
+Pickup_Landmark_Tree_AcaciaTree_Big 3	49#Landmark_CaravanIsland#RealDeal	Harvestable	h
+Pickup_Landmark_Tree_Tangaroa_1	50#Landmark_Tangaroa#	Harvestable	h
+Pickup_Landmark_Strawberry	50#Landmark_Tangaroa#	Harvestable	h
+Pickup_Landmark_Titanium_Land	50#Landmark_Tangaroa#	Harvestable	h
+Pickup_Landmark_Plank_Land	50#Landmark_Tangaroa#	Harvestable	h
+Pickup_Landmark_MarketGood_Banana_Basket01	56#Landmark_Utopia#	Harvestable	h
+Pickup_Landmark_MarketGood_Banana_Basket03	56#Landmark_Utopia#	Harvestable	h
+Pickup_Landmark_MarketGood_Banana_CrateBig02	56#Landmark_Utopia#	Harvestable	h
+Pickup_Landmark_MarketGood_Banana_CrateSmall01	56#Landmark_Utopia#	Harvestable	h
+Pickup_Landmark_MarketGood_Banana_CrateSmall03	56#Landmark_Utopia#	Harvestable	h
+Pickup_Landmark_MarketGood_Banana_Sack	56#Landmark_Utopia#	Harvestable	h

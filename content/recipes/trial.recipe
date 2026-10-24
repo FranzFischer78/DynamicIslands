@@ -1,0 +1,29 @@
+# A trial of the recipe player: each kind of step once (not library content)
+new
+gen Seed=4242
+gen Radius=40
+gen Height=14
+gen Style=0
+gen Shape=0
+gen ObjectDensity=0.3
+gen Hostiles=0
+gen Friendly=0
+gen SeaLife=0
+generate
+info title=Recipe trial
+info author=Custom Islands
+info description=Made by the recipe player.
+brush raise at 0 0 r=8 s=6 frames=20
+brush sand at 10 0 r=6 frames=20
+place Placeable_Lantern_Basic lamp at 2 2
+place RT_Wall1 wall at -4 3 yaw=90
+place Note_Paper note1 at 0 4 y=0.05
+note note1 A trial note | This note was written by the recipe player.\nA second line.
+story trialkey|Trial key|Key|A key made by a recipe.
+place Loot_Chest chest1 at 3 -3
+loot chest1 Plank*3;story:trialkey*1
+quest title=Trial quest
+quest intro=Find the key.
+step collect|story:trialkey|1|Find the trial key
+quest done=Well done.
+save CI recipe trial

@@ -1,0 +1,30 @@
+# Play test of Turtlewatch Atoll (CIPlay turtlewatch_atoll, in a test world 'CI ...'). No quest: the walk round the
+# sanctuary, its notes and boxes, its animals. Points as in its recipe: the landing at 3 36; the pens on the east beach at
+# 32 8 and 32 -6 (their open west sides); the hut on the south shore (deck 6.1 m, its ladder at 0.25 -32.1); the lookout
+# at -32 4
+island Turtlewatch Atoll
+expect animals Turtle 4
+expect animals Dolphin 2
+expect animals Stingray 2
+wait 5
+
+# The north landing: the welcome board, the box
+walk 3 33 to 3 35.5 h=3.2
+read Welcome board
+open Landing box
+# Round the east side to the nesting beach: the pens' signs, the egg count, the hatchery box
+walk 34 1 to 30.5 1 h=3.3
+read North pen
+read South pen
+read Egg count board
+open Hatchery box
+# The warden's hut on the south shore: up its ladder; his log, the supply crate; the medicine box below
+walk 4 -36 to 0.25 -34 h=3.5
+climb 0.25 -32.1 h=3.5
+expect stand 0.25 -30 h=6.1 below=8
+read Warden's log
+open Volunteers' supply crate
+open Warden's medicine box
+# The lookout over the west reef
+walk -30 -2 to -30.5 1 h=3.4
+read Reef notes

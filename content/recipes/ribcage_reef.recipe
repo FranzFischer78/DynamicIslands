@@ -1,0 +1,381 @@
+# Ribcage Reef - a new island of the library, seven times the size (x7)
+# A black volcanic crescent round a deep bay, and along the bay's south shore the bleached skeleton of a giant sea
+# creature: its tail on the west, a village of huts on stilts inside its ribs, a stage under its jaw, its great skull
+# half drowned in the bay - and a bone altar on the east horn. The bone-singers who lived here played the ribs like chimes
+# at their festival; this year they missed it.
+# Quest "The Bone-Singers' Festival" (22 steps in 4 chapters): the village (the tail's offering box, crabs, four song
+# shells one by one - two houses, the top of the highest rib, the tide pool), the song (four ribs struck in order inside thirty breaths), the skull (a dive, the eye's pearl in an
+# air pocket, the guardian), the festival.
+#
+# Built by the recipe player (CIRecipe ribcage_reef) through the editor's own operations.
+include lib_huts
+include lib_rt
+include lib_sea
+new
+# (nature: volcanic - hardy palms behind the village, black sand)
+gen Trees=0.2 Bushes=0.3 Rocks=0.5 Harvest=0.25 BeachThings=0.3
+gen Seed=9225 Radius=119 Height=22 Roughness=0.45 Peaks=2 Shape=6 Style=4 BeachWidth=0.5 Cliffs=0.5 PeakShape=0.35
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the village's shore levelled at 2 m along the bay's south side (x -2..42); the tide pool at its east end
+# (3 m under the sea); the throat - a slope from the jaw down into the bay; the skull's chamber's floor in the bay (9 m
+# down); the altar's spot on the east horn -----------------------------------------------------------------------------------
+brush flatten from -2 2 to 42 2 r=10 s=20 frames=400 h=2
+brush flatten from 42 2 to 48 2 r=5 s=20 frames=200 h=2
+brush flatten at 38 10 r=3 s=20 frames=200 h=-3
+for i 0 8 1
+brush flatten at {50+1.2*$i} {2+2.5*$i} r=2.4 s=20 frames=150 h={2-1.4*$i}
+next
+brush flatten at 62 29 r=7.5 s=20 frames=300 h=-9
+brush flatten at 92 22 r=5 s=20 frames=150 h=3
+brush sand from -2 2 to 46 2 r=8 s=20 frames=20
+clear from -4 2 to 48 2 r=10
+clear at 62 29 r=9
+clear at 92 22 r=7
+
+# --- The skeleton: ribs of bleached dead trees leaning in pairs over the village (their tops meeting), the highest rib on
+# the south side, vertebrae of boulders down the tail to the west, teeth along the jaw by the stage -----------------------
+for x 2 37 5
+place DeadTree1 bone at $x 9.5 ground sit scale=1.6 rot=-24,180,0
+next
+# (the south ribs at x 7 and 27 would stand in the stilt huts: moved clear, the rest in two loops)
+for x 2 37 10
+place DeadTree1 bone at $x -5.5 ground sit scale=1.6 rot=24,0,0
+next
+for x 17 37 20
+place DeadTree1 bone at $x -5.5 ground sit scale=1.6 rot=24,0,0
+next
+place DeadTree1 bone at 9.4 -5.5 ground sit scale=1.6 rot=24,0,0
+place DeadTree1 bone at 24.5 -5.5 ground sit scale=1.6 rot=24,0,0
+place DeadTree2 bone at 22 -7 ground sit scale=2.2 rot=10,0,0
+for v 0 3 1
+place BigBoulder4_Low bone at {-4-6*$v} {2+5*$v} ground sit scale=0.22 yaw={40*$v}
+next
+place TP_Icicles05 bone at 41 -3 ground sit scale=4 rot=180,0,0
+place TP_Icicles05 bone at 41 7 ground sit scale=4 rot=180,20,0
+place TP_Icicles05 bone at 47 -3 ground sit scale=4 rot=180,40,0
+place TP_Icicles05 bone at 47 7 ground sit scale=4 rot=180,60,0
+
+# --- The village gate between the first ribs (two tiki poles and a driftwood lintel), the invitation; the singers' houses
+# on stilts between the ribs (song shells in two of them), drying racks, nets, a fire pit, the cook pot and its box; hens;
+# the crabs wait for whoever walks in ---------------------------------------------------------------------------------------
+place Placeable_TikiPole_Complete - at -3 -1.5 ground sit
+place Placeable_TikiPole_Complete - at -3 5.5 ground sit
+place Note_Board invitation at -5 -3 ground yaw=90
+place Zone_Trigger ribvillage at 12 2 y=1.5
+place Creature_Roach crabs at 14 1 ground
+push at 4 -8 h=2.05
+call stilt_hut y=1
+place Loot_ChestSmall shellhouse1 at 2.25 3.6 y=1 sit yaw=180
+pop
+push at 12 5 h=2.05
+call stilt_hut y=1.2
+pop
+push at 26 -8 h=2.05
+call stilt_hut y=0.8
+place Loot_ChestSmall shellhouse2 at 3.4 3.5 y=0.8 sit yaw=180
+pop
+push at 28.5 4.5 h=2.05
+call stilt_hut y=1.4
+pop
+place campfire_1 - at 19 2 ground sit
+place Placeable_CookingPot - at 17 0 ground sit
+place "Box Small" potbox at 17 -1.8 ground sit yaw=30
+place Placeable_FirewoodRack - at 9 0 ground sit yaw=90
+place FishingNets_02 - at 34 1 ground sit scale=2.5
+place Creature_Chicken hens at 15 4 ground
+
+# --- The highest rib: a tower of posts beside it with ladders up to a platform at its top (the third shell's box) -------
+place RT_PillarThick - at 23.5 -2.2 y=0
+place RT_PillarThick - at 23.5 -2.2 y=6
+place RT_PillarThick - at 23.5 -0.7 y=0
+place RT_PillarThick - at 23.5 -0.7 y=6
+place LandmarkLadder_6m - at 23.8 -1.45 y=0 yaw=270
+place LandmarkLadder_6m - at 23.8 -1.45 y=6.6 yaw=270
+place RT_Floor ribplatform at 23.5 0.4 y=12.05 sx=0.4 sz=0.35
+place Loot_ChestSmall shellrib at 22.4 -1.4 y=12.2 drop yaw=90
+place Zone_Trigger ribtop at 22.6 -1.4 y=13.4
+
+# --- The tide pool at the village's east end, by the bay: rocks round it, anemones, the fourth shell on its floor ---------
+place SmallBoulder3 - at 35 9 ground sit scale=0.6 yaw=20
+place SmallBoulder3 - at 41 10 ground sit scale=0.5 yaw=130
+place Loot_ChestSmall shellpool at 38 10 h=-3 sit yaw=40
+place LeafCoral_1 - at 37 11 h=-3 sit
+place SpineCoral_1 - at 39 8.6 h=-3 sit
+
+# --- The jaw stage at the ribcage's east end: a floor of boards, the song's rule on a jawbone; the four rib-chimes (a
+# striking post at the foot of each of the four ribs nearest it); the jaw - a grid of bone beams across the throat's mouth,
+# and behind it the throat's second gate; the throat sloping down into the bay; the festival chest under the stage ---------
+push at 41.25 -0.25 h=2.05
+call floors w=4 d=3 y=0.3
+pop
+place Note_Sign songrule at 47 -1 h=2.05 sit yaw=270
+place Zone_Trigger jawstage at 44 2 h=3.5
+place Pillar_04 ribtide at 31 -3.8 ground sit
+place Pillar_04 ribwind at 31 7.8 ground sit
+place Pillar_04 ribstar at 36 -3.8 ground sit
+place Pillar_04 ribdeep at 36 7.8 ground sit
+place Relay_support_beam_wood jaw at 49 -3 ground rot=0,0,-90 sx=0.5
+place Relay_support_beam_wood jaw at 49 -1 ground rot=0,0,-90 sx=0.5
+place Relay_support_beam_wood jaw at 49 1 ground rot=0,0,-90 sx=0.5
+place Relay_support_beam_wood jaw at 49 3 ground rot=0,0,-90 sx=0.5
+place Relay_support_beam_wood jaw at 49 5 ground rot=0,0,-90 sx=0.5
+place Relay_support_beam_wood jaw at 49 7 ground rot=0,0,-90 sx=0.5
+place Helper_Wall jaw at 49 -2.5 ground sy=1.6 yaw=90
+place Helper_Wall jaw at 49 1.5 ground sy=1.6 yaw=90
+place Helper_Wall jaw at 49 5.5 ground sy=1.6 yaw=90
+place Relay_support_beam_wood throat at 51.5 -3 ground rot=0,0,-90 sx=0.5
+place Relay_support_beam_wood throat at 51.5 -1 ground rot=0,0,-90 sx=0.5
+place Relay_support_beam_wood throat at 51.5 1 ground rot=0,0,-90 sx=0.5
+place Relay_support_beam_wood throat at 51.5 3 ground rot=0,0,-90 sx=0.5
+place Relay_support_beam_wood throat at 51.5 5 ground rot=0,0,-90 sx=0.5
+place Relay_support_beam_wood throat at 51.5 7 ground rot=0,0,-90 sx=0.5
+place Helper_Wall throat at 51.5 -2.5 ground sy=1.6 yaw=90
+place Helper_Wall throat at 51.5 1.5 ground sy=1.6 yaw=90
+place Helper_Wall throat at 51.5 5.5 ground sy=1.6 yaw=90
+place Zone_Trigger throatzone at 54 6 h=1
+place Loot_ChestLarge festivalchest at 43 1 h=2.4 sit yaw=90
+
+# --- The skull in the bay: the great head lying on its side, half drowned; its chamber under it (a room on the bay's
+# floor, its door south to the throat): the eldest's tablet, the eye's pearl in its box with air up under the ceiling,
+# the brain-case's chest (hidden till the guardian falls), the guardian, the dark ------------------------------------------
+place Placeable_RhinoSharkTrophy skullbone at 62 33 h=-2 scale=3 rot=0,0,90
+push at 65 29.5 h=-8.95
+call rt_storey f1=RT_WallDoor1 f2=RT_Wall1
+place RT_Floor - at 0 4.5 y=3
+place Note_Sign tablet at -5.5 1 y=0 sit yaw=90
+place Loot_ChestSmall eyepearl at -0.8 3.6 y=0 sit yaw=180
+place Zone_Trigger eyeair at -1.5 2.5 y=2.4
+place Zone_Atmosphere eyebubbles at -1.5 2.5 y=2.4
+place Loot_ChestLarge braincase at -3 3.6 y=0 sit yaw=180
+place Creature_AnglerFish guardian at -3 0 y=1.5
+place Zone_Trigger skull at -3 0 y=1.5
+place Zone_Atmosphere skulldark at -3 0 y=1.5
+pop
+
+# --- The bone altar on the east horn's tip: a pale slab, tiki poles round it; the festival, hidden till the heartbone is
+# laid - lanterns along the shore and the ribs, garlands, fire baskets, the glow, the music, the singers' blessing, the
+# dolphins that come for it -----------------------------------------------------------------------------------------------
+place BigRock_Low3_Sand altar at 92 22 ground sit scale=0.22
+place Placeable_TikiPole_Complete - at 88 19 ground sit
+place Placeable_TikiPole_Complete - at 96 19 ground sit
+place Placeable_TikiPole_Complete - at 88 26 ground sit
+place Placeable_TikiPole_Complete - at 96 26 ground sit
+place Zone_Trigger altarzone at 92 22 y=1.5
+place Note_Board blessing at 92 17.5 ground yaw=180
+for l 0 5 1
+place Placeable_Lantern_Basic festival at {4+7*$l} 0.5 ground sit
+next
+place Placeable_Lantern_FireBasket festival at 88 22 ground sit
+place Placeable_Lantern_FireBasket festival at 96 22 ground sit
+place Placeable_Streamer festival at 42 -0.5 h=2.35 sit
+place Placeable_Streamer festival at 46 4.5 h=2.35 sit
+place Zone_Atmosphere festivalglow at 20 2 y=8
+place Zone_Atmosphere festivalglow at 80 20 y=8
+place Zone_Sound festivalmusic at 44 2 y=4
+place Creature_Dolphin festivaldolphins at 55 40 h=-2
+
+# --- The crescent's back: palms behind the village, turtles in the bay, a sunk canoe off the tail and a box at its last
+# vertebra; the wind in the ribs ---------------------------------------------------------------------------------------------
+scatter "Pickup_Landmark_Tree_Palm 3" 2 at 15 -18 r=6 seed=2501
+place Creature_Turtle turtles at 30 40 h=-2
+place Loot_SunkenBarrel sunkcanoe at 10 36 h=-2 drop
+place "Box Small" tailbox at -21 18 ground sit yaw=40
+place Zone_Sound bonewind at 20 2 y=6
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): mangoes, pineapples, flowers ----------
+scatter "Pickup_Landmark_Tree_Mango" 6 at 0 0 r=83.3 seed=4150 free=5
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=83.3 seed=4160 free=3
+scatter "Pickup_Landmark_Flower_Black" 4 at 0 0 r=83.3 seed=4170 free=3
+scatter "Pickup_Landmark_Flower_Red" 4 at 0 0 r=83.3 seed=4171 free=3
+
+# --- Raft's finds in the shallows round the crescent and in the bay (lib_sea) ------------------------------------------------
+call shallows r=139 deep=5 n=2
+
+# ===== Settings, story items, notes, behaviours, quest (22 steps, 4 chapters) =============================================
+info title=Ribcage Reef
+info author=Custom Islands
+info description=A village built inside the bleached ribs of a giant sea creature on a black-sand crescent, its skull half drowned in the bay. The bone-singers missed their own festival this year. Gather the song shells, sing the ribs before the jaw closes, take the heartbone from the skull's guardian - and the festival happens anyway.
+island on.arrive=message||A black crescent of sand - and lying along it, white as chalk, the skeleton of something enormous: ribs taller than trees with huts between them, a jaw at the east end, and in the bay a skull the size of a house.
+
+story songshell|Song shell|Placeable_GiantClam|A spiral shell with a verse of the bone-singers' song scratched inside.
+story mask|Festival mask|Hat_Tiki|A carved bone mask: whoever sings the ribs wears it.
+story pearl|Eye pearl|Placeable_Utopia_LightBottleWhite|A pearl from the skull's eye, big as a fist and faintly glowing.
+story heartbone|The heartbone|quest:Utopia_KeyPhase1|A small bone from the great creature's heart, warm, humming when you hold it near the ribs.
+story garland|Festival garland|Placeable_Streamer|A garland of shells and paper flowers that fell on your shoulders when the old one sang.
+
+note invitation The festival invitation | THE FESTIVAL OF THE BONE-SINGERS - YOU ARE INVITED\n\nThe four verses of the song are kept in four shells, one in each singer's keeping: two in our houses, one at the top of the highest rib, one in the tide pool.\nSing the ribs at the jaw in the verses' order - be quick, the jaw won't wait.\nThroat, skull, heartbone, altar: then we dance.\n\n(chalked across it:) WE'VE GONE ON THE LONG VOYAGE. HOLD IT WITHOUT US.
+note shellhouse1 First song shell | The first shell, in a singer's house: "FIRST the rib of the TIDE, that the sea may listen."
+loot shellhouse1 story:songshell*1;Feather*2
+prop shellhouse1 loot.refill=0
+note shellhouse2 Second song shell | The second shell: "THEN the rib of the WIND, that the sky may listen."
+loot shellhouse2 story:songshell*1;Rope*2
+prop shellhouse2 loot.refill=0
+note shellrib Third song shell | The third shell, at the top of the highest rib: "THEN the rib of the STAR, that the night may listen."
+loot shellrib story:songshell*1;Feather*2
+prop shellrib loot.refill=0
+note shellpool Fourth song shell | The fourth shell, on the tide pool's floor: "LAST the rib of the DEEP, that the old one may listen - and open."
+loot shellpool story:songshell*1;Clay*2
+prop shellpool loot.refill=0
+note songrule The song's rule | (carved on the jawbone over the stage)\n\nStrike the first rib and the jaw lifts - thirty breaths, no more.\nStrike the four in the verses' order while it is up, and the throat opens for good.\nToo slow, and you begin again.
+note tablet The eldest singer's tablet | (a slab of bone on the skull's floor, carved by the eldest singer)\n\nThe old one died here when the world was young. Its heart we keep in its head, and its head is kept by the lamp-fish.\nTake the heartbone to the altar on the horn. When it lies there, the old one sings through its ribs - and that is the festival.
+note eyepearl The eye's pearl | In the eye socket, in a clam as big as a chair: a pearl, glowing faintly.
+loot eyepearl story:pearl*1;TradeToken*3
+prop eyepearl loot.refill=0
+note braincase The skull's brain-case | In the brain-case, where the lamp-fish guarded it: the heartbone, small and warm.
+loot braincase story:heartbone*1;TitaniumOre*2
+prop braincase loot.refill=0
+prop braincase obj.name=braincase
+prop braincase beh.hidden=1
+note blessing The singers' blessing | (on the board by the altar, in lantern light)\n\nYou sang the ribs and carried the heart. The old one sings tonight because of you.\nWear the mask. Take the chest under the stage. Come back next year - we'll be here.\n- the bone-singers
+note festivalchest The festival chest | The festival chest under the stage: the singers' plans for their recycler, which turns the sea's junk into rope, a feast's worth of food, bone carvings, coin.
+loot festivalchest Blueprint_Recycler*1;Cooked_Herring*4;Cooked_GenericMeat*3;TradeToken*10;Rope*4
+prop festivalchest loot.refill=0
+prop festivalchest if.open=signal|festival
+prop festivalchest else.open=message||The festival chest is tied with a garland: AFTER THE FESTIVAL.
+note potbox Cook pot box | A box by the singers' cook pot: dried fish and seaweed.
+loot potbox Cooked_Herring*2;SeaVine*3;Rope*1
+prop potbox loot.refill=0
+note sunkcanoe Sunk canoe | A canoe sunk off the tail: its cargo of trade goods.
+loot sunkcanoe Scrap*3;MetalOre*2;Plastic*2
+prop sunkcanoe loot.refill=0
+note tailbox Tail box | A box tucked between the tail's vertebrae: offerings.
+loot tailbox Feather*3;Stone*3;Clay*2
+prop tailbox loot.refill=0
+
+prop ribtide obj.name=ribtide
+prop ribtide beh.use=Strike the rib of the TIDE
+prop ribtide if.use=has|story:songshell|4\nstate|jaw|closed
+prop ribtide on.use=message||The rib of the tide rings low, like a wave under a hull - and the jaw lifts with a groan. Thirty breaths!\nsignal||c1\nopen|jaw\nsound||event:/crafting/horns/air\nwait|30\nclose|jaw\nmessage||The jaw comes down again with a crack.
+prop ribtide else.use=message||The rib of the tide. You'll want all four verses before you sing - or the jaw is already up: go on!
+prop ribwind obj.name=ribwind
+prop ribwind beh.use=Strike the rib of the WIND
+prop ribwind if.use=signal|c1\nstate|jaw|open
+prop ribwind on.use=message||The rib of the wind sings high and thin.\nsignal||c2\nsound||event:/crafting/horns/bugle
+prop ribwind else.use=message||A dead clack. The jaw is down - begin with the tide again.
+prop ribstar obj.name=ribstar
+prop ribstar beh.use=Strike the rib of the STAR
+prop ribstar if.use=signal|c2\nstate|jaw|open
+prop ribstar on.use=message||The rib of the star rings like a bell in a cold night.\nsignal||c3\nsound||event:/exploring/shop/new_tier
+prop ribstar else.use=message||A dead clack. The jaw is down - begin with the tide again.
+prop ribdeep obj.name=ribdeep
+prop ribdeep beh.use=Strike the rib of the DEEP
+prop ribdeep if.use=signal|c3\nstate|jaw|open\n!signal|sung
+prop ribdeep on.use=message||The rib of the deep answers from under your feet - and all four ribs ring together. The whole skeleton hums. Behind the jaw, the throat's bone gate rises and stays up. On the stage, where you stood, a carved bone mask.\nsignal||sung\nopen|throat\ngive||story:mask*1\nsound||event:/crafting/horns/viking
+prop ribdeep else.use=message||A dead clack. The jaw is down - begin with the tide again.
+prop jaw obj.name=jaw
+prop jaw beh.move=0,5,0
+prop jaw beh.moveTime=2
+prop jaw beh.moveMode=switch
+prop throat obj.name=throat
+prop throat beh.move=0,5,0
+prop throat beh.moveTime=3
+prop throat beh.moveMode=switch
+prop guardian creature.count=1
+prop guardian creature.size=2.2
+prop guardian creature.health=4
+prop guardian creature.damage=2
+prop guardian creature.respawn=0
+prop guardian creature.zone=skull
+prop guardian on.defeat=show|braincase\nmessage||The lamp-fish's light goes out. In the brain-case's hollow, a chest you couldn't see in its glare.
+prop altar obj.name=altar
+prop altar beh.use=Lay the heartbone on the altar
+prop altar if.use=quest|19\ntake|story:heartbone|1
+prop altar on.use=message||You lay the heartbone on the bone slab. A hum runs up the vertebrae, along the crescent, into the ribs - and the old one SINGS, every rib at once, a sound like a whale and a choir. Lanterns flicker alight along the ribs, garlands lift in a wind that isn't there, and in the bay, dolphins come leaping.\nsignal||festival\nshow|festival\nshow|festivalglow\nshow|festivalmusic\nshow|festivaldolphins\nshow|blessing\ngive||story:garland*1\nsound||event:/wildlife/whale/whale_call
+prop altar else.use=message||The bone altar on the horn. The eldest's tablet says what lies here.
+prop festival obj.name=festival
+prop festival beh.hidden=1
+prop festivalglow obj.name=festivalglow
+prop festivalglow beh.hidden=1
+prop festivalglow atmo.fog=#2a1a3a
+prop festivalglow atmo.fogAmount=0.1
+prop festivalglow atmo.light=#ffc080
+prop festivalglow atmo.lightAmount=0.35
+prop festivalglow atmo.particles=fireflies
+prop festivalglow zone.radius=40
+prop festivalmusic obj.name=festivalmusic
+prop festivalmusic beh.hidden=1
+prop festivalmusic sound.event=event:/raft/radio/cassette/cassette02
+prop festivalmusic sound.volume=0.5
+prop festivalmusic zone.radius=45
+prop festivaldolphins obj.name=festivaldolphins
+prop festivaldolphins beh.hidden=1
+prop festivaldolphins creature.count=4
+prop blessing obj.name=blessing
+prop blessing beh.hidden=1
+
+prop ribvillage zone.id=ribvillage
+prop ribvillage zone.radius=10
+prop ribvillage zone.repeat=never
+prop ribvillage zone.message=Inside the ribcage: huts on stilts between ribs taller than trees - and red crabs as big as dogs scuttling out of the nets!
+prop crabs creature.count=4
+prop crabs creature.respawn=0
+prop crabs creature.zone=ribvillage
+prop crabs tint.color=#c84a3a
+prop crabs tint.amount=0.5
+prop ribtop zone.id=ribtop
+prop ribtop zone.radius=3
+prop ribtop zone.message=The top of the highest rib. The whole skeleton below you - and the skull in the bay, watching.
+prop jawstage zone.id=jawstage
+prop jawstage zone.radius=8
+prop jawstage zone.message=The jaw stage: a wooden floor under teeth like spears, four ribs with striking posts, and the jaw shut over the throat.
+prop throatzone zone.id=throatzone
+prop throatzone zone.radius=4
+prop throatzone zone.message=Through the jaw: the throat slopes down into green water, towards the skull.
+prop skull zone.id=skull
+prop skull zone.radius=8
+prop skull zone.repeat=never
+prop skull zone.message=Inside the skull - and in the dark ahead, a lamp lights up. Then teeth.
+prop eyeair zone.id=eyeair
+prop eyeair zone.radius=3
+prop eyeair zone.repeat=1
+prop eyeair zone.air=1
+prop eyebubbles atmo.particles=bubbles
+prop eyebubbles zone.radius=3
+prop skulldark atmo.fog=#06100e
+prop skulldark atmo.fogAmount=0.6
+prop skulldark atmo.light=#2a5a50
+prop skulldark atmo.lightAmount=0.6
+prop skulldark zone.radius=14
+prop altarzone zone.id=altarzone
+prop altarzone zone.radius=6
+prop altarzone zone.message=The bone altar on the horn's tip: a white slab on vertebrae, tiki poles round it, the whole skeleton laid out along the shore.
+prop bonewind sound.event=event:/amb/wreck_creaks
+prop bonewind sound.volume=0.3
+prop bonewind zone.radius=30
+prop hens creature.count=3
+prop turtles creature.count=3
+
+quest title=The Bone-Singers' Festival
+quest intro=A village inside a giant skeleton, its singers away on the long voyage. Their festival invitation hangs at the village gate.
+# Chapter 1 - the village
+step reach|ribvillage|1|Walk in through the ribs to the singers' village
+step read|The festival invitation|1|Read the festival invitation at the gate
+step open|Tail box|1|Follow the tail's vertebrae west to the singers' offering box
+step kill|Roach|4|Drive the bone crabs out of the village
+step open|First song shell|1|Search the singers' stilt houses for the first song shell
+step collect|story:songshell|2|Find the second shell in another singer's house
+step reach|ribtop|1|Climb the post tower to the top of the highest rib
+step collect|story:songshell|3|Take the third shell from the rib's top
+step open|Fourth song shell|1|Dive the tide pool by the bay for the fourth shell
+# Chapter 2 - the song
+step reach|jawstage|1|Go to the stage at the jaw
+step read|The song's rule|1|Read the rule carved on the jawbone
+step collect|story:mask|1|Sing the four ribs in the verses' order before the jaw closes
+step reach|throatzone|1|Go through the open throat
+# Chapter 3 - the skull
+step reach|skull|1|Swim down the throat into the drowned skull
+step read|The eldest singer's tablet|1|Read the eldest singer's tablet on the skull's floor
+step collect|story:pearl|1|Take the pearl from the eye socket (there's air up there)
+step kill|Angler fish|1|Face the skull's guardian, the lamp-fish
+step collect|story:heartbone|1|Take the heartbone from the brain-case
+# Chapter 4 - the festival
+step reach|altarzone|1|Carry the heartbone to the bone altar on the east horn
+step collect|story:garland|1|Lay the heartbone on the altar - and the festival begins
+step read|The singers' blessing|1|Read the singers' blessing by the altar
+step open|The festival chest|1|Open the festival chest under the stage
+quest done=The old one sings through its ribs, the lanterns burn, the dolphins dance in the bay. The bone-singers' festival happened after all - with you wearing the mask.
+quest reward=Cooked_Herring*4;Rope*3;TradeToken*4
+
+save Ribcage Reef

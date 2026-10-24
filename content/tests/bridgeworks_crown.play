@@ -1,0 +1,86 @@
+# Bridgeworks Crown (CIPlay bridgeworks_crown): the landing roof, the bulletin, the screechers, the shutters, the
+# three factions' roofs and demands, the letters and the three secrets (the code's pieces), the alarm bell (storm: the
+# plan's piles rule), the keypad with a wrong code first, the council, five ways, FREE (the plan's freehold rule; the
+# other levers then refuse), the verdict, the reward, Teo's message, the pile stair and the pile head; the treasure.
+# offset 0 0 is a placeholder: phase 2 sets it from the recipe's save log (PLAY_FORMAT: Coordinates).
+island Bridgeworks Crown
+offset 0 0
+expect step 0
+expect title The Council in the Storm
+expect hidden councilchest
+expect hidden verdictfree
+zone landing_roof
+expect step 1
+read Storm bulletin
+expect step 2
+kill Screecher
+expect animals Screecher 0
+expect step 3
+use shutters
+expect story shutters 1
+expect step 4
+zone authority_roof
+expect step 5
+read Authority demand
+expect step 6
+zone fleet_roof
+expect step 7
+read Fleet demand
+expect step 8
+zone union_roof
+expect step 9
+read Union demand
+expect step 10
+open Faction letters
+wait 3
+expect step 11
+read Authority secret
+expect step 12
+read Fleet secret
+expect step 13
+read Union secret
+expect step 14
+use alarmbell
+expect story alarm 1
+expect step 15
+zone council_door
+expect step 16
+code councilpad 1111 wrong
+code councilpad 4719
+expect hidden councilgate
+expect story councilcode 1
+expect step 17
+zone council
+expect step 18
+read Five ways
+expect step 19
+use wayfree
+expect shown verdictfree
+expect shown councilchest
+expect hidden verdictfleet
+expect story choice 1
+use wayfleet
+expect hidden verdictfleet
+expect story choice 1
+expect step 20
+read The verdict
+expect step 21
+open Council reward
+wait 3
+expect step 22
+read Teo Varga's message
+# (no step check here: in the plan the pile stair zone can already be passed on the way in)
+zone storm_ridge
+expect step 24
+read Councillor's notebook
+expect step 25
+open Bridgeworks crane's toolbox
+wait 3
+expect step 26
+zone pile_stair
+expect step 27
+read Pile engineer's map
+expect step 28
+zone pile_head
+expect done
+dig

@@ -1,0 +1,73 @@
+# Play test of Lanternfall (CIPlay lanternfall, in a test world 'CI ...'). Points as in its recipe: the pier x -0.5..1,
+# z 3..15 (deck 0.8 m); the shore walk round the bay's south side and up the east shore; the stall square x -17..-8,
+# z 3..9 (1 m); the hill path up the east horn's crest from its tip (34 27.5) to the stage's pad at 3 -17 (16 m)
+# Quest (11 steps): the pier, the programme, the taper, the sunk goods, the fish stall, six lanterns, two hens, twelve
+# lanterns, the stage, the finale, the prize.
+island Lanternfall
+expect step 0
+expect title Twelve Lanterns
+expect animals Chicken 3
+expect animals Dolphin 2
+expect animals Turtle 1
+expect hidden glow1
+expect hidden fireworks
+wait 5
+
+# The pier: the programme, the lamplighter's taper, the sunk goods off its end
+walk 0.25 12 to 0.25 5 h=0.8
+zone pier
+expect step 1
+read Festival programme
+expect step 2
+use lantern4
+expect message lamplighter's taper
+open Lamplighter's box
+expect story taper 1
+expect step 3
+open Sunk festival goods
+expect step 4
+
+# The fish stall, the six along the shore walk by the stall square, two loose hens
+walk 3 1.6 to -6 2.4 to -6.5 6.4 to -8.6 6.4 h=1
+open Fruit stall box
+open Fish stall box
+expect step 5
+use lantern1
+use lantern2
+use lantern3
+use lantern4
+use lantern5
+use lantern6
+expect shown glow6
+expect story lit 6
+expect step 6
+use lantern6
+expect message already burning
+expect story lit 6
+catch Chicken 2
+expect step 7
+
+# Up the east shore and the hill path; its six
+walk 12 3.5 to 18 12 to 26 19 to 34 27.5 h=0.6
+walk 34 27.5 to 44 25.5 to 40 17 to 37 9 to 34 2 to 30 -4 to 24 -9 to 16 -13 to 9 -15 h=16
+use lantern7
+use lantern8
+use lantern9
+use lantern10
+use lantern11
+use lantern12
+expect story lit 12
+expect step 8
+walk 9 -15 to 5 -14.5 h=16
+zone stage
+expect step 9
+
+# The finale; the prize
+use rocketrack
+wait 5
+expect shown fireworks
+expect shown festlights
+expect story fan 1
+expect step 10
+open The festival prize
+expect done

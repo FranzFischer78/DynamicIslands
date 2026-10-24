@@ -1,0 +1,36 @@
+# Silver Screen Seas - a world plan of the library: Raft's whole story with the library's themed islands
+# Raft's eight story islands as Raft has them, and after each one but Utopia a big themed island of the library on its
+# own Receiver frequency (after Temperance two: Primeval Park, then Sundown Canyons): the story island's note leads to it
+# first, and its quest done gives the next one's frequency. The ten normal-size themed islands turn up as side trips
+# while sailing.
+#
+# Built by the recipe player (CIRecipe plan_silver_screen) in the editor's World plans window. Its play test:
+# content\tests\plan_silver_screen.play.
+plan new Silver Screen Seas
+plan description Raft's whole story with the library's themed islands: after every story island a big island built round a theme the movies love, found on the Receiver - a summer camp, a sunken liner, a jungle pyramid, an arena, a wartime airfield, a marsh of research stations, a park of giant beasts and a frontier town in the canyons. The ten smaller themed islands turn up as side trips while you sail. Its main islands are about as big as Raft's own big islands.
+plan random on
+plan story on
+
+# --- The story: a big themed island after each of Raft's (done when its quest is) ---------------------------------------
+plan rule blackwater | island:Camp Blackwater | start | receiver:700 | Under the Radio Tower's signal a cassette is playing, over and over: a summer camp's song. | Camp Blackwater | after:RadioTower | quest
+plan rule liner | island:The Sunken Liner | start | receiver:900 | The Vasagatan's radio finds an old distress call on a loop: a liner, broken on the ice-rocks. | The Sunken Liner | after:Vasagatan | quest
+plan rule pyramid | island:The Step Pyramid | start | receiver:900 | Balboa's radio mast catches an explorer's last broadcast from a jungle plateau. | The Step Pyramid | after:Balboa | quest
+plan rule arena | island:The Arena | start | receiver:900 | A cheerful voice on the Receiver announces the games - season nineteen, contestants welcome. | The Arena | after:CaravanTown | quest
+plan rule airfield | island:Albatross Field | start | receiver:1000 | A tower's call sign, sent by a machine: Albatross Field, runway open, one flight still out. | Albatross Field | after:Tangaroa | quest
+plan rule stations | island:The Island of Stations | start | receiver:1000 | Numbers, read out over and over in a calm voice - and a station's call sign between them. | The Island of Stations | after:VarunaPoint | quest
+plan rule park | island:Primeval Park | start | receiver:1000 | A park's welcome jingle - and under it, something big bellowing. | Primeval Park | after:Temperance | quest
+plan rule sundown | island:Sundown Canyons | start | receiver:1000 | A telegraph key clicks on the Receiver: a frontier town's sheriff, asking for help. | Sundown Canyons | after:park | quest
+
+# --- Side trips: the normal-size themed islands, now and then ahead while sailing ---------------------------------------
+plan rule tiki | island:Tiki Lagoon | km:2 | ahead:450 | Thatched roofs and a tiki bar on a sandy key ahead. | Tiki Lagoon
+plan rule gilded | island:Gilded Skull Cove | km:4 | ahead:450 | Two jungle peaks ahead, like the brows of a skull. | Gilded Skull Cove
+plan rule labyrinth | island:The Drowned Labyrinth | km:7 | ahead:450 | A buoy bobs over a dark hole in a reef ahead. | The Drowned Labyrinth
+plan rule keeper | island:Keeper's Light | km:10 | ahead:450 | A lighthouse on a sea stack ahead - its lamp is dark. | Keeper's Light
+plan rule embers | island:Embers Isle | km:13 | ahead:450 | Smoke rises from a black volcanic crescent ahead. | Embers Isle
+plan rule saferoom | island:The Safe Room | km:16 | ahead:450 | A concrete villa on a red bluff comes up ahead. | The Safe Room
+plan rule sunatoll | island:Sun Atoll | km:20 | ahead:450 | A ring of bleached islets ahead - and measuring posts behind wire. | Sun Atoll
+plan rule rockpen | island:The Rock Pen | km:24 | ahead:450 | A guard tower stands over a granite rock in the fog ahead. | The Rock Pen
+plan rule highmoor | island:Highmoor Lodge | km:28 | ahead:450 | A lodge on a snowy hill ahead, its windows dark. | Highmoor Lodge
+plan rule crater | island:Crater Lair | km:32 | ahead:450 | A great dish turns slowly in the crater of a black cone ahead. | Crater Lair
+plan ending Roll the credits. Eight great islands, eight stories the movies love - and you sailed through every one of them.\n\nThe end of Silver Screen Seas.
+plan save

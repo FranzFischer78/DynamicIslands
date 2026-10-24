@@ -1,0 +1,14 @@
+# Kit check (not content): a maze hedge - Balboa's bushes are autumn orange (tint doesn't take on them); Temperance's
+# snowy pine scaled down, three to a 4 m run
+new
+gen Seed=1 Radius=40 Height=4 Shape=4 Roughness=0.1 ObjectDensity=0 Trees=0 Bushes=0 Rocks=0 BeachThings=0 Harvest=0 Style=1
+gen Hostiles=0 Friendly=0 SeaLife=0 Water=0 SeaRocks=0 SeaFinds=0 Sunken=0
+generate
+brush flatten at 0 0 r=30 s=20 frames=60
+place TP_PineTreeSnowy - at -6 0 ground scale=0.15
+place TP_PineTreeSnowy - at -4.67 0 ground scale=0.15 yaw=120
+place TP_PineTreeSnowy - at -3.33 0 ground scale=0.15 yaw=240
+place TP_PineTreeSnowy - at 2 0 ground scale=0.12
+place TP_PineTreeSnowy - at 3.33 0 ground scale=0.12 yaw=120
+place TP_PineTreeSnowy - at 4.67 0 ground scale=0.12 yaw=240
+place TP_PineTreeSnowy - at 6 0 ground scale=0.12

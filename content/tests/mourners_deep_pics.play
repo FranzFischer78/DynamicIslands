@@ -1,0 +1,10 @@
+# Guide pictures of Mourner's Deep (CIPlay mourners_deep_pics): Raft's camera, morning, calm - under water
+island Mourner's Deep
+offset 0 0
+hour 9
+weather Calm
+at 0 -12 h=5
+wait 3
+picture ni7b_mourners_deep_graves 2 9 -6 -6 5 5
+picture ni7b_mourners_deep_shack 4 8 -16 4 6 -5
+picture ni7b_mourners_deep_boat -6 7 6 -15 4 15

@@ -1,0 +1,17 @@
+# Play test of Twin Horns (CIPlay twin_horns, in a test world 'CI ...'). No quest: up the west horn's ladders, across the
+# rope bridge to the east horn, the chest by the screecher's nest. Points as in its recipe.
+island Twin Horns
+offset 0 0
+expect animals Screecher 1
+wait 3
+kill Screecher
+# The ladders' foot, up to the ledge, up to the top
+at -10 -10.5 h=2
+climb -10 -8.65 h=2
+expect stand -10 -6.5 h=7 below=8
+climb -10 -5.15 h=7
+expect stand -10 0 h=12 below=13
+# Across the bridge
+walk -9 0 to -6 0 to 0 0 to 6 0 to 9 0 h=12.1 below=14
+expect stand 0.7 0 h=10.9 below=12
+open Chest on the east horn

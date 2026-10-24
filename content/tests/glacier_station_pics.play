@@ -1,0 +1,23 @@
+# Guide pictures of Glacier Station (CIPlay glacier_station_pics): Raft's camera, midday, calm; the reactor restarted
+# for the last picture
+island Glacier Station
+hour 11
+weather Calm
+at 74 -12
+wait 2
+picture glacier_station_island 115 55 -80 0 18 -5
+picture glacier_station_village 100 9 -25 80 6 -4
+at -9 -14
+wait 2
+picture glacier_station_observatory 4 37 -30 -12 42 -6
+at -86 -20
+wait 2
+picture glacier_station_crevasse -70 12 10 -92 3 -34
+open Tool crate
+open Observatory locker
+open Frozen crate
+use controls
+wait 3
+at 10 44
+wait 2
+picture glacier_station_reactor 15 15 40 8 5 57

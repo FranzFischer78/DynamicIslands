@@ -1,0 +1,54 @@
+# Pelican Spit - a new small island of the library (ROADMAP 3d NI3), no quest
+# A flat palm island trailing a long spit of sand to the east, where the sea-birds nest in the dune grass; from the
+# spit's tip an old landing stage of planks runs on out into deeper water, a lost crate at its end. Nothing
+# hostile. Fruit under the palms, Raft's finds in the shallows either side of the spit.
+#
+# Built by the recipe player (CIRecipe pelican_spit) through the editor's own operations. Points: the spit from 6 -4 to
+# 21 -4 (0.9 m); the landing stage's root at 22 -4 (1.35 m), the stage x 22..37 at z -5.5..-2.5, deck 1.5 m, its head
+# x 34..37 (z -6.25..-1.75); the crate on the head at 35.5 -2.8; the nests round 14 -2.
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+new
+gen Trees=0.28 Bushes=0.28 Rocks=0.3 Harvest=0.24 BeachThings=0.4
+gen Seed=7407 Radius=28 Height=3 Roughness=0.3 Peaks=1 Shape=0 Style=0 BeachWidth=0.9 Cliffs=0 PeakShape=0.2
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.35 SeaFinds=0.35 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== Terrain: the spit of sand, the landing stage's root at its tip =====================================================
+brush flatten from 6 -4 to 21 -4 r=3 s=20 frames=80 h=0.9
+brush flatten at 21 -4 r=2.5 s=20 frames=60 h=1.35
+brush sand from 6 -4 to 22 -4 r=4 s=20 frames=30
+clear from 6 -4 to 23 -4 r=4
+
+# ===== The nests in the dune grass on the spit ===========================================================================
+place Bird_Nest - at 12 -2.5 ground
+place Bird_Nest - at 15 -5.6 ground yaw=110
+place Bird_Nest - at 17.5 -2.8 ground yaw=220
+
+# ===== The landing stage from the spit's tip out into deeper water, the crate on its head =====================
+push at 22 -4
+call jetty n=8 h=1.5 d=8
+pop
+place Loot_Crate stagecrate at 35.5 -2.8 h=1.5 sit yaw=12
+
+# ===== Things to gather: palms, melons and pineapples; a buried treasure; Raft's finds in the shallows; rays ===============
+scatter "Pickup_Landmark_Tree_Palm 2" 3 at -4 2 r=16 seed=7417 free=5
+scatter "Pickup_Landmark_WatermelonLandmark" 2 at -4 2 r=16 seed=7427 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 2 at -4 2 r=16 seed=7437 free=3
+call treasure x=-4 z=2 r=12 n=1 seed=7407
+call shallows r=44 deep=5 n=1 seed=747
+place Creature_Stingray rays at 20 -22 h=-3
+prop rays creature.count=2
+
+info title=Pelican Spit
+info author=Custom Islands
+info description=A flat palm island trailing a long spit of sand where the sea-birds nest, and from its tip an old landing stage of planks running out into deeper water. No quest - an island to explore.
+
+note stagecrate Crate on the landing stage | Left for a boat that never came: ropes, planks, a sack of seeds.
+loot stagecrate Rope*2;Plank*4;Seed_Palm*2;Seed_Watermelon*2
+prop stagecrate loot.refill=0
+
+save Pelican Spit

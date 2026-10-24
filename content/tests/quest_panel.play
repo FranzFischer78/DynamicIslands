@@ -1,0 +1,13 @@
+# The quest panel with a long quest (CIPlay quest_panel, in a test world 'CI ...'): The Frontier's 32 steps, five done -
+# the panel shows five steps at a time (the step done before the current one, it and the next three), the rest scrolls.
+# Then CIShot quest_panel for the picture (the panel shows while the player is at the island: "keep" leaves it there).
+island The Frontier keep
+wait 5
+zone harbour
+read Welcome board
+open Harbour office locker
+zone square
+read Smith's note
+expect step 5
+at 28 86
+wait 2

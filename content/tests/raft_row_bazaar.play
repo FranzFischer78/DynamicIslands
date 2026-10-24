@@ -1,0 +1,45 @@
+# Raft Row Bazaar (CIPlay raft_row_bazaar): the market, the price board, the engine stall (motor wheel), the shortage
+# list, the Fleet's stall (steering wheel; the plan's fleet rule goes by this step), the back room locked until the
+# drawer's key, the ledger, a hen for the Fleet, the merchant's warning.
+# offset 0 0 is a placeholder: phase 2 sets it from the recipe's save log (PLAY_FORMAT: Coordinates).
+island Raft Row Bazaar
+offset 0 0
+expect step 0
+expect title Prices Without Rules
+zone market
+expect step 1
+read Bazaar price board
+expect step 2
+open Engine stall crate
+wait 3
+expect step 3
+read Shortage list
+expect step 4
+zone fleet_stall
+expect step 5
+open Free Fleet stall
+wait 3
+expect step 6
+open Back room
+expect story backkey 0
+expect step 6
+open Merchant's drawer
+expect story backkey 1
+open Back room
+wait 3
+expect step 7
+read Withheld stock ledger
+expect step 8
+catch Chicken 1
+expect step 9
+zone rubbish_hill
+expect step 10
+read Fire warden's report
+expect step 11
+open Pedlar's caravan
+wait 3
+expect step 12
+zone pedlars_cave
+expect step 13
+read Merchant's warning
+expect done

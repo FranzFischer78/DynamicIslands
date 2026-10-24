@@ -1,0 +1,227 @@
+# Wreckers' Cove - a big quest island of the library (The Long Voyage: after the Radio Tower)
+# A green crescent of hills around a shallow cove that opens to the south. On the south point of its east arm stands
+# the wreckers' false lantern, which showed passing ships a "safe" channel - straight onto the reef at the cove's mouth;
+# on that reef lies the schooner Marigold, wrecked and stripped. On the cove's north shore the wreckers' hamlet: a
+# longhouse, net huts and a jetty; in the east arm's cliff a sea cave, the smugglers' den, where rats nest among the
+# loot. Quest "The False Lantern" (12 steps): the cove, the hamlet's notice, aboard the Marigold, her log, the
+# captain's chest and its den key, the smugglers' den and its rats, the den's strongbox and the lantern key, the keeper's
+# log, up the false lantern, doused - and the wreckers' hoard.
+# Inspired by Raft's Vasagatan (a wreck to search) and Radio Tower (a tower to climb).
+#
+# Built by the recipe player (CIRecipe wreckers_cove) through the editor's own operations.
+include lib_sea
+include lib_rt
+include lib_features
+new
+# (nature: Like Raft, with more driftwood on the wreckers' beaches - Raft's islands as the generator's Like Raft has them, CIGenLikeRaft)
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.45
+gen Seed=5122 Radius=95 Height=28 Roughness=0.4 Peaks=2 Shape=6 Style=0 BeachWidth=0.5 Cliffs=0.5 PeakShape=0.4
+gen SeaFloor=0 Shelf=0.5 Seabed=1
+# (sea: Raft's finds and corals as dense as around Raft's islands - Like Raft 0.5 - the review, 2026-10-03)
+gen Water=0.5 SeaRocks=0.6 SeaFinds=0.5 Sunken=0.4 Hostiles=0 Friendly=0.2 SeaLife=0.5
+generate
+
+# --- Terrain: the hamlet's terrace on the north shore, the lantern's point, the den's passage into the east arm --------
+brush flatten at -12 4 r=10 s=20 frames=50
+brush flatten at 41 -48 r=11 s=20 frames=50
+brush smooth from 22 -44 to 40 -48 r=5 s=20 frames=40
+clear at -12 4 r=14
+clear at 41 -48 r=12
+clear from 20 -44 to 40 -48 r=4
+clear from 0 -4 to 16 -18 r=4
+
+# The smugglers' den: Balboa's bear cave in the hills' north-east corner, its mouth on the cove's shore (the frame's +z
+# out of it, south-west)
+push at 8 -5 yaw=225
+brush flatten from 0 0 to 0 -26 r=11 s=20 frames=60
+brush flatten from 0 0 to 0 7 r=8 s=20 frames=30
+clear from 0 6 to 0 -28 r=11
+brush sand from 0 2 to 0 -27 r=11 s=10 frames=40
+place BalboaCave_Bear - at 1.2 -18.4 y=5.2 scale=1.15
+pop
+origin
+
+# --- The hamlet: the wreckers' longhouse, two net huts, racks of nets, a jetty into the cove --------------------------
+place Balboa_Shack longhouse at -14 7 sit yaw=180
+macro nethut x z yaw
+push at $x $z yaw=$yaw
+place ReefHuts_Pillar1 - at -2 -1.4 sit
+place ReefHuts_Pillar1 - at -2 1.4 sit
+place ReefHuts_Pillar1 - at 2 -1.4 sit
+place ReefHuts_Pillar1 - at 2 1.4 sit
+place ReefHuts_Tarpaulin - at 0 0 y=2.7 tilt=6 rot=0,0,0
+place ReefHuts_Wall2 - at 0 1.5 sit
+place FishingNets_02 - at -1 0 sit yaw=30
+place FishingNets_02 - at 1 -0.5 sit yaw=-20
+pop
+end
+call nethut -2 3 10
+call nethut -24 1 -15
+place Crate_Big_01 - at -6 -1 sit yaw=15
+place Placeable_Lantern_Metal - at -6 -1 y=0.45 sit
+place Reef_Barrel1 - at -8 -1.5 sit
+place Reef_Barrel1 - at -8.8 -0.8 sit
+place Note_Board notice at -10 -2 ground yaw=180
+place campfire_1 - at -8 1.5 sit
+place Firewood_1 - at -9.4 1.2 sit yaw=30
+place Placeable_Lantern_FireBasket - at -17.5 0 sit
+place Placeable_Lantern_FireBasket - at -4 0.5 sit
+place RT_PlasticBoat - at -20 -3.5 sit yaw=70 roll=12
+place FishingNets_02 - at -18 -1 sit yaw=10
+place FishingNets_02 - at -16.5 -1.6 sit yaw=-40
+place "Box Small" - at -5 2.4 sit yaw=40
+place "Box Small" - at -4.4 3.2 sit yaw=10
+place Reef_Barrel2 - at -19.5 3 sit
+place Reef_Barrel3 - at -20.4 3.8 sit
+place Zone_Trigger cove at -10 -4 y=1.5
+# the jetty: planks on posts from the terrace out over the cove
+for jz -0.8 -21.6 -5.2
+place Relay_Floor_deck - at -9.4 $jz h=2.6
+place Relay_support_beam_wood - at -14 {$jz-0.4} h=-4.5 rot=0,0,-90 sx=0.78
+place Relay_support_beam_wood - at -9.6 {$jz-0.4} h=-4.5 rot=0,0,-90 sx=0.78
+next
+place RT_PlasticBoat - at -6 -26 h=0.3 yaw=10
+
+# --- The Marigold on the reef at the cove's mouth: her log, the captain's chest -----------------------------------------
+place BoatStranded marigold at -8 -50 ground sit yaw=30 roll=10
+place Zone_Trigger aboard at -8 -50 h=1.5
+place Note_Paper marigoldlog at -8 -50 h=1.2 drop
+place Loot_Chest captainchest at -7 -48 h=2 sit drop yaw=30
+
+# --- The smugglers' den: crates, lanterns, the strongbox at the back - and the rats ----------------------------------
+push at 8 -5 yaw=225
+place Crate_Big_01 - at -3.2 -6 sit yaw=10
+place Placeable_Lantern_Metal - at -3.2 -6 y=0.45 sit
+place Crate_Big_01 - at 4.4 -12 sit yaw=80
+place Placeable_Lantern_Metal - at 4.4 -12 y=0.45 sit
+place Reef_Barrel1 - at 4 -16 sit
+place Reef_Barrel1 - at 4.6 -17 sit
+place Reef_Barrel1 - at -3.6 -19 sit
+place Crate_Big_01 - at -3.4 -21.5 sit yaw=-10
+place Placeable_Lantern_Metal - at -3.4 -21.5 y=0.45 sit
+place Loot_ChestLarge strongbox at 0 -24 sit yaw=0
+place Creature_Rat rats at 0 -18 sit
+place Zone_Trigger den at 0 -10 y=1.5
+place "Pickup_Landmark_Scrap 2_Land" - at 1.2 -8 ground drop yaw=96
+place Pickup_Landmark_Plank_Land - at -1.4 -14.5 ground drop yaw=210
+pop
+
+# --- A boardwalk along the cove's east shore, from the den's mouth to the south point (planks on posts) -------------
+ramp Block_Floor_Wood from 10.2 -7.6 0.4 to 15.5 -19 0.35 len=1.5 top=0
+ramp Block_Floor_Wood from 11.5 -7.0 0.4 to 16.9 -19 0.35 len=1.5 top=0
+place Relay_support_beam_wood - at 11.6 -12 h=-3 rot=0,0,-90 sx=0.37
+place Relay_support_beam_wood - at 14.3 -12.4 h=-3 rot=0,0,-90 sx=0.37
+ramp Block_Floor_Wood from 15.5 -19 0.35 to 16.2 -32 0.4 len=1.5 top=0
+ramp Block_Floor_Wood from 16.9 -19 0.35 to 17.6 -32 0.4 len=1.5 top=0
+ramp Block_Floor_Wood from 16.2 -32 0.4 to 24.5 -43 0.5 len=1.5 top=0
+ramp Block_Floor_Wood from 17.3 -31.2 0.4 to 25.6 -42.2 0.5 len=1.5 top=0
+for pz -21 -31 -5
+place Relay_support_beam_wood - at 14.7 $pz h=-3 rot=0,0,-90 sx=0.37
+place Relay_support_beam_wood - at 17.7 $pz h=-3 rot=0,0,-90 sx=0.37
+next
+for k 1 3
+place Relay_support_beam_wood - at {16.2+2.1*$k-0.6} {-32-2.8*$k-0.45} h=-3 rot=0,0,-90 sx=0.37
+place Relay_support_beam_wood - at {17.3+2.1*$k+0.6} {-31.2-2.8*$k+0.45} h=-3 rot=0,0,-90 sx=0.37
+next
+
+# --- The false lantern on the south point: the keeper's room, the lamp room, the lantern on its roof ------------------
+push at 44 -48 yaw=0
+call rt_storey l2=RT_WallDoor1
+push at 0 0 y=3
+call rt_storey f1=RT_WallWindow1 f2=RT_WallWindow1 l1=RT_WallWindow2 l3=RT_WallWindow2 r1=RT_WallWindow2 r3=RT_WallWindow2 b1=RT_WallWindow1 b2=RT_WallWindow1
+pop
+place RT_Floor - at 0 4.5 y=6
+call rt_railing y=6 fm=none
+place LandmarkLadder_6m lanternladder at -3 -4.62
+place RT_Floodlight lantern at -1.5 3.6 y=6 sit yaw=180
+place TP_RotatingRedLight lantern at -3 3.6 y=6 sit
+place Placeable_Lantern_FireBasket lantern at -4.5 3.6 y=6 sit
+place "Fire Estinguisher" douse at -1 -2.5 y=6 sit yaw=90
+place Loot_ChestLarge hoard at -5 -1 y=6 sit yaw=90
+place Zone_Trigger lanterntop at -3 0 y=7
+place Bed_Simple - at -4.85 2 sit yaw=90
+place Note_Paper keeperlog at -1.5 3 y=0.05 sit
+place Pickup_Landmark_Plank_Land - at -2.5 -1.2 y=0.6 drop yaw=33
+place Pickup_Landmark_Plastic3_Land - at -3.2 2.0 y=0.6 drop yaw=172
+pop
+
+# --- Settings, notes, behaviours, quest ------------------------------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): palms, melons, pineapples ----------
+scatter "Pickup_Landmark_Tree_Palm 1" 4 at 0 0 r=66.5 seed=4458 free=5
+scatter "Pickup_Landmark_Tree_Palm 3" 4 at 0 0 r=66.5 seed=4459 free=5
+scatter "Pickup_Landmark_WatermelonLandmark" 6 at 0 0 r=66.5 seed=4468 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=66.5 seed=4478 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=115 deep=5 n=2
+
+info title=Wreckers' Cove
+info author=Custom Islands
+info description=A green crescent around a shallow cove: a wreckers' hamlet on the shore, the schooner Marigold wrecked on the reef at the mouth, a smugglers' den in a sea cave - and on the south point the false lantern that lured her there. Inspired by Raft's Vasagatan and Radio Tower.
+island on.arrive=message||A green crescent of hills around a quiet cove - a wreck on the reef at its mouth, and a lantern still burning on the point.
+
+story denkey|Smugglers' tally key|quest:Vasagatan_RedKey|A heavy iron key on a tarred cord, stamped with the smugglers' mark - from the Marigold's captain's chest. It fits the den's strongbox.
+story lanternkey|Lantern key|quest:Varuna_CraneKey|The key to the false lantern's fuel cock, from the smugglers' strongbox.
+note notice Hamlet notice | WRECKERS' COVE\n\nNO SHIPS PAST THE LANTERN AFTER DARK.\nWhat the sea brings in is shared out at the longhouse.\nThe den is for the crates. Keep the rats out of it.
+note marigoldlog Marigold's log | LOG OF THE SCHOONER MARIGOLD\n\nDay 9: A light to the south-east, steady and red: the harbour light of a channel the chart doesn't show. Captain says follow it.\nDay 10: We struck at the cove's mouth. The light didn't move. It isn't a harbour - it's a lantern on a pole.\nDay 11: Men came from the shore and took everything. The captain hid the smugglers' tally key in his chest, the one thing that proves what they took - they keep our cargo in a sea cave on the east side.
+note captainchest Captain's chest | The Marigold's captain's chest, wedged under his bunk: the smugglers' tally key on a tarred cord, his pistol (rusted), a little dry food.
+loot captainchest story:denkey*1;Rope*2;Plank*6
+prop captainchest loot.refill=0
+note strongbox Smugglers' strongbox | The smugglers' strongbox at the back of the den: the lantern key, a list of ships, a purse of bolts.
+loot strongbox story:lanternkey*1;Bolt*8;Nail*12
+prop strongbox loot.refill=0
+prop strongbox if.open=has|story:denkey|1
+prop strongbox else.open=message||The strongbox is locked with the smugglers' mark. The Marigold's captain had a key like that.
+note keeperlog Keeper's log | The lantern burns all night. The red one by the door shows the "channel". When a hull strikes the reef, ring for the boats.\n\nThe fuel cock is locked - the key is with the cargo in the den.
+note hoard Wreckers' hoard | Everything worth keeping from every ship the lantern ever lured: shared out at the longhouse no more.
+loot hoard Blueprint_HeadLight*1;Blueprint_BatteryCharger*1;MetalIngot*4;Scrap*8;CopperIngot*3;Battery*1
+prop hoard loot.refill=0
+prop hoard if.open=signal|doused
+prop hoard else.open=message||The hoard's lid is chained to the lantern's base. Douse the lantern first.
+
+prop douse obj.name=douse
+prop douse beh.use=Douse the false lantern
+prop douse if.use=has|story:lanternkey|1
+prop douse on.use=message||The key turns the fuel cock. The lantern gutters, the red light dies - for the first time in years the point goes dark. The chain on the hoard falls slack.\nhide|lantern\nsignal||doused\nsound||event:/exploring/obstacles/varuna/garagedoor_open
+prop douse else.use=message||The fuel cock is locked. Its key is with the smugglers' cargo.
+prop lantern obj.name=lantern
+
+prop cove zone.id=cove
+prop cove zone.radius=10
+prop cove zone.message=The wreckers' hamlet: a longhouse, net huts and a jetty. Out on the reef the Marigold lies on her side.
+prop aboard zone.id=aboard
+prop aboard zone.radius=6
+prop aboard zone.message=The Marigold: stripped to the ribs. Her log lies in the wheelhouse, the captain's chest under his bunk.
+prop den zone.id=den
+prop den zone.radius=7
+prop den zone.message=The smugglers' den: crates from a dozen ships - and something squeaking behind them.
+prop lanterntop zone.id=lantern
+prop lanterntop zone.radius=4
+prop lanterntop zone.message=The false lantern: a floodlight, a red beacon and a fire basket, all pointing out to sea.
+prop rats creature.count=4
+prop rats creature.respawn=0
+prop rats creature.zone=den
+
+# --- Raft's special features (the user, 2026-10-05: every Raft feature on at least one island): the wreckers' buried takings round the hamlet,
+# for Raft's metal detector and shovel
+call treasure x=-12 z=4 r=30 n=2 seed=51
+
+quest title=The False Lantern
+quest intro=A quiet cove with a wreck on the reef at its mouth - and a lantern still burning on the point. The hamlet on the north shore is the place to start.
+step reach|cove|1|Land at the wreckers' hamlet
+step read|Hamlet notice|1|Read the notice board by the longhouse - the wreckers' own rules
+step reach|aboard|1|Wade out to the wrecked Marigold on the reef at the cove's mouth
+step read|Marigold's log|1|Read her log in the wheelhouse
+step open|Captain's chest|1|Open the captain's chest wedged under his bunk
+step collect|story:denkey|1|Take the smugglers' tally key on its tarred cord
+step reach|den|1|Find the smugglers' den in the east cliff
+step kill|Rat|4|Drive the rats out of the den
+step open|Smugglers' strongbox|1|Open the smugglers' strongbox for the lantern key
+step read|Keeper's log|1|Follow the boardwalk to the south point and read the keeper's log
+step reach|lantern|1|Climb the false lantern to its roof
+step open|Wreckers' hoard|1|Douse the lantern and open the wreckers' hoard
+step blueprint|Blueprint_HeadLight|1|Take the headlamp plans from the wreckers' hoard
+step blueprint|Blueprint_BatteryCharger|1|Take the battery charger plans from the wreckers' hoard
+quest done=The point is dark, the hoard is yours - and no ship will follow the red light onto the reef again.
+quest reward=Rope*4;Nail*20;Plastic*8
+
+save Wreckers' Cove

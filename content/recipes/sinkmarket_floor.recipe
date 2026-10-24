@@ -1,0 +1,171 @@
+# Sinkmarket Floor - an island of the library's plan The Gravity Sea (a sunken island, 30 m under the sea)
+# Altitude Market's lower town, left on the seabed on Lift Day: cellars and stalls in the silt, the cracked ballast stone
+# from above lying in its square (it is here from the start - this island only comes once the stone was dropped), a
+# diving bell (an open pavilion of posts under a wooden roof, an air pocket inside), the cistern hall (its roof on stone
+# pillars, flooded until its valve drains it), Dr. Ilse Marn's cage and the bottom station of the cable car. Coral reefs
+# in three clusters, kelp. Quest "The Sunken Square" (14 steps): the stone, the ledger, the bell, the keeper's log, the
+# cistern valve, the cistern's air, the stingrays, the four water blueprints, Marn's cage, her map, the cable car's
+# bottom station.
+#
+# Built by the recipe player (CIRecipe sinkmarket_floor) through the editor's own operations. Points (metres over the
+# island's own water line; in the world it all lies 30 m lower, under the sea): the square at 3 m (r 14 round 0 0); the
+# bell x -10..-7, z -6..-3; the cistern hall x 5..9.5, z 5..9.5; Marn's cage at -6 8; the cable car's bottom station
+# round -13 11.
+# (The design's Temperance Dome_Glass is Tangaroa's 100 m dome; the bell is built of Raft's wooden blocks instead.)
+include lib_sea
+include lib_huts
+include lib_gravity
+new
+gen Trees=0 Bushes=0 Rocks=0.35 Harvest=0 BeachThings=0
+gen Seed=9571 Radius=32 Height=8 Roughness=0.4 Peaks=1 Shape=0 Style=0 BeachWidth=0.1 Cliffs=0.6 PeakShape=0.5
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+elevation -30
+
+# --- Terrain: the square at 3 m -------------------------------------------------------------------------------------
+brush flatten at 0 0 r=14 s=20 frames=200 h=3
+brush flatten at -13 11 r=5 s=20 frames=60 h=3
+brush flatten at 7.25 7.25 r=5 s=20 frames=200 h=3
+origin
+clear at 0 0 r=4
+clear at -8.5 -4.5 r=3.5
+clear at 7.25 7.25 r=4.5
+clear at -6 8 r=3
+clear at -13 11 r=4
+
+# --- The cracked ballast stone in the square, the ledger on a crate beside it ----------------------------------------
+place SmallRock_02 - at 0 0 ground y=-1.2 scale=1.3 yaw=40 rot=8,40,-6
+place SmallRock_02 - at 1.6 1.2 ground scale=0.5 yaw=130
+place Zone_Trigger stonezone at 0 -2.5 ground y=1
+place "Box Big" - at 3.2 -3 ground sit yaw=20
+place Note_Paper ledger at 3.2 -3 ground y=1.1 drop yaw=10
+place UT_MarketCrateSmall01 - at 4.4 -1.6 ground sit yaw=60
+place UT_MarketBasket02 - at -3.2 -2.6 ground sit yaw=10
+place Caravan_Green_01 - at -4 -10 ground sit yaw=15
+
+# --- The diving bell: an open pavilion under a roof, its air pocket inside, the keeper's log -------------------------
+push at -10 -6 h=3
+call floors w=2 d=2 y=0.1
+call corners w=2 d=2 y=0.1
+roof 2 2 at 0 0 y=0.1 wood
+place "Box Small" - at 2.2 2.2 y=0.1 sit
+place Note_Paper belllog at 2.2 2.2 y=0.8 drop yaw=20
+pop
+call airpocket x=-8.5 z=-4.5 id=bell al=bellair bub=bellbub r=2.5 msg="The diving bell's air pocket. Breathe."
+
+# --- The cistern hall: its roof on stone pillars, flooded; the valve; the store; stingrays -----------------------------
+push at 5 5 h=3
+place RT_PillarThick - at 0 0 y=0 sy=0.5
+place RT_PillarThick - at 4.5 0 y=0 sy=0.5
+place RT_PillarThick - at 0 4.5 y=0 sy=0.5
+place RT_PillarThick - at 4.5 4.5 y=0 sy=0.5
+call floors w=3 d=3 y=0.1
+roof 3 3 at 0 0 y=0.1 wood
+place TP_SeleneReactor_Water_Radiated cisternwater at 2.25 2.25 y=1.2 scale=0.19
+place Loot_ChestLarge cisternstore at 2.25 3.8 y=0.1 sit yaw=180
+pop
+place WaterPipe_Short_1 valve at 4 7.25 ground sit yaw=90
+call airpocket x=7.25 z=6.5 id=cistern al=cisternair bub=cisternbub r=2.5 msg="The cistern's drained - and full of air. Breathe."
+place Zone_Trigger hallzone at 7.25 7.25 ground y=1
+place Creature_Stingray rays at 9 10 ground y=2
+
+# --- Dr. Ilse Marn's cage, her satchel and her map of the pendulum ----------------------------------------------------
+place Survivor_Cage marncage at -6 8 ground yaw=180
+place Loot_ChestSmall marnsatchel at -3.8 8.5 ground sit yaw=180
+place "Box Small" - at -8.2 8.8 ground sit
+place Note_Paper marnmap at -8.2 8.8 ground y=0.7 drop yaw=30
+
+# --- The cable car's bottom station: two stone pylons, its car in the silt; an air pocket by it -----------------------
+place RT_PillarThick - at -14.5 12 ground
+place RT_PillarThick - at -11.5 12 ground
+place VP_Skylift - at -13 9.5 ground sit rot=0,20,12
+place Zone_Trigger cablezone at -13 11 ground y=1
+call airpocket x=-10 z=13 id=cable_air al=cableair bub=cablebub r=2.5
+
+# --- Reefs in three tight clusters, kelp ------------------------------------------------------------------------------
+scatter VP_CoralDigitate01 5 at 10 -6 r=3 seed=9581 free=1
+scatter VP_CoralBulb04 4 at 10 -6 r=3 seed=9582 free=1
+scatter VP_CoralFoliose03 5 at -12 -2 r=3 seed=9583 free=1
+scatter TinyCoral 6 at -12 -2 r=3 seed=9584 free=1
+scatter VP_CoralDigitate03 5 at 2 13 r=3 seed=9585 free=1
+scatter VP_CoralBulb03 4 at 2 13 r=3 seed=9586 free=1
+scatter SeaVine3 30 at 0 0 r=26 seed=9587 free=2
+scatter SeaVine3_klump 10 at 0 0 r=26 seed=9588 free=2
+call shallows x=0 z=0 r=44 deep=8 n=1 seed=9589
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Sinkmarket Floor
+info author=Custom Islands
+info description=Altitude Market's lower town on the seabed, 30 m down: stalls in the silt, the ballast stone that fell from the sky, a diving bell, a flooded cistern hall, a scientist in a cage and the cable car's bottom station. The fifth island of The Gravity Sea - dive.
+island on.arrive=message||Down there, 30 m under the keel: a square of stalls in the silt - and the ballast stone, cracked, in the middle of it.
+
+story drained|Cistern drained|Placeable_Lantern_Metal|You opened the cistern valve: the hall drained and filled with air.
+story marnkey|Marn's cage key|Placeable_Lantern_Metal|The key of Dr. Marn's cage, from the cistern store.
+
+note ledger Sinkmarket ledger | SINKMARKET - LEDGER\n\nLift Day: the upper market went up with the hill. We stayed down with the cisterns.\nStock: rope, salt, water plans.\nThe Institute's bell by the square has air; Dr. Marn keeps it.\nIf the ballast ever drops, it is THEIR fault, up there.
+note belllog Bell keeper's log | BELL KEEPER - I. MARN\n\nThe cistern hall flooded on day 2. The valve on its west side drains it into the old pipes - the hall fills with air when you turn it.\nThe stingrays came in with the water. I locked myself in the cage against them and threw the key in the cistern store. Stupid.
+note cisternstore Cistern store | The cistern store: the water works' plans - a tank, pipes, a purifier and a big store chest - and on top, a cage key on a string.
+note marnsatchel Marn's satchel | Ilse Marn's satchel: her survey book and a coil of rope.
+note marnmap Marn's map of the pendulum | MARN'S MAP\n\nA long, thin island drawn in pencil, 12 m over the water, a pendulum hall on top. Under it, an arrow: "the KEEL - the field's lowest point. Halvard measures from there."\n\nIn the margin: "the cable car went to the pendulum; band 1000."
+loot cisternstore Blueprint_WaterTank*1;Blueprint_Pipe_Water*1;Blueprint_ElectricPurifier*1;Blueprint_Storage_Large*1;story:marnkey*1;Rope*2
+prop cisternstore loot.refill=0
+loot marnsatchel Rope*3;Scrap*2
+prop marnsatchel loot.refill=0
+
+prop stonezone zone.id=ballast_stone
+prop stonezone zone.radius=4
+prop stonezone zone.message=The ballast stone from the sky, cracked in two in the middle of the square.
+
+prop cisternwater obj.name=cisternwater
+prop cisternwater tint.color=#1c5a66
+prop cisternwater tint.amount=0.6
+prop cisternair obj.name=cisternair
+prop cisternair beh.hidden=1
+prop valve obj.name=valve
+prop valve beh.use=Turn the cistern valve
+prop valve if.use=!signal|drained
+prop valve on.use=signal||drained\nhide|cisternwater\nshow|cisternair\ngive||story:drained*1\nmessage||The valve squeals round. The pipes gulp, and the cistern hall drains - air bubbles up under its roof.\nsound||event:/exploring/obstacles/keypad/keypad_correct
+prop valve else.use=message||The cistern is drained already.
+prop cisternstore if.open=signal|drained
+prop cisternstore else.open=message||The store is under the cistern's water. Drain the hall first - the valve on its west side.
+
+prop hallzone zone.id=cistern_hall
+prop hallzone zone.radius=7
+prop hallzone zone.repeat=never
+prop hallzone zone.message=Stingrays in the cistern hall!
+prop rays creature.count=3
+prop rays creature.respawn=0
+prop rays creature.zone=cistern_hall
+
+prop marncage obj.name=marncage
+prop marncage survivor.name=Ilse
+prop marncage survivor.id=gravity_ilse
+prop marncage survivor.key=marnkey
+prop marncage survivor.signal=marnfree
+prop marncage survivor.line=You found the key! I'm Ilse Marn, the Institute's bell keeper. Take me up with you - and take my map. The pendulum is on band one thousand.
+prop marnsatchel if.open=signal|marnfree
+prop marnsatchel else.open=message||Marn's satchel is inside her cage.
+prop cablezone zone.id=cable_bottom
+prop cablezone zone.radius=4
+prop cablezone zone.message=The cable car's bottom station. The cable runs up into the sea - towards the pendulum.
+
+quest title=The Sunken Square
+quest intro=The ballast stone fell into a town on the seabed, 30 m down. Dive to it.
+step reach|ballast_stone|1|Dive to the ballast stone in the square
+step read|Sinkmarket ledger|1|Read the market's ledger
+step reach|bell|1|Breathe in the diving bell
+step read|Bell keeper's log|1|Read the bell keeper's log
+step collect|story:drained|1|Turn the cistern valve
+step reach|cistern|1|Breathe in the drained cistern hall
+step kill|Stingray|3|Drive the stingrays out of the cistern hall
+step blueprint|Blueprint_WaterTank|1|Take the water tank plans from the cistern store
+step blueprint|Blueprint_Pipe_Water|1|Take the water pipe plans from the cistern store
+step blueprint|Blueprint_ElectricPurifier|1|Take the electric purifier plans from the cistern store
+step blueprint|Blueprint_Storage_Large|1|Take the large storage plans from the cistern store
+step open|Marn's satchel|1|Free Dr. Marn from her cage with the key, then open her satchel
+step read|Marn's map of the pendulum|1|Read Marn's map of the pendulum
+step reach|cable_bottom|1|Swim to the cable car's bottom station
+quest done=Ilse Marn is aboard. Her map shows the pendulum island, 12 m over the water - band 1000.
+quest reward=MetalIngot*3;Rope*4
+
+save Sinkmarket Floor

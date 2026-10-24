@@ -1,0 +1,28 @@
+# Play test of the plan 'The Last Post' (CIPlay plan_last_post, in a test world 'CI ...' set to day 10 first with
+# CISetDay 10, for Pneumatic Heights' day:10): a main story in place of Raft's - each stop's frequency comes when the one
+# before is done, it is tuned to on the Receiver and played to its end with its own test (the dead letters are carried
+# from the first stop); then the sorting barge, sailed to.
+plan The Last Post
+tune deadletter
+include dead_letter_office.play
+tune pier
+include pillarbox_pier.play
+tune jungle
+include parcel_canopy.play
+tune tubes
+include pneumatic_heights.play
+tune sorting
+include sorting_rock.play
+tune telegraph
+include telegraph_narrows.play
+tune franking
+include franking_works.play
+tune adas
+include adas_round.play
+tune gpo
+include general_post_office.play
+expect blueprints
+sail 6
+arrive barge
+include wandering_sorting_barge.play
+plan end

@@ -1,0 +1,44 @@
+# Cooling Spire (CIPlay cooling_spire): the yard at 3 m round 0 0; Hedda's camp, her welcome, her chest, the second
+# landing and its rats, its locker, the roof and its bear, the roof chest, the lookout, what Hedda saw; the treasure.
+island Cooling Spire
+offset 0 0
+expect step 0
+expect title The Cold Spire
+zone hedda_camp
+expect step 1
+read Hedda's welcome
+expect step 2
+open Hedda's chest
+wait 3
+expect step 3
+zone landing_2
+expect step 4
+kill Rat
+expect animals Rat 0
+expect step 5
+open Second landing
+wait 3
+zone spire_top
+expect step 7
+kill Polar bear
+expect animals Polar bear 0
+expect step 8
+open Spire top
+wait 3
+expect step 9
+read Pumpmen's log
+use sunmirror2
+expect step 10
+zone coolridge
+use sunmirror1
+expect step 11
+read Water plane log
+expect step 12
+open Sun-locked chest
+wait 3
+expect step 13
+zone court_view
+expect step 14
+read What Hedda saw
+dig
+expect done

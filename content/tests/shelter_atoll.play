@@ -1,0 +1,79 @@
+# Play test of Shelter Atoll (CIPlay shelter_atoll, in a test world 'CI ...'). Points as in its recipe; the shelter's
+# floor is 1.69 m above the sea, the roof slab 7.75 m.
+island Shelter Atoll
+expect step 0
+expect title Shelter No. 7
+
+# Over the land bridge from the ring onto the islet's roof slab: the hatch and its notice
+walk 30 0 to 22 0 to 16 1 to 8 6 h=7.75
+zone roof
+expect step 0
+read Shelter notice
+expect step 1
+
+# Down the hatch: through the collar to the hall's floor; the ladder takes hold at the top and at the foot
+expect stand 0 5.6 h=1.69
+climb 0 7.1 h=6.3
+climb 0 7.1 h=0.3
+at 0 4 h=1.9
+zone hatchhall
+expect step 2
+expect message red light turns
+
+# The main hall into the radio room: the radio log
+walk 0 4 to 2 2 to 2 0 to 4 0 to 6.5 -0.8 h=1.69 below=5
+read Radio log
+expect step 3
+use opradio
+expect message radio is dead
+
+# The generator room: the generator is dry; the commander's door and the blast gate stay shut
+walk 6.5 -0.8 to 2 -0.5 to 1.8 -2 to 0 -5 to -3 -6 to -5.5 -6.5 h=1.69 below=5
+use generator
+expect message bone dry
+expect hidden lamps
+expect shown dark
+walk -2 -6 to 4.5 -6 h=1.69 below=5 blocked
+walk -2 -4.3 to 4.5 -4.3 h=1.69 below=5 blocked
+walk -2 -7.7 to 4.5 -7.7 h=1.69 below=5 blocked
+walk 0 -6 to 0 -12 h=1.69 below=5 blocked
+
+# The dormitory: three big rats in the bunks, the radio operator's locker with the fuel
+walk 0 -6 to -1.8 -2 to -2 0 to -5 0.5 h=1.69 below=5
+zone dorm
+expect message rats, big ones
+kill Rat
+expect step 4
+expect animals Rat 0
+open Bunk locker
+expect story fuel 1
+expect step 5
+
+# The generator runs: lamps on, the dark air gone, the commander's door and the blast gate open
+walk -5 0.5 to -2 0 to -1.8 -2 to 0 -5 to -3 -6 to -5.5 -6.5 h=1.69 below=5
+use generator
+expect message coughs, sputters
+expect story fuel 0
+expect shown lamps
+expect hidden dark
+expect shown hum
+wait 7
+
+# Through the commander's door: his orders and his safe
+walk -5.5 -6.5 to -3 -6 to 0 -6 to 4 -6 to 4.2 -8.3 to 6.6 -8.2 h=1.69 below=5
+read Commander's orders
+expect step 6
+open Commander's safe
+wait 2
+expect item Blueprint_Fueltank 1
+expect done
+
+# Out through the blast gate onto the landing
+walk 6.6 -8.2 to 4.2 -8.3 to 4 -6 to 0 -6 to 0 -9.5 to 0 -12.5 h=1.68 below=5
+expect stand 0 -12.5 h=1.68
+zone outside
+expect message Daylight
+
+# The radio room's set runs on the generator now (Raft's radio: power or a battery)
+use opradio
+expect message Static crackles

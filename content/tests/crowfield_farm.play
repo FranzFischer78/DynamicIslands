@@ -1,0 +1,25 @@
+# Play test of Crowfield Farm (CIPlay crowfield_farm, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The farmyard on the north plain (3.2 m): the farmhouse at -12 28 (its note by the door at -19 27), the barn x 4.5..15
+# z 22.5..33 (the tack chest inside), the pen x -27..-18 z 28..35, the fields at x -26..-12; the goats on the hill's south side.
+island Crowfield Farm
+offset 0 0
+expect step 0
+expect title Three Goats
+wait 5
+expect animals Goat 3
+expect animals Chicken 4
+walk 0 40 to 0 34 to 0 27 h=3.2
+zone farmyard
+expect step 1
+read Farmer's note
+expect step 2
+open Marta's basket
+expect message FOR WHOEVER BRINGS THE GOATS HOME
+open Barn tack chest
+expect step 3
+catch Goat 3
+expect step 4
+open Marta's basket
+expect done
+open Windmill box
+open Feed bin

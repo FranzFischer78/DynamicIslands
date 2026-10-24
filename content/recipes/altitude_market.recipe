@@ -1,0 +1,183 @@
+# Altitude Market - an island of the library's plan The Gravity Sea (a sky island, 35 m over the sea)
+# The Lodestone Quay's market town, torn up with the hill on Lift Day: a market square of Caravan Town's caravans, tents,
+# baskets and crates on a jagged rock plate, the old cable-car station grown shut with vines, a clock tower on stilts
+# (screechers nest round it; its room behind a keypad) with a zipline from its deck down to the lower terrace, and at the
+# east edge of the lower terrace the ballast crane with its ballast stone hanging from its hook over the drop. The station's old vending
+# machine still takes Tangaroa tokens. Quest "Market Day in the Sky" (11 steps): the rim, the crier's board, the vines
+# into the station, its two blueprints, the screechers, the clock tower room's keypad, the fireworks stall, the rigger's
+# chest (the plan's done-when, step 9), the zipline down and the ballast release (signal "ballast": brings Sinkmarket
+# Floor, where the stone lands).
+#
+# Built by the recipe player (CIRecipe altitude_market) through the editor's own operations. Points (metres over the
+# island's own water line; in the world it all floats 35 m higher): the square at 5 m (r 16 round 0 0); the station
+# x -15..-10.5, z -4..-1; the clock tower x 8..12.5, z 6..10.5, its deck 2.6 m up; the lower terrace at 2 m round 18 -14;
+# the ballast crane at 20.5 -17 (its hook at 23.1 -19.6).
+include lib_features
+include lib_huts
+include lib_gravity
+new
+gen Trees=0.08 Bushes=0.3 Rocks=0.3 Harvest=0.25 BeachThings=0
+gen Seed=9551 Radius=34 Height=11 Roughness=0.45 Peaks=1 Shape=0 Style=0 BeachWidth=0.1 Cliffs=0.7 PeakShape=0.5
+gen Water=0 SeaRocks=0 SeaFinds=0 Sunken=0 Hostiles=0 Friendly=0 SeaLife=0
+generate
+elevation 35
+
+# --- Terrain: the square at 5 m, the lower terrace at 2 m -----------------------------------------------------------
+brush flatten at 0 0 r=16 s=20 frames=200 h=5
+brush flatten at 18 -14 r=6 s=20 frames=120 h=2
+brush flatten from 13 -10 to 17 -13 r=3 s=12 frames=40 h=3.5
+brush grass at 0 0 r=14 s=20 frames=20
+brush smooth at 43 -8 r=10 s=20 frames=150
+origin
+clear at 0 0 r=10
+clear at -12.75 -2.5 r=4
+clear at 10.25 8.25 r=4
+clear at 18 -14 r=6
+
+# --- The market square: caravans and tents for stalls, baskets and crates; the crier's board -------------------------
+place Caravan_Blue_01 stalls at -6 -3 ground sit yaw=90
+place Caravan_Yellow_01 stalls at 6 -3 ground sit yaw=270
+place Balboa_DecorationPrefabBase_SimpleTent stalls at -6 5 ground sit yaw=90
+place Balboa_DecorationPrefabBase_SimpleTent stalls at 6 5 ground sit yaw=270
+place UT_MarketBasket01 - at -3.6 -2 ground sit yaw=20
+place UT_MarketBasket03 - at -3.8 -3.4 ground sit yaw=70
+place UT_MarketCrateSmall01 - at 3.6 -2.2 ground sit yaw=10
+place UT_MarketCrateSmall02 - at 3.4 -3.6 ground sit yaw=80
+place UT_MarketStackBox01 - at -3.6 4.6 ground sit yaw=40
+place UT_MarketBasket02 - at 3.6 5.2 ground sit yaw=160
+place Note_Sign crier at 0 -7 ground sit yaw=180
+place Zone_Trigger rimzone at 0 -13 ground
+
+# --- The old cable-car station (a hut, its door grown shut with vines), the office chest inside ---------------------
+push at -15 -4 h=5
+call hut w=3 d=2 y=0.1
+place Loot_Chest stationoffice at 3.7 2.3 y=0.1 sit yaw=180
+place Zone_Trigger stationzone at 2.25 1.5 y=1
+pop
+place ChoppableVines stationvines at -14.25 -4.8 ground yaw=0
+# (a porter's toolbox by the door: a machete for a player who has none yet - Rootcellar Deep's chest has one too)
+place Loot_Chest portertools at -11 -6.5 ground sit yaw=200
+
+# --- The clock tower on stilts: its room behind a keypad (on a stilt), a zipline from its deck down to the terrace ---
+push at 8 6 h=5
+call stilt_hut y=2.6
+place Placeable_Clock_Basic - at 0.9 3.6 y=2.7 sit yaw=90
+place Loot_Chest clockroom at 3.6 3.6 y=2.7 sit yaw=270
+place Loot_Chest riggerchest at 0.9 1.2 y=2.7 sit yaw=90
+place RT_PowerBox clockpad at 4.6 0.15 y=1.4 yaw=90
+pop
+place Zone_Trigger towerzone at 10.25 8.25 ground
+place Creature_StoneBird screechers at 10 8 h=16
+place ZiplinePath_Landmark zipdown at 11.5 8 h=7.7
+zipto zipdown 17 -12
+# (Raft's zipline has no stand: its near floor (5.72 m west, 0.97 m north of the pivot, 1.35 m under it) hung 1.3 m over
+# the ground west of the tower - an iron post under it, as on the Lodestone Array)
+place RT_PillarThick zippost at 5.78 8.97 ground sy=0.232
+prop zippost tint.color=#3c4046
+prop zippost tint.amount=0.6
+place Zone_Trigger terracezone at 18 -14 ground
+
+# --- The fireworks stall by the south-east tent ---------------------------------------------------------------------
+place Placeable_Table_Basic - at 4 8.5 ground sit yaw=0
+place Loot_Chest fireworks at 2.4 8.5 ground sit yaw=90
+
+# --- The ballast crane on the lower terrace's east edge, its stone hanging from the hook over the drop; the lever
+place UT_ElectricityIsland_Crane02 ballastcrane at 20.5 -17 ground sit scale=0.45 yaw=135
+place SmallRock_02 ballaststone at 23.1 -19.6 h=3.5 scale=1.1 yaw=40
+place RT_Pillar - at 17 -17 ground sy=0.4
+place TP_LaserControlPanel_lever release at 17 -17 ground y=1.25 scale=3 yaw=135
+place Placeable_Lantern_Metal ballastcam at 16 -12 ground y=1.1 drop
+
+# --- The station's old vending machine and tokens dropped round the square -------------------------------------------
+vending marketvend at -4 -9 ground yaw=180
+place QuestItemPickup_Tangaroa_Token - at -9 -9 ground
+place QuestItemPickup_Tangaroa_Token - at 9 -8 ground
+place QuestItemPickup_Tangaroa_Token - at -2 10 ground
+place QuestItemPickup_Tangaroa_Token - at 16 -15 ground
+
+# --- Things to gather ------------------------------------------------------------------------------------------------
+scatter "Pickup_Landmark_PineappleLandmark" 2 at -8 10 r=4 seed=9561 free=2
+call dirt x=10 z=-6 r=5 n=2 seed=9562
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Altitude Market
+info author=Custom Islands
+info description=The quay's market town, torn into the sky 35 m up: caravans and tents on a rock plate, a cable-car station grown shut with vines, a clock tower full of screechers, a zipline and a ballast crane over the drop. The fourth island of The Gravity Sea.
+island on.arrive=message||A market in the sky: caravans, tents, a clock tower - and a crane leaning out over nothing.
+
+story clockcode|Clock tower keypad open|Note_Paper|The clock tower room's keypad, unlocked with the crier's code.
+story ballastdrop|Ballast dropped|Placeable_Lantern_Metal|You let the ballast stone go: it fell 35 m into the sea, where the market's lower town lies.
+
+note crier Market crier's board | MARKET DAY - HEAR YE\n\nThe market is OPEN, Lift Day or no Lift Day.\nStalls: fruit, rope, fireworks (by the south tent).\nThe cable-car is shut - vines. Bring a blade.\nClock tower room: the code is the hour the hill went up, 3:51, then 7 for luck - 3517.\nThe ballast crane holds the market level. DO NOT pull the release.
+note portertools Porter's toolbox | The cable-car porter's toolbox: a machete for the vines on the station door, and a coil of rope.
+note stationoffice Station office | The cable-car station's office chest: the engine plans for the cars and a metal detector's, "to find what fell".
+note clockroom Clock tower room | The clock tower room's chest: the market's fireworks money and a rigger's spare rope.
+note fireworks Fireworks stall | The fireworks seller's chest: rockets for the Lift Day show that never was, and how to make them.
+note riggerchest Rigger's chest | The rigger's chest on the tower deck: a zipline base's plans, "the quick way down to the terrace" - and his air bottle, for whatever falls into the sea below.
+loot stationoffice Blueprint_EngineControls*1;Blueprint_MetalDetector*1;Scrap*3
+prop stationoffice loot.refill=0
+loot portertools Machete*1;Rope*1
+prop portertools loot.refill=0
+loot clockroom TradeToken*4;Rope*3;Bolt*2
+prop clockroom loot.refill=0
+loot fireworks Blueprint_Firework*1;Firework*2;Rope*2
+prop fireworks loot.refill=0
+loot riggerchest Blueprint_ZiplineBase*1;Rope*4;Scrap*2;OxygenBottle*1
+prop riggerchest loot.refill=0
+
+prop stationvines obj.name=stationvines
+prop stationvines on.use=hide|stationvines\nsignal||vines\nmessage||The machete bites through the vines. The station door is free.
+prop stationoffice if.open=signal|vines
+prop stationoffice else.open=message||The office is behind the vines.
+prop stationzone zone.id=station
+prop stationzone zone.radius=2
+prop stationzone zone.message=The cable-car station. The cables run out over the edge - and end in the air.
+
+prop clockpad obj.name=clockpad
+prop clockpad beh.use=Type the clock tower code
+prop clockpad lock.code=3517
+prop clockpad on.use=sound||event:/exploring/obstacles/keypad/keypad_correct\nmessage||The keypad clicks and the tower room's chest unbolts.\nsignal||clockcode\ngive||story:clockcode*1
+prop clockpad else.use=message||The keypad wants the tower's code. The crier's board has it.
+prop clockroom if.open=signal|clockcode
+prop clockroom else.open=message||The tower room's chest is bolted from the keypad on the stilt below.
+
+prop towerzone zone.id=clocktower
+prop towerzone zone.radius=9
+prop towerzone zone.repeat=never
+prop towerzone zone.message=Screechers! They nest round the clock tower.
+prop screechers creature.count=4
+prop screechers creature.respawn=0
+prop screechers creature.zone=clocktower
+
+prop terracezone zone.id=lower_terrace
+prop terracezone zone.radius=4
+prop terracezone zone.message=The lower terrace. The ballast crane leans out over the drop.
+prop rimzone zone.id=market_rim
+prop rimzone zone.radius=8
+prop rimzone zone.message=The market's rim. Stalls, a clock tower - and the sea 35 m below.
+
+prop ballaststone obj.name=ballaststone
+prop ballastcam obj.name=ballastcam
+prop release obj.name=release
+prop release beh.use=Pull the ballast release
+prop release if.use=!signal|ballast
+prop release on.use=signal||ballast\nhide|ballaststone\ngive||story:ballastdrop*1\nmessage||The crane's hook swings free. The ballast stone tips over the edge - and long seconds later, far below, a splash.\ncamera|ballastcam|ballaststone|5|30
+prop release else.use=message||The stone is gone. Down there, under the splash, is the market's lower town.
+
+quest title=Market Day in the Sky
+quest intro=A market town 35 m over the sea. Climb onto its rim.
+step reach|market_rim|1|Climb onto the market's rim
+step read|Market crier's board|1|Read the crier's board in the square
+step reach|station|1|Cut the vines and go into the cable-car station
+step blueprint|Blueprint_EngineControls|1|Take the engine control plans from the station office
+step blueprint|Blueprint_MetalDetector|1|Take the metal detector plans from the station office
+step kill|Screecher|4|Drive the screechers off the clock tower
+step open|Clock tower room|1|Open the clock tower room's chest (the crier's code)
+step blueprint|Blueprint_Firework|1|Take the firework plans from the fireworks stall
+step blueprint|Blueprint_ZiplineBase|1|Take the zipline base plans from the rigger's chest
+step reach|lower_terrace|1|Take the zipline down to the lower terrace
+step collect|story:ballastdrop|1|Pull the ballast release on the crane
+quest done=The stone fell into the market's lower town on the seabed, 30 m down. The Receiver picks up a diving bell there - band 700.
+quest reward=MetalIngot*3;Rope*4
+
+save Altitude Market

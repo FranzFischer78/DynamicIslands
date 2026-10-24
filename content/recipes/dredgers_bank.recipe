@@ -1,0 +1,109 @@
+# Dredgers Bank - a side island of the library's plan Relic of the Seventh Tide (met by chance while sailing)
+# A long sandbank where the Syndicate dredge the seabed: a dredging rig on four legs with one of Utopia's small cranes on
+# its deck, shipping containers stacked on the sand, Varuna Point's forklift, the camp's tents and the paymaster's safe.
+# A working site, not a wreck. Quest "The Dredging Camp" (5 steps): the dredge manifest, the camp's dogs, the
+# paymaster's safe on its keypad (the code is in the manifest), the Syndicate's map fragment, the rig's top.
+#
+# Built by the recipe player (CIRecipe dredgers_bank) through the editor's own operations.
+include lib_sea
+include lib_features
+new
+# (nature: a low tropical sandbank at Raft's density - a few low palms and bushes, beach things; one reef)
+gen Trees=0.6 Bushes=0.8 Rocks=0.7 Harvest=0.6 BeachThings=0.4
+gen Seed=9801 Radius=46 Height=3 Roughness=0.2 Peaks=1 Shape=0 Style=0 PeakShape=0.2 Cliffs=0.1 BeachWidth=0.9
+gen Water=0.5 SeaRocks=0.6 SeaFinds=0.5 Sunken=0.5 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the camp flat at 1.6 m, the rig's pad at 1 m on the east end ------------------------------------------
+brush flatten at -6 0 r=16 s=20 frames=200 h=1.6
+brush flatten at 18 0 r=6 s=20 frames=80 h=1
+origin
+clear at -6 0 r=17
+clear at 18 0 r=7
+
+# --- The camp: tents, the manifest on a crate, the paymaster's safe and its keypad, containers, the forklift ---------
+place Balboa_DecorationPrefabBase_SimpleTent - at -14 -6 ground sit yaw=20
+place Balboa_DecorationPrefabBase_SimpleTent - at -16 4 ground sit yaw=160
+place "Box Big" manifestdesk at -6 -4 ground sit yaw=10
+place Note_Paper manifest at -6 -4 h=3 sit drop yaw=15
+place VG_Safe paysafe at -10 -9 ground sit yaw=0
+place "Box Small" - at -8.6 -9 ground sit
+place RT_PowerBox safekeypad at -8.6 -9 h=2.6 sit drop yaw=0
+place Reef_Container containers at -2 8 ground sit yaw=90
+place Reef_Container containers at -2 11 ground sit yaw=90
+place Reef_Container containers at -2 14 ground sit yaw=90
+place VP_Forklift - at 6 6 ground sit yaw=200
+place Placeable_Lantern_Metal - at -5 -3 ground sit
+place Zone_Trigger camp at -6 0 h=1.6
+place Creature_Hyena dogs at 2 -6 ground
+prop containers tint.color=#a0522d
+prop containers tint.amount=0.4
+
+# --- The dredging rig: four thick legs, a steel deck at 7 m, a small crane on the deck, a ladder up -----------------
+for lx 16.5 19.5 3
+place RT_PillarThick riglegs at $lx -1.5 h=1
+place RT_PillarThick riglegs at $lx 1.5 h=1
+next
+place RT_Floor rigdeck at 18 0 h=7 sit sx=0.6 sz=0.4
+place UT_ElectricityIsland_Crane02 rigcrane at 18.6 0.6 h=7.07 sit scale=0.25 yaw=90
+place LandmarkLadder_6m rigladder at 18 -1.85 h=1 sit yaw=180
+place Zone_Trigger rigtop at 17 -0.6 h=7.2
+prop riglegs tint.color=#6f7780
+prop rigdeck tint.color=#5d646b
+prop rigcrane tint.color=#c8a020
+
+# --- Things to gather, the reef -------------------------------------------------------------------------------------
+scatter "Pickup_Landmark_PineappleLandmark" 2 at -20 -14 r=8 seed=9811 free=3
+call shallows x=30 z=-20 r=10 deep=3 n=1 seed=9812
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Dredgers Bank
+info author=Custom Islands
+info description=A long sandbank where the Syndicate dredge the seabed: a dredging rig on four legs, containers on the sand, a forklift and the camp's tents. A side island of Relic of the Seventh Tide.
+island on.arrive=message||A sandbank with a rig on legs, containers and tents. Somewhere a generator coughs - this camp is working.
+
+story mapfrag|Syndicate map fragment|Placeable_PaperBundle|A torn corner of a Syndicate sea chart: a ring of rock marked ENGINE, and seven little wave marks round it.
+
+note manifest Dredge manifest | SYNDICATE DREDGING - MANIFEST, BANK 4\n\nSand: 900 t. Wreck metal: 14 t. One brass plate with writing (sent to the boss).\n\nPay day Friday. Paymaster: the safe code is the bank's number and the week's - 4 and 471. Don't lose it again.
+note paysafe Paymaster's safe | The paymaster's safe: the crew's wages in metal and a battery - and a torn piece of sea chart.
+loot paysafe story:mapfrag*1;MetalIngot*4;Battery*1;TradeToken*3
+prop paysafe loot.refill=0
+prop paysafe if.open=signal|paysafe
+prop paysafe else.open=message||The safe is locked from the keypad beside it. Four digits.
+prop safekeypad obj.name=safekeypad
+prop safekeypad beh.use=Type the safe's code
+prop safekeypad lock.code=4471
+prop safekeypad on.use=sound||event:/exploring/obstacles/keypad/keypad_correct\nmessage||The keypad chirps and the safe's bolts slide back.\nsignal||paysafe
+
+prop camp zone.id=dredge_camp
+prop camp zone.radius=9
+prop camp zone.repeat=never
+prop camp zone.message=Dogs come out from behind the containers - the Syndicate's!
+prop dogs creature.count=3
+prop dogs creature.respawn=0
+prop dogs creature.zone=dredge_camp
+prop dogs tint.color=#c8a46a
+prop dogs tint.amount=0.5
+prop rigladder obj.name=rigladder
+prop rigladder beh.use=Climb to the rig's deck
+prop rigladder on.use=teleport|rigtop
+prop rigtop obj.name=rigtop
+prop rigtop zone.id=rig_top
+prop rigtop zone.radius=2.5
+prop rigtop zone.message=The rig's deck. Out to sea the Syndicate's dredge lines run - all toward the horizon where the chart says ENGINE.
+
+quest title=The Dredging Camp
+quest intro=A Syndicate camp on a sandbank. Their manifest lies on a crate.
+step read|Dredge manifest|1|Read the dredge manifest
+step kill|Hyena|3|Deal with the camp's dogs
+step open|Paymaster's safe|1|Open the paymaster's safe (the manifest has the code)
+step collect|story:mapfrag|1|Take the Syndicate's map fragment
+step reach|rig_top|1|Climb up onto the dredging rig
+quest done=A piece of the Syndicate's chart: a ring of rock marked ENGINE. Whatever they dredge for, it ends there.
+quest reward=MetalIngot*3;Battery*1;Rope*3
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=34 n=1 seed=8842
+prop treasure8842 treasure.loot=TitaniumOre*2
+
+save Dredgers Bank

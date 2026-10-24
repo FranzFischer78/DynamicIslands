@@ -1,0 +1,202 @@
+# Gannet Cliff - the seventh island of the library's plan The Lullaby Frequency (SL1, horror)
+# A tall seabird rock white with nests, the Quiet Choir's commune on its top: a ring of Balboa's tents and Caravan
+# Town's banners round the listening pit - a square pit dug into the rock and lined with Raft's grey walls and plates,
+# and round it Raft's antenna dishes set face-up in the ground like ears, listening down into the rock. A plank path
+# climbs the cliff from the beach. Quest "The Quiet Choir" (11 steps): the cliff foot, the Choir's notice board, the
+# tents, three tent diaries, the pit gate (only for those with the Choir's hymn sheet from Effigy Shoals), the pit floor,
+# three black hyenas - the Choir's dogs, the radio's sermon, the Listener's strongbox, the quarry chart in it, the camp
+# bell (a Choir deserter joins the crew as a playable character). A Raft store on the plateau.
+#
+# Built by the recipe player (CIRecipe gannet_cliff) through the editor's own operations.
+include lib_sea
+include lib_features
+new
+# (nature: a bird rock - Rocks 0.5, bushes low, few trees)
+gen Trees=0.12 Bushes=0.12 Rocks=0.5 Harvest=0.15 BeachThings=0.35
+gen Seed=1207 Radius=63 Height=17 Roughness=0.35 Peaks=1 Shape=0 Style=0 PeakShape=0.6 Cliffs=0.6 BeachWidth=0.5
+gen Water=0.5 SeaRocks=0.55 SeaFinds=0.4 Sunken=0.3 Hostiles=0 Friendly=0.15 SeaLife=0.35
+generate
+
+# --- Terrain: the plateau at 13 m, the cliff path (pads every 3 m, 0.92 m higher each) up the west side from the beach,
+# the listening pit (4.84 m deep) -----------------------------------------------------------------------------------
+brush flatten at 0 8 r=24 s=20 frames=150 h=13
+for i 0 13
+brush flatten at -18 {-44+3*$i} r=2.6 s=20 frames=20 h={1+0.92*$i}
+next
+brush smooth from -18 -46 to -18 -4 r=3 s=6 frames=30
+brush flatten at -18 -50 r=6 s=16 frames=40 h=1
+brush flatten at 0 12 r=4.2 s=20 frames=80 h=8.16
+# (and its square corners: the round dig alone left the corner plates and walls in the rock)
+for qx -1.5 1.5 3
+for qz 10.5 13.5 3
+brush flatten at $qx $qz r=3.2 s=20 frames=60 h=8.16
+next
+next
+origin
+clear at 0 8 r=25
+clear from -18 -52 to -18 -4 r=3
+
+# --- The cliff path: a plank walk laid on the slope -----------------------------------------------------------------
+line Block_Floor_Wood from -18 -44 to -18 -8 step=1.5 follow
+place Zone_Trigger cliff_foot at -18 -48 ground y=1
+place Note_Sign noticeboard at -15.4 -46.5 ground sit yaw=200
+
+# --- The listening pit: a square of 6 x 6 m, walls two high (4.84 m) on its floor, a stone rim at the plateau's level,
+# the ladder down (hidden until the gate opens) on its south wall ------------------------------------------------------
+push at -3 9 h=8.16
+for fx 0.75 5.25 1.5
+for fz 0.75 5.25 1.5
+place Block_Floor_Tier3 - at $fx $fz y=0.1
+next
+next
+for i 0.75 5.25 1.5
+place Block_Wall_Tier3 - at $i 0 y=0
+place Block_Wall_Tier3 - at $i 0 y=2.42
+place Block_Wall_Tier3 - at $i 6 y=0
+place Block_Wall_Tier3 - at $i 6 y=2.42
+place Block_Wall_Tier3 - at 0 $i y=0 yaw=90
+place Block_Wall_Tier3 - at 0 $i y=2.42 yaw=90
+place Block_Wall_Tier3 - at 6 $i y=0 yaw=90
+place Block_Wall_Tier3 - at 6 $i y=2.42 yaw=90
+next
+for rx -0.75 6.75 1.5
+place Block_Floor_Tier3 - at $rx -0.75 y=4.84
+place Block_Floor_Tier3 - at $rx 6.75 y=4.84
+next
+for rz 0.75 5.25 1.5
+place Block_Floor_Tier3 - at -0.75 $rz y=4.84
+place Block_Floor_Tier3 - at 6.75 $rz y=4.84
+next
+place Block_Ladder_Tier3 pitladder at 3.75 0.2 y=0.1 yaw=0
+place Block_Ladder_Tier3 pitladder at 3.75 0.2 y=2.54 yaw=0
+place Block_Wall_Gate_Tier3 pitgate at 3.75 -0.75 y=4.84 yaw=0
+place Zone_Trigger pit_floor at 3 3 y=1
+place Zone_Atmosphere pitdark at 3 3 y=1.5
+place Creature_Hyena choirdogs at 4.5 4.5 y=0.5
+place Crate_Big_01 - at 1.2 4.8 y=0.1 sit yaw=0
+place Placeable_Radio sermonradio at 1.2 4.8 y=1.3 sit drop yaw=180
+place Loot_Chest strongbox at 4.8 4.9 y=0.1 sit yaw=180
+place Placeable_Lantern_Metal - at 0.6 0.6 y=0.1 sit
+pop
+
+# --- The ears: eight antenna dishes face-up in the ground round the pit ----------------------------------------------
+for a 0 315 45
+place Antenna_dish - at {8*cos($a)} {12+8*sin($a)} ground sit scale=2.2
+next
+
+# --- The tents: six round the pit facing it, banners between them, three diaries; the camp bell; the store ------------
+for a 15 315 60
+place Balboa_DecorationPrefabBase_SimpleTent - at {14*cos($a)} {12+14*sin($a)} ground sit yaw={270-$a}
+next
+for a 45 345 60
+# (each banner's rope tied to a wooden post at both ends - Banner_01's rope spans x -2.55..2.37, 3.2 m over its bottom)
+push at {15*cos($a)} {12+15*sin($a)} yaw={360-$a} ground
+place Banner_01 - at 0 0 ground sit
+place Block_Pillar_Wood - at -2.5 0 ground sy=1.5
+place Block_Pillar_Wood - at 2.32 0 ground sy=1.5
+pop
+next
+place Note_Paper diary_ro at {11*cos(15)} {12+11*sin(15)} ground sit yaw=30
+place Note_Paper diary_ansel at {11*cos(135)} {12+11*sin(135)} ground sit yaw=150
+place Note_Paper diary_listener at {11*cos(255)} {12+11*sin(255)} ground sit yaw=270
+place Zone_Trigger tents at -6 -3 ground y=1
+place Block_Pillar_Wood - at 6 -4 ground sy=1.4
+place TangaroaBucket campbell at 6 -4 ground y=3.95 rot=180,0,0 scale=1.4
+store choirstore at 11 -3 ground
+
+# --- The rookery: nests along the plateau's edge; things to gather; the reef at the cliff foot ----------------------
+for a 0 330 30
+place Placeable_BirdsNest - at {18*cos($a)} {8+18*sin($a)} ground sit yaw={$a*3}
+next
+scatter "Pickup_Landmark_PineappleLandmark" 2 at 0 0 r=50 seed=1271 free=5
+call dirt x=30 z=-30 r=8 n=2 seed=1272
+call shallows x=-30 z=-52 r=12 deep=5 n=1 seed=1273
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Gannet Cliff
+info author=Custom Islands
+info description=A seabird rock with a commune on top: tents round a stone-lined listening pit, antenna dishes in the ground like ears. The Quiet Choir. The seventh island of The Lullaby Frequency.
+island on.arrive=message||Gannets wheel over the rock, thousands of them - and not one of them makes a sound.
+
+story diary|Tent diary|Note_Paper|A diary from one of the Choir's tents.
+story pitopen|Pit gate open|Note_Paper|The listening pit's gate let you through: you know the hymn.
+story sermon|The Listener's sermon|Placeable_Radio|The sermon on the pit's radio: the quarry, the mirrors, the Lantern-Mother.
+story quarrychart|Quarry chart|Note_Paper|A chart of a flooded quarry far to the north, five great mirrors drawn round its rim. The Listener's last plan.
+story rung|Camp bell rung|Note_Paper|You rang the Choir's camp bell. Sister Ro came out of hiding.
+
+note noticeboard Choir notice board | THE QUIET CHOIR\n\nWelcome, listener. Leave your voice at the foot of the rock.\nWe do not speak on the rock. We do not sing, except the hymn.\nThe pit is for those who know the hymn.\n\nNight watch at the ears: Ro, Ansel. Dogs fed at dusk.
+note diary_ro Sister Ro | Day 40. The Listener says the song is a mother calling her children home. I had a mother. She never sounded like that.\n\nI am going to hide when they go down to the water. If anyone rings the camp bell, I will know it is not one of us. We never ring it.
+note diary_ansel Brother Ansel | I sat at the ears all night. Under the rock, under the sea, something is singing back to her. Two voices. The Listener did not want to hear that.
+note diary_listener The Listener | The dishes hear her best from the quarry. Five mirrors round the water, all turned to the middle - she will come up to see herself and the whole sea will hear her at once.\n\nThe chart is in my strongbox in the pit. The dogs will keep the curious out.
+prop diary_ro if.read=!signal|gn_ro
+prop diary_ro on.read=signal||gn_ro\ngive||story:diary*1
+prop diary_ansel if.read=!signal|gn_ansel
+prop diary_ansel on.read=signal||gn_ansel\ngive||story:diary*1
+prop diary_listener if.read=!signal|gn_listener
+prop diary_listener on.read=signal||gn_listener\ngive||story:diary*1
+
+note strongbox Listener's strongbox | The Listener's strongbox: metal, a battery, the Choir's dues - and a rolled chart of a flooded quarry.
+loot strongbox story:quarrychart*1;MetalIngot*4;Battery*1;CopperIngot*2;TitaniumIngot*1
+prop strongbox loot.refill=0
+
+prop pitgate obj.name=pitgate
+prop pitgate beh.use=Open the pit gate
+prop pitgate if.use=has|story:hymn|1
+prop pitgate on.use=hide|\nshow|pitladder\ngive||story:pitopen*1\nmessage||You hum the hymn under your breath. Nobody is there to hear it - but the gate swings open, and below it a ladder is let down into the pit.
+prop pitgate else.use=message||Only those who know the hymn may listen.
+prop pitladder obj.name=pitladder
+prop pitladder beh.hidden=1
+prop pit_floor zone.id=pit_floor
+prop pit_floor zone.radius=2.5
+prop pit_floor zone.repeat=1
+prop pitdark atmo.fog=#0a0c10
+prop pitdark atmo.fogAmount=0.6
+prop pitdark atmo.light=#1c2028
+prop pitdark atmo.lightAmount=0.8
+prop pitdark zone.radius=4
+prop choirdogs creature.count=3
+prop choirdogs creature.respawn=0
+prop choirdogs creature.zone=pit_floor
+prop choirdogs creature.health=2
+prop choirdogs tint.color=#101010
+prop choirdogs tint.amount=0.9
+
+prop sermonradio obj.name=sermonradio
+prop sermonradio beh.use=Turn on the radio
+prop sermonradio if.use=!signal|gn_sermon
+prop sermonradio on.use=signal||gn_sermon\ngive||story:sermon*1\nplaysound||event:/exploring/elevator/elevator_music|0.5|once|near\nmessage||A man's voice, slow, over the song: "She is not a monster. She is a mother. At the quarry the mirrors will show her to herself and she will sing to all of us at once. Bring the tooth of her old cradle. Bring the hymn. Come home."
+prop sermonradio else.use=message||Only the song now, very faint, under the hiss.
+
+prop tents zone.id=tents
+prop tents zone.radius=5
+prop tents zone.message=Tents round a pit, dishes in the ground. Empty. Bowls on the ground, still full.
+prop cliff_foot zone.id=cliff_foot
+prop cliff_foot zone.radius=5
+
+prop campbell obj.name=campbell
+prop campbell beh.use=Ring the camp bell
+prop campbell if.use=has|story:quarrychart|1
+prop campbell on.use=sound||event:/raft/radar/lever\ngive||story:rung*1\ncharacter||Jasmine\nmessage||The bell clangs over the silent rock. From under a tent's groundsheet a woman crawls out, thin, grey with dust: Sister Ro - Jasmine, before the Choir. "You rang it. None of them ever would. Take me off this rock." Jasmine has joined the crew.
+prop campbell else.use=message||A bell on a post. The Choir never rang it - and nobody would come yet if you did.
+
+quest title=The Quiet Choir
+quest intro=A rock white with silent gannets. Land on the beach at the foot of the cliff.
+step reach|cliff_foot|1|Land at the foot of the cliff
+step read|Choir notice board|1|Read the Choir's notice board
+step reach|tents|1|Climb the cliff path to the tents
+step collect|story:diary|3|Read the three tent diaries
+step collect|story:pitopen|1|Open the pit gate (only for those who know the hymn)
+step reach|pit_floor|1|Climb down into the listening pit
+step kill|Hyena|3|Deal with the Choir's dogs
+step collect|story:sermon|1|Turn on the pit's radio
+step open|Listener's strongbox|1|Open the Listener's strongbox
+step collect|story:quarrychart|1|Take the quarry chart
+step collect|story:rung|1|Ring the camp bell
+quest done=Sister Ro says the Choir rowed north to a flooded quarry. But first they went down to a drowned children's home - Cradle Reef - for the Lantern-Mother's tooth. The Receiver has it: tune in.
+quest reward=MetalIngot*3;Battery*1
+
+# Buried treasure (one of the story line's last islands): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=32 n=1 seed=8823
+prop treasure8823 treasure.loot=TitaniumOre*3
+
+save Gannet Cliff

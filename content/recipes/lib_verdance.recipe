@@ -1,0 +1,56 @@
+# lib_verdance - shared pieces of the plan The Last Green World's islands ("include lib_verdance"; a recipe that calls
+# shelter or tent includes lib_huts first: floors, corners).
+#
+# shelter: an open wooden shelter of w x d cells (1.5 m) from the frame's corner (push to place it): a floor of Raft's
+# wooden floor blocks, a pillar at each corner standing on it, and a hipped roof resting on the pillars.
+macro shelter w=2 d=2 y=0.1
+call floors w=$w d=$d y=$y
+call corners w=$w d=$d y=$y
+roof $w $d at 0 0 y=$y wood
+end
+#
+# pollen: a drift of yellow pollen in the air round x z (Raft's atmosphere zone, a warm yellow light and fireflies)
+macro pollen x=0 z=0 r=16 al=pollen
+place Zone_Atmosphere $al at $x $z ground y=2
+prop $al atmo.fog=#f0e090
+prop $al atmo.fogAmount=0.15
+prop $al atmo.light=#fff0a0
+prop $al atmo.lightAmount=0.35
+prop $al atmo.particles=fireflies
+prop $al zone.radius=$r
+end
+#
+# blight: purple growth on a root at x z (Varuna's corals tinted purple, sitting on the ground) under one alias
+macro blight x=0 z=0 al=blight
+place VP_CoralBulb06 $al at $x $z ground sit yaw=10
+place VP_CoralTubular01 $al at {$x+0.9} {$z+0.4} ground sit yaw=70
+place VP_CoralBulb04 $al at {$x-0.8} {$z-0.5} ground sit yaw=140
+place VP_CoralDigitate02 $al at {$x+0.2} {$z-1} ground sit yaw=200
+end
+#
+# trail: a broken-bush trail - a bush laid flat at x z, tilted (Raft's bush, squashed)
+macro trailbush x=0 z=0 yaw=0
+place Bush2 - at $x $z ground sit sy=0.5 yaw=$yaw
+end
+#
+# crank: Raft's crank wheel (Temperance's) on the side of a post at x z, facing yaw; the alias gets obj.name, its
+# on.use is the island's
+macro crank x=0 z=0 yaw=0 alias=crank
+place RT_Pillar - at $x $z ground sy=0.6
+push at $x $z yaw=$yaw
+place TP_Selene_DoorCrankWheel $alias at 0 -0.09 ground y=1.2 rot=0,0,0
+pop
+prop $alias obj.name=$alias
+end
+#
+# zipdeck: a 1.5 m deck on four posts with a ladder on its front (z 0) side, for a zipline's near end (Raft's landmark
+# zipline brings its own floor piece: place it 1.35 m over the deck top, 5.72 m east and 0.97 m south of the deck's
+# middle, frame corner + 0.75 0.75)
+macro zipdeck y=2.6
+place ReefHuts_Pillar3 - at 0.15 0.15 y=0 sy={$y/4.815}
+place ReefHuts_Pillar3 - at 1.35 0.15 y=0 sy={$y/4.815}
+place ReefHuts_Pillar3 - at 0.15 1.35 y=0 sy={$y/4.815}
+place ReefHuts_Pillar3 - at 1.35 1.35 y=0 sy={$y/4.815}
+place Block_Floor_Wood - at 0.75 0.75 y=$y
+place Block_Ladder - at 0.75 -0.3 ground
+end

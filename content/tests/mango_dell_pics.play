@@ -1,0 +1,9 @@
+# Guide pictures of Mango Dell (CIPlay mango_dell_pics): Raft's camera, morning, calm
+island Mango Dell
+offset 0 0
+hour 9
+weather Calm
+at 0 -16
+wait 3
+picture ni_mango_dell_island 36 18 -36 0 3 0
+picture ni_mango_dell_grove 0 7 -14 0 3 1

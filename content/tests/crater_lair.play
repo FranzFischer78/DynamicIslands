@@ -1,0 +1,85 @@
+# Play test of Crater Lair (CIPlay crater_lair, in a test world 'CI ...'). Points as in its recipe: the getaway jetty west
+# of the facade (deck 1.15 m, x -53..-42.6, z -2.2..3), the hidden panel on the facade at -42.85 -3.3, the garage door in
+# the facade (z 0.9..7) over the walkway (z 0.5..3.25, 1 m) and the dock pool; the hangar floor (1 m) x -42..-34.4; the
+# control wing's doorway in its west wall (x -34.4, z -0.65..2.35), the control room west of the partition (x -30.3),
+# the office east of it; the pet pool behind the bars (x -34.45, z -11.8..-2.5; the gap at its north end), the crater's
+# dish on the cone's top at -3 -3.
+island Crater Lair
+offset 0.5101 0.0433
+expect step 0
+expect title Storm Engine
+wait 5
+
+# Tied up at the jetty: the getaway locker refuses; the hidden panel lifts the hangar door; in along the walkway
+walk -52 0.5 to -48 0.5 to -44.2 -1.6 h=1.15
+# (the hangar's rats first, as a player fights them: they bit the test player to death while it stood still over them
+# on the hangar's roof - where 'use' and 'open' put it, 2026-10-04)
+# (the quest's third step: remembered, and counted the moment the memo is read)
+kill Tangaroa rat
+open Getaway boat locker
+expect message same red light
+use doorpanel
+expect message a hangar door
+wait 5
+walk -44.2 -1.6 to -44.2 1.9 to -41.5 1.9 to -38.5 1.5 to -37.5 -0.6 h=1.0
+zone hangar
+expect step 1
+
+# The engineer's memo on its board by the wall, the seaplane's cockpit box, the hangar crate
+read Chief engineer's memo
+expect step 3
+walk -37.5 -0.6 to -41.2 -1.2 h=1.0 below=7
+reach Seaplane's cockpit box
+open Seaplane's cockpit box
+open Hangar crate
+
+# Into the control wing: the safe's card reader and the incinerator refuse; the staff locker
+walk -41.2 -1.2 to -37.5 0.85 to -35.3 0.85 to -32.6 0.85 h=1.15 below=7
+open Chief's office safe
+expect message card reader blinks red
+use furnace
+expect message door hanging open
+open Staff locker
+
+# The pet's pool behind the bars: the angler comes up; the keycard's box at the bottom
+walk -32.6 0.85 to -35.3 0.85 to -35.1 -1.6 h=1.0 below=7
+zone petpool
+kill Angler fish
+expect step 4
+open Box in the pet's pool
+expect story keycard 1
+expect step 4
+
+# The safe opens to the keycard: the launch codes; the incinerator - the dish dies, the alarm, forty-five seconds
+walk -35.1 -1.6 to -35.3 0.85 to -32.6 0.85 to -29.6 3.4 h=1.15 below=7
+open Chief's office safe
+expect story codes 1
+expect step 5
+use furnace
+expect message codes curl
+expect story codes 0
+expect shown alarm
+expect hidden dishlights
+
+# Out before the blast door seals: back through the hangar and the door to the jetty
+walk -31.6 0.85 to -35.3 0.85 to -38.5 1.5 to -41.5 1.9 to -44.2 1.9 to -48 0.5 h=1.15 below=7
+zone dock
+expect step 6
+open Getaway boat locker
+wait 2
+expect item Blueprint_ZiplineTool 1
+expect done
+
+# The escape hatch drops a player from the control room to the jetty; the barrel by the jetty
+# The roof laser: the beam runs north past the mirror; a quarter turn sends it east onto the panel, which shows the roof
+# safe (the beam logged before and after)
+expect hidden lairvault
+beam lairemitter
+use lairmirror
+wait 2
+beam lairemitter
+expect message drinks the beam
+expect shown lairvault
+use escapehatch
+expect message surface beside the Chief's getaway boat
+open Barrel by the jetty

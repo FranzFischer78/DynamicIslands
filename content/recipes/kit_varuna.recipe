@@ -1,0 +1,26 @@
+# Kit check (not content): Varuna Point's scaffolding, site office, garage door, spotlight, elevator shaft, machines
+new
+gen Seed=1 Radius=60 Height=4 Shape=4 Roughness=0.1 ObjectDensity=0 Trees=0 Bushes=0 Rocks=0 BeachThings=0 Harvest=0
+gen Hostiles=0 Friendly=0 SeaLife=0 Water=0 SeaRocks=0 SeaFinds=0 Sunken=0
+generate
+brush flatten at 0 0 r=60 s=20 frames=80
+# scaffolding: a row of each, and a stack of two (open below, ramp above)
+place VP_Scaffolding_M_Open s1 at -24 0
+place VP_Scaffolding_M_Ramp s2 at -24 4
+place VP_Scaffolding_L_Ramp s3 at -24 8
+place VP_Scaffolding_S_Extension s4 at -24 -4
+place VP_Scaffolding_M_Extension s5 at -24 -8
+place VP_Scaffolding_M_Ramp s6 at -14 0
+place VP_Scaffolding_M_Ramp s7 at -14 0 y=3
+place VP_Scaffolding_M_Open s8 at -14 0 y=6
+place "Varuna BreakRoomBuilding" office at 0 -16
+place VP_GarageDoor_Frame gf at 16 -16
+place VP_GarageDoor gd at 16 -16
+place VP_Spotlight spot at 16 0
+place VP_Whiteboard wb at 20 0 y=1
+place VP_ElevatorShaft shaft at 0 10
+place VP_Excavator exc at 20 14
+place VP_Forklift fork at 28 0
+place VP_PortableToilet toilet at 28 -8
+place VP_AirPocket_Buoy buoy at 34 4
+place VP_MotherlodeElevatorTrack_CompleteSet track at 34 -16

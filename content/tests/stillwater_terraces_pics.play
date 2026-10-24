@@ -1,0 +1,15 @@
+# Guide pictures of Stillwater Terraces (CIPlay stillwater_terraces_pics): Raft's camera, morning - the hill from the
+# sea, the paddies and their mourners, the altar; the last picture after paddy 3 (fog, the figures behind you)
+island Stillwater Terraces
+offset 0 0
+hour 8
+weather Calm
+at 0 -50
+wait 3
+picture sl1_stillwater_island 0 40 -100 0 8 0
+picture sl1_stillwater_paddies 6 6 -44 0 9 -10
+picture sl1_stillwater_altar 8 18 -2 0 17 10
+zone paddy2
+zone paddy3
+wait 2
+picture sl1_stillwater_fog 2 13 -10 0 9 -20

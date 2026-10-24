@@ -1,0 +1,39 @@
+# Play test of the plan 'Raft Remade' (CIPlay plan_raft_remade, in a test world 'CI ...'): Raft's story from its start;
+# every story island's place is taken by its remade version, found on the Receiver, played to its end with its own
+# test - and its quest done unlocks the next one.
+plan Raft Remade
+note RadioTower
+expect chain radioremade unlocked
+tune radioremade
+include radio_tower_remade.play
+expect chain radioremade done
+expect chain vasagatanremade unlocked
+tune vasagatanremade
+include vasagatan_remade.play
+expect chain vasagatanremade done
+expect chain balboaremade unlocked
+tune balboaremade
+include balboa_remade.play
+expect chain balboaremade done
+expect chain caravanremade unlocked
+tune caravanremade
+include caravan_town_remade.play
+expect chain caravanremade done
+expect chain tangaroaremade unlocked
+tune tangaroaremade
+include tangaroa_remade.play
+expect chain tangaroaremade done
+expect chain varunaremade unlocked
+tune varunaremade
+include varuna_point_remade.play
+expect chain varunaremade done
+expect chain temperanceremade unlocked
+tune temperanceremade
+include temperance_remade.play
+expect chain temperanceremade done
+expect chain utopiaremade unlocked
+tune utopiaremade
+include utopia_remade.play
+expect chain utopiaremade done
+expect blueprints
+plan end

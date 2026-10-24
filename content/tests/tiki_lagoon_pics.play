@@ -1,0 +1,11 @@
+# Guide pictures of Tiki Lagoon (CIPlay tiki_lagoon_pics): Raft's camera, midday, calm. Points as in its recipe ("offset").
+island Tiki Lagoon
+offset 0.7206 -4.2301
+hour 11
+weather Calm
+at 2 9
+wait 3
+picture tiki_lagoon_bar 5.5 4 20.5 10.5 2.6 12.5
+picture tiki_lagoon_bungalows 1 5 13 -4 1.5 24.5
+picture tiki_lagoon_pool 26 5 16 17 0 25
+picture tiki_lagoon_keys -34 22 -22 2 1 20

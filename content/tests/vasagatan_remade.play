@@ -1,0 +1,52 @@
+# Play test of Vasagatan Remade (CIPlay vasagatan_remade, in a test world 'CI ...'). Points as in its recipe: the bow
+# (Raft's stranded boat) on the sandbar at the lagoon's reef edge (1.1 m), its wheelhouse door at the cabin's back;
+# the sunk stern on the ledge in the bay below (13.2 m down); the crew's camp on the west arm's dune shoulder (4 m),
+# up the dune from the lagoon's shore.
+island Vasagatan Remade
+expect step 0
+expect title Two Halves of a Ship
+
+# The wheelhouse door won't give without a crowbar
+use chartdoor
+expect message jammed tight
+
+# From the lagoon's shore up the dune to the crew's camp: the diary, the crowbar
+walk -31.5 -17.2 to -33.5 -17.4 to -35.5 -17.6 to -36.6 -17.6 h=4
+zone camp
+expect step 1
+read First mate's diary
+expect step 2
+open Camp tool chest
+expect story crowbar 1
+expect step 4
+
+# The safe stays shut without the captain's key
+open Captain's safe
+expect message The safe is locked
+expect step 4
+
+# Down to the sunk stern: the locker in the captain's cabin
+at -24 -38.5
+zone stern
+expect step 5
+open Captain's cabin locker
+expect story capkey 1
+# (no exact step here: the bow's rats may be gone already - a shark or the fall - and their step counted with it)
+
+# The rats in the bow's sand, their king among them
+zone bow
+expect step 8
+kill Rat
+expect step 9
+
+# The door forced with the crowbar - the safe is bolted just inside (the boat's doorway is too low to walk through:
+# it is opened from the doorway, within Raft's reach of the player's eye)
+use chartdoor
+expect message swings free
+walk -27.2 -27.4 to -26.92 -25.86 h=1.4
+reach Captain's safe
+open Captain's safe
+wait 3
+expect item Blueprint_MotorWheel 1
+expect item Blueprint_SteeringWheel 1
+expect done

@@ -1,0 +1,14 @@
+# Guide pictures of Ashfall (CIPlay ashfall_pics): Raft's camera, midday, calm. Points as in its recipe ("offset").
+island Ashfall
+offset 0 0
+hour 11
+weather Calm
+at 4 -30 h=23
+wait 3
+picture ashfall_island 62 46 -72 0 14 -4
+picture ashfall_road 46 12 -68 2 10 -44
+picture ashfall_village 26 34 -36 0 23 -4
+picture ashfall_bellhouse 10 27 -30 4 25 -13
+picture ashfall_school 32 27 6 16 23 15
+picture ashfall_crypt -4 25 3 -22 19 8
+picture ashfall_shelter 4 8 72 1 6 48

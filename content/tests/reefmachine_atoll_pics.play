@@ -1,0 +1,14 @@
+# Guide pictures of Reefmachine Atoll (CIPlay reefmachine_atoll_pics): Raft's camera, midday, calm
+island Reefmachine Atoll
+offset 0 0
+hour 11
+weather Calm
+at -1 35
+wait 3
+picture sl14_reefmachine_atoll_island 76.5 41.6 -148.8 0 0 0
+picture sl14_reefmachine_atoll_frames 0.3 9 16.3 0.3 -3 -0.7
+picture sl14_reefmachine_atoll_cage 32 5 -4.3 40 1 1.7
+picture sl14_reefmachine_atoll_ridge 10 18 -24 2 14 -51
+picture sl14_reefmachine_atoll_cave -22 9 74 -24 6 52
+picture sl14_reefmachine_atoll_ruin -40 9 -12 -52 4 0
+picture sl14_reefmachine_atoll_plane 32 10 -20 48 4 -32

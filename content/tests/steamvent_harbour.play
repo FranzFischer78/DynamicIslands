@@ -1,0 +1,49 @@
+# Steamvent Harbour (CIPlay steamvent_harbour): the quay, the notice, the machete's plans, the greenhouse vines, the
+# gardener's log, the boiler house, the rats in the pipe store, the vent valve (steam), the town hall locker, the minutes.
+island Steamvent Harbour
+# RESIZE 10-24: the recipe moved this island's old content by 0 -24.2; the points below are in the old frame
+offset 0 24.2
+expect step 0
+expect title The Warm Harbour
+expect hidden steamhouses
+zone quay
+expect step 1
+read Harbour master's notice
+expect step 2
+open Harbour store
+wait 3
+expect step 3
+expect item Machete 1
+use greenvines
+expect hidden greenvines
+zone greenhouse
+expect step 4
+open Greenhouse store
+expect item Seed_Banana 2
+read Gardener's log
+expect step 5
+open Boiler house
+wait 3
+expect step 6
+open Steam-house locker
+expect message frozen
+zone pipestore
+kill Rat
+expect step 7
+open Pipe store
+wait 3
+# REDO 10-24: the three handwheel pieces (greenhouse, boiler house, pipe store) are held - that step passes at once
+expect story wheelpiece 3
+expect step 9
+use ventvalve
+expect story steam 1
+expect story wheelpiece 0
+expect shown steamhouses
+expect step 10
+use ventvalve
+expect message is open
+open Steam-house locker
+wait 3
+expect step 11
+read Town meeting minutes
+expect done

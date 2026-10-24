@@ -1,0 +1,165 @@
+# Cradle Reef - the eighth island of the library's plan The Lullaby Frequency (SL1, horror) - a sunken one
+# An island on the seabed, 28 m under the sea: a drowned children's home. A dormitory of grey stone floors and broken half
+# walls with rows of little beds (Raft's beds, small: cribs), a small stone chapel with its roof on its corner pillars, a
+# swing frame of posts, kelp and three tight coral reefs round the ruin. A sea marker buoy rides at the surface on a chain
+# of posts standing on the seabed, so players know where to dive. Air pockets in the dormitory and the chapel. Quest
+# "Cradle Song" (7 steps): the buoy, the dormitory, the matron's last letter, three music-box combs from the cribs, three
+# angler fish that come when you enter the chapel, the chapel's music box (it takes the combs and plays the lullaby, and
+# shows the tooth), the Lantern-Mother's tooth (the finale needs it).
+#
+# Built by the recipe player (CIRecipe cradle_reef) through the editor's own operations.
+include lib_sea
+include lib_features
+include lib_sl1
+new
+# (nature: a sunken island - no land plants, kelp and coral instead)
+gen Trees=0 Bushes=0 Rocks=0.35 Harvest=0 BeachThings=0
+gen Seed=1208 Radius=40 Height=8 Roughness=0.35 Peaks=1 Shape=0 Style=0 BeachWidth=0.1 Cliffs=0.2 PeakShape=0.3
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.5 Sunken=0.6 Hostiles=0 Friendly=0 SeaLife=0.4
+generate
+elevation -34
+
+# --- The home's ground: a level shelf at 6 m (28 m under the sea), a sandy seabed round it ---------------------------
+brush flatten from -14 0 to 12 0 r=12 s=20 frames=120 h=6
+brush seabed at 0 0 r=24 s=20 frames=30
+origin
+clear from -16 0 to 14 0 r=14
+
+# --- The dormitory: 9 x 6 m of grey plates, broken half walls, two rows of cribs, the matron's table and chest -------
+push at -15 -4 h=6
+for fx 0.75 8.25 1.5
+for fz 0.75 5.25 1.5
+place Block_Floor_Tier3 - at $fx $fz y=0.1
+next
+next
+for wx 0.75 8.25 1.5
+place Block_Wall_Tier3_Half - at $wx 6 y=0.1
+next
+place Block_Wall_Tier3_Half - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Tier3_Half - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Tier3_Half - at 0 5.25 y=0.1 yaw=90
+place Block_Wall_Tier3_Half - at 9 3.75 y=0.1 yaw=90
+place Block_Wall_Tier3_Half - at 9 5.25 y=0.1 yaw=90
+place Block_Wall_Tier3_Half - at 2.25 0 y=0.1
+place Block_Wall_Tier3_Half - at 6.75 0 y=0.1
+for cx 1.2 7.2 2
+place Placeable_Bed_Basic - at $cx 4.6 y=0.1 sit yaw=0 scale=0.6
+next
+place Placeable_Bed_Basic crib1 at 1.2 1.6 y=0.1 sit yaw=180 scale=0.6
+place Placeable_Bed_Basic crib2 at 4.2 1.6 y=0.1 sit yaw=180 scale=0.6
+place Placeable_Bed_Basic crib3 at 7.2 1.6 y=0.1 sit yaw=180 scale=0.6
+place Placeable_Brick_Wet comb1 at 1.2 1.6 y=0.8 sit drop scale=0.7
+place Placeable_Brick_Wet comb2 at 4.2 1.6 y=0.8 sit drop scale=0.7 yaw=60
+place Placeable_Brick_Wet comb3 at 7.2 1.6 y=0.8 sit drop scale=0.7 yaw=120
+place "Table Office" - at 8.2 3.4 y=0.1 sit yaw=270
+place Note_Paper matronletter at 8.2 3.4 y=1.2 sit drop yaw=250
+place Loot_Chest matronchest at 2.8 3.1 y=0.1 sit yaw=90
+place Zone_Trigger dormitory at 4.5 3 y=1.5
+pop
+
+# --- The chapel: a small stone house, its wooden roof on its corner pillars; the music box on the altar table -------
+push at 4 -3 h=6
+call shed w=3 d=4 door=1
+place "Table Office" altartable at 2.25 5.1 y=0.2 sit yaw=0
+place Crate_Big_01 musicbox at 2.25 5.1 y=1.3 sit drop scale=0.35
+place Placeable_Brick_Wet tooth at 1.4 5.1 y=1.3 sit drop scale=1.1
+place Candle_02 - at 3.1 5.1 y=1.3 sit drop
+place Zone_Trigger chapel at 2.25 2 y=1.5
+place Zone_Trigger chapelair at 2.25 3.5 y=1.5
+place Creature_AnglerFish anglers at 2.25 -6 y=4
+pop
+
+# --- The swing frame in the yard: two posts and a beam laid on their tops ----------------------------------------
+place Block_Pillar_Wood - at -2 8 ground
+place Block_Pillar_Wood - at 0.4 8 ground
+place Block_Floor_Wood - at -0.8 8 ground y=2.5 sx=1.8 sz=0.15
+
+# --- The buoy: a chain of five posts (antenna poles) from the seabed to the surface, Raft's sea buoy on top ---------
+for k 0 4
+place Antenna_pole - at 14 -14 ground y={$k*5.69} sy=0.9
+next
+place Reef_Buoy buoy at 14 -14 ground y=28.2 sit
+place Zone_Trigger buoyzone at 14 -14 ground y=26
+
+# --- Kelp all over, three tight reefs round the ruin, sunken barrels ---------------------------------------------
+scatter SeaVine3 40 at 0 0 r=30 seed=1281 free=2
+scatter SeaVine3_klump 10 at 0 0 r=30 seed=1282 free=3
+scatter CylinderCoral_1 3 at 18 8 r=4 seed=1283 free=1
+scatter CauliCoral 3 at 18 8 r=4 seed=1284 free=1
+scatter Coral2 3 at -22 10 r=4 seed=1285 free=1
+scatter LeafCoral_2 3 at -22 10 r=4 seed=1286 free=1
+scatter Coral1 3 at -4 -20 r=4 seed=1287 free=1
+scatter SpineCoral_3 3 at -4 -20 r=4 seed=1288 free=1
+scatter Loot_SunkenBarrel 3 at 0 0 r=24 seed=1289 free=3
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Cradle Reef
+info author=Custom Islands
+info description=A drowned children's home on the seabed, 28 m down: cribs in rows, a stone chapel, a swing frame in the kelp. A buoy marks the spot. The eighth island of The Lullaby Frequency.
+island on.arrive=message||A buoy, alone on the water, bobbing. Far below it, something pale: roofs. Little beds in rows.
+
+story comb|Music box comb|Placeable_Brick_Wet|A brass music-box comb, its teeth still sharp. Three of them make a tune.
+story boxsong|The music box played|Note_Paper|You put the three combs back in the chapel's music box. It played the lullaby, and something sang it back.
+story tooth|Lantern-Mother's tooth|Placeable_Brick_Wet|A tooth as long as your hand, white as bone, warm in cold water. The Lantern-Mother's - from her cradle.
+
+note matronletter Matron's last letter | To whoever comes down here,\n\nThe children never cried. That was how we knew. Every night at twelve past three they all hummed the same tune in their sleep, every one of them, and the sea came up the beach to listen.\n\nThen the sea came up the beach and did not go back.\n\nShe only wanted children who would not leave. The combs from the music box are in the cribs - the little ones slept with them. Put them back, and let it play for her once more.\n\n- Matron
+note matronchest Matron's chest | The matron's chest, sealed with wax: an oxygen bottle and fresh water.
+loot matronchest OxygenBottle*1;Canteen_Water*2;Cooked_Mackerel*2
+prop matronchest loot.refill=0
+
+macro comb a
+prop $a obj.name=$a
+prop $a beh.use=Take the music-box comb
+prop $a on.use=hide|\ngive||story:comb*1\nmessage||A brass comb, small enough for a child's fist. A tooth of it pings as you lift it.
+end
+call comb comb1
+call comb comb2
+call comb comb3
+prop comb1 tint.color=#b08d57
+prop comb2 tint.color=#b08d57
+prop comb3 tint.color=#b08d57
+
+prop musicbox obj.name=musicbox
+prop musicbox beh.use=Put the combs in the music box
+prop musicbox if.use=take|story:comb|3
+prop musicbox on.use=show|tooth\ngive||story:boxsong*1\nplaysound||event:/exploring/elevator/elevator_music|0.6|once|near\nmessage||The box plays. Slow, out of tune, the lullaby. Far off in the dark water, something sings it back - and on the altar, where nothing was, lies a long white tooth.
+prop musicbox else.use=message||A music box with no comb in it. Three combs are missing.
+prop tooth obj.name=tooth
+prop tooth beh.hidden=1
+prop tooth beh.use=Take the tooth
+prop tooth tint.color=#efe6cf
+prop tooth on.use=hide|\ngive||story:tooth*1\nmessage||It is warm. It hums in your hand.
+
+prop buoyzone zone.id=buoy
+prop buoyzone zone.radius=5
+prop buoyzone zone.message=The buoy. Under it, the posts of its chain go down and down into the dark.
+prop dormitory zone.id=dormitory
+prop dormitory zone.radius=3.5
+prop dormitory zone.repeat=1
+prop dormitory zone.air=1
+prop chapel zone.id=chapel
+prop chapel zone.radius=2
+prop chapel zone.repeat=never
+prop chapel zone.message=Lights in the dark water outside the chapel. Three of them, coming closer.
+prop chapelair zone.radius=2.5
+prop chapelair zone.repeat=1
+prop chapelair zone.air=1
+prop anglers creature.count=3
+prop anglers creature.respawn=0
+prop anglers creature.zone=chapel
+prop anglers creature.size=1.5
+
+quest title=Cradle Song
+quest intro=A buoy on the water, and something far below it. Find the buoy.
+step reach|buoy|1|Find the buoy
+step reach|dormitory|1|Dive to the dormitory (there is air in it)
+step read|Matron's last letter|1|Read the matron's last letter
+step collect|story:comb|3|Take the three music-box combs from the cribs
+step kill|Angler fish|3|Deal with the lights in the dark (they come when you enter the chapel)
+step collect|story:boxsong|1|Put the combs back in the chapel's music box
+step collect|story:tooth|1|Take what lies on the altar
+quest done=The Lantern-Mother's tooth hums in your pack. The Choir is at the quarry with the mirrors. The Receiver points north: the last frequency.
+quest reward=OxygenBottle*1;Canteen_Water*2
+
+save Cradle Reef

@@ -1,0 +1,57 @@
+# Play test of Old Vine Hill (CIPlay old_vine_hill, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The press house in the saddle (x -4..2, z -1.5..7.5, 8 m; door south), the terraces (Sunrise z 31, Chapel z 26 on the
+# east peak; Stony z -33, Old Wall z -27 on the west peak), the cellar on the west flank (x -51.5..-42.5, z -3..3, 6 m;
+# door east at z -3..0), the reserve vault off the west shore (x -71.5..-62.5, z -3..3, floor 5 m down; door east), the grave on
+# the east top (8 20, 23.5 m).
+# Quest (11 steps): the press house, the letter, two hens, the Old Wall terrace, its boars, five pages, the cellar, the
+# vault, the reserve vault opened, the grave, the toast.
+island Old Vine Hill
+offset 0 0
+expect step 0
+expect title The Founding Vintage
+wait 5
+expect animals Chicken 3
+expect animals Goat 3
+expect animals Dolphin 2
+at -1 -7 h=9
+walk -1 -6.5 to -1 -3 h=8
+zone presshouse
+expect step 1
+read Tomas's letter
+expect step 2
+catch Chicken 2
+expect step 3
+zone topterrace
+expect step 4
+kill Warthog
+expect step 5
+read Label of the Sunrise terrace
+read Label of the Chapel terrace
+read Label of the Stony terrace
+read Label of the Old Wall terrace
+expect step 6
+at -39 -1.5 h=7
+walk -39 -1.5 to -45 -1.5 h=6.05
+zone cellar
+expect step 7
+use caskchapel
+expect message It just drips
+use caskoldwall
+use casksunrise
+use caskstony
+use caskchapel
+expect shown vault
+wait 4
+at -66 -1 h=-4.5
+zone vault
+expect step 8
+open Reserve vault
+expect story firstvintage 1
+expect step 9
+at 8 18 h=24.5
+zone gravetop
+expect step 10
+use grave
+expect shown toast
+read The vintner's toast
+expect done

@@ -1,0 +1,92 @@
+# Play test of Shellback (CIPlay shellback, in a test world 'CI ...'). Points as in its recipe: the tail beach at 0 -82;
+# the Sea shrine at -64 -62 and its flooded cave on the sea floor at -88 -86 (floor -11 m, the air pocket under its roof);
+# the Sky shrine's needle at 58 46 (ledges 8 m and 14.5 m, top 21 m, the ladders at x 58, z 35.8 / 39.7 / 43.7); the
+# ramp up to the plateau from 22 -68 to 40 -57 (10.9 m), the Tusk ring at 62 -50; the Wing shrine's pen at -50 50
+# (2.6 m, its gate on the east side at z 44.5..47.5); the pass over the neck ridge (-9 47 up to 9 50, 10.5 m) and the
+# ridge path north to the head-temple's terrace at 13 76 (10.5 m), its gate at 13 72.5
+island Shellback
+expect step 0
+expect title The Four Scutes
+expect animals Turtle 4
+expect animals Goat 3
+expect animals Dolphin 2
+expect hidden tuskchest
+wait 5
+
+# The tail beach: the tablet, the canoe's box
+walk 6 -86 to 1 -81 h=1.5
+zone tailbeach
+expect step 0
+read The Shell-keepers' tablet
+expect step 1
+open Canoe box
+
+# The Sea shrine: the dive into the flooded cave, its air pocket, the scute's chest
+walk -56 -56 to -62 -60.5 h=1.2
+zone diveshrine
+expect step 2
+air seaair
+open The Sea shrine's scute
+expect story scute 1
+expect step 3
+
+# The Sky shrine: up the needle's ladders, ledge by ledge, to the nest on top
+walk 58 29 to 58 34.5 h=3
+zone climbshrine
+expect step 4
+climb 58 35.8 h=2.8
+climb 58 35.8 h=5.22
+climb 58 35.8 h=7.64
+expect stand 57 38.8 h=8 below=10
+climb 58 39.7 h=8
+climb 58 39.7 h=10.42
+climb 58 39.7 h=12.84
+expect stand 57 42.8 h=14.5 below=16
+open Ledge box
+climb 58 43.7 h=14.5
+climb 58 43.7 h=16.92
+climb 58 43.7 h=19.34
+expect stand 57 46.6 h=21 below=23
+use skynest
+expect story scute 2
+expect step 5
+
+# The Tusk shrine: up the ramp onto the plateau, into the ring; the boars; the stone chest
+walk 22 -68 to 31 -62.5 to 40 -57 to 55 -52 h=10.9
+zone fightshrine
+expect step 6
+kill Warthog
+expect step 7
+expect shown tuskchest
+open The Tusk shrine's scute
+expect story scute 3
+expect step 8
+
+# The Wing shrine: the keeper-box is shut till the hens are home; the net basket; the hens caught
+walk -40 46 to -45.5 46 h=2.6
+zone catchshrine
+expect step 9
+open The Wing shrine's scute
+expect message BRING HOME HER HENS
+open The keepers' net basket
+catch Chicken 3
+expect step 10
+open The Wing shrine's scute
+expect story scute 4
+expect step 11
+
+# The head-temple: over the pass and along the ridge; the sockets refused till the carving is read; the gate; the treasure
+walk -9 47 to 9 50 to 13 51 to 13 66 h=10.5
+zone headtemple
+expect step 11
+use sockets
+expect message Read the carving
+read The head-temple's carving
+expect step 12
+use sockets
+wait 7
+walk 13 70 to 13 76 h=10.5
+zone sanctum
+expect step 13
+open The Tortoise's treasure
+expect done

@@ -1,0 +1,14 @@
+# Guide pictures of Rookery Stacks (CIPlay rookery_stacks_pics): Raft's camera, midday, calm; the huts on the roofs and the soup kitchen
+# offset 0 0 is a placeholder: phase 2 sets it from the recipe's save log (PLAY_FORMAT: Coordinates).
+island Rookery Stacks
+offset 0 0
+hour 11
+weather Calm
+at -6.6 -22.1
+wait 3
+picture sl13_rookery_stacks_island 17.4 14 -56.1 -6.6 3 -26.1
+storespot
+picture sl13_rookery_stacks 20 18 30 20 10 54
+picture sl13_rookery_van -30 9 25 -45 4 40
+picture sl13_rookery_bathhouse -45 9 -12 -58 4 2
+picture sl13_rookery_hoard -12 9 48 -25 3 60

@@ -1,0 +1,232 @@
+# The Isobar Club - an island of the library's plan The Rainmakers (Nimbus Works' eighth station)
+# The company's members' club on a granite shelf: a lower terrace by the sea with tidal pools in the rock and the wine
+# cellar (a vault, its roof on pillars, against the cliff), Varuna Point's scissor lift as the club's funicular up the
+# rise, and on the upper shelf the clubhouse - Tangaroa's apartment facade panels made into one low pavilion with a flat
+# roof and a colonnade - pianos, a billiard table, the secretary's safe behind a keypad. Quest "Members Only" (7 steps):
+# the terrace, the members' book, the funicular, the board minutes (the safe's code), the safe, the secretary's cabinet
+# (the last blueprints), and the cage in the wine cellar - Dagny Holm herself.
+#
+# Built by the recipe player (CIRecipe the_isobar_club) through the editor's own operations.
+include lib_sea
+include lib_features
+include lib_huts
+new
+# (nature: grey granite, tropical shrubs, few trees; Harvest 0.2)
+gen Trees=0.15 Bushes=0.3 Rocks=0.45 Harvest=0.2 BeachThings=0.3
+gen Seed=9951 Radius=50 Height=12 Roughness=0.3 Peaks=1 Shape=0 Style=3 PeakShape=0.2 Cliffs=0.6 BeachWidth=0.4
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.4 Sunken=0.3 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the upper shelf at 6.2 m (the club), the lower terrace at 1.5 m by the sea, the landing; the tidal pools
+# dug into the lower terrace ----------------------------------------------------------------------------------------
+brush flatten at 0 -2 r=24 s=20 frames=220 h=6.14
+brush flatten at 0 -25 r=3 s=20 frames=40 h=6.14
+for ix -20 14 4
+brush flatten at $ix -32 r=6 s=20 frames=50 h=1.44
+next
+brush flatten at -17 -28.5 r=3.5 s=20 frames=40 h=1.44
+brush flatten at 0 -42 r=5 s=20 frames=50 h=0.8
+brush flatten at 8 -35 r=2.5 s=20 frames=40 h=-0.7
+brush flatten at 13 -31 r=2 s=20 frames=40 h=-0.5
+origin
+clear at 0 -2 r=25
+clear from -20 -32 to 16 -32 r=7
+clear at 0 -42 r=5
+
+# --- The lower terrace: the landing, the members' book on its stand, rocks round the tidal pools ---------------------
+place Zone_Trigger terracezone at 0 -33 h=2.5
+place "Box Big" - at -4.5 -30 ground sit yaw=10
+place Note_Paper membersbook at -4.5 -30 ground y=1.5 sit drop yaw=30
+place SmallRock_02 poolrims at 10.6 -35 ground scale=0.45 yaw=40
+place SmallRock_02 poolrims at 6 -37.2 ground scale=0.4 yaw=120
+place SmallRock_02 poolrims at 15 -32.5 ground scale=0.4 yaw=200
+place SmallRock_02 poolrims at 11.2 -29.3 ground scale=0.35 yaw=300
+prop poolrims tint.color=#8d8a86
+
+# --- The club's funicular: Varuna Point's scissor lift at the foot of the rise, the porter's chest at its top ---------
+call lift x=0 z=-28.3 yaw=0 alias=clublift upalias=clubliftup chest=porterchest tx=3.5 tz=-23 items=Rope*2;Glass*2;Bolt*2 title="Club porter's chest"
+place Zone_Trigger clubzone at 0 -24.5 h=7.2
+
+# --- The wine cellar: a vault against the cliff west of the lift, its roof on pillars, the cage inside ---------------
+push at -20 -35 h=1.5
+for fx 0.75 5.25 1.5
+for fz 0.75 6.75 1.5
+place Block_Floor_Tier3 - at $fx $fz y=0.02
+next
+next
+for wz 0.75 6.75 1.5
+place Block_Wall_Tier3 - at 0 $wz y=0.17 yaw=90
+next
+for wx 0.75 5.25 1.5
+place Block_Wall_Tier3 - at $wx 0 y=0.17
+place Block_Wall_Tier3 - at $wx 7.5 y=0.17
+next
+place Block_Pillar_Tier3 - at 0 0 y=0.17
+place Block_Pillar_Tier3 - at 6 0 y=0.17
+place Block_Pillar_Tier3 - at 0 7.5 y=0.17
+place Block_Pillar_Tier3 - at 6 7.5 y=0.17
+place Block_Pillar_Tier3 - at 6 3 y=0.17
+place Block_Pillar_Tier3 - at 6 4.5 y=0.17
+roof 4 5 at 0 0 y=0.17
+place Survivor_Cage dagnycage at 3 3.75 y=0.2 sit yaw=0 scale=0.94
+place Loot_Chest dagnycase at 5.2 0.8 y=0.2 sit yaw=270
+place TP_Moontown_Barrel01 cellarcasks at 0.6 6.9 y=0.2 sit
+place TP_Moontown_Barrel03 cellarcasks at 1.4 6.9 y=0.2 sit
+place TP_Moontown_Barrel01 cellarcasks at 0.6 0.6 y=0.2 sit
+place Placeable_Lantern_Metal - at 5.4 6.9 y=0.2 sit
+pop
+place Zone_Trigger cellarzone at -15 -31 h=2.5
+
+# --- The clubhouse on the upper shelf: apartment facade panels as one low pavilion (a gap for its door), a flat roof
+# of floor plates, the colonnade in front on pillars; inside pianos, the billiard table, the safe and its keypad, the
+# secretary's cabinet ------------------------------------------------------------------------------------------------
+push at -7.5 -10 h=6.2
+for fx 0.75 14.25 1.5
+for fz 0.75 8.25 1.5
+place Block_Floor_Tier3 - at $fx $fz y=0.02
+next
+next
+for px 3 15 3
+place Apartment_Ext_BaseMidMidWall clubwalls at $px 6 y=0.02 yaw=0
+next
+for pz 3 9 3
+place Apartment_Ext_BaseMidMidWall clubwalls at 3 $pz y=0.02 yaw=270
+next
+for pz 0 6 3
+place Apartment_Ext_BaseMidMidWall clubwalls at 12 $pz y=0.02 yaw=90
+next
+place Apartment_Ext_BaseMidMidWall clubwalls at 0 3 y=0.02 yaw=180
+place Apartment_Ext_BaseMidMidWall clubwalls at 3 3 y=0.02 yaw=180
+place Apartment_Ext_BaseMidMidWall clubwalls at 9 3 y=0.02 yaw=180
+place Apartment_Ext_BaseMidMidWall clubwalls at 12 3 y=0.02 yaw=180
+# (the panels are drawn from outside only: from inside the hall they were see-through, only their frame strips showed -
+# so each has a twin turned round in the same place, its face to the room)
+for px 3 15 3
+place Apartment_Ext_BaseMidMidWall clubwalls at {$px-3} 12.15 y=0.02 yaw=180
+next
+for pz 3 9 3
+place Apartment_Ext_BaseMidMidWall clubwalls at -3.15 {$pz-3} y=0.02 yaw=90
+next
+for pz 0 6 3
+place Apartment_Ext_BaseMidMidWall clubwalls at 18.15 {$pz+3} y=0.02 yaw=270
+next
+place Apartment_Ext_BaseMidMidWall clubwalls at 3 -3.15 y=0.02 yaw=0
+place Apartment_Ext_BaseMidMidWall clubwalls at 6 -3.15 y=0.02 yaw=0
+place Apartment_Ext_BaseMidMidWall clubwalls at 12 -3.15 y=0.02 yaw=0
+place Apartment_Ext_BaseMidMidWall clubwalls at 15 -3.15 y=0.02 yaw=0
+for fx 0.75 14.25 1.5
+for fz -3.75 8.25 1.5
+place Block_Floor_Tier3 clubroof at $fx $fz y=3.22
+next
+next
+for cx 0 15 3
+place Block_Pillar_Tier3 colonnade at $cx -4.5 y=0.02 sy=1.22
+next
+# (the hall's own columns under the flat roof, every 3 m between the furniture: each holds the four plates round it, so
+# save stands no posts through the pianos and the pool table - the user 2026-10-18)
+for cx 1.5 13.5 3
+place Block_Pillar_Tier3 colonnade at $cx 1.5 y=0.02 sy=1.22
+place Block_Pillar_Tier3 colonnade at $cx 7.5 y=0.02 sy=1.22
+next
+place Placeable_Piano - at 3.2 4.5 y=0.05 sit yaw=90
+place Tangaroa_BallroomKit_GrandPiano - at 11.6 5 y=0.05 sit yaw=270
+place "VG_DecorationPrefabBase_Pooltable Variant" - at 7.5 5 y=0.05 sit yaw=90
+place Note_Paper boardminutes at 7.5 5 y=1.6 sit drop yaw=20
+place "Box Small" - at 1.2 8.2 y=0.05 sit
+place RT_PowerBox safekeypad at 1.2 8.2 y=1.4 sit drop yaw=180
+place VG_Safe secsafe at 2.6 8.3 y=0.05 sit yaw=180
+place Locker seccabinet at 14.2 8.3 y=0.05 sit yaw=180
+place Placeable_Lantern_Metal - at 0.8 0.8 y=0.05 sit
+place Placeable_Lantern_Metal - at 14.2 0.8 y=0.05 sit
+pop
+prop clubroof tint.color=#e6e1d6
+prop colonnade tint.color=#e6e1d6
+
+# --- A Raft store on the upper shelf, east of the clubhouse: the members' shop (Raft's goods, and plans the crew missed) --
+store clubshop at 12 -4 ground
+
+# --- Things to gather, reefs ----------------------------------------------------------------------------------------
+scatter "Pickup_Landmark_PineappleLandmark" 2 at 15 10 r=12 seed=9961 free=3
+scatter "Pickup_Landmark_Tree_Mango" 1 at -15 10 r=10 seed=9962 free=5
+scatter "Pickup_Landmark_Flower_Blue" 2 at 0 15 r=12 seed=9963 free=3
+call dirt x=-25 z=15 r=8 n=3 seed=9964
+call shallows r=72 deep=5 n=2
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=The Isobar Club
+info author=Custom Islands
+info description=Nimbus Works' eighth station: the company's members' club on a granite shelf - tidal pools, a funicular up the rise, a white pavilion with a colonnade and pianos, and a wine cellar with somebody locked in it. The eighth island of The Rainmakers.
+island on.arrive=message||A granite shelf with pools in the rock, and up the rise a white pavilion with columns. Music once. Nobody now.
+
+story cabinetkey|Cabinet key|Placeable_Lantern_Metal|The club secretary's cabinet key, from his safe.
+story cellarkey|Cellar key|Placeable_Lantern_Metal|The wine cellar's key, from the secretary's cabinet.
+
+note membersbook Members' book | THE ISOBAR CLUB - MEMBERS' BOOK\n\nNimbus Works directors and guests only. Ring for the funicular.\n\n(the last pages, in one hand: Holm, D. - Holm, D. - Holm, D. - every night for a month, and in the margin: "she's still down there")
+note boardminutes Board minutes | NIMBUS WORKS - MINUTES OF THE BOARD\n\nItem 1. The Chief Engineer asks that the Rain Engine be switched off. The sea has risen four metres.\nItem 2. The board votes to keep the Engine ON. Contracts are contracts.\nItem 3. Mrs Holm to be kept in the club's cellar until she calms down.\nItem 4. The secretary's safe code is changed to 6206.
+note secsafe Secretary's safe | The secretary's safe: a key tagged CABINET, the club's silver and a stack of unpaid rain contracts.
+loot secsafe story:cabinetkey*1;Glass*2;Bolt*2
+prop secsafe loot.refill=0
+prop secsafe if.open=signal|safe
+prop secsafe else.open=message||The safe is locked from the keypad beside it.
+note seccabinet Secretary's cabinet | The secretary's cabinet: Nimbus Works' last plans - titanium tools, a big backpack, an electric zipline handle - and a key on a ribbon, CELLAR.
+loot seccabinet Blueprint_TitaniumTools*1;Blueprint_BackpackAdvanced*1;Blueprint_ZiplineToolElectric*1;story:cellarkey*1;Cooked_GenericMeat*2
+prop seccabinet loot.refill=0
+prop seccabinet if.open=has|story:cabinetkey|1
+prop seccabinet else.open=message||The secretary's cabinet is locked. Its key would be in his safe.
+note dagnycase Dagny's case | Dagny Holm's case: her drawing instruments, a notebook of figures, and the Rain Engine's master switch plan, folded small.
+loot dagnycase Rope*2;Bolt*2;Plank*4;Cooked_GenericMeat*2
+prop dagnycase loot.refill=0
+prop dagnycase if.open=signal|dagnyfree
+prop dagnycase else.open=message||The case is inside the cage, under the engineer's hand.
+
+prop safekeypad obj.name=safekeypad
+prop safekeypad beh.use=Type the safe's code
+prop safekeypad lock.code=6206
+prop safekeypad on.use=sound||event:/exploring/obstacles/keypad/keypad_correct\nmessage||The keypad chirps and the safe's bolts slide back.\nsignal||safe
+prop dagnycage obj.name=dagnycage
+prop dagnycage survivor.name=Dagny
+prop dagnycage survivor.id=rainmakers_dagny
+prop dagnycage survivor.key=cellarkey
+prop dagnycage survivor.signal=dagnyfree
+prop dagnycage survivor.line=They kept me here so I couldn't switch it off. I'm Dagny Holm. I built the Rain Engine - and I know where its master switch is. Take me there.
+
+prop terracezone zone.id=terrace
+prop terracezone zone.radius=5
+prop terracezone zone.message=The club's lower terrace: pools in the rock, a book on a stand, and a lift up the rise.
+prop clubzone zone.id=club
+prop clubzone zone.radius=3.5
+prop clubzone zone.message=The Isobar Club: a white pavilion, its colonnade, its doors open on the dark.
+prop cellarzone zone.id=cellar
+prop cellarzone zone.radius=3
+prop cellarzone zone.message=The wine cellar: casks, a cage - and somebody in it.
+
+quest title=Members Only
+quest intro=A granite shelf with a white pavilion on it. Land on the lower terrace.
+step reach|terrace|1|Land on the club's lower terrace
+step read|Members' book|1|Read the members' book on its stand
+step reach|club|1|Ride the funicular up to the club
+step read|Board minutes|1|Read the board minutes on the billiard table
+step open|Secretary's safe|1|Open the secretary's safe (its keypad code is in the minutes)
+step open|Secretary's cabinet|1|Open the secretary's cabinet with the key from the safe
+step blueprint|Blueprint_TitaniumTools|1|Take the titanium tools plans from the secretary's cabinet
+step blueprint|Blueprint_BackpackAdvanced|1|Take the advanced backpack plans from the secretary's cabinet
+step blueprint|Blueprint_ZiplineToolElectric|1|Take the electric zipline tool plans from the secretary's cabinet
+step open|Dagny's case|1|Free the prisoner in the wine cellar and take her case
+quest done=Dagny Holm is coming with you, and she knows the way to the Rain Engine. Its station answers on 1400.
+quest reward=Glass*4;Bolt*4;MetalIngot*3
+
+# --- Raft's vending machine by the members' shop, from Tangaroa's arcade: Tangaroa's plants for its tokens; three tokens lie about --
+vending clubvend at 18 -4 ground
+place QuestItemPickup_Tangaroa_Token - at 12 4 ground
+place QuestItemPickup_Tangaroa_Token - at 16 -12 ground
+place QuestItemPickup_Tangaroa_Token - at 18 0 ground
+
+# Buried treasure (one of the story line's last islands): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=25 n=1 seed=8826
+prop treasure8826 treasure.loot=TitaniumOre*3
+
+# Animals (reach audit 10-24: a late island of its story line had none)
+place Creature_Goat goats at 0 12 ground
+prop goats creature.count=2
+
+save The Isobar Club

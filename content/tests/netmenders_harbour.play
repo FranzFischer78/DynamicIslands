@@ -1,0 +1,25 @@
+# Play test of Netmender's Harbour (CIPlay netmenders_harbour): no quest - the quay, the piers, the net shed, the
+# harbour master's cabin, the net canisters in their chests, the beached boat, the wreck, the den, the warthogs
+island Netmender's Harbour
+offset -4.4579 0.0448
+expect animals Warthog 2
+expect animals Dolphin 2
+wait 5
+where BalboaCave
+walk 24 -16 to 24 0 to 24 16 h=1.6
+read Harbour sign
+walk 20.25 -6 to 20.25 -4 to 20.25 -1.5 h=1.7
+read The harbour master's book
+open Harbour master's chest
+expect item NetCanister 1
+open Quay barrel
+walk 31 9.5 to 40 9.5 to 47 9.5 to 50 10 h=1.8
+open Net shed crate
+expect item NetCanister 3
+walk 31 -8.5 to 40 -8.5 to 47 -8.5 h=1.8
+open Box by the beached boat
+open Barrel by the wreck
+expect item NetCanister 5
+open Bear den hoard
+kill Warthog
+expect animals Warthog 0

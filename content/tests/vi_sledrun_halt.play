@@ -1,0 +1,26 @@
+# Sledrun Halt (CIPlay vi_sledrun_halt; VI1 vehicle island): quest "Running on Empty", the five steps in order
+island Sledrun Halt
+offset 0 0
+expect step 0
+expect title Running on Empty
+expect hidden saddlebag
+zone halt
+expect step 1
+read Halt board
+expect step 2
+kill Polar bear
+expect animals Polar bear 0
+expect step 3
+use sled
+expect message sits on empty
+open Fuel locker
+wait 2
+expect story jerrycan 1
+use sled
+expect story sledfull 1
+expect shown saddlebag
+expect step 4
+open Sled's saddlebag
+wait 2
+expect item HeadLight 1
+expect done

@@ -1,0 +1,249 @@
+# Pumpcrown Works - the fifth island of the library's plan The City That Never Sank (SL13, Highwater, chapter 5)
+# The Harbor Authority's waterworks: three drowned towers' roofs in a row off a small key, joined by plank bridges with
+# Raft's water pipes laid along them - the tank house (water tanks), the pipe gallery, the stores (bees on its warm
+# roof) - and on the key the purifier hall, its roof on its walls, its door locked to anyone not in an Authority coat.
+# Empty sentry boxes, a laundry line where the guards' coats dry, the outfall - a great pipe mouth down into the sea -
+# and on the east point the boom tower, its winch rusted. Quest "The Authority's Water" (11 steps): an Authority coat
+# off the line, the purifier hall, the water tank's, the water pipe's, the electric purifier's and the large storage's
+# plans, the dive into the outfall. Contract "Keep the Boom" (5): the duty roster, the boom tower, its winch, three
+# screechers off the tower, the Authority's receipt (authfriend).
+#
+# Points: the key 0 0 (r about 40, levelled at 2 round 0 2 and 26 -4); the purifier hall x -3..3, z -2.5..6.5 (floor
+# 2, door south, roof 5); the towers' roofs (deck 1 m) x -15..-9, -3..3, 9..15, z -36.5..-27.5, bridges at z -32 and a
+# causeway along x 0 from z -19 to -27; the outfall's mouth at -30 -14 (the zone under it); the boom tower at 30 -4.
+include lib_sea
+include lib_rt
+include lib_huts
+include lib_features
+include lib_verdance
+include lib_highwater
+include lib_areas
+# RESIZE 10-24b: Radius 40 -> 85 (Height 4 -> 5), the old content moved 0 -45 as one frame (push) so its sea side stays at
+# the coast; the island grows behind it. The towers' roofs stay on the south coast; the boom tower (with its pad, crank, boom and screechers) went to the new east point and the outfall to the south-west shore.
+new
+gen Trees=0.2 Bushes=0.25 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=13501 Radius=85 Height=5 Roughness=0.2 Peaks=1 Shape=0 Style=0 PeakShape=0.3 Cliffs=0.1 BeachWidth=0.7
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.4 Sunken=0.2 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+push at 0 -45
+
+# --- Terrain: the hall's and the boom tower's levels -------------------------------------------------------------------
+brush flatten at 0 2 r=11 s=20 frames=300 h=2
+brush flatten at 70.01 4.86 r=9 s=20 frames=300 h=2
+pop
+origin
+push at 0 -45
+clear at 0 2 r=10
+clear at 70.01 4.86 r=8
+clear from 0 -12 to 0 -40 r=17
+clear from -53.6 -9.8 to -65.6 -15.8 r=5
+
+# --- The purifier hall: a storey on the key, its door locked to the Authority's own -----------------------------------
+push at 3 2 h=2
+call rt_storey a=works f2=none l2=RT_WallWindow1 r2=RT_WallWindow1 b1=RT_WallWindow1
+place RT_Floor works at 0 4.5 y=3
+call rt_railing y=3
+place Placeable_Electric_Purifier - at -4.8 3 y=0.1 sit yaw=180
+place Placeable_Electric_Purifier - at -3 3 y=0.1 sit yaw=180
+place Loot_Chest hallchest at -1.2 3.4 y=0.1 sit yaw=180
+place Loot_Chest purifierbench at -5.2 -1 y=0.1 sit yaw=90
+place RT_Pipe - at -1 0 y=0.1 sit
+place Placeable_Lantern_Metal - at -3 0 y=0.1 drop
+place Note_Board roster at -5.9 1.5 y=1.2 yaw=90
+place RT_Camera - at -0.4 -4.2 y=2.6 yaw=200
+pop
+place PlantationDoor hallgate at 1.5 -2.5 h=2 sit yaw=0
+place Note_Sign hallsign at 4.5 -3.6 ground sit yaw=180
+
+# --- Sentry boxes (empty) and the guards' laundry line ------------------------------------------------------------------
+push at -9 -6 h=2
+call hw_stall w=1 d=1
+pop
+push at 7 -8 h=2
+call hw_stall w=1 d=1
+pop
+push at -9 6 h=2
+call hw_laundry n=5
+pop
+place Loot_ChestSmall coatline at -6.5 6.6 ground sit
+place Placeable_Cropplot_Medium - at -12 12 ground sit
+place Placeable_Cropplot_Medium - at -8.5 12 ground sit
+place Loot_ChestSmall seedbox at -14.5 13.5 ground sit yaw=90
+
+# --- The three towers' roofs: the tank house, the pipe gallery, the stores -------------------------------------------
+line Block_Foundation from 0 -19.25 to 0 -26.75 step=1.5 h=0.35
+push at -9 -32 h=1
+call hw_roof d=12 a=works rm=none
+place Placeable_WaterTank - at -4.5 -2.5 y=0.05 sit
+place Placeable_WaterTank - at -4.5 2.5 y=0.05 sit
+place Loot_Chest tankhouse at -1.4 -3.6 y=0.05 sit
+call hw_bridge n=4 y=0
+pop
+push at 3 -32 h=1
+call hw_roof d=12 a=works lm=none rm=none bm=none
+place RT_Pipe - at -3 -2 y=0.05 sit yaw=90
+place RT_PipeBendL - at -4.5 -2 y=0.05 sit yaw=90
+place Loot_Chest pipegallery at -3 3.4 y=0.05 sit yaw=180
+call hw_bridge n=4 y=0
+pop
+push at 15 -32 h=1
+call hw_roof d=12 a=works lm=none
+place Loot_Chest stores at -1.4 3.4 y=0.05 sit yaw=180
+place "Box Small" - at -4.6 3.6 y=0.05 sit
+place "Box Small" - at -3.8 3.6 y=0.05 sit
+place Placeable_BeeHive - at -4.8 -3 y=0.05 sit
+place Loot_WildHive pumphive at -1.2 -3.4 y=0.05 sit
+place Creature_BugSwarm_Bee bees at -3 -3 y=1.5
+pop
+line Placeable_Pipe_Water from -8.25 -32.6 to -3.75 -32.6 step=1.5 h=1.05
+line Placeable_Pipe_Water from 3.75 -32.6 to 8.25 -32.6 step=1.5 h=1.05
+
+# --- The outfall: a great pipe mouth down into the sea, the zone in the water under it --------------------------------
+place RT_PipeDownBend outfallpipe at -61.6 -13.8 h=1 scale=3 yaw=120
+place Zone_Trigger outfallzone at -63.6 -15.8 h=-3
+call hw_reef x=-65.6 z=-19.8 r=4 seed=13502
+
+# --- The boom tower on the east point: a storey with its winch, the boom out into the channel ------------------------
+push at 72.01 4.86 h=2
+call rt_storey a=works f2=RT_WallDoor1 l2=RT_WallWindow1 r2=RT_WallWindow1
+place RT_Floor works at 0 4.5 y=3
+call rt_railing y=3
+place Note_Paper receipt at -3 0 y=0.9 drop
+place "Table Office" - at -3 0 y=0.1 sit
+place Zone_Trigger boomzone at -3 -2 y=0.1
+pop
+call crank x=65.01 z=-1.14 yaw=180 alias=boomwinch
+line Block_Foundation from 77.76 4.86 to 89.76 4.86 step=1.5 h=0.35
+place Creature_StoneBird screechers at 72.01 4.86 h=9
+
+# --- Palms and coconuts; the sea's finds; Highwater on the horizon -------------------------------------------------
+scatter "Pickup_Landmark_Tree_Palm 1" 2 at 12 14 r=12 seed=13503 free=3
+scatter "Pickup_Landmark_Tree_Palm 2" 2 at -18 0 r=10 seed=13504 free=3
+call shallows x=0 z=45 r=119 deep=5 n=2 seed=13505
+call hw_skyline x=-110 z=105 a=skyline
+
+pop
+
+# --- Areas (10-24: every story island has places all over it and its quest crosses it): the reservoir bank in the north, the
+# Authority's patrol van in the east, the old filter house in the west, the sludge beds (acid: the hazmat box's suit)
+call ar_ridge x1=-38 z1=45 x2=8 z2=62 h=9 top=6 r=10
+call ar_plants_tropical x=-15 z=53 r=30 seed=13511
+call hw_zone x=-15 z=53 al=reservoirbank id=reservoir_bank r=7 msg="The reservoir bank. Inside it, water clean enough to drink - fenced, guarded, and counted. Outside it, the city drinks rain."
+call hw_wreck x=52 z=22 h=4 yaw=60 obj=Van_4 al=patrolvan crate=patrolcrate r=10
+place VP_Forklift - at 63 8 ground sit yaw=200
+call ar_ruin x=-60 z=8 h=4 yaw=0 al=filterhouse
+call hw_note x=-57.5 z=3.5 yaw=20 al=filternotice
+brush flatten at 24 46 r=7 s=20 frames=200 h=3.2
+clear at 24 46 r=8
+call hw_hazard x=24 z=46 al=sludgeacid kind=acid r=5 dmg=6 safe=suit msg="The purifiers' sludge burns through your boots. A hazmat suit would keep it off."
+place Loot_Chest sludgechest at 24 46 ground sit yaw=30
+place RT_PowerBox hazmatbox at 31 40 ground y=1 yaw=230
+call hw_zone x=24 z=56 al=sludgebeds id=sludge_beds r=4 msg="The sludge beds: what the purifiers take out of the water ends up here, green and smoking. A hazmat box stands at the edge."
+call ar_plants_tropical x=-50 z=35 r=14 seed=13521
+call ar_plants_tropical x=55 z=45 r=12 seed=13531
+
+# --- Settings, story items, notes, behaviours, quests -----------------------------------------------------------------
+info title=Pumpcrown Works
+info author=Custom Islands
+info description=The Harbor Authority's waterworks on three drowned towers' roofs: water tanks, pipes along the bridges, a purifier hall that only opens to an Authority coat, and an outfall into the drowned city. The fifth island of The City That Never Sank.
+island on.arrive=message||Pumps thump on three tower roofs. Pipes run along the bridges into a hall with the Authority's crest on the door. Every sentry box is empty.
+
+story authcoat|Authority coat|Placeable_Storage_Small|A Harbor Authority guard's coat, off the laundry line - the crest still on the sleeve.
+story boomwinch|Boom winch wound|Bolt|The boom tower's winch, wound up again - the boom closes the channel.
+
+prop works tint.color=#8e9496
+prop works tint.amount=0.35
+prop skyline tint.color=#7a8088
+prop skyline tint.amount=0.4
+prop screechers creature.count=3
+prop screechers creature.respawn=0
+prop receipt obj.name=receipt
+prop receipt beh.hidden=1
+prop receipt on.read=signal||authfriend
+
+prop hallgate obj.name=hallgate
+prop hallgate beh.use=Open the purifier hall
+prop hallgate if.use=has|story:authcoat|1
+prop hallgate on.use=hide|\nmessage||In the coat you are just another guard. The door's reader blinks green.
+prop hallgate else.use=message||AUTHORITY STAFF ONLY. The reader looks at your clothes, not your face.
+
+prop boomwinch beh.use=Wind the boom winch
+prop boomwinch if.use=!signal|boomwound
+prop boomwinch on.use=signal||boomwound\ngive||story:boomwinch*1\nshow|receipt\nsound||event:/raft/radar/lever\nmessage||The winch groans round. Out in the channel the boom swings shut - and the screechers nesting on the tower come off it shrieking.
+prop boomwinch else.use=message||The boom is shut.
+
+note hallsign Purifier hall | HARBOR AUTHORITY - PURIFIER HALL\nAuthority staff only. Coats on.
+note roster Authority duty roster | DUTY ROSTER - PUMPCROWN\n\nDawn: the pumps. Noon: the boom. Dusk: the boom.\nNight: nobody.\n\nThe boom tower's winch has rusted. Nobody has wound it in a month. The Fleet's boats come and go as they please.\n\nAny hand that winds it is paid - ask at the tower.
+note receipt Authority receipt | HARBOR AUTHORITY - RECEIPT\n\nFor winding the boom winch and clearing the tower. Paid.\n\nThe Authority remembers its friends. - the duty clerk
+note coatline Laundry basket | The guards' laundry basket. A coat with the Authority's crest on the sleeve is nearly dry.
+note hallchest Purifier hall | The purifier hall's locker: a gauge log, filters, and an Authority keycard on a hook. Authority lockers all over the city open to it.
+note purifierbench Purifier bench | The purifier bench: the electric purifier's plans, pinned under a spanner.
+note tankhouse Tank house locker | The tank house locker: the water tank's plans.
+note pipegallery Pipe gallery | The pipe gallery's chest: the water pipe's plans, a coil of hose.
+note stores Authority stores | The Authority's stores: the large storage's plans. Filters, stacked and stamped.
+note seedbox Planter box | Seeds for the guards' planters.
+loot coatline story:authcoat*1;Leather*1
+prop coatline loot.refill=0
+loot hallchest MetalIngot*2;Glass*2;Bolt*2;story:raft-Tangaroa_KeyCard*1
+prop hallchest loot.refill=0
+loot purifierbench Blueprint_ElectricPurifier*1;CircuitBoard*1
+prop purifierbench loot.refill=0
+loot tankhouse Blueprint_WaterTank*1;Plastic*4
+prop tankhouse loot.refill=0
+loot pipegallery Blueprint_Pipe_Water*1;Plastic*4;MetalIngot*1
+prop pipegallery loot.refill=0
+loot stores Blueprint_Storage_Large*1;Plank*6;Nail*10
+prop stores loot.refill=0
+loot pumphive HoneyComb*3
+prop pumphive note.title=Wild beehive
+loot seedbox Raw_Potato*2;Raw_Beet*2
+prop seedbox loot.refill=0
+
+prop outfallzone zone.id=outfall
+prop outfallzone zone.radius=4
+prop outfallzone zone.message=The outfall. The pipe's water pours on down - east, into a drowned street.
+prop boomzone zone.id=boom_tower
+prop boomzone zone.radius=3
+prop boomzone zone.message=The boom tower. A table, a cold stove, and a winch outside that nobody winds.
+
+note patrolcrate Patrol van's lockbox | AUTHORITY PATROL - lockbox\n\nConfiscated: one water filter (home-made), one ration book (forged).\nThe van has not run since the Authority stopped buying fuel for the poor districts' patrols.
+loot patrolcrate Plastic*2;Glass*2;CopperIngot*1
+note filternotice Filter house notice | NOTICE - FILTER HOUSE CLOSED\n\nBy order of the Harbor Authority this filter house is closed. Its water went to the Rookery free of charge.\nThe new purifier hall sells the same water. The Rookery cannot pay.
+prop hazmatbox obj.name=hazmatbox
+prop hazmatbox beh.use=Put on a hazmat suit
+prop hazmatbox on.use=suit||120\nmessage||A hazmat suit from the box: two minutes before the filter clogs. The sludge can't touch you in it.
+note sludgechest Sludge-bed chest | A chest sunk in the sludge, its lock eaten away: a sampler's kit the Authority never came back for.
+loot sludgechest Battery*1;CopperIngot*2;Glass*2
+prop sludgechest loot.refill=0
+quest title=The Authority's Water
+quest intro=The Authority rules Highwater's water from Pumpcrown. Get inside.
+step collect|story:authcoat|1|Take an Authority coat off the guards' laundry line
+step open|Purifier hall|1|Wear the coat through the purifier hall's door and open its locker
+step blueprint|Blueprint_WaterTank|1|Take the water tank's plans from the tank house
+step blueprint|Blueprint_Pipe_Water|1|Take the water pipe's plans from the pipe gallery
+step blueprint|Blueprint_ElectricPurifier|1|Take the electric purifier's plans from the purifier bench
+step blueprint|Blueprint_Storage_Large|1|Take the large storage's plans from the Authority's stores
+step reach|reservoir_bank|1|Climb the reservoir bank north of the works
+step read|Filter house notice|1|Read the notice at the old filter house in the west
+step open|Patrol van's lockbox|1|Open the lockbox in the Authority's patrol van in the east
+step reach|sludge_beds|1|Go to the edge of the sludge beds
+step reach|outfall|1|Dive into the outfall where the pipe meets the sea
+quest done=The outfall runs east, down into the drowned city. The Union's divers went down there - into Lowstreet.
+quest reward=HoneyComb*2;Plastic*4
+
+quest2 title=Keep the Boom
+quest2 intro=The Authority pays for any hand that winds the boom.
+step2 read|Authority duty roster|1|Read the duty roster in the purifier hall
+step2 reach|boom_tower|1|Go to the boom tower on the east point
+step2 collect|story:boomwinch|1|Wind the boom winch
+step2 kill|Screecher|3|Drive off the three screechers off the tower
+step2 read|Authority receipt|1|Read the Authority's receipt in the boom tower
+quest2 done=The Authority remembers its friends. When the city breaks, it will remember you.
+quest2 reward=MetalIngot*3;Glass*2
+
+# (the waterworks' forklift by the hall, the boom tower's ore wagons)
+place VP_Forklift - at 8 7 ground sit yaw=200
+place VP_Wagon02 - at 20 -8 ground sit yaw=90
+place VP_Wagon01 - at 20 -12 ground sit yaw=90
+
+save Pumpcrown Works

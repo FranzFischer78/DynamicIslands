@@ -1,0 +1,184 @@
+# Cinderfall - an island of the library's plan Raft 2: The Drowned Frontier (station Three of the Frontier Corps)
+# A volcano of black rock and ash, the Corps' geothermal plant at its foot: the workers' tents on the ash plain, the
+# turbine hall, pipes up the slope - and three relief valves stuck open on its flanks, the pressure rising. Quest
+# "Pressure" (10 steps): the camp, the engineer's warning, the three valves one by one (the west plateau, the south-east
+# spur, the north shoulder where the stone birds' matriarch nests - reached, she driven off, then its valve), the turbine
+# hall reached and its roaches, the plant's store opened (the machete's, the biofuel refiner's, the fuel tank's and the
+# fuel pipe's blueprints).
+#
+# Built by the recipe player (CIRecipe cinderfall) through the editor's own operations.
+include lib_sea
+include lib_rt
+include lib_features
+new
+# (nature: volcanic: Like Raft's desert, with little scrub on the ash - Raft's islands as the generator's Like Raft has them, CIGenLikeRaft)
+gen Trees=0.3 Bushes=0.3 Rocks=0.5 Harvest=0.3 BeachThings=0.3
+gen Seed=8103 Radius=80 Height=45 Roughness=0.55 Peaks=1 Shape=0 Style=4 PeakShape=0.6 Cliffs=0.4
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.4 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the camp on the ash plain (3.2 m), the turbine hall's pad (3.45 m), the three valves' ledges (the west
+# plateau, the south-east spur, the north shoulder at 16 m) and the ramp up to the shoulder ------------------------------
+brush flatten at -10 48 r=9 s=20 frames=50 h=3.2
+brush flatten at 3 31.5 r=7 s=20 frames=60 h=3.45
+brush flatten at -56 -3 r=4.5 s=20 frames=40 h=10.4
+# (a way up onto the west plateau from the plain's north-west - the slopes elsewhere stopped a player)
+for i 0 5 1
+brush flatten at {-60+$i*0.5} {24-$i*4} r=3.5 s=20 frames=30 h={4.4+$i*1.2}
+next
+brush smooth from -60 24 to -57.5 4 r=4 s=10 frames=20
+brush flatten at 30 -28 r=4.5 s=20 frames=40 h=7
+brush flatten at -8 13 r=5 s=20 frames=60 h=16
+for i 0 11 1
+brush flatten at {20-$i*2.36} {32-$i*1.64} r=3.8 s=20 frames=30 h={3.6+$i*1.13}
+next
+brush smooth from 20 32 to -6 14 r=4.5 s=10 frames=20
+origin
+clear at -10 48 r=11
+clear at 3 31.5 r=9
+clear from -60 24 to -57.5 4 r=4
+clear at -56 -3 r=6
+clear at 30 -28 r=6
+clear at -8 13 r=7
+clear from 20 32 to -6 14 r=5
+
+# --- The workers' camp on the ash plain: three tents, a campfire, crates; the engineer's warning on a crate ------------
+place Balboa_DecorationPrefabBase_SimpleTent - at -16 50 ground yaw=170
+place Balboa_DecorationPrefabBase_SimpleTent - at -10 52.5 ground yaw=180
+place Balboa_DecorationPrefabBase_SimpleTent - at -4 50 ground yaw=190
+place campfire_1 - at -10 46.5 ground
+place Crate_Big_01 warningcrate at -13 44.5 ground yaw=15
+place Note_Paper engineerswarning at -13 44.5 h=6 sit drop yaw=70
+place Crate_Big_02 - at -6 44 ground yaw=-20
+place "Box Small" - at -4.5 45.5 ground yaw=30
+place Placeable_Flag_03 - at -18 44 ground
+place Zone_Trigger camp at -10 47 h=4.4
+
+# --- The turbine hall at the volcano's foot: one of the radio tower's rooms, its machines, the plant's store - and the
+# roaches; the pipes up the slope behind it ---------------------------------------------------------------------------
+# (turned round: its door in the front wall, facing the camp - a door in a back wall stays shut)
+push at 0 31.5 h=3.6 yaw=180
+call rt_storey f2=RT_WallDoor1 f1=RT_WallWindow1 l2=RT_WallWindow1 r2=RT_WallWindow1 b1=RT_WallWindowBroken1
+place RT_Floor - at 0 4.5 y=3.05
+place TP_LaboratoryMachine_Large01 - at -3.2 3.4 sit
+place TP_LaboratoryMachine_Large02 - at -5.2 3.4 sit
+place TP_Selene_ComputerRoom_Server01 - at -5.3 -1 sit yaw=90
+place Locker plantstore at -5.4 2.6 sit yaw=90
+place "Table Office" - at -1.4 3.3 sit yaw=180
+pop
+place Zone_Trigger hall at 3 31.5 h=4.6
+place Creature_Roach roaches at 3 30.5 h=3.8
+place VP_ConcretePipe02 - at 10.5 33 ground yaw=0
+place VP_ConcretePipe02 - at 12.5 29 ground yaw=15
+place VP_ConcretePipe01 - at 9 38 ground yaw=40
+
+# --- The three relief valves: a vent pipe out of the ground on each ledge (the radio tower's down-pipe with its bend -
+# its pipe 0.27 m east and 2.79 m south of its pivot), the valve wheel on its side at waist height ----------------------
+place RT_PipeDownBend - at -56.27 -0.21 ground
+place UT_DrawBridgeMechanism_Cogwheel01 valve1 at -55.78 -3 h=11.6 yaw=0
+place RT_PipeDownBend - at 29.73 -25.21 ground
+place UT_DrawBridgeMechanism_Cogwheel01 valve2 at 30.22 -28 h=8.2 yaw=0
+place RT_PipeDownBend - at -8.27 14.79 ground
+place UT_DrawBridgeMechanism_Cogwheel01 valve3 at -7.78 12 h=17.2 yaw=0
+place Zone_Trigger nest at -8 14 h=17.2
+place Creature_StoneBird matriarch at -10 15 h=17.5
+
+# --- Friendly animals (placed: the generator's Friendly and SeaLife are whole numbers - the 0.2 and 0.3 above gave none;
+# the user, 2026-10-03: "add some friendly animals to some of the islands"): hens behind the workers' tents, dolphins off the north shore -
+place Creature_Chicken hens at -13 56
+prop hens creature.count=3
+place Creature_Dolphin dolphins at 0 100 h=-3
+prop dolphins creature.count=2
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): palms, pineapples, flowers ----------
+scatter "Pickup_Landmark_Tree_Palm 3" 6 at 0 0 r=56.0 seed=4476 free=5
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=56.0 seed=4486 free=3
+scatter "Pickup_Landmark_Flower_Black" 4 at 0 0 r=56.0 seed=4496 free=3
+scatter "Pickup_Landmark_Flower_Red" 4 at 0 0 r=56.0 seed=4497 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=100 deep=5 n=2
+
+info title=Cinderfall
+info author=Custom Islands
+info description=Station Three of the Frontier Corps: a volcano of black rock and ash, the Corps' geothermal plant at its foot - and three relief valves stuck open on its flanks while the pressure rises. The third island of Raft 2: The Drowned Frontier.
+island on.arrive=message||A black volcano breathing steam, tents on the ash, a hall of machines at its foot. Somewhere a gauge is ticking upwards.
+
+story valvetag|Valve tag|quest:Varuna_CraneKey|The brass tag from a relief valve, taken once it was shut - the plant's store opens to all three.
+
+note engineerswarning Engineer's warning | FRONTIER CORPS - STATION THREE - CINDERFALL PLANT\n\nPRESSURE RISING. The three relief valves are stuck open - one on the west plateau, one on the south-east spur, one on the north shoulder up the ramp, where the stone birds nest.\n\nShut each by its wheel and bring me its brass tag: the plant's store opens to the three tags. The roaches have the turbine hall - mind your boots.\n\nThe Corps went on to the Sunken Archive. The machete is in the store - you'll want it there.
+note plantstore Plant store | The plant's store: the machete, the plans for a biofuel refiner, a fuel tank and fuel pipes - all a raft needs to run on its own fuel.
+loot plantstore Blueprint_Machete*1;Blueprint_BiofuelExtractor*1;Blueprint_Fueltank*1;Blueprint_Pipe_Fuel*1;Scrap*6;ExplosiveGoo*3
+prop plantstore loot.refill=0
+prop plantstore if.open=has|story:valvetag|3
+prop plantstore else.open=message||The store's lock has three slots for brass valve tags. The engineer's warning said where the valves are.
+
+prop valve1 obj.name=valve1
+prop valve1 beh.use=Shut the relief valve
+prop valve1 if.use=!signal|valve1
+prop valve1 on.use=message||The wheel fights you, then turns: the valve groans shut and the hiss dies. You pocket its brass tag.\nsignal||valve1\ngive||story:valvetag*1
+prop valve1 else.use=message||This valve is shut.
+prop valve2 obj.name=valve2
+prop valve2 beh.use=Shut the relief valve
+prop valve2 if.use=!signal|valve2
+prop valve2 on.use=message||The wheel fights you, then turns: the valve groans shut and the hiss dies. You pocket its brass tag.\nsignal||valve2\ngive||story:valvetag*1
+prop valve2 else.use=message||This valve is shut.
+prop valve3 obj.name=valve3
+prop valve3 beh.use=Shut the relief valve
+prop valve3 if.use=!signal|valve3
+prop valve3 on.use=message||The wheel fights you, then turns: the valve groans shut and the hiss dies. You pocket its brass tag.\nsignal||valve3\ngive||story:valvetag*1
+prop valve3 else.use=message||This valve is shut.
+
+prop camp zone.id=camp
+prop camp zone.radius=8
+prop camp zone.message=The workers' camp: three tents, a cold campfire - and nobody.
+prop hall zone.id=hall
+prop hall zone.radius=5
+prop hall zone.message=The turbine hall - and roaches pouring out of the machines!
+prop nest zone.id=nest
+prop nest zone.radius=6
+prop nest zone.message=The north shoulder: the third valve - and a huge stone bird rising from her nest beside it!
+prop roaches creature.count=3
+prop roaches creature.respawn=0
+prop roaches creature.zone=hall
+prop matriarch creature.count=1
+prop matriarch creature.size=1.8
+prop matriarch creature.health=4
+prop matriarch creature.respawn=0
+prop matriarch creature.zone=nest
+prop matriarch tint.color=#3b2b25
+prop matriarch tint.amount=0.5
+
+quest title=Pressure
+quest intro=A volcano breathing steam and a plant at its foot, its pressure rising. Station Three: start at the workers' camp.
+step reach|camp|1|Come to the workers' camp on the ash plain
+step read|Engineer's warning|1|Read the engineer's warning
+step collect|story:valvetag|1|Climb to the west plateau, shut its relief valve and pocket the brass tag
+step collect|story:valvetag|2|Cross the plain to the south-east spur and shut the second valve
+step reach|nest|1|Take the ramp up to the north shoulder, where the stone birds nest
+step kill|Screecher|1|Drive off the stone birds' matriarch by the third valve
+step collect|story:valvetag|3|Shut the last valve - three brass tags, and the hiss dies
+step reach|hall|1|Go down to the turbine hall at the volcano's foot
+step kill|Roach|3|Clear the roaches out of the turbine hall
+step open|Plant store|1|Open the plant's store with the three valve tags
+step blueprint|Blueprint_Machete|1|Take the machete plans from the plant store
+step blueprint|Blueprint_BiofuelExtractor|1|Take the biofuel extractor plans from the plant store
+step blueprint|Blueprint_Fueltank|1|Take the fuel tank plans from the plant store
+step blueprint|Blueprint_Pipe_Fuel|1|Take the fuel pipe plans from the plant store
+quest done=The gauges settle, the hiss is gone. In the store the Corps left a machete and their fuel plans - and a note: the Sunken Archive, out in the lagoon.
+quest reward=Plank*8;Scrap*6;Rope*2
+
+# Buried treasure (the story line's middle): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=40 n=1 seed=8829
+prop treasure8829 treasure.loot=TitaniumOre*3
+# Puffer fish off the shore (explosive goo)
+place Creature_PufferFish puffers at 0 92 h=-3
+prop puffers creature.count=3
+
+# --- Raft's vehicles (VI4, 2026-10-23): parked on open ground, clear of paths and quest objects ---
+place VP_Excavator - at -15 36 ground sit yaw=90
+# the generator's rocks that floated over the slope (VI4 ground check, 2026-10-24)
+clear at -25.19 -28.12 r=1.5 only=CaravanIsland_SmallRock
+clear at -63.4 -30.15 r=1.5 only=BigSharpRock
+
+save Cinderfall

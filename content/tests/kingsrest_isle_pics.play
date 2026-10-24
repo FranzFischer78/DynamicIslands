@@ -1,0 +1,13 @@
+# Guide pictures of Kingsrest Isle (CIPlay kingsrest_isle_pics): Raft's camera, morning, calm
+island Kingsrest Isle
+offset 0 0
+hour 9
+weather Calm
+at -40 -4
+wait 3
+picture ni8_kingsrest_isle_island 0 70 -160 0 10 0
+picture ni8_kingsrest_isle_castle -40 22 -30 -40 12 10
+picture ni8_kingsrest_isle_village 35 10 -62 35 4 -36
+picture ni8_kingsrest_isle_bridge 21 30 20 21 21 40
+picture ni8_kingsrest_isle_temple 28 26 34 36 23 40
+picture ni8_kingsrest_isle_idol 10 25 34 4 23 42

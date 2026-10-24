@@ -1,0 +1,20 @@
+# Thornback Ridge (CIPlay thornback_ridge): the six steps in order
+island Thornback Ridge
+# RESIZE 10-24: the recipe moved this island's old content by 2.5 -6.1; the points below are in the old frame
+offset -2.5 6.1
+expect step 0
+expect title The Hermit
+zone camp
+expect step 1
+read Hermit's journal
+expect step 2
+kill Warthog
+expect animals Warthog 0
+expect step 3
+open Hermit's chest
+wait 2
+expect step 4
+catch Chicken 1
+expect step 5
+read Hermit's map
+expect done

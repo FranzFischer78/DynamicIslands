@@ -1,0 +1,178 @@
+# Skyhook Mast - an island of the library's plan Relic of the Seventh Tide (the tower in the sky)
+# A tall sea stack with an airship mooring mast on its flat top: a steel lattice of the radio tower's thick pillars and
+# cross braces, three stages high, a mooring station's cabin at its foot and the station's old vending machine. Below, in
+# the shallows off the beach, the wreck of Kett's airship: a plane's body and broken wings as its ribs, a Caravan Town
+# caravan on its side as its gondola. Varuna Point's skylift is the way up the stack; a zipline the way down. Quest
+# "The Mooring Mast" (6 steps): the stack's foot, the mooring log, the skylift, the screechers nesting on the mast, the
+# cabin strongbox (the Gear of the Second Tide), and the zipline down to the wreck.
+#
+# Built by the recipe player (CIRecipe skyhook_mast) through the editor's own operations.
+include lib_sea
+include lib_features
+new
+# (nature: a green rock stack at Raft's density - grass, bushes and a few palms on top, rocks below; one reef)
+gen Trees=0.55 Bushes=0.75 Rocks=0.65 Harvest=0.6 BeachThings=0.6
+gen Seed=9401 Radius=48 Height=18 Roughness=0.3 Peaks=1 Shape=4 Style=0 PeakShape=0.6 Cliffs=0.9 BeachWidth=0.6
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.2 Sunken=0.4 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the stack's flat top at 18 m, the beach and the stack's foot in the south, the wreck's shore in the
+# south-west -----------------------------------------------------------------------------------------------------------
+brush flatten at 0 6 r=13 s=20 frames=220 h=18
+brush flatten from 0 -44 to 0 -24 r=6 s=20 frames=160 h=1.5
+brush flatten from -16 -42 to -4 -34 r=5 s=20 frames=120 h=1.2
+brush smooth from -16 -44 to 0 -40 r=4 s=6 frames=20
+origin
+clear at 0 6 r=14
+clear from 0 -44 to 0 -22 r=6
+clear from -18 -44 to -4 -34 r=6
+
+# --- The stack's foot: the mooring station's landing, its log on a crate, the skylift against the cliff -----------------
+place Zone_Trigger stackfoot at 0 -30 ground
+place "Box Small" logdesk at 3 -28 ground sit
+place Note_Paper mooringlog at 3 -28 h=2 sit drop yaw=15
+place "Box Big" - at 3 -30 ground sit yaw=20
+place VP_Skylift lift at 0 -22.5 ground sit yaw=0
+place Zone_Trigger liftfoot at 0 -26 ground
+
+# --- The mast: four legs (radio tower thick pillars), three stages stacked leg on leg, cross braces on every face, a
+# top plate and the mooring cone ---------------------------------------------------------------------------------------
+push at 0 9 h=18
+for st 0 12 6
+place RT_PillarThick mastlegs at -1.5 -1.5 y={$st}
+place RT_PillarThick mastlegs at 1.5 -1.5 y={$st}
+place RT_PillarThick mastlegs at -1.5 1.5 y={$st}
+place RT_PillarThick mastlegs at 1.5 1.5 y={$st}
+for by 0.3 3.3 3
+place RT_Crossbeam mastbraces at 1.5 -1.5 y={$st+$by} sit sx=0.667
+place RT_Crossbeam mastbraces at 1.5 1.5 y={$st+$by} sit sx=0.667
+place RT_Crossbeam mastbraces at -1.5 -1.5 y={$st+$by} sit sx=0.667 yaw=90
+place RT_Crossbeam mastbraces at 1.5 -1.5 y={$st+$by} sit sx=0.667 yaw=90
+next
+next
+place RT_Floor mastplate at 0 0 y=18 sit sx=0.66 sz=0.44
+place RT_PillarThick mastcone at 0 0 y=18.07 sx=1.4 sz=1.4 sy=0.5
+place RT_Floodlight - at 1.4 1.4 y=18.07 sit
+pop
+prop mastlegs tint.color=#6f7780
+prop mastbraces tint.color=#6f7780
+prop mastplate tint.color=#5d646b
+prop mastcone tint.color=#a8743c
+
+# --- The mooring station's cabin by the mast's foot (tier 3 blocks, a flat roof of plates), its strongbox inside ------
+push at 4.5 -1 h=18
+for fx 0.75 3.75 1.5
+for fz 0.75 3.75 1.5
+place Block_Floor_Tier3 cabinfloor at $fx $fz y=0.05
+place Block_Floor_Tier3 cabinroof at $fx $fz y=2.83
+next
+next
+place Block_Wall_Tier3 cabinwalls at 0.75 0 y=0.2
+place Block_Wall_Door_Tier3 cabinwalls at 2.25 0 y=0.2
+place Block_Wall_Tier3 cabinwalls at 3.75 0 y=0.2
+for fx 0.75 3.75 1.5
+place Block_Wall_Tier3 cabinwalls at $fx 4.5 y=0.2
+next
+for fz 0.75 3.75 1.5
+place Block_Wall_Tier3 cabinwalls at 0 $fz y=0.2 yaw=90
+place Block_Wall_Tier3 cabinwalls at 4.5 $fz y=0.2 yaw=90
+next
+for px 0 4.5 4.5
+place Block_Pillar_Tier3 cabinpillars at $px 0 y=0.2
+place Block_Pillar_Tier3 cabinpillars at $px 4.5 y=0.2
+next
+place Loot_Chest strongbox at 3.5 3.6 y=0.05 sit yaw=180
+place "Box Small" - at 0.8 3.6 y=0.05 sit
+place Placeable_Lantern_Metal - at 0.8 3.6 y=1.0 sit drop
+pop
+prop cabinwalls tint.color=#7d8a96
+prop cabinpillars tint.color=#5d646b
+prop cabinroof tint.color=#4f5961
+prop cabinfloor tint.color=#8c7a62
+place VP_Skylift liftdown at 0 -5 ground sit yaw=180
+place Zone_Trigger lifttop at 0 -2 ground
+place Zone_Trigger masttop at 0 4 ground
+place Creature_StoneBird screechers at 0 9 h=34
+
+# --- The station's old vending machine (it still takes Tangaroa tokens) and tokens dropped round the stack top --------
+vending mastvend at -6 8 ground yaw=90
+place QuestItemPickup_Tangaroa_Token - at -5 12 ground
+place QuestItemPickup_Tangaroa_Token - at 6 12 ground
+place QuestItemPickup_Tangaroa_Token - at -3 -3 ground
+place QuestItemPickup_Tangaroa_Token - at 2 -30 ground
+
+# --- The zipline down from the stack's edge to the wreck's shore -------------------------------------------------------
+# (its near floor - 5.72 m west, 0.97 m north of where it is put, 1.35 m under its h - on the flat top at -7 -1)
+place ZiplinePath_Landmark zipdown at -1.28 -1.97 h=19.35
+zipto zipdown -12 -38
+place Zone_Trigger wreckshore at -12 -40 ground
+
+# --- Kett's airship, wrecked in the shallows: the plane's body as the envelope's nose, broken wings standing as ribs, a
+# caravan on its side as the gondola ------------------------------------------------------------------------------------
+place Airplane wreck at -24 -54 ground rot=6,130,12 scale=0.9
+for rz -50 -42 2.6
+place WingBroken ribs at -31 $rz ground rot=0,0,80 scale=1.6
+place WingBroken ribs at -25 $rz ground rot=0,180,80 scale=1.6
+next
+place CaravanBarebones1 gondola at -20 -46 ground sit rot=0,40,88 scale=0.8
+prop ribs tint.color=#9a9488
+prop gondola tint.color=#b58a5a
+call shallows x=-26 z=-54 r=14 deep=3 n=1 seed=9411
+
+# --- Things to gather ------------------------------------------------------------------------------------------------
+scatter "Pickup_Landmark_PineappleLandmark" 2 at -6 14 r=6 seed=9421 free=2
+call dirt x=8 z=14 r=5 n=2 seed=9422
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Skyhook Mast
+info author=Custom Islands
+info description=A tall sea stack with an airship mooring mast on top - a steel lattice three stages high, the station cabin and its old vending machine - and below, in the shallows, the wreck of Kett's airship. The fourth island of Relic of the Seventh Tide.
+island on.arrive=message||A sea stack like a chimney, and on top of it a steel mast. In the shallows below, the ribs of a wrecked airship.
+
+story liftride|Skylift ride|Placeable_Lantern_Metal|You rode the station's skylift up the stack.
+story gear2|Gear of the Second Tide|Bolt|A bronze gear with teeth cut like waves, bigger than the first. Two of three.
+
+note mooringlog Mooring log | SKYHOOK MOORING STATION - LOG\n\nAirship "Albatross", Prof. I. Kett, moored 0600. Took on water and gas. She left a box in the cabin strongbox "for whoever follows with the first gear".\n\n1100: Syndicate launch sighted. The professor cast off in a hurry - she said she was flying on to "the Fang".\n\n1130: The Albatross is down. Wind took her into the stack. The professor got out. Screechers nest on the mast again; the lift still works.
+note strongbox Mast cabin strongbox | Kett's box: a bronze gear wrapped in her scarf - the Gear of the Second Tide - and the station's zipline handle, its tag "for the quick way down".
+loot strongbox story:gear2*1;ZiplineTool*1;MetalIngot*3;Scrap*3
+prop strongbox loot.refill=0
+
+prop lift obj.name=lift
+prop lift beh.use=Ride the skylift up the stack
+prop lift on.use=message||The skylift's motor coughs, catches, and hauls you up the face of the stack.\nsound||event:/exploring/utopia/lift_pull\nwait|4\nteleport|lifttop\ngive||story:liftride*1
+prop liftdown obj.name=liftdown
+prop liftdown beh.use=Ride the skylift down
+prop liftdown on.use=message||Down the face of the stack you go.\nsound||event:/exploring/utopia/lift_pull\nwait|4\nteleport|liftfoot
+
+prop stackfoot zone.id=stack_foot
+prop stackfoot zone.radius=5
+prop stackfoot zone.message=The foot of the stack. A crate with a logbook on it, and a lift against the rock.
+prop liftfoot obj.name=liftfoot
+prop liftfoot zone.id=lift_foot
+prop liftfoot zone.radius=2
+prop lifttop obj.name=lifttop
+prop lifttop zone.id=lift_top
+prop lifttop zone.radius=2
+prop masttop zone.id=mast_top
+prop masttop zone.radius=7
+prop masttop zone.repeat=never
+prop masttop zone.message=Wings beat over the mast - screechers, nesting in the lattice!
+prop screechers creature.count=2
+prop screechers creature.respawn=0
+prop screechers creature.zone=mast_top
+prop wreckshore zone.id=wreck_shore
+prop wreckshore zone.radius=5
+prop wreckshore zone.message=The Albatross's ribs stand out of the shallows. Kett got out of here - and went on to the Fang.
+
+quest title=The Mooring Mast
+quest intro=A sea stack with a mast on top. Kett flew from here. Go to the stack's foot.
+step reach|stack_foot|1|Go to the foot of the stack
+step read|Mooring log|1|Read the mooring log
+step collect|story:liftride|1|Ride the skylift up the stack
+step kill|Screecher|2|Drive off the screechers nesting on the mast
+step open|Mast cabin strongbox|1|Open the strongbox in the mast cabin
+step reach|wreck_shore|1|Take the zipline down to the wreck's shore
+quest done=The second gear. The log said where Kett went: the Fang, a hollow tooth of rock - 1000 on the Receiver.
+quest reward=Rope*4;Feather*4;Bolt*4
+
+save Skyhook Mast

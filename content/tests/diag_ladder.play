@@ -1,0 +1,4 @@
+# Dev aid: the ladder kit spawned in a world (CIPlay diag_ladder), then CIInstances LandmarkLadder_6m
+island CI Ladder Kit keep
+at 0 -6
+wait 2

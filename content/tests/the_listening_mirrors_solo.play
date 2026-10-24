@@ -1,0 +1,4 @@
+# The Listening Mirrors on its own (CIPlay the_listening_mirrors_solo): Cradle Reef first in the same world for the
+# Lantern-Mother's tooth, then the finale.
+include cradle_reef.play
+include the_listening_mirrors.play

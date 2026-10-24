@@ -1,0 +1,379 @@
+# Rig Seventeen - a new island of the library, four times the size (x4)
+# An old oil rig on legs in the shallow sea among red desert stacks (Shape 3, Style 2): the cellar deck at 8 m, the main
+# deck at 12.4 m with the pump room, the control room on top of it, a derrick, a flare stack beside the rig, the lifeboat
+# bay in the cellar deck's east half; a rope bridge from the main deck to the tank stack (levelled at the main deck's
+# height); the launch beach on a sandy stack to the south-west. Rig Seventeen was laid up when the field ran dry; the
+# manager's handover says restart her once to blow the lines clean, then take the lifeboat off - and that she always
+# catches fire on a cold start. Quest "Cold Start" (13 steps, restart and get out - timed): three valves each put out one
+# fire (and the invisible wall across its passage), the lifeboat bay's fire door shuts 120 s after the alarm (an override
+# lever opens it for 120 s more).
+#
+# Built by the recipe player (CIRecipe rig_seventeen) through the editor's own operations. Points: the sea floor -2.5 m;
+# the rig x 39..51, z -13.5..-4.5: the cellar deck at 8 m (the wellhead and valve one at 42 -9; the lifeboat bay x
+# 45..51, open to the east, its fire door on its west side at z -10.5..-7.5), the main deck at 12.4 m (the derrick x
+# 40..43, z -13..-10, its platform 24.4 m; the pump room x 45..51, its door on its west side at z -9; valve three at
+# 40 -5.5), the control room on the pump room at 15.4 m (its door on its west side at z -12); the ladders: from the boat
+# landing (37 -13.5, 1.3 m) up the south-west leg past the cellar deck to the main deck at 39.1 -13.8, from the main deck
+# to the control room at 44.76 -12.5, up the derrick at 40 -13.35; the bridge x 33.25..39.25 at z -9 (12.4 m) to the tank
+# stack's top at 23 -9; the flare stack at 55 -2; the launch beach at -6 -30 (0.8 m).
+include lib_rt
+include lib_sea
+new
+# (nature: desert, Like Raft - acacias and scrub on the bigger stacks' tops)
+gen Trees=0.15 Bushes=0.5 Rocks=0.55 Harvest=0.25 BeachThings=0.3
+gen Seed=9214 Radius=90 Height=26 Roughness=0.5 Peaks=4 Shape=3 Style=2 BeachWidth=0.35 Cliffs=0.8 PeakShape=0.5
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.3 Sunken=0.25 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== The ground: the tank stack's top at the main deck's height, the launch beach, the rig's patch of sea cleared ======
+brush flatten at 23 -9 r=12.5 s=20 frames=150 h=12.4
+brush flatten at -6 -30 r=4 s=20 frames=60 h=0.8
+brush sand at -6 -30 r=5 s=20 frames=30
+clear at 23 -9 r=13
+clear at -6 -30 r=6
+clear at 45 -9 r=14
+
+# ===== The rig's cellar deck (8 m) on its legs: two open radio-tower floors side by side, posts up to the main deck; the
+# boat landing at the south-west leg's foot and the ladder from it up past the cellar deck to the main deck; the
+# manager's handover by the ladder; the wellhead with valve one ===========================================================
+macro posts y=0 h=4.4
+place RT_PillarThick - at -5.9 -4.4 y=$y sy={$h/6}
+place RT_PillarThick - at -0.1 -4.4 y=$y sy={$h/6}
+place RT_PillarThick - at -5.9 4.4 y=$y sy={$h/6}
+place RT_PillarThick - at -0.1 4.4 y=$y sy={$h/6}
+end
+push at 45 -9 h=8
+call rt_storey b1=none b2=none f1=none f2=none l1=none l2=none l3=none r1=none r2=none r3=none
+call rt_legs d=12
+call posts
+pop
+place Block_Floor_Wood - at 37.5 -14.25 h=1.3
+place Block_Floor_Wood - at 37.5 -12.75 h=1.3
+place Block_Floor_Wood - at 36 -14.25 h=1.3
+for lh 1.3 12.5 2.42
+place Block_Ladder - at 39.1 -13.8 h=$lh
+next
+place Crate_Big_02 - at 37.3 -12.6 h=1.4 sit yaw=20
+place "Box Small" landingbox at 36.4 -14.3 h=1.4 sit yaw=40
+place Zone_Trigger landing at 37 -13.5 h=2.3
+place Note_Board handover at 40 -11.2 h=8.05 yaw=90
+place RT_Pillar - at 42 -9 h=8.05 sy=0.4
+place TP_Selene_DoorCrankWheel valve1 at 42 -9.3 h=9.4
+place "VG_DecorationPrefabBase_Pipe_ThickLong Variant" - at 42 -8.6 h=8.15 scale=2
+place "VG_DecorationPrefabBase_Pipe_ThickLong Variant" - at 41.3 -9 h=8.15 scale=2 yaw=90
+place Loot_SunkenBarrel sunkdrum at 46 -1 ground
+place Zone_Trigger firedeck at 40 -12.4 h=9
+
+# ----- The lifeboat bay in the cellar deck's east half: a room open to the sea, its fire door (a hinged wall, shut), the
+# lifeboat on the floor by the open side, its locker; the override lever on the cellar deck by the door
+push at 51 -9 h=8
+call rt_storey f1=RT_Wall1 f2=RT_Wall1 b1=RT_Wall1 b2=RT_Wall1 l1=RT_Wall1 l2=none l3=RT_Wall1 r1=none r2=none r3=none
+call rt_legs d=12
+call posts y=3 h=1.4
+place RT_Floor - at 0 4.5 y=3
+place Loot_Chest lifeboatlocker at -4.8 -3.6 y=0.05 sit yaw=90
+place RT_PlasticBoat lifeboat at -2 0 y=1.45 scale=2.5
+pop
+place RT_Wall1 baydoor at 44.96 -10.5 h=8 yaw=90
+place Zone_Trigger lifeboatbay at 47.8 -9 h=9.5
+place RT_Pillar - at 43.6 -12.9 h=8.05 sy=0.4
+place TP_LaserControlPanel_lever override at 43.6 -12.9 h=9.3 scale=3 yaw=90
+
+# ===== The main deck (12.4 m): an open floor with the derrick on it, valve three in its north-west corner; the pump room
+# beside it (its door west) with the pump and valve two; the control room on the pump room's roof (its door west) with
+# the control desk, the checklist, screens, the manager's locker; the ladder up to it; the bridge to the tank stack ======
+push at 45 -9 h=12.4
+call rt_storey b1=none b2=none f1=none f2=none l1=none l2=none l3=none r1=none r2=none r3=none
+pop
+push at 51 -9 h=12.4
+call rt_storey l2=RT_WallDoor1
+place UT_WaterPump - at -2.6 2.2 y=0.05 scale=0.3 yaw=90
+place RT_Pillar - at -4.4 -2.6 y=0.05 sy=0.4
+place TP_Selene_DoorCrankWheel valve2 at -4.4 -2.9 y=1.4
+place RT_RoofLamp riglights at -3 -2 y=2.95
+place RT_RoofLamp riglights at -3 2 y=2.95
+pop
+place RT_Pillar - at 40 -5.5 h=12.45 sy=0.4
+place TP_Selene_DoorCrankWheel valve3 at 40 -5.8 h=13.8
+place "VG_DecorationPrefabBase_Pipe_ThickLong Variant" - at 40.6 -5.5 h=12.55 scale=2 yaw=90
+push at 51 -9 h=15.4
+call rt_storey l1=RT_WallDoor1 f1=RT_WallWindow1 b1=RT_WallWindow2 r2=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+place VG_ControlBoard controldesk at -3 3.2 y=0.05 scale=0.4 yaw=180
+place Note_Paper checklist at -1.2 2.2 y=0.05 sit yaw=170
+place Balboa_DecorationPrefabBase_CRTScreen - at -4 3.4 y=1.2 sit yaw=180
+place Balboa_DecorationPrefabBase_CRTScreen - at -3.4 3.4 y=1.2 sit yaw=180
+place Locker - at -0.5 -3.6 y=0.05 sit yaw=270
+place Loot_ChestSmall managerlocker at -1.3 -3.6 y=0.05 sit yaw=270
+place RT_Floodlight riglights at -1 -4 y=3.1 sit yaw=180
+place RT_Floodlight riglights at -5 4 y=3.1 sit
+pop
+place Zone_Trigger controlroom at 48 -9 h=16.5
+for lh 12.4 15 2.42
+place Block_Ladder - at 44.76 -12.5 h=$lh yaw=270
+next
+for bx 34 39 1.5
+place Block_Floor_Wood - at $bx -9 h=12.35
+place Block_Wall_Fence_Rope - at $bx -9.75 h=12.35
+place Block_Wall_Fence_Rope - at $bx -8.25 h=12.35
+next
+
+# ----- The derrick on the main deck: four thick posts two high, a platform on top, a ladder up its south side; the
+# screechers' zone round its foot
+for dh 12.4 18.5 6
+place RT_PillarThick - at 40 -13 h=$dh
+place RT_PillarThick - at 43 -13 h=$dh
+place RT_PillarThick - at 40 -10 h=$dh
+place RT_PillarThick - at 43 -10 h=$dh
+place LandmarkLadder_6m - at 40 -13.35 h=$dh sy=0.885
+next
+place Block_Floor_Wood - at 40.75 -12.25 h=24.4
+place Block_Floor_Wood - at 42.25 -12.25 h=24.4
+place Block_Floor_Wood - at 40.75 -10.75 h=24.4
+place Block_Floor_Wood - at 42.25 -10.75 h=24.4
+place Zone_Trigger derrick at 41.5 -11.5 h=13.5
+place Creature_StoneBird screechers at 41.5 -11.5 h=27
+
+# ----- The flare stack beside the rig: three concrete pipes on end, rust-tinted, its flame on top (hidden till the start)
+place VP_ConcretePipe02 flarestack at 55 -2 h=0.3 rot=90,0,0 scale=1.4
+place VP_ConcretePipe02 flarestack at 55 -2 h=6.08 rot=90,0,0 scale=1.4
+place VP_ConcretePipe02 flarestack at 55 -2 h=11.86 rot=90,0,0 scale=1.4
+prop flarestack tint.color=#8a4a2a
+prop flarestack tint.amount=0.5
+place campfire_1 flare at 55 -2 h=15 scale=2.5
+
+# ===== The fire (all hidden until the restart): flames and an invisible wall at the pump room's door (fire one, out with
+# valve one), across the main deck south of valve three (fire two, out with valve two), in front of the lifeboat bay's
+# door on the cellar deck (fire three, out with valve three), each with a glow of embers; the smoke, the alarm's red lights and sound ===============
+place campfire_1 fire1 at 44.2 -10.2 h=12.45
+place campfire_1 fire1 at 44.2 -9 h=12.45
+place campfire_1 fire1 at 44.2 -7.8 h=12.45
+place Helper_Wall fire1 at 44.3 -9 h=12.4 yaw=90
+place Zone_Atmosphere fire1 at 44.2 -9 h=13.4
+place campfire_1 fire2 at 39.8 -7.2 h=12.45
+place campfire_1 fire2 at 41.2 -7.2 h=12.45
+place campfire_1 fire2 at 42.6 -7.2 h=12.45
+place Helper_Wall fire2 at 42 -7.2 h=12.4 sx=1.5
+place Zone_Atmosphere fire2 at 41.2 -7.2 h=13.4
+place campfire_1 fire3 at 44.2 -10.4 h=8.05
+place campfire_1 fire3 at 44.2 -9 h=8.05
+place campfire_1 fire3 at 44.2 -7.6 h=8.05
+place Helper_Wall fire3 at 44.3 -9 h=8 yaw=90
+place Zone_Atmosphere fire3 at 44.2 -9 h=9
+place Zone_Atmosphere smoke at 45 -9 h=12
+place TP_RotatingRedLight alarmlights at 40 -12.7 h=14.5
+place TP_RotatingRedLight alarmlights at 43 -9.7 h=14.5
+place Zone_Sound alarmsound at 45 -9 h=12
+
+# ===== The tank stack: the diesel tanks, the fuel store; the launch beach: the old half-buried lifeboat with a box, palms,
+# the goats; dolphins round the legs; Raft's finds in the shallows ==========================================================
+place Placeable_FuelTank - at 20 -11 ground yaw=20
+place Placeable_FuelTank - at 22.5 -12.5 ground yaw=80
+place Placeable_FuelTank - at 19.5 -7.5 ground yaw=150
+place Loot_Chest fuelstore at 25 -8 ground sit yaw=270
+place Zone_Trigger tankstack at 24 -9 h=13.5
+place Zone_Trigger launch at -6 -30 h=2
+place RT_PlasticBoat beachlifeboat at -3 -33 ground tilt=20 yaw=60
+prop beachlifeboat tint.color=#e07020
+prop beachlifeboat tint.amount=0.6
+place "Box Small" beachbox at -4.4 -31.4 ground sit yaw=10
+place "Pickup_Landmark_Tree_Palm 2" - at -10 -26 ground yaw=40
+place "Pickup_Landmark_Tree_Palm 2" - at -2 -26.5 ground yaw=150
+place "Pickup_Landmark_Tree_Palm 2" - at -9.5 -33.5 ground yaw=260
+place "Pickup_Landmark_Tree_Palm 2" - at -1 -36 ground yaw=330
+place Creature_Goat goats at -15 -36 ground
+place Creature_Dolphin dolphins at 58 12 h=-1.6
+call shallows r=110 deep=5 n=1
+
+# --- Raft's special features (lib_features; the user, 2026-10-10: every Raft feature on more than one island): a flow
+# test on the tank stack: three pipe valves on the deck, set as the test card says (first and last open, the bend
+# shut), then the test lever lets go the crew's hidden stash
+place WaterPipe_Short_1 rigpipeA at 18.5 -15 ground y=0.1 scale=2.5
+place WaterPipe_BigCurve_1 rigpipeB at 21 -15 ground y=0.1 scale=2.5
+place WaterPipe_Short_1 rigpipeC at 23.5 -15 ground y=0.1 scale=2.5
+prop rigpipeA obj.name=rigpipeA
+prop rigpipeB obj.name=rigpipeB
+prop rigpipeC obj.name=rigpipeC
+prop rigpipeA on.use=switch|\nmessage||The valve squeals a quarter turn.
+prop rigpipeB on.use=switch|\nmessage||The bend's valve squeals a quarter turn.
+prop rigpipeC on.use=switch|\nmessage||The valve squeals a quarter turn.
+place RT_Pillar - at 26 -15 ground sy=0.4
+place TP_LaserControlPanel_lever riglever at 26 -15 ground y=1.25 scale=3 yaw=270
+prop riglever obj.name=riglever
+prop riglever if.use=state|rigpipeA|open\nstate|rigpipeB|closed\nstate|rigpipeC|open
+prop riglever on.use=message||The pipes thump, the line holds - and the stash locker by the lever drops open.\nsignal||rigflow\nshow|rigstash
+prop riglever else.use=message||The line coughs and the lever springs back. The valves are not set as the test card says.
+place Loot_Chest rigstash at 28 -14 ground sit yaw=270
+prop rigstash obj.name=rigstash
+prop rigstash note.title=Crew stash
+prop rigstash beh.hidden=1
+loot rigstash Battery*1;MetalIngot*2;Bolt*3
+place Note_Sign rigtestcard at 26 -16.6 ground sit yaw=180
+note rigtestcard Flow test card | LINE 3 FLOW TEST\n\nFirst valve OPEN. Bend SHUT. Last valve OPEN.\nThen pull the test lever. If she holds, the crew's beer money is in the locker.
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): flowers, melons, pineapples ----------
+scatter "Pickup_Landmark_Flower_Yellow" 4 at 0 0 r=63.0 seed=4337 free=3
+scatter "Pickup_Landmark_Flower_Red" 4 at 0 0 r=63.0 seed=4338 free=3
+scatter "Pickup_Landmark_WatermelonLandmark" 6 at 0 0 r=63.0 seed=4347 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=63.0 seed=4357 free=3
+
+# ===== Settings, story items, notes, behaviours, quest (13 steps) =========================================================
+info title=Rig Seventeen
+info author=Custom Islands
+info description=An old oil rig on stilts among red desert sea stacks, laid up when the field ran dry. Restart her to blow the lines clean - and she catches fire, as she always did. Close three valves through the flames and reach the lifeboat before the fire doors shut.
+island on.arrive=message||Red stacks of rock, and standing among them on four rusty legs, a rig: a derrick, a flare stack, a control room on top - and an orange lifeboat hanging on its davit.
+
+story startkey|Start key|quest:Temperance_ReactorKey|The rig's start key on a red tag: COLD START ONLY.
+story diesel|Can of diesel|quest:Vasagatan_GasTank|A jerrycan of diesel from the tank stack, for the start generator.
+story valvetag|Valve tag|quest:Tangaroa_Token|A brass tag from a closed valve: SHUT.
+
+note handover Manager's handover | RIG SEVENTEEN - HANDOVER TO THE SALVAGE CREW\n\nShe needs one cold start to blow the lines clean before she's towed. Start key in my locker in the control room; diesel for the start generator on the tank stack (rope bridge off the main deck).\n\nWARNING: she ALWAYS catches fire on a cold start. Three valves feed it - the wellhead (cellar deck), the pump room and the flare line (main deck). Shut each and its fire dies. The lifeboat bay's fire door shuts two minutes after the alarm; the override lever on the cellar deck by the bay door gives you two more.\n\nAnd the birds on the derrick bite.\n- D. Okoro, rig manager
+note checklist Restart checklist | COLD START - CHECKLIST\n\n1. Diesel in the start generator.\n2. Start key in, turn to START.\n3. When the alarm goes: down the stairs, valve one (wellhead), valve two (pump room), valve three (flare line).\n4. Lifeboat. Don't look back.
+note managerlocker Manager's locker | Okoro's locker: his overalls, a hard hat, a flask - and the start key on its red tag.
+loot managerlocker story:startkey*1;Hat_Construction*1;PlasticBottle_Water*1
+prop managerlocker loot.refill=0
+note fuelstore Fuel store | The tank stack's fuel store: jerrycans, funnels, a drum of grease.
+loot fuelstore story:diesel*1;BioFuel*1;Rope*2
+prop fuelstore loot.refill=0
+note lifeboatlocker Lifeboat locker | The lifeboat's locker: flares, rations, a first-aid kit - and the salvage crew's bonus in a sealed tin, with the plans for the rig's battery charger.
+loot lifeboatlocker Blueprint_BatteryCharger*1;TradeToken*10;HealingSalve_Good*2;Cooked_GenericMeat*3;Battery*1
+prop lifeboatlocker loot.refill=0
+note landingbox Landing box | A box on the boat landing: rope, gloves, a wrench.
+loot landingbox Rope*3;Scrap*2;Bolt*2
+prop landingbox loot.refill=0
+note beachbox Old lifeboat's box | A box in the half-buried lifeboat from the last cold start: rations, still sealed.
+loot beachbox Cooked_GenericMeat*2;PlasticBottle_Water*2;Plastic*2
+prop beachbox loot.refill=0
+note sunkdrum Sunk drum | A drum dropped off the cellar deck: scrap and ore.
+loot sunkdrum MetalOre*2;Scrap*3;CopperOre*1
+prop sunkdrum loot.refill=0
+
+prop controldesk obj.name=controldesk
+prop controldesk beh.use=Cold start the rig
+prop controldesk if.use=quest|6\nhas|story:startkey|1\ntake|story:diesel|1
+prop controldesk on.use=message||Diesel in, key in, START. The start generator coughs, catches, roars - the lights come on all over the rig, the flare stack lights with a WHUMP -\nsignal||started\nshow|riglights\nshow|flare\nsound||event:/exploring/temperence/generator\nwait|6\nshow|fire1\nshow|fire2\nshow|fire3\nshow|smoke\nshow|alarm\nshow|firedeck\nopen|baydoor\nsound||event:/exploring/temperence/selene/reactor_alarm\nmessage||- and the alarm. FIRE on the cellar deck! Two minutes until the lifeboat bay's fire door shuts!\nwait|120\nclose|baydoor\nmessage||Somewhere below, the lifeboat bay's fire door slams. The override lever by the bay door opens it again.
+prop controldesk else.use=message||The control desk. The checklist: diesel in the start generator, start key in.
+prop override obj.name=override
+prop override beh.use=Pull the fire door override (two more minutes)
+prop override if.use=signal|started\nstate|baydoor|closed
+prop override on.use=message||The override clanks over. Below, the lifeboat bay's fire door swings open again: two minutes!\nopen|baydoor\nsound||event:/raft/radar/lever\nwait|120\nclose|baydoor\nmessage||The lifeboat bay's fire door slams again.
+prop override else.use=message||The fire door override. The door is open - or the rig hasn't been started.
+prop valve1 obj.name=valve1
+prop valve1 beh.use=Shut valve one (the wellhead)
+prop valve1 if.use=signal|started\n!signal|v1
+prop valve1 on.use=message||The wheel fights you, then turns. Up on the main deck, the fire at the pump room's door gutters and dies.\nhide|fire1\nsignal||v1\ngive||story:valvetag*1\nsound||event:/exploring/temperence/selene/handle_spin
+prop valve1 else.use=message||Valve one - nothing to shut yet, or already shut.
+prop valve2 obj.name=valve2
+prop valve2 beh.use=Shut valve two (the pump room)
+prop valve2 if.use=signal|started\n!signal|v2
+prop valve2 on.use=message||Valve two shut. Out on the main deck, the fire by valve three sinks to nothing.\nhide|fire2\nsignal||v2\ngive||story:valvetag*1\nsound||event:/exploring/temperence/selene/handle_spin
+prop valve2 else.use=message||Valve two - nothing to shut yet, or already shut.
+prop valve3 obj.name=valve3
+prop valve3 beh.use=Shut valve three (the flare line)
+prop valve3 if.use=signal|started\n!signal|v3
+prop valve3 on.use=message||Valve three. The corridor's fire chokes off - the way to the lifeboat bay is clear!\nhide|fire3\nhide|smoke\nsignal||v3\ngive||story:valvetag*1\nsound||event:/exploring/temperence/selene/handle_spin
+prop valve3 else.use=message||Valve three - nothing to shut yet, or already shut.
+prop fire1 obj.name=fire1
+prop fire1 beh.hidden=1
+prop fire1 atmo.particles=embers
+prop fire1 atmo.light=#ff6020
+prop fire1 atmo.lightAmount=0.5
+prop fire1 zone.radius=3
+prop fire2 obj.name=fire2
+prop fire2 beh.hidden=1
+prop fire2 atmo.particles=embers
+prop fire2 atmo.light=#ff6020
+prop fire2 atmo.lightAmount=0.5
+prop fire2 zone.radius=3
+prop fire3 obj.name=fire3
+prop fire3 beh.hidden=1
+prop fire3 atmo.particles=embers
+prop fire3 atmo.light=#ff6020
+prop fire3 atmo.lightAmount=0.5
+prop fire3 zone.radius=3
+prop flare obj.name=flare
+prop flare beh.hidden=1
+prop riglights obj.name=riglights
+prop riglights beh.hidden=1
+prop alarmlights obj.name=alarm
+prop alarmlights beh.hidden=1
+prop alarmlights beh.spin=180
+prop alarmsound obj.name=alarm
+prop alarmsound beh.hidden=1
+prop alarmsound sound.event=event:/exploring/temperence/selene/reactor_error
+prop alarmsound sound.volume=0.5
+prop alarmsound zone.radius=30
+prop smoke obj.name=smoke
+prop smoke beh.hidden=1
+prop smoke atmo.fog=#3a2a20
+prop smoke atmo.fogAmount=0.35
+prop smoke atmo.light=#ff7030
+prop smoke atmo.lightAmount=0.35
+prop smoke atmo.particles=embers
+prop smoke zone.radius=25
+prop baydoor obj.name=baydoor
+prop baydoor beh.turn=95
+prop baydoor beh.moveTime=1.5
+prop baydoor beh.moveMode=switch
+prop lifeboat obj.name=lifeboat
+prop lifeboat beh.use=Lower the lifeboat and get away
+prop lifeboat tint.color=#e07020
+prop lifeboat tint.amount=0.6
+prop lifeboat beh.move=0,-8.6,0
+prop lifeboat beh.moveTime=6
+prop lifeboat beh.moveMode=switch
+prop lifeboat if.use=quest|12
+prop lifeboat on.use=message||You jump in and knock off the brake. The davit squeals, the boat drops, hits the water - and the engine catches. You steer out between the stacks to the beach.\nopen|lifeboat\nsound||event:/exploring/utopia/ladder_release\nwait|6\nteleport|launch\nmessage||Behind you, Rig Seventeen burns down to a quiet glow at the flare stack's top. Lines clean.
+prop lifeboat else.use=message||The lifeboat. Take what's in its locker first.
+
+prop landing zone.id=landing
+prop landing zone.radius=5
+prop landing zone.message=The boat landing at the foot of a rusty leg. A ladder goes up into the dark under the decks.
+prop derrick zone.id=derrick
+prop derrick zone.radius=8
+prop derrick zone.repeat=never
+prop derrick zone.message=The derrick - and the birds that nest in it don't want you here!
+prop screechers creature.count=2
+prop screechers creature.respawn=0
+prop screechers creature.zone=derrick
+prop controlroom zone.id=controlroom
+prop controlroom zone.radius=4
+prop controlroom zone.message=The control room: dead screens, a control desk with a checklist on it, the manager's locker.
+prop tankstack zone.id=tankstack
+prop tankstack zone.radius=6
+prop tankstack zone.message=The tank stack: three diesel tanks on a red rock, and the fuel store.
+prop firedeck obj.name=firedeck
+prop firedeck beh.hidden=1
+prop firedeck zone.id=firedeck
+prop firedeck zone.radius=5
+prop firedeck zone.message=The cellar deck is burning. Valve one, at the wellhead - through the heat!
+prop lifeboatbay zone.id=lifeboatbay
+prop lifeboatbay zone.radius=2.2
+prop lifeboatbay zone.message=The lifeboat bay. You made it before the fire door.
+prop launch obj.name=launch
+prop launch zone.id=launch
+prop launch zone.radius=5
+prop goats creature.count=2
+prop dolphins creature.count=2
+
+quest title=Cold Start
+quest intro=An old rig among red sea stacks. The manager left a handover for the salvage crew at the top of the landing's ladder.
+step reach|landing|1|Tie up at the rig's boat landing
+step read|Manager's handover|1|Climb the ladder to the cellar deck and read the manager's handover
+step kill|Screecher|2|Drive the screechers off the derrick
+step collect|story:startkey|1|Take the start key from the manager's locker in the control room
+step collect|story:diesel|1|Cross the rope bridge to the tank stack for diesel
+step read|Restart checklist|1|Read the restart checklist on the control desk
+step reach|firedeck|1|Cold start the rig - and get down to the cellar deck
+step collect|story:valvetag|1|Shut valve one at the wellhead
+step collect|story:valvetag|2|Shut valve two in the pump room
+step collect|story:valvetag|3|Shut valve three on the flare line
+step reach|lifeboatbay|1|Reach the lifeboat bay before its fire door shuts
+step open|Lifeboat locker|1|Open the lifeboat's locker
+step reach|launch|1|Lower the lifeboat and get away to the beach
+quest done=Lines clean, fire out, and you on a beach watching the flare stack glow. Rig Seventeen's last cold start went the way they all did - except you walked away from it.
+quest reward=MetalIngot*3;Bolt*3;Rope*3
+
+
+
+save Rig Seventeen

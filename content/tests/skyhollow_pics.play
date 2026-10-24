@@ -1,0 +1,19 @@
+# Guide pictures of Skyhollow (CIPlay skyhollow_pics): Raft's camera, morning, calm
+island Skyhollow
+offset 0 0
+hour 9
+weather Calm
+at 0 -2
+wait 3
+picture ni7b_skyhollow_island 40 4 -40 0 2 0
+picture ni7b_skyhollow_cabin -2 10 -12 -4 7 0
+picture ni7b_skyhollow_boat 20 9 -4 12 5 4
+# Close side pictures at the ground of every structure (feet in view); the underside from below
+picture ni7b_skyhollow_s_cabin_s -2 +1.3 -6.5 -3.75 +0.6 0.5
+picture ni7b_skyhollow_s_cabin_w -10 +1.3 1 -3.75 +0.6 0.5
+picture ni7b_skyhollow_s_fire 0.5 +1.2 -7.5 -3.5 +0.3 -4
+picture ni7b_skyhollow_s_boat 17 +1.5 9 12 +0.8 4
+picture ni7b_skyhollow_s_boat2 7 +1.5 0 12 +0.8 4
+picture ni7b_skyhollow_s_nests 0 +1.2 9.5 0 +0.3 13
+picture ni7b_skyhollow_s_rocks -6 +1.3 -5 -10 +0.6 -9
+picture ni7b_skyhollow_under 45 -25 -30 0 -5 0

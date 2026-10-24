@@ -1,0 +1,20 @@
+# lib_sea - Raft's finds in the shallow sea round an island, shared by the library's recipes ("include lib_sea"). Every one
+# of Raft's islands has something to gather just off its shore - sand, clay, stones, metal and copper ore, scrap, seaweed (the user,
+# 2026-10-04: "this one looks kinda empty"); the generator spreads its finds over the sea floor 0-40 m down, mostly deep.
+#
+# shallows: a mix of about 20 x n of Raft's sea finds on the sea floor 0.6 to <deep> m down within r of x z (the land in the
+# circle and deeper water are skipped: on a round island, r a little past the shore puts them in a ring round it)
+macro shallows x=0 z=0 r=60 deep=5 n=1 seed=70
+scatter "Pickup_Landmark_Sand" {4*$n} at $x $z r=$r seed=$seed wet deep=$deep
+scatter "Pickup_Landmark_Clay 1" {2*$n} at $x $z r=$r seed={$seed+1} wet deep=$deep
+scatter "Pickup_Landmark_Clay 2" {2*$n} at $x $z r=$r seed={$seed+2} wet deep=$deep
+scatter "Pickup_Landmark_Rock 1" {2*$n} at $x $z r=$r seed={$seed+3} wet deep=$deep
+scatter "Pickup_Landmark_Rock 2" {2*$n} at $x $z r=$r seed={$seed+4} wet deep=$deep
+scatter "Pickup_Landmark_Iron 1" {2*$n} at $x $z r=$r seed={$seed+5} wet deep=$deep
+scatter "Pickup_Landmark_Iron 3" {1*$n} at $x $z r=$r seed={$seed+6} wet deep=$deep
+scatter "Pickup_Landmark_Copper 1" {1*$n} at $x $z r=$r seed={$seed+7} wet deep=$deep
+scatter "Pickup_Landmark_Scrap 1_OceanBottom" {2*$n} at $x $z r=$r seed={$seed+8} wet deep=$deep
+scatter "Pickup_Landmark_Scrap 3_OceanBottom" {1*$n} at $x $z r=$r seed={$seed+9} wet deep=$deep
+scatter "Pickup_Landmark_GiantClam" {1*$n} at $x $z r=$r seed={$seed+10} wet deep=$deep
+scatter "SeaVine3_klump" {2*$n} at $x $z r=$r seed={$seed+11} wet deep=$deep
+end

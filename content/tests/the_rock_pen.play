@@ -1,0 +1,75 @@
+# Play test of The Rock Pen (CIPlay the_rock_pen, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The prison on the rock's top (17.8 m): the cell block's door at -4.5 6, cell 14 at 4.5 13.5, the mess hall's door at
+# -7.5 0.5, the guard tower's ladder at 8.75 -14.1 (its deck 23.8 m); the road up the west face from the dock (-35 25);
+# his drain at the north cliff's foot (5 31-36, floor 2.55 m); the outer rock at 4 66.
+island The Rock Pen
+offset -0.2404 0.5463
+expect step 0
+expect title Fourteen Months
+wait 5
+expect animals Turtle 2
+expect animals Dolphin 2
+
+# The dock on the west beach: off the jetty to the gate, the warden's notice
+walk -46.5 21.5 to -38 21.5 to -35.5 23.5 h=1.6
+zone dock
+expect step 0
+read Warden's notice
+expect step 1
+
+# Up the prison road along the west face to the yard
+walk -35 25 to -32 24 to -30.4 18 to -27.9 9.2 to -25.5 0.3 to -23 -8.6 to -21 -16 to -17 -16 to -8 -12 to 3 -6 h=17.75
+zone yard
+expect step 1
+
+# Cell block B: the rats; cell 14 locked
+walk 3 -6 to -4.5 2.5 to -4.5 8 to 0 9 h=17.8 below=20
+zone cellblock
+kill Rat
+expect step 2
+use cell14
+expect message would be up in the tower
+
+# The guard tower: up its ladder to the deck, the guards' box with the key ring
+walk 0 9 to -4.5 8 to -4.5 2.5 to 6 -10 to 8.75 -15.3 h=17.75 below=20
+climb 8.75 -14.12 h=17.8
+expect stand 9.5 -12.5 h=23.8 below=25
+at 9.5 -12.5 h=24.6
+open Guard tower box
+expect story cellkeys 1
+expect step 3
+
+# Cell 14 unlocked: the notes under the mattress; the vent wants a screwdriver
+use cell14
+expect message roll aside
+wait 3
+walk 3 -6 to -4.5 2.5 to -4.5 8 to 4.5 10 to 4.5 13.2 h=17.8 below=20
+read Inmate 1147's notes
+expect step 4
+use vent
+expect message something like one
+
+# The mess hall: the sharpened spoon in the cutlery drawer
+walk 4.5 10 to -4.5 8 to -4.5 2.5 to -5.5 0.5 to -9 0.5 to -10.2 -2.4 h=17.8 below=20
+open Cutlery drawer
+expect story spoon 1
+expect step 5
+
+# The vent: down his drain to the cliff's foot, out of its mouth onto the shelf and the beach; the swim to the outer rock
+use vent
+expect message you crawl
+zone tunnel
+expect step 6
+expect shown escapekit
+walk 5 31.6 to 5 34 to 5 36.6 to 5 39.5 h=2.4 below=4.5
+at 4 64.5 h=3
+zone outerrock
+open Escape kit
+wait 2
+expect done
+
+# The other boxes: the warden's safe (the key ring opens it), the pantry, the laundry, the barrel off the jetty
+open Warden's safe
+open Mess hall pantry
+open Laundry box
+open Sunk skiff's barrel

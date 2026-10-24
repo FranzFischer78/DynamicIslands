@@ -1,0 +1,29 @@
+# Kit check (not content): Keeper's Light's pieces - a round tower of upright concrete pipes (tinted white), ladders
+# inside it, a gallery and lamp house, the lamp, its lights, the foghorn; the cistern's hatch and ladder; Balboa's
+# stairs and jetty deck; a rope bridge of floor blocks
+new
+gen Seed=1 Radius=40 Height=4 Shape=4 Roughness=0.1 ObjectDensity=0 Trees=0 Bushes=0 Rocks=0 BeachThings=0 Harvest=0
+gen Hostiles=0 Friendly=0 SeaLife=0 Water=0 SeaRocks=0 SeaFinds=0 Sunken=0
+generate
+brush flatten at 0 0 r=35 s=20 frames=60
+# the tower: two pipes, the lower one tinted white, the upper one white with a red tint test
+place VP_ConcretePipe02 pipe1 at -10 0 y=0 rot=90,0,0 scale=2
+place VP_ConcretePipe02 pipe2 at -10 0 y=8.26 rot=90,0,0 scale=2
+prop pipe1 tint.color=#e8e6e0
+prop pipe1 tint.amount=1
+prop pipe2 tint.color=#a8302a
+prop pipe2 tint.amount=0.6
+place LandmarkLadder_6m ladder1 at -10 1.7 y=0
+place VP_ConcretePipe02 pipe3 at 0 0 y=0 rot=90,0,0 scale=2
+place TangaroaHatchRoom_Hatch hatch at 8 0
+place TangaroaHatchLadder hatchladder at 10 0
+place Relay_stairs_30_tall stairs at 14 0
+place Relay_Floor_deck deck at 20 0 y=1
+place Placeable_Lantern_Basic lamp at -4 -8
+place RT_Floodlight flood at -2 -8
+place RT_Spotlight spot at 0 -8 y=1
+place Placeable_HonkHorn_3 horn at 2 -8 y=1
+place Block_Pillar_Wood post at 4 -8
+place Block_Wall_Fence_Rope rope at 6 -8
+ramp Block_Floor_Wood from 8 -10 0.2 to 16 -10 3 len=1.5 top=0
+ramp Block_Floor_Wood from 8 -8.5 0.2 to 16 -8.5 3 len=1.5 top=0

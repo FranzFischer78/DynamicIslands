@@ -1,0 +1,12 @@
+# Guide pictures of Skyrope Peaks (CIPlay skyrope_peaks_pics): Raft's camera, morning, calm (heights from the island's
+# own water line, 58 m over the sea)
+island Skyrope Peaks
+offset 0 0
+hour 9
+weather Calm
+at 0 -10
+wait 3
+picture ni7_skyrope_peaks_island 0 22 -50 0 10 0
+picture ni7_skyrope_peaks_bridge 0 20 -16 0 15 0
+picture ni7_skyrope_peaks_cabin -6 19 -10 -15 17 0
+picture ni7_skyrope_peaks_under 0 -16 -46 0 2 0

@@ -1,0 +1,10 @@
+# Guide pictures of Orrin's Sledge Camp (CIPlay orrins_sledge_camp_pics): Raft's camera, midday, calm
+island Orrin's Sledge Camp
+# RESIZE 10-24: the recipe moved this island's old content by -9.2 -23; the points below are in the old frame
+offset 9.2 23
+hour 11
+weather Calm
+at 0 -20
+picture sl12_orrins_sledge_camp_island 10 18 -48 0 2 0
+picture sl12_orrins_sledge_camp_pen 6 +2.5 -20 -2 +1 -10
+picture sl12_orrins_sledge_camp_lookout 6 +3 -16 16 +6 -2

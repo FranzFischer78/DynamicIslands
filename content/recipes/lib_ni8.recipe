@@ -1,0 +1,82 @@
+# lib_ni8 - macros for the library's large no-quest islands of ROADMAP 3d NI8: a crumbled stone wall, a thatched hut, a
+# cave dug into its own hump of rock, a ring of marble columns under a slab roof, a stepped terrace of ground (one tier
+# of a pyramid), a coloured air zone. "include lib_ni8" (lib_huts first for floors and corners).
+#
+# ni8wall: a stretch of crumbled wall of Raft's rock (a boulder cut to a slab) from x1 z1 to x2 z2 on the ground, about
+# hgt m high where it stands, th m thick, its foot sunk deep m into the ground (the rock is rounded below: sunk to its
+# middle - deep about hgt+1 - no end of it stands out over the ground)
+macro ni8wall x1=0 z1=0 x2=8 z2=0 hgt=3.5 th=2 al=- deep=1.2
+set dx {$x2-$x1}
+set dz {$z2-$z1}
+set dl {sqrt($dx*$dx+$dz*$dz)}
+place SmallBoulder2 $al at {($x1+$x2)/2} {($z1+$z2)/2} y=-$deep sit yaw={atan2($dx,$dz)} sx={$th/3.966} sy={($hgt+$deep)/6.086} sz={$dl/10.383}
+end
+
+# ni8hut: a hut of Raft's thatch blocks in a frame (push at its -x -z corner with h= its pad): a wooden floor w x d cells
+# (tops at 0.1 m), thatch walls all round - the front (z 0) with its door in the middle cell, a window in each side -
+# wooden pillars at the corners and a thatched hip roof resting on walls and pillars. w odd, 3 or more.
+macro ni8hut w=3 d=2 al=-
+call floors w=$w d=$d y=0.1
+for fx 0.75 {$w*1.5-0.75} 1.5
+place Block_Wall_Thatch $al at $fx {$d*1.5} y=0.1
+next
+set mid {floor($w/2)*1.5+0.75}
+for fx 0.75 {$mid-1.5} 1.5
+place Block_Wall_Thatch $al at $fx 0 y=0.1
+next
+place Block_Wall_Door_Thatch $al at $mid 0 y=0.1
+for fx {$mid+1.5} {$w*1.5-0.75} 1.5
+place Block_Wall_Thatch $al at $fx 0 y=0.1
+next
+place Block_Wall_Window_Thatch $al at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Window_Thatch $al at {$w*1.5} 0.75 y=0.1 yaw=90
+for fz 2.25 {$d*1.5-0.75} 1.5
+place Block_Wall_Thatch $al at 0 $fz y=0.1 yaw=90
+place Block_Wall_Thatch $al at {$w*1.5} $fz y=0.1 yaw=90
+next
+call corners w=$w d=$d y=0.1
+roof $w $d at 0 0 y=0.1
+end
+
+# ni8cave: Raft's bear cave rock as a hump at x z on a pad h m over the sea (its floor inside is h+0.45), its mouth facing
+# +z (yaw=0) or -z (yaw=180), about 16 m from x z; a passage dug out from the mouth 20 m on (h+0.4), the ground under
+# the rock and the passage cleared of plants. al: the rock's alias.
+macro ni8cave x=0 z=0 h=1.6 yaw=0 al=caverock
+set cs {cos($yaw)}
+brush flatten at $x $z r=14 s=20 frames=80 h=$h
+brush flatten from {$x-$cs} {$z+21*$cs} to {$x-$cs} {$z+6*$cs} r=4.5 s=20 frames=60 h={$h+0.4}
+clear at $x $z r=17
+clear from {$x-$cs} {$z+20*$cs} to {$x-$cs} {$z+26*$cs} r=4
+place BalboaCave_Bear $al at $x $z h={$h+4.95} yaw=$yaw
+end
+
+# ni8temple: eight of Raft's marble columns in a ring of 4 m round x z, their feet at h, a marble slab roof resting on
+# their heads (2.9 m up), thick posts inside the columns to carry it
+macro ni8temple x=0 z=0 h=0 al=templecolumns roofal=templeroof
+for a 0 315 45
+place Pillar_01 $al at {$x+4*cos($a)} {$z+4*sin($a)} h=$h sit
+place RT_PillarThick - at {$x+4*cos($a)} {$z+4*sin($a)} h=$h sy=0.483 sx=0.3 sz=0.3
+next
+place RT_Floor $roofal at {$x+4.4} {$z+4.4} h={$h+2.9} sx=1.457 sz=0.978
+end
+
+# ni8tier: one square tier of ground, the sides 2*half long round x z, flattened to h (rows of strokes 5 m apart; the
+# corners come out a little round). Tiers from the biggest up make a stepped pyramid.
+macro ni8tier x=0 z=0 half=10 h=5
+for tz {$z-$half+3} {$z+$half-3} 5
+brush flatten from {$x-$half+3} $tz to {$x+$half-3} $tz r=3.6 s=20 frames=120 h=$h
+next
+brush flatten from {$x-$half+3} {$z+$half-3} to {$x+$half-3} {$z+$half-3} r=3.6 s=20 frames=120 h=$h
+end
+
+# ni8air: a zone of coloured air at x z (h= its centre) - fog and light colours, their amounts, the particles in it
+# (bubbles, embers, fireflies, mist, snow), radius r
+macro ni8air x=0 z=0 h=2 al=air fog=#2a1a3a fa=0.2 light=#a080ff la=0.3 parts=fireflies r=20
+place Zone_Atmosphere $al at $x $z h=$h
+prop $al atmo.fog=$fog
+prop $al atmo.fogAmount=$fa
+prop $al atmo.light=$light
+prop $al atmo.lightAmount=$la
+prop $al atmo.particles=$parts
+prop $al zone.radius=$r
+end

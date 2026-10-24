@@ -1,0 +1,89 @@
+# Play test of Ironreef Caverns (CIPlay ironreef_caverns, in a test world 'CI ...'). Points as in its recipe: the camp
+# on the east beach, the Iron Gate 23 m up the south flank, the Vine Crawl east, the Drowned Shaft west, the Bear Hall
+# north. Quest "The Heart of Ironreef" (21 steps): camp, notice, supply barrel, the plank road's top, Iron Gate,
+# warthogs, foreman's log, locker, Vine Crawl, powder crate, charge 1, the Bear Hall's blocked mouth, rockfall's sign,
+# a try at the rockfall (7 pages), Drowned Shaft, sunken box, charge 2, the rockfall blown (9 pages), Bear Hall,
+# Ironhide, strongbox.
+island Ironreef Caverns
+expect step 0
+expect title The Heart of Ironreef
+
+# Ashore at the mining camp: the company's notice, the supply barrel
+walk 92 -2 to 84 -2 h=3
+zone camp
+expect step 1
+read Company notice
+expect step 2
+open Supply barrel
+expect step 3
+
+# Up the plank road onto the mountain's shoulder, along it to the Iron Gate's terrace
+walk 74 1 to 71.1 -0.9 to 53.6 -28.6 to 50 -31 to 46 -35 h=20.5
+zone shoulder
+expect step 4
+walk 46 -35 to 40 -44 to 32 -52 to 22 -55.5 to 12 -55.5 to 9 -55 h=23.4
+zone irongate
+expect step 5
+expect message grunts at the end
+kill Warthog
+expect animals Warthog 0
+expect step 6
+
+# Into the mine, along the rails to the foreman's desk at the back
+walk 9 -55 to 9 -45 to 9 -32 to 8 -23 h=23.6
+read Foreman's log
+expect step 7
+open Foreman's locker
+expect item HeadLight 1
+expect step 8
+
+# The Vine Crawl: bees, and the powder crate at its end
+walk 58 4 to 50 4 to 44 4 to 40.6 4 h=9.9
+zone vines
+expect message bees
+expect step 9
+kill Bee swarm
+open Powder crate
+expect story charges 1
+wait 1
+expect step 11
+
+# The Bear Hall's rockfall: shut, and one charge is not enough
+walk -4 58 to -4 38 blocked
+zone hallmouth
+expect step 12
+read Rockfall
+expect step 13
+use rockface
+expect message Two blasting charges
+expect shown rockfall
+wait 1
+expect step 14
+
+# The Drowned Shaft: down to the flooded floor of the adit for the sunken box
+at -36 -7.2 h=-2.5
+zone drowned
+expect step 15
+open Sunken powder box
+expect story charges 2
+wait 1
+expect step 17
+
+# The rockfall blown; into the Bear Hall; Ironhide; the company's strongbox
+use rockface
+expect message blast shakes
+expect story charges 0
+expect hidden rockfall
+wait 1
+expect step 18
+walk -4 58 to -4 44 to -4 32 h=4.6
+zone bearhall
+expect step 19
+kill Bear
+expect step 20
+expect animals Bear 0
+walk -4 32 to -4.5 14 h=6.8
+open Company strongbox
+wait 2
+expect item Blueprint_TitaniumTools 1
+expect done

@@ -1,0 +1,253 @@
+# Lowstreet - the sixth island of the library's plan The City That Never Sank (SL13, Highwater, chapter 6)
+# The drowned district: twenty metres down, the old city's high street still stands - shop fronts in a row, a tram of
+# vans on the street, lamp posts, a cinema whose roof (the wind turbine on it) is the only thing above the sea. In four
+# shops the Union's divers left air pockets; at the street's east end the department store has come down, and in its
+# cages the lost expedition waits - Ines Marlowe and her three divers. Anglers in the shops, a big stingray on the
+# street. Quest "The Drowned District" (16 steps): the tram stop, the expedition plan, the wind turbine's plans (the
+# cinema roof), the first shop's air, three anglers, the advanced battery's plans (the electronics shop), the store
+# front, the four cages, Ines's report, the advanced headlight's plans, the stingray, the electric grill's plans (the
+# diner).
+#
+# Points: the islet 0 0 (small, low); the street along z 0 from x -45 to 45 at -20 (levelled, r 10); the shops north
+# of it, fronts at z 5.5 (x -24..-18, -9..-3, 6..12, 21..27; floor -20); the cinema x -3..3, z -20..-11 (its facade
+# storey at -20, its roof slab at 1 on legs, the turbine on it); the tram x -40..-28 on the street; the store x 33..39,
+# z -9..0 (fallen); air pockets in the shops at -21 10, -6 10, 9 10, 24 10.
+include lib_sea
+include lib_rt
+include lib_huts
+include lib_features
+include lib_highwater
+include lib_areas
+# RESIZE 10-24b: Radius 30 -> 85 (Height 2 -> 4), the old content moved 0 -68 as one frame (push) so its sea side stays at
+# the coast; the island grows behind it. The street (levelled at -20) now runs as a flooded canyon along the inside of the south coast, open to the sea at the cinema; one reef that would have stood on land went out to the south shore.
+new
+gen Trees=0.2 Bushes=0.25 Rocks=0.43 Harvest=0.2 BeachThings=0.4
+gen Seed=13601 Radius=85 Height=4 Roughness=0.2 Peaks=1 Shape=0 Style=0 PeakShape=0.2 Cliffs=0 BeachWidth=0.8
+gen Water=0.5 SeaRocks=0.2 SeaFinds=0.6 Sunken=0.6 Hostiles=0 Friendly=0 SeaLife=0.4
+generate
+push at 0 -68
+
+# --- Terrain: the street and its shops levelled twenty metres down -------------------------------------------------
+brush flatten from -46 0 to 46 0 r=10 s=20 frames=400 h=-20
+brush flatten from -24 10 to 27 10 r=6 s=20 frames=300 h=-20
+brush flatten at 0 -15 r=8 s=20 frames=300 h=-20
+brush flatten at 36 -5 r=8 s=20 frames=300 h=-20
+pop
+origin
+push at 0 -68
+clear from -46 0 to 46 0 r=9
+clear from -24 10 to 27 10 r=6
+clear at 0 -15 r=8
+clear at 36 -5 r=8
+
+# --- The cinema: its facade on the street, its roof out of the sea with the wind turbine -----------------------------
+push at 3 -15.5 h=-20
+call rt_storey a=city f1=RT_WallDoor1 f2=RT_WallDoor1 b1=RT_Wall1 b2=RT_Wall1
+place RT_Floor city at 0 4.5 y=3
+place Note_Sign marquee at -3 -4.9 y=2.6 yaw=180
+line Placeable_StringLight_Horizontal from -5.5 -4.8 to -0.5 -4.8 step=2 y=3.1
+pop
+push at 3 -15.5 h=1
+call hw_roof d=21 a=city
+place Placeable_WindTurbine - at -3 1.5 y=0.05 sit
+place Loot_Chest projectorbox at -4.8 -3.4 y=0.05 sit
+place RT_Spotlight - at -0.8 -3.6 y=0.05 sit yaw=160
+pop
+
+# --- The tram: a row of vans on the street, the stop's board -----------------------------------------------------------
+place Caravan_Blue_01 tram at -40 0 ground sit yaw=90
+place Caravan_Yellow_01 tram at -34 0 ground sit yaw=90
+place Caravan_Green_01 tram at -28 0 ground sit yaw=90
+place Note_Board expedition at -36 -5 ground y=1.2 yaw=180
+place Zone_Trigger tramzone at -36 -4 ground y=1.5
+place Antenna_pole - at -44 -6 ground sit
+place Antenna_pole - at -14 -6 ground sit
+place Antenna_pole - at 16 -6 ground sit
+place Antenna_pole - at -30 6 ground sit
+place Antenna_pole - at 0 6 ground sit
+place Antenna_pole - at 30 6 ground sit
+
+# --- The four shops (air in each), shop 1 a pawn shop, shop 2 electronics, shop 3 a lamp shop, shop 4 the diner ----------
+push at -18 10 h=-20
+call rt_storey a=city f1=RT_WallWindowBroken f2=RT_WallDoor1
+place RT_Floor city at 0 4.5 y=3
+place "Box Small" - at -5 3.5 y=0.1 sit
+place "Pickup_Landmark_Scrap 2_OceanBottom" - at -2 2 y=0.1 sit
+pop
+call hw_airpocket x=-21 z=10 id=shop_1 al=air1 bub=bub1 msg="Shop one. A pocket of air under the ceiling - the Union's divers left it."
+push at -3 10 h=-20
+call rt_storey a=city f1=RT_WallWindowBroken f2=RT_WallDoor1
+place RT_Floor city at 0 4.5 y=3
+place "Table Office" - at -4.5 3 y=0.1 sit yaw=180
+place Loot_Chest electronics at -1.2 3.4 y=0.1 sit yaw=180
+pop
+call hw_airpocket x=-6 z=10 id=shop_2 al=air2 bub=bub2
+push at 12 10 h=-20
+call rt_storey a=city f1=RT_WallWindowBroken f2=RT_WallDoor1
+place RT_Floor city at 0 4.5 y=3
+place Loot_Chest lampshop at -1.2 3.4 y=0.1 sit yaw=180
+place Floorlamp_01 - at -5 3.5 y=0.1 sit
+place Floorlamp_02 - at -4 3.5 y=0.1 sit
+pop
+call hw_airpocket x=9 z=10 id=shop_3 al=air3 bub=bub3
+push at 27 10 h=-20
+call rt_storey a=city f1=RT_WallWindowBroken f2=RT_WallDoor1
+place RT_Floor city at 0 4.5 y=3
+place "Table Office" - at -4.5 2 y=0.1 sit
+place Loot_Chest diner at -1.2 3.4 y=0.1 sit yaw=180
+place Note_Sign dinersign at -1.5 -4.9 y=2.6 yaw=180
+pop
+call hw_airpocket x=24 z=10 id=shop_4 al=air4 bub=bub4
+place Creature_AnglerFish anglers at -12 4 ground y=2
+
+# --- The department store: fallen at the street's east end, the expedition in its cages -------------------------------
+push at 39 -4.5 h=-20
+call rt_storey a=city f1=RT_WallDoor1 f2=RT_WallWindowBroken b1=none l2=RT_WallWindowBroken r1=none
+place Zone_Trigger storezone at -3 -3 y=0.1
+place Survivor_Cage inescage at -4.5 2.5 y=0.1 sit yaw=180
+place UT_DogCage_Medium02 divercage at -1.5 2.5 y=0.1 sit yaw=180
+prop divercage obj.name=divercage
+place UT_DogCage_Medium02 divercage at -1.8 -0.2 y=0.1 sit yaw=270
+prop divercage obj.name=divercage
+place UT_DogCage_Medium02 divercage at -4.5 -0.2 y=0.1 sit yaw=90
+prop divercage obj.name=divercage
+place TP_LaserControlPanel_lever cagerelease at -0.3 -2.5 y=1.2 yaw=270
+place Note_Paper inesreport at -3 1 y=0.1 drop
+pop
+place RT_Floor city at 36 -10 ground sit tilt=25 roll=10
+place RT_Wall1 city at 41 -6 ground sit tilt=70
+place Loot_Chest storeoffice at 30.5 -9 ground sit yaw=90
+place Creature_Stingray bigray at 10 -4 ground y=1.5
+
+# --- The street's reefs, algae and clams; the sea's finds -----------------------------------------------------------
+call hw_reef x=-20 z=-6 r=4 seed=13602
+call hw_reef x=18 z=-7 r=4 seed=13606
+call hw_reef x=-24 z=-24 r=4 seed=13610
+scatter Pickup_Landmark_SilverAlgae 4 at 0 0 r=40 wet seed=13614
+scatter Pickup_Landmark_GiantClam 2 at 0 0 r=40 wet seed=13615
+call shallows x=0 z=68 r=141.67 deep=8 n=2 seed=13616
+call hw_skyline x=100 z=158 a=skyline
+
+pop
+
+# --- Areas (10-24: every story island has places all over it and its quest crosses it): the old tram embankment in the north (buried
+# salvage for the metal detector), the depot office in the north-west, the stripped caravan and the tram's wagons in the
+# east, the lamp-oil cave (dark: a headlight), the sewer mouth at the street's west end (deep: an oxygen bottle)
+call ar_ridge x1=-42 z1=22 x2=28 z2=36 h=8 top=5 r=9
+call ar_plants_tropical x=-7 z=29 r=34 seed=13611
+call hw_zone x=-7 z=29 al=embankment id=embankment r=7 msg="The old tram embankment: the line ran out of the sea here once, up to the hills. Now it ends in the water, twenty metres above the street it came from."
+call treasure x=-7 z=29 r=14 n=2 seed=13661
+prop treasure13661 treasure.loot=CopperOre*2;TitaniumOre*1
+call ar_ruin x=-55 z=50 h=4 yaw=0 al=depotoffice
+call hw_note x=-52.5 z=45.5 yaw=20 al=depottimetable
+call hw_wreck x=55 z=2 h=4 yaw=20 obj=CaravanBarebones1 al=strippedvan crate=strippedcrate r=10
+place VP_Wagon02 tramwagon at 30 8 ground sit yaw=70
+place VP_Wagon01 tramwagon at 26 13 ground sit yaw=75
+call hw_zone x=28 z=4 al=tramwagons id=tram_wagons r=4 msg="The tram's last wagons, hauled out of the sea on rollers. The Union wanted the steel; the storm wanted the Union more."
+call ar_cave x=50 z=50 h=4 yaw=180 al=lampcave chest=lampcavechest
+call hw_hazard x=51 z=45 al=lampcavedark kind=dark r=5 dmg=0 safe=wears|HeadLight* msg="Pitch dark. A headlight would show you the way."
+brush flatten at -46 -59 r=4 s=20 frames=200 h=-26
+call hw_hazard x=-46 z=-59 al=sewerdeep kind=deep r=6 dmg=10 safe=wears|OxygenBottle* msg="A cold current pours out of the sewer mouth and pulls the air out of you. An oxygen bottle would see you down and back."
+place Loot_Chest sewerchest at -46 -59 ground sit yaw=90
+call ar_plants_tropical x=-50 z=20 r=14 seed=13621
+call ar_plants_tropical x=60 z=30 r=12 seed=13631
+
+# --- Settings, story items, notes, behaviours, quest ------------------------------------------------------------------
+info title=Lowstreet
+info author=Custom Islands
+info description=The drowned district, twenty metres down: a high street of shop fronts with air under their ceilings, a tram of vans, a cinema whose roof still breaks the sea - and the Union's lost expedition in a fallen department store. The sixth island of The City That Never Sank.
+island on.arrive=message||A roof with a wind turbine on it, alone in the sea. Under it, in green water, a street - lamp posts, shop signs, a tram that will never move again.
+
+story storekey|Store cage key|Placeable_Lantern_Metal|The department store's cage key, from the floor manager's office.
+story cagesopen|Cages opened|Bolt|The store's cages, opened - Ines Marlowe's expedition is free.
+
+prop city tint.color=#6e7a7c
+prop city tint.amount=0.35
+prop skyline tint.color=#7a8088
+prop skyline tint.amount=0.4
+prop tram tint.color=#5a6a66
+prop tram tint.amount=0.5
+prop anglers creature.count=3
+prop anglers creature.respawn=0
+prop bigray creature.size=2.5
+prop bigray creature.health=6
+prop bigray creature.respawn=0
+prop inesreport obj.name=inesreport
+prop inesreport beh.hidden=1
+
+prop inescage survivor.name=Ines Marlowe
+prop inescage survivor.id=highwater_ines
+prop inescage survivor.key=storekey
+prop inescage survivor.signal=inesfree
+prop inescage survivor.line=The Union came back for us? Then it keeps its oath. I'm Ines - throw the release for the others. And read what I wrote. The valves under the city were turned by hand.
+
+prop cagerelease obj.name=cagerelease
+prop cagerelease beh.use=Pull the cage release
+prop cagerelease if.use=has|story:storekey|1\n!signal|cagesopen
+prop cagerelease on.use=signal||cagesopen\nhide|divercage\nshow|inesreport\ngive||story:cagesopen*1\nsound||event:/raft/radar/lever\nmessage||The cages clang open. Three divers swim out, then Ines Marlowe. Ines Marlowe has joined the crew.\ncharacter||Mayu
+prop cagerelease else.use=message||The release is locked. The store's cage key - the floor manager kept it in his office.
+
+note expedition Expedition plan | UNION EXPEDITION - LOWSTREET\nLeader: Ines Marlowe. Divers: four.\n\n1. Tram stop: rope down. 2. Air in the shops, every fifteen metres. 3. Map the old pumps under the department store.\n\nIf we are not up by the third tide, the store is where to look.
+note marquee Cinema | ...NOW SHOWING...\n\nThe letters fell off years ago. Only NOW is left.
+note dinersign Diner | OPEN ALL NIGHT\n\n(It was.)
+note inesreport Ines's report | INES MARLOWE - UNION DIVER\n\nThe store came down on us in the second tide. Before it did, we found the valves under the department store - the ones that let the sea into this district.\n\nThey were not broken. They were turned by hand. All of them, the same night.\n\nSomeone drowned Lowstreet on purpose. The records will be in the cistern under the Authority's tower.
+note projectorbox Projection box | The cinema's projection box, up on the roof: the wind turbine's plans. Reels of film, all wet.
+note electronics Electronics shop | Behind the counter: the advanced battery's plans, in a sealed bag.
+note lampshop Lamp shop | The lamp shop's safe: the advanced headlight's plans.
+note diner Diner | The diner's kitchen locker: the electric grill's plans, a menu, a jar of salt.
+note storeoffice Floor manager's office | The floor manager's desk, under the fallen floor: the cage key on its ring.
+loot projectorbox Blueprint_WindTurbine*1;MetalIngot*2;Plastic*2
+prop projectorbox loot.refill=0
+loot electronics Blueprint_BatteryAdvanced*1;CircuitBoard*1;CopperIngot*2
+prop electronics loot.refill=0
+loot lampshop Blueprint_HeadLight_Advanced*1;Glass*2
+prop lampshop loot.refill=0
+loot diner Blueprint_ElectricGrill*1;MetalIngot*2;SeaVine*2
+prop diner loot.refill=0
+loot storeoffice story:storekey*1;Scrap*2
+prop storeoffice loot.refill=0
+
+prop tramzone zone.id=tram_stop
+prop tramzone zone.radius=4
+prop tramzone zone.message=The tram stop. A rope runs up from here to the surface - the Union's line.
+prop storezone zone.id=store_front
+prop storezone zone.radius=4
+prop storezone zone.message=The department store. The upper floors lie across the street. Behind the cages, something moves.
+
+prop divercage beh.use=Try the cage's lock
+prop divercage if.use=signal|cagesopen
+prop divercage else.use=message||Authority locks, case-hardened: the bolt cutters skid off the chain. The store's cage release opens all the cages at once.
+note depottimetable Depot timetable | LOWSTREET TRAM - LAST TIMETABLE\n\nThe last tram ran the day the Authority closed the sea gates. Lowstreet was full of people when the water came.\nThe Authority said: evacuated. The timetable says the 6:40 was still waiting for its passengers.
+note strippedcrate Stripped caravan's crate | A Union salvager's crate in a stripped caravan: the walls are gone, the wheels are gone, the crate stayed.
+loot strippedcrate MetalIngot*2;Bolt*3;Scrap*3
+note lampcavechest Lamp-oil chest | Lamp oil and wicks, kept dry in the dark. Whoever lit the tram's lamps lived here after the water came.
+loot lampcavechest Battery*1;Rope*2;Glass*2;CopperIngot*1
+prop lampcavechest loot.refill=0
+note sewerchest Sewer-mouth safe | A shop's safe, swept down the street by the flood and caught in the sewer mouth: tokens and silver.
+loot sewerchest TradeToken*4;MetalIngot*1;Glass*2
+prop sewerchest loot.refill=0
+quest title=The Drowned District
+quest intro=The outfall pours east into a drowned street. The Union's lost divers went down here. Find their rope at the tram stop.
+step reach|tram_stop|1|Dive to the tram stop on the drowned street
+step read|Expedition plan|1|Read the expedition's plan at the tram stop
+step blueprint|Blueprint_WindTurbine|1|Take the wind turbine's plans from the cinema's projection box, up on its roof
+step reach|shop_1|1|Breathe in the first shop's air pocket
+step kill|Angler fish|3|Drive off the three anglers in the shops
+step blueprint|Blueprint_BatteryAdvanced|1|Take the advanced battery's plans from the electronics shop
+step reach|store_front|1|Swim to the fallen department store at the street's east end
+step collect|story:cagesopen|1|Find the cage key and open the four cages
+step read|Ines's report|1|Read Ines's report
+step blueprint|Blueprint_HeadLight_Advanced|1|Take the advanced headlight's plans from the lamp shop
+step kill|Stingray|1|Drive off the big stingray on the street
+step reach|embankment|1|Climb the old tram embankment north of the islet
+step read|Depot timetable|1|Read the last timetable in the tram depot's office in the north-west
+step reach|tram_wagons|1|Find the tram's last wagons, hauled out on the east shore
+step open|Stripped caravan's crate|1|Open the crate in the stripped caravan beside them
+step blueprint|Blueprint_ElectricGrill|1|Take the electric grill's plans from the diner
+quest done=The valves were turned by hand. The cistern under the Authority's tower holds the records - Cistern Hall, band 700.
+quest reward=SilverAlgae*3;SeaVine*2
+
+# (one more van, drowned on the street past the cinema)
+place Van_5 - at 16 -2 ground sit yaw=95
+
+save Lowstreet

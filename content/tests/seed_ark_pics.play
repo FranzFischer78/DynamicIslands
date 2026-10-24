@@ -1,0 +1,11 @@
+# Guide pictures of The Seed Ark (CIPlay seed_ark_pics): Raft's camera, midday, calm
+island The Seed Ark
+offset 0 0
+hour 11
+weather Calm
+at -18 0
+wait 3
+picture sl12_seed_ark_halls -26 +9 -10 0 +5 0
+# (RESIZE 10-24 retest: the gate shot at fixed heights - on the bigger island "+h" put the camera in open water)
+picture sl12_seed_ark_gate -5 4.6 0.5 -12.25 4.6 0
+picture sl12_seed_ark_valve 12 +6 -8 18 +5 0

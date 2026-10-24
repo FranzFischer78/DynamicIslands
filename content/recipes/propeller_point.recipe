@@ -1,0 +1,132 @@
+# Propeller Point - a new island of the library (ROADMAP 3d NI1), medium size, with no quest
+# A low palm island with a coral airstrip along its south side and the little seaplanes of Raft's Pilot island all over
+# it: three parked on the apron, one waiting at the strip's west end, one nosed into the palms on the north slope, one on
+# its back on the west beach and one on the sea floor off the east end. The pilot's cabin and a watch hut on stilts by
+# the apron, fuel drums, a windsock flag. Leather flying gear to find: the pilot's locker (helmet), the watch hut's box
+# (body armour), the cockpit kit by the crashed plane (greaves), the barrel by the sunken plane. No den: the island is
+# too low and small for one to sit clear of the strip (seeds 9311-9316 all put it on the layout). Warthogs in the north bush.
+#
+# Built by the recipe player (CIRecipe propeller_point) through the editor's own operations. Points: the strip along
+# z -16 (x -36..36, 2.4 m), the apron along z -6 (x -24..20, 2.4 m); the pilot's cabin x -26..-21.5, z 8..11 (pad
+# 2.6 m, door south); the watch hut x 20..24.5, z 6..10.5 (pad 2.6 m, deck 5.2 m, ladder south at 22.25 5.9); the
+# crashed plane at -6 31; the beached plane at -54 -6; the sunken plane at 76 -12 (sea floor 6 m down).
+include lib_huts
+include lib_sea
+include lib_features
+new
+# (nature: tropical, Like Raft - palms and bushes, kept off the strip and the apron)
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=9311 Radius=66 Height=9 Roughness=0.3 Peaks=1 Shape=0 Style=0 BeachWidth=0.5 Cliffs=0.1 PeakShape=0.3
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0 Caves=false
+generate
+
+# ===== The ground: the strip, the apron, the cabin's and the watch hut's pads, the sea floor under the sunken plane ===
+brush flatten from -36 -16 to 36 -16 r=6.5 s=20 frames=240 h=2.4
+brush flatten from -24 -4 to 20 -4 r=8 s=20 frames=260 h=2.4
+brush sand from -36 -16 to 36 -16 r=3.5 s=4 frames=60
+brush flatten at -23.75 9.5 r=5 s=20 frames=80 h=2.6
+brush flatten at 22.25 8.25 r=5 s=20 frames=80 h=2.6
+brush flatten at 76 -12 r=10 s=20 frames=120 h=-6
+brush flatten at -6 31 r=7 s=20 frames=100 h=3.4
+clear from -40 -16 to 40 -16 r=8
+clear from -26 -4 to 22 -4 r=9
+clear at -23.75 9.5 r=6
+clear at 22.25 8.25 r=6
+clear at 30 -2 r=5
+clear at -6 31 r=7
+clear at -54 -6 r=6
+clear at -29.5 -44.8 r=1.5
+
+# ===== The planes: three on the apron, one at the strip's west end, one on its back on the west beach =====================
+place Airplane apronplane at -18 -4 h=2.4 sit rot=0,180,0
+place Airplane apronplane at -6 -4 h=2.4 sit rot=0,172,0
+place Airplane apronplane at 6 -4 h=2.4 sit rot=0,188,0
+place Airplane - at -30 -16 h=2.4 sit rot=0,90,0
+place Airplane - at -54 -6 drop rot=0,40,170
+place Door_Left - at -50.5 -9.5 drop rot=90,20,0
+place Crate_Big_01 - at 10.5 -2 ground yaw=15
+place Crate_Small_02 - at 11.4 -1.2 ground yaw=40
+
+# ===== The pilot's cabin: floor, plank walls, the door to the apron, a hipped roof on its corner posts; bed, table, log,
+# the locker ==============================================================================================================
+push at -26 8 h=2.6
+call floors w=3 d=2 y=0.1
+place Block_Wall_Wood - at 0.75 3 y=0.1
+place Block_Wall_Wood - at 2.25 3 y=0.1
+place Block_Wall_Wood - at 3.75 3 y=0.1
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 4.5 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 4.5 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 0.75 0 y=0.1
+place Block_Wall_Wood - at 3.75 0 y=0.1
+call corners w=3 d=2
+roof 3 2 at 0 0 y=0.1 wood
+place Placeable_Bed_Basic - at 1.15 1.6 y=0.1 sit yaw=90
+place Placeable_Table_Basic - at 3.3 1.95 y=0.1 sit
+place Note_Book pilotlog at 3.3 1.95 y=0.84 sit yaw=20
+place Loot_Chest pilotlocker at 3.7 0.7 y=0.1 sit yaw=180
+pop
+place Note_Sign strip_sign at -21 3 ground yaw=180
+
+# ===== The watch hut on stilts by the apron, the windsock flag, fuel drums ===============================================
+push at 20 6 h=2.6
+call stilt_hut y=2.6
+place Placeable_Table_Basic - at 3.2 3.3 y=2.6 sit
+place Note_Book towerlog at 3.2 3.3 y=3.34 sit yaw=-15
+place "Box Small" towerbox at 1.2 3.4 y=2.6 sit yaw=10
+pop
+place BoatLandmark_Flag - at 30 -2 ground yaw=90
+place TP_Moontown_Barrel01 - at 15.6 4 ground
+place TP_Moontown_Barrel03 - at 16.4 4.6 ground yaw=40
+place TP_Moontown_Barrel01 - at 15.4 5.2 ground yaw=80
+place Placeable_FuelTank - at 17.2 2.2 ground yaw=90
+place Loot_Barrel fueldrum at 16.8 6 ground
+
+# ===== Wreckage: a broken tail by the strip's east end, a propeller blade; the plane nosed into the palms on the north
+# slope with its broken wing, the cockpit kit by it ========================================================================
+place BackWingBroken - at 34 -11 ground yaw=40
+place PropellerBlade - at 37 -20 drop rot=0,30,90
+place Airplane crashplane at -6 31 h=3.25 sit rot=3,60,2
+place WingBroken - at -0.5 34 ground yaw=110
+place "Box Small" cockpitkit at -10.5 27.5 ground yaw=30
+
+# ===== Under the sea off the east end: the sunken plane, a barrel beside it; Raft's finds in the shallows ================
+place Airplane - at 76 -12 h=-6.15 sit rot=-2,120,3
+place Loot_SunkenBarrel sunkbarrel at 72.5 -9 ground
+call shallows r=80 deep=5 n=1
+place Creature_Dolphin dolphins at 84 20 h=-3
+
+# ===== Animals and Raft's features: warthogs in the north bush, wild bees, dirt, a buried tin ===========================
+place Creature_Boar hogs at 12 32 ground
+call hives x=0 z=26 r=18 n=2 seed=311
+call dirt x=-12 z=20 r=16 n=3 seed=312
+call treasure x=-4 z=28 r=10 n=1 seed=313
+
+# ===== Settings, notes, loot (no quest) ===================================================================================
+info title=Propeller Point
+info author=Custom Islands
+info description=A low palm island with a coral airstrip and little seaplanes everywhere - on the apron, in the palms, on the beach, under the sea. A pilot's cabin, a watch hut on stilts and leather flying gear to find. No quest.
+
+note pilotlog The pilot's log | PROPELLER POINT - FLIGHT LOG\n\nDay 1. Seven planes, one strip, one pilot. Me.\nDay 9. Number five came down in the palms. Walked away from it. Kept the greaves.\nDay 14. Number six went over on the beach in a gust. Number seven went into the sea off the east end - she's sitting on the bottom, upright, you can see her from a boat.\nDay 30. No fuel left that isn't in a drum I can't lift. Leaving my helmet in the locker for whoever flies next.
+note towerlog Watch hut log | WIND: east, then east, then east.\nCALLSIGNS: none heard in three weeks.\nThe body armour in the box is for the next fool who lands here.
+note strip_sign Strip sign | PROPELLER POINT\nStrip 70 m - coral - mind the palms on the north side.\nNo fuel. No mechanic. No refunds.
+note pilotlocker Pilot's locker | The pilot's locker: a leather flying helmet, spare leather, a tin of meat.
+loot pilotlocker Equipment_LeatherHelmet*1;Leather*2;Cooked_GenericMeat*1
+prop pilotlocker loot.refill=0
+note towerbox Watch hut box | A box in the watch hut: a leather jacket stiff with salt, rope, a few nails.
+loot towerbox Equipment_LeatherChest*1;Rope*2;Nail*6
+prop towerbox loot.refill=0
+note cockpitkit Cockpit kit | The kit from the plane in the palms: leather greaves, a wad of wool, scrap from the panel.
+loot cockpitkit Equipment_LeatherLegs*1;Scrap*3;Wool*2
+prop cockpitkit loot.refill=0
+note fueldrum Fuel drum | A drum that isn't fuel after all: plastic, scrap and a leather strap.
+loot fueldrum Plastic*4;Scrap*2;Leather*1
+prop fueldrum loot.refill=0
+note sunkbarrel Barrel by the sunken plane | A barrel that rolled out of number seven: leather, rope, a lump of copper.
+loot sunkbarrel Leather*3;Rope*2;CopperOre*1
+prop sunkbarrel loot.refill=0
+prop hogs creature.count=2
+prop dolphins creature.count=2
+
+save Propeller Point

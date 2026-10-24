@@ -1,0 +1,92 @@
+# Deepwatch Station - a new medium island of the library (ROADMAP 3d NI7), sunken, no quest
+# An island that lies under the sea - found only by diving. On its flat top stands a sunken listening station: a
+# concrete bunker with a broken window and an open door, its annex holding a pocket of air to breathe in, a hatch in the
+# sand beside it hiding a cellar chest. Off to the west lies a small submarine wrecked on the bottom, her tower still
+# standing, her barrels and scrap round her; to the north-east a rock tunnel to swim through, a barrel inside. Coral,
+# kelp and Raft's sunken finds on the slopes; puffer fish guard the station - a monster island.
+#
+# Built by the recipe player (CIRecipe deepwatch_station). A sunken island: its heights count over its own water line,
+# and elevation -16 takes it 16 m down. Points: the station pad (4 m, r 12 round 2 -1); the bunker x -3..3, z -6.5..2.5
+# (door and a broken window at the front, z -6.5; broken window on the west), roofed; its annex x 3..9 (open to the
+# bunker, the air pocket in it at 6 -2); the hatch at -2.5 6; the submarine at -20 12 (heading 30 degrees); the tunnel at
+# 18 14 (open along z), its barrel inside; the puffers over the pad.
+include lib_sea
+include lib_features
+include lib_rt
+include lib_ni7a
+new
+# (nature: a reef under the sea - no land plants, rocks, the sea's finds round it)
+gen Trees=0 Bushes=0 Rocks=0.35 Harvest=0 BeachThings=0
+gen Seed=7703 Radius=40 Height=7 Roughness=0.35 Peaks=1 Shape=0 Style=0 BeachWidth=0.1 Cliffs=0.3 PeakShape=0.3
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.45 Sunken=0.5 Hostiles=0 Friendly=0 SeaLife=0.35
+generate
+elevation -16
+
+# ===== Terrain: the station's pad, the submarine's bed, the tunnel's floor; sea bottom all over ========================
+brush flatten at 2 -1 r=12 s=20 frames=80 h=4
+brush flatten at -20 12 r=9 s=20 frames=60 h=2.5
+brush flatten at 20 11 r=7 s=20 frames=60 h=3
+brush seabed at 0 0 r=40 s=20 frames=40
+clear at 2 -1 r=13
+clear at -20 12 r=11
+clear at 20 11 r=8
+
+# ===== The station: the bunker (door, broken windows), roofed; the annex with the air pocket; the cellar hatch ========
+push at 3 -2 ground y=0.05
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindowBroken l2=RT_WallWindowBroken r2=none a=station
+place Loot_Chest stationlocker at -5 3.2 y=0.1 sit yaw=90
+place "Pickup_Landmark_Scrap 1_OceanBottom" - at -1.5 -2 y=0.1 drop yaw=120
+pop
+push at 3 -2 ground y=3.05
+call rt_storey b1=none b2=none f1=none f2=none l1=none l2=none l3=none r1=none r2=none r3=none a=station
+pop
+push at 9 -2 ground y=0.05
+call rt_storey f1=RT_WallWindowBroken l1=none l2=none l3=none a=station
+pop
+push at 9 -2 ground y=3.05
+call rt_storey b1=none b2=none f1=none f2=none l1=none l2=none l3=none r1=none r2=none r3=none a=station
+pop
+call airbell x=6 z=-2 id=deepair al=deepair bub=deepairbub r=2.5 msg="An air pocket in the station - breathe."
+call hatchcache x=-2.5 z=6 r=1.5 seed=7751 alias=stationhatch chest=hatchchest items=Battery*2;CopperIngot*2;Bolt*3
+place RT_Pipe - at -6 -10 ground y=-2.5 centred yaw=20 sx=2
+place RT_Pipe - at 12 -9 ground y=-2.5 centred yaw=-50 sx=1.5
+
+# ===== The submarine wrecked on the bottom, her chest thrown clear =====================================================
+call subwreck x=-20 z=12 yaw=30 pitch=4 sink=1 al=sub seed=7761 where=any
+place Loot_ChestSmall subchest at -15 17 ground sit yaw=50 roll=8
+
+# ===== The rock tunnel to swim through, a barrel inside ================================================================
+place TP_UnderwaterCaveTunnel_Straight tunnel at 18 14 ground y=0.5
+place Loot_SunkenBarrel - at 21 10.5 ground sit
+
+# ===== Coral, kelp, sunken barrels; the puffers; the shallows (deep finds) =============================================
+macro reefhead x z seed
+scatter CauliCoral 2 at $x $z r=3 seed=$seed free=1
+scatter TableCoral_1 1 at $x $z r=3 seed={$seed+1} free=1
+scatter LeafCoral_1 2 at $x $z r=3 seed={$seed+2} free=1
+end
+call reefhead -10 -14 7771
+call reefhead 14 -16 7772
+call reefhead -24 -6 7773
+call reefhead 4 22 7774
+scatter SeaVine3 20 at 0 0 r=30 seed=7781 free=2
+scatter SeaVine3_klump 6 at 0 0 r=30 seed=7782 free=3
+place Loot_SunkenBarrel - at -9 -4 ground sit
+place Loot_SunkenBarrel - at 15 4 ground sit
+place Creature_PufferFish puffers at 4 -1 h=9
+prop puffers creature.count=3
+call shallows x=0 z=0 r=50 deep=8 n=1 seed=773
+
+info title=Deepwatch Station
+info author=Custom Islands
+info description=An island under the sea - dive, and a sunken listening station stands on its top: a concrete bunker with broken windows and a pocket of air in its annex, a hatch in the sand beside it. A small submarine lies wrecked to the west, a rock tunnel runs to the north-east. Puffer fish round the station. No quest - an island to explore.
+
+note stationlocker Station locker | The watch's locker, bolted to the wall. The bolts are rusted through.
+loot stationlocker Battery*2;CopperIngot*2;MetalIngot*2;Glass*2;Scrap*3
+prop stationlocker loot.refill=0
+note subchest The submarine's chest | Thrown clear when she hit the bottom. Still watertight.
+loot subchest MetalIngot*3;Bolt*3;Hinge*2;Rope*2
+prop subchest loot.refill=0
+
+save Deepwatch Station

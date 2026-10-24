@@ -1,0 +1,10 @@
+# Guide pictures of Whiteout Reach (CIPlay whiteout_reach_pics): Raft's camera, midday, calm
+island Whiteout Reach
+hour 11
+weather Calm
+at 14 22
+wait 3
+picture whiteout_reach_camp 34 24 10 12 12 32
+picture whiteout_reach_kestrel 40 9 76 25 3 94
+picture whiteout_reach_crevasse -52 12 9 -22 5 5
+picture whiteout_reach_radio 14 25 14 3 22 -2

@@ -1,0 +1,453 @@
+# The Clockwork City - a new island of the library, seven times the size (x7)
+# Horologe, a city of clockwork on tropical sea stacks: the harbour stack (south-west), the plaza stack with the Hall of
+# Hours (north-west), the gearworks on a stone pier platform in the sea (east of the plaza), the observatory on the
+# highest stack (south) and the clock tower on the far stack (north-east) - shuttles between them, doors that open on the
+# gong for half a minute, brass figures frozen mid-step. The clock tower's heart was stolen; set it right and the city
+# wakes.
+# Quest "Setting the Hour" (20 steps in 4 chapters): arrival, the timed doors (a 30 s hall, a 20 s vault, a flooded
+# undercroft), the shuttles up to the observatory and the thief, the clock - its heart refitted, the founding hour set.
+#
+# Built by the recipe player (CIRecipe clockwork_city) through the editor's own operations.
+include lib_rt
+include lib_huts
+include lib_sea
+new
+# (nature: tropical, Like Raft - palms and jungle on the stacks' tops round the buildings)
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=9223 Radius=119 Height=30 Roughness=0.45 Peaks=8 Shape=3 Style=0 BeachWidth=0.3 Cliffs=0.85 PeakShape=0.5
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.3 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the stacks' tops levelled - the harbour stack 15 m, the plaza stack 20 m, the observatory's 28 m, the clock
+# tower's 24 m; the undercroft's pit by the plaza stack's west foot (7 m under the sea) ------------------------------------
+brush flatten at -45 -50 r=9 s=20 frames=300 h=15
+brush flatten at -3 32 r=12 s=20 frames=300 h=20
+brush flatten at -3 24 r=9 s=20 frames=300 h=20
+brush flatten at 20 -12 r=7 s=20 frames=300 h=28
+brush flatten at 80 40 r=8 s=20 frames=300 h=24
+brush flatten at 80 46 r=6 s=20 frames=300 h=24
+brush flatten at -28 30 r=6 s=20 frames=300 h=-7
+brush sand at -3 36 r=7 s=20 frames=20
+clear at -45 -50 r=11
+clear at -3 32 r=14
+clear at 20 -12 r=8
+clear at 80 40 r=9
+clear at -28 30 r=7
+
+# --- The harbour stack: the quay on its south shore, a tower of posts with two ladders up its south face to a landing at
+# the top; the harbourmaster's office (its box: the winding key), the clockmaker's welcome at the ladder's top, the gong;
+# the first shuttle's lever on the north edge -------------------------------------------------------------------------------
+push at -50 -64.5 h=-3
+call boardwalk n=6 wide=1 y=4.6
+pop
+for lv 0 2 1
+place RT_PillarThick - at -42.5 -61 h={-3+6*$lv}
+place RT_PillarThick - at -41 -61 h={-3+6*$lv}
+next
+place LandmarkLadder_6m - at -41.75 -61.3 h=1.6 yaw=0
+place LandmarkLadder_6m - at -41.75 -61.3 h=8.3 yaw=0
+place RT_Floor - at -40.5 -55 h=15.05 sx=0.3 sz=0.7
+push at -42 -46 h=15.05
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 l2=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+place Loot_ChestSmall harbourbox at -1.2 3.4 y=0 sit yaw=180
+place Placeable_Table_Basic - at -4.6 3.2 y=0 sit
+place "Pickup_Landmark_Scrap 3_Land" - at -2.8 0.2 y=0.3 drop yaw=44
+place Pickup_Landmark_Plank_Land - at -4.0 0.8 y=0.3 drop yaw=129
+pop
+place Note_Sign welcome at -38.5 -54 h=15.05 sit yaw=180
+place RT_SatteliteDisc - at -50 -55 h=15.05 sit scale=0.6 yaw=200
+place Zone_Trigger harbour at -44 -55 h=16.5
+place RT_Pillar - at -44 -42 h=15.05 sy=0.4
+place TP_LaserControlPanel_lever shuttle1 at -44 -42.25 h=16.1
+place Scaffolding_6x4m - at -44 -39 h=14.4
+
+# --- The plaza stack: the square (sand-painted) with its fountain of cogs, the timetable on a column, a market stall, hens;
+# the Hall of Hours on its south side (two rooms, its door on the north a stone slab that sinks on the gong - the gong
+# lever by it, a lever inside - clocks on its walls, the first gear's case at its far end); the plaza's landing; the
+# second shuttle's lever on the east edge ----------------------------------------------------------------------------------
+place Zone_Trigger plazalanding at -3 43 h=21.2
+place Zone_Trigger plaza at -3 38 h=21.5
+place cogwheel stillcogs at -3 38 h=20 sit scale=6 yaw=0
+place cogwheel turningcogs at -3 38 h=20 sit scale=6 yaw=0
+place cogwheel stillcogs at -3 38 h=20 sit scale=6 yaw=90
+place cogwheel turningcogs at -3 38 h=20 sit scale=6 yaw=90
+place RT_GroundPillar - at -8 40 h=21.8 sy=0.6
+place Note_Board timetable at -8 41.3 h=20 yaw=180
+place RestaSunshadeGround - at 0.6 37.7 ground
+place Placeable_Table_Basic - at 0.6 37.7 ground sit
+place "Box Small" stallbox at 0.8 37.9 ground y=1.5 drop yaw=20
+place Creature_Chicken hens at 0 42 h=20.5
+push at -3 25 h=20.05
+call rt_storey b1=none r1=none r2=none r3=none
+place RT_Floor - at 0 4.5 y=3
+place RT_Wall1 hourdoor at -3 4.5
+place RT_Pillar - at -1 3.9 y=0 sy=0.4
+place TP_LaserControlPanel_lever hourinside at -1 3.65 y=1.05 yaw=180
+place "VG_DecorationPrefabBase_Clock Variant" - at -6 0 y=1.6 scale=3 yaw=90
+place "VG_DecorationPrefabBase_Clock Variant" - at -3 -4.45 y=1.6 scale=3
+place Pickup_Landmark_Plastic3_Land - at -4.2 -2.0 y=0.3 drop yaw=263
+pop
+push at 3 25 h=20.05
+call rt_storey l1=none l2=none l3=none
+place RT_Floor - at 0 4.5 y=3
+place Loot_ChestSmall gearcase1 at -1.2 -3.4 y=0 sit yaw=0
+place "VG_DecorationPrefabBase_Clock Variant" - at 0 0 y=1.6 scale=3 yaw=270
+place "VG_DecorationPrefabBase_Clock Variant" - at -3 4.45 y=1.6 scale=3 yaw=180
+pop
+place Zone_Trigger hallofhours at -2 25 h=21.5
+place RT_Pillar - at -11.5 31 h=20.05 sy=0.4
+place TP_LaserControlPanel_lever gong at -11.5 31.25 h=21.1 yaw=180
+place RT_SatteliteDisc - at -13.5 31.5 h=20.05 sit scale=0.4 yaw=180
+place RT_Pillar - at 7.5 32 h=20.05 sy=0.4
+place TP_LaserControlPanel_lever shuttle2 at 7.75 32 h=21.1 yaw=90
+place Scaffolding_6x4m - at 11 32 h=19.4
+place Creature_Goat goats at -8 44 h=20.5
+scatter "Pickup_Landmark_Tree_Palm 1" 2 at -10 32 r=4 seed=2301
+
+# --- The gearworks on a stone pier platform in the sea east of the plaza (a deck of boards 12 m up on stone piers, two
+# bays long): the workshop (a radio tower room, its door west: wheels and cogs, the rats), the vault on the platform's north
+# bay (its door a stone slab that rises when the counterweight drops), the counterweight hung from a gallows at the
+# platform's south edge; the landing, a box; the third shuttle's lever ------------------------------------------------------
+for px 34.5 45.5 11
+for pz 9.5 32.5 11.5
+place RT_GroundPillar - at $px $pz h=12 sy=7
+next
+next
+place RT_Floor gearplatform at 46 21 h=12 sx=1.99 sz=1.333
+place RT_Floor gearplatform at 46 33 h=12 sx=1.99 sz=1.333
+place Zone_Trigger gearlanding at 44 22 h=13.2
+push at 40.5 12 h=12.05 yaw=90
+call rt_storey f1=RT_WallDoor1 f2=RT_Wall1 r2=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+place UT_WaterChallengeWheel2 - at -3 3.7 y=1.8 scale=0.35 rot=90,0,0
+place cogwheel stillcogs at -5.4 0 y=1.6 scale=4 yaw=90
+place cogwheel turningcogs at -5.4 0 y=1.6 scale=4 yaw=90
+place Zone_Trigger gearworks at -3 0 y=1.5
+place Creature_Rat rats at -3 1 y=0.3
+place "Pickup_Landmark_Scrap 2_Land" - at -1.8 -2.2 y=0.3 drop yaw=17
+pop
+push at 40.5 26 h=12.05 yaw=90
+call rt_storey f1=none f2=RT_Wall1
+place RT_Floor - at 0 4.5 y=3
+place RT_Wall1 weightdoor at -3 -4.5
+place Loot_ChestSmall gearcase2 at -3 3.4 y=0 sit yaw=180
+pop
+place RT_PillarThick - at 38.5 9.3 h=12.05 sy=0.6
+place RT_Beam - at 38.5 9.3 h=15.5 yaw=180 sx=0.4
+place UT_HookRoom_Weight02 counterweight at 39.8 9.3 h=13.85 scale=3
+place "Box Small" stepbox at 35.3 31 h=12.05 sit yaw=30
+place RT_Pillar - at 44 10 h=12.05 sy=0.4
+place TP_LaserControlPanel_lever shuttle3 at 44 9.75 h=13.1
+place Scaffolding_6x4m - at 44 6.5 h=11.4
+
+# --- The undercroft under the plaza stack's west foot: a flooded room in its pit (its door west), the third gear's case,
+# an air bell under its ceiling, puffer fish ------------------------------------------------------------------------------
+push at -28 27 h=-6.95 yaw=90
+call rt_storey f1=RT_WallDoor1 f2=RT_Wall1
+place RT_Floor - at 0 4.5 y=3
+place Loot_ChestSmall gearcase3 at -3 3.4 y=0 sit yaw=180
+place Zone_Trigger crypair at -3 2 y=2.4
+place Zone_Atmosphere crypbubbles at -3 2 y=2.4
+place Creature_PufferFish puffers at -3 0 y=1.5
+pop
+place Zone_Trigger undercroft at -25 30 h=-5.5
+
+# --- The observatory on the highest stack: a room of glass all round (its door south), the telescope, the thief's diary on
+# a bench, his stash; the screechers wait; the landing; the last shuttle's lever --------------------------------------------
+push at 23 -12 h=28.05
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 b1=RT_WallWindow1 b2=RT_WallWindow1 l1=RT_WallWindow1 l2=RT_WallWindow1 l3=RT_WallWindow1 r1=RT_WallWindow1 r2=RT_WallWindow1 r3=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+place TP_Telescope - at -3 2 y=0 sit scale=0.4 yaw=20
+place Bench_01 - at -5 -2 y=0 sit yaw=90
+place Note_Book thiefdiary at -5 -2 y=0.75 drop yaw=20
+place Loot_Chest stash at -1 -3.4 y=0 sit yaw=0
+place Pickup_Landmark_Plastic3_Land - at -1.8 0.8 y=0.3 drop yaw=190
+pop
+place Zone_Trigger observatory at 20 -12 h=29.5
+place Zone_Trigger obslanding at 20 -18.5 h=29.2
+place Creature_StoneBird screechers at 20 -12 h=36
+place RT_Pillar - at 25 -18 h=28.05 sy=0.4
+place TP_LaserControlPanel_lever shuttle4 at 25.25 -18 h=29.1 yaw=90
+place Scaffolding_6x4m - at 28 -18 h=27.4
+
+# --- The clock tower on the north-east stack: three rooms stacked - the founder's vault at the bottom (its door a stone
+# slab that sinks when the clock strikes), the clock room in the middle with the balcony where the last shuttle lands, a
+# ladder from the balcony down to the vault's door; the top room with a clock face on every side; the clock's heart, the
+# founder's plaque, the four hand levers; the chimes and the city's tick (hidden till the city wakes) ----------------------
+push at 83 44.5 h=24.05
+call rt_storey f1=none f2=RT_Wall1
+place RT_Wall1 vaultdoor at -3 -4.5
+place Loot_ChestLarge foundervault at -3 3.4 y=0 sit yaw=180
+place Zone_Trigger vault at -3 1 y=1.5
+pop
+push at 83 44.5 h=27.05
+call rt_storey floor=RT_Floor f1=RT_WallDoor1 f2=RT_WallWindow1 b1=RT_WallWindow1 l2=RT_WallWindow1 r2=RT_WallWindow1
+place "VG_DecorationPrefabBase_Engine Variant" clockheart at -3 2.6 y=0 sit yaw=180
+place cogwheel stillcogs at -4.5 2.6 y=1.4 scale=4 yaw=90
+place cogwheel turningcogs at -4.5 2.6 y=1.4 scale=4 yaw=90
+place Note_Sign plaque at -0.3 2 y=0 sit yaw=270
+place TP_LaserControlPanel - at -5.9 -2 y=0 yaw=90
+place TP_LaserControlPanel_lever handI at -5.6 -3.2 y=0 sit yaw=90
+place TP_LaserControlPanel_lever handIII at -5.6 -2.4 y=0 sit yaw=90
+place TP_LaserControlPanel_lever handVI at -5.6 -1.6 y=0 sit yaw=90
+place TP_LaserControlPanel_lever handIX at -5.6 -0.8 y=0 sit yaw=90
+place Zone_Trigger clockroom at -3 0 y=1.5
+place Pickup_Landmark_Plastic3_Land - at -2.0 -1.6 y=0.3 drop yaw=75
+pop
+push at 83 44.5 h=30.05
+call rt_storey floor=RT_Floor
+place RT_Floor - at 0 4.5 y=3
+place "VG_DecorationPrefabBase_Clock Variant" - at -3 -4.75 y=1.4 scale=6 yaw=180
+place "VG_DecorationPrefabBase_Clock Variant" - at -3 4.75 y=1.4 scale=6
+place "VG_DecorationPrefabBase_Clock Variant" - at -6.3 0 y=1.4 scale=6 yaw=270
+place "VG_DecorationPrefabBase_Clock Variant" - at 0.3 0 y=1.4 scale=6 yaw=90
+pop
+place RT_Floor balcony at 83 35.5 h=27.05 sx=1 sz=0.28
+place Zone_Trigger towerbalcony at 80 34 h=28.5
+place Block_Ladder - at 82.4 33 h=24.05 yaw=0
+place Block_Ladder - at 82.4 33 h=26.47 yaw=0
+place Zone_Sound chimes at 80 40 h=30
+place Zone_Sound citytick at 20 10 h=20
+
+# --- The city's brass figures, frozen in the streets (and their walking twins, hidden till the city wakes) --------------
+place Placeable_ToyRobot frozen at -2 34 h=20 sit scale=5 yaw=20
+place Placeable_ToyRobot awake at -2 34 h=20 sit scale=5 yaw=20
+place Placeable_ToyRobot frozen at -38 -50 h=15.05 sit scale=5 yaw=200
+place Placeable_ToyRobot awake at -38 -50 h=15.05 sit scale=5 yaw=200
+place Placeable_ToyRobot frozen at 77 33 h=24.05 sit scale=3.8 yaw=150
+place Placeable_ToyRobot awake at 77 33 h=24.05 sit scale=3.8 yaw=150
+
+# --- Round the city: palms on the stacks, a pineapple, turtles at the stacks' feet, dolphins, a sunk crate of springs off
+# the quay -----------------------------------------------------------------------------------------------------------------
+scatter "Pickup_Landmark_Tree_Palm 2" 1 at -52 -46 r=3 seed=2302
+place Pickup_Landmark_PineappleLandmark - at -12 28 h=20.5
+place Creature_Turtle turtles at -46 -72 h=-2
+place Creature_Dolphin dolphins at 0 -110 h=-3
+place Loot_SunkenBarrel sunksprings at -44 -76 h=-2 drop
+
+# --- Raft's finds in the shallows round the stacks (lib_sea) ----------------------------------------------------------------
+call shallows r=139 deep=5 n=2
+
+# ===== Settings, story items, notes, behaviours, quest (20 steps, 4 chapters) =============================================
+info title=The Clockwork City
+info author=Custom Islands
+info description=A city of clockwork on tropical sea stacks - shuttle platforms between them, doors that open on the gong for half a minute, brass automatons frozen mid-step - and in the middle a clock tower whose heart was stolen. Find the parts, ride to the tower, set the hour, and the city wakes.
+island on.arrive=message||Stacks of rock standing in the sea with a city on them - towers, domes, cogs on every wall - and between them, platforms sliding slowly back and forth over the water, all by themselves. In the middle, a clock tower. Its hands don't move.
+
+story winder|Winding key|quest:Varuna_CraneKey|A brass winding key as long as your arm - the city's key to everything that winds.
+story gear|Clock gear|quest:Tangaroa_GeneratorPart|A brass gear from the clock tower's heart, its teeth like a crown.
+story mainspring|Mainspring|quest:Temperance_ElectricalCable|The clock tower's mainspring, coiled tight in its drum.
+story clockkey|Vault key|quest:Caravan_KeyMayor|The founder's vault key, which drops out of the clock when it runs.
+
+note welcome The clockmaker's welcome | WELCOME TO HOROLOGE\nthe city that winds itself.\n\nThe shuttles run every eight seconds. The doors open on the gong for half a minute. Everything here keeps time.\n\nThe harbourmaster keeps the winding key - you'll want it.\n- Teodor Vance, clockmaker
+note harbourbox Harbourmaster's box | The harbourmaster's box: a logbook, an oil can - and the city's brass winding key.
+loot harbourbox story:winder*1;Rope*2
+prop harbourbox loot.refill=0
+note timetable The city timetable | HOROLOGE - TIMETABLE\n\nShuttles: harbour - plaza - Hall of Hours - gearworks - observatory - TOWER.\nThe Hall of Hours opens on the gong: 30 seconds.\nThe gearworks' vault opens when its counterweight drops: 20 seconds (the chain is across the yard - run).\nThe undercroft: by the sea door at the plaza stack's foot. Hold your breath.\n\n(scrawled underneath:) THE CLOCK HAS STOPPED. Somebody has taken its heart.
+note gearcase1 First gear's case | In the Hall of Hours, among a hundred stopped clocks, a velvet case: a brass gear.
+loot gearcase1 story:gear*1;Glass*2
+prop gearcase1 loot.refill=0
+note gearcase2 Second gear's case | In the gearworks' vault: the second gear, still oily.
+loot gearcase2 story:gear*1;Bolt*2
+prop gearcase2 loot.refill=0
+note gearcase3 Third gear's case | Down in the flooded undercroft, wedged in a pipe: the third gear.
+loot gearcase3 story:gear*1;CopperOre*1
+prop gearcase3 loot.refill=0
+note thiefdiary The thief's diary | (on a bench in the observatory, the last pages blotted)\n\nI took the heart of the clock so the city would stop, so I could walk its streets in peace for once without everything ticking at me. Three gears I hid behind the city's own doors. The mainspring I kept.\n\nThe birds up here won't let me down. I'm sorry, Teodor. If anyone puts it back: he founded Horologe at three o'clock exactly. The hands must say THREE, or it won't strike.
+note stash Thief's stash | The thief's stash: food, a blanket, a lantern - and the clock tower's mainspring in its drum.
+loot stash story:mainspring*1;Cooked_GenericMeat*2;Placeable_Lantern_Metal*1
+prop stash loot.refill=0
+note plaque The founder's plaque | (on the clock room's wall)\n\nHOROLOGE, founded at the third hour by T. Vance.\nWhen the clock strikes its founding hour, the founder's vault opens to whoever made it strike.
+note foundervault The founder's vault | Teodor Vance's vault: a clockmaker's fortune - titanium springs, brass, coin - and the plans for his zipline, which he said was the only thing he ever built that ran on gravity alone.
+loot foundervault Blueprint_ZiplineTool*1;TitaniumIngot*4;CopperIngot*3;TradeToken*12;Bolt*4
+prop foundervault loot.refill=0
+note stallbox Market stall box | A plaza stall's box: fruit and springs.
+loot stallbox Mango*2;Banana*2;Bolt*2
+prop stallbox loot.refill=0
+note sunksprings Sunk crate of springs | A crate of springs that went off the quay.
+loot sunksprings Scrap*3;MetalOre*2;CopperOre*1
+prop sunksprings loot.refill=0
+note stepbox Platform box | A box on the gearworks' platform, left for shuttle riders who missed their ride.
+loot stepbox Rope*2;PlasticBottle_Water*2;Plank*3
+prop stepbox loot.refill=0
+
+prop gong obj.name=gong
+prop gong beh.use=Strike the gong (the Hall of Hours opens for 30 seconds)
+prop gong if.use=has|story:winder|1\nstate|hourdoor|closed
+prop gong on.use=message||BONNNG. The winding key turns in the gong's frame - and the Hall of Hours' door sinks. Thirty seconds!\nopen|hourdoor\nsound||event:/crafting/horns/viking\nwait|30\nclose|hourdoor\nmessage||The Hall of Hours' door rises shut.
+prop gong else.use=message||The gong's frame has a winding hole - the city's key. (Or the door is already open: go!)
+prop hourinside obj.name=hourinside
+prop hourinside beh.use=Pull the lever (the door opens for 30 seconds)
+prop hourinside if.use=state|hourdoor|closed
+prop hourinside on.use=open|hourdoor\nsound||event:/raft/radar/lever\nwait|30\nclose|hourdoor
+prop hourdoor obj.name=hourdoor
+prop hourdoor beh.move=0,-6,0
+prop hourdoor beh.moveTime=2
+prop hourdoor beh.moveMode=switch
+prop counterweight obj.name=counterweight
+prop counterweight beh.use=Pull the counterweight's chain (the vault opens for 20 seconds)
+prop counterweight beh.move=0,-3,0
+prop counterweight beh.moveTime=1
+prop counterweight beh.moveMode=switch
+prop counterweight if.use=has|story:winder|1\nstate|weightdoor|closed
+prop counterweight on.use=message||The weight drops with a crash - and across the yard the vault door rises. Twenty seconds - RUN!\nopen|counterweight\nopen|weightdoor\nsound||event:/exploring/utopia/scale/weight_move\nwait|20\nclose|weightdoor\nclose|counterweight\nmessage||The weight winds itself back up. The vault door drops shut.
+prop counterweight else.use=message||The counterweight's chain is locked with a winding nut. (Or the vault is open: run!)
+prop weightdoor obj.name=weightdoor
+prop weightdoor beh.move=0,3.2,0
+prop weightdoor beh.moveTime=1
+prop weightdoor beh.moveMode=switch
+prop clockheart obj.name=clockheart
+prop clockheart beh.use=Fit the three gears and the mainspring
+prop clockheart if.use=quest|16\ntake|story:gear|3\ntake|story:mainspring|1
+prop clockheart on.use=message||Gear, gear, gear - and the mainspring, wound with the city's key. The clock catches its breath and TICKS. A drawer pops out of the engine's side with a key in it.\nsignal||ticking\ngive||story:clockkey*1\nsound||event:/exploring/obstacles/tangaroa/generator_placepart
+prop clockheart else.use=message||The clock's heart, empty: three gear spindles and a drum for a spring.
+prop handI obj.name=handI
+prop handI beh.use=Set the hands to ONE
+prop handI if.use=signal|ticking
+prop handI on.use=message||The hands swing to one. The clock clacks, and nothing strikes.\nsound||event:/raft/radar/lever
+prop handI else.use=message||The hands won't move while the clock is stopped.
+prop handVI obj.name=handVI
+prop handVI beh.use=Set the hands to SIX
+prop handVI if.use=signal|ticking
+prop handVI on.use=message||The hands swing to six. Nothing strikes.\nsound||event:/raft/radar/lever
+prop handVI else.use=message||The hands won't move while the clock is stopped.
+prop handIX obj.name=handIX
+prop handIX beh.use=Set the hands to NINE
+prop handIX if.use=signal|ticking
+prop handIX on.use=message||The hands swing to nine. Nothing strikes.\nsound||event:/raft/radar/lever
+prop handIX else.use=message||The hands won't move while the clock is stopped.
+prop handIII obj.name=handIII
+prop handIII beh.use=Set the hands to THREE
+prop handIII if.use=has|story:clockkey|1\nsignal|ticking\n!signal|struck
+prop handIII on.use=message||The hands swing to three - and the clock STRIKES. One, two, three, over the whole city. And the city wakes: cogs turn on every wall, the brass figures in the streets lift their heads and begin to walk their rounds, and under the tower the founder's vault door sinks.\nsignal||struck\nhide|frozen\nshow|awake\nhide|stillcogs\nshow|turningcogs\nshow|citytick\nshow|chimes\nopen|vaultdoor\nsound||event:/exploring/obstacles/bicyclebell\nwait|1\nsound||event:/exploring/obstacles/bicyclebell\nwait|1\nsound||event:/exploring/obstacles/bicyclebell
+prop handIII else.use=message||The hands won't move while the clock is stopped - or it has struck already.
+prop vaultdoor obj.name=vaultdoor
+prop vaultdoor beh.move=0,-6,0
+prop vaultdoor beh.moveTime=3
+prop vaultdoor beh.moveMode=switch
+prop frozen obj.name=frozen
+prop awake obj.name=awake
+prop awake beh.hidden=1
+prop awake beh.spin=20
+prop stillcogs obj.name=stillcogs
+prop turningcogs obj.name=turningcogs
+prop turningcogs beh.hidden=1
+prop turningcogs beh.spin=30
+prop turningcogs beh.spinOwn=1
+prop citytick obj.name=citytick
+prop citytick beh.hidden=1
+prop citytick sound.event=event:/exploring/elevator/elevator_running
+prop citytick sound.volume=0.4
+prop citytick zone.radius=50
+prop chimes obj.name=chimes
+prop chimes beh.hidden=1
+prop chimes sound.event=event:/exploring/elevator/elevator_music
+prop chimes sound.volume=0.4
+prop chimes zone.radius=20
+
+prop harbour zone.id=harbour
+prop harbour zone.radius=8
+prop harbour zone.message=The harbour stack: a quay, steps up the rock, a brass plate at the top - and a platform sliding towards you over the water, all by itself.
+prop plaza zone.id=plaza
+prop plaza zone.radius=9
+prop plaza zone.message=The plaza: a fountain of cogs, stalls, brass figures frozen mid-step, and a column with the timetable.
+prop hallofhours zone.id=hallofhours
+prop hallofhours zone.radius=3
+prop hallofhours zone.message=The Hall of Hours: a hundred clocks, every one stopped at a different time.
+prop gearworks zone.id=gearworks
+prop gearworks zone.radius=4
+prop gearworks zone.repeat=never
+prop gearworks zone.message=The gearworks - belts, wheels, and rats nesting in all of it!
+prop rats creature.count=4
+prop rats creature.respawn=0
+prop rats creature.zone=gearworks
+prop undercroft zone.id=undercroft
+prop undercroft zone.radius=5
+prop undercroft zone.message=The undercroft, under water: pipes, valves, a bell of trapped air.
+prop crypair zone.id=crypair
+prop crypair zone.radius=2.5
+prop crypair zone.repeat=1
+prop crypair zone.air=1
+prop crypbubbles atmo.particles=bubbles
+prop crypbubbles zone.radius=3
+prop observatory zone.id=observatory
+prop observatory zone.radius=4
+prop observatory zone.repeat=never
+prop observatory zone.message=The observatory - and the birds that kept the thief up here want you out of it!
+prop screechers creature.count=2
+prop screechers creature.respawn=0
+prop screechers creature.zone=observatory
+prop towerbalcony zone.id=towerbalcony
+prop towerbalcony zone.radius=5
+prop towerbalcony zone.message=The clock tower's balcony. The great face above you says twenty past nothing.
+prop clockroom zone.id=clockroom
+prop clockroom zone.radius=3
+prop clockroom zone.message=The clock room: an empty heart of cogs, a panel of hand levers, a plaque.
+prop vault zone.id=vault
+prop vault zone.radius=2.5
+prop vault zone.message=The founder's vault under the tower, ticking softly all round you.
+prop puffers creature.count=2
+prop hens creature.count=3
+prop goats creature.count=3
+prop turtles creature.count=2
+prop dolphins creature.count=2
+
+prop shuttle1 obj.name=shuttle1
+prop shuttle1 beh.use=Pull the shuttle lever (to the plaza)
+prop shuttle1 if.use=has|story:winder|1
+prop shuttle1 on.use=message||The platform shudders, the winding key turns in its socket, and it glides out over the water towards the plaza stack -\nsound||event:/exploring/zipline/zipline_engine\nwait|4\nteleport|plazalanding\nmessage||- and docks at the plaza.
+prop shuttle1 else.use=message||The shuttle's lever has a winding hole - the city's key.
+prop shuttle2 obj.name=shuttle2
+prop shuttle2 beh.use=Pull the shuttle lever (to the gearworks)
+prop shuttle2 if.use=has|story:winder|1
+prop shuttle2 on.use=message||Out over the water again, towards the stone piers of the gearworks -\nsound||event:/exploring/zipline/zipline_engine\nwait|4\nteleport|gearlanding\nmessage||- and docks at the gearworks' platform.
+prop shuttle2 else.use=message||The shuttle's lever has a winding hole - the city's key.
+prop shuttle3 obj.name=shuttle3
+prop shuttle3 beh.use=Pull the shuttle lever (up to the observatory)
+prop shuttle3 if.use=has|story:winder|1
+prop shuttle3 on.use=message||The platform climbs as it slides, up and up towards the highest stack -\nsound||event:/exploring/zipline/zipline_engine\nwait|4\nteleport|obslanding\nmessage||- and docks under the observatory.
+prop shuttle3 else.use=message||The shuttle's lever has a winding hole - the city's key.
+prop shuttle4 obj.name=shuttle4
+prop shuttle4 beh.use=Pull the shuttle lever (to the clock tower)
+prop shuttle4 if.use=has|story:winder|1
+prop shuttle4 on.use=message||The last shuttle runs out along a cable towards the clock tower, the whole city below you -\nsound||event:/exploring/zipline/zipline_engine\nwait|4\nteleport|towerbalcony\nmessage||- and bumps against the tower's balcony.
+prop shuttle4 else.use=message||The shuttle's lever has a winding hole - the city's key.
+prop plazalanding obj.name=plazalanding
+prop plazalanding zone.radius=2
+prop gearlanding obj.name=gearlanding
+prop gearlanding zone.radius=2
+prop obslanding obj.name=obslanding
+prop obslanding zone.radius=2
+prop towerbalcony obj.name=towerbalcony
+
+quest title=Setting the Hour
+quest intro=A city of clockwork on sea stacks, stopped mid-tick. The clockmaker's welcome is at the top of the harbour steps.
+# Chapter 1 - arrival
+step reach|harbour|1|Tie up at the harbour stack
+step read|The clockmaker's welcome|1|Read the clockmaker's welcome
+step collect|story:winder|1|Take the winding key from the harbourmaster's box
+step reach|plaza|1|Ride the first shuttle to the plaza
+step read|The city timetable|1|Read the city timetable
+# Chapter 2 - the timed doors
+step collect|story:gear|1|Strike the gong and get the first gear out of the Hall of Hours in thirty seconds
+step kill|Rat|4|Clear the rats out of the gearworks
+step collect|story:gear|2|Drop the counterweight and reach the gearworks' vault in twenty seconds
+step reach|undercroft|1|Swim through the sea door into the flooded undercroft
+step collect|story:gear|3|Find the third gear in the undercroft
+# Chapter 3 - the shuttles
+step reach|observatory|1|Ride the shuttles up to the observatory
+step kill|Screecher|2|Drive off the screechers
+step read|The thief's diary|1|Read the thief's diary
+step collect|story:mainspring|1|Take the mainspring from the thief's stash
+step reach|towerbalcony|1|Ride the last shuttle down to the clock tower
+# Chapter 4 - the clock
+step reach|clockroom|1|Climb to the clock room
+step collect|story:clockkey|1|Fit the gears and the mainspring into the clock's heart
+step read|The founder's plaque|1|Read the founder's plaque
+step reach|vault|1|Set the hands to the founding hour - and go down into the founder's vault
+step open|The founder's vault|1|Open the founder's vault
+quest done=The clock strikes the hour and Horologe winds itself again: cogs turning, figures walking their rounds, shuttles sliding over the water. Teodor Vance's city keeps time - thanks to you.
+quest reward=CopperIngot*3;Bolt*6;Cooked_GenericMeat*3
+
+save The Clockwork City

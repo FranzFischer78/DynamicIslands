@@ -1,0 +1,201 @@
+# Caisson Yard - an island of the library's plan The Sunken Kingdom (sea level; chapter 7, the caisson yard)
+# A construction yard over the trench edge: one rock caisson (the yard proper, with a sand and clay bank, the smelter
+# under a roof on posts, the foreman's board and a Raft store) and three hollow concrete caissons standing on the seabed,
+# their tops at sea level, linked by footbridges of stone on mast poles. Two cranes, one on the south caisson and one on
+# the north, with a zipline between them. The fuel shed on the west caisson; the anchor post and the trench chart on the
+# north one, looking out over the drop. Puffers in the gaps (goo), two reefs, rocks, buried titanium on the yard. Quest
+# "The Caisson Yard" (11 steps).
+#
+# Points (metres over the sea): the yard (rock) round 13 4 at 1.6 (r 6.5); caisson S round -6 -6, W round -6 6, N round
+# 10 16 (4.5 m square each, caps at 1.9, walls from the seabed at -8); bridges S-W along x -6 (z -3.75..3.75), W-yard
+# along z 5 (x -3.75..7), yard-N along x 10 (z 10.5..13.75); crane 1 on S, crane 2 on N; the trench past x 22 (to -25).
+include lib_huts
+include lib_gravity
+include lib_features
+include lib_sea
+include lib_sunken
+# RESIZE 10-24: Radius 30 -> 80 (Height 3 -> 5), the old content moved 23.6 14.1 as one frame (push) so its sea side stays at the coast; the island grows behind it.
+new
+gen Trees=0 Bushes=0.1 Rocks=0.45 Harvest=0.1 BeachThings=0.3
+gen Seed=10701 Radius=80 Height=5 Roughness=0.3 Peaks=1 Shape=0 Style=0 BeachWidth=0.2 Cliffs=0.4 PeakShape=0.4
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.4 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+push at 23.6 14.1
+
+# --- Terrain: the seabed, the yard caisson of rock, the trench ---------------------------------------------------------
+pop
+brush flatten at -29.6 4.7 r=5 s=8 frames=40
+origin
+clear at -29.6 4.7 r=6
+push at 23.6 14.1
+# (origin before the strokes: after them the land's middle had moved 3 m east and 10 m north - the strokes take most of
+# the land under the sea - and every place missed its stroke by that much: the yard stood in the sea, 2026-10-23)
+brush flatten at 0 4 r=26 s=20 frames=240 h=-8
+brush flatten at 13 4 r=6.5 s=60 frames=400 h=1.6
+brush flatten at 13.5 7.5 r=3.5 s=60 frames=400 h=1.6
+brush flatten at 10 16 r=5.5 s=40 frames=300 h=-8
+brush flatten at 1 -3 r=5 s=40 frames=300 h=-8
+brush flatten at 34 4 r=12 s=20 frames=240 h=-25
+brush sand at 16 7 r=2.5 s=20 frames=20
+clear at 13 4 r=6
+
+# --- The concrete caissons, ladders up their faces, the bridges -------------------------------------------------------
+call caisson x=-6 z=-6 w=3 h0=-8 lv=4 a=caissons
+call caisson x=-6 z=6 w=3 h0=-8 lv=4 a=caissons
+call caisson x=10 z=16 w=3 h0=-8 lv=4 a=caissons
+place Block_Ladder_Tier3 - at -6 -8.45 h=-0.6 yaw=180
+place Block_Ladder_Tier3 - at -8.45 6 h=-0.6 yaw=270
+place Block_Ladder_Tier3 - at 12.45 16 h=-0.6 yaw=90
+call mastbridgez z1=-3.75 z2=3.75 x=-6 h=1.9
+call mastbridge x1=-3.75 x2=7 z=5 h=1.9
+call mastbridgez z1=10.5 z2=13.75 x=10 h=1.9
+
+# --- The yard: foreman's board, the smelter under its roof, the sand and clay bank, the store -------------------------
+place Zone_Trigger yardzone at 13 4 h=2.6
+place Note_Board foremanboard at 8.5 3.2 ground yaw=270
+push at 12 6 h=1.45
+place Block_Pillar_Wood - at 0 0 y=0
+place Block_Pillar_Wood - at 3 0 y=0
+place Block_Pillar_Wood - at 0 3 y=0
+place Block_Pillar_Wood - at 3 3 y=0
+roof 2 2 at 0 0 y=0 wood
+place Placeable_CookingStand_Smelter - at 1 1.6 y=0 sit yaw=90
+place Loot_Chest smelterchest at 2.3 2.3 y=0 sit yaw=180
+pop
+place "Pickup_Landmark_Sand" - at 16.5 7.5 ground sit
+place "Pickup_Landmark_Sand" - at 17.5 6.2 ground sit
+place "Pickup_Landmark_Clay 1" - at 15.5 8.8 ground sit
+place "Pickup_Landmark_Clay 2" - at 17.8 8.6 ground sit
+store yardshop at 14 4 ground
+place TP_Moontown_Barrel01 - at 9.5 0.5 ground sit
+place TP_Moontown_Barrel01 - at 10.2 -0.2 ground sit
+# the yard's machines: a forklift by the store, the excavator that slid off the yard into the sea
+place VP_Forklift - at 14.8 1.2 ground yaw=200
+place VP_Excavator - at 1 -3 ground yaw=30
+call treasure x=13 z=4 r=12 n=1 seed=10052
+prop treasure10052 treasure.loot=TitaniumOre*3
+
+# --- The cranes and the zipline (S to N) -------------------------------------------------------------------------------
+place UT_ElectricityIsland_Crane02 crane1 at -7 -7 h=1.9 sit scale=0.25 yaw=45
+place ZiplinePath_Landmark zipcrane at -0.6 -7.2 h=3.25 yaw=0
+zipto zipcrane 9 16
+place UT_ElectricityIsland_Crane02 crane2 at 11 17 h=1.9 sit scale=0.25 yaw=225
+place Zone_Trigger crane2zone at 9.5 15.5 h=3
+
+# --- The west caisson's fuel shed; the north caisson's anchor post and chart table ------------------------------------
+push at -7.5 4.5 h=1.9
+call hut w=2 d=2 y=0
+place Loot_Chest fuelchest at 2.2 2.2 y=0 sit yaw=180
+pop
+place Antenna_pole - at 11.5 14.6 h=1.9 sy=0.25
+place Loot_Chest anchorchest at 11.3 15.3 h=1.9 sit yaw=90
+place Placeable_Table_Basic - at 8.7 17.2 h=1.9 sit yaw=0
+place Note_Paper trenchchart at 8.7 17.2 h=2.9 drop yaw=20
+
+# --- The sea: puffers in the gaps, reefs, rocks ------------------------------------------------------------------------
+place Creature_PufferFish puffers at 2 0 h=-5
+prop puffers creature.count=3
+scatter VP_CoralBulb04 5 at -66.27 -46.1 r=3 seed=10702 free=1
+scatter VP_CoralDigitate01 5 at -66.27 -46.1 r=3 seed=10703 free=1
+scatter TinyCoral 6 at -23.6 44.57 r=3 seed=10704 free=1
+scatter VP_CoralFoliose01 4 at -23.6 44.57 r=3 seed=10705 free=1
+scatter SeaVine3 20 at 0 4 r=22 seed=10706 free=2
+call shallows x=-12.93 z=-3.43 r=123 deep=5 n=1 seed=10707
+pop
+
+# --- DISCOVERIES 10-24 (optional, no quest needs them): camp + note; RT_PlasticBoat + chest; hatch with a chest; buried treasure; viewpoint ---
+place campfire_1 - at -29.6 4.7 ground sit
+place Balboa_DecorationPrefabBase_SimpleTent - at -26.6 6.7 ground sit yaw=297
+place "Box Small" - at -31.6 7.2 ground sit
+place Note_Paper dnote at -31.6 7.2 ground y=0.7 drop yaw=20
+note dnote Fisher's note | Good fishing off this side - too good. The fish come up here to get away from something.\nLeft the spare line in the box. Take it if you need it, friend.
+place RT_PlasticBoat dvan at 31.5 -17.5 ground yaw=57
+prop dvan tint.color=#4a6b7a
+prop dvan tint.amount=0.5
+place Loot_ChestSmall dwreckchest at 27.5 -14.5 ground sit yaw=357
+note dwreckchest Wreck's chest | A small chest from the wreck, its lid swollen shut by the salt: line, nails and scrap.
+loot dwreckchest Rope*3;Nail*8;Scrap*3
+prop dwreckchest loot.refill=0
+call hatchcache x=-11.7 z=-34 r=4 seed=10791 alias=dhatch chest=dhatchchest items=MetalIngot*2;CopperIngot*2;Bolt*2
+call treasure x=-6.9 z=35.3 r=6 n=1 seed=10792
+prop treasure10792 treasure.loot=TitaniumOre*2;CopperOre*2
+place Zone_Trigger dview at -0.9 -5.9 ground
+prop dview zone.id=caisson_yard_view
+prop dview zone.radius=7
+prop dview zone.repeat=never
+prop dview zone.message=From here the caissons stand in a row like stepping stones, and the cranes lean over the trench.
+
+# --- Areas (10-24: every story island has places all over it and its quest crosses it): the spoil ridge in the west, the powder cave in the south-west,
+# the yard office in the north (its vending machine), the fallen mobile crane in the south-east
+call sk_ridge x1=-68 z1=-24 x2=-62 z2=12 h=3 top=5 r=8
+call sk_plants x=-65 z=-6 r=16 seed=10761
+call sk_zone x=-65 z=-6 al=cy_ridge id=cy_ridge r=7 msg="The spoil ridge - all the rock the yard dug out of the trench. The zipline from the top runs down to the yard."
+call sk_cave x=-24 z=-56 h=2 yaw=180 al=cy_caverock chest=cy_cavechest
+call sk_zone x=-24 z=-61 al=cy_cave id=cy_cave r=4 msg="The powder cave: the yard kept its blasting charges in here, far from everything."
+call sk_ruin x=8 z=62 h=2 al=cy_ruin
+call sk_notebox x=10.5 z=57.5 yaw=10 al=cy_ruinnote
+call sk_wreck x=54 z=-46 h=2 yaw=250 v=UT_ElectricityIsland_Crane01 al=cy_wreck crate=cy_wreckcrate scale=0.4
+place VP_Wagon01 - at 44 -40 ground sit yaw=30
+call sk_notebox x=60 z=-50 yaw=70 al=cy_wrecknote
+
+# --- Tools in use (10-24: a tool or item given earlier in the storyline opens extras here, never the main path)
+clear from -65 -6 to -42 -8 r=3
+place ZiplinePath_Landmark cyridgezip at -65 -6 ground
+zipto cyridgezip -42 -8
+call vinecache x=-46 z=36 r=8 seed=10771 chest=cyvinechest vines=cyvines items=Rope*3;Nail*8;Bolt*2
+
+# --- Unique layer (10-24): the yard office's vending machine: it takes the Tangaroa tokens of the Overpass toll run
+vending yardvend at 2 57 ground yaw=0
+
+# --- Settings, notes, behaviours, quest ---------------------------------------------------------------------------------
+info title=Caisson Yard
+info author=Custom Islands
+info description=Concrete caissons standing out of the sea over the trench edge, linked by stone footbridges, with two cranes, a zipline, a smelter and a store. The seventh island of The Sunken Kingdom.
+island on.arrive=message||Grey concrete blocks standing out of the sea, two cranes over them - and past them, dark water.
+
+note foremanboard Foreman's board | CAISSON YARD - FOREMAN\n\nSmelter: on the yard, under the roof.\nFuel: west caisson shed.\nCrane 1 to crane 2 by the cable only - the north bridge is for carts.\nThe anchor gear stays on north: we anchor over the trench.\nChart of the trench on north's table. Hadal is straight down.
+note trenchchart Trench chart | A chart of the trench below the yard. One mark, circled twice: HADAL COMMONS, 45 m. Beside it, in pencil: "doors shut from inside".
+note smelterchest Smelter chest | The smelter chest: electric smelter plans.
+note fuelchest Fuel shed chest | The fuel shed's chest: advanced biofuel extractor plans.
+note anchorchest Anchor gear chest | The anchor gear chest: advanced anchor plans, "for anchoring over the trench".
+loot smelterchest Blueprint_SmelterElectric*1;Scrap*3
+prop smelterchest loot.refill=0
+loot fuelchest Blueprint_BiofuelExtractorAdvanced*1;BioFuel*1
+prop fuelchest loot.refill=0
+loot anchorchest Blueprint_AnchorStationaryAdvanced*1;MetalIngot*2
+prop anchorchest loot.refill=0
+
+prop yardzone zone.id=yard
+prop yardzone zone.radius=5
+prop yardzone zone.message=Caisson Yard. The foreman's board stands at the yard's edge.
+prop crane2zone zone.id=crane_2
+prop crane2zone zone.radius=3
+prop crane2zone zone.message=Crane 2. The trench yawns past the caisson's edge.
+prop zipcrane obj.name=zipcrane
+
+note cy_cavechest Powder store chest | The powder store: the charges are long gone; the fuses and wire are not.
+loot cy_cavechest Copper*2;Rope*3;Bolt*3;MetalIngot*1
+prop cy_cavechest loot.refill=0
+note cy_ruinnote Yard office book | YARD OFFICE BOOK\n\nThe vending machine takes Tangaroa tokens - the road toll's coin. Nobody here has any.\nThe mobile crane fell over the day the trench wall slid. The driver is fine. The crane is not.
+note cy_wrecknote Crane driver's report | CRANE DRIVER'S REPORT\n\nThe trench wall slid and the crane went with it, over on its side.\nThe Commons is straight down from the edge. When the caisson is sunk, the city gets its doors back.
+note cy_wreckcrate Crane's toolbox | The crane's toolbox: shackles, bolts, a coil of cable.
+loot cy_wreckcrate Bolt*4;MetalIngot*2;Rope*2;Hinge*1
+prop cy_wreckcrate loot.refill=0
+
+quest title=The Caisson Yard
+quest intro=A construction yard on the Receiver. Climb onto the yard caisson.
+step reach|yard|1|Climb onto the yard
+step read|Foreman's board|1|Read the foreman's board
+step reach|crane_2|1|Take the zipline from crane 1 to crane 2
+step blueprint|Blueprint_SmelterElectric|1|Find the electric smelter plans under the smelter's roof
+step blueprint|Blueprint_BiofuelExtractorAdvanced|1|Open the fuel shed on the west caisson
+step blueprint|Blueprint_AnchorStationaryAdvanced|1|Find the anchor gear on the north caisson
+step reach|cy_ridge|1|Climb the spoil ridge in the west
+step reach|cy_cave|1|Find the powder cave in the south
+step read|Yard office book|1|Read the book in the yard office in the north
+step read|Crane driver's report|1|Read the report at the fallen crane in the south-east
+step read|Trench chart|1|Read the trench chart
+quest done=Hadal Commons, 45 m down, straight below the trench edge. The Receiver finds its doors on band 800.
+quest reward=MetalIngot*2;Bolt*4
+
+save Caisson Yard

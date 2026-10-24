@@ -1,0 +1,258 @@
+# The Sunken Liner - a themed island, twice the size (x2, mostly under water)
+# Inspiration: great-liner disaster films (a luxury liner broken in two on the sea bed, its ballroom, a famous jewel in the
+#   purser's safe, survivors in a lifeboat) - the mood only, never named on the island.
+# Island type: Shape 2 (Archipelago), Style 1 (snowy). Icy rock islets - the "ice-rocks" she struck - round a deep
+#   channel; on the channel's floor the liner in two halves with a debris field between them.
+# The liner Regina Borealis struck the ice-rocks at full speed on her first crossing and broke in two. Lifeboat 7 reached
+# the biggest islet; its survivors' log tells where the chief steward kept the purser's safe combination, and what is in
+# the safe: the Polar Star sapphire and the key to the ship's pay chest. Something with lamps lives in the stern now.
+# Quest "The Polar Star" (11 steps): lifeboat 7's camp, the log, the steward's key, the bow, the wireless message, the
+# ballroom (air under its ceiling), the steward's cabinet, the anglers in the stern, the purser's office, the safe, the pay
+# chest (head light blueprint, captain's hat, trade coins).
+#
+# Built by the recipe player (CIRecipe sunken_liner) through the editor's own operations.
+include lib_rt
+include lib_sea
+new
+# (nature: snowy, Like Raft's Temperance - near-bare icy islets, a few pines on the biggest)
+gen Trees=0.08 Bushes=0.15 Rocks=0.25 Harvest=0.05 BeachThings=0.3
+gen Seed=9011 Radius=63 Height=9 Roughness=0.5 Peaks=1 Shape=2 Style=1 BeachWidth=0.2 Cliffs=0.55 PeakShape=0.35
+gen SeaFloor=0 Shelf=0.5 Seabed=1
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the wreck's trench dug north-south between the west and east islets and out past the south islet - a bed
+# 16 m down for the bow and the ballroom, 24 m down for the stern; a pad on the west islet for lifeboat 7's camp ---------
+brush flatten from 8 34 to 8 -20 r=7 s=20 frames=300 h=-16
+brush flatten from 10 -30 to 12 -56 r=8 s=20 frames=300 h=-24
+brush smooth from 8 30 to 11 -54 r=10 s=10 frames=10
+# (wider where the ballroom and the purser's office lie: a 7 m stroke flattens only its middle, and their side walls
+# stood in the trench's banks)
+brush flatten from 1 -6.5 to 15 -6.5 r=6.5 s=20 frames=200 h=-16
+brush flatten from 1 -29 to 13 -29 r=5.5 s=20 frames=200 h=-24
+brush flatten from 3 -17 to 14 -17 r=5 s=20 frames=150 h=-16
+brush flatten at -14 10 r=6 s=20 frames=80 h=6.5
+clear at -14 10 r=8
+clear from 8 34 to 12 -56 r=12
+clear at 26 20 r=3
+
+# --- Lifeboat 7's camp on the west islet: the lifeboat drawn up, a tarp shelter on four posts, a dead fire, two of the
+# liner's deck chairs, a lantern on a crate, the survivors' log, the camp chest; a cairn with a wooden marker; drifts ---
+place RT_PlasticBoat - at -9 15.5 ground yaw=40 roll=6
+place ReefHuts_Pillar1 - at -17.9 6.5 ground
+place ReefHuts_Pillar1 - at -14.1 6.5 ground
+place ReefHuts_Pillar1 - at -17.9 8.5 ground
+place ReefHuts_Pillar1 - at -14.1 8.5 ground
+place ReefHuts_Tarpaulin - at -16 7.5 h=9.45 tilt=4 rot=0,0,0
+place campfire_1 - at -12.5 11.5 ground
+place VG_LoungeChair - at -11 12.6 ground yaw=200
+place VG_LoungeChair - at -14 13 ground yaw=150 roll=80
+place Crate_Big_01 - at -16.8 7.2 ground
+place Placeable_Lantern_Metal - at -16.8 7.2 h=9 drop
+place Note_Book survivorslog at -16 7.4 h=9 drop yaw=15 rot=0,0,0
+place Loot_Chest campchest at -15.2 8.4 ground yaw=90
+place SmallBoulder4 - at -18 13.5 ground scale=0.5
+place SmallBoulder4 - at -17.2 14.2 ground scale=0.45 yaw=80
+place SmallBoulder4 - at -18.6 14.4 ground scale=0.4 yaw=160
+place Placeable_Sign - at -17.9 14 h=9 drop
+place TP_SnowDrift02 - at -20 11 ground yaw=40
+place TP_SnowDrift02 - at -10 6 ground yaw=210
+place Zone_Trigger lifeboat at -14 10 y=1
+
+# --- The bow upright on its bed at the trench's north end (her deck about 5 m under the surface), the wireless set and
+# the operator's last message on her deck --------------------------------------------------------------------------------
+place BoatStranded - at 8 20 h=-16 sit scale=1.6 yaw=180 roll=6
+place Placeable_Radio - at 8 17 h=-1 drop yaw=30
+place Note_Paper wireless at 8.6 17.2 h=-1 drop rot=0,0,0
+place Zone_Trigger bow at 8 18 h=-6
+
+# --- The ballroom, torn off and lying on the bed south of the bow: two of the radio tower's rooms side by side under one
+# ceiling, broken windows to swim in by; the carpet, the grand piano, the fallen chandelier, tables and chairs, the bar,
+# the steward's cabinet; the air under its ceiling in the north-west corner ---------------------------------------------
+push at 8 -6.5 h=-15.95
+push at 0 0
+call rt_storey f1=RT_WallWindowBroken f2=RT_WallWindowBroken b1=RT_WallWindowBroken b2=RT_Wall1 l1=RT_WallWindowBroken l2=RT_Wall1 l3=RT_WallWindowBroken r1=none r2=none r3=none
+place RT_Floor - at 0 4.5 y=3
+pop
+push at 6 0
+call rt_storey f1=RT_WallWindowBroken f2=RT_WallWindowBroken b1=RT_Wall1 b2=RT_WallWindowBroken l1=none l2=none l3=none r1=RT_WallWindowBroken r2=RT_Wall1 r3=RT_WallWindowBroken
+place RT_Floor - at 0 4.5 y=3
+pop
+place Carpet_01 - at 0 0 y=0.02
+place Tangaroa_BallroomKit_GrandPiano - at -3.5 2.6 y=0 sit yaw=20
+place Tangaroa_BallroomKit_ChandelierOn - at 0.5 -0.5 y=0 sit roll=80
+place VG_LoungeTable - at 3 -2 y=0 sit
+place VG_LoungeTable - at -2 -2.5 y=0 sit
+place VG_LoungeTable - at 3.5 2 y=0 sit roll=85
+place VG_LoungeChair - at 2.2 -2.6 y=0 sit yaw=60
+place VG_LoungeChair - at -1 -3.2 y=0 sit roll=88
+place VG_LoungeChair - at 4.3 -1.2 y=0 sit yaw=-40
+place VG_LoungeBar2 - at 4 3.6 y=0 sit yaw=180
+place Cabinet_01 stewardcab at -5.4 -1 y=0 sit yaw=90
+place Zone_Trigger ballroom at 0 -5.5 y=1
+place Zone_Trigger ballroomair at -4.5 3 y=2.4
+place Zone_Atmosphere ballroombubbles at -4.5 3 y=2.4
+pop
+
+# --- The debris field between the halves: trunks, deck chairs, barrels, a clock and a mirror lying in the sand, the
+# ship's stores, a coal barrel, coal and scrap to gather, the ship's lamps still glowing ----------------------------------
+place VP_MovingBox01 trunk1 at 5 -14.5 h=-16 sit yaw=30
+place VP_MovingBox02 - at 12.5 -16 ground yaw=-20 roll=80
+place VP_MovingBox03 trunk2 at 9 -19 ground yaw=70
+place VP_MovingBox04 - at 6.4 -20.5 ground yaw=10
+place VG_LoungeChair - at 13.2 -13 h=-16 sit roll=90 yaw=20
+place Reef_Barrel1 - at 4 -18 ground roll=90
+place Reef_Barrel3 - at 14 -20.5 ground roll=88 yaw=40
+place Placeable_Clock_Basic - at 7.5 -17 ground roll=88 yaw=110
+place "VG_DecorationPrefabBase_Mirror Variant" - at 10.8 -13.8 h=-16 sit rot=90,0,0
+place "Box Big" stores at 11 -22.5 ground yaw=25
+place Loot_SunkenBarrel coalbarrel at 5.5 -23 ground
+place "Pickup_Landmark_Scrap 2_OceanBottom" - at 8 -15.5 ground
+place "Pickup_Landmark_Scrap 3_OceanBottom" - at 12 -18.5 ground
+place "Pickup_Landmark_Rock 1" - at 6 -17 ground
+place "Pickup_Landmark_Rock 2" - at 10 -21 ground
+place UT_LightBottle01 - at 8 -14 h=-16 sit
+place UT_LightBottle02 - at 10.5 -19.5 ground
+place UT_LightBottle03 - at 7 -22 ground
+
+# --- The stern on its bed at the trench's deep south end, rolled on its side; the deep's two lamps waiting in it; the
+# purser's office fallen beside it (one of the radio tower's rooms, broken windows): his desk, file boxes, the safe, the
+# ship's pay chest ----------------------------------------------------------------------------------------------------
+place BoatStranded - at 13 -46 y=-1 sit scale=1.5 yaw=10 roll=8
+place Creature_AnglerFish deeplamps at 13 -44 h=-18
+place Zone_Trigger stern at 12 -40 h=-18
+push at 7 -32 h=-23.95 yaw=90
+call rt_storey f1=RT_WallWindowBroken f2=RT_WallWindowBroken b1=RT_Wall1 b2=RT_WallWindowBroken l2=RT_WallWindowBroken r2=RT_WallWindowBroken
+place RT_Floor - at 0 4.5 y=3
+place "VG_DecorationPrefabBase_Desk Variant" - at -3 2.5 y=0 sit yaw=180
+place TP_FileBox01 - at -5.3 3.8 y=0 sit
+place TP_FileBox01 - at -4.6 3.9 y=0 sit roll=80
+place VG_Safe pursersafe at -1 3.8 y=0 sit yaw=180
+place MayorsChest paychest at -4.6 -3.4 y=0 sit
+place Zone_Trigger purser at -3 0 y=1
+pop
+
+# --- The box in a cleft of the east islet; cold dim water round the wreck, the hulls' creaking, the wind on the islets;
+# animals: goats on the east islet, dolphins off the north ----------------------------------------------------------------
+place "Box Small" isletbox at 26 20 ground yaw=15
+place Zone_Atmosphere wreckdark at 8 10 h=-10
+place Zone_Atmosphere wreckdark at 11 -28 h=-14
+place Zone_Sound creaks at 9 -8 h=-12
+place Zone_Sound wind at -10 8 y=4
+place Creature_Goat goats at 26 6 ground
+prop goats creature.count=2
+place Creature_Dolphin dolphins at 0 60 h=-3
+prop dolphins creature.count=2
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): pines, berries, flowers ----------
+scatter "Pickup_Landmark_Tree_Pine" 6 at 0 0 r=44.1 seed=4490 free=5
+scatter "Pickup_Landmark_BerryBush" 6 at 0 0 r=44.1 seed=4500 free=3
+scatter "Pickup_Landmark_Flower_White" 4 at 0 0 r=44.1 seed=4510 free=3
+scatter "Pickup_Landmark_Flower_Blue" 4 at 0 0 r=44.1 seed=4511 free=3
+
+# --- Raft's finds in the shallows round the islets (lib_sea) ------------------------------------------------------------
+call shallows r=55 deep=5 n=2
+
+# ===== Settings, story items, notes, behaviours, quest (11 steps) =========================================================
+info title=The Sunken Liner
+info author=Custom Islands
+info description=Icy rocks in a cold sea, and between them on the sea floor a great liner broken in two: her ballroom still holds a breath of air, her purser's safe the Polar Star sapphire - and something with lamps lives in her stern. Lifeboat 7's survivors left a log on the biggest rock.
+island on.arrive=message||Black rocks rimed with ice. On the biggest, a lifeboat drawn up and a cairn. Under the water between them, a shape too long to be a rock.
+
+story stewardkey|Chief steward's key|quest:Vasagatan_BlueKey|The chief steward's key ring, from lifeboat 7's camp chest: it opens his cabinet in the ballroom.
+story pursercode|Purser's combination|quest:Vasagatan_FourDigitCode|A card in an envelope marked PURSER - DO NOT OPEN: the combination of the purser's safe.
+story sapphire|The Polar Star|Placeable_GiantClam|The Polar Star, the sapphire the whole voyage was about - blue as deep ice.
+story paykey|Pay chest key|quest:Vasagatan_GreenKey|The key to the ship's pay chest, from the purser's safe.
+
+note survivorslog Survivors' log | LIFEBOAT 7 - REGINA BOREALIS\n\nNight of the 9th. She struck the ice-rocks off these islets at full speed and broke in two. Eleven of us in lifeboat 7.\nDay 3. The chief steward died of the cold. His keys are in the camp chest - the one for his cabinet in the ballroom, where he kept the purser's safe combination "away from the purser".\nDay 5. The purser's safe holds the Polar Star, the sapphire the whole voyage was about, and the key to the ship's pay chest.\nDay 7. Smoke on the horizon - a whaler. We're going.\n\nIf anyone comes after: the wreck lies below the islets, bow to the north, stern in the deep. Something lives in the stern now. It has lamps.
+note campchest Lifeboat 7's camp chest | The survivors' chest: blankets, a flare pistol (empty) - and the chief steward's key ring.
+loot campchest story:stewardkey*1;Wool*3;Rope*2
+prop campchest loot.refill=0
+note wireless Wireless operator's last message | CQD CQD - REGINA BOREALIS - STRUCK ICE-ROCK - BREAKING UP - POSITION ... (the rest is a water stain)\n\n(in pencil underneath) Captain says the ballroom ceiling will hold air the longest. If you are reading this under water, go there to breathe.
+note stewardcab Chief steward's cabinet | The chief steward's cabinet: table silver, the last night's menus - and an envelope marked PURSER - DO NOT OPEN.
+loot stewardcab story:pursercode*1;Glass*2
+prop stewardcab loot.refill=0
+prop stewardcab if.open=has|story:stewardkey|1
+prop stewardcab else.open=message||The steward's cabinet is locked. The survivors' log said his keys are in the camp chest.
+note pursersafe Purser's safe | The purser's safe: a velvet box with the Polar Star in it - and the key of the ship's pay chest.
+loot pursersafe story:sapphire*1;story:paykey*1
+prop pursersafe loot.refill=0
+prop pursersafe if.open=has|story:pursercode|1
+prop pursersafe else.open=message||A safe with a combination dial, dead still under the water. The combination was kept "away from the purser".
+note paychest Ship's pay chest | The ship's pay chest: the crew's wages for a voyage that never ended, the captain's spare hat, crystal from the first-class bar - and the plans of a salvage diver's lamp somebody tucked in on the last night.
+loot paychest Blueprint_HeadLight*1;Hat_Captain*1;TradeToken*15;Glass*6;MetalIngot*6
+prop paychest loot.refill=0
+prop paychest if.open=has|story:paykey|1
+prop paychest else.open=message||The pay chest is bound in iron with one big lock. Its key is in the purser's safe.
+note trunk1 First-class steamer trunk | A steamer trunk: furs ruined by the sea, a silver hairbrush, buttons.
+loot trunk1 Wool*2;Leather*2;Glass*2
+prop trunk1 loot.refill=0
+note trunk2 Third-class trunk | A plain trunk tied with rope: work clothes, a tin of biscuits, a carpenter's tools.
+loot trunk2 Rope*2;Nail*8;Hinge*1
+prop trunk2 loot.refill=0
+note stores Ship's stores crate | A crate from the ship's stores: tins, bolts, sheets of brass.
+loot stores Bolt*4;CopperIngot*2;Cooked_GenericMeat*2
+prop stores loot.refill=0
+note coalbarrel Coal barrel | A barrel from the bunkers, still half full: coal, and a stoker's scrap.
+loot coalbarrel Scrap*3;MetalOre*2;Stone*4
+prop coalbarrel loot.refill=0
+note isletbox Box in the cleft | A box wedged in a cleft of the second islet: someone from lifeboat 7 hid their things here.
+loot isletbox Plank*5;Rope*2;PlasticBottle_Water*2
+prop isletbox loot.refill=0
+
+prop lifeboat zone.id=lifeboat
+prop lifeboat zone.radius=7
+prop lifeboat zone.message=Lifeboat 7, drawn up on the rock. A tarp, a dead fire, two deck chairs from a ship that isn't there any more.
+prop bow zone.id=bow
+prop bow zone.radius=10
+prop bow zone.message=The bow of the Regina Borealis, upright on the sea floor as if she were still sailing - into the sand.
+prop ballroom zone.id=ballroom
+prop ballroom zone.radius=6
+prop ballroom zone.message=The ballroom: a piano in the silt, a chandelier on the floor - and under the ceiling, a silver pocket of air.
+prop ballroomair zone.id=ballroomair
+prop ballroomair zone.radius=3
+prop ballroomair zone.repeat=1
+prop ballroomair zone.air=1
+prop ballroombubbles atmo.particles=bubbles
+prop ballroombubbles zone.radius=3
+prop stern zone.id=stern
+prop stern zone.radius=12
+prop stern zone.message=The stern, raised on its bank in the dark - and two lamps turning towards you out of it.
+prop purser zone.id=purser
+prop purser zone.radius=5
+prop purser zone.message=The purser's office, fallen from the stern and half buried in silt. His safe sits in the corner.
+prop deeplamps creature.count=2
+prop deeplamps creature.size=1.4
+prop deeplamps creature.health=2
+prop deeplamps creature.respawn=0
+prop deeplamps creature.zone=stern
+prop wreckdark atmo.fog=#0e2a3a
+prop wreckdark atmo.fogAmount=0.6
+prop wreckdark atmo.light=#1a3a4a
+prop wreckdark atmo.lightAmount=0.6
+prop wreckdark zone.radius=28
+prop creaks sound.event=event:/amb/wreck_creaks
+prop creaks sound.volume=0.6
+prop creaks zone.radius=30
+prop wind sound.event=event:/amb/temperance
+prop wind sound.volume=0.4
+prop wind zone.radius=25
+
+quest title=The Polar Star
+quest intro=Ice-rocks in a cold sea, a lifeboat drawn up on the biggest, and a great ship on the sea floor between them. Start at the lifeboat.
+step reach|lifeboat|1|Climb onto the icy islet where lifeboat 7 came ashore
+step read|Survivors' log|1|Read the survivors' log in the lifeboat camp
+step collect|story:stewardkey|1|Take the chief steward's key ring from the camp chest
+step reach|bow|1|Dive to the liner's bow on the sea floor
+step read|Wireless operator's last message|1|Read the last message by the wireless set on the bow's deck
+step reach|ballroom|1|Swim into the torn-off ballroom and breathe under its ceiling
+step collect|story:pursercode|1|Open the steward's cabinet in the ballroom for the purser's combination
+step kill|Angler fish|2|Drive the two lamps out of the stern
+step reach|purser|1|Find the purser's office beside the stern
+step collect|story:sapphire|1|Open the purser's safe for the Polar Star
+step open|Ship's pay chest|1|Open the ship's pay chest with the purser's key
+step blueprint|Blueprint_HeadLight|1|Take the headlamp plans from the ship's pay chest
+quest done=The Polar Star is yours, and the ship's last wages. Above you the ice-rocks stand where they always stood; below, the Regina Borealis sleeps on.
+quest reward=OxygenBottle*2;Wool*4;MetalIngot*6
+
+save The Sunken Liner

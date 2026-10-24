@@ -1,0 +1,17 @@
+# FLOAT2 round 4b: where Raft's zipline floors (ZiplineBase) really stand on Thunderhead, Altitude Market and Pendulum
+# (float2_f's shots are aimed from these)
+island Thunderhead Array
+at 0 -30
+wait 3
+log ISLAND thunder
+where ZiplineBase
+island Altitude Market
+at 0 0
+wait 3
+log ISLAND alt
+where ZiplineBase
+island Pendulum Isle
+at 0 0
+wait 3
+log ISLAND pend
+where ZiplineBase

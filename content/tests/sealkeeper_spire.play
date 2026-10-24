@@ -1,0 +1,88 @@
+# Sealkeeper Spire (CIPlay sealkeeper_spire): the dock, the orders, four screechers, the base locker, the generator, the
+# status board, the pump tower and its crank, the door tower, three fuses, the fuse board (the spire lights), the
+# warning, the spire, the control room, the map, the keypad (2817, a wrong code first), Ines's message, the winch (the
+# cable), the cable head, the two switches, RESTORE (SEAL is then dead), the verdict, the descend lever.
+island Sealkeeper Spire
+offset 0 0
+expect step 0
+expect title The Choice
+zone dock
+expect step 1
+read Sealkeeper's orders
+expect step 2
+kill Screecher
+expect step 3
+open Base locker
+wait 3
+expect step 4
+use generator
+expect story power 1
+expect step 5
+read Network status board
+expect step 6
+zone pump_tower
+expect step 7
+use pumpcrank
+expect step 8
+read Pump log
+expect step 9
+zone door_tower
+expect step 10
+use fuseboard
+expect story fused 0
+open Deck fuse locker
+open Tower fuse locker
+open Shore fuse locker
+wait 3
+expect story fuse 3
+expect step 11
+expect hidden spirelights
+use fuseboard
+expect shown spirelights
+expect step 12
+read Door warden's warning
+expect step 13
+zone spire_stair
+expect step 14
+zone control
+expect step 15
+read The Network map
+expect step 16
+use winch
+expect story winched 0
+code controlpad 1111 wrong
+expect story unlocked 0
+code controlpad 2817
+expect story unlocked 1
+expect step 17
+read Ines's message
+expect step 18
+use winch
+expect shown cable
+expect step 19
+zone cable_head
+expect step 20
+read Two switches
+expect step 21
+use descend
+expect story descended 0
+use restore
+expect story restorechoice 1
+use seal
+expect story sealchoice 0
+expect shown verdictrestore
+expect hidden verdictseal
+expect step 22
+read The verdict
+expect step 23
+zone sk_ridge
+expect step 24
+zone sk_cave
+expect step 25
+read Storm keeper's log
+expect step 26
+read Supply pilot's log
+expect step 27
+use descend
+expect story descended 1
+expect done

@@ -1,0 +1,15 @@
+# Guide pictures of Thalassa Mooring (CIPlay thalassa_mooring_pics): Raft's camera, midday, calm
+island Thalassa Mooring
+offset 0 0
+hour 11
+weather Calm
+# on the ground, and long enough for a wet lens to dry (2026-10-24)
+at -2 -8
+wait 8
+picture sl10_thalassa_island 26 12 -22 0 4 0
+picture sl10_thalassa_bell -1 7 -3 5.25 3 0
+picture sl10_thalassa_canopy 1 4 -16 6 2 -10
+picture sl10_thalassa_mooring_ridge -55 22 1 -69 13 1
+picture sl10_thalassa_mooring_cave 24 13 -52 30 4 -65
+picture sl10_thalassa_mooring_ruin 17 13 43 22 4 56
+picture sl10_thalassa_mooring_wreck -40 13 -42 -50 4 -52

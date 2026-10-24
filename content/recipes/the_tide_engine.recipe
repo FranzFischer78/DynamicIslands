@@ -1,0 +1,374 @@
+# The Tide Engine - the last island of the library's plan Relic of the Seventh Tide (the finale)
+# A ring of desert rock round a vast well, and in the well the Engine's heart: Temperance's reactor controls as its
+# core, a laser panel fed through two of Temperance's turning mirrors, the Seventh lever. On the ring, three machine
+# halls of sandstone and brass - the wheel hall with three tide wheels and the sluice lever, the crane hall where
+# Utopia's cranes are the Engine's arms, the piston hall on the way to the ring's top - and in the south the landing
+# with Kett's last camp. Quest "The Seventh Tide" (28 steps) in four parts: the landing (the ambush, the supply crate,
+# the radio codes, the Syndicate's radio); the tide wheels (the diagram, three wheels, the sluice, the stingrays in
+# the flooded sluice gallery, its cache); the arms (the claw, the tablet, the crane cab, the zipline across the well,
+# Kett in her cage, her warning); the heart (the boss's beast, the beam, the inscription, the Seventh lever, the
+# treasury, the relic, the ring's top).
+#
+# Built by the recipe player (CIRecipe the_tide_engine) through the editor's own operations.
+include lib_sea
+include lib_features
+new
+# (nature: desert rock at Raft's density - cacti and dry grass, a few rocks; three reefs round the ring)
+gen Trees=0.5 Bushes=0.8 Rocks=0.6 Harvest=0.25 BeachThings=0.3
+gen Seed=9701 Radius=70 Height=6 Roughness=0.3 Peaks=1 Shape=0 Style=2 PeakShape=0.3 Cliffs=0.4 BeachWidth=0.6
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.2 Sunken=0.3 Hostiles=0 Friendly=0.1 SeaLife=0.3
+generate
+
+# --- Terrain: the ring at 5 m, the well (the heart) at 2 m with a ramp down from the south rim, the ring's top in the
+# west, the landing path in the south, the sluice channel from the wheel hall out to the sea in the east --------------
+brush flatten at 0 0 r=50 s=20 frames=400 h=5
+brush flatten at 0 0 r=13 s=20 frames=200 h=2
+brush smooth from 0 -22 to 0 -10 r=3 s=8 frames=40
+brush flatten at -44 0 r=4.5 s=20 frames=80 h=9.5
+brush flatten at -34 0 r=1.6 s=20 frames=60 h=5.6
+brush flatten at -35 0 r=1.6 s=20 frames=60 h=6.2
+brush flatten at -36 0 r=1.6 s=20 frames=60 h=6.8
+brush flatten at -37 0 r=1.6 s=20 frames=60 h=7.4
+brush flatten at -38 0 r=1.6 s=20 frames=60 h=8.0
+brush flatten at -39 0 r=1.6 s=20 frames=60 h=8.6
+brush flatten at -40 0 r=1.6 s=20 frames=60 h=9.2
+brush flatten at -41 0 r=1.6 s=20 frames=60 h=9.5
+brush smooth from -41 0 to -33.5 0 r=2 s=6 frames=20
+brush flatten from 0 -66 to 0 -54 r=4 s=20 frames=80 h=1.2
+brush smooth from 0 -56 to 0 -48 r=4 s=6 frames=30
+brush flatten from 36 -12 to 74 -12 r=4 s=20 frames=200 h=-3
+origin
+clear at 0 0 r=24
+clear from 0 -66 to 0 -24 r=5
+clear at 0 -44 r=12
+clear at 28.5 0 r=8
+clear at 0 32 r=10
+clear at -28.5 0 r=8
+clear at -42 0 r=6
+clear from -40 0 to -33.5 0 r=2.5
+clear at 18 -44 r=6
+
+# --- The machine halls: sandstone walls 9 x 9 m with a 3 m gap in the middle of every side, brass pillars ----------
+macro hall x=0 z=0
+push at {$x-4.5} {$z-4.5} h=5
+for hw 0.75 2.25 1.5
+place Block_Wall_Tier3 hallwalls at $hw 0 y=0.2
+place Block_Wall_Tier3 hallwalls at $hw 9 y=0.2
+place Block_Wall_Tier3 hallwalls at 0 $hw y=0.2 yaw=90
+place Block_Wall_Tier3 hallwalls at 9 $hw y=0.2 yaw=90
+next
+for hw 6.75 8.25 1.5
+place Block_Wall_Tier3 hallwalls at $hw 0 y=0.2
+place Block_Wall_Tier3 hallwalls at $hw 9 y=0.2
+place Block_Wall_Tier3 hallwalls at 0 $hw y=0.2 yaw=90
+place Block_Wall_Tier3 hallwalls at 9 $hw y=0.2 yaw=90
+next
+for hp 0 9 3
+place Block_Pillar_Tier3 hallpillars at $hp 0 y=0.2 sy=1.2
+place Block_Pillar_Tier3 hallpillars at $hp 9 y=0.2 sy=1.2
+next
+for hp 3 6 3
+place Block_Pillar_Tier3 hallpillars at 0 $hp y=0.2 sy=1.2
+place Block_Pillar_Tier3 hallpillars at 9 $hp y=0.2 sy=1.2
+next
+pop
+end
+call hall x=28.5 z=0
+call hall x=0 z=28.5
+call hall x=-28.5 z=0
+prop hallwalls tint.color=#c9a77a
+prop hallpillars tint.color=#a8743c
+
+# --- Area A, the landing: Kett's last camp, the Syndicate's supply crate and radio, their dogs ----------------------
+place Zone_Trigger landing at 0 -44 h=5
+place Balboa_DecorationPrefabBase_SimpleTent - at -8 -50 ground sit yaw=15
+place "Box Small" campdesk at 3 -46 ground sit
+place Note_Paper camplog at 3 -46 h=6 sit drop yaw=10
+place Loot_Chest supplycrate at -4 -48 ground sit yaw=160
+place "Box Big" - at 6 -40 ground sit yaw=10
+place RT_CommRadio radio at 6 -40 h=7 sit drop yaw=190
+place Creature_Hyena ambushdogs at -10 -38 ground
+store engineshop at 18 -44 ground
+
+# --- Area B, the wheel hall (east): three tide wheels on their axles, the engine diagram, the sluice lever; the sluice
+# gate on the channel to the south-east, the flooded sluice gallery with its stingrays and its cache ------------------
+for wx 25.5 31.5 3
+place RT_Pillar - at $wx 2.5 h=5 sy=0.6
+next
+place UT_WaterChallengeWheel3 wheel1 at 25.5 2.75 h=6.6 rot=90,0,0 scale=0.4
+place UT_WaterChallengeWheel3 wheel2 at 28.5 2.75 h=6.6 rot=90,0,0 scale=0.4
+place UT_WaterChallengeWheel3 wheel3 at 31.5 2.75 h=6.6 rot=90,0,0 scale=0.4
+place Zone_Trigger wheelhall at 28.5 0 h=5
+place Note_Sign diagram at 27 -3.5 ground sit yaw=0
+place RT_Pillar - at 31.5 -2.5 h=5 sy=0.4
+place TP_LaserControlPanel_lever sluicelever at 31.5 -2.5 h=6.25 sit scale=3 yaw=180
+place UT_Drawbridge sluicegate at 37.5 -12 h=-3 sit yaw=90 sx=2.6
+place Zone_Trigger sluicezone at 46 -12 h=-1
+place Creature_Stingray rays at 50 -12 h=-2.4
+place Loot_Chest sluicecache at 54 -12 h=-3 sit yaw=270
+prop wheel1 tint.color=#a8743c
+prop wheel2 tint.color=#a8743c
+prop wheel3 tint.color=#a8743c
+
+# --- Area C, the crane hall (north): the Engine's arm (Utopia's cranes; the claw swaps the lowered arm for the raised
+# one), the Seventh Tide tablet, the crane cab on its legs north of the hall, the zipline across the well -------------
+place UT_ElectricityIsland_Crane02 armlow at 1 30 ground sit scale=0.5 yaw=180
+place UT_ElectricityIsland_Crane01 armhigh at 1 30 ground sit scale=0.4 yaw=180
+place RT_Pillar - at -3 26 h=5 sy=0.4
+place TP_LaserControlPanel_lever claw at -3 26 h=6.25 sit scale=3 yaw=180
+place Zone_Trigger cranehall at 0 28.5 h=5
+place Note_Sign tidetablet at 3 25 ground sit yaw=0
+for cx -1.5 1.5 3
+place RT_PillarThick cablegs at $cx 36.5 h=5
+place RT_PillarThick cablegs at $cx 39.5 h=5
+next
+place RT_Floor cabplate at 1.95 39.85 h=11 sit sx=0.66 sz=0.44
+place Loot_Chest cablocker at 0.3 38 h=11.15 sit yaw=180
+place LandmarkLadder_6m cabladder at 0 35.85 h=5 sit yaw=0
+place Zone_Trigger armtop at -0.8 37.6 h=11.2
+# (its near floor - 5.72 m west, 0.97 m north of where it is put, 1.35 m under its h - on the cab plate, clear of the locker)
+place ZiplinePath_Landmark zipacross at 7.12 35.83 h=12.3
+zipto zipacross 6 -18
+prop armlow tint.color=#a8743c
+prop armhigh tint.color=#a8743c
+prop cablegs tint.color=#7a6a50
+prop cabplate tint.color=#5d646b
+
+# --- The piston hall (west) on the way to the ring's top: two of Utopia's small cranes as the Engine's pistons -----
+place UT_ElectricityIsland_Crane02 - at -32 5 ground sit scale=0.4 yaw=90
+place Zone_Trigger ringtop at -42 0 h=9.5
+place Placeable_Lantern_Metal - at -42 2 h=9.5 sit
+
+# --- The south rim: Kett in the Syndicate's cage, her satchel, her warning ------------------------------------------
+place Zone_Trigger heartrim at 4 -18 h=5
+place Survivor_Cage kettcage at 8 -20 ground yaw=0
+place Loot_Chest kettsatchel at 2 -22 ground sit yaw=30
+place "Box Small" - at 11 -18 ground sit
+place Note_Paper kettwarning at 11 -18 h=6 sit drop yaw=20
+
+# --- Area D, the heart in the well: the core (Temperance's reactor controls), its glow, the beam (emitter, two turning
+# mirrors, the panel), the inscription, the Seventh lever, the treasury; the boss's beast -----------------------------
+place TP_SeleneReactorControls core at 0 0 h=2 sit
+place RT_Floodlight coreglow at 2.5 -2.5 h=2 sit yaw=-45
+place RT_Floodlight coreglow at -2.5 -2.5 h=2 sit yaw=45
+place RT_Floodlight coreglow at 2.5 2.5 h=2 sit yaw=-135
+place RT_Floodlight coreglow at -2.5 2.5 h=2 sit yaw=135
+place Placeable_Lantern_Metal coldlights at 1.5 -1.8 h=2 sit
+place Placeable_Lantern_Metal coldlights at -1.5 -1.8 h=2 sit
+place TP_LaserEmitter emitter at -6.8 -6 h=2 sit yaw=0
+place TP_MirrorHousing_Rotating mirror1 at -6 -2 h=2 sit yaw=0
+place TP_MirrorHousing_Rotating mirror2 at 6 -2 h=2 sit yaw=270
+place "Box Big" - at 6 6.8 h=2 sit
+place TP_LaserDoorPanel reactorpanel at 6 6 h=2 sit scale=2 yaw=180
+place Note_Sign heartinscription at -3 9 h=2 sit yaw=180
+place RT_Pillar - at -6 6 h=2 sy=0.4
+place TP_LaserControlPanel_lever seventhlever at -6 6 h=3.25 sit scale=3 yaw=180
+place Loot_ChestLarge treasury at 3.5 -8.5 h=2 sit yaw=-30
+place Zone_Trigger heartzone at 0 -6 h=2
+place Placeable_Lantern_Metal wellcam at 10 -12 h=5 sit
+place Creature_PolarBear beast at 0 4 h=2.2
+prop core tint.color=#a8743c
+prop core tint.amount=0.4
+
+# --- Things to gather, reefs ----------------------------------------------------------------------------------------
+scatter "Pickup_Landmark_PineappleLandmark" 2 at -24 -30 r=10 seed=9711 free=3
+call dirt x=30 z=30 r=10 n=3 seed=9712
+call shallows r=82 deep=5 n=3
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=The Tide Engine
+info author=Custom Islands
+info description=A ring of desert rock round a vast well: three machine halls of sandstone and brass - tide wheels, Utopia's cranes as the Engine's arms - and in the well the Engine's heart, its reactor core, its beam and the Seventh lever. The finale of Relic of the Seventh Tide.
+island on.arrive=message||A ring of rock round a well as wide as a lagoon, and in it something humming. The sea round the ring is drawn in, wave by wave.
+
+story radiocodes|Syndicate radio codes|Placeable_PaperBundle|A card of call signs and codes from the Syndicate's supply crate.
+story taunt|The boss's broadcast|Placeable_PaperBundle|The Syndicate's boss, on the radio: the Engine wakes at the seventh tide.
+story wheelturn|Tide wheel turned|Bolt|A tide wheel set turning. Three of them drive the sluice.
+story sluiceopen|Sluice opened|Bolt|The sluice gate is up; the gallery floods.
+story clawmoved|The Engine's arm raised|Bolt|The claw lever raised the Engine's arm off the well.
+story cagekey|Cage key|Placeable_Lantern_Metal|The key of the Syndicate's cage, from the crane cab's locker.
+story heartbeam|Beam on the reactor panel|Battery|The beam runs through two mirrors onto the reactor panel.
+story enginestopped|The Engine stopped|Bolt|The Seventh lever is down and the Engine is quiet.
+story relic|The Seventh Tide|Bolt|The relic: a brass ring of seven teeth, cold now. The Engine will never wake again.|raft=Placeable_TrophyBoard_Medium
+
+note camplog Kett's final camp log | KETT - FIELD LOG, LAST ENTRY\n\nThe Engine is real. A ring of rock round a well, and it pulls the sea in - one finger's width every seventh tide, for a thousand years.\n\nThe Syndicate got here before me. They want it running: higher seas, more wrecks to salvage. I am going into the heart. If you are reading this, come after me - and watch for the dogs.
+note supplycrate Syndicate supply crate | The Syndicate's supplies: batteries, rope - and a card of radio codes.
+loot supplycrate story:radiocodes*1;Battery*2;Rope*3;CopperIngot*2
+prop supplycrate loot.refill=0
+note diagram Engine diagram | THE ENGINE OF THE SEVENTH TIDE (carved, with brass inlay)\n\nThree wheels turn the sluice. The sluice floods the gallery. The arm lifts from the well. The beam wakes the heart. The Seventh lever sleeps it.\n\nScratched under it in pencil: "turn all three wheels first - I. K."
+note sluicecache Sluice cache | A cache in the flooded gallery: titanium, scrap and a sealed tin of the builders' copper.
+loot sluicecache TitaniumIngot*2;CopperIngot*3;Scrap*4
+prop sluicecache loot.refill=0
+note tidetablet The Seventh Tide tablet | THE SEVENTH TIDE\n\nWe built the Engine to hold the sea back from our coasts. Every seventh tide it drank.\n\nBut the sea it drank went somewhere. Our coasts stayed dry; every other coast drowned. When we understood, we sealed the gears in the tombs and put a giant to watch it. Never wake it.
+note cablocker Crane cab locker | The crane operator's locker: a heavy iron key on a ring stamped CAGE - and some tools.
+loot cablocker story:cagekey*1;Scrap*2;Bolt*3
+prop cablocker loot.refill=0
+note kettsatchel Kett's satchel | Kett's satchel: her compass, her notebook - and a bundle of trade tokens "for the one who followed".
+loot kettsatchel TradeToken*6;Rope*2;Feather*3
+prop kettsatchel loot.refill=0
+prop kettsatchel if.open=signal|kettfree
+prop kettsatchel else.open=message||Kett's satchel is in the cage with her. The cage key first.
+note kettwarning Kett's warning | Kett, out of the cage, her voice hoarse:\n\n"Turn it off. It was never meant to hold the sea back - it raised it. Every seventh tide, a finger's width, for a thousand years. The beam wakes the heart; the Seventh lever puts it to sleep. And mind the beast - the Syndicate's boss left it in the well."
+note heartinscription Heart inscription | HERE SLEEPS THE HEART OF THE ENGINE.\n\nWake it with light. Put it to sleep with the Seventh lever, and take its seventh tooth so that no one wakes it again.
+note treasury Engine treasury | The Engine's treasury: the builders' gold-work, titanium - and in the middle, on a cushion gone to dust, a brass ring with seven teeth. The Seventh Tide.
+loot treasury story:relic*1;TitaniumIngot*4;TradeToken*10;MetalIngot*4
+prop treasury loot.refill=0
+prop treasury if.open=signal|stopped
+prop treasury else.open=message||The treasury's lid is locked to the Engine. While the Engine runs, it stays shut.
+
+prop landing zone.id=landing
+prop landing zone.radius=8
+prop landing zone.repeat=never
+prop landing zone.message=Kett's camp - torn tents - and dogs coming out of the rocks. It's a Syndicate ambush!
+prop ambushdogs creature.count=6
+prop ambushdogs creature.respawn=0
+prop ambushdogs creature.zone=landing
+prop ambushdogs tint.color=#c8a46a
+prop ambushdogs tint.amount=0.5
+prop radio obj.name=radio
+prop radio beh.use=Use the Syndicate's radio
+prop radio if.use=has|story:radiocodes|1
+prop radio else.use=message||The radio hisses. Without the Syndicate's codes it is just noise.
+prop radio on.use=signal||radio\ngive||story:taunt*1\nmessage||A voice through the static: "So the professor's little helper made it. Too late. At the seventh tide the Engine wakes - and the sea rises for us."
+
+prop wheelhall zone.id=wheel_hall
+prop wheelhall zone.radius=5
+prop wheelhall zone.message=The wheel hall: three bronze tide wheels, still, and a lever by the wall.
+prop wheel1 obj.name=wheel1
+prop wheel1 beh.use=Turn the tide wheel
+prop wheel1 if.use=!signal|wheel1
+prop wheel1 on.use=signal||wheel1\ngive||story:wheelturn*1\nmessage||The wheel groans and starts to turn.
+prop wheel2 obj.name=wheel2
+prop wheel2 beh.use=Turn the tide wheel
+prop wheel2 if.use=!signal|wheel2
+prop wheel2 on.use=signal||wheel2\ngive||story:wheelturn*1\nmessage||The wheel groans and starts to turn.
+prop wheel3 obj.name=wheel3
+prop wheel3 beh.use=Turn the tide wheel
+prop wheel3 if.use=!signal|wheel3
+prop wheel3 on.use=signal||wheel3\ngive||story:wheelturn*1\nmessage||The wheel groans and starts to turn.
+prop wheel1 beh.spin=20
+prop wheel1 beh.spinOwn=1
+prop wheel2 beh.spin=-20
+prop wheel2 beh.spinOwn=1
+prop wheel3 beh.spin=20
+prop wheel3 beh.spinOwn=1
+prop sluicelever obj.name=sluicelever
+prop sluicelever beh.use=Pull the sluice lever
+prop sluicelever if.use=signal|wheel1\nsignal|wheel2\nsignal|wheel3
+prop sluicelever else.use=message||The lever will not move. The diagram: three wheels turn the sluice.
+prop sluicelever on.use=hide|sluicegate\ngive||story:sluiceopen*1\nsound||event:/exploring/obstacles/keypad/keypad_correct\nmessage||Down in the channel the sluice gate grinds up, and the sea pours into the gallery.
+prop sluicegate obj.name=sluicegate
+prop sluicezone zone.id=sluice_gallery
+prop sluicezone zone.radius=8
+prop sluicezone zone.repeat=never
+prop sluicezone zone.message=The flooded sluice gallery - and flat shapes gliding over the bottom. Stingrays!
+prop rays creature.count=4
+prop rays creature.respawn=0
+prop rays creature.zone=sluice_gallery
+
+prop cranehall zone.id=crane_hall
+prop cranehall zone.radius=5
+prop cranehall zone.message=The crane hall. The Engine's arm hangs low over the well, its claw on a lever.
+prop claw obj.name=claw
+prop claw beh.use=Work the claw
+prop claw if.use=!signal|claw
+prop claw on.use=signal||claw\nhide|armlow\nshow|armhigh\ngive||story:clawmoved*1\nmessage||Chains rattle and the Engine's arm rises off the well.
+prop armlow obj.name=armlow
+prop armhigh obj.name=armhigh
+prop armhigh beh.hidden=1
+prop cabladder obj.name=cabladder
+prop cabladder beh.use=Climb to the crane cab
+prop cabladder on.use=teleport|armtop
+prop armtop obj.name=armtop
+prop armtop zone.id=arm_top
+prop armtop zone.radius=2.5
+prop armtop zone.message=The crane cab, high over the well. A zipline runs from here across to the south rim.
+prop heartrim zone.id=heart_rim
+prop heartrim zone.radius=5
+prop heartrim zone.message=The south rim of the well - and a cage. Inside it, a woman in a battered coat: Professor Kett!
+prop kettcage obj.name=kettcage
+prop kettcage survivor.name=Isadora Kett
+prop kettcage survivor.id=seventhtide_kett
+prop kettcage survivor.key=cagekey
+prop kettcage survivor.signal=kettfree
+prop kettcage survivor.line=At last! The gears, the giant - you followed me all the way. Listen: the Engine must be turned off. I'll wait on your raft.
+
+prop heartzone zone.id=heart
+prop heartzone zone.radius=9
+prop heartzone zone.repeat=never
+prop heartzone zone.message=The heart of the Engine - and something big and rust-red rises by the core. The boss's beast!
+prop beast creature.count=1
+prop beast creature.respawn=0
+prop beast creature.zone=heart
+prop beast creature.health=12
+prop beast creature.damage=1.5
+prop beast boss.phase=0.5
+prop beast boss.summon=4
+prop beast boss.summonKind=Creature_Hyena
+prop beast boss.speed=1.3
+prop beast tint.color=#a0522d
+prop beast tint.amount=0.6
+prop beast on.defeat=signal||beast\nmessage||The beast falls by the core. Now the beam - the emitter, two mirrors and the reactor panel.
+
+prop mirror1 obj.name=mirror1
+prop mirror1 col.mode=box
+prop mirror1 on.use=switch|\nmessage||The mirror grinds round a quarter turn.
+prop mirror2 obj.name=mirror2
+prop mirror2 col.mode=box
+prop mirror2 on.use=switch|\nmessage||The mirror grinds round a quarter turn.
+prop reactorpanel obj.name=reactorpanel
+prop reactorpanel if.laser=!signal|laser
+prop reactorpanel on.laser=signal||laser\ngive||story:heartbeam*1\nmessage||The reactor panel drinks the beam. The heart hums awake - and the Seventh lever's light turns green.
+prop seventhlever obj.name=seventhlever
+prop seventhlever beh.use=Pull the Seventh lever
+prop seventhlever if.use=signal|laser\n!signal|stopped
+prop seventhlever else.use=message||The Seventh lever is locked. The heart must be woken with light first.
+prop seventhlever on.use=signal||stopped\nhide|coreglow\nshow|coldlights\ngive||story:enginestopped*1\ncamera|wellcam|core|6|40\nmessage||The Seventh lever comes down. The core's glow dies, the wheels stop - and all round the ring, the sea runs back out of the well.
+prop coreglow obj.name=coreglow
+prop coldlights obj.name=coldlights
+prop coldlights beh.hidden=1
+prop core obj.name=core
+prop wellcam obj.name=wellcam
+prop emitter obj.name=emitter
+prop ringtop zone.id=ring_top
+prop ringtop zone.radius=4
+prop ringtop zone.message=From the ring's top: the well is still, the sea outside calm. The Seventh Tide is over.
+
+quest title=The Seventh Tide
+quest intro=The Engine at last. Kett's camp is on the landing in the south. Go ashore.
+step reach|landing|1|Go ashore at the landing
+step read|Kett's final camp log|1|Read Kett's final camp log
+step kill|Hyena|6|Fight off the Syndicate's ambush
+step open|Syndicate supply crate|1|Open the Syndicate's supply crate
+step collect|story:radiocodes|1|Take the Syndicate's radio codes
+step collect|story:taunt|1|Listen in on the Syndicate's radio
+step reach|wheel_hall|1|Go to the wheel hall in the east
+step read|Engine diagram|1|Read the Engine diagram
+step collect|story:wheelturn|3|Turn the three tide wheels
+step collect|story:sluiceopen|1|Pull the sluice lever
+step reach|sluice_gallery|1|Go down to the flooded sluice gallery
+step kill|Stingray|4|Deal with the stingrays in the gallery
+step open|Sluice cache|1|Open the sluice cache
+step reach|crane_hall|1|Go to the crane hall in the north
+step collect|story:clawmoved|1|Work the claw to raise the Engine's arm
+step read|The Seventh Tide tablet|1|Read the Seventh Tide tablet
+step reach|arm_top|1|Climb to the crane cab
+step reach|heart_rim|1|Take the zipline across the well to the south rim
+step open|Kett's satchel|1|Free Professor Kett (the cab's key opens her cage) and open her satchel
+step read|Kett's warning|1|Hear Kett's warning
+step reach|heart|1|Go down into the heart of the Engine
+step kill|Polar bear|1|Defeat the Syndicate boss's beast
+step collect|story:heartbeam|1|Bring the beam through the two mirrors to the reactor panel
+step read|Heart inscription|1|Read the heart inscription
+step collect|story:enginestopped|1|Pull the Seventh lever
+step open|Engine treasury|1|Open the Engine's treasury
+step collect|story:relic|1|Take the Seventh Tide
+step reach|ring_top|1|Climb to the ring's top in the west
+quest done=The Seventh Tide stops. Somewhere, the sea is a finger's width lower.
+quest reward=TitaniumIngot*3;TradeToken*12;Rope*6
+
+# Buried treasure (one of the story line's last islands): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=35 n=1 seed=8809
+prop treasure8809 treasure.loot=TitaniumOre*3
+
+save The Tide Engine

@@ -1,0 +1,15 @@
+# Guide pictures of The Drowned Labyrinth (CIPlay drowned_labyrinth_pics): Raft's camera, midday, calm. The surface
+# pictures first, the player on the camp's islet (a player under water makes Raft draw every picture as seen under water);
+# then the guideline tied off, so its lamps burn in the tunnels
+island The Drowned Labyrinth
+offset 0 0
+hour 12
+weather Calm
+at -8.5 13
+wait 3
+picture drowned_labyrinth_reef -32 16 42 2 0 2
+picture drowned_labyrinth_camp -18 9 4 -7 4 17
+use linepost
+wait 2
+picture drowned_labyrinth_mouth 16.2 -15.2 11.5 17 -18 1
+picture drowned_labyrinth_hall -4 -15.5 -10.5 -28 -17.5 -11

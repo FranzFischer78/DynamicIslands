@@ -1,0 +1,83 @@
+# The Coldhold Vault (CIPlay coldhold_vault): the entrance, the charter, the power, the zipline to the far side, Oda's
+# cage and pack, her notes, the screechers; the seed wing's canisters, the record wing's papers, the embryo wing's crank
+# and the keeper's code; the control room, one switch (CARRY), the verdict, the gift, Hedda's call, the flood door.
+island The Coldhold Vault
+# RESIZE 10-24: the recipe moved this island's old content by 0 -22; the points below are in the old frame
+offset 0 22
+expect step 0
+expect title Beneath the Glacier
+expect hidden carrychest
+expect hidden heddacall
+zone entrance
+expect step 1
+read Coldhold charter
+expect step 2
+use powerlever
+expect story power 1
+expect step 3
+open Keeper's hooks
+wait 3
+zone far_side
+expect step 4
+use odacage
+expect survivor frozen_oda
+open Oda's pack
+wait 3
+expect step 5
+read Oda's notes
+expect step 6
+kill Screecher
+expect step 7
+zone seed_wing
+expect step 8
+openat -9.2 9.6
+openat -13.2 8.8
+openat -12.8 2.4
+wait 2
+expect story canister 3
+expect step 9
+zone record_wing
+expect step 10
+read Founders' record
+open Council box
+expect story councilcode 0
+code councilpad 1909
+expect story councilcode 1
+open Council box
+wait 3
+expect step 11
+read Why the comms went off
+expect step 12
+zone embryo_wing
+expect step 13
+use coolcrank
+expect story cooling 1
+expect step 14
+read Keeper's last entry
+expect step 15
+code controlpad 1111 wrong
+code controlpad 2240
+expect hidden controldoor
+expect step 16
+zone control
+expect step 17
+read Three switches
+expect step 18
+use carrylever
+expect story choice 1
+expect shown carrychest
+expect shown heddacall
+expect hidden keepchest
+expect step 19
+read The verdict
+expect step 20
+open The vault's gift
+wait 3
+expect step 21
+read Hedda's radio call
+# (no "expect step 22": in the plan the flood-door zone step can be done already)
+zone flood_door
+expect step 23
+use floodlever
+expect hidden flooddoor
+expect done

@@ -1,0 +1,32 @@
+# Overpass Shoal (CIPlay overpass_shoal): the ramp top, the toll booth log, the sunken lane's air pocket, the van's
+# glovebox (the booth key), the booth's strongbox (refused without the key is not tested here: the key comes first),
+# the bus locker.
+island Overpass Shoal
+offset 0 0
+expect step 0
+expect title The Drowned Highway
+zone ramp_top
+expect step 1
+read Toll booth log
+expect step 2
+zone sunken_lane
+air sunken_lane
+expect step 3
+open Van glovebox
+wait 3
+expect story boothkey 1
+expect step 4
+open Toll booth strongbox
+wait 3
+expect step 5
+zone op_ridge
+expect step 6
+zone op_cave
+expect step 7
+read Toll keeper's tally
+expect step 8
+read Caravan diary
+expect step 9
+open Bus locker
+wait 3
+expect done

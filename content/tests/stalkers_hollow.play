@@ -1,0 +1,55 @@
+# The Stalker's Hollow (CIPlay stalkers_hollow): the chain's air deck, the lip and its air, the warden's entry, the north
+# alcove, the Stalker brought down at one blow (a play's kill skips its phase; on.defeat gives both story items), the east alcove, the valve - played
+# without the Spire's RESTORE, so the SEAL answer (the plug, the SEAL note; the bars stay) - the Ringwave plate, the west
+# alcove, the last word, the chain back up.
+island The Stalker's Hollow
+offset 0 0
+expect step 0
+expect title The Deep
+expect hidden teal
+expect hidden plug
+expect hidden lastseal
+air chain_air
+zone lip
+air lip_air
+expect step 1
+read Warden's last entry
+expect step 2
+zone alcove_1
+air alcove_1
+expect step 3
+zone arena
+kill Angler fish
+wait 3
+expect story stalkerhurt 1
+expect step 4
+zone alcove_2
+air alcove_2
+expect story stalker 1
+zone valve
+expect step 7
+use valve
+expect story valve 1
+expect shown plug
+expect shown lastseal
+expect hidden lastrestore
+expect hidden teal
+expect shown gatebars
+expect step 8
+read What the Ringwave means (part 1)
+expect step 9
+zone alcove_4
+air alcove_4
+expect step 10
+read The last word
+expect step 11
+zone sh_ridge
+expect step 12
+zone sh_cave
+expect step 13
+read Watchers' post log
+expect step 14
+read Boat's last log
+expect step 15
+zone surface_line
+expect done

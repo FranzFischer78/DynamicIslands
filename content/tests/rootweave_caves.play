@@ -1,0 +1,42 @@
+# Rootweave Caves (CIPlay rootweave_caves): the Fungus Hall (mouth 0 -45), the turbine's mast box on the hilltop, the
+# Bee Hall (mouth 42 4), the Flooded Passage (mouth -48 -8, under the sea), the Den (mouth -4 44) and its mama bear.
+island Rootweave Caves
+offset 0 0
+expect step 0
+expect title The Living Labyrinth
+zone fungus_hall
+expect step 1
+read Cave survey
+expect step 2
+open Turbine mast box
+wait 3
+expect step 3
+zone bee_hall
+expect step 4
+expect hidden beecache
+use beevines
+expect shown beecache
+open Bee hall cache
+wait 3
+expect step 5
+zone flooded_passage
+expect step 6
+open Drowned crate
+wait 3
+expect step 7
+kill Mama bear
+expect animals Mama bear 0
+expect step 8
+open Den cache
+wait 3
+expect step 9
+expect hidden labchest
+use fusebox
+expect story fuse 0
+expect shown labchest
+expect step 10
+open Lab chest
+wait 3
+expect step 11
+read Poison sample report
+expect done

@@ -1,0 +1,42 @@
+# Play test of Stilt Hollow (CIPlay stilt_hollow, in a test world 'CI ...'). Points as in its recipe.
+island Stilt Hollow
+expect step 0
+expect title Water for Stilt Hollow
+
+# Up the ladder from the reef onto the landing stack: hyenas burst out of the dock trailer
+climb 7.5 -16.9 h=0.3
+zone town
+expect step 0
+expect message Hyenas burst out
+kill Hyena
+expect animals Hyena 0
+expect step 1
+
+# Up the walkway to the pump stack: the notice, the dead pump, the gate shut
+walk 9.5 -12.5 to 15.5 -0.8 h=7.1
+read Water warden's notice
+expect step 2
+use pump
+expect message valve wheel is missing
+walk 15 1.2 to 9 1.8 blocked
+
+# Down the red pipe to the divers' box at the air pocket
+openat 26.5 3.6
+expect story valve 1
+expect step 3
+
+# The pump runs, the gate opens: up the ramp to the mayor's rock
+use pump
+expect message pump coughs
+expect story valve 0
+expect shown pumpsound
+wait 3
+walk 15 1.2 to 1 2.4 h=9.8
+zone mayor
+expect step 4
+expect message white screecher
+kill Screecher
+expect step 5
+open Mayor's chest
+expect item Hat_Mayor 1
+expect done

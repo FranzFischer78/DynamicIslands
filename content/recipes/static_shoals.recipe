@@ -1,0 +1,191 @@
+# Static Shoals - the fourth island of The End of the Ocean (SL14, the Concord Engine's relay field)
+# Two low sand bars under a grey sky that never lifts, four tall radio masts strung with cable, and static on every band:
+# the masts still shout the engine's old traffic into the air. The Fleet's last radio barge is beached on the main bar;
+# Teo left his note in it - the Fleet's way south ends here. Screechers nest on the masts. A zipline runs from mast 1
+# over the channel to mast 4's hut on the east bar. Quest "Static" (11 steps): Teo's note, the engine control plans in
+# the barge, the screechers, the zipline to mast 4, the metal detector plans in its hut, the flare locker, the workshop.
+#
+# Built by the recipe player (CIRecipe static_shoals) through the editor's own operations. Points (metres over the sea):
+# the main bar at 1.5 m round -10 -4 (r 12), the radio barge at -4 0, mast 1 at -14 2 (the zipline's start), mast 2 at
+# -4 -14, mast 3 at -20 -10 (the workshop hut x -18..-15, z -16..-13), mast 4 on the east bar round 18 12 (its hut on
+# posts, deck at 4.1 m, x 16..20.5, z 10..14.5).
+include lib_sea
+include lib_features
+include lib_huts
+include lib_gravity
+include lib_concord
+include lib_areas
+new
+# (nature 10-24: hills and Raft-like trees over the whole island - the coordinator's check after the resize)
+gen Trees=0.38 Bushes=0.35 Rocks=0.5 Harvest=0.15 BeachThings=0.5
+gen Seed=14081 Radius=85 Height=10 Roughness=0.3 Peaks=3 Shape=1 Style=0 PeakShape=0.3 Cliffs=0.2 BeachWidth=0.9
+gen Water=0.6 SeaRocks=0.5 SeaFinds=0.4 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+
+# --- Terrain: the main bar, the channel, the east bar ------------------------------------------------------------------
+brush flatten at -10 -4 r=12 s=20 frames=200 h=1.5
+brush flatten at 18 12 r=6 s=20 frames=200 h=1.5
+brush flatten from 4 2 to 10 6 r=4 s=20 frames=150 h=-2
+brush sand at -10 -4 r=14 s=10 frames=40
+origin
+clear at -10 -4 r=12
+clear at 18 12 r=6
+
+# --- The four masts: two thick pillars high, a dish, a red light, a cable hub at the foot ------------------------------
+macro mast x=0 z=0 yaw=0
+place RT_PillarThick masts at $x $z ground sy=1.25
+place RT_PillarThick masts at $x $z ground y=6
+place Antenna_pole - at $x $z ground y=12 sy=0.6
+place RT_SatteliteDisc - at $x $z ground y=10 yaw=$yaw scale=0.45
+place TP_RotatingRedLight - at $x $z ground y=12.6
+place UT_ElectricCableHub01 - at {$x+1} $z ground sit scale=0.6
+end
+call mast x=-14 z=2 yaw=200
+call mast x=-4 z=-14 yaw=160
+call mast x=-20 z=-10 yaw=240
+call mast x=21 z=15 yaw=180
+prop masts tint.color=#545a60
+prop masts tint.amount=0.6
+scatter SeaVine3 6 at 6 4 r=6 seed=14082 wet free=1
+
+# --- The grey sky and the static ----------------------------------------------------------------------------------------
+call weather x=0 z=0 al=greysky r=60 fog=#262b31 fa=0.55 light=#7c8894 la=0.5 parts=mist h=4
+call loopsound x=-8 z=-4 al=staticsound ev=event:/exploring/temperence/generator r=30 vol=0.3 h=3
+call loopsound x=0 z=0 al=rainsound ev=event:/amb/rain_ocean r=50 vol=0.4 h=2
+
+# --- The radio barge on the main bar: Teo's note, the Fleet's chest ------------------------------------------------------
+place RT_Floor barge at -2 2 ground sit sx=0.6 sz=0.5 yaw=20
+place RT_PlasticBoat - at -7 5 ground yaw=20
+place Placeable_Table_Basic - at -4.5 0.5 ground y=0.3 sit yaw=20
+place RT_PowerBox - at -4.5 0.5 ground y=1.3 scale=0.6 yaw=200
+place Note_Paper teonote at -3.6 0.2 ground y=1.3 drop yaw=15
+place Loot_Chest fleetchest at -6 -1.5 ground y=0.3 sit yaw=200
+prop barge tint.color=#4a4038
+prop barge tint.amount=0.6
+call tzone x=-4 z=0 al=bargezone id=barge r=5 msg="The Fleet's radio barge, beached. Its set is dead; the masts are not."
+
+# --- Screechers on the masts; mast 1's zipline over the channel to mast 4 ----------------------------------------------
+place Creature_StoneBird screechers at -8 -4 ground y=6
+prop screechers creature.count=4
+prop screechers creature.respawn=0
+push at -13.35 2.15 h=1.5
+call zipdeck y=5
+pop
+place ZiplinePath_Landmark zip14 at -6.88 1.93 h=7.97
+zipto zip14 15 11
+
+# --- Mast 4's hut on posts on the east bar: the metal detector plans -----------------------------------------------------
+push at 16 10 h=1.5
+call stilt_hut y=2.6
+place Loot_Chest mast4chest at 3.6 3.6 y=2.7 sit yaw=225
+pop
+call tzone x=18.25 z=12.25 al=mast4zone id=mast_4 r=4 h=2.6 msg="Mast 4's hut, on posts over the east bar. The static is loudest here."
+
+# --- The flare locker under mast 2, the mast workshop under mast 3 --------------------------------------------------------
+place Loot_ChestLarge flarelocker at -2 -12 ground sit yaw=160
+place Placeable_Flag_05 - at -2.6 -12.8 ground sit
+push at -18 -16 h=1.5
+call hut w=2 d=2 y=0.1
+place Loot_Chest workshop at 2.2 2.4 y=0.1 sit yaw=180
+place "Box Big" - at 0.8 0.8 y=0.1 sit yaw=10
+pop
+
+# --- Things to gather: copper and scrap on the bars, the wreck finds; the shallows ----------------------------------------
+scatter "Pickup_Landmark_Copper 1" 3 at -10 -4 r=10 seed=14083 free=2
+scatter "Pickup_Landmark_Scrap 1_Land" 4 at -10 -4 r=11 seed=14084 free=2
+scatter "Pickup_Landmark_Iron 1" 1 at 18 12 r=4 seed=14085 free=2
+call reef x=-30 z=20 r=5 seed=14086
+call shallows x=0 z=0 r=104.32 deep=5 n=1 seed=14090
+
+# --- Discoveries: things to find off the quest path (not needed for the quest) ---------------------------------
+call tzone x=0.7 z=68.1 al=shoalsview id=shoalsview r=4 msg="The highest bar of the shoals. The static is loud even without a Receiver - a fizz in the air, like rain that never falls."
+place Loot_Chest barchest at 15.2 -64.4 ground sit yaw=346
+prop barchest loot.refill=0
+call notebox x=-64 z=-19 yaw=264 al=radiomanpage
+brush flatten at 71.2 0.3 r=6 s=20 frames=120 h=4.6
+clear at 71.2 0.3 r=6
+place BoatStranded - at 71.2 0.3 ground y=0.1 sit yaw=179 scale=0.7
+
+# --- Areas (10-24: every story island has places all over it and its quest crosses it): the north-west ridge on the outer
+# ring with its lookout and a buried treasure, the cave in the east bar, the Fleet's ruined net house on the south bar, the
+# spotter plane on the north bar - the outer ring of bars round the masts
+call ar_ridge x1=-56 z1=24 x2=-32 z2=60 h=10 top=6 r=8
+call ar_plants_tropical x=-44 z=42 r=26 seed=14251
+call tzone x=-44 z=42 al=nwridge id=nwridge r=7 msg="The top of the outer ring. Inside it, the four masts and the static; outside it, the sea goes on south - quiet, as if listening."
+call treasure x=-44 z=42 r=12 n=1 seed=14261
+call ar_cave x=60 z=20 h=6 yaw=180 al=shoalcave chest=shoalcavechest
+call tzone x=60 z=15 al=shoalcavezone id=shoalcave r=4 msg="A cave in the east bar. Somebody wired a speaker in here and left it humming - the same static, softer."
+call ar_ruin x=-12 z=-58 h=6 yaw=0 al=nethouse
+call notebox x=-9.5 z=-62.5 yaw=20 al=netbook
+call ar_plane x=32 z=52 h=6 yaw=100 al=spotterplane crate=spottercrate
+call notebox x=26.5 z=48.5 yaw=70 al=spotterlog
+# vine cache placed by hand (scatter found no spot in run25): the chest behind Raft's choppable vines, machete
+place Loot_Chest vinechest14291 at -60 -32 ground sit yaw=0
+prop vinechest14291 obj.name=vinechest14291
+prop vinechest14291 note.title=Behind the vines
+prop vinechest14291 beh.hidden=1
+loot vinechest14291 Rope*3;Nail*8;Battery*1
+beside ChoppableVines vinewall14291 vinechest14291 d=1.6
+prop vinewall14291 on.use=hide|
+show|vinechest14291
+message||The machete bites through the vines. Something was hidden behind them.
+call ar_plants_tropical x=-60 z=-32 r=14 seed=14271
+call ar_plants_tropical x=52 z=-36 r=14 seed=14281
+
+# --- Tools in use (10-24: a tool given earlier in the storyline is used again here, for optional finds): the
+# machete from Triangulation Rocks cuts the vines over a hidden chest
+
+# --- Unique layer (10-24): static_shoals device - see SL14_progress.md UNIQUE ISLANDS
+call powerradio x=-16.5 z=-62 yaw=90 alias=netgen ralias=netradio rx=-12.75 rz=-58 rh=8 ryaw=180 cache=netdrop cx=39.9 cz=50.6 cr=6 cseed=14471 items=Battery*2;CopperIngot*2;TitaniumOre*2 kx=55 kz=27 kr=6 seed=14472 toolbox=nettoolbox
+prop netradio on.use=message||Static... then a voice, close and tired: 'This is Teo. If you hear this, the drop by the spotter plane is yours. Then follow the Engine's pull - it's south.'\nsignal||radio\ngive||story:teovoice*1\nshow|netdrop
+prop spottercrate note.title=Spotter plane's crate
+story teovoice|Teo's voice|Placeable_Reciever|Teo's voice on the net house radio: the drop by the spotter plane, and the Engine's pull to the south.
+prop spottercrate if.open=has|story:raft-Vasagatan_BoltCutter|1
+prop spottercrate else.open=message||The spotter crate is chained to the wing. Bolt cutters would get through the chain.
+loot spottercrate TitaniumOre*2;Battery*1;Rope*3
+prop spottercrate loot.refill=0
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Static Shoals
+info author=Custom Islands
+info description=Two sand bars under a sky that never clears, four radio masts strung with cable shouting static on every band, and the Fleet's last radio barge beached on the main bar.
+island on.arrive=message||Static on every band at once. Four masts stand over two grey sand bars, their red lights turning.
+
+note teonote Teo's note | TEO - on the back of a Fleet logbook page\n\nThe Fleet's way south ends here. The rest is yours and mine.\n\nThe others turned back at the static. I don't blame them; it gets into your teeth. The engine plans are in the chest - the Fleet's mechanics drew them from what they found in the masts. Ines has gone ahead. Hedda waits for the wall.\n\nMast 4 has a hut. Ride the cable.
+note fleetchest Fleet chest | The Fleet's chest: the engine control plans the mechanics drew, and a zipline handle for the cable to mast 4.
+note mast4chest Mast 4 hut | A chest in mast 4's hut: a metal detector's plans, the static crackling in its coil.
+note flarelocker Flare locker | The masts' flare locker: a firework's plans and a box of dry rockets.
+note workshop Mast workshop | The workshop under mast 3: a zipline base's plans, for the cable crews.
+loot fleetchest Blueprint_EngineControls*1;ZiplineTool*1;Scrap*4
+prop fleetchest loot.refill=0
+loot mast4chest Blueprint_MetalDetector*1;Battery*1;CopperOre*2
+prop mast4chest loot.refill=0
+loot flarelocker Blueprint_Firework*1;Plastic*4;Rope*2
+prop flarelocker loot.refill=0
+loot workshop Blueprint_ZiplineBase*1;MetalIngot*2;Bolt*2
+prop workshop loot.refill=0
+
+note barchest Washed-up crate | A crate washed up on the bar, sealed in tar: it kept dry.
+loot barchest Scrap*6;Plastic*4;Battery*1;Rope*2
+note radiomanpage Radioman's last page | The last page of a radioman's pad\n\nSTATIC ON ALL BANDS. NOT WEATHER.\nIt comes from the masts. Someone built them to drown the pulse - so nobody would follow it.\nI am going to follow it.
+note shoalcavechest Speaker cave chest | A chest under the humming speaker: wire, a coil, and a battery still half charged.
+loot shoalcavechest Battery*1;CircuitBoard*1;Copper*2;Bolt*2
+prop shoalcavechest loot.refill=0
+note netbook Net house book | THE FLEET'S NET HOUSE - catch book, last page\n\nNo fish since the static started. Not one.\nThe nets come up clean and the needle on the barge's set points south.\nThe Fleet sails tomorrow to see what scares the fish. Teo stays to keep the masts lit.\n\nThe radio on our table still works if anyone gets the generator going. The part is in the mechanic's box by the humming cave.
+note spotterlog Spotter plane log | SPOTTER PLANE LOG\n\nFlew the Fleet's course south ahead of the boats.\nThe static on the Receiver turned to a voice for a moment - numbers, read out slowly, in no language I know.\nLost the horizon in the grey. Put down on the north bar. The Fleet never saw my flare.
+quest title=Static
+quest intro=A beached radio barge on a grey bar, static from every mast. Look in the barge.
+step read|Teo's note|1|Read Teo's note in the radio barge
+step blueprint|Blueprint_EngineControls|1|Take the engine control plans from the Fleet chest
+step kill|Screecher|4|Drive the screechers off the masts
+step reach|mast_4|1|Ride the cable from mast 1 to mast 4's hut
+step blueprint|Blueprint_MetalDetector|1|Take the metal detector plans in mast 4's hut
+step blueprint|Blueprint_Firework|1|Take the firework plans from the flare locker under mast 2
+step read|Net house book|1|Read the catch book at the ruined net house on the south bar
+step open|Mechanic's toolbox|1|Find the mechanic's toolbox by the humming cave in the east bar
+step collect|story:teovoice|1|Start the net house generator and listen to its radio
+step open|Supply drop|1|Open the supply drop the voice gave away, by the spotter plane
+step blueprint|Blueprint_ZiplineBase|1|Take the zipline base plans in the workshop under mast 3
+quest done=The masts are yours, and so is the static. Beyond it, on the Receiver: a wall, and a gate in it.
+quest reward=Rope*6;Scrap*6;CopperOre*2
+
+save Static Shoals

@@ -1,0 +1,486 @@
+# The Island of Stations - a themed island, five times the size (x5). Inspiration: the mystery-island TV series of a
+# plane crash and research stations (a crashed plane, the survivors' camp, the stations of a vanished research
+# initiative, a caged bear that got out, the other islanders' village, a hatch with a terminal and a countdown) - the
+# mood only; no names, numbers or phrases from the series.
+# A big, low, misty forest marsh full of pools (Shape 5, Style 3): the plane came down at the marsh's edge behind the
+# south beach (-22 -60), the survivors' camp on the beach (12 -80); the stations of the Halden Initiative: Gull (comms)
+# on a rise by the east shore (75 9), Kelp (the marine lab) sunk 10 m down in the bay south-east of it (100 -15.5),
+# Pike (zoology) in the marsh south of the middle (36 -40), Moth (the residents' village) round a green in the west
+# (-58 9), Lantern (the observatory) on the north hill (-8 60); the hatch under a concrete slab on the wooded rise at the
+# marsh's heart (0 3). The plane is Raft's light plane, scaled up and nose-down in the reeds.
+# Quest "The Sequence" (22 steps, 3 chapters): the crash - camp, journal, the passenger's trunk (4), the stations and
+# their five cards - Pike's sign and its bear, a village fridge, the boars under the north hill (13), the hatch and the
+# vault (5, timed).
+include lib_rt
+include lib_selene
+include lib_relay
+include lib_sea
+include lib_features
+new
+gen Trees=0.3 Bushes=0.38 Rocks=0.42 Harvest=0.1 BeachThings=0.18
+gen Seed=9023 Radius=100 Height=14 Roughness=0.4 Peaks=1 Shape=5 Style=3 BeachWidth=0.5 Cliffs=0.1 PeakShape=0.35
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== The land: the north hill, the hatch's clearing, the bay, the pads, the marsh's pools ===========================
+# (the north hill for the observatory: raised in steps from the marsh, its top levelled at 14 m)
+brush flatten at -8 60 r=30 s=20 frames=60 h=6
+brush flatten at -8 60 r=26 s=20 frames=60 h=7.5
+brush flatten at -8 60 r=22 s=20 frames=60 h=9
+brush flatten at -8 60 r=18 s=20 frames=60 h=10.5
+brush flatten at -8 60 r=14 s=20 frames=60 h=12
+brush flatten at -8 60 r=11 s=20 frames=60 h=13
+brush flatten at -8 60 r=8.5 s=20 frames=60 h=14
+brush smooth at -8 60 r=30 s=10 frames=15
+# (the top levelled again for the observatory and its doorstep: a gentle lip all round)
+brush flatten at -8 60 r=7.5 s=20 frames=40 h=14
+# (a ramp up to its door from the south)
+brush flatten at -9.5 52 r=2.5 s=20 frames=30 h=12.9
+brush flatten at -9.5 53.5 r=2.5 s=20 frames=30 h=13.45
+brush flatten at -9.5 55 r=2.5 s=20 frames=30 h=13.95
+# (the hatch's clearing on the wooded rise in the middle, 9 m up; the pit for its rooms, their floor 6 m under it)
+brush flatten at 0 3 r=20 s=20 frames=60 h=9
+macro pitrow z
+for px -9 9 3
+brush flatten at $px $z r=4 s=20 frames=30 h=2.9
+next
+end
+call pitrow -3
+call pitrow 0
+call pitrow 3
+call pitrow 6
+call pitrow 9
+# (the bay south-east of Station Gull: sloping down to a floor 10 m deep, open to the sea in the east)
+brush flatten at 100 -15.5 r=22 s=20 frames=60 h=-5
+brush flatten at 100 -15.5 r=14 s=20 frames=60 h=-10.2
+brush flatten from 100 -15.5 to 135 -15.5 r=10 s=20 frames=60 h=-10.2
+brush smooth at 100 -15.5 r=24 s=10 frames=20
+brush flatten at 100 -15.5 r=13 s=20 frames=40 h=-10.2
+# (the pads: Gull's rise, Pike's yard, the village green, the camp on the beach)
+brush flatten at 74 8 r=13 s=20 frames=60 h=5
+brush smooth at 74 8 r=19 s=10 frames=15
+brush flatten at 75 8.7 r=9.5 s=20 frames=40 h=5
+brush flatten at 36 -38 r=15 s=20 frames=60 h=3.4
+brush flatten at -58 11 r=27 s=20 frames=60 h=3.3
+brush flatten at 12 -79 r=14 s=20 frames=60 h=2.4
+brush flatten at -58 34.5 r=11 s=20 frames=60 h=4.2
+# (the marsh's pools: hollows a little under the sea's level among the trees)
+brush flatten at -12 -48 r=4 s=20 frames=40 h=-0.8
+brush flatten at -38 -46 r=6 s=20 frames=40 h=-0.8
+brush flatten at -48 -25 r=5 s=20 frames=40 h=-0.8
+brush flatten at 15 -58 r=5 s=20 frames=40 h=-0.8
+brush flatten at 52 -64 r=5 s=20 frames=40 h=-0.8
+brush flatten at -80 -40 r=6 s=20 frames=40 h=-0.8
+brush flatten at -30 40 r=6 s=20 frames=40 h=-0.8
+brush flatten at 22 40 r=5 s=20 frames=40 h=-0.8
+brush flatten at 55 36 r=6 s=20 frames=40 h=-0.8
+brush flatten at -78 42 r=5 s=20 frames=40 h=-0.8
+brush flatten at 30 62 r=6 s=20 frames=40 h=-0.8
+brush flatten at 55 -8 r=4 s=20 frames=40 h=-0.8
+# (the marsh's grass inland, the sand left on the beaches round it)
+brush grass at 0 0 r=74 s=20 frames=60
+# (the sites and the trails between them cleared of trees and rocks)
+clear at -22 -60 r=14
+clear at 12 -80 r=11
+clear at 74 8 r=13
+clear at 100 -15.5 r=22
+clear at 36 -38 r=15
+clear at -58 11 r=26
+clear at -58 34 r=13
+clear at -8 60 r=12
+clear at 0 3 r=17
+clear from 12 -76 to -10 -64 r=3
+clear from 16 -74 to 32 -50 r=3
+clear from 46 -32 to 62 -14 to 70 0 r=3
+clear from 34 -26 to 14 -10 r=3
+clear from -16 4 to -32 8 r=3
+clear from -2 20 to -6 50 r=3
+clear from -46 26 to -16 54 r=3
+
+# ===== Chapter 1 - the crash: the plane in the marsh behind the south beach =========================================
+# (the fuselage nose-down in the reeds, a wing torn off, the tail standing up out of a pool, a propeller in another,
+# rows of seats thrown clear, the passengers' luggage - one trunk to open)
+place Airplane - at -22 -60 h=4.3 rot=16,60,-22 scale=2.2
+place WingBroken - at -7 -57 ground yaw=30 scale=1.8
+place BackWingBroken - at -38 -46 h=-1.3 rot=0,30,80 scale=3
+place PropellerBlade - at -12 -48 h=-0.3 rot=0,20,60 scale=1.8
+place Tangaroa_Cockpit_Seats - at -12 -67 ground yaw=30
+place Tangaroa_Cockpit_Seats - at -31 -54 ground yaw=120
+place Tangaroa_Cockpit_Seats - at -5 -64 ground yaw=-40
+place VP_MovingBox01 - at -9 -61 ground yaw=15
+place VP_MovingBox03 - at -27 -69 ground yaw=70
+place VP_MovingBox02 trunk at -13 -61 ground yaw=-20
+
+# ===== Chapter 1 - the survivors' camp on the south beach ==============================================================
+# (two tents, the fire, the water still, the signal fire's woodpile; the journal on the camp box)
+place Balboa_DecorationPrefabBase_SimpleTent - at 5 -77 ground yaw=150
+place Balboa_DecorationPrefabBase_SimpleTent - at 20 -85 ground yaw=200
+place campfire_1 - at 12 -81 ground
+place Placeable_CookingStand_Purifier_One - at 8.5 -84 ground yaw=30
+place Placeable_FirewoodRack - at 4 -85 ground yaw=80
+place Firewood_1 - at 5.5 -86.4 ground yaw=10
+place "Box Small" campbox at 14.5 -78.5 ground yaw=20
+place Note_Book survivorsjournal at 14.5 -78.5 h=5 drop yaw=30
+place Zone_Trigger crashcamp at 12 -80 y=1.5
+
+# ===== Chapter 2 - Station Gull (comms) on the rise by the east shore ==================================================
+# (a relay house, its veranda facing the bay; aerials and a dish outside; inside the radios, the projector and its
+# screen, the orientation notes on the table, the comms desk's drawer, the officer's locker)
+push at 80 14 h=5.1 yaw=0
+call relay_house
+pop
+place Antenna_pole - at 66.5 11 ground
+place Antenna_dish - at 66.5 11 y=6.1 yaw=140
+place Antenna_pole - at 66.5 6 ground
+place Antenna_dish - at 66.5 6 y=6.1 yaw=200
+place RT_SatteliteDisc - at 72 0.5 ground yaw=150
+place Note_Sign gullsign at 78.6 2.4 ground yaw=180
+place RT_CommRadio stationradio at 70.2 12 h=5.1 yaw=90
+# (scenery: the gull station's radios, long dead - the ready piece's lock taken off)
+prop stationradio beh.use=
+prop stationradio if.use=
+prop stationradio else.use=
+prop stationradio on.use=
+place "Table Office" - at 71.8 8.5 h=6 drop yaw=90
+place Balboa_DecorationPrefabBase_RadioDevice stationradio at 71.8 9.2 h=7.5 drop yaw=90
+# (scenery: the gull station's radios, long dead - the ready piece's lock taken off)
+prop stationradio beh.use=
+prop stationradio if.use=
+prop stationradio else.use=
+prop stationradio on.use=
+place Note_Papers orientation at 71.8 7.9 h=7.5 drop yaw=20
+place "VG_DecorationPrefabBase_Projector Variant" - at 74.2 7 h=6.5 drop yaw=0
+place "VG_DecorationPrefabBase_ProjectorScreen Variant" - at 74 13.6 h=7.9 yaw=180
+place Drawer_01 gullcard at 70.3 4.6 h=5.1 yaw=90
+place Locker gulllocker at 75.6 13.2 h=5.1 yaw=180
+place Zone_Trigger gull at 75 9 h=6.6
+
+# ===== Chapter 2 - Station Kelp (the marine lab), sunk 10 m down in the bay =============================================
+# (two concrete rooms on the bay's floor, their windows broken (swim in), a door to the sea; the lab, the card's
+# cupboard; air trapped under the ceiling in the north-west corner; a barrel from the plane on the bay's floor)
+push at 103 -11 h=-10 yaw=0
+call rt_storey f1=none b1=RT_WallWindowBroken b2=RT_WallWindowBroken l1=RT_WallWindowBroken l2=RT_WallWindowBroken l3=RT_WallWindowBroken r1=RT_WallWindowBroken r2=RT_WallDoor1 r3=RT_WallWindowBroken
+pop
+push at 103 -20 h=-10 yaw=0
+call rt_storey b1=none b2=none f1=RT_WallWindowBroken f2=RT_WallWindowBroken l1=RT_WallWindowBroken l2=RT_Wall1 l3=RT_WallWindowBroken r1=RT_WallWindowBroken r2=RT_WallWindowBroken r3=RT_Wall1
+pop
+push at 103 -11 h=-7 yaw=0
+call rt_storey b1=none b2=none f1=none f2=none l1=none l2=none l3=none r1=none r2=none r3=none
+pop
+push at 103 -20 h=-7 yaw=0
+call rt_storey b1=none b2=none f1=none f2=none l1=none l2=none l3=none r1=none r2=none r3=none
+pop
+place TP_LaboratoryMachine_Large01 - at 99.5 -9 h=-10 yaw=180
+place TP_LaboratoryMachine_Small02 - at 97.8 -13 h=-10 yaw=90
+place Shelf_Empty_02 - at 97.1 -19 h=-10 yaw=90
+place TP_LabBottle01 - at 97.4 -18.6 h=-8.6 drop
+place TP_LabBottle03 - at 97.4 -19.4 h=-8.6 drop
+place Cabinet_01 kelpcard at 102.4 -23 h=-10 yaw=270
+place Zone_Trigger kelpair at 97.8 -7 h=-7.8
+place Zone_Atmosphere kelpbubbles at 97.8 -7 h=-8.5
+place Zone_Trigger kelpzone at 106 -14 h=-8
+place Loot_SunkenBarrel baybarrel at 94.5 -22 h=-9.5 drop yaw=30
+
+# ===== Chapter 2 - Station Pike (zoology) in the marsh =================================================================
+# (the cages: two big ones, one torn open and lying on its side, three small ones, troughs; the keeper's office with his
+# locker and the feed store; the bear that got out waits in the yard)
+push at 50 -32 h=3.45 yaw=0
+call rt_storey f1=RT_WallDoor1 l2=RT_WallWindow1 r2=RT_WallWindow1
+pop
+push at 50 -32 h=6.45 yaw=0
+call rt_storey b1=none b2=none f1=none f2=none l1=none l2=none l3=none r1=none r2=none r3=none
+pop
+place Balboa_DecorationPrefabBase_SmallLocker pikecard at 49.4 -29 h=3.45 yaw=270
+place "Box Small" feedstore at 45 -28.5 h=4.5 drop yaw=10
+place UT_DogCage_Medium02 kennel at 27 -33 ground yaw=0 scale=2.2
+place UT_DogCage_Medium02 kennel at 36 -50 h=3.4 rot=0,30,85 scale=2.2
+place UT_DogCage_Medium02 kennel at 21 -41 ground yaw=90
+place UT_DogCage_Medium02 kennel at 21 -45 ground yaw=90
+place UT_DogCage_Medium02 kennel at 23 -50 ground yaw=60
+# (scenery: the kennels' empty cages; they wanted bolt cutters - the ready piece's lock taken off)
+prop kennel beh.use=
+prop kennel if.use=
+prop kennel else.use=
+prop kennel on.use=
+place TangaroaBucket - at 31 -40 ground
+place TangaroaBucket - at 26 -39 ground
+place Note_Sign pikesign at 41 -46 ground yaw=200
+place Creature_PolarBear pikebear at 30 -44 ground
+place Zone_Trigger pike at 36 -40 y=1.5
+
+# ===== Chapter 2 - the village (Station Moth) round a green in the west ================================================
+# (four red houses, their verandas onto the green; the council hall (Balboa's log house) at its north end with
+# the card's cupboard; a picnic table with a game left on it; a fridge in one house; the residents' hens)
+push at -66 23 h=3.4 yaw=0
+call relay_house
+pop
+push at -66 7 h=3.4 yaw=0
+call relay_house
+pop
+push at -50 -5 h=3.4 yaw=180
+call relay_house
+pop
+push at -50 11 h=3.4 yaw=180
+call relay_house
+pop
+place Placeable_Fridge villagefridge at -75.9 4.5 h=3.4 yaw=90
+# (Balboa's log house: its porch and door face the green; its floor 4.51 m, a short step up from the porch's ground)
+place Balboa_Shack councilhall at -58 36 h=3.85 yaw=90
+place Placeable_Cupboard_Medium mothcard at -58 32.1 h=4.51 yaw=0
+place Note_Sign mothsign at -55 26.5 ground yaw=180
+place BenchTable_01 - at -58 9 ground yaw=0
+place Placeable_TicTacToe - at -58 9 h=6 drop yaw=10
+# (washing on a line between two posts at the green's south end)
+place ReefHuts_Pillar1 - at -62 -7 ground
+place ReefHuts_Pillar1 - at -58 -7 ground
+place ReefHuts_Tarpaulin - at -60 -7 y=2.3 rot=0,0,0
+place Zone_Trigger village at -58 9 y=1.5
+
+# ===== Chapter 2 - Station Lantern (the observatory) on the north hill =================================================
+# (a concrete room with a railing round its roof, the telescope on the roof pointed at the sea, a ladder up the front;
+# inside the desk with the card's file box, the chart cabinets, a crate)
+push at -5 60 h=14.05 yaw=0
+call rt_storey f1=RT_WallDoor1 l2=RT_WallWindow1 b1=RT_WallWindow1 r1=RT_WallWindow1 r3=RT_WallWindow1
+pop
+push at -5 60 h=17.05 yaw=0
+call rt_storey b1=none b2=none f1=none f2=none l1=none l2=none l3=none r1=none r2=none r3=none
+call rt_railing y=0 fm=none
+pop
+place TP_Telescope - at -8 60 h=17.05 yaw=0
+place LandmarkLadder_6m lanternladder at -7 55.35 h=14.05 yaw=0 sy=0.53
+place "VG_DecorationPrefabBase_Desk Variant" - at -9.5 63 h=15 drop yaw=0
+place TP_FileBox05 lanterncard at -9.5 63 h=16.5 drop yaw=10
+place TP_CabinetCharts03 - at -5.6 62.5 h=14.05 yaw=270
+place "Box Small" lanternbox at -6 57 h=15 drop yaw=20
+place Zone_Trigger lantern at -8 60 h=18.6
+
+# ===== Chapter 3 - the hatch under its slab on the wooded rise in the middle ==========================================
+# (as Shelter Atoll: Selene's rooms in a pit, a slab of the tower's floor over them at ground level, a concrete collar
+# round the ladder's shaft and the hatch's lid lying open beside it. Down the ladder: the terminal room, the bunk room
+# west of it, the vault east of it behind its sliding leaves)
+push at 0 0 h=3 yaw=0
+place TP_Selene_Int_Tunnel_Ladder_Bot - at -3 9
+call selene_cell -3 3 n=TP_Selene_Int_Room_Entrance w=TP_Selene_Int_Room_Entrance e=TP_Selene_Int_Room_Entrance
+call selene_cell -9 3 e=TP_Selene_Int_Room_Entrance
+call selene_cell 3 3 w=TP_Selene_Int_Room_Entrance
+# (both leaves pivot on the doorway's middle: the left one reaches +z, the right one -z)
+place TP_Selene_Int_DoorLargeL vaultdoorL at 3 0 sy=1.051
+place TP_Selene_Int_DoorLargeR vaultdoorR at 3 0 sy=1.051
+macro slab x1 x2 z1 z2
+place RT_Floor - at $x2 $z2 y=6 sx={($x2-$x1)/6.04} sz={($z2-$z1)/9}
+end
+call slab -14 -6.9 4.5 14
+call slab -14 -6.9 -8 4.5
+call slab -6.9 -1.3 4.5 14
+call slab -6.9 -1.3 -8 4.5
+call slab 1.3 6.9 4.5 14
+call slab 1.3 6.9 -8 4.5
+call slab 6.9 14 4.5 14
+call slab 6.9 14 -8 4.5
+call slab -1.3 1.3 7.2 14
+call slab -1.3 1.3 -8 4.6
+place VP_ConcretePipe02 collar at 0 5.9 y=6.25 rot=90,0,0 scale=1.5 sz=0.1
+place TangaroaHatchRoom_Hatch - at 2.6 6.4 y=6 yaw=80
+# (the terminal room: the terminal on its desk, the clock on the wall, the rations' shelves, the manual; the lamps and
+# the computers' hum)
+# (Selene's walls are planes 0.2 m inside their cell's edges)
+place "Table Office" - at 0.6 -2.75 y=1 drop yaw=0
+place Balboa_DecorationPrefabBase_CRTScreen - at 0.9 -2.35 y=2 drop yaw=0
+place Balboa_DecorationPrefabBase_ComputerChassis - at -0.1 -2.4 y=2 drop yaw=0
+place Tangaroa_OfficeKit_Keyboard terminal at 0.9 -2.1 y=2 drop yaw=0
+place Note_Book manual at 1.4 -2.15 y=2 drop yaw=20
+place "VG_DecorationPrefabBase_Clock Variant" - at 0.6 -2.79 y=2.6 yaw=0
+place Shelf_Empty_02 rations at -2.1 -2.75 y=0 yaw=0
+place Stairwell_CeilingLamp - at 0 0 y=4.6
+place Stairwell_CeilingLamp - at -6 0 y=4.6
+place Stairwell_CeilingLamp - at 6 0 y=4.6
+place Zone_Sound hatchhum at 0 0 y=2
+place Zone_Trigger hatchzone at 0 6.3 y=1.5
+# (the bunk room)
+place "VG_DecorationPrefabBase_BunkBed Variant" - at -7.7 -2.0 y=0 yaw=90
+place "VG_DecorationPrefabBase_BunkBed Variant" - at -7.7 0.8 y=0 yaw=90
+# (the vault: the Initiative's strongbox, the emergency release lever)
+place Loot_ChestLarge vault at 8.2 0 y=0 yaw=270
+place UT_JumpPuzzle_LiftMechanism_Lever releaselever at 8.4 2.2 y=2.13 yaw=270
+place Zone_Trigger vaultroom at 6 0 y=1.5
+pop
+
+# ===== Signposts at the forks, the mist, the boars, the friendly animals, Raft's finds in the shallows ===================
+place Balboa_DirectionSign - at 18 -72 ground yaw=40
+place Balboa_DirectionSign - at 36 -24 ground yaw=-30
+place Balboa_DirectionSign - at -12 18 ground yaw=200
+place Balboa_DirectionSign - at -40 20 ground yaw=110
+place Zone_Atmosphere marshmist at 0 -10 y=2
+place Creature_Boar boars at 40 58 ground
+place Creature_Chicken hens at -60 0 ground
+place Creature_Goat goats at -22 66 ground
+place Creature_Turtle turtles at 96 -32 h=-4
+place Creature_Dolphin dolphins at 20 -125 h=-3
+call shallows r=118 deep=5 n=2
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): pines, berries, birches ----------
+scatter "Pickup_Landmark_Tree_Pine" 6 at 0 0 r=70.0 seed=4421 free=5
+scatter "Pickup_Landmark_BerryBush" 6 at 0 0 r=70.0 seed=4431 free=3
+scatter "Pickup_Landmark_Tree_Birch" 6 at 0 0 r=70.0 seed=4441 free=5
+
+# ===== Settings, story items, notes, behaviours, quest (22 steps, 3 chapters) =============================================
+info title=The Island of Stations
+info author=Custom Islands
+info description=A misty forest marsh where a plane came down - and found the island already full of buildings: the stations of a research initiative that vanished, each keeping one card of a Sequence. Gather the five cards, find the hatch in the marsh and enter the Sequence before the counter runs out.
+island on.arrive=message||A long, low, misty island. On the south beach, the tail of a plane sticks up out of the reeds. Further in, an aerial - and a dish.
+
+story seqcard|Sequence card|quest:Vasagatan_KeyCard|A stamped card with one number of the Initiative's Sequence on it.
+story accesscard|Vault access card|quest:Tangaroa_KeyCard|The vault's access card, printed by the hatch's terminal when the Sequence was entered.
+
+note survivorsjournal Survivors' journal | ISLAND AIR FLIGHT 9 - SURVIVORS' JOURNAL\n\nDay 1. We came down in the marsh. Forty-one of us walked away.\nDay 6. There are buildings on this island. Somebody built them and left - or didn't leave.\nDay 14. A hatch in the marsh, its lid open, a ladder going down. The terminal down there wants five numbers.\nDay 30. The people in the village in the west came at night and took our compass and our maps. They won't speak to us.\nDay 41. A boat. Most of us are going. Kim stays - she wants to know what's in the hatch. Her notes are at the station with the aerials on the east rise.
+note orientation Orientation notes | THE HALDEN INITIATIVE - ORIENTATION (Kim's copy, typed from the projector reel)\n\nWelcome to the Island. Six stations, one purpose:\nGull - communications (you are here).\nKelp - the marine lab, in the bay.\nPike - zoology. Mind the cages.\nMoth - the residents' village.\nLantern - the observatory on the north hill.\nThe Hatch.\n\nEach station keeps one card of the Sequence. The Sequence is entered at the Hatch's terminal; it opens the Initiative's vault for sixty seconds.\n\n(Kim, in pencil:) Gull's card is in the desk. Kelp sank in a storm. Pike's bear is OUT. The village took Moth's card. Lantern's is in the observatory.
+note gullsign Station Gull | THE HALDEN INITIATIVE - STATION GULL - COMMUNICATIONS\n\n(under it, scratched) nobody answers
+note pikesign Station Pike | THE HALDEN INITIATIVE - STATION PIKE - ZOOLOGY\nDo not feed the specimens. Do not open the cages.
+note mothsign Station Moth | THE HALDEN INITIATIVE - STATION MOTH - RESIDENCE\nResidents only. Curfew at dark.
+note manual Hatch manual | THE HATCH - OPERATING MANUAL\n\n1. Enter the Sequence at the terminal: all five cards.\n2. The vault door opens for sixty seconds, no more.\n3. When the counter reaches zero the door closes. If you are inside, pull the emergency release.\n4. Do not let anyone tell you nothing happens when the counter reaches zero.
+note gullcard Gull's card drawer | The comms desk's drawer: headphones, a pencil - and a stamped card with one number of the Sequence.
+loot gullcard story:seqcard*1;CircuitBoard*1
+prop gullcard loot.refill=0
+note kelpcard Kelp's lab cupboard | A lab cupboard in the sunken station, its door swollen shut, then open: specimen jars - and the station's Sequence card in a sealed sleeve.
+loot kelpcard story:seqcard*1;Glass*3
+prop kelpcard loot.refill=0
+note pikecard Pike keeper's locker | The zoo keeper's locker: a stun prod with a dead battery, a bear's feeding schedule - and Pike's Sequence card.
+loot pikecard story:seqcard*1;Battery*1
+prop pikecard loot.refill=0
+note mothcard Council hall cupboard | The village council's cupboard: the survivors' compass and maps - taken, but kept neatly - and Station Moth's Sequence card.
+loot mothcard story:seqcard*1;Compass*1
+prop mothcard loot.refill=0
+note lanterncard Lantern's file box | The observatory's file box: star charts, a log of lights seen over the sea - and the last Sequence card.
+loot lanterncard story:seqcard*1;Glass*2
+prop lanterncard loot.refill=0
+note vault Initiative's vault | The Initiative's vault: crates of its equipment's plans, batteries, circuits, rations for a decade - and a film reel labelled ORIENTATION 2 - DO NOT WATCH.
+loot vault Blueprint_BatteryCharger*1;Blueprint_ZiplineTool*1;Battery*3;CircuitBoard*4;TitaniumIngot*3
+prop vault loot.refill=0
+note trunk Passenger's trunk | A passenger's trunk thrown clear of the plane: clothes, a camera, a jar of sweets.
+loot trunk Wool*2;Plastic*3;Glass*2
+prop trunk loot.refill=0
+note campbox Survivors' camp box | The camp's box: the last of the plane's water and peanuts, a flare gun with no flares.
+loot campbox PlasticBottle_Water*3;Coconut*2;Rope*2
+prop campbox loot.refill=0
+note gulllocker Gull's locker | The comms officer's locker: spare valves, wire, a sweater.
+loot gulllocker CopperIngot*2;Wool*2;Bolt*2
+prop gulllocker loot.refill=0
+note baybarrel Barrel in the bay | A barrel from the plane's hold, washed into the bay: tins and tools.
+loot baybarrel Scrap*3;MetalOre*2;Cooked_GenericMeat*2
+prop baybarrel loot.refill=0
+note feedstore Pike's feed store | The zoo's feed store: sacks of fish meal, a scoop, rope for the cages.
+loot feedstore Raw_Mackerel*3;Rope*3;Nail*6
+prop feedstore loot.refill=0
+note villagefridge Village fridge | A fridge in a village house, humming on a generator nobody seems to tend: milk, eggs, a cake with one slice gone.
+loot villagefridge Egg*3;Bucket_Milk*1;Cooked_GenericMeat*1
+prop villagefridge loot.refill=0
+note lanternbox Observatory crate | A crate in the observatory: lens cloths, lamp oil, a spare eyepiece.
+loot lanternbox Glass*2;BioFuel*1;Plank*4
+prop lanternbox loot.refill=0
+note rations Hatch rations | Shelves of the Initiative's rations, every tin stamped with a gull, a fish, a moth.
+loot rations Cooked_GenericMeat*3;Claybowl_SimpleFishStew*2;PlasticBottle_Water*2
+prop rations loot.refill=0
+
+prop terminal obj.name=terminal
+prop terminal beh.use=Enter the Sequence
+prop terminal if.use=has|story:seqcard|5
+prop terminal on.use=message||You type the five numbers. The terminal beeps, prints a card - and the vault door slides open. The counter on the wall starts: 60... 59... 58...\ngive||story:accesscard*1\nopen|vaultdoor\nsound||event:/exploring/obstacles/keypad/keypad_selene_correct\nwait|60\nclose|vaultdoor\nmessage||The counter reaches zero. The vault door slams shut - and for a moment every light in the hatch flickers. Enter the Sequence again to reopen it.
+prop terminal else.use=message||A keyboard and a green screen: ENTER SEQUENCE. You need all five cards.\nsound||event:/exploring/obstacles/keypad/keypad_selene_error
+prop vaultdoorL obj.name=vaultdoor
+prop vaultdoorL beh.move=0,0,1.3
+prop vaultdoorL beh.moveTime=1.5
+prop vaultdoorL beh.moveMode=switch
+prop vaultdoorR obj.name=vaultdoor
+prop vaultdoorR beh.move=0,0,-1.3
+prop vaultdoorR beh.moveTime=1.5
+prop vaultdoorR beh.moveMode=switch
+prop releaselever obj.name=releaselever
+prop releaselever beh.use=Pull the emergency release
+prop releaselever on.use=message||The emergency release thunks over and the vault door slides open again - for a little while.\nopen|vaultdoor\nwait|30\nclose|vaultdoor
+prop hatchhum sound.event=event:/exploring/relaystation/computer01
+prop hatchhum sound.volume=0.5
+prop hatchhum zone.radius=8
+
+prop crashcamp zone.id=crashcamp
+prop crashcamp zone.radius=10
+prop crashcamp zone.message=The survivors' camp: tarps, a dead fire, a water still - and behind it in the reeds, the broken body of the plane.
+prop gull zone.id=stationgull
+prop gull zone.radius=8
+prop gull zone.message=Station Gull: aerials, a dish, a hut full of radios. On the door, a symbol you've never seen - a gull in a circle.
+prop kelpzone zone.id=stationkelp
+prop kelpzone zone.radius=8
+prop kelpzone zone.message=Station Kelp on the floor of the bay, its windows broken, fish swimming through its lab.
+prop kelpair zone.id=kelpair
+prop kelpair zone.radius=3
+prop kelpair zone.repeat=1
+prop kelpair zone.air=1
+prop kelpbubbles atmo.particles=bubbles
+prop kelpbubbles zone.radius=3
+prop pike zone.id=pike
+prop pike zone.radius=12
+prop pike zone.message=Station Pike: cages, troughs - one cage torn open. Then a roar, and a polar bear comes out of the trees. Here. In a forest.
+prop village zone.id=village
+prop village zone.radius=12
+prop village zone.message=A village of neat red houses round a green. Washing on a line, a game left on a table - and nobody, anywhere.
+prop lantern zone.id=stationlantern
+prop lantern zone.radius=5
+prop lantern zone.message=Station Lantern: a telescope on a roof, pointed not at the sky but at the sea.
+prop hatchzone zone.id=hatch
+prop hatchzone zone.radius=3
+prop hatchzone zone.message=The bottom of the hatch: a humming room, a terminal, a clock on the wall stopped at zero.
+prop vaultroom zone.id=vaultroom
+prop vaultroom zone.radius=3
+prop vaultroom zone.message=Inside the Initiative's vault - and the counter outside is still running.
+prop pikebear creature.count=1
+prop pikebear creature.size=1.6
+prop pikebear creature.health=3
+prop pikebear creature.respawn=0
+prop pikebear creature.zone=pike
+prop boars creature.count=3
+prop boars creature.respawn=0
+prop hens creature.count=4
+prop goats creature.count=3
+prop turtles creature.count=2
+prop dolphins creature.count=3
+prop marshmist atmo.fog=#6a7a70
+prop marshmist atmo.fogAmount=0.3
+prop marshmist atmo.particles=mist
+prop marshmist zone.radius=60
+
+quest title=The Sequence
+quest intro=A misty island with a plane in its marsh - and buildings that were here long before the plane. The survivors left a journal at their camp on the beach.
+# Chapter 1 - the crash
+step reach|crashcamp|1|Reach the survivors' camp by the wreck of Flight 9
+step read|Survivors' journal|1|Read the survivors' journal
+step open|Passenger's trunk|1|Search the reeds by the plane for a passenger's trunk
+step reach|stationgull|1|Find the station with the aerials on the east rise
+# Chapter 2 - the stations
+step read|Orientation notes|1|Read the orientation notes in Station Gull
+step collect|story:seqcard|1|Take Station Gull's Sequence card from the comms desk
+step reach|stationkelp|1|Dive to Station Kelp, sunk in the bay
+step collect|story:seqcard|2|Find Kelp's card in its flooded lab
+step read|Station Pike|1|Read the sign at Station Pike's fence before you go in
+step kill|Polar bear|1|Face the bear that broke out of Station Pike
+step collect|story:seqcard|3|Take Pike's card from the keeper's locker
+step reach|village|1|Walk into the residents' village in the west
+step open|Village fridge|1|Raid the fridge humming in a village house - somebody still stocks it
+step collect|story:seqcard|4|Find Station Moth's card in the village's council hall
+step kill|Warthog|2|Drive off the boars rooting in the woods under the north hill
+step reach|stationlantern|1|Climb to Station Lantern, the observatory on the north hill
+step collect|story:seqcard|5|Take the last card from the observatory
+# Chapter 3 - the hatch
+step reach|hatch|1|Find the hatch in the marsh and climb down into it
+step read|Hatch manual|1|Read the hatch's manual by the terminal
+step collect|story:accesscard|1|Enter the Sequence at the terminal
+step reach|vaultroom|1|Get through the vault door before the counter reaches zero
+step open|Initiative's vault|1|Open the Initiative's vault
+step blueprint|Blueprint_BatteryCharger|1|Take the battery charger plans from the initiative's vault
+step blueprint|Blueprint_ZiplineTool|1|Take the zipline tool plans from the initiative's vault
+quest done=The vault is open and the counter has stopped at zero. Nothing happened - or nothing you could see. The Initiative's stations stand empty in the mist, and the island keeps the rest of its secrets.
+quest reward=CircuitBoard*2;MetalIngot*8;Cooked_GenericMeat*4
+
+# Buried treasure (one of the story line's last islands): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=50 n=1 seed=8810
+prop treasure8810 treasure.loot=TitaniumOre*3
+
+save The Island of Stations

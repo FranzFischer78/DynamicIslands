@@ -1,0 +1,185 @@
+# Varuna Point Remade - an island of the library's plan Raft Remade (in place of Raft's Varuna Point)
+# Raft's Varuna Point made anew: a long rocky point, a construction site cut into its east end - the half-built tower
+# (Varuna's elevator shaft in its scaffolding), the site office, the machines - and the floodlight tower over the north
+# water, its light knocked out in a storm. Quest "Floodlight Down" (6 steps): the foreman's log at the site, the bulb's
+# crate under the tower, the floodlight's four parts from crates sunk on the reef, the floodlight lit again from its
+# tower, the giant angler in the deep under the point and the foreman's strongbox it guards (Varuna's blueprints: the
+# wind turbine, the advanced battery, the advanced head light, the electric grill).
+#
+# Built by the recipe player (CIRecipe varuna_point_remade) through the editor's own operations.
+include lib_sea
+include lib_rt
+include lib_features
+new
+# (nature and the life under water: as on Raft's island itself - Randomize existing measures them)
+randomize VarunaPoint like Seed=7106 Radius=48 Height=18 Cliffs=0.3 BeachWidth=0.5 Hostiles=0 Friendly=0 SeaLife=0.3 Trees=0.4 Bushes=0.5 Rocks=0.75 Harvest=0.7
+
+# --- Terrain: the site cut into the ridge's east end (10 m), a ramp down to the landing on the north-east sand shelf ---
+brush flatten from 6 -3 to 26 -3 r=10 s=20 frames=60 h=10
+brush flatten from 6 -10 to 14 -10 r=6.5 s=20 frames=40 h=10
+brush flatten at 27.5 -9.5 r=6.5 s=20 frames=40 h=10
+brush flatten at 1 0 r=6 s=20 frames=40 h=10
+# (the yard under the excavator, the rubble and the dumpster made level: the hill rose 1.2 m under the excavator's tracks and
+# over the dumpster's lid - the ground check, 2026-10-20)
+brush flatten from -1 -3 to 4.5 3 r=4.5 s=20 frames=60 h=10
+brush flatten at -0.5 3.5 r=3 s=20 frames=60 h=10
+for i 0 5 1
+brush flatten at {38-$i*2.6} {14-$i*2} r=2.8 s=20 frames=30 h={3.2+$i*1.36}
+next
+brush smooth from 38 14 to 25 4 r=3 s=10 frames=20
+origin
+clear at 15 -4 r=18
+clear from 38 14 to 25 4 r=4
+clear at 44 19 r=5
+# (the generator's look pieces kept off the landing and the ramp by their bodies, not their pivots: the elevator shaft
+# stood on the landing once the generator spaced its pieces wider - SL6, 2026-10-19)
+clear from 44 20 to 38 14 r=1.5 body
+clear from 38 14 to 25 4 r=1.5 body
+# (no boulders strewn over the sand - Raft's beaches have few)
+clear at 0 0 r=90 only=Rock|Boulder on=sand above=0.2
+# (no boulders through the reef's crates or the strongbox)
+clear at 40 30 r=3 only=Rock|Boulder
+clear at 24 30 r=3 only=Rock|Boulder
+clear at 72 -12 r=3 only=Rock|Boulder
+clear at 16 -30 r=3 only=Rock|Boulder
+clear at 12 29 r=3 only=Rock|Boulder
+
+# --- The floodlight tower at the site's north edge: the radio tower's legs, a deck at 6.3 m, a ladder up its south face
+push at 19 3 h=10
+for lx -5.9 -0.1 5.8
+for lz -4.4 4.4 8.8
+place RT_PillarThick - at $lx $lz y=0
+place RT_PillarThick - at $lx $lz y=-6
+next
+next
+place RT_Floor lightdeckfloor at 0 4.5 y=6.3
+call rt_railing y=6.37 fm=none
+place LandmarkLadder_6m towerladder at -1.5 -4.62 y=0
+# (Raft's radio tower floodlight, not Varuna Point's own spotlight: placed on an island that one shoots any player it
+# sees, 2026-10-04)
+place RT_Floodlight floodlight at -3 3 y=6.37 sit scale=2.2 yaw=0
+place VP_Cable_Roll01 - at -5 -3 y=6.37
+place Zone_Trigger lightdeck at -3 0 y=7.5
+pop
+
+# --- The half-built tower: Varuna's elevator shaft, scaffolding three storeys up its west and north faces --------------
+place VP_ElevatorShaft shaft at 24 -6 h=10
+for sy 0 6 3
+place VP_Scaffolding_M_Open - at 23.2 -9.65 h={10+$sy} yaw=90
+place VP_Scaffolding_M_Open - at 27.5 -5.5 h={10+$sy}
+next
+place VP_Skylift_Extended - at 33.5 1.5 ground yaw=20
+place VP_PortableToilet - at 34 -11 ground yaw=-90
+# (the bricks on the yard by the north scaffold: at 34 -5 they stood on the yard's east cliff, a 1 m-in-1 m slope, set down
+# at its foot and their middle buried, CIGroundIslands)
+place VP_BrickStack01 - at 27.4 -3 ground yaw=0
+
+# --- The site office (Varuna's break room on its stilts) and the yard: machines, pipes, beams, crates ---------------------
+place "Varuna BreakRoomBuilding" siteoffice at 6 -8 h=10 yaw=0
+# (the break room is one solid block: the foreman works at a desk out by its steps)
+place "Table Office" foremansdesk at 13.5 -2.6 ground yaw=180
+place VP_DecorationPrefabBase_OfficeChair - at 13.5 -1.7 ground yaw=170
+place Note_Paper foremanslog at 13.3 -2.6 h=12 sit drop yaw=80
+# (the excavator's tracks 0.5 m lower, their bottom at 10.3 m: set down by the lowest ground under its box at 10.81 m, its base
+# stood up to 0.79 m over the slope under its tracks - the ground check, IG2, 2026-10-12)
+place VP_Excavator - at 4.5 3 h=10.05 sit yaw=-80
+place VP_Forklift - at 10 4 ground yaw=80
+place VP_Dumpster01 - at -1 -3 ground yaw=90
+place VP_ConcretePipe01 - at 18 -12 ground yaw=90
+place VP_ConcretePipe02 - at 20.8 -13 ground yaw=80
+place VP_SteelBeam02 - at 19.5 -8.5 ground yaw=5
+place VP_SteelBeam02 - at 19.5 -8.5 y=0.65 ground yaw=8
+place VP_StorageCrate02 - at 0 -11 ground yaw=10
+place VP_MetalCrate01 - at -0.5 -7.5 ground yaw=-5
+# (the rubble under the excavator's bucket, half size, on the yard at the hill's foot: at -3 4, full size, it lay on the
+# hillside, set down at the foot and its middle 2 m under the hill, CIGroundIslands)
+place VP_RubblePile_Medium01 - at 0 2.6 ground yaw=40 scale=0.5
+place Zone_Trigger site at 14 -1 h=11.2
+
+# --- Round the point: four crates the storm washed off the tower, 4 to 8 m down on the few level spots of its steep sea
+# floor (north, north-east, the east tip, south) --------------------------------------------------------------------
+place "Box Small" partcrate1 at 40 30 ground yaw=20
+place "Box Small" partcrate2 at 24 30 ground yaw=-40
+place "Box Small" partcrate3 at 72 -12 ground yaw=75
+place "Box Small" partcrate4 at 16 -30 ground yaw=10
+
+# --- The deep under the point, north of the tower: the foreman's strongbox where the storm threw it - and its keeper ---
+place VG_Safe strongbox at 12 29 h=-11.3 sit yaw=180
+place Zone_Trigger deep at 12 29 ground y=2
+place Creature_AnglerFish angler at 12 33 ground y=3
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): mangoes, pineapples, bananas ----------
+scatter "Pickup_Landmark_Tree_Mango" 3 at 0 0 r=33.6 seed=4155 free=5
+scatter "Pickup_Landmark_PineappleLandmark" 3 at 0 0 r=33.6 seed=4165 free=3
+scatter "Banana_Bush_2" 3 at 0 0 r=33.6 seed=4175 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=68 deep=5 n=2
+
+info title=Varuna Point Remade
+info author=Custom Islands
+info description=Raft's Varuna Point made anew: a construction site cut into a long rocky point - the half-built tower in its scaffolding, the site office, the machines - and the floodlight over the north water, knocked out in a storm. Raft Remade's sixth island.
+island on.arrive=message||A long rocky point, a construction site cut into its end: a concrete shaft in scaffolding, an excavator, a red site office - and a floodlight tower, dark.
+
+story part|Floodlight part|quest:Varuna_SpotlightPart|One of the floodlight's four parts - lens, bulb, reflector, cable - from a crate on the reef.
+
+note foremanslog Foreman's log | SITE LOG - VARUNA POINT\n\nDay 41. Storm. The floodlight went over the rail - lens, bulb, reflector and the cable drum, each in its own crate, all into the sea - the current has spread them round the point. The reef has them now.\nDay 42. Without the light we can't work the north water at night. And something down there likes the dark: the night crew saw its lure glowing under the tower.\nDay 43. My strongbox went over with the light - the turbine plans, the batteries, all of it. It's down in the deep under the point. Nobody dives there until that light is back on.
+note partcrate1 Lens crate | A crate on the sea floor off the north-east shelf: the floodlight's lens, wrapped in sacking.
+loot partcrate1 story:part*1;Plastic*3
+prop partcrate1 loot.refill=0
+note partcrate2 Bulb crate | A crate on the sea floor below the floodlight tower: the floodlight's bulb, unbroken.
+loot partcrate2 story:part*1;Scrap*3
+prop partcrate2 loot.refill=0
+note partcrate3 Reflector crate | A crate off the point's east tip: the floodlight's reflector, barnacled but whole.
+loot partcrate3 story:part*1;Rope*2
+prop partcrate3 loot.refill=0
+note partcrate4 Cable crate | A crate on the sand off the south shore: the floodlight's cable drum.
+loot partcrate4 story:part*1;Nail*6
+prop partcrate4 loot.refill=0
+note strongbox Foreman's strongbox | The foreman's strongbox, thrown into the deep by the storm: the site's plans - a wind turbine, batteries, a head lamp, a grill.
+loot strongbox Blueprint_WindTurbine*1;Blueprint_BatteryAdvanced*1;Blueprint_HeadLight_Advanced*1;Blueprint_ElectricGrill*1;CopperIngot*2
+prop strongbox loot.refill=0
+prop strongbox if.open=signal|floodlight
+prop strongbox else.open=message||Too dark down here to find the lock - the floodlight is still out.
+
+prop floodlight obj.name=floodlight
+prop floodlight beh.use=Fit the parts and light the floodlight
+prop floodlight if.use=take|story:part|4
+prop floodlight on.use=message||Lens, bulb, reflector, cable - the floodlight hums and throws its beam down into the north water. Something deep below turns away from it.\nsignal||floodlight
+prop floodlight else.use=message||The floodlight is missing its lens, bulb, reflector and cable. The foreman's log said they are on the reef.
+
+prop site zone.id=site
+prop site zone.radius=10
+prop site zone.message=The construction site: a concrete shaft in scaffolding, machines, a red site office - nobody at work.
+prop lightdeck zone.id=lightdeck
+prop lightdeck zone.radius=3
+prop lightdeck zone.message=The floodlight's deck: the light on its mount, dark, the north water far below.
+prop deep zone.id=deep
+prop deep zone.radius=6
+prop deep zone.message=The deep under the point - and a lure glowing in the dark.
+prop angler creature.count=1
+prop angler creature.size=2
+prop angler creature.health=4
+prop angler creature.respawn=0
+prop angler creature.zone=deep
+
+quest title=Floodlight Down
+quest intro=A construction site on a rocky point, its floodlight dark since the storm. Go up to the site.
+step read|Foreman's log|1|Come up to the site and read the foreman's log on his desk by the office
+step open|Bulb crate|1|Dive below the floodlight tower for the crate with the bulb
+step collect|story:part|4|Find the other three parts on the reef: the lens, the reflector, the cable drum
+step reach|lightdeck|1|Climb the floodlight tower
+step kill|Angler fish|1|Light the floodlight, then face the giant angler in the deep under the point
+step open|Foreman's strongbox|1|Open the foreman's strongbox in the deep
+step blueprint|Blueprint_WindTurbine|1|Take the wind turbine plans from the foreman's strongbox
+step blueprint|Blueprint_BatteryAdvanced|1|Take the advanced battery plans from the foreman's strongbox
+step blueprint|Blueprint_HeadLight_Advanced|1|Take the advanced headlamp plans from the foreman's strongbox
+step blueprint|Blueprint_ElectricGrill|1|Take the electric grill plans from the foreman's strongbox
+quest done=The strongbox gives up the site's plans: a wind turbine, advanced batteries, a head lamp, an electric grill. Up on the tower the floodlight still burns over the north water.
+quest reward=Plank*8;Scrap*8;Bolt*4
+
+# Buried treasure (one of the story line's last islands): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=30 n=1 seed=8804
+prop treasure8804 treasure.loot=TitaniumOre*3
+
+save Varuna Point Remade

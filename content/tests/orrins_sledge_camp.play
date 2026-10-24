@@ -1,0 +1,43 @@
+# Orrin's Sledge Camp (CIPlay orrins_sledge_camp): the barn (the bears come), Orrin's note 1, two polar bears, the sledge
+# shed, Orrin's hut (note 2), the cook hut (note 3), the lookout, the zipline crate, Orrin's note 4.
+island Orrin's Sledge Camp
+# RESIZE 10-24: the recipe moved this island's old content by -9.2 -23; the points below are in the old frame
+offset 9.2 23
+expect step 0
+expect title The Sledge Camp
+expect animals Goat 3
+zone barn
+expect step 1
+read Orrin's note 1
+expect step 2
+kill Polar bear
+expect step 3
+# REDO 10-24: the shed's chest waits for the sledge winch
+expect hidden sledgeshed
+open Hay chest
+open Orrin's chest
+wait 3
+expect step 4
+read Orrin's note 2
+open Camp stores
+expect item Bucket 1
+read Orrin's note 3
+zone lookout
+open Lookout box
+wait 3
+expect step 5
+expect hidden ziplinecrate
+use pinevines
+expect shown ziplinecrate
+open Zipline crate
+wait 3
+expect story harness 3
+expect step 7
+use sledgewinch
+expect story harness 0
+expect shown sledgeshed
+expect step 8
+open Sledge shed
+wait 3
+expect done
+read Orrin's note 4

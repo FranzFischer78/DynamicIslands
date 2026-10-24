@@ -1,0 +1,9 @@
+# FLOAT2 close side pictures: the harpoon gun's post under its base
+island Whalebone Bay
+offset 0.5516 0.197
+hour 15
+weather Calm
+at 0 -30
+wait 3
+picture f2_whale_post_sw 17.5 3.6 3 22 2.8 6.5
+picture f2_whale_post_s 22 3.6 1.5 22 2.8 6.5

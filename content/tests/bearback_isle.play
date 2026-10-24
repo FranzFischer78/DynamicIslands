@@ -1,0 +1,12 @@
+# Play test of Bearback Isle (CIPlay bearback_isle, in a test world 'CI ...'). No quest: the cave on the north beach, the
+# bear in it, the hoard's chest, the treasure. Points as in its recipe.
+island Bearback Isle
+offset 0 0
+expect animals Bear 1
+wait 3
+kill Bear
+# In from the north beach along the cave's passage to the hoard
+walk -1 20 to -1 15 to -1 11 h=2.1 below=3
+expect stand -1 12 h=2 below=3
+open Hoard in the bear's cave
+dig

@@ -1,0 +1,243 @@
+# Sunstaff Mesa - an island of the library's plan Relic of the Seventh Tide (in Balboa's place: it holds Balboa's plans)
+# A red sandstone mesa with a slot canyon cut through its south side: Kett's abandoned camp at the canyon mouth, vines
+# over the lower canyon, an oasis of palms at its head with a well, a stepped stair up to the top - and on the top the
+# map room: a colonnade of stone pillars under a flat roof with an open oculus, a model of the islands on its sand floor,
+# and the sun beam (Temperance's laser emitter and three turning mirrors) that burns the dig mark. Quest "The Map Room"
+# (16 steps): the camp, the trunk (the machete plans), the vines, the oasis warthogs, the map room, Kett's journal stand,
+# the beam, the map room cache (the fuel tank and fuel pipe plans), the well's windlass, the drowned workshop locker
+# (the biofuel extractor plans).
+#
+# Built by the recipe player (CIRecipe sunstaff_mesa) through the editor's own operations.
+include lib_sea
+include lib_features
+new
+# (nature: desert - few trees, scrub and red rock; the oasis is planted by hand)
+gen Trees=0.08 Bushes=0.3 Rocks=0.25 Harvest=0.2 BeachThings=0.3
+gen Seed=9221 Radius=80 Height=13 Roughness=0.3 Peaks=1 Shape=4 Style=2 PeakShape=0.6 Cliffs=0.8 BeachWidth=0.5
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.2 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+
+# --- Terrain: the slot canyon from the south shore, the oasis at its head, the stair up, the map room's floor on top ---
+brush flatten at 0 22 r=15 s=20 frames=200 h=12
+brush flatten from 0 -80 to 0 -33 r=4 s=20 frames=200 h=1.6
+brush flatten at 9 -67 r=6 s=20 frames=80 h=1.6
+brush flatten at 0 -24 r=8 s=20 frames=150 h=2
+for i 0 7
+brush flatten at 0 {-16+$i*3} r=3.5 s=20 frames=60 h={3.2+$i*1.25}
+next
+brush smooth from 0 -17 to 0 6 r=3 s=6 frames=30
+brush smooth from 0 -36 to 0 -30 r=3 s=6 frames=20
+origin
+clear at 0 22 r=17
+clear from 0 -82 to 0 -16 r=6
+clear from 0 -16 to 0 8 r=4
+clear at 9 -67 r=7
+clear at 0 -24 r=10
+
+# --- Kett's camp at the canyon mouth: her tent, a crate for a desk, the trunk ----------------------------------------
+place Zone_Trigger mouth at 0 -66 h=2
+place Balboa_DecorationPrefabBase_SimpleTent - at 10 -68 ground sit yaw=250
+place "Box Small" campdesk at 7.4 -64.6 ground sit
+place Note_Paper diary at 7.4 -64.6 h=3 sit drop yaw=20
+place Loot_Chest camptrunk at 11.8 -64.8 ground sit yaw=200
+place Placeable_Lantern_Metal - at 8.4 -63.6 ground sit
+
+# --- The vines across the lower canyon (Balboa's: the machete cuts them) ----------------------------------------------
+place ChoppableVines canyonvines1 at -2.6 -50 ground yaw=0
+place ChoppableVines canyonvines2 at 0 -50 ground yaw=0
+place ChoppableVines canyonvines3 at 2.6 -50 ground yaw=0
+place Zone_Trigger stair at 0 -42 h=2
+
+# --- The oasis at the canyon's head: palms, banana bushes, the warthogs, the well and its windlass -------------------
+place BigPalm2 palms at -5 -27 ground scale=0.3 yaw=40
+place BigPalm4 palms at 5.5 -20 ground scale=0.3 yaw=200
+place BigPalm2 palms at -4.5 -19 ground scale=0.26 yaw=130
+place Banana_Bush_2 - at -6 -23 ground
+place Banana_Bush_1 - at 6 -28 ground
+place Banana_Bush_3 - at 6.5 -24.5 ground scale=0.8
+place Bush2 - at -2 -30 ground
+place Creature_Boar hogs at 2 -22 ground
+place Zone_Trigger wellzone at 0 -28 h=2
+push at 0 -28 h=2
+place Block_Wall_Tier3 wellring at 0 -0.75 y=0 sy=0.35
+place Block_Wall_Tier3 wellring at 0 0.75 y=0 sy=0.35
+place Block_Wall_Tier3 wellring at -0.75 0 y=0 sy=0.35 yaw=90
+place Block_Wall_Tier3 wellring at 0.75 0 y=0 sy=0.35 yaw=90
+place RT_Pillar - at 1.4 0 ground sy=0.6
+place TP_Selene_DoorCrankWheel windlass at 1.4 -0.09 ground y=1.2
+pop
+place Locker workshop at -2.6 -28 ground sit yaw=90
+
+# --- The map room on top: a colonnade of stone pillars, a back wall, a flat roof with the oculus open over the middle;
+# on the sand floor the model of the islands; the sun lens (the emitter) and three mirrors; the mark panel ------------
+push at 0 24 h=12
+for px -9 9 3
+place Block_Pillar_Tier3 roompillars at $px -9 y=0.2 sy=2.2
+place Block_Pillar_Tier3 roompillars at $px 9 y=0.2 sy=2.2
+next
+for pz -6 6 3
+place Block_Pillar_Tier3 roompillars at -9 $pz y=0.2 sy=2.2
+place Block_Pillar_Tier3 roompillars at 9 $pz y=0.2 sy=2.2
+next
+# (the oculus's east corners and two posts in the west half, all clear of the mirrors and the beam's lines)
+place Block_Pillar_Tier3 roompillars at -3 3 y=0.2 sy=2.2
+place Block_Pillar_Tier3 roompillars at 3 -3 y=0.2 sy=2.2
+place Block_Pillar_Tier3 roompillars at -3 -4.5 y=0.2 sy=2.2
+place Block_Pillar_Tier3 roompillars at 3 4.5 y=0.2 sy=2.2
+place Block_Pillar_Tier3 roompillars at -4.5 -1.5 y=0.2 sy=2.2
+place Block_Pillar_Tier3 roompillars at 3 -1.5 y=0.2 sy=2.2
+for fx -8.25 8.25 1.5
+place Block_Wall_Tier3 roomwall at $fx 9 y=0.2 sy=2.2
+next
+for fx -8.25 8.25 1.5
+for fz -8.25 -2.25 1.5
+place Block_Floor_Tier3 roomroof at $fx $fz y=5.74
+next
+for fz 2.25 8.25 1.5
+place Block_Floor_Tier3 roomroof at $fx $fz y=5.74
+next
+next
+for fz -0.75 0.75 1.5
+for fx -8.25 -2.25 1.5
+place Block_Floor_Tier3 roomroof at $fx $fz y=5.74
+next
+for fx 2.25 8.25 1.5
+place Block_Floor_Tier3 roomroof at $fx $fz y=5.74
+next
+next
+# the model of the islands: low red rocks on the sand, clear of the beam's lines
+place SmallRock_02 model at 3 -5 y=0 sit scale=0.22 yaw=20
+place SmallRock_02 model at 5.5 -3.5 y=0 sit scale=0.16 yaw=80
+place SmallRock_02 model at 4.2 -1 y=0 sit scale=0.12 yaw=150
+place SmallRock_02 model at -5 5.5 y=0 sit scale=0.2 yaw=200
+place SmallRock_02 model at -3 7 y=0 sit scale=0.14 yaw=10
+place SmallRock_02 model at 5 6 y=0 sit scale=0.15 yaw=300
+# the sun beam: the lens's beam runs north, three mirrors bring it east onto the mark panel (the Rain Engine's layout)
+place TP_LaserEmitter sunlens at -7.4 -6.5 y=0 sit yaw=0
+place TP_MirrorHousing_Rotating mirror1 at -6.6 -2.9 y=0 sit yaw=0
+place TP_MirrorHousing_Rotating mirror2 at -0.6 -2.9 y=0 sit yaw=270
+place TP_MirrorHousing_Rotating mirror3 at -0.6 2.7 y=0 sit yaw=0
+place TP_LaserDoorPanel markpanel at 7.4 2.7 y=0 sit scale=2 yaw=-90
+place "Box Small" journalstand at -4.5 7.6 y=0 sit
+place Note_Paper burnedmark at 7.2 0.6 y=0.3 sit drop yaw=10
+place Loot_ChestLarge mapcache at 4 7.8 y=0 sit yaw=180
+place Placeable_Lantern_Metal - at -7 7 y=0 sit
+place Placeable_Lantern_Metal - at 8.2 8.2 y=0 sit
+pop
+place Zone_Trigger maproom at 0 18 h=12
+prop roompillars tint.color=#c88a5e
+prop roomwall tint.color=#b5704a
+prop roomroof tint.color=#9c5e3e
+prop model tint.color=#d9b27c
+prop wellring tint.color=#b5704a
+
+# --- Things to gather, reefs at the canyon mouth ----------------------------------------------------------------------
+scatter "Pickup_Landmark_PineappleLandmark" 2 at 0 -24 r=7 seed=9231 free=2
+scatter "Pickup_Landmark_Flower_Red" 2 at 30 -50 r=15 seed=9232 free=3
+call dirt x=-30 z=-55 r=10 n=3 seed=9233
+call shallows x=-20 z=-85 r=14 deep=4 n=1 seed=9234
+call shallows x=22 z=-84 r=12 deep=4 n=1 seed=9235
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Sunstaff Mesa
+info author=Custom Islands
+info description=A red sandstone mesa split by a slot canyon: an abandoned dig camp, vines, an oasis with a well, and on the top a map room with an open oculus, where a beam of light through three mirrors burns the place to dig. Holds Balboa's plans. The second island of Relic of the Seventh Tide.
+island on.arrive=message||A red mesa rises out of the sea, flat as a table. A dark cut runs into its south face - a canyon.
+
+story sunangle|Sun angle|Placeable_PaperBundle|Kett's note of the sun's angle at the hour of the seventh tide: the mirrors' setting.
+story beamset|Beam on the mark|Battery|The sun beam runs through the three mirrors onto the mark panel.
+
+note diary Kett's camp diary | DIG CAMP - SUNSTAFF MESA\n\nDay 31. The Syndicate's launch came round the point again this morning. Let them look.\n\nThe map room is up top, as the old texts said: a room with an eye in its roof. Put the Sunstaff in the light and the light shows where the tide-gear lies. They stole the staff from the museum - but the staff was only ever a lens and a mirror. Our lens and mirrors are already up there.\n\nThe canyon has grown shut with vines since I came. My machete is in the trunk, and its plans: anyone following me will need them.
+note camptrunk Kett's camp trunk | Kett's camp trunk: her machete and its plans, a coil of rope and her spare boots.
+loot camptrunk Blueprint_Machete*1;Machete*1;Rope*3;Cooked_GenericMeat*2
+prop camptrunk loot.refill=0
+note journalstand Kett's journal stand | A brass stand where a journal lay open. On its page, Kett's hand: "Sun at the seventh tide - lens north, first mirror east, second north, third east to the mark."
+note burnedmark Burned mark | The beam has burned a black mark into the model, on a little island of the chain to the north-east: a tomb city in the dunes, half-buried. Beside the mark, carved long ago: a gear with seven teeth.
+note mapcache Map room cache | The map room cache under the mark: Kett's fuel plans - a fuel tank and fuel pipes to run an engine on the way north - and her charts.
+loot mapcache Blueprint_Fueltank*1;Blueprint_Pipe_Fuel*1;Bow*1;Arrow_Stone*6;Cooked_GenericMeat*2
+prop mapcache loot.refill=0
+prop mapcache if.open=signal|laser
+prop mapcache else.open=message||The cache under the model is sealed with a sun-lock: a glass eye in the lid, dark. The beam must reach the mark.
+note workshop Workshop locker | The drowned workshop's locker, hauled up out of the well: Kett's biofuel extractor plans, sealed in wax, and her tools.
+loot workshop Blueprint_BiofuelExtractor*1;Bolt*3;MetalIngot*2
+prop workshop loot.refill=0
+prop workshop beh.hidden=1
+
+prop canyonvines1 obj.name=canyonvines
+prop canyonvines2 obj.name=canyonvines
+prop canyonvines3 obj.name=canyonvines
+prop canyonvines1 on.use=hide|canyonvines\nshow|stairzone\nmessage||The machete bites through the vines. The canyon is open to its head.
+prop canyonvines2 on.use=hide|canyonvines\nshow|stairzone\nmessage||The machete bites through the vines. The canyon is open to its head.
+prop canyonvines3 on.use=hide|canyonvines\nshow|stairzone\nmessage||The machete bites through the vines. The canyon is open to its head.
+prop journalstand obj.name=journalstand
+prop journalstand beh.use=Read Kett's setting for the mirrors
+prop journalstand if.use=!signal|stand
+prop journalstand on.use=signal||stand\ngive||story:sunangle*1\nmessage||Kett's note of the sun at the seventh tide. Behind you, the lens under the oculus catches the light - a white bar of sun runs north across the floor.
+prop journalstand else.use=message||Lens north, first mirror east, second north, third east to the mark.
+prop sunlens obj.name=sunlens
+prop mirror1 obj.name=mirror1
+prop mirror1 col.mode=box
+prop mirror1 on.use=switch|\nmessage||The mirror grinds round a quarter turn.
+prop mirror2 obj.name=mirror2
+prop mirror2 col.mode=box
+prop mirror2 on.use=switch|\nmessage||The mirror grinds round a quarter turn.
+prop mirror3 obj.name=mirror3
+prop mirror3 col.mode=box
+prop mirror3 on.use=switch|\nmessage||The mirror grinds round a quarter turn.
+prop markpanel obj.name=markpanel
+prop markpanel col.mode=box
+prop markpanel if.laser=signal|stand\n!signal|laser
+prop markpanel on.laser=signal||laser\ngive||story:beamset*1\nshow|burnedmark\nmessage||The beam falls on the mark - smoke curls up from the model. Something under the floor clicks: the cache's sun-lock.
+prop burnedmark obj.name=burnedmark
+prop burnedmark beh.hidden=1
+prop windlass obj.name=windlass
+prop windlass beh.use=Turn the well's windlass
+prop windlass if.use=!signal|windlass
+prop windlass on.use=message||The windlass groans round and round. Up out of the dark water, streaming, on its chain: a locker from the workshop that sank into the well.\nsignal||windlass\nshow|workshop
+prop windlass else.use=message||The windlass is wound up as far as it goes.
+prop workshop obj.name=workshop
+
+prop mouth zone.id=canyon_mouth
+prop mouth zone.radius=6
+prop mouth zone.message=The canyon mouth: a tent, a cold fire, a trunk. Kett's camp - and no Kett.
+prop stair zone.id=canyon_stair
+prop stair zone.radius=4
+prop stair obj.name=stairzone
+prop stair beh.hidden=1
+prop stair zone.message=Past the vines the canyon climbs in rough steps towards green - an oasis.
+prop maproom zone.id=map_room
+prop maproom zone.radius=7
+prop maproom zone.message=The map room: pillars, a roof with an open eye, and the islands of the sea laid out in sand on the floor.
+prop wellzone zone.id=oasis_well
+prop wellzone zone.radius=3
+prop wellzone zone.message=The oasis well. Its windlass still turns - and something heavy hangs on the chain.
+prop hogs creature.count=4
+prop hogs creature.respawn=0
+
+quest title=The Map Room
+quest intro=A red mesa with a canyon cut into it. Land at the canyon mouth.
+step reach|canyon_mouth|1|Land at the canyon mouth
+step read|Kett's camp diary|1|Read Kett's camp diary
+step open|Kett's camp trunk|1|Open Kett's camp trunk
+step blueprint|Blueprint_Machete|1|Take the machete plans from the trunk
+step reach|canyon_stair|1|Cut through the vines to the canyon stair
+step kill|Warthog|4|Drive off the four warthogs in the oasis
+step reach|map_room|1|Climb the stair to the map room on top
+step collect|story:sunangle|1|Read Kett's setting at the journal stand
+step collect|story:beamset|1|Turn the three mirrors to bring the sun beam onto the mark
+step read|Burned mark|1|Read the burned mark on the model
+step open|Map room cache|1|Open the map room cache
+step blueprint|Blueprint_Fueltank|1|Take the fuel tank plans from the cache
+step blueprint|Blueprint_Pipe_Fuel|1|Take the fuel pipe plans from the cache
+step reach|oasis_well|1|Go back down to the oasis well
+step open|Workshop locker|1|Wind up the well and open the drowned workshop's locker
+step blueprint|Blueprint_BiofuelExtractor|1|Take the biofuel extractor plans from the locker
+quest done=Balboa's plans are yours, and the mark is burned: a tomb city in the dunes, the first gear. Its call sign answers on 900 - once the caravans' town is behind you.
+quest reward=MetalIngot*4;Bolt*3;Rope*4
+
+# --- Raft's vehicles (VI4, 2026-10-23): parked on open ground, clear of paths and quest objects ---
+place VP_Forklift - at 13.5 -70.5 ground sit yaw=30
+# the generator's rocks that floated over the slope (VI4 ground check, 2026-10-24)
+clear at 9.98 39.65 r=1.5 only=BigSharpRock
+
+save Sunstaff Mesa

@@ -1,0 +1,51 @@
+# Gantry Bluff - a vehicle island (VI1, no quest, no banner)
+# A high rock bluff where a salvage crew lifted wrecks out of the sea. A big crane stands at the cliff edge with its arm
+# out over the water, a light crane beside it, a forklift and an ore wagon on the flat top, salvage stacked round them,
+# and a ramp cut down the rock to the beach where the crew landed.
+#
+# Points (metres from the land centre): the top round 0 6 (h 8), the ramp down along x 0 (h 6.5, 4.8, 3), the beach
+# 0 -22.
+include lib_sea
+new
+gen Trees=0.1 Bushes=0.18 Rocks=0.55 Harvest=0.08 BeachThings=0.25
+gen Seed=15108 Radius=28 Height=12 Roughness=0.5 Peaks=1 Shape=0.4 Style=0 PeakShape=0.7 Cliffs=0.6 BeachWidth=0.35
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+
+# --- Terrain: the top, the ramp, the beach -------------------------------------------------------------------------
+brush rock at 0 4 r=22 s=8 frames=30
+brush flatten at 0 6 r=10 s=20 frames=150 h=8
+brush flatten at 0 -8 r=4 s=20 frames=80 h=6.5
+brush flatten at 0 -12 r=4 s=20 frames=80 h=4.8
+brush flatten at 0 -16 r=4 s=20 frames=80 h=3
+brush flatten at 0 -22 r=6 s=20 frames=100 h=1.1
+brush sand at 0 -22 r=7 s=10 frames=30
+origin
+clear at 0 6 r=10
+clear at 0 -22 r=5
+
+# --- The cranes at the edge -----------------------------------------------------------------------------------------
+place UT_ElectricityIsland_Crane01 - at 3 8.5 ground sit scale=0.45 yaw=45
+place UT_ElectricityIsland_Crane02 - at -6 11 ground y=-1.35 sit scale=0.4 yaw=330
+
+# --- The forklift, the wagon and the salvage -------------------------------------------------------------------------
+place VP_Forklift - at -2 2 ground y=0.3 sit yaw=200
+place VP_Wagon01 - at 3 0 ground sit yaw=90
+place MetalSheet_2 - at 4 4 ground sit yaw=20
+place MetalSheet_5 - at -4 6 ground sit yaw=110
+place Scrap_02 - at 0.5 4.5 ground sit
+place VP_MetalCrate03 - at -7 3 ground sit yaw=15
+place VP_Cable_Roll01 - at 6 2 ground sit yaw=60
+place Reef_Barrel1 - at -5 0 ground sit
+place Loot_Crate salvage at 2 3 ground sit yaw=10
+loot salvage MetalIngot*2;Scrap*4;Bolt*2
+place Placeable_Lantern_Metal - at 0 -6 ground sit
+
+scatter SmallBoulder3 3 at -14 -8 r=6 seed=15181 free=2 ground y=-1
+scatter Pickup_Landmark_BerryBush 2 at 12 -6 r=4 seed=15182 free=2
+call shallows x=0 z=0 r=36 deep=5 n=1 seed=15183
+
+info title=Gantry Bluff
+info description=A high rock bluff where a salvage crew lifted wrecks out of the sea: a big crane at the cliff edge with its arm out over the water, a light crane, a forklift and an ore wagon on the top, and a ramp cut down the rock to the beach.
+info author=Custom Islands
+save Gantry Bluff

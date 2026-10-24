@@ -1,0 +1,47 @@
+# Outer Breakwater (CIPlay outer_breakwater): the ground at 2 m either side of the wall (z -6); the gate house, the
+# keeper's book (no step), the cistern, the pipe store, the gate crank (twice), the keeper's chest, the wall store, the
+# inner stair.
+island Outer Breakwater
+offset 0 0
+expect step 0
+expect title The Wall
+zone gate_house
+expect step 1
+read Wall keeper's book
+expect step 1
+open Rain cistern
+wait 3
+expect step 2
+open Pipe store
+wait 3
+expect step 3
+expect shown gate
+use gatecrank
+expect story gate 1
+expect hidden gate
+use gatecrank
+expect story gate 1
+expect step 4
+open Keeper's chest
+wait 3
+expect step 5
+open Wall store
+wait 3
+expect step 6
+zone eastridge
+expect step 7
+use smuglever
+expect message curtain of vines
+use smugvines
+expect hidden smugvines
+use smuglever
+expect story smugbolt 1
+expect step 8
+read Masons' plan
+open Smugglers' strongbox
+wait 3
+expect step 9
+read Storm plane log
+expect step 10
+zone inner_stair
+expect done

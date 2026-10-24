@@ -1,0 +1,310 @@
+# The Step Pyramid - a themed island, twice the size (x2)
+# Inspiration: jungle-temple adventure films (a stepped pyramid on a jungle plateau, a sacred sinkhole full of offerings,
+#   spiked doorways, hidden levers, a pit you cannot cross) - the mood only, never named on the island.
+# Island type: Shape 4 (Plateau), Style 0 (tropical). A jungle-topped mesa (23.8 m) with sheer cliffs; the Rain Kings'
+#   causeway cut up its west face; the pyramid on a plaza on top, a sinkhole beside it straight down past sea level.
+# The Rain Kings farmed the plateau and threw jade into their sacred well to bring the rain. Three jade tablets were kept
+# apart: in the Sun shrine (its doorway spiked), in the well (with its guardian), in the Rain shrine (beyond a moat of
+# stakes). An explorer mapped it all and left her notes at the base camp. Lay the three on the summit altar.
+# Quest "The Rain Kings" (12 steps): the base camp, the field notes, the causeway, the warthogs, the Sun shrine (a hidden
+# lever), the sinkhole and its guardian, the well's tablet (a dive), the Rain shrine (the path appears), the summit, the
+# carvings, the offering chest (medium crop plot blueprint, trade coins, spices).
+#
+# Built by the recipe player (CIRecipe step_pyramid) through the editor's own operations.
+include lib_sea
+include lib_features
+
+# tierwall: the face of one of the pyramid's tiers - the radio tower's stone blocks (2.4 m square, 3 m tall, their tops
+# level with the tier) all round a square of half-size a (a = 1.2 + 1.2 x n), so each tier ends in a straight wall and not
+# in a slope: the terrain behind them is the tier
+macro tierwall a=15.6 h=26.22
+for t {1.2-$a} {$a-1.2} 2.4
+place RT_GroundPillar - at $t {$a-1.2} h=$h
+place RT_GroundPillar - at $t {1.2-$a} h=$h
+next
+for t {3.6-$a} {$a-3.6} 2.4
+place RT_GroundPillar - at {$a-1.2} $t h=$h
+place RT_GroundPillar - at {1.2-$a} $t h=$h
+next
+end
+
+new
+# (nature: a jungle where the theme says so - the plateau's top a little denser than Raft's tropical islands, like
+# Ironreef Caverns' jungle; the cliffs and beaches Like Raft)
+gen Trees=0.38 Bushes=0.38 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=9013 Radius=63 Height=24 Roughness=0.35 Peaks=1 Shape=4 Style=0 BeachWidth=0.5 Cliffs=0.85 PeakShape=0.3
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the pyramid raised out of the plateau's top in four square tiers 2.42 m high (a stair of Raft's fits each)
+# and 3.6 m deep, painted stone (their faces are walls of stone blocks, below); the moat of stakes round the Rain shrine's pedestal on the east; the sacred well dug south of the pyramid
+# down to 10 m under the sea; the causeway in two legs up the west face from the base camp's lowland (about 1:3) ---------
+for zz -14 14 2.2
+brush flatten from -14 $zz to 14 $zz r=2 s=20 frames=40 h=26.22
+next
+for zz -10.4 10.4 2.08
+brush flatten from -10.4 $zz to 10.4 $zz r=2 s=20 frames=40 h=28.64
+next
+for zz -6.8 6.8 2.27
+brush flatten from -6.8 $zz to 6.8 $zz r=2 s=20 frames=40 h=31.06
+next
+for zz -3.2 3.2 2.13
+brush flatten from -3.2 $zz to 3.2 $zz r=2 s=20 frames=40 h=33.48
+next
+brush rock at 0 0 r=17 s=20 frames=30
+brush flatten from 24 -4.5 to 37 -4.5 r=2 s=20 frames=120 h=19.8
+brush flatten from 24 4.5 to 37 4.5 r=2 s=20 frames=120 h=19.8
+brush flatten from 25 -4.5 to 25 4.5 r=2 s=20 frames=120 h=19.8
+brush flatten from 36 -4.5 to 36 4.5 r=2 s=20 frames=120 h=19.8
+brush flatten at -6 -26 r=6 s=20 frames=500 h=-10
+# (a gorge from the well's south side through the cliff to the sea: the sea fills the well, and its way out is a swim)
+brush flatten from -6 -31 to -6 -44 r=1.6 s=20 frames=300 h=-3
+brush rock at -6 -26 r=8 s=20 frames=30
+brush rock from -6 -31 to -6 -42 r=3 s=20 frames=20
+for i 0 16 1
+brush flatten at {-28-$i*0.8125} {42-$i*1.25} r=4.5 s=20 frames=20 h={3+$i*0.5}
+next
+for i 0 25 1
+brush flatten at {-41+$i*0.08} {22-$i*1.52} r=4.5 s=20 frames=20 h={11+$i*0.508}
+next
+brush flatten from -39 -16 to -35 -16 r=4.5 s=20 frames=40 h=23.8
+brush smooth from -28 42 to -41 22 r=4.5 s=10 frames=12
+brush smooth from -41 22 to -39 -16 r=4.5 s=10 frames=12
+brush flatten at -24 46 r=6 s=20 frames=60 h=3
+# (no "origin": the set pieces keep the frame the strokes above used, the generated land's exact middle)
+clear at 0 0 r=24
+clear at -28 0 r=6
+clear from 22 0 to 38 0 r=8
+clear at -6 -26 r=10
+clear from -6 -31 to -6 -46 r=3
+clear from -28 42 to -41 22 r=5
+clear from -41 22 to -37 -16 r=5
+clear at -24 46 r=9
+
+# --- The base camp on the lowland at the causeway's foot: two tents, the chart table with the field notes, crates and a
+# lantern, the camp box, the explorers' boat on the beach ------------------------------------------------------------------
+place Balboa_DecorationPrefabBase_SimpleTent - at -27 49 ground yaw=160
+place Balboa_DecorationPrefabBase_SimpleTent - at -20 49.5 ground yaw=200
+place MapTable - at -24 45 ground centred scale=0.6
+place Note_Book fieldnotes at -24 45 h=6 drop yaw=10 rot=0,0,0
+place Crate_Big_01 - at -21 44 ground yaw=30
+place Placeable_Lantern_Metal - at -21 44 h=5 drop
+place "Box Small" campbox at -27.5 44.5 ground yaw=-20
+place RT_PlasticBoat - at -21 55 ground yaw=80
+place Zone_Trigger basecamp at -24 46 y=1
+
+# --- The causeway: stone pillars along it, two fallen; the zone at its top --------------------------------------------
+place Pillar_01 - at -31.5 38.5 ground
+place Pillar_01 - at -37.5 33 ground
+place Pillar_01 - at -44.5 16 ground
+place Pillar_01 - at -43.8 4 ground
+place Pillar_01 - at -36.6 6 ground roll=90 yaw=20
+place Pillar_01 - at -43 -8 ground
+place Pillar_01 - at -35.4 -6 ground roll=88 yaw=-15
+place Zone_Trigger causeway at -35 -16 y=1
+
+# --- The pyramid's tier walls, and its stairway up the north face: one of Raft's stone stairs against each tier's wall --
+call tierwall a=15.6 h=26.22
+call tierwall a=12 h=28.64
+call tierwall a=8.4 h=31.06
+call tierwall a=4.8 h=33.48
+# (four tiers with ledges 3.6 m deep: one of Raft's stairs, 3.07 m long, fits each - on 2.4 m ledges each stair's foot
+# reached over the top of the one below, and shortened they were too steep to walk up)
+place Block_Stair_Tier3 - at 0 17.135 h=23.8 sit centred yaw=180
+place Block_Stair_Tier3 - at 0 13.535 h=26.22 sit centred yaw=180
+place Block_Stair_Tier3 - at 0 9.935 h=28.64 sit centred yaw=180
+place Block_Stair_Tier3 - at 0 6.335 h=31.06 sit centred yaw=180
+
+# --- The summit shrine on the top tier, open to the sky: the altar with its three hollows, the carvings, the Kings'
+# offering chest (columns at the tier's corners stood half off its edge) -----------------------------------------------------------------------------------
+place UT_EndRoom_Table altar at 0 -0.8 h=33.53 sit scale=0.5
+place Note_Sign carvings at 0 -2.6 h=33.53 sit
+place MayorsChest offering at 0 1.4 h=33.53 sit yaw=180
+place Zone_Trigger summit at 0 0 h=34.6
+
+# --- The Sun shrine on the west terrace: a stone room, its doorway (east) filled with stakes that sink into the floor;
+# the tablet chest inside; the jaguar's-paw lever hidden at the plateau's west rim among bushes -----------------------
+push at -29.5 -1.5 h=23.85
+place RT_Wall1 - at 3 0 y=0
+place RT_Wall1 - at 3 3 y=0
+place RT_Wall1 - at 0 0 y=0 yaw=90
+place RT_Floor - at 3 3 y=3 sx=0.5 sz=0.3333
+place "Balboa_DecorationPrefabBase_Wooden Spikes" sunspikes at 3.2 1.5 y=0 sit scale=0.22 yaw=90
+place Loot_ChestSmall sunchest at 2.4 1.5 y=0 sit yaw=90
+pop
+place UT_JumpPuzzle_LiftMechanism_Lever sunlever at -34.5 9 ground yaw=90
+place "Balboa_Bush_01 Variant" - at -35.2 10.6 ground
+place Bush - at -33.6 7.6 ground
+
+# --- The Rain shrine on its pedestal in the east, ringed by a moat of stakes: stepping stones (shown when the Sun's tablet
+# is taken) across the moat's west arm; the room as the Sun's, its doorway open (west); the chest; bees in its roof ----
+place "Balboa_DecorationPrefabBase_Wooden Spikes" - at 25 -2.9 h=19.8 sit scale=0.22 yaw=90
+place "Balboa_DecorationPrefabBase_Wooden Spikes" - at 25 2.9 h=19.8 sit scale=0.22 yaw=90
+place "Balboa_DecorationPrefabBase_Wooden Spikes" - at 30.5 -4.5 h=19.8 sit scale=0.3
+place "Balboa_DecorationPrefabBase_Wooden Spikes" - at 30.5 4.5 h=19.8 sit scale=0.3
+place RT_GroundPillarCap rainstones at 22.3 0 h=23.85 sy=1.68 scale=0.75
+place RT_GroundPillarCap rainstones at 23.9 0 h=23.85 sy=1.68 scale=0.75
+place RT_GroundPillarCap rainstones at 25.5 0 h=23.85 sy=1.68 scale=0.75
+place RT_GroundPillarCap rainstones at 27.1 0 h=23.85 sy=1.68 scale=0.75
+push at 29 -1.5 h=23.85
+place RT_Wall1 - at 3 0 y=0
+place RT_Wall1 - at 3 3 y=0
+place RT_Wall1 - at 3 0 y=0 yaw=90
+place RT_Floor - at 3 3 y=3 sx=0.5 sz=0.3333
+place Loot_ChestSmall rainchest at 1.9 1.5 y=0 sit yaw=270
+place Placeable_BeeHive - at 2.5 2.4 y=0 sit
+place Creature_BugSwarm_Bee bees at 2.5 2.4 y=1.8
+pop
+
+# --- The ruined terraces round the plaza: low walls of stone blocks sunk to show a metre, stumps of columns, rubble, the
+# collapsed storehouse's box; the warthogs ---------------------------------------------------------------------------------
+place RT_GroundPillar - at -20 18 h=24.8
+place RT_GroundPillar - at -17.6 18 h=24.8
+place RT_GroundPillar - at 18 -20 h=24.8
+place RT_GroundPillar - at 20.4 -20 h=24.8
+place Pillar_04 - at -21 -18 ground
+place Pillar_04 - at 21 17 ground yaw=40
+place VP_RubblePile_Small02 - at 19 19 ground yaw=30
+place VP_RubblePile_Small02 - at -22 -14 ground yaw=-20
+place "Box Small" storebox at 20.5 20.5 ground yaw=15
+place Creature_Boar hogs at 16 22 ground
+place Zone_Trigger terraces at 12 22 y=1
+
+# --- The sacred well south of the pyramid: vines down its wall, the offering pots and the box on its floor, the guardian
+# in its deep water, green-blue light in the shaft; the way out is the gorge to the sea ---------------------------------
+place CaveVine1 - at -8 -20.6 h=23.6
+place CaveVine3 - at -4.2 -20.5 h=23.6
+place UT_EndRoom_Pot02 offeringpot at -7.5 -27.5 h=-10 sit
+place UT_EndRoom_Pot03 - at -4.5 -25 h=-10 sit yaw=60
+place Loot_ChestSmall offeringbox at -6 -26.5 h=-10 sit yaw=30
+place Creature_AnglerFish guardian at -6 -26 h=-6
+place Zone_Trigger cenote at -6 -19 h=24.8
+place Zone_Atmosphere wellight at -6 -26 h=4
+
+# --- Off the beach 4 m down: the explorers' lost barrel; animals: jungle fowl by the camp, turtles off the beach,
+# dolphins out in the bay ------------------------------------------------------------------------------------------------
+place Loot_SunkenBarrel beachbarrel at -26 62 ground
+place Creature_Chicken fowl at -17 45 ground
+prop fowl creature.count=3
+place Creature_Turtle turtles at 10 62 h=-1
+prop turtles creature.count=2
+place Creature_Dolphin dolphins at 0 -78 h=-3
+prop dolphins creature.count=2
+
+# --- Raft's special features (lib_features; the user, 2026-10-10: every Raft feature on more than one island): two sun
+# mirrors on the plaza (east and south of the pyramid) and the king's sun-locked chest between them
+call mirrors x1=19.5 z1=-8 yaw1=0 x2=6 z2=-19.5 yaw2=90 a1=sunglass1 a2=sunglass2 chest=kingschest cx=16.8 cz=-17.2 cyaw=315 items=Glass*3;TradeToken*4;Seed_Flower_Red*2 title="The king's sun chest"
+prop kingschest else.open=message||A gold eye in the lid, dark. The glyph around it: two suns. Both plaza mirrors must face it.
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): palms, bananas, melons ----------
+scatter "Pickup_Landmark_Tree_Palm 1" 4 at 0 0 r=44.1 seed=4310 free=5
+scatter "Pickup_Landmark_Tree_Palm 3" 4 at 0 0 r=44.1 seed=4311 free=5
+scatter "Banana_Bush_2" 6 at 0 0 r=44.1 seed=4320 free=3
+scatter "Pickup_Landmark_WatermelonLandmark" 6 at 0 0 r=44.1 seed=4330 free=3
+
+# --- Raft's finds in the shallows round the island (lib_sea) ---------------------------------------------------------
+call shallows r=72 deep=5 n=2
+
+# ===== Settings, story items, notes, behaviours, quest (12 steps) =========================================================
+info title=The Step Pyramid
+info author=Custom Islands
+info description=A jungle plateau with sheer cliffs and, on its top, the stepped pyramid of the Rain Kings. Three jade tablets were kept apart - in a spiked shrine, in the sacred well beside the pyramid, and beyond a moat of stakes. Lay them on the summit altar and the Kings' offering is yours.
+island on.arrive=message||A green mesa with cliffs like walls. Over the treetops on its summit, the stepped top of a pyramid.
+
+story jade|Jade tablet|quest:Utopia_KeyPhase1|A tablet of green jade carved with rain clouds: one of the three for the Rain Kings' altar.
+
+note fieldnotes Dr. Quintero's field notes | THE PYRAMID OF THE RAIN KINGS - field notes, M. Quintero\n\nThe plateau was theirs: maize terraces, the stepped pyramid, and beside it a sinkhole straight down to the sea - their sacred well, where they threw jade to bring the rain.\n\nThree jade tablets were kept apart. One in the Sun shrine on the west terrace; its doorway is staked shut - the carving shows a jaguar's paw at the cliff's edge (a lever?). One thrown into the well. One in the Rain shrine on the east terrace, beyond a moat of stakes nobody can cross. The carving over the moat: "When the Sun gives up its stone, the Rain shows its path."\n\nLay the three on the summit altar, the carvings say, and the Kings' own offering is yours.\n\nThe warthogs dig everywhere. Something in the well took my rope.
+note carvings The Rain Kings' carvings | (carved round the altar; Dr. Quintero's pencil translation tucked under a stone)\n\nThree stones of rain - the Sun's, the Well's, the Rain's.\nLay them in the hollows of the altar,\nand the sky's chest opens.
+note sunchest Sun shrine's tablet chest | A stone box in the Sun shrine: the first jade tablet, wrapped in rotten cloth. As you lift it, stone grinds on stone somewhere to the east.
+loot sunchest story:jade*1;Clay*3
+prop sunchest loot.refill=0
+prop sunchest on.open=show|rainstones\nmessage||Stone grinds on stone, somewhere to the east - the Rain shows its path.\nsound||event:/coll/stoneground
+note offeringbox Well's offering box | A box among the offerings at the bottom of the well: jade beads, a gold disc - and the second tablet.
+loot offeringbox story:jade*1;TradeToken*4
+prop offeringbox loot.refill=0
+note rainchest Rain shrine's tablet chest | A stone box in the Rain shrine, dry under a carved cloud: the third jade tablet.
+loot rainchest story:jade*1;Clay*2
+prop rainchest loot.refill=0
+note offering Rain Kings' offering chest | The Kings' own offering: jade beads, gold discs worn smooth by hands, seed and spice kept dry a thousand years in sealed jars - and on a sheet of bark, the plan of their terraced beds.
+loot offering Blueprint_Cropplot_Medium_Tier3*1;TradeToken*15;Seed_Banana*2;Chili*3;Turmeric*3;Clay*6
+prop offering loot.refill=0
+prop offering if.open=signal|tablets
+prop offering else.open=message||The chest's lid is one block of stone. On the altar beside it, three hollows - all empty.
+note campbox Base camp box | The explorers' box: rope, a machete's whetstone, dried beans.
+loot campbox Rope*3;Plank*5;Raw_Potato*2
+prop campbox loot.refill=0
+note storebox Collapsed storehouse | A box in the collapsed storehouse: maize gone to dust, but the clay jars kept.
+loot storebox Clay*4;Stone*4;Brick_Dry*3
+prop storebox loot.refill=0
+note offeringpot Offering pot | A painted pot on the well's floor, stopped with wax: gold discs and cacao.
+loot offeringpot TradeToken*4;CopperIngot*2
+prop offeringpot loot.refill=0
+note beachbarrel Barrel off the beach | A barrel the explorers lost unloading: tools and tins.
+loot beachbarrel Scrap*3;Nail*8;MetalOre*2
+prop beachbarrel loot.refill=0
+
+prop sunlever obj.name=sunlever
+prop sunlever beh.use=Pull the jaguar's-paw lever
+prop sunlever on.use=message||The lever drops with a clunk. Up on the terrace, the stakes in the Sun shrine's doorway grind down into the floor.\nopen|sunspikes\nsound||event:/exploring/obstacles/varuna/trap_metal_reset
+prop sunspikes obj.name=sunspikes
+prop sunspikes beh.move=0,-3.4,0
+prop sunspikes beh.moveTime=2
+prop sunspikes beh.moveMode=switch
+prop rainstones obj.name=rainstones
+prop rainstones beh.hidden=1
+prop altar obj.name=altar
+prop altar beh.use=Lay the three jade tablets in the altar's hollows
+prop altar if.use=quest|10\ntake|story:jade|3
+prop altar on.use=message||One by one the tablets settle into their hollows. A sound like rain on leaves runs through the stone - and the offering chest's lid lifts a finger's width.\nsignal||tablets\nsound||event:/exploring/boxes/safe_unlock
+prop altar else.use=message||Three hollows in the altar stone, the shape of tablets. You haven't got all three.
+
+prop basecamp zone.id=basecamp
+prop basecamp zone.radius=8
+prop basecamp zone.message=The explorers' base camp: tents, a chart table, the notes of somebody who went up and didn't come down.
+prop causeway zone.id=causeway
+prop causeway zone.radius=6
+prop causeway zone.message=The top of the causeway. Jungle - and over it the pyramid, much bigger than it looked from the sea.
+prop terraces zone.id=terraces
+prop terraces zone.radius=10
+prop terraces zone.message=The terraces are torn up - warthogs, snouts deep in the old fields, and they don't like company.
+prop cenote zone.id=cenote
+prop cenote zone.radius=8
+prop cenote zone.message=The sacred well: a round shaft straight down to green water. Something pale moves deep in it.
+prop summit zone.id=summit
+prop summit zone.radius=5
+prop summit zone.message=The summit shrine: an altar with three hollows, a stone chest, and the whole jungle below you.
+prop hogs creature.count=3
+prop hogs creature.respawn=0
+prop hogs creature.zone=terraces
+prop guardian creature.count=1
+prop guardian creature.size=1.6
+prop guardian creature.health=3
+prop guardian creature.respawn=0
+prop guardian creature.zone=cenote
+prop bees creature.count=1
+prop bees creature.respawn=0
+prop wellight atmo.fog=#0a2a22
+prop wellight atmo.fogAmount=0.5
+prop wellight atmo.light=#5ac8a0
+prop wellight atmo.lightAmount=0.4
+prop wellight zone.radius=12
+
+quest title=The Rain Kings
+quest intro=A jungle mesa with a pyramid on top and an explorer's camp at its foot. Start at the camp.
+step reach|basecamp|1|Reach the explorers' base camp at the foot of the cliffs
+step read|Dr. Quintero's field notes|1|Read the field notes in the base camp
+step reach|causeway|1|Climb the old causeway up the cliffs to the plateau
+step kill|Warthog|3|Drive off the warthogs rooting in the ruined terraces
+step collect|story:jade|1|Find the hidden lever, sink the Sun shrine's stakes and take its jade tablet
+step reach|cenote|1|Find the sacred well beside the pyramid
+step kill|Angler fish|1|Face the guardian of the well's deep water
+step collect|story:jade|2|Dive for the second jade tablet among the offerings
+step collect|story:jade|3|Cross the stepping stones over the stakes to the Rain shrine for the third tablet
+step reach|summit|1|Climb the pyramid's stairway to the summit shrine
+step read|The Rain Kings' carvings|1|Read the carvings round the altar
+step open|Rain Kings' offering chest|1|Lay the three tablets in the altar and open the offering chest
+step blueprint|Blueprint_Cropplot_Medium_Tier3|1|Take the medium crop plot plans from the rain Kings' offering chest
+quest done=The tablets are home and the Kings' chest is open. Far out over the sea, for the first time in a long time, a rain cloud is building.
+quest reward=Clay*6;Stone*10;Brick_Dry*6
+
+save The Step Pyramid

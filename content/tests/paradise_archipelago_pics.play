@@ -1,0 +1,21 @@
+# Guide pictures of Paradise Archipelago (CIPlay paradise_archipelago_pics): Raft's camera, late afternoon, calm. The
+# pictures above the water first (a player under water makes Raft draw every picture as seen under water), the service
+# tunnel's grate on the marina floor last; the vault corridor from the gaming floor (behind the lasers' glow)
+island Paradise Archipelago
+offset -2.022 -4.7242
+hour 16
+weather Calm
+at 17 -12
+wait 3
+picture paradise_archipelago_keys -95 60 -150 -5 0 -10
+picture paradise_archipelago_marina -42 13 -112 -64 2 -88
+picture paradise_archipelago_hotel 36 17 -2 11 11 -18
+picture paradise_archipelago_waterpark 62 15 52 45 1 75
+picture paradise_archipelago_villas 18 12 44 -6 3 66
+picture paradise_archipelago_lighthouse -33 10 30 -51 7 44
+picture paradise_archipelago_casino 22 22 -125 -11 4 -92
+picture paradise_archipelago_gamingfloor -19 5.9 -104.3 -6 4.2 -97
+picture paradise_archipelago_vault -9.2 5.9 -95.5 -11 4.6 -86
+at -60 -92 h=-3
+wait 2
+picture paradise_archipelago_tunnel -64 -2 -93 -57.5 -6.5 -91

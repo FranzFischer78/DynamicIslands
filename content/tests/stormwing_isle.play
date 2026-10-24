@@ -1,0 +1,19 @@
+# Play test of Stormwing Isle (CIPlay stormwing_isle, in a test world 'CI ...'): a flying island (45 m up; heights count
+# from the island's own water line). No quest: along the strip to the crashed plane and the pilot's chest, the hangar
+# and its crate and barrel, into the cave to the pilots' stores, the buried tin. Points as in its recipe.
+island Stormwing Isle
+offset 0 0
+wait 3
+at -27 -6
+expect height 9
+read Sign at the strip
+walk -11 -6 to 0 -6 to 14 -6 to 26 -6 h=9
+read The flight log
+open Pilot's chest
+walk -20 2 to -20 10 to -18 16 h=9
+open Hangar crate
+open Barrel in the hangar
+walk 11 -6 to 11 0 to 11 6 to 10 10 h=9.5 below=12
+expect stand 10 10 h=9.4 below=12
+open The pilots' stores
+dig

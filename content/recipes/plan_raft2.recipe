@@ -1,0 +1,25 @@
+# Raft 2: The Drowned Frontier - a world plan of the library: a sequel with its own story and ten quest islands
+# Years after Utopia the sea is rising again. A signal from the old Frontier Corps promises high ground beyond the storm
+# belt - and a trail of the corps' stations leads there. Raft's own story is off: the chain is the plan's own, each
+# island on the Receiver after the one before (the first comes into sight by itself), each quest done gives the next
+# frequency. Raft's key blueprints are spread over the islands in Raft's order, so the raft can still be steered,
+# driven and fuelled; the tenth island is the ending.
+#
+# Built by the recipe player (CIRecipe plan_raft2) in the editor's World plans window. Its play test:
+# content\tests\plan_raft2.play.
+plan new Raft 2 - The Drowned Frontier
+plan description A sequel: years after Utopia the sea rises again, and a trail of the old Frontier Corps' stations leads to the last high ground. Ten quest islands of its own on the Receiver, no island of Raft's story - Raft's key blueprints are found along the way. Its main islands are about 90% the size of Raft's own big islands.
+plan random on
+plan story off
+plan rule beacon | island:Frontier Beacon | start | receiver:500 | A light blinks on a pinnacle of black rock: three short, three long. | Frontier Beacon | first | quest
+plan rule ferry | island:Saltmarsh Ferry | start | receiver:800 | The beacon's log gives the next station: a ferry's emergency band. | Saltmarsh Ferry | after:beacon | quest
+plan rule cinder | island:Cinderfall | start | receiver:900 | A geothermal plant still reports its pressure: rising. | Cinderfall | after:ferry | quest
+plan rule archive | island:The Sunken Archive | start | receiver:900 | A library's catalogue, read out number by number. | Sunken Archive | after:cinder | quest
+plan rule harbor | island:Hightide Harbor | start | receiver:1000 | A harbour master calls the fishing fleet home. No one answers. | Hightide Harbor | after:archive | quest
+plan rule graveyard | island:The Iron Graveyard | start | receiver:1000 | Cutting torches, a radio left on in a breakers' yard. | Iron Graveyard | after:harbor | quest
+plan rule spire | island:Storm Spire | start | receiver:1100 | A weather spire in the storm belt, its warning on a loop. | Storm Spire | after:graveyard | quest
+plan rule whiteout | island:Whiteout Reach | start | receiver:1100 | The corps' winter camp: "Do not come in winter." | Whiteout Reach | after:spire | quest
+plan rule gate | island:The Drowned Gate | start | receiver:1200 | The sea wall's lock keeper, counting the hours. | Drowned Gate | after:whiteout | quest
+plan rule frontier | island:The Frontier | start | receiver:1300 | The Frontier: "If you can hear this, you are almost home." | The Frontier | after:gate | quest
+plan ending The Frontier holds. Ten stations, one trail, and the last high ground above the rising sea - you followed the Corps all the way.\n\nThe end of Raft 2 - The Drowned Frontier.
+plan save

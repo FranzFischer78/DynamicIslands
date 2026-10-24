@@ -1,0 +1,160 @@
+# Sulphur Vent - a new island of the library, normal size
+# A geologist's sulphur works on a fuming volcanic cone: the works on the cone's north shoulder (10 m), the vent's iron
+# cap on the summit (20 m) with Dr. Varga's sample case still on it, yellow crust on the rocks, and down on the north-east
+# beach the boathouse whose shutter is wired to the cap. Lift the case and the vent breathes out: forty seconds to reach
+# the boathouse before its shutter drops (a reset lever by the vent gives another forty).
+# Quest "Forty Seconds" (5 steps): a timed escape - the manager's note, the gas mask in the store box, the sample case,
+# the run to the boathouse, the works' safe.
+#
+# Built by the recipe player (CIRecipe sulphur_vent) through the editor's own operations.
+include lib_rt
+include lib_sea
+new
+gen Trees=0.2 Bushes=0.3 Rocks=0.5 Harvest=0.25 BeachThings=0.3
+gen Seed=9101 Radius=45 Height=22 Roughness=0.5 Peaks=1 Shape=0 Style=4 BeachWidth=0.3 Cliffs=0.4 PeakShape=0.6
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the works' pad on the north shoulder, the vent's cap on the summit, the trail between them and the trail
+# down to the boathouse on the north-east beach ---------------------------------------------------------------------------
+for wz 10 21 3.5
+brush flatten from -17 $wz to 1 $wz r=3.5 s=20 frames=120 h=10.3
+next
+brush flatten at -6.5 -3 r=4.5 s=20 frames=150 h=20.5
+macro trail x1 z1 h1 x2 z2 h2 n
+for i 0 $n 1
+brush flatten at {$x1+($x2-$x1)*$i/$n} {$z1+($z2-$z1)*$i/$n} r=2.3 s=20 frames=40 h={$h1+($h2-$h1)*$i/$n}
+next
+end
+call trail -7 10 10.3 -6 1 20 6
+call trail -3 20 10 6 29 4.5 7
+call trail 6 29 4.5 12 33.5 1.6 5
+brush flatten at 12 40 r=5 s=20 frames=80 h=1
+clear from -13 15 to 1 15 r=9
+clear at -6 -3 r=5
+clear from -7 10 to -6 1 r=3
+clear from -3 20 to 12 34 r=3
+clear at 12 40 r=7
+
+# --- The works: the crusher, the bunkhouse (a radio tower room with its door), the board with the
+# manager's note, the store box, barrels of crust; yellow crust drifts round the works and the vent; the fumes ----------
+place UT_Generator02 - at -1.5 13.5 h=10.4 sit scale=0.5
+push at -10 12 h=10.35 yaw=90
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 r2=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+place Placeable_Bed_Wood - at -4 2.5 y=0 sit
+place Locker bunkhouse at -1 3.8 y=0 sit yaw=180
+pop
+place Note_Board managernote at -2 11 h=10.35 sit yaw=90
+place "Box Small" storebox at -1.5 17.5 h=10.4 sit yaw=15
+place Loot_Barrel sulphurbarrel at -0.5 18 h=10.4 sit
+place Loot_Barrel - at 0.3 18.8 h=10.4 sit
+place Zone_Trigger works at -6 15 h=11.5
+place TP_SnowDrift01 yellow at -6 2.5 ground yaw=20
+place TP_SnowDrift02 yellow at -10 -1 ground yaw=80
+place TP_SnowDrift02 yellow at -2 -6 ground yaw=150
+place TP_SnowDrift01 yellow at -12 -8 ground yaw=210
+place TP_SnowDrift02 yellow at 0 -12 ground yaw=300
+place TP_SnowDrift02 yellow at -13 18 ground yaw=40
+place TP_SnowDrift01 yellow at 2 13 ground yaw=110
+place Zone_Atmosphere fumes at -6 -3 h=22
+place Zone_Atmosphere ventgas at -6 0 h=14
+
+# --- The vent's cap on the summit: an iron lid with the sample case on it; the reset lever beside it ---------------------
+place RT_Floor - at -4.8 -1.8 h=20.5 sx=0.4 sz=0.267
+place Loot_ChestSmall samplecase at -6 -3 h=20.6 sit yaw=180
+place UT_JumpPuzzle_LiftMechanism_Lever ventlever at -8.5 -3 h=20.5 sit yaw=90
+place Zone_Trigger vent at -6 -3 h=21.5
+
+# --- The boathouse on the north-east beach: a radio tower room shut all round, its front (to the island) a shutter of two
+# wall pieces that rises when the cap is lifted; inside the works' safe and the works' launch ----------------------------
+push at 15 40 h=1.05
+call rt_storey f1=none f2=none l2=RT_WallWindow1 r2=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+place RT_Wall1 shutter at -3 -4.5
+place RT_Wall1 shutter at 0 -4.5
+place Loot_ChestLarge workssafe at -4.6 3 y=0 sit yaw=90
+place RT_PlasticBoat - at -2 1.5 y=0.05 sit yaw=5
+place Zone_Trigger boathouse at -3 0.5 y=1.5
+pop
+
+# --- Dolphins off the beach; Raft's finds in the shallows round the cone (lib_sea) --------------------------------------
+place Creature_Dolphin dolphins at 30 60 h=-3
+prop dolphins creature.count=2
+call shallows r=58 deep=5 n=1
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): palms, mangoes, pineapples ----------
+scatter "Pickup_Landmark_Tree_Palm 3" 3 at 0 0 r=31.5 seed=4304 free=5
+scatter "Pickup_Landmark_Tree_Mango" 3 at 0 0 r=31.5 seed=4314 free=5
+scatter "Pickup_Landmark_PineappleLandmark" 3 at 0 0 r=31.5 seed=4324 free=3
+
+# ===== Settings, story items, notes, behaviours, quest (5 steps) ==========================================================
+info title=Sulphur Vent
+info author=Custom Islands
+info description=A fuming cone with a sulphur works on its shoulder, yellow crust on the rocks and a geologist's sample case still sitting on the vent's cap. Lift it and the vent breathes out - you'll have forty seconds to reach the boathouse before its shutter drops.
+island on.arrive=message||A black cone breathing yellow smoke, a small works clinging to its side - and a smell of rotten eggs on the wind.
+
+story sample|Sample case|quest:Caravan_BatteryChargerPart|Dr. Varga's sample case: a sealed tube of the vent's yellow crystals, still warm.
+
+note managernote Works manager's note | SULPHUR VENT WORKS - TO WHOEVER COMES NEXT\n\nDr. Varga left her sample case on the vent's cap the night the gauge went red, and nobody has been brave enough to fetch it since.\n\nHere's the trouble: the cap is weighted. Lift the case and the vent breathes out - the yellow comes down the slope like a wall. The boathouse shutter is wired to the cap: it opens when the case comes off and drops forty seconds later, gas or no gas.\n\nRun. Don't stop for anything. The works' safe is in the boathouse, and it's yours if you make it.\n\nIf you don't make it in time, the reset lever by the vent opens the shutter again - and gives you another forty seconds.\n- R. Holm, manager
+note samplecase Sample case | On the vent's cap, in a cradle of yellow crust: Dr. Varga's sample case, labelled DO NOT LEAVE ON THE CAP.
+loot samplecase story:sample*1
+prop samplecase loot.refill=0
+prop samplecase on.open=message||The cap lurches - and the vent BREATHES. Yellow smoke rolls out over the rim. Down by the shore the boathouse shutter grinds up: forty seconds!\nshow|ventgas\nopen|shutter\nsound||event:/exploring/obstacles/varuna/garagedoor_open\nwait|40\nclose|shutter\nmessage||The boathouse shutter crashes down.
+note workssafe Works safe | The works' safe, in the boathouse out of the gas: the season's pay, the geologist's spare gear, a jar of the good crystals.
+loot workssafe TradeToken*10;Blueprint_HeadLight*1;MetalIngot*3;Glass*4
+prop workssafe loot.refill=0
+note storebox Works store box | The works' store box: rope, gloves, a gas mask with a cracked lens.
+loot storebox Rope*3;Scrap*3;Plastic*2
+prop storebox loot.refill=0
+note bunkhouse Bunkhouse locker | A locker in the bunkhouse: someone's coffee, someone's boots.
+loot bunkhouse Cooked_GenericMeat*2;PlasticBottle_Water*2;Leather*1
+prop bunkhouse loot.refill=0
+note sulphurbarrel Sulphur barrel | A barrel of yellow crust off the works' sorting floor.
+loot sulphurbarrel Stone*4;Clay*3;MetalOre*2
+prop sulphurbarrel loot.refill=0
+
+prop ventlever obj.name=ventlever
+prop ventlever beh.use=Pull the reset lever (the shutter opens for forty seconds)
+prop ventlever if.use=has|story:sample|1
+prop ventlever on.use=message||The reset lever clanks over. Down by the shore the shutter grinds up again: forty seconds!\nopen|shutter\nsound||event:/exploring/obstacles/varuna/garagedoor_open\nwait|40\nclose|shutter\nmessage||The boathouse shutter crashes down.
+prop ventlever else.use=message||The reset lever for the boathouse shutter. The case is still on the cap.
+prop shutter obj.name=shutter
+prop shutter beh.move=0,3.1,0
+prop shutter beh.moveTime=1.5
+prop shutter beh.moveMode=switch
+prop ventgas obj.name=ventgas
+prop ventgas beh.hidden=1
+prop ventgas atmo.fog=#c8b030
+prop ventgas atmo.fogAmount=0.5
+prop ventgas atmo.light=#e0c040
+prop ventgas atmo.lightAmount=0.3
+prop ventgas atmo.particles=mist
+prop ventgas zone.radius=30
+prop fumes atmo.fog=#a89870
+prop fumes atmo.fogAmount=0.15
+prop fumes atmo.particles=mist
+prop fumes zone.radius=14
+prop works zone.id=works
+prop works zone.radius=9
+prop works zone.message=The sulphur works: a sorting floor, a crusher, a bunkhouse - and the vent above, breathing.
+prop vent zone.id=vent
+prop vent zone.radius=5
+prop vent zone.message=The vent's cap: an iron lid on a yellow mouth, ticking with heat. On it, a sample case.
+prop boathouse zone.id=boathouse
+prop boathouse zone.radius=3
+prop boathouse zone.message=Inside the boathouse - out of the gas. You made it.
+prop yellow tint.color=#d8c040
+prop yellow tint.amount=0.7
+
+quest title=Forty Seconds
+quest intro=A sulphur works on a breathing volcano. The manager left a note on the works' board.
+step read|Works manager's note|1|Climb to the sulphur works and read the manager's note on its board
+step open|Works store box|1|Grab the gas mask from the works' store box before you go up
+step collect|story:sample|1|Lift Dr. Varga's sample case off the vent's cap
+step reach|boathouse|1|Run for the boathouse before its shutter drops
+step open|Works safe|1|Open the works' safe in the boathouse
+quest done=You stand in the boathouse with the case in your arms while the yellow rolls past the door. Dr. Varga's samples are safe - and so are you.
+quest reward=Stone*6;Glass*4;Rope*2
+
+save Sulphur Vent

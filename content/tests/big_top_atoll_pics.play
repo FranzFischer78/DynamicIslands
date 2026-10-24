@@ -1,0 +1,16 @@
+# Guide pictures of Big Top Atoll (CIPlay big_top_atoll_pics): Raft's camera, midday, calm. Points as in its recipe
+# ("offset"). The pictures above the water first, the trunk on the lagoon floor last (from open water).
+island Big Top Atoll
+offset 0 0
+hour 11
+weather Calm
+at 3 -44 h=3.5
+wait 3
+picture big_top_atoll_island 75 50 -100 2 2 -8
+picture big_top_atoll_bigtop 6 9 -30 -10 4 -44
+picture big_top_atoll_wagons 30 9 -58 14 3 -44
+picture big_top_atoll_pens -14 7 -33 -28 4 -44
+picture big_top_atoll_rig 26 14 -18 44 11 0
+at 20 -4 h=-2.5
+wait 2
+picture big_top_atoll_trunk 22 -3 -5 28 -6 0

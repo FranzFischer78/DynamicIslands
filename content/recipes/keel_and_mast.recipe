@@ -1,0 +1,337 @@
+# Keel & Mast - a new island of the library, four times the size (x4)
+# A shipwright's yard on a wooded crescent bay (Shape 6, Style 3): the yard at the head of the bay with Brandvold's house,
+# the sawpit, the timber stacks and the drying shed; on the slipway the Second Wind, nearly finished - a gap in her side,
+# no mast, no sail - on her chocks with a scaffold up to her deck; the drying rack in the west horn's woods, the sail loft
+# on the east horn's shore, the mast spar on the bay's floor. Brandvold built ships here for fifty years and died a month
+# before her launch; his letter asks whoever comes to finish her and knock out the chocks. Quest "The Second Wind" (14
+# steps, build and launch): three planks (the bear at the drying rack), the strakes, the mast dive, the mast stepped, the
+# loft key, the sail bent on, the launching rhyme, the chocks in its order - she slides down the slip into the bay - and
+# boarding her afloat, the slip board, the shipwright's gift.
+#
+# Built by the recipe player (CIRecipe keel_and_mast) through the editor's own operations. Points: the bay's floor -2 to
+# -4 m; the yard levelled at 2 m over x -42..-6, z -2..12; the ship (BoatStranded, scale 1.4) at -24 2 on her chocks,
+# her fore deck 7 m at z -7..-2, her cabin over z -1..8, her aft deck at z 9..12; the slipway from the yard down to z -26
+# (-3 m); the scaffold x -21.5..-18.5, z 9..12 (7 m), its ladder at -20 8.8; the ship's run 24 m down the slip (she ends
+# at -24 -22, her aft deck 3 m at z -13.5); Brandvold's house x -40.25..-35.75, z 4..8.5 (deck 2.8 m, ladder on the south side at
+# -38 3.9); the drying shed at -13 9; the drying rack at -66 2 (6 m); the east beach's plank at 10 -50; the sail loft on
+# the east shore at 14 -62 (2.5 m); the mast spar in a hole 7 m deep at -30 -40.
+include lib_huts
+include lib_sea
+include lib_features
+new
+# (nature: forest, Like Raft's Balboa - birch and pine round the bay; the yard cleared)
+gen Trees=0.21 Bushes=0.38 Rocks=0.42 Harvest=0.1 BeachThings=0.3
+gen Seed=9215 Radius=90 Height=24 Roughness=0.4 Peaks=2 Shape=6 Style=3 BeachWidth=0.5 Cliffs=0.2 PeakShape=0.35 Bays=0.3
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+macro dabs x1 z1 h1 x2 z2 h2 n=8 r=2.6
+for i 0 $n
+brush flatten at {$x1+($x2-$x1)*$i/$n} {$z1+($z2-$z1)*$i/$n} r=$r s=20 frames=50 h={$h1+($h2-$h1)*$i/$n}
+next
+end
+
+# ===== The ground: the yard, the slipway down into the bay, the drying rack's clearing, the loft's pad, the spar's hole ==
+for yz -2 12 2
+brush flatten from -42 $yz to -6 $yz r=1.9 s=20 frames=60 h=2
+next
+call dabs -24 -4 2 -24 -26 -3 n=12 r=5
+brush flatten at -66 2 r=4.5 s=20 frames=60 h=6
+brush flatten at 14 -62 r=5 s=20 frames=60 h=2.5
+brush flatten at -30 -40 r=5 s=20 frames=80 h=-7
+brush sand from -42 4 to -6 4 r=9 s=20 frames=30
+clear from -42 4 to -6 4 r=10
+clear from -24 -4 to -24 -26 r=6
+clear at -66 2 r=6
+clear at 14 -62 r=7
+clear at 10 -50 r=4
+
+# ===== Brandvold's house on the yard: low stilts, his coat on a hook (its pocket the box with the loft key), his gift
+# chest; his letter by the door ==============================================================================================
+push at -40.25 4 h=2
+call stilt_hut y=0.8
+place Hanger_01 - at 0.4 3.4 y=1.8 yaw=90
+place "Box Small" coat at 0.7 3.6 y=0.8 sit yaw=90
+place Loot_ChestLarge gift at 3.6 3.8 y=0.8 sit yaw=180
+place Note_Paper letter at 1.5 0.4 y=0.8 sit yaw=10
+pop
+
+# ===== The yard: the sawpit (a log over a trench, a saw), timber stacks, the drying shed with the first plank, the
+# workbench, the nail barrel, hens; the launching rhyme at the slip's head; the slip board at its foot (hidden) ===========
+brush flatten from -32 10 to -28 10 r=1 s=20 frames=40 h=0.8
+place TreeLog_01 - at -30 11.8 ground yaw=0
+place "VG_DecorationPrefabBase_Tools_Saw2 Variant" - at -28.2 11.2 ground sit yaw=90
+place Pallet - at -33 6 ground sit yaw=10
+place FL_Plank3 - at -33 6 ground y=0.37 yaw=100
+place FL_Plank3 - at -33.2 6.2 ground y=0.42 yaw=95
+place Pallet - at -10 2 ground sit yaw=80
+place FL_Plank3 - at -10 2 ground y=0.5 yaw=170
+push at -14.5 7.5 h=2
+place Block_Pillar_Wood - at 0 0 y=0
+place Block_Pillar_Wood - at 3 0 y=0
+place Block_Pillar_Wood - at 0 3 y=0
+place Block_Pillar_Wood - at 3 3 y=0
+roof 2 2 at 0 0 y=0
+place Placeable_DetailPlank plank1 at 1.5 1.5 y=0.2 sit yaw=90
+pop
+place Workbench - at -9.5 6 ground sit yaw=270
+place Loot_Barrel nailbarrel at -9.5 8.5 ground sit
+# --- Raft's special features (lib_features; the user, 2026-10-10: every Raft feature on more than one island): the
+# yard's timber winch on a post at the east end of the yard; wound, it lets a crate down off the timber stack
+call crankcache x=-7.5 z=0 yaw=90 alias=yardwinch sig=kmwinch chest=winchcrate cx=-9.5 cz=-1.8 cyaw=0 items=Plank*4;Nail*8;Rope*2 title="Timber crate"
+prop yardwinch on.use=message||The winch drum turns with a long groan, the chock lets go - and a crate slides down off the timber stack.\nsignal||kmwinch\nshow|winchcrate
+place Creature_Chicken hens at -34 9 ground
+place Note_Board rhyme at -28 -3 ground yaw=180
+place Note_Sign nameboard at -18 -10 ground yaw=200
+place Zone_Trigger yard at -24 7 h=3
+
+# ===== The ship on her slip: the hull on three chocks; the gap's planks (the strakes, hidden), the mast step on the aft
+# deck, the mast and the rigging (hidden), the sail (hidden); the scaffold up to her aft deck with its ladder; the deck's
+# zone; where she ends afloat (hidden) ======================================================================================
+place BoatStranded shiphull at -24 2 h=7.3 scale=1.4
+place Crate_Small_02 chockfore at -24 -3.5 ground scale=2.5
+place Crate_Small_02 chockmid at -24 2 ground scale=2.5
+place Crate_Small_02 chockaft at -24 9 ground scale=2.5
+place FL_Plank2 strakes at -20 -4.5 h=5.2 rot=0,90,90
+place FL_Plank2 strakes at -20 -3 h=5.2 rot=0,90,90
+place FL_Plank2 strakes at -20 -4.5 h=5.5 rot=0,90,90
+place FL_Plank2 strakes at -20 -3 h=5.5 rot=0,90,90
+place Pillar_04 maststep at -24 10.4 h=7.05
+place RT_PillarThick mast at -24 10.4 h=7.05
+place RT_PillarThick mast at -24 10.4 h=13.05
+place RopeFence_Medium rigging at -26.4 11.9 h=7.05
+place UT_ClothOverhangBig04 sail at -24 10.1 h=18.6
+for sh 2 4.6 2.45
+place Block_Pillar_Wood - at -21.5 9 h=$sh
+place Block_Pillar_Wood - at -18.5 9 h=$sh
+place Block_Pillar_Wood - at -21.5 12 h=$sh
+place Block_Pillar_Wood - at -18.5 12 h=$sh
+place Block_Pillar_Wood - at -20 9 h=$sh
+next
+place Block_Floor_Wood - at -20.75 9.75 h=6.9
+place Block_Floor_Wood - at -19.25 9.75 h=6.9
+place Block_Floor_Wood - at -20.75 11.25 h=6.9
+place Block_Floor_Wood - at -19.25 11.25 h=6.9
+for lh 2 7 2.42
+place Block_Ladder - at -20 8.8 h=$lh
+next
+place Zone_Trigger hull at -23 10.5 h=8
+place Zone_Trigger afloat at -23 -13.5 h=4.5
+
+# ===== The second plank on the east beach among the drift; the drying rack in the west woods (the third plank, the bear,
+# berries); the mast spar on the bay's floor, its anchor and a sunk tool chest =============================================
+place Placeable_DetailPlank plank2 at 10 -50 ground sit yaw=40
+place Log - at 12 -47 ground yaw=80
+place TreeLog_02 - at 8 -53 ground yaw=20
+push at -67.5 0.5 h=6
+place Block_Pillar_Wood - at 0 0 y=0
+place Block_Pillar_Wood - at 3 0 y=0
+place Block_Pillar_Wood - at 0 3 y=0
+place Block_Pillar_Wood - at 3 3 y=0
+place Block_HorizontalPillar_Wood - at 0 0 y=1.6 yaw=0
+place Block_HorizontalPillar_Wood - at 0 3 y=1.6 yaw=0
+place Placeable_DetailPlank plank3 at 1.5 1.5 y=0.05 sit yaw=90
+pop
+place Zone_Trigger dryingrack at -66 2 h=7
+place Creature_Bear bear at -60 12 ground
+place Pickup_Landmark_BerryBush - at -70 8 ground
+place Pickup_Landmark_BerryBush - at -60 -4 ground yaw=90
+place Pickup_Landmark_BerryBush - at -72 -4 ground yaw=200
+place Relay_support_beam_wood mastspar at -25.5 -40 h=-6.7 yaw=0
+place Placeable_Anchor_Stationary - at -27 -43 ground yaw=30
+place Zone_Trigger mastwreck at -30 -40 h=-5
+place Loot_SunkenBarrel toolbarrel at -33 -37.5 ground
+
+# ===== The sail loft on the east shore: a long hut of plank walls with windows, its door west, a wooden roof; sail cloth
+# on the tables, the loft's chest; the rope walk outside ====================================================================
+push at 12.5 -64.25 h=2.5
+call floors w=2 d=3 y=0.15
+place Block_Wall_Wood - at 0.75 0 y=0.2
+place Block_Wall_Window_Wood - at 2.25 0 y=0.2
+place Block_Wall_Wood - at 0.75 4.5 y=0.2
+place Block_Wall_Window_Wood - at 2.25 4.5 y=0.2
+place Block_Wall_Wood - at 0 0.75 y=0.2 yaw=90
+place Block_Wall_Wood - at 0 3.75 y=0.2 yaw=90
+place Block_Wall_Window_Wood - at 3 0.75 y=0.2 yaw=90
+place Block_Wall_Wood - at 3 2.25 y=0.2 yaw=90
+place Block_Wall_Window_Wood - at 3 3.75 y=0.2 yaw=90
+roof 2 3 at 0 0 y=0.2 wood
+place Placeable_Table_Basic - at 1.5 3.5 y=0.25 sit yaw=90
+place FL_Cloth - at 1.5 3.5 y=1 yaw=90
+place Loot_Chest loftchest at 2.2 1 y=0.25 sit yaw=270
+pop
+line Relay_Fence_pole from 8 -58 to 8 -66 step=2 ground
+
+# ===== The woods: birch and pine round the bay; goats on the east horn; dolphins in the bay; the bay's sound; Raft's finds
+place Pickup_Landmark_Tree_Birch - at -45 14 ground yaw=40
+place Pickup_Landmark_Tree_Birch - at -5 16 ground yaw=150
+place Pickup_Landmark_Tree_Birch - at -60 -10 ground yaw=260
+place Pickup_Landmark_Tree_Birch - at 20 -40 ground yaw=70
+place Pickup_Landmark_Tree_Pine - at -50 20 ground yaw=10
+place Pickup_Landmark_Tree_Pine - at 0 22 ground yaw=110
+place Pickup_Landmark_Tree_Pine - at -72 10 ground yaw=210
+place Pickup_Landmark_Tree_Pine - at 24 -50 ground yaw=310
+place Creature_Goat goats at 30 -40 ground
+place Creature_Dolphin dolphins at -35 -60 h=-1.6
+place Zone_Sound baysound at -24 -20 h=2
+call shallows r=110 deep=5 n=1
+
+# ===== Settings, story items, notes, behaviours, quest (14 steps) =========================================================
+info title=Keel & Mast
+info author=Custom Islands
+info description=A shipwright's yard on a wooded bay, and on the slipway a great ship nearly finished - waiting for her last planks, her mast and her sail. The old shipwright left a letter. Finish her, knock out the chocks, and watch her slide into the bay.
+island on.arrive=message||A quiet bay in a crescent of birches, and at its head on a wooden slipway, a ship - a real one, tall, unfinished, a gap in her side and no mast.
+
+story plank|Seasoned plank|Plank|A long oak plank, seasoned for three years, straight as a rule.
+story mark|Shipwright's mark|quest:Tangaroa_Token|A chalk mark in a ledger: one more job done on the Second Wind.
+story mast|Mast spar|quest:Utopia_Harpoon|The Second Wind's mast spar, salt-wet, freed from its anchor.
+story loftkey|Sail loft key|quest:Caravan_KeyInfirmary|The sail loft's key, from Brandvold's coat pocket.
+story sailcloth|The Second Wind's sail|Placeable_Sail|A great square sail, hemmed and roped, folded in the loft.
+
+note letter Brandvold's letter | To whoever finds my yard.\n\nThe Second Wind was to be my last ship and she nearly is. She wants:\n- three seasoned planks for the last strakes: one in the drying shed, one the storm threw up on the east beach, one on the drying rack in the west woods (mind the bear, he likes that rack);\n- her mast, which broke loose in the storm and sank in the bay, still tied to its anchor;\n- her sail, in the loft on the east horn. The key is in my coat.\n\nThen read the rhyme at the slip's head and knock out the chocks. She'll go.\n- Brandvold
+note rhyme The launching rhyme | (painted on the board at the slip's head)\n\nFore to free her nose,\naft to free her heel,\nthe middle last of all\nand down she goes on her keel.
+note nameboard The slip board | (the board at the slip's foot, its cloth fallen away as she went past)\n\nSECOND WIND\nbuilt at Brandvold's yard, the last of sixty-one ships,\nlaunched by a stranger - which is how every good ship should be launched.
+note coat Brandvold's coat | Brandvold's coat on its hook: pipe tobacco, a pencil stub, a shipwright's rule - and the sail loft's key.
+loot coat story:loftkey*1;Rope*1
+prop coat loot.refill=0
+note loftchest Sail loft chest | The sail loft's chest: the Second Wind's sail, folded square and roped.
+loot loftchest story:sailcloth*1;Rope*3
+prop loftchest loot.refill=0
+prop loftchest if.open=has|story:loftkey|1
+prop loftchest else.open=message||The sail loft's chest is locked. Brandvold's letter says where the key is.
+note gift The shipwright's gift | Brandvold's gift for whoever launched her: his plans for the yard's big planting beds, his best hammer, a ship's lantern, birch seed for the next trees, a purse of tokens.
+loot gift Blueprint_Cropplot_Large_Tier3*1;Hammer*1;Placeable_Lantern_Metal*1;Seed_Birch*4;TradeToken*8
+prop gift loot.refill=0
+prop gift if.open=signal|launched
+prop gift else.open=message||A chest with a ribbon round it and a tag: FOR WHOEVER LAUNCHES HER.
+note nailbarrel Nail barrel | The yard's nail barrel: clenched nails, a few bolts, a lump of copper.
+loot nailbarrel Nail*12;Bolt*2;CopperOre*1
+prop nailbarrel loot.refill=0
+note toolbarrel Sunk tool chest | A tool chest that went into the bay with the mast: chisels gone to rust, and good iron.
+loot toolbarrel MetalOre*2;Scrap*3;MetalIngot*1
+prop toolbarrel loot.refill=0
+
+prop plank1 obj.name=plank1
+prop plank1 beh.use=Take the seasoned plank
+prop plank1 if.use=!signal|pk1
+prop plank1 on.use=message||A seasoned plank, straight and dry.\nhide|plank1\ngive||story:plank*1\nsignal||pk1\nsound||event:/exploring/utopia/wood_pickup
+prop plank2 obj.name=plank2
+prop plank2 beh.use=Take the seasoned plank
+prop plank2 if.use=!signal|pk2
+prop plank2 on.use=message||The storm's plank, salt on it but sound.\nhide|plank2\ngive||story:plank*1\nsignal||pk2\nsound||event:/exploring/utopia/wood_pickup
+prop plank3 obj.name=plank3
+prop plank3 beh.use=Take the seasoned plank
+prop plank3 if.use=!signal|pk3
+prop plank3 on.use=message||The last plank off the drying rack.\nhide|plank3\ngive||story:plank*1\nsignal||pk3\nsound||event:/exploring/utopia/wood_pickup
+prop shiphull obj.name=ship
+prop shiphull beh.move=0,-4,-24
+prop shiphull beh.moveTime=10
+prop shiphull beh.moveMode=switch
+prop shiphull beh.use=Fit the three planks as the last strakes
+prop shiphull if.use=quest|3\ntake|story:plank|3
+prop shiphull on.use=message||You fit the three planks into the gap and drive the nails home. The hull is whole.\nshow|strakes\ngive||story:mark*1\nsound||event:/crafting/hammer_impact
+prop shiphull else.use=message||A gap in the hull where the last three strakes go. Brandvold's letter says where the planks are.
+prop strakes obj.name=strakes
+prop strakes beh.hidden=1
+prop strakes beh.move=0,-4,-24
+prop strakes beh.moveTime=10
+prop strakes beh.moveMode=switch
+prop maststep obj.name=maststep
+prop maststep beh.move=0,-4,-24
+prop maststep beh.moveTime=10
+prop maststep beh.moveMode=switch
+prop maststep beh.use=Step the mast
+prop maststep if.use=quest|6\ntake|story:mast|1
+prop maststep on.use=message||You heave the spar up the scaffold and drop its heel into the step. The mast stands - the ship suddenly looks like a ship.\nshow|mast\nshow|rigging\ngive||story:mark*1\nsound||event:/exploring/utopia/wood_putdown
+prop maststep else.use=message||The mast step, empty. The spar is on the bay's floor.
+prop mast obj.name=mast
+prop mast beh.hidden=1
+prop mast beh.move=0,-4,-24
+prop mast beh.moveTime=10
+prop mast beh.moveMode=switch
+prop rigging obj.name=rigging
+prop rigging beh.hidden=1
+prop rigging beh.move=0,-4,-24
+prop rigging beh.moveTime=10
+prop rigging beh.moveMode=switch
+prop rigging beh.use=Bend on the sail
+prop rigging if.use=quest|9\ntake|story:sailcloth|1
+prop rigging on.use=message||You haul the sail up and lash it to the yard. It fills a little in the breeze from the bay.\nshow|sail\ngive||story:mark*1\nsound||event:/raft/sail/sail_set
+prop rigging else.use=message||The rigging, waiting for a sail.
+prop sail obj.name=sail
+prop sail beh.hidden=1
+prop sail beh.move=0,-4,-24
+prop sail beh.moveTime=10
+prop sail beh.moveMode=switch
+prop mastspar obj.name=mastspar
+prop mastspar beh.use=Cut the mast spar free of its anchor
+prop mastspar if.use=!signal|freed
+prop mastspar on.use=message||You saw through the rope. The spar lifts off the floor, floating - you tow it up and ashore.\nhide|mastspar\ngive||story:mast*1\nsignal||freed\nsound||event:/crafting/scissors
+prop chockfore obj.name=chockfore
+prop chockfore beh.use=Knock out the fore chock
+prop chockfore if.use=quest|11\n!signal|c1
+prop chockfore on.use=message||Fore to free her nose. The hull creaks.\nhide|chockfore\nsignal||c1\nsound||event:/crafting/hammer_impact
+prop chockfore else.use=message||The fore chock. Finish her first - and read the rhyme at the slip's head.
+prop chockaft obj.name=chockaft
+prop chockaft beh.use=Knock out the aft chock
+prop chockaft if.use=signal|c1\n!signal|c2
+prop chockaft on.use=message||Aft to free her heel. She groans on the cradle.\nhide|chockaft\nsignal||c2\nsound||event:/crafting/hammer_impact
+prop chockaft else.use=message||She shifts and settles back. Not that one yet - the rhyme says which.
+prop chockmid obj.name=chockmid
+prop chockmid beh.use=Knock out the middle chock
+prop chockmid if.use=signal|c2\n!signal|launched
+prop chockmid on.use=message||The middle last of all - and down she goes! The Second Wind slides down the slip, faster, faster, and meets the bay in a wall of white water. She rocks, rights herself, floats. On the slip's foot a cloth falls away from a board.\nhide|chockmid\nopen|ship\nopen|strakes\nopen|maststep\nopen|mast\nopen|rigging\nopen|sail\nsignal||launched\nshow|nameboard\nsound||event:/exploring/utopia/drawbridge/drawbridge_move2\nwait|10\nshow|afloat\nsound||event:/exploring/obstacles/watersplash_small
+prop chockmid else.use=message||She shifts and settles back. Not that one yet - the rhyme says which.
+prop nameboard obj.name=nameboard
+prop nameboard beh.hidden=1
+
+prop yard zone.id=yard
+prop yard zone.radius=10
+prop yard zone.message=Brandvold's yard: a sawpit, timber stacks, a house with a letter on its door - and the ship, enormous on her slip.
+prop hull zone.id=hull
+prop hull zone.radius=5
+prop hull zone.message=The Second Wind's deck: smooth new planks, a gap in the side, an empty mast step.
+prop dryingrack zone.id=dryingrack
+prop dryingrack zone.radius=8
+prop dryingrack zone.repeat=never
+prop dryingrack zone.message=The drying rack in the woods - and its owner, as far as he's concerned. The bear stands up.
+prop bear creature.count=1
+prop bear creature.respawn=0
+prop bear creature.zone=dryingrack
+prop mastwreck zone.id=mastwreck
+prop mastwreck zone.radius=6
+prop mastwreck zone.message=The mast spar on the bay's floor, tied to an anchor by a rope gone green.
+prop afloat obj.name=afloat
+prop afloat beh.hidden=1
+prop afloat zone.id=afloat
+prop afloat zone.radius=6
+prop afloat zone.message=On board the Second Wind, afloat at last. She moves under your feet like something alive.
+prop baysound sound.event=event:/amb/ocean
+prop baysound sound.volume=0.4
+prop baysound zone.radius=30
+prop hens creature.count=3
+prop goats creature.count=3
+prop dolphins creature.count=2
+
+quest title=The Second Wind
+quest intro=A shipwright's yard on a wooded bay and an unfinished ship on its slip. Brandvold's letter is on his house door.
+step read|Brandvold's letter|1|Walk up into the shipwright's yard and read Brandvold's letter
+step collect|story:plank|3|Fetch the three seasoned planks: the drying shed, the east beach, the rack in the west woods
+step kill|Bear|1|Deal with the bear at the drying rack
+step collect|story:mark|1|Climb the scaffold onto her deck and fit the three planks as the last strakes
+step reach|mastwreck|1|Dive to the mast spar on the bay's floor
+step collect|story:mast|1|Cut the spar free of its anchor and bring it ashore
+step collect|story:mark|2|Step the mast
+step collect|story:loftkey|1|Take the sail loft's key from Brandvold's coat
+step open|Sail loft chest|1|Open the sail loft's chest on the east horn
+step collect|story:mark|3|Bend on the sail
+step read|The launching rhyme|1|Read the launching rhyme at the slip's head
+step reach|afloat|1|Knock out the chocks in the rhyme's order - and board her afloat
+step read|The slip board|1|Read the board at the slip's foot
+step open|The shipwright's gift|1|Open the shipwright's gift in his house
+quest done=The Second Wind rides at anchor in Brandvold's bay - his sixty-first ship, and the first one launched by a stranger.
+quest reward=Plank*10;Nail*12;Rope*4
+
+
+
+save Keel & Mast

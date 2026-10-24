@@ -1,0 +1,264 @@
+# Old Vine Hill - a new island of the library, twice the size (x2)
+# A terraced vineyard on a dry, sunny two-peaked island: stone terraces of vines on both peaks, the press house in the
+# saddle, the cellar on the west peak's seaward flank with the old vintner's four great casks and his air pump - and below
+# it, off the west shore, the reserve vault the sea got into, its door shut. The old vintner's labels give the casks'
+# order; tap them in it and the pump starts, blows the flooded vault full of air and swings its door open.
+# Quest "The Founding Vintage" (11 steps): the letter, two runaway hens, the Old Wall terrace and its boars, a pages
+# hunt (the letter and four labels), a cask sequence (signals), a dive into the vault, the climb to the grave on the east
+# top and a toast there.
+#
+# Built by the recipe player (CIRecipe old_vine_hill) through the editor's own operations.
+include lib_rt
+include lib_huts
+include lib_sea
+include lib_features
+new
+# (nature: desert, Like Raft - acacias and scrub on the slopes and peaks; the terraces cleared for the vines)
+gen Trees=0.38 Bushes=0.5 Rocks=0.55 Harvest=0.12 BeachThings=0.3
+gen Seed=9207 Radius=63 Height=30 Roughness=0.35 Peaks=2 Shape=7 Style=2 BeachWidth=0.4 Cliffs=0.2 PeakShape=0.4 Terraces=0.6
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the press house's yard in the saddle (8 m); the four terraces (the Sunrise and the Chapel on the east peak,
+# the Stony and the Old Wall on the west); the cellar's pad on the west flank (6 m); the vault's hollow off the west shore
+# (5 m down); the grave's spot on the east top --------------------------------------------------------------------------
+for pz -4 8 4
+brush flatten from -8 $pz to 6 $pz r=3.5 s=20 frames=120 h=8
+next
+brush flatten from 4 31 to 20 31 r=2.5 s=20 frames=80 h=8.5
+brush flatten from 4 26 to 18 26 r=2.5 s=20 frames=80 h=12.5
+brush flatten from -22 -33 to -6 -33 r=2.5 s=20 frames=80 h=12
+brush flatten from -20 -27 to -6 -27 r=2.5 s=20 frames=80 h=17
+for cz -4 4 4
+brush flatten from -54 $cz to -40 $cz r=3 s=20 frames=120 h=6
+next
+brush flatten at -67 0 r=6 s=20 frames=150 h=-5.2
+brush flatten from -67 -5 to -67 5 r=4.5 s=20 frames=150 h=-5.2
+brush flatten at 8 20 r=4 s=20 frames=100 h=23.5
+brush grass from 4 28.5 to 20 28.5 r=4 s=20 frames=20
+brush grass from -22 -30 to -6 -30 r=4 s=20 frames=20
+clear at -1 2 r=9
+clear from 4 28.5 to 20 28.5 r=5
+clear from -22 -30 to -6 -30 r=5
+clear at -47 0 r=8
+clear at -67 0 r=8
+clear at 8 20 r=5
+
+# --- The press house in the saddle (a radio tower room, its door south): the press, two vats, the long table with the
+# vintner's letter, a box by the vats; mango trees round the yard, hens --------------------------------------------------
+push at 2 3 h=8.05
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 l2=RT_WallWindow1 r2=RT_WallWindow1 b1=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+place UT_WaterPump - at -4.5 3 y=0 sit scale=0.6
+place Placeable_WaterTank - at -1.2 3.5 y=0 sit
+place Placeable_WaterTank - at -1.2 1.2 y=0 sit
+place "VG_DecorationPrefabBase_DinnerTable Variant" - at -3.5 -1.5 y=0 sit yaw=90
+place Note_Paper letter at -3.5 -1.5 y=1.5 drop yaw=20
+place "Box Small" pressbox at -0.7 -3.6 y=0 sit yaw=10
+pop
+place Zone_Trigger presshouse at -1 -3 h=9
+scatter Pickup_Landmark_Tree_Mango 4 at -1 -8 r=7 seed=701
+place Creature_Chicken hens at 4 -6 ground
+
+# --- The four terraces: rows of vines on posts with wires, grapes to pick, each terrace's label on a post at its end; a
+# wayside shrine on the Chapel terrace; the Stony terrace's rubble walls and its tool basket; the Old Wall terrace along a
+# ruined wall, its boars ---------------------------------------------------------------------------------------------------
+macro vines x1 x2 z
+for vx $x1 $x2 2.5
+place "Balboa_Bush_02 Variant" - at $vx $z ground scale=0.7
+place Relay_Fence_pole - at {$vx+1.25} $z ground
+next
+end
+call vines 5 19 31.3
+call vines 5 17 26.3
+call vines -21 -7 -33
+call vines -19 -7 -27
+scatter Pickup_Landmark_BerryBush 1 at 12 29 r=4 seed=702
+scatter Pickup_Landmark_BerryBush 1 at -14 -31 r=4 seed=703
+place Note_Sign labelsunrise at 21 31 ground sit yaw=90
+place Note_Sign labelchapel at 19 26 ground sit yaw=90
+place Pillar_04 - at 3 26 ground sit
+place Placeable_Candlestick - at 3 26 y=3 drop
+place Note_Sign labelstony at -23.5 -33 ground sit yaw=270
+place SmallBoulder2 - at -22 -36 ground scale=0.5 yaw=10
+place SmallBoulder3 - at -8 -36 ground scale=0.5 yaw=70
+place UT_MarketBasket02 - at -16 -35 ground sit
+place "Box Small" terracebox at -15 -35.3 ground sit yaw=20
+place Note_Sign labeloldwall at -21.5 -27 ground sit yaw=270
+place Creature_Boar boars at -12 -27 ground
+place Zone_Trigger topterrace at -12 -27 y=1.5
+
+# --- The cellar on the west flank (a radio tower room, its door east toward the saddle): the four great casks on their
+# sides along the back wall, the old air pump in the corner by the door; dark inside -------------------------------------
+push at -47 3 h=6.05 yaw=270
+call rt_storey f1=RT_WallDoor1 f2=RT_Wall1
+place RT_Floor - at 0 4.5 y=3
+place TP_Moontown_Barrel01_Clean casksunrise at -5.2 2.5 y=0.05 sit scale=1.6 rot=90,0,0
+place TP_Moontown_Barrel01_Clean caskchapel at -3.8 2.5 y=0.05 sit scale=1.6 rot=90,0,0
+place TP_Moontown_Barrel01_Clean caskstony at -2.4 2.5 y=0.05 sit scale=1.6 rot=90,0,0
+place TP_Moontown_Barrel01_Clean caskoldwall at -1.0 2.5 y=0.05 sit scale=1.6 rot=90,0,0
+place UT_Generator02 - at -1.2 -3.0 y=0 sit scale=0.33
+place Zone_Trigger cellar at -3 0 y=1.5
+place Zone_Atmosphere cellardark at -3 0 y=1.5
+pop
+
+# --- The reserve vault in its hollow off the west shore, 5 m down: a radio tower room, its door to the shore a single wall
+# piece that swings open when the pump runs; its chest, racks of bottles; the air the pump blows in (hidden till then) -------
+push at -67 3 h=-5.15 yaw=270
+call rt_storey f1=none f2=RT_Wall1
+place RT_Floor - at 0 4.5 y=3
+place RT_Wall1 vaultdoor at -3 -4.5
+place Loot_ChestLarge reservevault at -3 3.5 y=0 sit yaw=180
+place TangaroaKitchen_Island_WineShelf - at -4.4 0 y=0 sit scale=0.8 yaw=90
+place TangaroaKitchen_Island_WineShelf - at -1.6 0 y=0 sit scale=0.8 yaw=270
+place Zone_Trigger vault at -3 1 y=2.2
+place Zone_Atmosphere vaultbubbles at -3 1 y=2.2
+pop
+
+# --- The east top: Tomas's grave - an upright stone with a cross of planks - his bench, and the board where his toast appears
+place SmallBoulder4 grave at 8 20 h=23.5 sit scale=0.8 rot=90,0,0
+place FL_Plank1 - at 8 21 h=23.5 sit rot=0,0,90 scale=0.5
+place Bench_01 - at 8 16.5 h=23.5 sit
+place Note_Sign toast at 9.5 20 h=23.5 sit yaw=90
+place Zone_Trigger gravetop at 8 19 h=24.5
+
+# --- The landing: a jetty on the north beach, a barrel of empties, a sunk cask off it; goats on the north slopes, dolphins;
+# the warm air ------------------------------------------------------------------------------------------------------------
+push at -1.5 52 h=-2 yaw=-90
+call boardwalk n=8 wide=1 y=3.6
+pop
+place Loot_Barrel jettybarrel at 2 50 ground sit
+place Loot_SunkenBarrel sunkcask at 2 68 h=-1 drop
+place Creature_Goat goats at -30 30 ground
+place Creature_Dolphin dolphins at 40 70 h=-3
+place Zone_Atmosphere sun at 0 0 y=20
+
+# --- Raft's finds in the shallows round the island (lib_sea) ------------------------------------------------------------
+call shallows r=83 deep=5 n=1
+
+# ===== Settings, story items, notes, behaviours, quest (11 steps) ==========================================================
+info title=Old Vine Hill
+info author=Custom Islands
+info description=A terraced vineyard on a sunny two-peaked island, a press house, a cellar in the hill - and below it, off the shore, a reserve vault the sea got into. The old vintner's labels tell the order of his four great casks. Tap them right and the vault is yours.
+island on.arrive=message||Two dry peaks striped with green: stone terraces and rows of vines, a white press house in the saddle between them, and on the eastern top, a bench and a grave.
+
+story firstvintage|The founding vintage|Glass|A dusty bottle with a wax seal: the first wine Tomas Ferrand ever made.
+
+note letter Tomas's letter | (on the press house's long table, under a glass)\n\nTo whoever takes on my hill.\n\nFifty harvests I tapped my four great casks in the cellar, always in the same order - each terrace's label says when its cask comes. Tap them in the wrong order and they just drip.\n\nTap them right and the old pump in the cellar's corner starts by itself (I rigged it) and blows the reserve vault full of air. The sea got into the vault the year the cellar cracked; the first vintage is down there.\n\nOne glass of it on my grave on the east top, please. The rest is yours.\n- Tomas Ferrand
+note labelsunrise Label of the Sunrise terrace | SUNRISE TERRACE - the first light, the first grapes.\nAt the harvest feast its cask is tapped SECOND, after the hill's oldest.
+note labelchapel Label of the Chapel terrace | CHAPEL TERRACE - blessed every spring.\nAt the harvest feast its cask is tapped LAST, for the toast.
+note labelstony Label of the Stony terrace | STONY TERRACE - poor soil, the best wine.\nAt the harvest feast its cask is tapped THIRD.
+note labeloldwall Label of the Old Wall terrace | OLD WALL TERRACE - the first vines on the hill, planted inside the ruin.\nThe oldest: at the harvest feast its cask is always tapped FIRST.
+note reservevault Reserve vault | The reserve vault, dry for the first time in years: racks of old bottles, the founding vintage in its own cradle, the plans for Tomas's carved shelves, his savings in a cigar box.
+loot reservevault story:firstvintage*1;Blueprint_DetailPlank*1;TradeToken*8;Glass*4
+prop reservevault loot.refill=0
+note toast The vintner's toast | (carved on the board by the grave, appearing as the wine soaks in)\n\nTo the hill, the sun, the four terraces, and whoever drinks this with me. Salut.\n- T. F.
+loot pressbox Rope*2;Plank*3;Mango*2
+prop pressbox loot.refill=0
+loot terracebox Seed_Strawberry*2;Rope*2;Stone*2
+prop terracebox loot.refill=0
+loot jettybarrel Glass*2;Plank*4;Nail*6
+prop jettybarrel loot.refill=0
+loot sunkcask Scrap*2;MetalOre*2;Clay*2
+prop sunkcask loot.refill=0
+
+prop caskoldwall obj.name=caskoldwall
+prop caskoldwall beh.use=Tap the Old Wall cask
+prop caskoldwall on.use=message||The tap squeaks and wine runs dark into the gutter. Somewhere behind the wall, a valve clicks.\nsignal||t1\nsound||event:/exploring/obstacles/waterflow_short
+prop casksunrise obj.name=casksunrise
+prop casksunrise beh.use=Tap the Sunrise cask
+prop casksunrise if.use=signal|t1
+prop casksunrise on.use=message||The Sunrise cask runs bright and young. A second click behind the wall.\nsignal||t2\nsound||event:/exploring/obstacles/waterflow_short
+prop casksunrise else.use=message||It just drips. Not this one yet - the labels say which comes when.
+prop caskstony obj.name=caskstony
+prop caskstony beh.use=Tap the Stony cask
+prop caskstony if.use=signal|t2
+prop caskstony on.use=message||The Stony cask: slow, thick, nearly black. A third click.\nsignal||t3\nsound||event:/exploring/obstacles/waterflow_short
+prop caskstony else.use=message||It just drips. Not this one yet - the labels say which comes when.
+prop caskchapel obj.name=caskchapel
+prop caskchapel beh.use=Tap the Chapel cask
+prop caskchapel if.use=signal|t3
+prop caskchapel on.use=message||The Chapel cask, for the toast - and the old pump in the corner coughs, shakes and starts, thumping. Out at the shore, down in the water off the rocks, the sea boils with air - and the vault door below swings open.\nsignal||pumped\nshow|vault\nshow|vaultbubbles\nopen|vaultdoor\nsound||event:/exploring/temperence/generator
+prop caskchapel else.use=message||It just drips. Not this one yet - the labels say which comes when.
+prop vaultdoor obj.name=vaultdoor
+prop vaultdoor beh.turn=-100
+prop vaultdoor beh.moveTime=3
+prop vaultdoor beh.moveMode=switch
+prop vault obj.name=vault
+prop vault beh.hidden=1
+prop vault zone.id=vault
+prop vault zone.radius=3
+prop vault zone.repeat=1
+prop vault zone.air=1
+prop vault zone.message=The reserve vault - and air! The pump's bubbles hang under the ceiling like silver.
+prop vaultbubbles obj.name=vaultbubbles
+prop vaultbubbles beh.hidden=1
+prop vaultbubbles atmo.particles=bubbles
+prop vaultbubbles zone.radius=4
+prop grave obj.name=grave
+prop grave beh.use=Pour a glass of the founding vintage on the grave
+prop grave if.use=quest|9\nhas|story:firstvintage|1
+prop grave on.use=message||You pour a glass into the dry earth by the stone. As it soaks in, letters darken on the board beside it that weren't there before.\nshow|toast\nsound||event:/char/cup_pour
+prop grave else.use=message||Tomas Ferrand's grave, looking over his vines. He asked for a glass of the founding vintage.
+prop toast obj.name=toast
+prop toast beh.hidden=1
+
+prop presshouse zone.id=presshouse
+prop presshouse zone.radius=8
+prop presshouse zone.message=The press house: the great screw press, empty vats, a long table with a letter under a glass.
+prop topterrace zone.id=topterrace
+prop topterrace zone.radius=9
+prop topterrace zone.repeat=never
+prop topterrace zone.message=The Old Wall terrace - and boars, tearing at the old vines!
+prop boars creature.count=3
+prop boars creature.respawn=0
+prop boars creature.zone=topterrace
+prop cellar zone.id=cellar
+prop cellar zone.radius=5
+prop cellar zone.message=The cellar: four great casks on their cradles, an old pump in the corner, its pipes running down the rock toward the sea.
+prop gravetop zone.id=gravetop
+prop gravetop zone.radius=5
+prop gravetop zone.message=The east top: a bench, a stone, and every terrace of the hill below you.
+prop cellardark atmo.fog=#100c08
+prop cellardark atmo.fogAmount=0.6
+prop cellardark atmo.light=#4a3a28
+prop cellardark atmo.lightAmount=0.6
+prop cellardark zone.radius=8
+prop sun atmo.fog=#f0e0c0
+prop sun atmo.fogAmount=0.06
+prop sun atmo.light=#fff0c8
+prop sun atmo.lightAmount=0.15
+prop sun zone.radius=45
+prop hens creature.count=3
+prop goats creature.count=3
+prop dolphins creature.count=2
+
+# --- Raft's special features (the user, 2026-10-05: every Raft feature on at least one island): the old vintner's dirt for his vines and a
+# hive at the press house; his tool cache under the wild vines on the goats' slope
+call dirt x=0 z=0 r=40 n=5 seed=81
+call hives x=0 z=10 r=30 n=1 seed=82
+call vinecache x=-30 z=30 r=15 seed=83 chest=vintnercache vines=vintnervines items=Shovel*1;Plank*4;Nail*8
+# (2026-10-10, more islands per feature) the pickers' grape hoist at the east end of Stony terrace, up to the Old Wall
+# terrace five metres above; the pickers' crate up there
+call lift x=-5.6 z=-31.9 yaw=90 alias=grapehoist upalias=grapehoistup chest=hoistcrate tx=-5.6 tz=-27 items=Glass*2;Plank*3;Seed_Strawberry*2 title="Pickers' crate"
+prop grapehoist beh.use=Ride the grape hoist up
+prop grapehoistup beh.use=Ride the grape hoist down
+note hoistcrate Pickers' crate | Old Wall pickers - fill the baskets, send them down on the hoist. Ride it yourself only when the baskets are down. - T.
+
+quest title=The Founding Vintage
+quest intro=A vineyard on two sunny peaks, abandoned with the grapes still on the vines. The vintner left a letter in the press house.
+step reach|presshouse|1|Climb the cart track to the press house in the saddle
+step read|Tomas's letter|1|Read Tomas's letter on the long table
+step catch|Chicken|2|Catch two of Tomas's hens running wild round the press house yard
+step reach|topterrace|1|Climb to the Old Wall terrace on the west peak, the first vines on the hill
+step kill|Warthog|3|Drive the boars out of the Old Wall terrace
+step pages||5|Find the labels of the four terraces (with the letter, five pages)
+step reach|cellar|1|Find the cellar on the west peak's seaward flank
+step reach|vault|1|Tap the four casks in the labels' order - and dive down to the vault the pump fills with air
+step open|Reserve vault|1|Open the reserve vault
+step reach|gravetop|1|Carry the founding vintage up to Tomas's grave on the east top
+step read|The vintner's toast|1|Pour a glass of the founding vintage on Tomas's grave
+quest done=The hill is yours: four terraces, four casks, and a glass poured for the man who planted them. Salut.
+quest reward=Mango*3;Seed_Strawberry*3;Plank*4
+
+save Old Vine Hill

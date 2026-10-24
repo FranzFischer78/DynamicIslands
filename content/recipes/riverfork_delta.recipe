@@ -1,0 +1,205 @@
+# Riverfork Delta - the third island of the library's plan The Last Green World (SL11, Verdance)
+# A jungle delta cut by river arms: the west and east arms run down to the sea and an upper river joins them, so the
+# middle of the island is an island of its own. The river people's outpost stands on it with their tool rack; Balboa's
+# vines choke the path to the west arm, where a rope ferry's crank wheel stands on a post. Upriver, boars root round a
+# fuel cache and a pressing shed. Quest "The Rivers" (13 steps): the river mouth, the river chart, the machete plans in
+# the outpost, the vines and the west arm, the ferry crank, upriver (it brings Tracker's Rise), three boars, the fuel
+# tank and fuel pipe plans in the fuel cache, the biofuel extractor plans in the pressing shed, Ranger log 4.
+#
+# Built by the recipe player (CIRecipe riverfork_delta) through the editor's own operations. Points (metres over the
+# sea): the river arms 1.2 m under the sea along x -22 and x 22 (z -85..30) and the upper river along z 30; the mouth
+# beach at 1.4 m round 0 -52, the outpost x -2..2.5, z -16..-13 at 1.6 m, the vines -11 1, the ferry crank -16 8.5,
+# upriver at 2 m round 0 45, the fuel cache -8 48, the pressing shed x 6..10.5, z 42..45.
+include lib_sea
+include lib_features
+include lib_huts
+include lib_gravity
+include lib_verdance
+new
+gen Trees=0.3 Bushes=0.35 Rocks=0.2 Harvest=0.35 BeachThings=0.3
+gen Seed=11031 Radius=70 Height=10 Roughness=0.3 Peaks=1 Shape=0 Style=0 PeakShape=0.4 Cliffs=0.2 BeachWidth=0.6
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.4 Sunken=0.2 Hostiles=0 Friendly=0.2 SeaLife=0.4
+generate
+
+# --- Terrain: the river arms (wading depth), then the pads ------------------------------------------------------------
+brush flatten from -22 30 to -22 -85 r=4 s=20 frames=300 h=-1.2
+brush flatten from 22 30 to 22 -85 r=4 s=20 frames=300 h=-1.2
+brush flatten from -22 30 to 22 30 r=4 s=20 frames=300 h=-1.2
+brush sand from -22 30 to -22 -80 r=6 s=6 frames=30
+brush sand from 22 30 to 22 -80 r=6 s=6 frames=30
+brush sand from -22 30 to 22 30 r=6 s=6 frames=30
+brush flatten at 0 -52 r=6 s=20 frames=200 h=1.4
+brush flatten at 0 -14.5 r=6 s=20 frames=200 h=1.6
+brush flatten from -10 2 to -15 7 r=3 s=20 frames=120 h=1.4
+brush flatten at 0 45 r=12 s=20 frames=200 h=2
+brush flatten at 8.25 43.5 r=4 s=20 frames=200 h=2
+origin
+clear at 0 -52 r=6
+clear at 0 -14.5 r=6
+clear from -6 -8 to -16 8 r=3
+clear at 0 45 r=10
+
+# --- The mouth: the river chart on a post; puffers and a stingray off the mouth --------------------------------------
+place Note_Sign riverchart at 3 -50 ground sit yaw=180
+place Zone_Trigger mouthzone at 0 -52 ground
+place Creature_PufferFish puffers at 0 -82 h=-5
+prop puffers creature.count=2
+place Creature_Stingray rays at 22 -88 h=-4
+prop rays creature.count=1
+
+# --- The outpost on the middle ground: the tool rack chest -----------------------------------------------------------
+push at -2 -16 h=1.6
+call hut w=3 d=2 y=0.1
+place Loot_Chest toolrack at 3.6 2.3 y=0.1 sit yaw=180
+pop
+place UT_MarketBasket01 - at 4 -12 ground y=0.5 yaw=30
+place campfire_1 - at 5 -15 ground sit
+
+# --- The vines on the path west, the west arm, the ferry crank and the ferry boat ------------------------------------
+place ChoppableVines westvines at -11 1 ground yaw=45
+place Zone_Trigger westarm at -15 6 ground
+call crank x=-16 z=8.5 yaw=180 alias=ferrycrank
+place RT_PlasticBoat ferryboat at -20.5 7 h=0 yaw=90
+
+# --- Upriver: the boars, the fuel cache, the pressing shed (Ranger log 4 inside) -------------------------------------
+place Zone_Trigger upriverzone at 0 40 ground
+place Creature_Boar boars at -4 50 ground
+prop boars creature.count=3
+prop boars creature.respawn=0
+place Loot_Crate fuelcache at -8 48 ground sit yaw=30
+place "Box Big" - at -9.5 46 ground sit yaw=10
+push at 6 42 h=2
+call hut w=3 d=2 y=0.1
+place Loot_Chest pressshed at 3.6 2.3 y=0.1 sit yaw=180
+place "Box Small" - at 0.8 2.3 y=0.1 sit
+place Note_Paper rangerlog4 at 0.8 2.3 y=0.8 drop yaw=10
+pop
+
+# --- REDO 10-24: three fuel cans from three river arms for the press; the machete taught three times ----------------
+# west arm: the far bank's can, reached by the ferry (the ferry is also the way back)
+clear at -29 8 r=2
+place Loot_ChestSmall dcanwest at -29 8 ground sit yaw=90
+place "Box Small" - at -29.5 10 ground sit yaw=20
+# east arm: a fisher's camp on the east bank, its can behind a vine wall
+clear at 29 -22 r=4
+place ChoppableVines eastvines at 26 -22 ground yaw=90
+place Loot_ChestSmall dcaneast at 30 -22.5 ground sit yaw=270
+place Balboa_DecorationPrefabBase_SimpleTent - at 31 -18 ground sit yaw=200
+place campfire_1 - at 28.5 -18.5 ground sit
+# upriver: the press stands outside the pressing shed behind a vine curtain
+clear at 2.5 40 r=2
+place Balboa_DecorationPrefabBase_Generator press at 2.5 40 ground sit yaw=90
+place ChoppableVines shedvines at 2.5 37.5 ground yaw=0
+# secret: a hatch in the mouth dunes (the river people's spirit store)
+clear at -14 -50 r=2.5
+place TangaroaHatchRoom_Hatch dhatch at -14 -50 ground
+beside Loot_ChestSmall dhatchchest dhatch d=0.01
+
+# --- Gathering: mango, banana, pineapple, watermelon, clay and sand banks; the shallows -------------------------------
+scatter Pickup_Landmark_Tree_Mango 3 at 8 -30 r=10 seed=11032 free=3
+scatter Pickup_Landmark_MarketGood_Banana_Basket01 2 at -6 -30 r=8 seed=11033 free=2
+scatter Pickup_Landmark_PineappleLandmark 2 at 36 -10 r=8 seed=11034 free=2
+scatter Pickup_Landmark_WatermelonLandmark 2 at -36 -10 r=8 seed=11035 free=2
+scatter "Pickup_Landmark_Clay 1" 3 at 0 -40 r=10 seed=11036 free=2
+scatter Pickup_Landmark_Sand 3 at 12 -55 r=8 seed=11037 free=2
+call shallows x=0 z=0 r=82 deep=5 n=2 seed=11038
+scatter Pickup_Landmark_SilverAlgae 3 at 0 -76 r=10 wet seed=11039
+scatter Pickup_Landmark_GiantClam 3 at 4 -78 r=10 wet seed=11040
+
+# --- FILL 10-24 (RESIZE rework): the bigger island's whole area at Raft-like density - trees, bushes, rocks; free= keeps them
+#     off the quest's objects and paths
+scatter "Pickup_Landmark_Tree_Palm 1" 10 at 0 0 r=64 seed=11180 free=5
+scatter "Pickup_Landmark_Tree_Palm 2" 10 at 0 0 r=64 seed=11181 free=5
+scatter "Pickup_Landmark_Tree_Palm 4" 6 at 0 0 r=64 seed=11182 free=5
+scatter "Pickup_Landmark_Tree_Mango" 6 at 0 0 r=64 seed=11183 free=5
+scatter "Balboa_Bush_01 Variant" 30 at 0 0 r=64 seed=11184 free=2.5
+scatter "Balboa_Bush_03 Variant" 30 at 0 0 r=64 seed=11185 free=2.5
+scatter CaravanIsland_SmallRock_1 14 at 0 0 r=64 seed=11186 free=3 ground y=-0.6
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=64 seed=11187 free=3
+scatter "Pickup_Landmark_Flower_Red" 8 at 0 0 r=64 seed=11188 free=2
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Riverfork Delta
+info author=Custom Islands
+info description=A jungle delta cut by river arms: the river people's outpost, vines on the paths, a rope ferry and boars upriver. The third island of The Last Green World.
+island on.arrive=message||Fresh water runs into the sea here - three river arms through the jungle. Somewhere a wheel creaks on a rope.
+
+story ferry|Ferry crossed|Note_Paper|The delta's rope ferry, wound across the west arm.
+
+note riverchart River chart | THE DELTA - RIVER PEOPLE'S CHART\n\nWest arm: the ferry. Keep the vines cut.\nEast arm: shallow, no crossing in rain.\nUpper river: the fuel cache and the pressing shed. Boars.\nOutpost: tools on the rack.\n\nUpriver of everything: the rise, and past it the hollow trees.
+note rangerlog4 Ranger log 4 | RANGER LOG 4 - O. FENN\n\nThe river people are gone. Their shed is full, their fire cold. The boars charged me twice today.\n\nThe animals turn mean near the dark roots. I am going up onto the rise - the trackers' tower can see the whole wood.
+note toolrack Outpost tool rack | The outpost's tool rack: a machete's plans pinned beside an empty hook.
+note fuelcache Fuel cache | The river people's fuel cache: plans for a fuel tank and its pipes, in a tin box.
+note pressshed Pressing shed | The pressing shed's chest: the press's plans, explosive goo in a jar and a sack of potatoes.
+loot toolrack Blueprint_Machete*1;Machete*1;Rope*2;Nail*8
+prop toolrack loot.refill=0
+loot fuelcache Blueprint_Fueltank*1;Blueprint_Pipe_Fuel*1;MetalIngot*2;story:fuelcan*1
+prop fuelcache loot.refill=0
+loot pressshed Blueprint_BiofuelExtractor*1;ExplosiveGoo*2;Raw_Potato*3
+prop pressshed loot.refill=0
+prop pressshed obj.name=pressshed
+prop pressshed beh.hidden=1
+story fuelcan|Fuel can|Placeable_FuelTank|A dented can of the river people's fuel. The press takes three.
+story pressed|Press running|Placeable_FuelTank|The pressing shed's press runs again; its door is open.
+note dcanwest West bank can | A fuel can wedged under the ferry landing on the west bank.
+loot dcanwest story:fuelcan*1;Rope*2
+prop dcanwest loot.refill=0
+note dcaneast Fisher's can | The fisher's camp kept a can by the fire, behind the vines that grew over it.
+loot dcaneast story:fuelcan*1;Raw_Herring*2;Leather*1
+prop dcaneast loot.refill=0
+prop dcaneast obj.name=dcaneast
+prop dcaneast beh.hidden=1
+prop eastvines obj.name=eastvines
+prop eastvines on.use=hide|\nshow|dcaneast\nmessage||The vines come away. A fisher's camp, and a fuel can by the cold fire.
+prop shedvines obj.name=shedvines
+prop shedvines on.use=hide|\nshow|press\nmessage||Behind the vines: the river people's press, dry as a bone.
+prop press obj.name=press
+prop press beh.hidden=1
+prop press beh.use=Fill the press
+prop press if.use=take|story:fuelcan|3
+prop press on.use=message||Three cans in. The press coughs, catches and thumps; the shed's bar drops off its door.\ngive||story:pressed*1\nshow|pressshed
+prop press else.use=message||The press needs fuel: three cans. The river people kept one on each arm.
+prop dhatch obj.name=dhatch
+prop dhatch on.use=hide|\nshow|dhatchchest\nmessage||Under the hatch: the river people's spirit store.
+note dhatchchest Spirit store | The river people's spirit store, dug into the dune: their good tools and a river pearl.
+loot dhatchchest MetalIngot*3;Bolt*4;Hinge*2;Placeable_GiantClam*1;Seed_Mango*2
+prop dhatchchest loot.refill=0
+prop dhatchchest obj.name=dhatchchest
+prop dhatchchest beh.hidden=1
+
+prop westvines obj.name=westvines
+prop westvines on.use=hide|\nmessage||The vines part under the machete. The path runs down to the west arm.
+prop ferrycrank beh.use=Wind the ferry across
+prop ferrycrank if.use=!signal|ferry
+prop ferrycrank on.use=signal||ferry\ngive||story:ferry*1\nmessage||The rope tightens and the ferry crawls across the west arm, bumping the far bank.
+prop ferrycrank else.use=message||The ferry is across.
+
+prop mouthzone zone.id=mouth
+prop mouthzone zone.radius=6
+prop mouthzone zone.message=The river mouth. Fresh water and salt water swirl together over the sand.
+prop westarm zone.id=west_arm
+prop westarm zone.radius=3
+prop westarm zone.message=The west arm. A rope ferry, a crank wheel on a post.
+prop upriverzone zone.id=upriver
+prop upriverzone zone.radius=6
+prop upriverzone zone.message=Upriver. A fuel cache, a pressing shed - and boars.
+
+quest title=The Rivers
+quest intro=Three river arms into the jungle. Start at the river mouth.
+step reach|mouth|1|Go to the river mouth
+step read|River chart|1|Read the river people's chart
+step blueprint|Blueprint_Machete|1|Take the machete plans from the outpost's tool rack
+step reach|west_arm|1|Cut through the vines to the west arm
+step collect|story:ferry|1|Wind the rope ferry across
+step reach|upriver|1|Go upriver
+step kill|Warthog|3|Drive off the three boars
+step blueprint|Blueprint_Fueltank|1|Take the fuel tank plans from the fuel cache
+step blueprint|Blueprint_Pipe_Fuel|1|Take the fuel pipe plans from the fuel cache
+step collect|story:fuelcan|3|Find three fuel cans: the west bank, the east arm's camp and the fuel cache
+step collect|story:pressed|1|Cut the vines by the pressing shed and fill the press
+step blueprint|Blueprint_BiofuelExtractor|1|Take the biofuel extractor plans from the pressing shed
+step read|Ranger log 4|1|Read Ranger log 4 in the pressing shed
+quest done=Oda went up onto the rise. The trackers' tower sees the whole wood.
+quest reward=Leather*2;Mango*2
+
+save Riverfork Delta

@@ -1,0 +1,27 @@
+# The Dead Letter Office (CIPlay dead_letter_office): the plan The Last Post's first island, quest "Return to Sender"
+island The Dead Letter Office
+offset 0 0
+expect step 0
+expect title Return to Sender
+zone jetty
+expect step 1
+use officeclock
+expect message stopped at nine
+read Letter addressed to your raft
+expect step 2
+open Counter drawer
+wait 3
+expect item Blueprint_Reciever 1
+expect item Blueprint_Antenna 1
+expect step 5
+read Dead letter: Ferry Master
+read Dead letter: Eskil
+read Dead letter: Telegraphist
+read Dead letter: Sorter Lise
+read Dead letter: Postmistress
+expect story deadletter 5
+expect story dl_ferry 1
+expect story dl_ada 1
+expect step 6
+read Postmaster's route card
+expect done

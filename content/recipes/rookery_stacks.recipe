@@ -1,0 +1,245 @@
+# Rookery Stacks - the eighth island of the library's plan The City That Never Sank (SL13, Highwater, chapter 8)
+# The poor quarter, on the city's lowest roofs: shanty huts on two drowned towers' roofs (hut on roof - two high), more
+# on the key, rope bridges, washing everywhere, a soup kitchen under a wooden roof, empty water barrels, a tollgate of
+# spikes on the causeway, rats in the barrels, screechers on the roofs, a llama pen, a trader. Quest "The Lowest Roofs"
+# (14 steps): the soup kitchen, the Rookery's petition, four rats, the titanium tools' plans (the smithy), the tollgate,
+# three screechers, the advanced backpack's plans, three water tokens, the elders' plan, the electric zipline tool's
+# plans, the storm warning.
+#
+# Points: the key 0 0 (r about 38, levelled at 2 round 0 0); the soup kitchen at -6 -8; the trader at -6 8; the smithy
+# hut at 6 -10; the llama pen round 16 10; the causeway along x -12 from z -18 to -25 (the tollgate at -12 -21); the two
+# towers' roofs x -15..-9 and -3..3, z -34.5..-25.5 (deck 1), a bridge between them at z -30, a hut on each; the
+# treasure within 10 of 12 -8.
+include lib_sea
+include lib_rt
+include lib_huts
+include lib_features
+include lib_highwater
+include lib_areas
+# RESIZE 10-24: Radius 38 -> 80 (Height 4 -> 4), the old content moved -6.6 -22.1 as one frame (push) so its sea side stays at the coast; the island grows behind it.
+new
+gen Trees=0.1 Bushes=0.15 Rocks=0.3 Harvest=0.2 BeachThings=0.4
+gen Seed=13801 Radius=80 Height=4 Roughness=0.25 Peaks=1 Shape=0 Style=0 PeakShape=0.3 Cliffs=0.1 BeachWidth=0.7
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.4 Sunken=0.3 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+push at -6.6 -22.1
+
+# --- Terrain: the quarter levelled -------------------------------------------------------------------------------------
+brush flatten at 0 0 r=14 s=20 frames=300 h=2
+brush flatten at 12 -8 r=8 s=20 frames=200 h=2
+pop
+brush flatten at -28 22.7 r=5 s=8 frames=40
+origin
+clear at -28 22.7 r=6
+push at -6.6 -22.1
+clear at 0 0 r=14
+clear from -9 -14 to -9 -40 r=12
+
+# --- The soup kitchen: a long wooden roof on posts, the pot, the petition board -------------------------------------
+push at -10 -10 h=2
+call hw_stall w=4 d=3
+place Placeable_CookingStand_Food_Two - at 3 3 y=0.1 sit
+place Placeable_CookingStand_Food_One - at 4.5 3 y=0.1 sit
+place UT_EndRoom_Pot01 - at 1.5 3.5 y=0.1 sit
+place Note_Board petition at 0.2 2.5 y=1.2 yaw=90
+place Zone_Trigger soupzone at 3 2 y=0.1
+pop
+store rookshop at -6 8 ground
+
+# --- Huts on the key: the smithy, two homes; washing between them; the empty barrels -------------------------------
+push at 4 -12 h=2
+call stilt_hut y=2.6
+place Loot_Chest smithy at 2.25 3.5 y=2.7 sit yaw=180
+place Placeable_CookingStand_Smelter - at 1 3.5 y=2.7 sit yaw=180
+pop
+push at -16 2 h=2
+call stilt_hut y=2.6 w2=ReefHuts_PlasticWall4
+place Placeable_Bed_Hammock - at 2.25 3.3 y=2.6 sit
+pop
+push at 6 4 h=2
+call stilt_hut y=2.6 w5=ReefHuts_PlasticWall4
+place Loot_ChestSmall barrel1 at 2.25 3.5 y=2.7 sit
+pop
+push at -4 0 h=2
+call hw_laundry n=6
+pop
+push at 2 14 h=2
+call hw_laundry n=5
+pop
+place Reef_Barrel2 - at -1 -14 ground sit
+place Reef_Barrel4 - at 0.5 -14.5 ground sit
+place Reef_Barrel2 - at 2 -13.5 ground sit
+place Reef_Barrel4 - at -12 12 ground sit
+place Creature_Rat rats at 0 -15 ground
+
+# --- The llama pen -------------------------------------------------------------------------------------------------------
+line Block_Wall_Fence_Rope from 12.75 6 to 20.25 6 step=1.5
+line Block_Wall_Fence_Rope from 12.75 14 to 20.25 14 step=1.5
+place Creature_Llama llamas at 16 10 ground
+place Pickup_Landmark_BerryBush - at 10 12 ground sit
+
+# --- The causeway and the tollgate of spikes -------------------------------------------------------------------------
+line Block_Foundation from -12 -17.75 to -12 -24.75 step=1.5 h=0.35
+place RT_Pillar - at -13.4 -21 h=0.35 sy=0.7
+place RT_Pillar - at -10.6 -21 h=0.35 sy=0.7
+place VP_SpikeTrap_01 - at -14.5 -20 ground sit
+place VP_SpikeTrap_03 - at -9.5 -22 ground sit
+place Note_Sign tollsign at -13.4 -19.8 h=1.05 sit yaw=180
+place Zone_Trigger tollzone at -12 -21 h=1.5
+
+# --- The two towers' roofs, a hut on each, a rope bridge between -----------------------------------------------------
+push at -9 -30 h=1
+call hw_roof d=12 a=rook bm=none rm=none
+call hw_bridge n=4 y=0
+pop
+push at -9.75 -30 h=1 yaw=180
+call stilt_hut y=2.6 w3=ReefHuts_PlasticWall4
+place Loot_Chest packhut at 2.25 3.5 y=2.7 sit yaw=180
+pop
+place Loot_ChestSmall barrel2 at -14 -27 h=1.05 sit
+push at 3 -30 h=1
+call hw_roof d=12 a=rook lm=none
+pop
+push at -2.25 -30 h=1
+call stilt_hut y=2.6 w2=ReefHuts_PlasticWall4
+place Note_Paper elders at 1.5 3.5 y=2.7 drop
+place Loot_Chest eldershut at 3.2 3.5 y=2.7 sit yaw=180
+pop
+place Loot_ChestSmall barrel3 at 1.8 -33.4 h=1.05 sit
+place Note_Paper storm at 0 -33 h=1.05 drop
+place Creature_StoneBird screechers at -6 -30 h=8
+place Placeable_Flag_02 - at 2.2 -26.2 h=1.05 sit
+
+# --- The sand and dirt bed by the smithy, something buried; bushes; the sea's finds -------------------------------
+place "Pickup_Landmark_Sand" - at 13 -5 ground sit
+place "Pickup_Landmark_Sand" - at 15 -9 ground sit
+call dirt x=12 z=-8 r=6 n=3 seed=13802
+call treasure x=12 z=-8 r=10 n=1 seed=13052
+prop treasure13052 treasure.loot=TitaniumOre*3
+scatter Pickup_Landmark_BerryBush 2 at -14 12 r=8 seed=13803 free=2
+call shallows x=6.6 z=22.1 r=114 deep=5 n=2 seed=13804
+call hw_skyline x=90 z=-100 a=skyline
+pop
+
+# --- DISCOVERIES 10-24 (optional, no quest needs them): camp + note; BoatStranded + chest; hatch with a chest; buried treasure; viewpoint ---
+place campfire_1 - at -28 22.7 ground sit
+place Balboa_DecorationPrefabBase_SimpleTent - at -25 24.7 ground sit yaw=157
+place "Box Small" - at -30 25.2 ground sit
+place Note_Paper dnote at -30 25.2 ground y=0.7 drop yaw=20
+note dnote Drowned city note | My street is under that water. Number 14, blue door.\nSome nights I row out and look down at the roofs.\nThe tram is still on its rails down there.
+place BoatStranded dvan at 28 -22.7 ground yaw=277
+prop dvan tint.color=#5a5a50
+prop dvan tint.amount=0.5
+place Loot_ChestSmall dwreckchest at 24 -19.7 ground sit yaw=217
+note dwreckchest Runner's stash | A runner's stash in the glovebox: plastic, glass, a few nails.
+loot dwreckchest Plastic*5;Glass*2;Nail*8
+prop dwreckchest loot.refill=0
+call hatchcache x=22.7 z=28 r=4 seed=13891 alias=dhatch chest=dhatchchest items=MetalIngot*2;CopperIngot*2;Bolt*3
+call treasure x=-0.1 z=6 r=6 n=1 seed=13892
+prop treasure13892 treasure.loot=CopperOre*3;TitaniumOre*1
+place Zone_Trigger dview at 36 0.6 ground
+prop dview zone.id=rookery_stacks_view
+prop dview zone.radius=7
+prop dview zone.repeat=never
+prop dview zone.message=Shanty huts stacked two high on the low roofs, washing lines between them, smoke from every one.
+
+# --- Areas (10-24: every story island has places all over it and its quest crosses it): the gull stacks ridge in the north (buried salvage),
+# the family van and caravan in the north-west, the old bathhouse in the west (the keycard opens the Authority's ration
+# locker), the glass-strewn hoard (spikes: boots and patience), the gull cage in the east (bolt cutters)
+call ar_ridge x1=5 z1=60 x2=35 z2=48 h=10 top=6 r=8
+call ar_plants_tropical x=20 z=54 r=20 seed=13811
+call hw_zone x=20 z=54 al=gullstacks id=gull_stacks r=7 msg="The gull stacks: chimney stumps of the old town, white with birds. From up here you see the whole Rookery - and how low it sits."
+call treasure x=20 z=54 r=12 n=2 seed=13861
+prop treasure13861 treasure.loot=MetalOre*2;TitaniumOre*1
+call hw_wreck x=-45 z=40 h=4 yaw=30 obj=Van3 al=familyvan crate=familycrate r=9
+place Caravan_Yellow_01 familycaravan at -36 50 ground sit yaw=120
+call ar_ruin x=-58 z=2 h=4 yaw=0 w=4 al=bathhouse
+call hw_note x=-55.5 z=-2.5 yaw=15 al=bathslate
+place Loot_ChestLarge rationlocker at -58 3 ground sit yaw=180
+prop rationlocker if.open=has|Tangaroa_KeyCard|1
+brush flatten at -25 60 r=5 s=20 frames=200 h=3
+call hw_hazard x=-25 z=60 al=glasshoard kind=spikes r=4 dmg=4 safe=none msg="Broken glass and rusted wire, ankle-deep. Someone hid something in the middle of it."
+place Loot_Chest glasschest at -25 60 ground sit yaw=0
+call cagecache x=52 z=20 yaw=-90 alias=gullcage sig=gullcage chest=gullcagechest items=Feather*6;Rope*2;Leather*2 title="Gull keeper's chest" kx=-45 kz=40 kr=8 seed=13871 keychest=familycutters keytitle="Family's tool bag" keyitems=Rope*2
+call ar_plants_tropical x=-50 z=20 r=12 seed=13821
+
+# --- Settings, story items, notes, behaviours, quest ------------------------------------------------------------------
+info title=Rookery Stacks
+info author=Custom Islands
+info description=Highwater's poor quarter on the city's lowest roofs: huts stacked on drowned towers, washing on every line, a soup kitchen, a tollgate of spikes - and empty water barrels. The eighth island of The City That Never Sank.
+island on.arrive=message||Huts on huts, washing on every line. A long queue at a soup kitchen. Every water barrel you can see is empty.
+
+story watertoken|Water token|Bolt|A Rookery water token - one barrel's worth, stamped by the elders.
+
+prop rook tint.color=#857c70
+prop rook tint.amount=0.35
+prop skyline tint.color=#7a8088
+prop skyline tint.amount=0.4
+prop rats creature.count=4
+prop rats creature.respawn=0
+prop screechers creature.count=3
+prop screechers creature.respawn=0
+prop llamas creature.count=2
+prop storm obj.name=storm
+prop storm beh.hidden=1
+prop elders on.read=show|storm
+
+note petition Rookery petition | PETITION OF THE ROOKERY\n\nTo the Authority, the Fleet and the Union:\n\nOur barrels are empty. Our children drink rain. The water you sell would fill them all.\n\nWe ask for nothing but our share.\n\n(Four hundred marks below it. Nobody answered.)
+note tollsign Tollgate | ROOKERY TOLLGATE\nNo Authority. No Fleet. No Union.\nEveryone else - welcome.
+note elders Rookery elders' plan | THE ELDERS' PLAN\n\nIf the city will not share, we leave it. There is a shoal outside the city, our own - sand, a spring, room for huts.\n\nWe need someone to clear the way. Someone who is not Authority, Fleet or Union.
+note storm Storm warning | Scrawled in a hurry on the back of the plan -\n\nTHE GLASS IS FALLING. A storm is coming over the Crown. The councils will meet on the four roofs tonight to settle the city's water.\n\nGo. Whatever they decide, the Rookery will be drowned by it unless someone speaks for us.
+note smithy Rookery smithy | The smithy's chest: the titanium tools' plans, wrapped in a rag.
+note packhut Packer's hut | A packer's chest: the advanced backpack's plans.
+note eldershut Elders' hut | The elders' chest: the electric zipline tool's plans.
+note barrel1 Water barrel | An empty water barrel - only a token at the bottom.
+note barrel2 Water barrel | An empty water barrel - only a token at the bottom.
+note barrel3 Water barrel | An empty water barrel - only a token at the bottom.
+loot smithy Blueprint_TitaniumTools*1;MetalIngot*2
+prop smithy loot.refill=0
+loot packhut Blueprint_BackpackAdvanced*1;Leather*3;Rope*2
+prop packhut loot.refill=0
+loot eldershut Blueprint_ZiplineToolElectric*1;Battery*1;Rope*2
+prop eldershut loot.refill=0
+loot barrel1 story:watertoken*1
+prop barrel1 loot.refill=0
+loot barrel2 story:watertoken*1
+prop barrel2 loot.refill=0
+loot barrel3 story:watertoken*1
+prop barrel3 loot.refill=0
+
+prop soupzone zone.id=soup_kitchen
+prop soupzone zone.radius=4
+prop soupzone zone.message=The soup kitchen. A long queue, a thin soup, and a board covered in names.
+prop tollzone zone.id=tollgate
+prop tollzone zone.radius=3
+prop tollzone zone.message=The tollgate. Spikes either side, and nobody at the bar.
+
+note familycrate Family van's crate | A family packed everything into this van when the water came - and never came back for it.
+loot familycrate Leather*2;Rope*2;Plastic*2;Mango*2
+note bathslate Bathhouse slate | ROOKERY BATHS\n\nClosed by order of the Water Authority. Water rations now kept here.\nRation locker: Authority keycard only.
+note rationlocker Authority ration locker | Water rations the Authority kept back from the Rookery - locked with an Authority keycard.
+loot rationlocker TradeToken*4;Raw_Potato*3;Glass*2
+prop rationlocker loot.refill=0
+note glasschest Hoarder's chest | A hoarder's chest, hidden in a bed of broken glass so nobody would come for it.
+loot glasschest TradeToken*3;CopperIngot*2;Bolt*2
+prop glasschest loot.refill=0
+quest title=The Lowest Roofs
+quest intro=Every faction signed. The people on the lowest roofs paid for it. Find the Rookery's soup kitchen.
+step reach|soup_kitchen|1|Find the Rookery's soup kitchen
+step read|Rookery petition|1|Read the petition on the soup kitchen's board
+step kill|Rat|4|Drive the four rats out of the barrels
+step blueprint|Blueprint_TitaniumTools|1|Take the titanium tools' plans from the smithy hut
+step reach|tollgate|1|Go out along the causeway to the tollgate
+step kill|Screecher|3|Drive the three screechers off the roofs
+step blueprint|Blueprint_BackpackAdvanced|1|Take the advanced backpack's plans from the packer's hut
+step collect|story:watertoken|3|Find three water tokens in the empty barrels
+step read|Rookery elders' plan|1|Read the elders' plan in their hut
+step blueprint|Blueprint_ZiplineToolElectric|1|Take the electric zipline tool's plans from the elders' chest
+step reach|gull_stacks|1|Climb the gull stacks north of the Rookery
+step read|Bathhouse slate|1|Read the slate on the old bathhouse in the west
+step open|Family van's crate|1|Open the crate in the family's van in the north-west
+step read|Storm warning|1|Read the storm warning
+quest done=The councils meet on the Crown tonight, in the storm. Bridgeworks Crown - band 1000.
+quest reward=Leather*2;TitaniumOre*1
+
+save Rookery Stacks

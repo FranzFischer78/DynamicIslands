@@ -1,0 +1,141 @@
+# Caravan Rest - a new medium island of the library (ROADMAP 3e VI2), a vehicle island with a quest
+# A desert island of sand and cactus where the last caravans of the coast pulled up round a well and never left: four
+# caravans and a van in a ring, two more vans on the track to the beach, and on a pad of its own the rocket caravan of
+# Odo the tinkerer, the one that was going to fly them all out. Hyenas den in the dunes. A plank lookout over the camp,
+# a cave in the north dunes.
+#
+# Built by the recipe player (CIRecipe vi_caravan_rest) through the editor's own operations. Points: the camp pad (4 m,
+# r 19 round 0 0), the well at 0 0, the ring of vehicles at radius 10 (the gap at the south, 0 -10); the track south
+# from 0 -12 to 8 -40; the rocket pad (5 m, r 6 round 26 12); the lookout x -13..-10 z -12..-9 (its ladder at -12.25
+# -12.2); the hyena den round 24 -20; the cave rock at -10 26, floor 2.25 m, its mouth north at -11 45.
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+include lib_ni8
+include lib_vi
+new
+# (nature: a desert island - sand, cactus, a few dead trees and acacias)
+gen Trees=0.15 Bushes=0.35 Rocks=0.5 Harvest=0.3 BeachThings=0.6
+gen Seed=8621 Radius=52 Height=10 Roughness=0.3 Peaks=1 Shape=0 Style=2 BeachWidth=0.7 Cliffs=0.2 PeakShape=0.4
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.4 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0.1 SeaLife=0.2
+
+generate
+
+# ===== Terrain: the camp pad, the track to the beach, the rocket pad, the cave in the north dunes =======================
+brush flatten at 0 0 r=19 s=20 frames=140 h=4
+brush sand at 0 0 r=18 s=20 frames=20
+brush flatten at 26 12 r=6 s=20 frames=80 h=5
+brush sand at 26 12 r=6 s=20 frames=15
+brush smooth from 0 -14 to 8 -40 r=4 s=10 frames=80
+brush sand from 0 -14 to 8 -42 r=3 s=20 frames=15
+brush smooth from 14 6 to 22 10 r=3 s=10 frames=60
+call ni8cave x=-10 z=26 h=1.8 yaw=0 al=dunecave
+clear at 0 0 r=20
+clear at 26 12 r=7
+clear from 0 -14 to 8 -42 r=4
+clear at 24 -20 r=6
+
+# ===== The ring of vehicles round the well (the gap at the south) =======================================================
+place Caravan_Blue_01 - at 8.7 5 ground sit yaw=60
+place Caravan_Green_01 - at 0 10 ground sit yaw=0
+place Caravan_Yellow_01 odocaravan at -8.7 5 ground sit yaw=120
+place Caravan_Green_02 - at -8.7 -5 ground sit yaw=60
+place Van_2 - at 8.7 -5 ground sit yaw=120
+place Well - at 0 0 ground y=-1 sit
+place campfire_1 - at 4 -3 ground sit
+place Bench_01 - at 5.5 -1 ground sit yaw=250
+place BenchTable_01 - at -3 -4 ground sit yaw=20
+place PlasticChair_01 - at -4.5 -2.6 ground sit yaw=200
+place Note_Board campboard at 2.5 -7 ground sit yaw=180
+place CaravanWorkbench - at -4.5 7.5 ground sit yaw=180
+place CaravanWorkbench_Tools - at -5.5 2.5 ground sit yaw=90
+place Loot_Chest odolocker at -4.6 1.2 ground sit yaw=300
+place Tire_02 - at 12 -1 ground sit yaw=20
+place Tire_03 - at 12.6 0.4 ground sit roll=90
+place Pallet - at -11 -1 ground sit yaw=10
+place Crate_Big_01 - at -11.5 1 ground sit yaw=30
+place Placeable_Lantern_FireBasket - at -2 -8 ground sit
+place Placeable_Lantern_FireBasket - at 2 8 ground sit
+place Zone_Trigger caravanring at 0 0 ground y=1
+
+# ===== On the track: the vans that got as far as the beach ================================================================
+place Van_5 - at 6 -22 ground sit yaw=30
+place Van3 - at -3 -30 ground sit yaw=200 roll=4
+place Sign_02 - at 2 -16 ground sit yaw=180
+place RT_PlasticBoat - at 10 -45 ground sit rot=0,0,0 yaw=150 roll=8
+
+# ===== Odo's rocket caravan on its pad, the scaffold and the parts that fell off ==========================================
+place CaravanRocket rocket at 26 12 ground sit scale=2.5 yaw=200
+place Scaffolding_2x2m - at 29 13.5 ground sit yaw=20
+place CaravanRocketDebris_Leg1 - at 22 8 ground sit yaw=40
+place CaravanRocketDebris_Canister - at 30 8 ground sit yaw=110
+place CaravanRocketDebris_Door - at 23 16.5 ground sit yaw=250
+place Cableroll_01 - at 21.5 11 ground sit
+
+# ===== The lookout over the camp (its chest), the hyena den in the dunes ==================================================
+call lookout x=-13 z=-12 h=4 al=lookoutchest
+place DeadTree_TreeStumps_1 - at 22 -21 ground sit
+place SmallBoulder3 - at 26 -18 ground y=-1.3 yaw=70
+place Creature_Hyena hyenas at 24 -20 ground
+prop hyenas creature.count=3
+prop hyenas creature.respawn=0
+
+# ===== The cave in the north dunes, a chest inside ========================================================================
+call cavein x=-10 z=26 h=1.8 yaw=0 al=dunechest
+
+# ===== Desert plants and things to gather; Raft's finds in the shallows ===================================================
+scatter Cactus1A 4 at 0 0 r=40 seed=8622 free=6
+scatter Cactus4A 3 at 10 10 r=36 seed=8623 free=6
+scatter DesertFern_01 4 at 0 0 r=40 seed=8624 free=4
+scatter SmallBush_2 3 at -10 -10 r=36 seed=8625 free=4
+place AcaciaTree_Big1 - at -24 -8 ground sit yaw=40
+place DeadTree2 - at 30 -6 ground sit yaw=10
+place CaravanIsland_BigRoundRock_1 - at 34 22 ground sit yaw=80
+scatter "Pickup_Landmark_Tree_Palm 2" 3 at 0 -20 r=36 seed=8626 free=6
+scatter "Pickup_Landmark_BerryBush" 2 at -20 0 r=20 seed=8627 free=3
+call dirt x=0 z=0 r=36 n=2 seed=8628
+call treasure x=0 z=0 r=38 n=1 seed=8621
+call shallows r=76 deep=5 n=2 seed=862
+
+info title=Caravan Rest
+info author=Custom Islands
+info description=The last caravans of the coast pulled up round a desert well and never left - four caravans and a van in a ring, two more vans on the track, and on its own pad Odo's rocket caravan, the one that was going to fly them all out.
+
+story sparkplug|Odo's spark plug|Bolt|The igniter plug of Odo's rocket caravan, wrapped in a rag in the dune cave.
+story rocketlit|The rocket caravan lit|Placeable_Lantern_Metal|You fitted the spark plug and the rocket caravan coughed fire - once, for Odo.
+
+note campboard Camp board | CARAVAN REST - WHO IS HERE\n\nThe Brandts (blue). The Okafors (green). Odo (yellow - knock first).\nThe Vans: whoever has the keys this week.\n\nHYENAS IN THE DUNES. Keep the fire going.\n\nOdo says the rocket flies on the first calm day. Odo has said this for two years.
+note odolocker Odo's locker | Odo's locker by his caravan: oil, rags, a drawing of the rocket with every part numbered - and a note, "plug in the cave, out of the sand".
+loot odolocker Rope*2;Bolt*3;Scrap*2;Plastic*2
+prop odolocker loot.refill=0
+note dunechest Chest in the dune cave | Kept dry and out of the sand: a bundle in an oily rag.
+loot dunechest story:sparkplug*1;CopperIngot*2;Scrap*3
+prop dunechest loot.refill=0
+note lookoutchest Chest on the lookout | The camp watch's things: a flask, a whistle for the hyenas, rope.
+loot lookoutchest Rope*3;Feather*3;Plank*4
+prop lookoutchest loot.refill=0
+
+prop rocket obj.name=rocket
+prop rocket beh.use=Fit the spark plug
+prop rocket if.use=take|story:sparkplug|1
+prop rocket on.use=sound||event:/raft/radar/lever\nmessage||The plug screws home. Something in the rocket ticks, then coughs a long tongue of fire into the sand - and goes quiet. It will never fly. But it lit, Odo.\ngive||story:rocketlit*1
+prop rocket else.use=message||The rocket's igniter is an empty socket. Odo's plug is somewhere out of the sand.
+
+prop caravanring zone.id=caravan_ring
+prop caravanring zone.radius=9
+prop caravanring zone.message=Caravan Rest: a ring of caravans round a well, the fire long cold.
+
+quest title=Odo's Rocket
+quest intro=A ring of caravans round a desert well, and a rocket on a pad of its own. Walk into the ring.
+step reach|caravan_ring|1|Walk into the ring of caravans
+step read|Camp board|1|Read the camp board by the well
+step kill|Hyena|3|Drive off the three hyenas denned in the dunes
+step open|Odo's locker|1|Open Odo's locker by the yellow caravan
+step collect|story:sparkplug|1|Find Odo's spark plug, kept out of the sand
+step collect|story:rocketlit|1|Fit the spark plug in the rocket caravan
+quest done=The rocket caravan lit once, the way Odo always said it would. Nobody is waiting for calm days at Caravan Rest any more.
+quest reward=MetalIngot*3;CopperIngot*2;Rope*3
+
+save Caravan Rest

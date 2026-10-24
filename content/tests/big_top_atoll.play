@@ -1,0 +1,47 @@
+# Play test of Big Top Atoll (CIPlay big_top_atoll, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The circus ground on the ring's south side (x -32..32, z -48..-41, 2.5 m): the big top round -10 -44 (its entrance on the
+# east, the notice at -0.5 -40.5, the stage and cash box on the west), the wagons round 14 -44, the menagerie wagon's
+# chest at 32.8 -42, the pens and cages round -27 -43; the rig on the east ring (masts 44 -6 and 44 6, platforms at 17 m);
+# Mirela's trunk on the lagoon floor at 28 0 (6 m down).
+island Big Top Atoll
+offset 0 0
+expect step 0
+expect title The Round-Up
+wait 5
+expect animals Llama 3
+expect animals Goat 2
+expect animals Dolphin 3
+at 3 -44 h=3.5
+walk 3 -44 to -4 -44 h=2.5
+zone bigtop
+expect step 1
+read Ringmaster's notice
+expect step 2
+open Ringmaster's cash box
+expect message key, the company says
+open Menagerie wagon
+expect step 3
+catch Llama 3
+expect step 4
+catch Goat 2
+expect step 5
+at -27 -41 h=3.5
+zone cages
+expect message isn't a person's
+kill Hyena
+expect step 6
+expect animals Hyena 0
+at 44.9 -6 h=17.5
+zone trapeze
+expect step 7
+read The escape artist's note
+expect step 8
+open Mirela's trick trunk
+expect story whip 1
+expect step 9
+open Ringmaster's cash box
+expect done
+open Strongman's box
+open Cook's barrel
+open Rig box
+open Sunk prop crate

@@ -1,0 +1,73 @@
+# Play test of The Kraken's Wake (CIPlay krakens_wake, in a test world 'CI ...'). Points as in its recipe: the first
+# islet's lookout (its legs round -86 -30 on a pad at 4.6 m, the ladder at -86 -27.1, the deck 11.1 m), the warning at its
+# foot (-86 -25); the fishers' hut on the second islet's south shore (x -8.25..-3.75, z -34.25..-29.75); the wake along the
+# reef's south side - the Sparrowhawk (-72 -52, 8 m), the Grey Heron (-42 -54, 10 m), the Corsair (-10 -52, 13 m), the Tern
+# (22 -48, 17 m), the Sovereign (52 -44, 21 m) - and the trench (30 m) from 62 -40 to 94 -24; the battery on the last
+# islet's south-east rock (pad 5 m): the platform's deck 8 m, its ladders at 66.3 -11.2, the gun at 66.3 -13
+island The Kraken's Wake
+offset 0.6508 -0.4589
+expect step 0
+expect title The Wake
+expect animals Chicken 3
+expect animals Turtle 2
+expect animals Dolphin 2
+expect hidden kraken
+wait 5
+
+# The first islet: up the lookout's ladder onto its deck; the warning at its foot; the box on the deck
+walk -86 -21 to -86 -25.8 h=4.6
+climb -86 -27.1 h=4.6
+walk -86 -28.3 to -86 -30 h=11.1 below=13
+zone lookout
+expect step 1
+open Lookout box
+read Fisherfolk's warning
+expect step 2
+
+# The fishers' hut on the second islet
+open Fishers' box
+
+# Down the wake: the Sparrowhawk; the captains' chests; the first two gunners' chests; the barrels
+zone wreck1
+expect step 3
+open Sparrowhawk's captain's chest
+open Barrel in the wake
+open Grey Heron's captain's chest
+open Grey Heron's gunner's chest
+open Corsair's captain's chest
+open Corsair's gunner's chest
+open Tern's captain's chest
+expect story logpage 4
+expect step 4
+open Barrel in the deep wake
+expect story harpoonpart 2
+
+# The battery on the last islet: up its ladders onto the platform; the gun needs all three parts
+walk 60 -4 to 64 -7.5 to 66.3 -9.6 h=5
+climb 66.3 -11.2 h=5
+climb 66.3 -11.2 h=6.2
+walk 66.3 -11.9 to 65.5 -12.4 h=8 below=10
+use harpoon
+expect message nothing on it
+# (the third part from the Tern's gunner's chest; back at the battery, the gunner's log)
+open Tern's gunner's chest
+expect story harpoonpart 3
+# (the battery's zone, entered before, counts at once)
+expect step 6
+read Battery gunner's log
+expect step 7
+
+# The harpoon armed: lights rise in the trench; the dive; the Kraken and its brood; the admiral's sea chest
+open Admiral's sea chest
+expect message pinned
+use harpoon
+expect story harpoonpart 0
+expect shown kraken
+expect shown brood
+zone lair
+expect step 8
+kill Angler fish
+expect step 9
+open Admiral's sea chest
+expect item Blueprint_Recycler 1
+expect done

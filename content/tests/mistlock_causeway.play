@@ -1,0 +1,33 @@
+# Mistlock Causeway (CIPlay mistlock_causeway): The Lullaby Frequency's sixth island, quest "Walk Where She Sings". The
+# lagoon at -1.5 m between z -26 and 26; the causeway's decks 0.8 m over the water (2.3 m over the lagoon floor) on x 0,
+# forking on x -6 / 6 at z -16.5..-10.5 (safe: left) and 4.5..10.5 (safe: right); the start at 0 -30 (teleport target
+# 0 -32), the midpoint 0 -3, the gatehouse's door at 0 30, the lever at 2.8 28.6.
+island Mistlock Causeway
+offset 0 0
+expect step 0
+expect title Walk Where She Sings
+wait 3
+walk 0 -40 to 0 -31 h=0.9
+zone causeway_start
+expect step 1
+read Pilgrim's rule
+expect step 2
+zone wrong_turn
+expect message back at the start
+walk 0 -30 to 0 -25
+walk 0 -25 to 0 -19.5 to -6 -19.5 to -6 -7.5 to 0 -7.5 to 0 -3 h=0.8
+zone midpoint
+expect step 3
+walk 0 -3 to 0 1.5 to 6 1.5 to 6 13.5 to 0 13.5 to 0 23.5 h=0.8
+walk 0 23.5 to 0 28
+zone gatehouse
+expect step 4
+use lever
+expect message Twenty seconds
+expect step 5
+use lever
+expect message still open
+walk 0 28.5 to 0 31 to 0 32.5 h=0.9
+open Pilgrim's satchel
+expect item Spear_Scrap 1
+expect done

@@ -1,0 +1,88 @@
+# Bramblewood Isle - a new medium island of the library (ROADMAP 3d NI4), no quest
+# A wooded isle of pines and berry bushes. A woodcutter lived here: his cabin stands in a clearing, his woodpile and fire
+# by the door, and his plank jetty runs out from the south beach. On the north shore a great rock is hollow - a bear has
+# its den in the cave there, on what the woodcutter lost. Boars root in the woods. A monster island: mind the bear and
+# the boars. Honey, berries, pines to cut, dirt to dig, a treasure buried.
+#
+# Built by the recipe player (CIRecipe bramblewood_isle) through the editor's own operations. Points: the clearing (4 m,
+# r 7 round -12 -12), the cabin x -15..-9, z -14..-9.5 (its door on the south side at -12.75 -14), its box inside at
+# -14 -10.6; the fire at -10 -17; the jetty's root on the south beach at -6 -40 (1.35 m), the jetty z -40..-58 at x
+# -7.5..-4.5 (deck 1.5 m); the cave rock round 6 26, its floor 2 m, its mouth north at 5 42; the den's chest at 3.5 31;
+# the bear at 7 32; the boars at 14 -6.
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+new
+# (nature: a wooded isle - a few more trees than Raft's tropical average)
+gen Trees=0.35 Bushes=0.3 Rocks=0.4 Harvest=0.28 BeachThings=0.3
+gen Seed=7411 Radius=48 Height=10 Roughness=0.35 Peaks=1 Shape=0 Style=3 BeachWidth=0.5 Cliffs=0.3 PeakShape=0.4
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0.2 SeaLife=0.2
+generate
+
+# ===== Terrain: the clearing; the path down to the jetty's root; the cave rock's ground and its passage to the north beach =
+brush flatten at -12 -12 r=7 s=20 frames=80 h=4
+brush flatten at -6 -39 r=3 s=20 frames=60 h=1.35
+brush smooth from -11 -18 to -6 -38 r=4 s=10 frames=40
+brush flatten at 6 26 r=13 s=20 frames=100 h=1.6
+brush flatten from 5 44 to 5 28 r=4.5 s=20 frames=60 h=2
+brush sand from 5 40 to 5 46 r=4 s=20 frames=20
+clear at -12 -12 r=8
+clear from -11 -18 to -6 -40 r=3
+clear at 6 26 r=17
+clear from 5 42 to 5 48 r=4
+
+# ===== The woodcutter's cabin: his bed, table, box; the woodpile and fire outside =========================================
+push at -15 -14 h=4
+call cabin w=4 d=3 al=cabinwall
+place Bed_Simple - at 4.7 3.6 y=0.1 sit yaw=90
+place Placeable_Table_Basic - at 2.6 3.3 y=0.1 sit
+place "Box Small" cabinbox at 1 3.4 y=0.1 sit yaw=10
+pop
+place campfire_1 - at -10 -17.5 ground sit
+for fw 0 4 1
+place Firewood_1 - at {-16.5+0.6*$fw} -16.2 ground sit yaw={20*$fw}
+next
+place Firewood_1 - at -16.2 -15.5 ground sit yaw=75
+place Firewood_1 - at -15.4 -15.6 ground sit yaw=130
+
+# ===== The jetty out from the south beach =================================================================================
+push at -6 -40 yaw=90
+call jetty n=10 h=1.5 d=8
+pop
+place Loot_Crate jettycrate at -4.6 -56.2 h=1.5 sit yaw=10
+
+# ===== The bear's den: the cave rock on the north shore, the woodcutter's lost chest, the bear ============================
+place BalboaCave_Bear denrock at 6 26 h=6.55
+place Loot_ChestSmall denchest at 3.5 31 h=2.05 sit yaw=60
+place Creature_Bear bear at 7 32 h=2.1
+
+# ===== The woods: pines and berry bushes, hives, dirt, a vine cache, a treasure; boars; Raft's finds in the shallows =======
+scatter "Pickup_Landmark_Tree_Pine" 6 at 0 0 r=36 seed=7511 free=6
+scatter "Pickup_Landmark_BerryBush" 5 at 0 0 r=36 seed=7521 free=3
+call hives x=0 z=0 r=30 n=3 seed=7537
+call dirt x=0 z=0 r=34 n=4 seed=7541
+call vinecache x=12 z=-10 r=14 seed=7551 items=Rope*3;Nail*10;Hinge*2
+call treasure x=0 z=0 r=34 n=1 seed=7411
+place Creature_Boar boars at 14 -6 ground
+prop boars creature.count=3
+call shallows r=72 deep=5 n=2 seed=751
+place Creature_Turtle turtles at -40 40 h=-2
+prop turtles creature.count=2
+
+info title=Bramblewood Isle
+info author=Custom Islands
+info description=A wooded isle of pines and berry bushes, a woodcutter's cabin in a clearing and his plank jetty off the south beach - and on the north shore a bear's den in a hollow rock. Boars in the woods. No quest - an island to explore.
+
+note cabinbox Woodcutter's box | His box by the bed: a sharpening stone, rope, nails, and a jar of honey gone hard.
+loot cabinbox Rope*3;Nail*10;Plank*6;HealingSalve*1
+prop cabinbox loot.refill=0
+note jettycrate Crate on the jetty | Waiting for the boat: a crate of split planks and rope.
+loot jettycrate Plank*8;Rope*2
+prop jettycrate loot.refill=0
+note denchest Woodcutter's lost chest | Dragged into the den - the bear likes the smell of it. Tools, mostly.
+loot denchest MetalIngot*2;Hinge*2;Bolt*3;Scrap*3
+prop denchest loot.refill=0
+
+save Bramblewood Isle

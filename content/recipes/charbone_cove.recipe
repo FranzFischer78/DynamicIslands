@@ -1,0 +1,101 @@
+# Charbone Cove - a new medium island of the library (ROADMAP 3d NI7b), no quest
+# A jungle isle with a black lava field on its south side. In a clearing behind a palisade of sharpened stakes is a
+# camp nobody should have found: carved tiki poles with shark jaws at their feet, two spits over the fires, a cooking
+# pot, cages for "guests", tents, and old bones (bleached stumps) everywhere. The camp's hoard is in the hollow rock on
+# the east shore, where its hyenas den now. Boars in the jungle. Off the south shore lies the boat of somebody who
+# came too close, wrecked on the sea floor. A monster island: mind the hyenas and the boars.
+#
+# Built by the recipe player (CIRecipe charbone_cove) through the editor's own operations. Points: the camp's clearing
+# (4 m, r 12 round -4 4), the palisade in an arc 13 m north of it; the spits at -7 2 and 0 7; the camp's chest at -9 -1;
+# the bone cave's rock round 22 8, its floor 2 m, its mouth east at about 38 7; the hoard at 27 10.5 (2.05 m); the
+# hyenas at 28 7; the boars at -26 -14; the wreck at 8 -62 on the sea floor.
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+include lib_ni7b
+new
+# (nature: a jungle isle - Raft's tropical, a few more trees; Raft's finds round it)
+gen Trees=0.35 Bushes=0.35 Rocks=0.4 Harvest=0.3 BeachThings=0.3
+gen Seed=7712 Radius=46 Height=16 Roughness=0.45 Peaks=2 Shape=0 Style=0 BeachWidth=0.5 Cliffs=0.3 PeakShape=0.4
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.4 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0.2
+generate
+
+# ===== Terrain: the camp's clearing; the bone cave's ground and its way out to the east beach; the lava field ==============
+brush flatten at -4 4 r=13 s=20 frames=250 h=4
+brush smooth at -4 4 r=19 s=6 frames=30
+brush flatten at -4 4 r=11 s=20 frames=150 h=4
+brush flatten at 8 -64 r=10 s=20 frames=150 h=-7
+brush smooth at 8 -64 r=14 s=6 frames=30
+brush flatten at 22 8 r=13 s=20 frames=100 h=1.6
+brush flatten from 36 7 to 44 7 r=4.5 s=20 frames=60 h=2
+brush sand from 38 7 to 46 7 r=4 s=20 frames=20
+brush rock at 14 -18 r=11 s=20 frames=30
+brush rock at 20 -26 r=7 s=20 frames=20
+clear at -4 4 r=14
+clear at 22 8 r=17
+clear from 36 7 to 46 7 r=4
+clear at 10 -4.5 r=2.5
+
+# ===== The palisade: four sets of sharpened stakes in an arc north of the camp ============================================
+for k 0 3 1
+set a {-50+35*$k}
+place "Balboa_DecorationPrefabBase_Wooden Spikes" - at {-4+13.5*sin($a)} {4+13.5*cos($a)} ground scale=0.45 yaw=$a
+next
+
+# ===== The camp: fires and spits, the pot, tiki poles with shark jaws, tents, cages, bones ==============================
+call spit x=-7 z=2 yaw=90
+call spit x=0 z=7 yaw=0
+place Placeable_Lantern_FireBasket - at -3 3 ground sit
+place Placeable_CookingPot - at -5 -0.5 ground sit yaw=30
+place Placeable_TikiPole_Complete - at -12 -3 ground sit yaw=50
+place Placeable_TikiPole_Complete - at 4 -3 ground sit yaw=-50
+place Placeable_TikiPole_Complete - at -13 10 ground sit yaw=130
+place Placeable_TikiPole_Complete - at 5 10 ground sit yaw=-130
+place Placeable_SharkTrophy - at -11 -2 ground sit yaw=50
+place Placeable_SharkTrophy - at 3 -2 ground sit yaw=-50
+place Balboa_DecorationPrefabBase_SimpleTent - at -10.5 6 ground sit yaw=90
+place Balboa_DecorationPrefabBase_SimpleTent - at 2 12.5 ground sit yaw=190
+place UT_DogCage_Medium02 - at -6 12 ground sit yaw=180
+place UT_DogCage_Medium02 - at -2.5 12.5 ground sit yaw=170
+place Loot_ChestSmall campchest at -9 -1 ground sit yaw=40
+scatter DeadTree_TreeStumps_2 3 at -4 4 r=10 seed=7721 free=2
+scatter DeadTree_TreeStumps_3 2 at -4 4 r=10 seed=7722 free=2
+place TreeLog_01 - at -8 -4 ground yaw=80
+place TreeLog_01 - at 1 -3.5 ground yaw=100
+
+# ===== The bone cave: Balboa's bear cave on the east shore, its mouth east; a tiki at the mouth; the hoard; the hyenas ====
+place BalboaCave_Bear bonecave at 22 8 h=6.55 yaw=90
+place Placeable_TikiPole_Complete - at 39 2 ground sit yaw=90
+place Placeable_SharkTrophy - at 25 5.5 h=2.05 sit yaw=-90
+place Loot_ChestSmall hoard at 27 10.5 h=2.05 sit yaw=-60
+place Creature_Hyena hyenas at 28 7 h=2.1
+prop hyenas creature.count=3
+
+# ===== The jungle: fruit, hives, dirt, a treasure; boars; the wrecked boat off the south shore; Raft's finds ===============
+scatter "Pickup_Landmark_Tree_Mango" 3 at -20 -10 r=14 seed=7723 free=5
+scatter Banana_Bush_2 3 at -24 10 r=12 seed=7724 free=4
+scatter "Pickup_Landmark_Tree_Palm 3" 3 at 10 -30 r=10 seed=7725 free=5
+call hives x=-20 z=0 r=18 n=2 seed=7726
+call dirt x=0 z=0 r=34 n=3 seed=7727
+call treasure x=-20 z=-10 r=14 n=1 seed=7712
+place Creature_Boar boars at -26 -14 ground
+prop boars creature.count=2
+call wreck x=8 z=-62 yaw=60 roll=24 tilt=5 sink=1.4 al=lostboat seed=7728 where=wet
+call shallows r=72 deep=5 n=2 seed=772
+place Creature_Turtle turtles at -40 40 h=-2
+prop turtles creature.count=2
+
+info title=Charbone Cove
+info author=Custom Islands
+info description=A jungle isle with a camp behind a palisade of stakes - tiki poles with shark jaws, spits over the fires, cages and old bones - and the camp's hoard in a hollow rock where hyenas den. Boars in the jungle, a wrecked boat off the south shore. No quest - an island to explore.
+
+note campchest Chest by the fire | Rope, a knife with no handle, and things taken off boats.
+loot campchest Rope*3;Scrap*3;Nail*8;Leather*2
+prop campchest loot.refill=0
+note hoard The camp's hoard | Everything the camp ever took off a raft, piled in the dark behind the hyenas.
+loot hoard MetalIngot*3;CopperIngot*2;Hinge*2;Bolt*3;Glass*2
+prop hoard loot.refill=0
+
+save Charbone Cove

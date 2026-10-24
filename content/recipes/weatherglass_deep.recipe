@@ -1,0 +1,85 @@
+# Weatherglass Deep - an island of the library's plan The Gravity Sea (a side island, sunken 20 m, just north of the shoal)
+# Weatherglass Shoal's drowned twin: the same weather station on a sandbank that went down on Lift Day - the Stevenson
+# screen fallen on its side, the barometer's glass column broken, the station chest in the sand. Three tight reefs,
+# kelp; pufferfish. Quest "The Drowned Twin" (5 steps): the drowned station, the drowned log, the pufferfish, the
+# drowned chest and the twin's answer.
+#
+# Built by the recipe player (CIRecipe weatherglass_deep) through the editor's own operations. Points (metres over the
+# island's own water line; in the world it all lies 20 m lower, under the sea): the station's flat at 2.5 m (r 7 round
+# 0 2); the screen at 3 4 (fallen), the barometer at -3 4.
+include lib_sea
+include lib_gravity
+new
+gen Trees=0 Bushes=0 Rocks=0.3 Harvest=0 BeachThings=0
+gen Seed=9741 Radius=24 Height=4 Roughness=0.25 Peaks=1 Shape=0 Style=0 PeakShape=0.3 Cliffs=0.2 BeachWidth=0.1
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+elevation -20
+
+# --- Terrain: the station's flat --------------------------------------------------------------------------------------
+brush flatten at 0 2 r=7 s=20 frames=200 h=2.5
+origin
+clear at 0 2 r=6
+
+# --- The drowned station: the fallen screen, the broken barometer, the log, the chest ------------------------------
+place RT_Pillar - at 2.4 3.4 ground sy=0.35
+place RT_Pillar - at 2.4 4.6 ground sy=0.35
+place "Box Small" screen at 3.6 4.4 ground sit rot=0,30,85
+prop screen tint.color=#9a968a
+prop screen tint.amount=0.6
+place TP_IcePillar01 barometer at -3 4 ground sit scale=0.35 rot=0,0,70
+prop barometer tint.color=#6a8a90
+prop barometer tint.amount=0.6
+place Note_Sign drownedlog at 0 -2 ground sit rot=6,180,4
+place Loot_Chest drownedchest at 1 6.5 ground sit yaw=160
+place "Box Small" - at -1.2 6.6 ground sit
+place Note_Paper twinanswer at -1.2 6.6 ground y=0.7 drop yaw=20
+place Zone_Trigger stationzone at 0 0 ground y=1
+place Zone_Trigger pufferzone at 0 2 ground y=2
+place Creature_PufferFish puffers at 4 -4 ground y=2
+
+# --- Three tight reefs, kelp ------------------------------------------------------------------------------------------
+scatter VP_CoralBulb04 5 at 10 6 r=3 seed=9751 free=1
+scatter VP_CoralFoliose01 4 at 10 6 r=3 seed=9752 free=1
+scatter VP_CoralDigitate03 5 at -10 -4 r=3 seed=9753 free=1
+scatter TinyCoral 6 at -10 -4 r=3 seed=9754 free=1
+scatter VP_CoralBulb06 5 at 2 -12 r=3 seed=9755 free=1
+scatter VP_CoralFoliose03 4 at 2 -12 r=3 seed=9756 free=1
+scatter SeaVine3 20 at 0 0 r=20 seed=9757 free=2
+scatter SeaVine3_klump 6 at 0 0 r=20 seed=9758 free=2
+call shallows x=0 z=0 r=36 deep=6 n=1 seed=9759
+
+# --- Settings, notes, behaviours, quest -------------------------------------------------------------------------------
+info title=Weatherglass Deep
+info author=Custom Islands
+info description=Weatherglass Shoal's drowned twin, 20 m down: the same weather station gone under on Lift Day, its glass broken, pufferfish in the reef. A side island of The Gravity Sea - dive.
+island on.arrive=message||20 m down, just north of the shoal: the same white box on legs - fallen over, in the sand.
+
+note drownedlog Drowned log | WEATHERGLASS NORTH - LOG\n\nLift Day, 3:51. The glass reads 9.9 - off the scale.\n3:52. The bank is sinking. Halvard's lift took the hill; the bill comes here.\n3:53. Going up the boardwalk. Leaving the log.
+note drownedchest Drowned chest | The drowned station's chest, sealed with wax: the keeper's valuables.
+note twinanswer Twin's answer | TO THE SOUTH STATION\n\nIf you are reading this, the field fell, or someone came down anyway. Thank you for coming.\nThe glass told us all along: what goes up must be paid for below.
+loot drownedchest TitaniumIngot*1;MetalIngot*3;CopperIngot*2;Bolt*2
+prop drownedchest loot.refill=0
+
+prop stationzone zone.id=drowned_station
+prop stationzone zone.radius=4
+prop stationzone zone.message=The drowned station. The barometer's glass lies broken in the sand.
+prop pufferzone zone.id=drowned_reef
+prop pufferzone zone.radius=10
+prop pufferzone zone.repeat=never
+prop pufferzone zone.message=Pufferfish swell up round the station!
+prop puffers creature.count=3
+prop puffers creature.respawn=0
+prop puffers creature.zone=drowned_reef
+
+quest title=The Drowned Twin
+quest intro=The shoal's twin station lies 20 m down, just north. Dive to it.
+step reach|drowned_station|1|Dive to the drowned station
+step read|Drowned log|1|Read the drowned station's log
+step kill|Puffer fish|3|Drive off the pufferfish
+step open|Drowned chest|1|Open the drowned chest
+step read|Twin's answer|1|Read the twin's answer
+quest done=Both weather stations are read. The glass on the shoal still says: falling north.
+quest reward=TitaniumIngot*1;MetalIngot*2;Cooked_Mackerel*2
+
+save Weatherglass Deep

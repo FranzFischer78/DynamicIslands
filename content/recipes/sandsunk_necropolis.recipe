@@ -1,0 +1,284 @@
+# Sandsunk Necropolis - an island of the library's plan Relic of the Seventh Tide (the tomb of the sea kings)
+# A large desert island of dunes over a city of the dead: an obelisk on the dunes, a processional way between the radio
+# tower's thick pillars (temple columns), tomb fronts half-buried in the dune slopes, and the great tomb of sandstone
+# blocks - its door sealed by a lifting tomb slab, its antechamber dark and full of scarabs (gold
+# roaches), its burial chamber behind a timed gate, and a hatch out into the dunes. Quest "The Tomb of the Sea Kings"
+# (13 steps): the dunes, Kett's dig notes, the buried tomb seal (metal detector and shovel), the processional way, the
+# seal plinth, the antechamber, the scarabs, three hieroglyph walls, the gate lever, the burial chamber, the
+# sarcophagus, the Gear of the First Tide, and the way out.
+#
+# Built by the recipe player (CIRecipe sandsunk_necropolis) through the editor's own operations.
+include lib_sea
+include lib_features
+new
+# (nature: a desert island at Raft's density - few trees, rocks, cactus and dry bushes; one reef far out)
+gen Trees=0.05 Bushes=0.3 Rocks=0.25 Harvest=0.15 BeachThings=0.3
+gen Seed=9301 Radius=84 Height=8 Roughness=0.4 Peaks=3 Shape=0 Style=2 PeakShape=0.3 Cliffs=0.2 BeachWidth=0.8
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.2 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+
+# --- Terrain: the plaza of the dead at 3 m, the dune path up from the landing in the south, Kett's dig camp, the
+# obelisk's rise, the dunes the tomb fronts sink into (west and east) ---------------------------------------------------
+brush flatten at 0 2 r=24 s=20 frames=220 h=3
+brush flatten from 0 -66 to 0 -20 r=4 s=20 frames=160 h=3
+brush flatten at 0 -72 r=6 s=20 frames=60 h=1
+brush flatten at 0 -68 r=3 s=20 frames=40 h=2
+brush smooth from 0 -74 to 0 -62 r=3 s=6 frames=20
+brush flatten at 14 -44 r=6 s=20 frames=60 h=3
+brush flatten at -16 -30 r=7 s=20 frames=60 h=3.5
+brush flatten at -33 2 r=8 s=20 frames=100 h=7.5
+brush flatten at 33 2 r=8 s=20 frames=100 h=7.5
+origin
+clear at 0 2 r=26
+clear from 0 -74 to 0 -20 r=5
+clear at 14 -44 r=7
+clear at -16 -30 r=8
+
+# --- Kett's dig camp: a tent, her notes on a crate, her kit (a metal detector and a shovel) ----------------------------
+place Balboa_DecorationPrefabBase_SimpleTent - at 17 -46 ground sit yaw=250
+place "Box Small" digdesk at 11.4 -42.6 ground sit
+place Note_Paper dignotes at 11.4 -42.6 h=3 sit drop yaw=20
+place Loot_Chest digkit at 15.6 -41.4 ground sit yaw=200
+place Zone_Trigger dunes at 0 -50 ground
+
+# --- The obelisk on its rise (a radio tower thick pillar, made big, in sandstone); the seal buried in its noon shadow
+# (north of it) -----------------------------------------------------------------------------------------------------------
+place RT_PillarThick obelisk at -16 -30 ground scale=1.6
+call treasure x=-16 z=-24 r=3 seed=9311
+
+# --- The processional way: paired temple columns (radio tower thick pillars) from the dunes to the tomb, the way paved
+# in stone slabs (tier 3 floors), the seal plinth before the tomb -----------------------------------------------------
+for cz -26 -8 6
+place RT_PillarThick columns at -4 $cz ground
+place RT_PillarThick columns at 4 $cz ground
+next
+for pz -24.75 -5.25 1.5
+place Block_Floor_Tier3 paving at -0.75 $pz h=3.15
+place Block_Floor_Tier3 paving at 0.75 $pz h=3.15
+next
+place Zone_Trigger processional at 0 -14 h=3
+place "Box Big" sealplinth at 2.4 -6.2 h=3.05 sit
+
+# --- The great tomb: sandstone walls (tier 3 blocks, tinted), a portico in front, a flat roof of plates; the
+# antechamber (z 0..9) and the burial chamber (z 9..18) behind an inner wall; double doors in both, the tomb slab
+# (sandstone blocks) before the front doors and the gate slab before the inner ones -------------------------
+push at -6 0 h=3
+for fx 0.75 11.25 1.5
+for fz -2.25 17.25 1.5
+place Block_Floor_Tier3 tombfloor at $fx $fz y=0.1
+next
+next
+for fx 0.75 3.75 1.5
+place Block_Wall_Tier3 tombwalls at $fx 0 y=0.2 sy=1.5
+place Block_Wall_Tier3 tombwalls at $fx 9 y=0.2 sy=1.5
+next
+for fx 8.25 11.25 1.5
+place Block_Wall_Tier3 tombwalls at $fx 0 y=0.2 sy=1.5
+place Block_Wall_Tier3 tombwalls at $fx 9 y=0.2 sy=1.5
+next
+place Block_Wall_Door_Tier3 tombwalls at 5.25 0 y=0.2 sy=1.5
+place Block_Wall_Door_Tier3 tombwalls at 6.75 0 y=0.2 sy=1.5
+place Block_Wall_Door_Tier3 tombwalls at 5.25 9 y=0.2 sy=1.5
+place Block_Wall_Door_Tier3 tombwalls at 6.75 9 y=0.2 sy=1.5
+for fx 0.75 11.25 1.5
+place Block_Wall_Tier3 tombwalls at $fx 18 y=0.2 sy=1.5
+next
+for fz 0.75 17.25 1.5
+place Block_Wall_Tier3 tombwalls at 0 $fz y=0.2 yaw=90 sy=1.5
+place Block_Wall_Tier3 tombwalls at 12 $fz y=0.2 yaw=90 sy=1.5
+next
+# pillars: every 3 m along the walls and the inner wall, the portico row in front
+for px 0 12 3
+place Block_Pillar_Tier3 tombpillars at $px 18 y=0.2 sy=1.5
+next
+# no pillar at x 6 in the front rows: that is the tomb door
+for px 0 3 3
+place Block_Pillar_Tier3 tombpillars at $px 0 y=0.2 sy=1.5
+place Block_Pillar_Tier3 tombpillars at {$px+9} 0 y=0.2 sy=1.5
+place Block_Pillar_Tier3 tombpillars at $px -3 y=0.2 sy=1.5
+place Block_Pillar_Tier3 tombpillars at {$px+9} -3 y=0.2 sy=1.5
+next
+place Block_Pillar_Tier3 tombpillars at 3 9 y=0.2 sy=1.5
+place Block_Pillar_Tier3 tombpillars at 9 9 y=0.2 sy=1.5
+for pz 3 15 3
+place Block_Pillar_Tier3 tombpillars at 0 $pz y=0.2 sy=1.5
+place Block_Pillar_Tier3 tombpillars at 12 $pz y=0.2 sy=1.5
+next
+# the roof plates over the portico and both rooms
+for fx 0.75 11.25 1.5
+for fz -2.25 17.25 1.5
+place Block_Floor_Tier3 tombroof at $fx $fz y=4.05
+next
+next
+# the temple columns inside (radio tower thick pillars, cut to the room's height: they hold the roof)
+place RT_PillarThick tombcolumns at 3 4.5 y=0.05 sy=0.63
+place RT_PillarThick tombcolumns at 9 4.5 y=0.05 sy=0.63
+place RT_PillarThick tombcolumns at 3 13.5 y=0.05 sy=0.63
+place RT_PillarThick tombcolumns at 9 13.5 y=0.05 sy=0.63
+# the tomb slab and the gate slab
+place Block_Wall_Tier3 tombslab at 5.25 -0.4 y=0.2 sy=1.2
+place Block_Wall_Tier3 tombslab at 6.75 -0.4 y=0.2 sy=1.2
+place Block_Wall_Tier3 gate at 5.25 8.6 y=0.2 sy=1.2
+place Block_Wall_Tier3 gate at 6.75 8.6 y=0.2 sy=1.2
+# the antechamber: three hieroglyph walls, the gate lever, candles and lanterns; the scarabs' nest
+place Note_Sign wall1 at 0.45 2.2 y=0.05 sit yaw=90
+place Note_Sign wall2 at 0.45 6.8 y=0.05 sit yaw=90
+place Note_Sign wall3 at 11.55 2.2 y=0.05 sit yaw=270
+place RT_Pillar - at 10.6 7.4 y=0.05 sy=0.4
+place TP_LaserControlPanel_lever lever at 10.6 7.4 y=1.3 scale=3 yaw=270
+place Candle_01 - at 1 1 y=0.05 sit
+place Candle_02 - at 1.3 1 y=0.05 sit
+place Candle_03 - at 11 1 y=0.05 sit
+place Candle_01 - at 1 8 y=0.05 sit
+place Placeable_Lantern_Metal - at 11.2 8.2 y=0.05 sit
+place Creature_Roach scarabs at 6 4 y=0.3
+place Zone_Trigger antezone at 6 2.5 y=0.1
+# the burial chamber: the sarcophagus on its dais, candles, the hatch out
+place "Box Big" - at 4.6 15.8 y=0.1 sit
+place "Box Big" - at 7.4 15.8 y=0.1 sit
+place Loot_ChestLarge sarcophagus at 6 16.2 y=0.1 sit yaw=180
+place Candle_01 - at 3.6 16.8 y=0.05 sit
+place Candle_03 - at 8.4 16.8 y=0.05 sit
+place Candle_02 - at 1 10 y=0.05 sit
+place Placeable_Lantern_Metal - at 11.2 10 y=0.05 sit
+place Placeable_Lantern_Metal - at 0.8 17.2 y=0.05 sit
+place TangaroaHatchRoom_Hatch hatch at 10 16 y=0.06 sit
+place Zone_Trigger burialzone at 6 12 y=0.1
+pop
+prop tombwalls tint.color=#c9a77a
+prop tombpillars tint.color=#e6d3b0
+prop tombroof tint.color=#a8875e
+prop tombfloor tint.color=#9c8a6c
+prop tombcolumns tint.color=#d8bf90
+prop columns tint.color=#d8bf90
+prop paving tint.color=#b8a58a
+prop obelisk tint.color=#e0c690
+prop tombslab tint.color=#b49a70
+prop tombslab tint.amount=0.7
+prop gate tint.color=#b49a70
+prop gate tint.amount=0.7
+
+# --- Tomb fronts half-buried in the dune slopes, west and east: sandstone fronts of three blocks with a pillar each
+# side, their backs in the dune ------------------------------------------------------------------------------------------
+for tz -6 6 6
+place Block_Wall_Tier3 frontwest at -24.4 {$tz-1.5} h=3.05 yaw=90 sy=1.3
+place Block_Wall_Tier3 frontwest at -24.4 $tz h=3.05 yaw=90 sy=1.3
+place Block_Wall_Tier3 frontwest at -24.4 {$tz+1.5} h=3.05 yaw=90 sy=1.3
+place RT_PillarThick frontwestcol at -23.6 {$tz-2.4} h=3 sy=0.55
+place RT_PillarThick frontwestcol at -23.6 {$tz+2.4} h=3 sy=0.55
+place Block_Wall_Tier3 fronteast at 24.4 {$tz-1.5} h=3.05 yaw=90 sy=1.3
+place Block_Wall_Tier3 fronteast at 24.4 $tz h=3.05 yaw=90 sy=1.3
+place Block_Wall_Tier3 fronteast at 24.4 {$tz+1.5} h=3.05 yaw=90 sy=1.3
+place RT_PillarThick fronteastcol at 23.6 {$tz-2.4} h=3 sy=0.55
+place RT_PillarThick fronteastcol at 23.6 {$tz+2.4} h=3 sy=0.55
+next
+prop frontwest tint.color=#c9a77a
+prop fronteast tint.color=#c9a77a
+prop frontwestcol tint.color=#d8bf90
+prop fronteastcol tint.color=#d8bf90
+
+# --- The way out: the hatch's tunnel comes up in the dunes north of the tomb -------------------------------------------
+place Zone_Trigger tombexit at 0 32 ground
+
+# --- Atmosphere: dark and dusty inside the tomb; dry wind on the dunes -------------------------------------------------
+place Zone_Atmosphere tombdark at 0 9 h=3
+place Zone_Sound tombsound at 0 9 h=3
+
+# --- Things to gather, reefs ---------------------------------------------------------------------------------------------
+scatter "Pickup_Landmark_PineappleLandmark" 2 at 30 -40 r=14 seed=9321 free=3
+scatter "Pickup_Landmark_Flower_Red" 2 at -34 -30 r=14 seed=9322 free=3
+call dirt x=30 z=36 r=10 n=3 seed=9323
+call shallows x=-30 z=-92 r=12 deep=4 n=1 seed=9324
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Sandsunk Necropolis
+info author=Custom Islands
+info description=A desert island of dunes over a city of the dead: an obelisk, a processional way between temple columns, tomb fronts sunk in the dunes and the great tomb of the sea kings - a sealed slab, scarabs in the dark, a timed gate and a sarcophagus. The third island of Relic of the Seventh Tide.
+island on.arrive=message||Dunes, and in them the tops of columns and the dark doors of tombs. An obelisk throws its shadow over the sand.
+
+story seal|Tomb seal|Placeable_Lantern_Metal|A disc of green bronze with seven waves on it: the seal of the sea kings' tomb.
+story sealset|Tomb slab raised|Placeable_Lantern_Metal|The tomb seal is set in its plinth and the slab has lifted.
+story gear1|Gear of the First Tide|Bolt|A bronze gear the size of a plate, its teeth cut like waves. One of three.
+
+note dignotes Kett's dig notes | KETT - NECROPOLIS DIG, WEEK 2\n\nThe tomb door will not move. The slab is locked by its seal plinth, and the seal is not here - the priests buried it.\n\nThe tablet says: "The seal sleeps where the obelisk's shadow falls at noon." At noon the sun stands south - the shadow points NORTH, a few paces.\n\nI left the detector and the spade in my kit. The Syndicate's men are two days behind me. I am going on to the mast.
+note digkit Kett's dig kit | Kett's dig kit: her metal detector, a spade and a canteen.
+loot digkit MetalDetector*1;Shovel*1;PlasticBottle_Water*1;Rope*2
+prop digkit loot.refill=0
+prop treasure9311 treasure.loot=story:seal*1;TradeToken*2;CopperIngot*2
+note wall1 Wall of the Flood | WALL OF THE FLOOD\n\nCarved waves rise over carved towns. The sea kings kneel on a hill, and above them a wheel with seven spokes turns in the sky.
+note wall2 Wall of the Engine | WALL OF THE ENGINE\n\nA ring of land round a deep well. In the well, a heart of fire. Men carry three gears to it - the first from this tomb, the second from a tower in the sky, the third from a hollow tooth of rock.
+note wall3 Wall of the Strait | WALL OF THE STRAIT\n\nA giant stands with one foot on each shore. Its eyes are empty. Over it: "Set the three in the giant's breast, and its eyes will show the way to the heart."
+note sarcophagus Sarcophagus | The last sea king's sarcophagus. In his folded hands: a bronze gear with teeth cut like waves - the Gear of the First Tide.
+loot sarcophagus story:gear1*1;TradeToken*6;CopperIngot*3;MetalIngot*3
+prop sarcophagus loot.refill=0
+
+prop sealplinth obj.name=sealplinth
+prop sealplinth beh.use=Set the tomb seal in the plinth
+prop sealplinth if.use=take|story:seal|1
+prop sealplinth on.use=message||The seal drops into its socket. Deep in the stone something gives - and the tomb slab grinds up into the dark.\nsound||event:/exploring/obstacles/door_breakopen\nhide|tombslab\ngive||story:sealset*1
+prop sealplinth else.use=message||A stone plinth with a round, empty socket, seven waves cut round it. The tomb's seal belongs here.
+prop tombslab obj.name=tombslab
+prop gate obj.name=gate
+prop lever obj.name=lever
+prop lever beh.use=Pull the gate lever
+prop lever on.use=message||The lever drops. Chains rattle in the wall and the gate slab lifts - it will not stay up for long!\nsound||event:/exploring/obstacles/tangaroa/baydoor_slide\nhide|gate\nwait|25\nshow|gate\nsound||event:/exploring/obstacles/temperence/selene/fightchallenge_door_close
+prop hatch obj.name=hatch
+prop hatch beh.use=Climb down the hatch
+prop hatch on.use=message||A low tunnel under the dunes. You crawl a long way - and come up in the sand behind the tomb.\nteleport|tombexit
+
+prop dunes zone.id=dunes
+prop dunes zone.radius=6
+prop dunes zone.message=Sand to the knees - and under it, carved stone. A whole city lies under these dunes.
+prop processional zone.id=processional
+prop processional zone.radius=5
+prop processional zone.message=A processional way between columns, to a tomb door shut by a great slab. Before it stands a plinth with an empty socket.
+prop antezone zone.id=antechamber
+prop antezone zone.radius=3
+prop antezone zone.repeat=never
+prop antezone zone.message=Dark, dry air - and a rustling. The floor is moving. Scarabs!
+prop antezone on.enter=sound||event:/amb/wreck_creaks
+prop scarabs creature.count=8
+prop scarabs creature.size=0.8
+prop scarabs creature.respawn=0
+prop scarabs creature.zone=antechamber
+prop scarabs tint.color=#d4a62a
+prop scarabs tint.amount=0.7
+prop burialzone zone.id=burial_chamber
+prop burialzone zone.radius=3
+prop burialzone zone.message=The burial chamber. Between two blocks of stone the last sea king's sarcophagus stands upright against the wall.
+prop tombexit obj.name=tombexit
+prop tombexit zone.id=tomb_exit
+prop tombexit zone.radius=5
+prop tombexit zone.message=Daylight and sand. Behind you the tomb; ahead, far off, a thin mast on a sea stack.
+prop tombdark obj.name=tombdark
+prop tombdark atmo.fog=#1c150d
+prop tombdark atmo.fogAmount=0.55
+prop tombdark atmo.light=#5a4428
+prop tombdark atmo.lightAmount=0.6
+prop tombdark atmo.particles=mist
+prop tombdark zone.radius=9
+prop tombsound obj.name=tombsound
+prop tombsound sound.event=event:/amb/wreck_creaks
+prop tombsound sound.volume=0.5
+prop tombsound zone.radius=9
+
+quest title=The Tomb of the Sea Kings
+quest intro=Dunes over a city of the dead. Kett dug here - go up into the dunes.
+step reach|dunes|1|Go up into the dunes
+step read|Kett's dig notes|1|Read Kett's dig notes at her camp
+step collect|story:seal|1|Dig up the tomb seal (metal detector, then shovel)
+step reach|processional|1|Walk the processional way to the tomb
+step collect|story:sealset|1|Set the seal in the plinth before the tomb
+step reach|antechamber|1|Go into the antechamber
+step kill|Roach|8|Fight off the scarabs
+step read|Wall of the Flood|1|Read the Wall of the Flood
+step read|Wall of the Engine|1|Read the Wall of the Engine
+step read|Wall of the Strait|1|Read the Wall of the Strait
+step reach|burial_chamber|1|Pull the gate lever and get into the burial chamber before the gate drops
+step open|Sarcophagus|1|Open the sarcophagus
+step collect|story:gear1|1|Take the Gear of the First Tide
+step reach|tomb_exit|1|Get out through the hatch
+quest done=The Gear of the First Tide. The walls named the next one: a tower in the sky - a mast on a sea stack, 900 on the Receiver.
+quest reward=TradeToken*8;CopperIngot*4;Rope*4
+
+save Sandsunk Necropolis

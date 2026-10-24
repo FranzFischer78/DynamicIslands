@@ -1,0 +1,10 @@
+# Guide pictures of Frontier Beacon (CIPlay frontier_beacon_pics): Raft's camera, midday, calm
+island Frontier Beacon
+hour 11
+weather Calm
+at -32 -2
+wait 3
+picture frontier_beacon_island 58 46 52 -10 10 0
+picture frontier_beacon_terrace -13 22 17 -2 18 7
+picture frontier_beacon_landing -46 7 12 -26 4 -1
+picture frontier_beacon_ramp -38 9 24 -10 15 9

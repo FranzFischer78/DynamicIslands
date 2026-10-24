@@ -1,0 +1,15 @@
+# Guide pictures of Pumpcrown Works (CIPlay pumpcrown_works_pics): Raft's camera, midday, calm; the three pump towers and their bridges
+# offset 0 0 is a placeholder: phase 2 sets it from the recipe's save log (PLAY_FORMAT: Coordinates).
+island Pumpcrown Works
+offset 0 0
+hour 11
+weather Calm
+at 0 0
+wait 3
+picture sl13_pumpcrown_works_island 60 36 -90 0 5 -10
+# the forklift and the ore wagons by the towers
+picture sl13_pumpcrown_works_vehicles 40 9 -24 20 2 -4
+picture sl13_pumpcrown_works_bank -15 20 25 -15 13 53
+picture sl13_pumpcrown_works_van 40 9 36 52 4 22
+picture sl13_pumpcrown_works_filter -46 9 -8 -60 4 8
+picture sl13_pumpcrown_works_sludge 36 9 58 24 3 46

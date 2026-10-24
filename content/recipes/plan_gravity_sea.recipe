@@ -1,0 +1,26 @@
+# plan_gravity_sea - the library's plan "The Gravity Sea" (storyline SL5): the Halvard Institute's Lodestone Array tore
+# islands out of the sea and left their roots on the seabed. Ten story islands in sky/seabed pairs - each sky island's
+# WHEN brings its sunken root - from Lodestone Quay to the Array's crown (35 m up) and its root (35 m down), plus a side
+# pair (Weatherglass Shoal at km 5, its drowned twin near it, north). No Raft story, no random islands: the sky must not
+# fill with strangers. Every one of Raft's story blueprints is a quest step on the way.
+#
+# Run it with CIRecipe plan_gravity_sea (it writes the plan file); the islands are built by their own recipes.
+plan new The Gravity Sea
+plan description Islands torn into the sky and their roots left on the seabed: the Halvard Institute's Lodestone Array lifted the land out of the rising sea - and left the other half drowned. Follow the Receiver from a quay whose hill is gone, up to sky orchards and markets and down to their cellars, to the Array's crown and its root. Two side islands turn up on the way. Its main islands are about 40% the size of Raft's own big islands.
+plan random off
+plan story off
+plan rule quay | island:Lodestone Quay | start | receiver:500 | The Receiver's first signal: a harbour master's call sign, then a voice - "Lodestone Quay. The hill is gone. Anyone?" | Lodestone Quay | first | quest
+plan rule orchard | island:Upfall Orchard | quest:quay | receiver:700 | On 700, a wind-chime clatter and an old man humming - from somewhere ABOVE the sea. | Upfall Orchard | after:quay | signal:roots
+plan rule cellar | island:Rootcellar Deep | signal:orchard:roots | receiver:600 | The orchard's roots answer on 600: a bell ringing under water, slow and muffled. | Rootcellar Deep | after:orchard | quest
+plan rule market | island:Altitude Market | rule:cellar | receiver:900 | A market crier on 900, shouting prices into the wind - 35 m up. | Altitude Market | after:cellar | step:9
+plan rule sink | island:Sinkmarket Floor | signal:market:ballast | receiver:700 | Where the ballast stone fell, the Receiver picks up a diving bell's tapping on 700. | Sinkmarket Floor | after:market | quest
+plan rule pendulum | island:Pendulum Isle | quest:sink | receiver:1000 | On 1000, a slow tick - tock, tick - tock: a pendulum hall, low over the water. | Pendulum Isle | after:sink | zone:keel
+plan rule gravewell | island:Gravewell Shaft | quest:pendulum | receiver:900 | Straight down from the keel: a pump hall's alarm on 900, 45 m under the sea. | Gravewell Shaft | after:pendulum | quest
+plan rule stair | island:The Stair of Hours | visit:gravewell | receiver:1100 | Halvard's own voice on 1100, tired: "From the Stair you can see the crown. Come up." | The Stair of Hours | after:gravewell | quest
+plan rule array | island:The Lodestone Array | quest:stair | receiver:1300 | On 1300 the Receiver only crackles - a field so strong it bends the signal. The crown. | The Lodestone Array | after:stair | zone:core
+plan rule root | island:The Array Root | zone:array:core | receiver:800 | With the crown dark, the root's hum comes through on 800, straight under it. | The Array Root | after:array | quest
+plan rule shoal | island:Weatherglass Shoal | km:5 | ahead:450 | Ahead, a sandbank with something glinting on it - a glass column, taller than a man. | Weatherglass Shoal
+plan rule deep | island:Weatherglass Deep | visit:shoal | near:shoal:600:north | North of the shoal, under the water: the outline of a second station. | Weatherglass Deep
+plan credits The Gravity Sea | Custom Islands
+plan ending Up above, the torn islands stay where they are. But the compass needles on the quay point north again.\n\nThe end of The Gravity Sea.
+plan save

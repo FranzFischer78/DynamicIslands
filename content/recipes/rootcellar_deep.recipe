@@ -1,0 +1,129 @@
+# Rootcellar Deep - an island of the library's plan The Gravity Sea (a sunken island, 25 m under the sea)
+# The Upfall Orchard's other half, left on the seabed on Lift Day: the bottom of the same well, the same farmhouse
+# (built to the same plan as the one in the sky, drowned), its cellar hatch, and the orchard's great roots - dead trees
+# and driftwood laid twisting over the seabed - round a root cave in the east. Coral reefs on the walls, kelp, air
+# pockets from the Institute's bells. Quest "The Other Half" (9 steps): the well bottom, Marta's diary, the apples at
+# the cellar hatch, the cellar's air pocket, the machete plans, the puffer fish in the roots, and Balboa's three
+# blueprints in the root cave cache.
+#
+# Built by the recipe player (CIRecipe rootcellar_deep) through the editor's own operations. Points (metres over the
+# island's own water line; in the world it all lies 25 m lower, under the sea): the floor at 3 m (r 13 round 0 0); the
+# drowned farmhouse x -12..-7.5, z -2..2.5 (as the orchard's); the well bottom at 2 2; the cellar hatch at -5.5 4; the
+# root cave round 12 6.
+include lib_sea
+include lib_huts
+include lib_gravity
+new
+gen Trees=0 Bushes=0 Rocks=0.35 Harvest=0 BeachThings=0
+gen Seed=9531 Radius=30 Height=8 Roughness=0.4 Peaks=1 Shape=0 Style=0 BeachWidth=0.1 Cliffs=0.6 PeakShape=0.5
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+elevation -25
+
+# --- Terrain: the seabed floor at 3 m -------------------------------------------------------------------------------
+brush flatten at 0 0 r=13 s=20 frames=200 h=3
+brush flatten at 12 6 r=6 s=20 frames=60 h=3
+brush flatten at -12 -2 r=6 s=20 frames=200 h=3
+origin
+clear at -9.75 0.25 r=5
+clear at 2 2 r=4
+clear at -5.5 4 r=2.5
+clear at 12 6 r=5
+
+# --- The drowned farmhouse (the orchard's plan) and the cellar hatch beside it ---------------------------------------
+push at -12 -2 h=3
+call hut w=3 d=3 y=0.1
+place "Box Small" - at 1.2 3.4 y=0.1 sit
+place Note_Paper diary at 1.2 3.4 y=0.8 drop yaw=15
+pop
+place TangaroaHatchRoom_Hatch cellardoor at -5.5 4 ground sit yaw=0
+beside Loot_Chest cellarchest cellardoor d=0.01
+call airpocket x=-4 z=0.5 id=cellar al=cellarair bub=cellarbub r=3 msg="The cellar's air pocket - Marta's bell. Breathe."
+
+# --- The well bottom: the same well, its rope coiled on the seabed; an air pocket by it ------------------------------
+place Well - at 2 2 ground sit
+place "Box Small" ropecoil at 3.6 0.6 ground sit yaw=30
+place Zone_Trigger wellzone at 2 -1.5 ground y=1
+call airpocket x=0 z=-4 id=well_air al=wellair bub=wellbub r=2.5
+
+# --- The orchard's roots: dead trees and driftwood twisting over the seabed to the root cave ------------------------
+place DeadTree1 roots at 5 -4 ground rot=0,30,82 scale=0.9
+place DeadTree2 roots at 7 3 ground rot=0,-50,80 scale=1.0
+place DeadTree3 roots at 9 -1 ground rot=0,110,84 scale=0.9
+place DeadTree1 roots at 14 1 ground rot=0,200,80 scale=1.1
+place DeadTree2 roots at 15 10 ground rot=0,260,82 scale=1.0
+place DeadTree3 roots at 9 11 ground rot=0,10,80 scale=1.0
+place DeadTree_TreeStumps_1 - at 4 -1 ground sit
+place DeadTree_TreeStumps_2 - at 11 -3 ground sit
+prop roots tint.color=#4e4136
+prop roots tint.amount=0.6
+place Loot_Chest rootcache at 13 7 ground sit yaw=225
+place Zone_Trigger rootcave at 12 6 ground y=1
+place Creature_PufferFish puffers at 10 5 ground y=2
+place Creature_AnglerFish anglers at 13 8 ground y=2
+call airpocket x=8 z=8 id=root_air al=rootair bub=rootbub r=2.5
+
+# --- Reefs on the walls and the floor, kelp ---------------------------------------------------------------------------
+scatter VP_CoralBulb03 5 at -6 -8 r=3 seed=9541 free=1
+scatter VP_CoralFoliose01 4 at -6 -8 r=3 seed=9542 free=1
+scatter VP_CoralDigitate02 5 at 6 -9 r=3 seed=9543 free=1
+scatter VP_CoralBulb06 4 at 6 -9 r=3 seed=9544 free=1
+scatter VP_CoralFoliose02 5 at -8 9 r=3 seed=9545 free=1
+scatter TinyCoral 6 at -8 9 r=3 seed=9546 free=1
+scatter SeaVine3 30 at 0 0 r=24 seed=9547 free=2
+scatter SeaVine3_klump 10 at 0 0 r=24 seed=9548 free=2
+call shallows x=0 z=0 r=44 deep=8 n=1 seed=9549
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Rootcellar Deep
+info author=Custom Islands
+info description=The orchard's other half on the seabed, 25 m down: the same farmhouse drowned, the bottom of its well, its cellar and the orchard's roots twisting round a cave. The third island of The Gravity Sea - dive.
+island on.arrive=message||Down there, 25 m under the keel: a farmhouse. The same one as up in the orchard - drowned.
+
+story cellaropen|Cellar hatch open|Placeable_Lantern_Metal|You gave Marta's apples at the cellar hatch, and it opened.
+
+note diary Cellar diary (the other half) | CELLAR DIARY - M. KRISTEN\n\nThe hill went up and the cellar stayed. Jon is up there with the trees; I am down here with the roots. The Institute's bells give me air.\n\nI have kept the hatch shut against the fish in the roots. I will open it for one thing only: our apples. Jon says he will send them down the well. If you have them, bring them to the hatch.
+note cellarchest Cellar chest | Marta's cellar chest: Jon's old machete and its maker's plans, wrapped in a feed sack. "For the vines up at the market - they grow over everything."
+note rootcache Root cave cache | The Institute's fuel cache, wedged in the roots: plans for a fuel tank, fuel pipes and a biofuel extractor, in a sealed tin.
+loot cellarchest Blueprint_Machete*1;Machete*1;Rope*2
+prop cellarchest loot.refill=0
+loot rootcache Blueprint_Fueltank*1;Blueprint_Pipe_Fuel*1;Blueprint_BiofuelExtractor*1;MetalIngot*2;Scrap*3
+prop rootcache loot.refill=0
+
+prop cellardoor obj.name=cellardoor
+prop cellardoor beh.use=Knock at the cellar hatch
+prop cellardoor if.use=take|story:upapple|4
+prop cellardoor on.use=hide|\nshow|cellarchest\ngive||story:cellaropen*1\nmessage||You hold up the four baskets of apples. The hatch swings open - Marta's hand takes them, and pushes a chest out to you.\nsound||event:/exploring/obstacles/keypad/keypad_correct
+prop cellardoor else.use=message||A voice through the hatch: "Not without our apples. Four baskets, from the orchard - Jon is sending them down the well."
+prop cellarchest obj.name=cellarchest
+prop cellarchest beh.hidden=1
+
+prop wellzone zone.id=well_bottom
+prop wellzone zone.radius=4
+prop wellzone zone.message=The bottom of the well. The rope from the sky lies coiled here on the seabed.
+prop rootcave zone.id=root_cave
+prop rootcave zone.radius=6
+prop rootcave zone.repeat=never
+prop rootcave zone.message=The roots close round you - and things move in them!
+prop puffers creature.count=3
+prop puffers creature.respawn=0
+prop puffers creature.zone=root_cave
+prop anglers creature.count=2
+prop anglers creature.respawn=0
+prop anglers creature.zone=root_cave
+
+quest title=The Other Half
+quest intro=The orchard's roots are down here, 25 m under the sea. Dive to the bottom of the well.
+step reach|well_bottom|1|Dive to the bottom of the well
+step read|Cellar diary (the other half)|1|Read the diary in the drowned farmhouse
+step collect|story:cellaropen|1|Bring the four baskets of upfall apples to the cellar hatch
+step reach|cellar|1|Breathe in the cellar's air pocket
+step blueprint|Blueprint_Machete|1|Take the machete plans from the cellar chest
+step kill|Puffer fish|3|Drive the puffer fish out of the roots
+step blueprint|Blueprint_Fueltank|1|Take the fuel tank plans from the root cave cache
+step blueprint|Blueprint_Pipe_Fuel|1|Take the fuel pipe plans from the root cave cache
+step blueprint|Blueprint_BiofuelExtractor|1|Take the biofuel extractor plans from the root cave cache
+quest done=Marta has her apples. Her radio gives the next band: the market that went up with the hill - Altitude Market, 900.
+quest reward=MetalIngot*3;Bolt*2
+
+save Rootcellar Deep

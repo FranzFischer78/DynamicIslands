@@ -1,0 +1,14 @@
+# Guide pictures of Biome Seven (CIPlay biome_seven_pics): Raft's camera, midday, calm
+island Biome Seven
+offset 0 0
+hour 11
+weather Calm
+at 0 0 h=0.3
+wait 3
+picture sl10_biome_dome 16 5 -14 0 3 0
+picture sl10_biome_garden -3 2.5 3.5 1 0.5 -3
+picture sl10_biome_airlock 6 4 14 0 2 8
+picture sl10_biome_seven_ridge 55 17 4 69 8 5
+picture sl10_biome_seven_cave 5 12 -49 6 3 -63
+picture sl10_biome_seven_ruin -4 12 34 -6 3 48
+picture sl10_biome_seven_wreck -36 12 51 -44 3 62

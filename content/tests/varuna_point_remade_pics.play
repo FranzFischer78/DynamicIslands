@@ -1,0 +1,10 @@
+# Guide pictures of Varuna Point Remade (CIPlay varuna_point_remade_pics): Raft's camera, midday, calm
+island Varuna Point Remade
+hour 11
+weather Calm
+at 16 -1
+wait 3
+picture varuna_point_remade_island 72 46 52 8 8 -2
+picture varuna_point_remade_site 36 19 14 12 12 -7
+picture varuna_point_remade_landing 47 6 25 22 10 0
+picture varuna_point_remade_floodlight 19.5 18.6 0.2 15 16 9

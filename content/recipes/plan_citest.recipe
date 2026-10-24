@@ -1,0 +1,11 @@
+# Test plan (not library content): the recipe player's plan steps - a plan made in World plans, two library islands
+# woven into Raft's story (Signal Rock after the Radio Tower, The Stranded Gull in Vasagatan's place), Balboa left out.
+# Its play test: content\tests\plan_citest.play.
+plan new CI Plan Recipe
+plan description A test plan made by the recipe player: Signal Rock after the Radio Tower, The Stranded Gull instead of Vasagatan, Balboa left out.
+plan random off
+plan story on
+plan leaveout Balboa
+plan rule rock | island:Signal Rock | start | receiver:500 | A weak signal crackles under the Radio Tower's. | Signal Rock | after:RadioTower | quest
+plan rule gull | island:The Stranded Gull | start | receiver:500 | A distress call from a beached yacht. | Stranded Gull | instead:Vasagatan | quest
+plan save

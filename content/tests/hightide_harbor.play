@@ -1,0 +1,92 @@
+# Play test of Hightide Harbor (CIPlay hightide_harbor, in a test world 'CI ...'). Points as in its recipe: the street
+# (1.3 m) along the bay's back, the quay and the two piers (decks 1.4 m) with the stilt houses, the fish hall (floor 1.8 m),
+# the path up to the works on the saddle (9.5 m), the Mary at the quay's end, the Heron on the bar (3.6 m down), the lamp
+# tower on the north horn (storeys at 5.62, 8.04 and 10.46 m).
+island Hightide Harbor
+expect step 0
+expect title The Fleet Comes Home
+# (a big island: a moment for all of it to load before the first walk - it began out at sea once)
+wait 5
+
+# The quay: the harbour master's log on its board (every walk starts on the street: a walk's first point on a deck of
+# Raft's floor blocks was looked for between their planks - the player started in the water under it)
+walk -2 0 to -6 0 to -10 0 h=1.4
+zone quay
+expect step 1
+walk -2 0.5 to -5 0.8 to -7.8 1 h=1.4
+read Harbour master's log
+expect step 2
+
+# The stilt houses: onto the north pier from the street to the netmaker's; the skipper's next door, the cook's on the south
+# pier (put on their floors: a walk that starts on a deck of Raft's floor blocks is looked for between their planks)
+walk -2 1 to -2 9.75 h=1.3
+walk -2 9.75 to -4.5 9.75 to -13.8 9.75 to -14.6 12.8 h=1.4
+open Netmaker's box
+at -7.2 13 h=2.5
+open Skipper's sea chest
+walk -2 8 to -2 -9.75 h=1.3
+walk -2 -9.75 to -4.5 -9.75 to -13.75 -9.75 h=1.4
+at -13.75 -12.9 h=2.5
+open Cook's crate
+expect story fleetpage 3
+expect step 3
+
+# The fish hall: its bears, then the office locker's fuse (a bear that runs up the hill can take the player past the works:
+# its step is then done early - no step expected after the fuse)
+walk -2 -9.5 to -2 -5.75 to -0.4 -5.75 h=1.6
+zone fishhall
+kill Bear
+expect step 4
+walk -0.4 -5.75 to 4 -5.2 to 5.6 -4.6 h=1.8 below=4
+open Fish hall office locker
+expect story fuse 1
+
+# Up the path to the works on the saddle: the switch, then the valve house's chest
+walk 4 -5.2 to 0 -5.75 to -2.6 -5.75 to -2 -2 to 1 3 h=1.4 below=4
+walk 1 3 to 9 -1.25 to 17 -5.5 h=9.4
+zone works
+expect step 6
+use worksswitch
+expect message thunks over
+expect story fuse 0
+expect story workskey 1
+expect step 7
+walk 17 -6 to 20.25 -9.5 to 20.7 -11.4 h=9.7
+open Valve house chest
+expect story lampoil 1
+expect step 8
+
+# The Mary's locker at the quay's end, the crate from the Heron's hold on the bar
+at -18.2 3.7 h=0.3
+open The Mary's locker
+expect story lampoil 2
+at -35.6 -16.2 h=-2.6
+open The Heron's hold
+expect story lampoil 3
+expect step 9
+
+# The lamp tower on the north horn: up its three ladders, the screechers, the lamp
+walk -40 44.6 to -40.75 46.9 h=3.2
+climb -40.75 47.88 h=3.2
+expect stand -40.75 48.75 h=5.62 below=7.5
+climb -39.25 48.12 h=5.62
+expect stand -39.25 47.25 h=8.04 below=10
+climb -39.25 47.88 h=8.04
+expect stand -39.25 48.75 h=10.46 below=12.5
+zone lamptower
+expect step 10
+kill Screecher
+expect step 11
+use harbourlamp
+expect message wick catches
+expect story lampoil 0
+expect story safecode 1
+expect step 12
+
+# The harbour master's house on the south pier: his safe
+at -9 -12.3 h=2.5
+open Harbour master's safe
+wait 5
+expect item Blueprint_WaterTank 1
+expect item Blueprint_ElectricPurifier 1
+expect done

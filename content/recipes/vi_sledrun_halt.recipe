@@ -1,0 +1,96 @@
+# Sledrun Halt - a vehicle island (VI1, quest island)
+# A snowy island where a sled run stopped for good: a snowmobile shed with its snowmobile, a sled out on the halt
+# with an empty tank, a van snowed in down by the shore, and a fuel depot on the rise behind with a polar bear sleeping
+# by it. Quest "Running on Empty" (5 steps): the halt, the halt board, the bear, the fuel can poured into the sled,
+# the sled's saddlebag.
+#
+# Points (metres from the land centre): the halt pad round -4 -6 (h 3), the shed -10 -1, the depot pad round 10 8
+# (h 4.5), the snowed-in van 9 -13, the landing beach 0 -24.
+include lib_sea
+include lib_huts
+include lib_frozen
+new
+gen Trees=0.08 Bushes=0.15 Rocks=0.25 Harvest=0.05 BeachThings=0.2
+gen Seed=15102 Radius=28 Height=7 Roughness=0.4 Peaks=1 Shape=0.35 Style=1 PeakShape=0.5 Cliffs=0.2 BeachWidth=0.45
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.2 Sunken=0.1 Hostiles=0 Friendly=0 SeaLife=0.2
+generate
+
+# --- Terrain: the halt, the depot rise, the shore track, the landing ----------------------------------------------
+brush flatten at -4 -6 r=11 s=20 frames=150 h=3
+brush flatten at 10 8 r=7 s=20 frames=120 h=4.5
+brush flatten at 9 -13 r=5 s=20 frames=80 h=1.6
+brush flatten at 0 -24 r=6 s=20 frames=100 h=1.1
+brush sand at 0 -24 r=7 s=10 frames=30
+origin
+clear at -4 -6 r=10
+clear at 10 8 r=6
+clear at 9 -13 r=4
+clear at 0 -24 r=5
+
+# --- The halt: shed with its snowmobile, the sled, the board -------------------------------------------------------
+place SnowmobileShedMesh - at -10 -1 ground yaw=90
+place TP_SnowVehicle01 - at -10 -1 ground yaw=90
+place TP_SnowVehicle02 sled at 0 -8 ground sit yaw=160
+place Note_Board haltboard at -3 -12 ground sit yaw=180
+place TP_Moontown_Barrel01 - at -6 -10 ground sit
+place TP_Moontown_TarpCrate01 - at -7 -8 ground sit yaw=20
+place Loot_ChestSmall saddlebag at 1.5 -9.5 ground sit yaw=160
+place Placeable_Lantern_Metal - at -4 -11 ground sit
+place Zone_Trigger haltzone at -3 -7 ground
+
+# --- The depot on the rise and its bear; the van on the shore ------------------------------------------------------
+place TP_Moontown_SealedCrate01 - at 8 6 ground sit yaw=10
+place TP_Moontown_Barrel02 - at 12 6 ground sit
+place TP_Moontown_Barrel01 - at 12.8 7 ground sit
+place Locker fuellocker at 10 10.5 ground sit yaw=180
+place Creature_PolarBear bear at 14 12 ground
+prop bear creature.count=1
+prop bear creature.respawn=0
+place Van3 - at 9 -13 ground sit yaw=20 tilt=3
+place TP_SnowDrift02 - at 10.5 -11 ground sit yaw=20
+place TP_SnowDrift01 - at 7 -15 ground sit yaw=200
+scatter TP_PineTreeSnowy 3 at -16 10 r=7 seed=15121 free=3
+scatter TP_SmallRock03 3 at 16 -4 r=6 seed=15122 free=2 scale=0.4-0.45 ground y=-1
+call snowfall x=0 z=0 r=34 al=snow
+call shallows x=0 z=0 r=36 deep=5 n=1 seed=15123
+
+# --- Settings, notes, quest ---------------------------------------------------------------------------------------
+info title=Sledrun Halt
+info author=Custom Islands
+info description=A snowmobile shed, a sled with an empty tank, a van snowed in on the shore and a fuel depot with a polar bear asleep beside it.
+island on.arrive=message||Tracks in the snow end at a shed and a sled. Up on the rise, barrels - and something big and white lying beside them.
+
+story jerrycan|Fuel can|BioFuel|A can of fuel from the depot locker on the rise.
+story sledfull|Sled fuelled|BioFuel|The sled on the halt, its tank filled.
+
+note haltboard Halt board | SLED RUN - LAST HALT\n\nTank ran dry here. Fuel is in the depot locker up on the rise.\nThe bear moved in by the barrels two days ago. Do not go up alone.\nWhoever fills the sled: the saddlebag is unlocked from the dash.
+note fuellocker Fuel locker | The depot locker: a fuel can and spares.
+loot fuellocker story:jerrycan*1;Bolt*2;Rope*2
+prop fuellocker loot.refill=0
+note saddlebag Sled's saddlebag | The sled's saddlebag: warm things and road food.
+loot saddlebag Wool*3;Leather*2;Cooked_Pomfret*2;HeadLight*1
+prop saddlebag loot.refill=0
+prop saddlebag obj.name=saddlebag
+prop saddlebag beh.hidden=1
+
+prop sled obj.name=sled
+prop sled beh.use=Fill the tank
+prop sled if.use=take|story:jerrycan|1
+prop sled on.use=message||The fuel glugs into the tank. A press on the dash and the saddlebag clasp springs open.\ngive||story:sledfull*1\nshow|saddlebag
+prop sled else.use=message||The fuel gauge sits on empty. The halt board says where the fuel is.
+
+prop haltzone zone.id=halt
+prop haltzone zone.radius=5
+prop haltzone zone.message=The last halt of the sled run. A shed, a sled and a board by the track.
+
+quest title=Running on Empty
+quest intro=A sled run stopped at Sledrun Halt. Find the halt.
+step reach|halt|1|Go up to the sled halt
+step read|Halt board|1|Read the halt board
+step kill|Polar bear|1|Deal with the polar bear at the fuel depot
+step collect|story:sledfull|1|Fill the sled's tank from the fuel locker
+step open|Sled's saddlebag|1|Open the sled's saddlebag
+quest done=The sled is fuelled. Nobody is coming back for it, but its saddlebag was well packed.
+quest reward=Wool*2;BioFuel*1
+
+save Sledrun Halt

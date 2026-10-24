@@ -1,0 +1,35 @@
+# Thalassa Mooring (CIPlay thalassa_mooring): the deck, the handbook, the water tower chest, the pipe crate, the office
+# chest, the store shed, the diving bell ridden 20 m down (its zone has air).
+island Thalassa Mooring
+offset 0 0
+expect step 0
+expect title The Surface Station
+zone deck
+expect step 1
+read Station handbook
+expect step 2
+open Water tower chest
+wait 3
+expect step 3
+open Pipe crate
+wait 3
+expect step 4
+open Station office chest
+wait 3
+expect step 5
+open Store shed chest
+wait 3
+expect step 6
+zone th_ridge
+expect step 7
+zone th_cave
+expect step 8
+read Dive log
+expect step 9
+read Dinghy logbook
+expect step 10
+use bell
+wait 13
+zone bell
+air bell
+expect done

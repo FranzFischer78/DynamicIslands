@@ -1,0 +1,55 @@
+# Gannet Rock - a new small island of the library (ROADMAP 3d NI3), no quest
+# A little rocky islet with a single knoll where sea-birds nest, and a plank jetty running out from its east shore into the
+# water - a fisherman's: a crate and a net on its head. Nothing hostile. Things to gather on land and in the shallows,
+# a treasure buried somewhere on it for Raft's metal detector.
+#
+# Built by the recipe player (CIRecipe gannet_rock) through the editor's own operations. Points: the knoll's top (6 m,
+# r 3 round -3 3), its nests; the jetty's root on the east shore at 14 0 (1.35 m), the jetty x 14..32 at z -1.5..1.5,
+# deck 1.5 m, its head x 29..32 (z -2.25..2.25); the fisherman's crate on the head at 30.5 1.2.
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+new
+# (nature: a rocky islet - fewer trees and more rocks than Raft's tropical average)
+gen Trees=0.15 Bushes=0.25 Rocks=0.5 Harvest=0.2 BeachThings=0.3
+gen Seed=7401 Radius=24 Height=7 Roughness=0.45 Peaks=1 Shape=0 Style=0 BeachWidth=0.5 Cliffs=0.4 PeakShape=0.5
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.45 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== Terrain: the knoll's top, the jetty's root ======================================================================
+brush flatten at -3 3 r=4.5 s=20 frames=140 h=6
+brush flatten at 13 0 r=3 s=20 frames=60 h=1.35
+brush rock at -3 3 r=6 s=20 frames=20
+clear at -3 3 r=4
+clear at 13 0 r=3.5
+
+# ===== The nests on the knoll ===========================================================================================
+place Bird_Nest - at -3.5 2 ground sit
+place Bird_Nest - at -2.2 4 ground sit yaw=70
+place Bird_Nest - at -4.2 4.1 ground sit yaw=150
+
+# ===== The jetty out from the east shore, the fisherman's crate and net on its head ======================================
+push at 14 0
+call jetty n=10 h=1.5 d=8
+pop
+place Loot_Crate fishcrate at 30.5 1.2 h=1.5 sit yaw=15
+place FishingNets_02 - at 30.4 -1.1 h=1.5 sit yaw=80
+note fishcrate Fisherman's crate | A crate lashed to the jetty's head: bait, a coil of rope, spare planks for the deck.
+loot fishcrate Rope*3;Plank*4;FishingBait_Simple*3;Raw_Herring*2
+prop fishcrate loot.refill=0
+
+# ===== Things to gather: pineapples; a buried treasure; Raft's finds in the shallows; a turtle and dolphins ================
+scatter "Pickup_Landmark_PineappleLandmark" 2 at 0 0 r=12 seed=7411 free=3
+call treasure x=0 z=0 r=10 n=1 seed=7401
+call shallows r=40 deep=5 n=1 seed=740
+place Creature_Turtle turtles at 0 -34 h=-1.5
+place Creature_Dolphin dolphins at 45 -20 h=-3
+prop dolphins creature.count=2
+
+info title=Gannet Rock
+info author=Custom Islands
+info description=A small rocky islet where the sea-birds nest, a fisherman's plank jetty running out from its east shore. No quest - an island to explore.
+
+save Gannet Rock

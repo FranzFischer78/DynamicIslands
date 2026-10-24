@@ -1,0 +1,16 @@
+# Kit check (not content): Utopia's prison set, main entrance door, end room pieces, generator, dog cage, crane
+new
+gen Seed=1 Radius=60 Height=4 Shape=4 Roughness=0.1 ObjectDensity=0 Trees=0 Bushes=0 Rocks=0 BeachThings=0 Harvest=0
+gen Hostiles=0 Friendly=0 SeaLife=0 Water=0 SeaRocks=0 SeaFinds=0 Sunken=0
+generate
+brush flatten at 0 0 r=60 s=20 frames=80
+place UT_Set_Prison prison at -40 -45
+place UT_MainEntranceDoor gate at 20 20
+place UT_EndRoom_Table endtable at 30 -10
+place UT_EndRoom_Chair endchair at 30 -12
+place UT_EndRoom_Pot01 pot at 34 -10
+place UT_EndRoom_Painting06 painting at 30 -5 y=4
+place UT_Generator01 gen at 10 -25 y=4
+place UT_DogCage_Medium02 cage at 22 -20
+place UT_ElectricityIsland_Crane02 crane at -20 20
+place UT_HarpoonTower_Platform harpoon at 0 30 y=1

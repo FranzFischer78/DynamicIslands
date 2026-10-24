@@ -1,0 +1,11 @@
+# Guide pictures of Deepwatch Station (CIPlay deepwatch_station_pics): Raft's camera, noon, calm (heights over the
+# island's own water line, 16 m under the sea)
+island Deepwatch Station
+offset 0 0
+hour 12
+weather Calm
+at 0 -12 h=4
+wait 3
+picture ni7_deepwatch_station_station 4 9 -16 3 5 -1
+picture ni7_deepwatch_station_sub -9 13 2 -20 1 12
+picture ni7_deepwatch_station_tunnel 6 10 0 18 3 14

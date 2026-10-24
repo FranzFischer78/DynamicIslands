@@ -1,0 +1,71 @@
+# Skyrope Peaks - a new medium island of the library (ROADMAP 3d NI7), floating, no quest
+# An island floating high over the sea, two rocky peaks rising from its meadow with a rope bridge hung between their tops.
+# On the west peak a little cabin, its chest inside; on the east peak a nest-strewn lookout, ladders down its south face
+# to the meadow. Pines and berries on the meadow, a wild hive, flowers. A screecher nests on the peaks - a monster island.
+#
+# Built by the recipe player (CIRecipe skyrope_peaks). A flying island: its heights count from its own water line and
+# elevation 58 lifts it 58 m over the sea. Points: the meadow (6.7 m, r 22 round 0 0); the west peak (16 m, r 6 round -13
+# 0), its cabin x -17.5..-13, z -1.5..1.5 (door south, z -1.5); the east peak (14 m, r 6 round 13 0), its ladders at 13
+# -7.15 from the meadow (6.7 m) up its south face; the bridge from -8.5 0 (16 m) to 8.5 0 (14 m), sagging 1.6 m; the
+# lookout chest at 15 2.
+include lib_huts
+include lib_features
+include lib_ni34
+new
+# (nature: a green islet in the sky - no sea round it)
+gen Trees=0.19 Bushes=0.65 Rocks=0.68 Harvest=0.40 BeachThings=0.00
+gen Seed=7705 Radius=28 Height=8 Roughness=0.4 Peaks=1 Shape=0 Style=0 BeachWidth=0.1 Cliffs=0.6 PeakShape=0.5
+gen Water=0 SeaRocks=0 SeaFinds=0 Sunken=0 Hostiles=0 Friendly=0 SeaLife=0
+generate
+elevation 58
+
+# ===== Terrain: the meadow, the two peaks, the ledge under the east peak's ladders ======================================
+brush flatten at 0 0 r=22 s=20 frames=80 h=6.7
+brush grass at 0 0 r=22 s=20 frames=25
+brush flatten at -13 0 r=6 s=20 frames=200 h=16
+brush flatten from -9 0 to -8.5 0 r=2 s=20 frames=80 h=16
+brush rock at -13 0 r=7 s=10 frames=25
+brush flatten at 13 0 r=6 s=20 frames=200 h=14
+brush flatten from 10 -5 to 16 -5 r=1.8 s=20 frames=80 h=14
+brush flatten from 9 0 to 8.5 0 r=2 s=20 frames=80 h=14
+brush rock at 13 0 r=7 s=10 frames=25
+brush grass at -13 0 r=4 s=20 frames=15
+clear at -13 0 r=8
+clear at 13 0 r=8
+clear from 10 -9 to 16 -9 r=2.5
+clear from -8 0 to 8 0 r=3
+
+# ===== The bridge between the peaks; the cabin on the west peak; the ladders and nests on the east peak ================
+call hangbridge x1=-8.5 z1=0 h1=16 x2=8.5 z2=0 h2=14 sag=1.6 pb=6.7 po=1.4
+push at -17.5 -1.5 h=16
+call cabin w=3 d=2 al=peakcabin
+place Bed_Simple - at 3.2 2.0 y=0.1 sit yaw=90
+place Loot_ChestSmall cabinchest at 1 2.2 y=0.1 sit yaw=180
+pop
+call ladders x=13 z=-7.15 h=6.7 n=3 yaw=180
+place Bird_Nest - at 11 3 h=14 sit
+place Bird_Nest - at 16 -1 h=14 sit yaw=120
+place Loot_ChestSmall lookoutchest at 15 2 h=14 sit yaw=200
+place Creature_StoneBird screecher at 13 2 h=22
+
+# ===== The meadow: pines, berries, flowers, a hive, dirt ===============================================================
+scatter "Pickup_Landmark_Tree_Pine" 3 at 0 8 r=18 seed=7801 free=6
+scatter "Pickup_Landmark_BerryBush" 3 at 0 0 r=18 seed=7802 free=3
+scatter "Pickup_Landmark_Flower_White" 3 at 0 0 r=18 seed=7803 free=2
+call hives x=0 z=8 r=16 n=1 seed=7804
+call dirt x=0 z=-8 r=14 n=2 seed=7805
+
+info title=Skyrope Peaks
+info author=Custom Islands
+info description=An island floating high over the sea - two rocky peaks rise from its meadow with a rope bridge hung between their tops, a cabin on the west peak, ladders up the east one. A screecher nests on the peaks. No quest - an island to explore.
+
+note cabinchest Chest in the peak cabin | Whoever built the bridge lived up here - rope, planks and a feathered hat.
+loot cabinchest Rope*4;Plank*6;Feather*3;Seed_Mango*2
+prop cabinchest loot.refill=0
+note lookoutchest Chest on the east peak | Wedged between the stones, out of the wind.
+loot lookoutchest MetalIngot*2;Glass*2;Nail*12;CopperIngot*1
+prop lookoutchest loot.refill=0
+
+# (the bridge hangs between the peaks - no posts under it)
+posts off
+save Skyrope Peaks

@@ -1,0 +1,332 @@
+# Cablecar Stacks - a new island of the library, four times the size (x4)
+# Forested sea stacks in a shallow lagoon (Shape 3, Style 3), four of them stations of the Skyline Cableway, each higher
+# than the last: the shore station on the low stack in the south-east (6 m, a ramp up from the landing beach), the mid
+# station (28 m) to the west, the high station (44 m) to the north-west, and the summit (55 m) on the tall stack in the
+# middle with the operator's hut and a signal mast. The line stopped the week three things went wrong at once: the shore
+# station's spare fuse went into the sea with a supply car, screechers nested in the mid station's wheel, the high
+# station's brakes locked. Fix each fault, ride each car (the rides are teleports), and the summit is yours. Quest "The
+# Skyline" (14 steps, restore a network).
+#
+# Built by the recipe player (CIRecipe cablecar_stacks) through the editor's own operations. Points: the lagoon's floor
+# -2.5 m; the shore stack's top at 36 -30 (6 m), the ramp up to it from the landing beach at 53 -47 (0.4 m), the landing
+# stage at 55 -50; the hole of the fallen supply car at 15 -38 (7 m down); the mid stack's top at -8 -45 (28 m); the
+# high stack's top at -40 -9 (44 m); the summit at -4 -4 (55 m): the hut x -7..-1, z -7.5..1.5 (its door south), the
+# arrival platform at 0.5 -10, the mast at 1.5 -3 (its platform of planks x 0..3, z -5.9..-2.9 at 73 m, the ladder on its north side), the express car
+# at -9.2 -5.5. Each station is a radio tower storey turned to face the next stack, open on that side, a pylon and a bullwheel on
+# its roof.
+include lib_rt
+include lib_sea
+include lib_features
+new
+# (nature: forest, Like Raft - pines clinging to the stacks' tops and ledges)
+gen Trees=0.21 Bushes=0.38 Rocks=0.42 Harvest=0.1 BeachThings=0.3
+gen Seed=9212 Radius=90 Height=55 Roughness=0.5 Peaks=4 Shape=3 Style=3 BeachWidth=0.3 Cliffs=0.85 PeakShape=0.55
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+macro dabs x1 z1 h1 x2 z2 h2 n=8 r=2.6
+for i 0 $n
+brush flatten at {$x1+($x2-$x1)*$i/$n} {$z1+($z2-$z1)*$i/$n} r=$r s=20 frames=50 h={$h1+($h2-$h1)*$i/$n}
+next
+end
+
+# ===== The ground: the four stacks' tops levelled at their stations' heights; the landing beach and the ramp up to the
+# shore station; the hole of the fallen supply car ========================================================================
+brush flatten at 36 -30 r=13 s=20 frames=120 h=6
+brush flatten at -8 -45 r=13 s=20 frames=150 h=28
+brush flatten at -40 -9 r=10 s=20 frames=150 h=44
+brush flatten at -4 -4 r=9.5 s=20 frames=150 h=55
+brush flatten at 53 -47 r=4 s=20 frames=60 h=0.4
+call dabs 53 -47 0.4 44.5 -39 6 n=16 r=3.5
+brush flatten at 15 -38 r=5 s=20 frames=80 h=-7
+brush rock at -8 -45 r=14 s=20 frames=30
+brush rock at -40 -9 r=11 s=20 frames=30
+brush rock at -4 -4 r=11 s=20 frames=30
+clear at 36 -30 r=14
+clear at -8 -45 r=14
+clear at -40 -9 r=11
+clear at -4 -4 r=11
+clear from 53 -47 to 44.5 -39 r=4
+clear at 53 -48 r=4
+
+# ===== The stations: a storey of the radio tower turned to face the next stack, its front open; on its roof a pylon of two
+# thick pillars with a beam across and the bullwheel (a still one, and its spinning twin hidden in the same place) ======
+macro station wheel spin
+call rt_storey f1=none f2=none
+place RT_Floor - at 0 4.5 y=3
+place RT_PillarThick - at -4.5 3.5 y=3 sy=0.5
+place RT_PillarThick - at -1.5 3.5 y=3 sy=0.5
+place RT_Beam - at -1.2 3.5 y=6 sx=0.6
+place UT_WaterChallengeWheel1 $wheel at -3 -0.5 y=3.05 scale=0.45
+place UT_WaterChallengeWheel1 $spin at -3 -0.5 y=3.05 scale=0.45
+end
+
+# ----- The shore station (6 m): the fuse box on its back wall, the operator's log on the desk, car one at the platform's
+# edge, the ticket booth's box; the meadow's goats and pines
+push at 37.16 -32.77 h=6.15 yaw=67
+call station wheel1 wheel1spin
+place RT_PowerBox fusebox at -1.5 4.3 y=1.4 yaw=180
+place "Table Office" - at -4.6 2.6 y=0.05 sit yaw=90
+place Note_Book oplog at -4.6 2.6 y=1.1 sit yaw=80
+place Caravan_Yellow_01 car1 at -3 -3 y=0.05 sit yaw=90 scale=0.8
+place "Box Small" ticketbox at -0.8 2.8 y=0.05 sit yaw=20
+pop
+place Zone_Trigger shorestation at 37 -31 h=7.5
+place Creature_Goat goats at 31 -24 ground
+place Pickup_Landmark_Tree_Pine - at 40 -23.5 ground yaw=40
+place Pickup_Landmark_Tree_Pine - at 29.5 -27 ground yaw=150
+place Pickup_Landmark_Tree_Pine - at 33 -37.5 ground yaw=260
+
+# ----- The landing stage on the beach (the express car's arrival; its zone shown when the vault is opened)
+place Block_Floor_Wood - at 54.5 -50.75 h=0.45
+place Block_Floor_Wood - at 56 -50.75 h=0.45
+place Block_Floor_Wood - at 54.5 -49.25 h=0.45
+place Block_Floor_Wood - at 56 -49.25 h=0.45
+place Zone_Trigger landing at 55.25 -50 h=2
+
+# ----- The fallen supply car on the floor of a hole in the lagoon under the first span: on its side, its spares box
+# beside it, a cable drum
+place Caravan_Green_02 - at 15 -38 h=-7 tilt=80 yaw=30 scale=0.8
+place Loot_Chest supplycar at 12.4 -36.4 h=-7 sit yaw=60
+place Cableroll_01 - at 17.4 -40.2 h=-7 sit
+place Zone_Trigger wreck at 15 -38 h=-5
+
+# ----- The mid station (28 m): the screechers' nests by the bullwheel on its roof, car two, a box; the arrival zone
+push at -10.24 -46.99 h=28.15 yaw=138.4
+call station wheel2 wheel2spin
+place Placeable_BirdsNest - at -1.2 1.6 y=3.05 sit yaw=40
+place Placeable_BirdsNest - at -5 2.2 y=3.05 sit yaw=200
+place Caravan_Blue_01 car2 at -3 -3 y=0.05 sit yaw=90 scale=0.8
+place "Box Small" midbox at -5.2 3.4 y=0.05 sit yaw=10
+pop
+place Zone_Trigger midstation at -8 -45 h=29.5
+place Creature_StoneBird screechers at -8 -45 h=34
+
+# ----- The high station (44 m): the brake panel - three levers on a desk, RED, BLUE, GREEN from left to right - the
+# lineman's note by it, car three, a box; the arrival zone
+push at -40.34 -6.02 h=44.15 yaw=263.5
+call station wheel3 wheel3spin
+place "Table Office" - at -3 3.5 y=0.05 sit yaw=180
+place TP_LaserControlPanel_lever brakered at -3.6 3.5 y=1.1 sit scale=3 yaw=180
+place TP_LaserControlPanel_lever brakeblue at -3 3.5 y=1.1 sit scale=3 yaw=180
+place TP_LaserControlPanel_lever brakegreen at -2.4 3.5 y=1.1 sit scale=3 yaw=180
+place Note_Paper linenote at -2.1 3.2 y=1.1 sit yaw=170
+place Caravan_Green_01 car3 at -3 -3 y=0.05 sit yaw=90 scale=0.8
+place "Box Small" highbox at -5.2 -1 y=0.05 sit yaw=50
+pop
+place Zone_Trigger highstation at -40 -9 h=45.5
+
+# ===== The summit (55 m): the arrival platform, the operator's hut (the keeper's diary, the vault - a safe and the chest),
+# the signal mast with its ladder and its platform (the lamp, the key box), the telescope, the express car; the bear and
+# the hens, pines ===========================================================================================================
+place Scaffolding_6x4m - at 0.5 -10 h=55
+place Zone_Trigger summit at 0.5 -10 h=57
+push at -1 -3 h=55.15
+call rt_storey f1=RT_WallDoor1 b1=RT_WallWindow1 l2=RT_WallWindow2 r2=RT_WallWindow2
+place RT_Floor - at 0 4.5 y=3
+place "Table Office" - at -4.6 2.8 y=0.05 sit yaw=90
+place Note_Book keeperdiary at -4.6 2.8 y=1.1 sit yaw=60
+place VG_Safe - at -1 3.6 y=0.05 sit yaw=180
+place Loot_ChestLarge vault at -2.2 3.8 y=0.05 sit yaw=180
+pop
+for mh 55 67.1 6
+place RT_PillarThick - at 1.5 -3 h=$mh
+place LandmarkLadder_6m - at 1.5 -2.6 h=$mh sy=0.885 yaw=180
+next
+place Block_Floor_Wood - at 0.75 -3.65 h=73
+place Block_Floor_Wood - at 2.25 -3.65 h=73
+place Block_Floor_Wood - at 0.75 -5.15 h=73
+place Block_Floor_Wood - at 2.25 -5.15 h=73
+place Block_Wall_Fence_Rope - at 0 -3.65 h=73 yaw=90
+place Block_Wall_Fence_Rope - at 0 -5.15 h=73 yaw=90
+place Block_Wall_Fence_Rope - at 3 -3.65 h=73 yaw=90
+place Block_Wall_Fence_Rope - at 3 -5.15 h=73 yaw=90
+place Block_Wall_Fence_Rope - at 0.75 -5.9 h=73
+place Block_Wall_Fence_Rope - at 2.25 -5.9 h=73
+place RT_Floodlight - at 0.6 -5.3 h=73.1 sit yaw=180
+place "Box Small" mastbox at 2.3 -5.2 h=73.1 sit yaw=30
+place Zone_Trigger mast at 1.5 -4.4 h=74
+place TP_Telescope - at -9.4 0.4 ground yaw=120 scale=0.4
+place Caravan_Yellow_01 express at -9.2 -5.5 h=55 sit yaw=90 scale=0.8
+place Creature_Bear summitbear at -7 -10 ground
+place Creature_Chicken hens at -4.5 -10.5 ground
+place Pickup_Landmark_Tree_Pine - at -10.4 -9.2 ground yaw=40
+place Pickup_Landmark_Tree_Pine - at 3 -6.8 ground yaw=210
+
+# ===== The cables from pylon to pylon (the shore, mid and high stations' pylons, the summit's mast), sagging, scaled to
+# each span and tilted up it, each from its lower end ==================================================================================================
+place UT_ElectricCable01 - at 39.21 -28.64 h=12.15 rot=0,157.1,24.3 sx=1.621
+place UT_ElectricCable01 - at -5.67 -47.62 h=34.15 rot=0,225.3,16.6 sx=1.70
+# (the high span's end on the mast, not 1.3 m past it - 2026-10-23)
+place UT_ElectricCable01 - at -43.48 -9.4 h=50.15 rot=0,351.3,19.2 sx=1.4245
+
+# ===== Wind, mist round the high stacks, dolphins; Raft's finds in the shallows ===========================================
+place Zone_Sound wind at -4 -4 h=58
+place Zone_Atmosphere cloud at -40 -9 h=42
+place Zone_Atmosphere cloud at -4 -4 h=50
+place Creature_Dolphin dolphins at 60 -60 h=-2
+call shallows r=110 deep=5 n=1
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): berries, flowers, birches ----------
+scatter "Pickup_Landmark_BerryBush" 6 at 0 0 r=63.0 seed=4405 free=3
+scatter "Pickup_Landmark_Flower_Blue" 4 at 0 0 r=63.0 seed=4415 free=3
+scatter "Pickup_Landmark_Flower_White" 4 at 0 0 r=63.0 seed=4416 free=3
+scatter "Pickup_Landmark_Tree_Birch" 6 at 0 0 r=63.0 seed=4425 free=5
+
+# ===== Settings, story items, notes, behaviours, quest (14 steps) =========================================================
+info title=Cablecar Stacks
+info author=Custom Islands
+info description=Four forested sea stacks, each taller than the last, linked by a cable car that stopped the week three things went wrong at once. Fix each station's fault, ride each car, and reach the summit with its operator's hut and signal mast.
+island on.arrive=message||Green towers of rock standing in the sea, one behind another, each higher - and strung between them, cables with little yellow cars hanging still.
+
+story fuse|Spare fuse|quest:Temperance_ControlRod|A big ceramic fuse in a wooden case, from the supply car's spares.
+story vaultkey|Summit vault key|quest:Caravan_KeyMayor|The summit vault's key, kept where only climbers go.
+
+note oplog Operator's log | SKYLINE CABLEWAY - OPERATOR'S LOG\n\nMon: Shore station fuse blew. Spare was in the supply car - which came off the cable at the first span and went into the sea. It's down there, in its spares box.\nWed: Screechers in the mid station's wheel house. Two of them. Nobody goes up.\nThu: High station brakes locked on. The lineman's up there with the procedure - something about the order.\nFri: Closing the line. I'm walking down. The cars go by themselves once each station's fixed - fuse, birds, brakes.\n- R. Okafor, operator
+note supplycar Supply car's spares box | The supply car's spares box, on the sea floor: bolts, grease - and a big spare fuse in its wooden case.
+loot supplycar story:fuse*1;Bolt*2;Scrap*2
+prop supplycar loot.refill=0
+note linenote Lineman's note | HIGH STATION - BRAKE RELEASE\n\nNever all at once! Release in this order or they lock again:\nBLUE first (the holding brake),\nthen GREEN (the service brake),\nthen RED (the emergency).\n\nThen the car goes up to the summit by itself.\n- Jens, lineman
+note keeperdiary Summit keeper's diary | SUMMIT - KEEPER'S DIARY\n\nThe view was the job. Forty kilometres on a clear day.\n\nThe vault's key lives in the box on the signal mast's platform - I liked to make the tourists' guides climb for it.\n\nIn the vault: what the line owes whoever runs it next. And the express car - the old staff car straight down to the beach - runs when the vault's been opened. Enjoy the ride.\n- Mo
+note vault Summit vault | The summit vault: the cableway's takings, the plans for the staff's zipline tool, a guide's warm coat, rope.
+loot vault TradeToken*10;Blueprint_ZiplineTool*1;ZiplineTool*1;Equipment_LeatherChest*1;Rope*4
+prop vault loot.refill=0
+prop vault if.open=has|story:vaultkey|1
+prop vault else.open=message||The summit vault. Its key is where the keeper liked it: high up.
+prop vault on.open=show|landing\nmessage||Out on the summit's far side, the express car's lamp blinks on.
+note mastbox Mast's key box | A tin box on the mast's platform, forty kilometres of sea round you: the summit vault's key.
+loot mastbox story:vaultkey*1
+prop mastbox loot.refill=0
+note ticketbox Ticket booth box | The ticket booth's box: unsold tickets, a thermos, rope.
+loot ticketbox Rope*2;PlasticBottle_Water*2;Plastic*2
+prop ticketbox loot.refill=0
+note midbox Mid station box | A box in the mid station: sandwiches gone stiff, a spanner, cable ties.
+loot midbox Cooked_GenericMeat*2;Scrap*2;Bolt*2
+prop midbox loot.refill=0
+note highbox High station box | A box in the high station: grease, rags, spare bolts.
+loot highbox Bolt*2;MetalIngot*1;Plank*3
+prop highbox loot.refill=0
+
+prop fusebox obj.name=fusebox
+prop fusebox beh.use=Fit the spare fuse
+prop fusebox if.use=quest|3\ntake|story:fuse|1
+prop fusebox on.use=message||The fuse clicks in. Lights flicker on, the wheel on the roof starts to turn - and car one hums.\nsignal||power1\nhide|wheel1\nshow|wheel1spin\nsound||event:/exploring/temperence/cable_success
+prop fusebox else.use=message||The fuse box. The holder is empty - the operator's log says where the spare went.
+prop wheel1 obj.name=wheel1
+prop wheel1spin obj.name=wheel1spin
+prop wheel1spin beh.hidden=1
+prop wheel1spin beh.spin=40
+prop car1 obj.name=car1
+prop car1 beh.use=Ride car one to the mid station
+prop car1 if.use=signal|power1
+prop car1 on.use=message||The doors slide, the car lurches out over the water - the stack slides away below you -\nsound||event:/exploring/zipline/zipline_engine\nwait|6\nteleport|midstation\nmessage||- and bumps into the mid station.
+prop car1 else.use=message||Car one. No power - the shore station's fuse is blown.
+prop screechers creature.count=2
+prop screechers creature.respawn=0
+prop screechers creature.zone=midstation
+prop screechers on.defeat=signal||power2\nhide|wheel2\nshow|wheel2spin\nmessage||The last screecher falls. With the nest out of the wheel house the bullwheel creaks round - car two is running.
+prop wheel2 obj.name=wheel2
+prop wheel2spin obj.name=wheel2spin
+prop wheel2spin beh.hidden=1
+prop wheel2spin beh.spin=40
+prop car2 obj.name=car2
+prop car2 beh.use=Ride car two to the high station
+prop car2 if.use=signal|power2
+prop car2 on.use=message||Up again, higher, the mist going past the windows -\nsound||event:/exploring/zipline/zipline_engine\nwait|6\nteleport|highstation\nmessage||- the high station.
+prop car2 else.use=message||Car two won't move with screechers nesting in its wheel.
+prop brakeblue obj.name=brakeblue
+prop brakeblue beh.use=Release the BLUE brake
+prop brakeblue on.use=message||The blue brake hisses off.\nsignal||b1\nsound||event:/raft/radar/lever
+prop brakegreen obj.name=brakegreen
+prop brakegreen beh.use=Release the GREEN brake
+prop brakegreen if.use=signal|b1
+prop brakegreen on.use=message||The green brake hisses off.\nsignal||b2\nsound||event:/raft/radar/lever
+prop brakegreen else.use=message||CLANK - the brakes slam back on. Wrong order. The lineman's note says which first.
+prop brakered obj.name=brakered
+prop brakered beh.use=Release the RED brake
+prop brakered if.use=signal|b2
+prop brakered on.use=message||The red brake hisses off - the whole station shudders and the bullwheel turns. Car three is free.\nsignal||power3\nhide|wheel3\nshow|wheel3spin\nsound||event:/raft/radar/lever
+prop brakered else.use=message||CLANK - the brakes slam back on. Wrong order. The lineman's note says which first.
+prop wheel3 obj.name=wheel3
+prop wheel3spin obj.name=wheel3spin
+prop wheel3spin beh.hidden=1
+prop wheel3spin beh.spin=40
+prop car3 obj.name=car3
+prop car3 beh.use=Ride car three to the summit
+prop car3 if.use=signal|power3
+prop car3 on.use=message||The last span: long, steep, above the clouds -\nsound||event:/exploring/zipline/zipline_engine\nwait|7\nteleport|summit\nmessage||- the summit.
+prop car3 else.use=message||Car three is held by its brakes.
+prop express obj.name=express
+prop express beh.use=Ride the express car down to the beach
+prop express if.use=quest|13
+prop express on.use=message||The staff car drops off the summit like a stone - trees, rock, sea, all rushing up -\nsound||event:/exploring/zipline/zipline\nwait|8\nteleport|landing\nmessage||- and stops a hand's width above the landing stage. The keeper was right: what a ride.
+prop express else.use=message||The express car's lamp is dark. The keeper's diary says it runs once the vault has been opened.
+
+prop shorestation zone.id=shorestation
+prop shorestation zone.radius=8
+prop shorestation zone.message=The shore station: a still bullwheel on the roof, a car waiting at the platform, an empty fuse holder.
+prop wreck zone.id=wreck
+prop wreck zone.radius=6
+prop wreck zone.message=The supply car on the sea floor, its door burst open.
+prop midstation obj.name=midstation
+prop midstation zone.id=midstation
+prop midstation zone.radius=7
+prop midstation zone.repeat=never
+prop midstation zone.message=The mid station - and a shriek from the wheel house. Two screechers come out of their nest!
+prop highstation obj.name=highstation
+prop highstation zone.id=highstation
+prop highstation zone.radius=7
+prop highstation zone.message=The high station: a brake panel with three levers, all locked on.
+prop summit obj.name=summit
+prop summit zone.id=summit
+prop summit zone.radius=9
+prop summit zone.repeat=never
+prop summit zone.message=The summit - and the pines are moving. A bear lumbers out of them, not pleased to see a tourist.
+prop summitbear creature.count=1
+prop summitbear creature.respawn=0
+prop summitbear creature.zone=summit
+prop mast zone.id=mast
+prop mast zone.radius=2.5
+prop mast zone.message=The signal mast's platform. Forty kilometres on a clear day - the keeper didn't lie.
+prop landing obj.name=landing
+prop landing beh.hidden=1
+prop landing zone.id=landing
+prop landing zone.radius=4
+prop wind sound.event=event:/amb/temperance
+prop wind sound.volume=0.5
+prop wind zone.radius=25
+prop cloud atmo.fog=#d0d8e0
+prop cloud atmo.fogAmount=0.25
+prop cloud atmo.particles=mist
+prop cloud zone.radius=25
+prop goats creature.count=3
+prop hens creature.count=2
+prop dolphins creature.count=2
+
+# --- Raft's special features (the user, 2026-10-05: every Raft feature on at least one island): Raft's zipline - the operator's own line
+# off the summit's east edge down to the shore stack's meadow; the zipline tool waits in the summit vault with its blueprint
+# (h = the summit + 1.35: the zipline has no stand, its near floor sits 1.35 m under its h - 2026-10-23)
+place ZiplinePath_Landmark summitzip at 10.2 -2 h=54.79
+zipto summitzip 28 -24
+
+quest title=The Skyline
+quest intro=A cable car up four sea stacks, stopped by three faults. The operator's log is in the shore station.
+step reach|shorestation|1|Climb up to the shore station
+step read|Operator's log|1|Read the operator's log
+step collect|story:fuse|1|Dive to the fallen supply car for the spare fuse
+step reach|midstation|1|Fit the fuse and ride car one to the mid station
+step kill|Screecher|2|Drive the screechers out of the wheel house
+step reach|highstation|1|Ride car two to the high station
+step read|Lineman's note|1|Read the lineman's note by the brake panel
+step reach|summit|1|Release the three brakes in the right order and ride car three to the summit
+step kill|Bear|1|Deal with the summit's bear
+step read|Summit keeper's diary|1|Read the keeper's diary in the summit hut
+step reach|mast|1|Climb the signal mast
+step collect|story:vaultkey|1|Take the vault key from the mast's box
+step open|Summit vault|1|Open the summit vault
+step reach|landing|1|Ride the express car down to the beach
+quest done=The Skyline runs again: fuse, birds and brakes, and the fastest ride on any island you know.
+quest reward=Rope*4;Bolt*3;Cooked_GenericMeat*2
+
+save Cablecar Stacks
+

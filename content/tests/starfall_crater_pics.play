@@ -1,0 +1,16 @@
+# Guide pictures of Starfall Crater (CIPlay starfall_crater_pics): Raft's camera, midday, calm. Points as in its recipe
+# ("offset"). The pictures above the water first, the lake's floor last (from open water).
+island Starfall Crater
+offset -0.0563 -0.7543
+hour 11
+weather Calm
+at 2 -12 h=15
+wait 3
+picture starfall_crater_island 70 75 -120 2 8 18
+picture starfall_crater_camp 12 18 -16 2 14 -5
+picture starfall_crater_crater -24 26 2 2 2 28
+picture starfall_crater_star 18 8 18 4 4 28
+picture starfall_crater_gullies 66 16 -26 52 3 8
+at 10 22 h=-2
+wait 2
+picture starfall_crater_lake 16 -4 20 2 -6 30

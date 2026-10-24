@@ -1,0 +1,680 @@
+# Paradise Archipelago - a themed island, ten times the size (x10). Inspiration: casino-heist films (a crew of five
+# specialists, each with one job, a vault with lasers and a time lock) set in a holiday-resort archipelago (hotel tower,
+# marina, water park, villas, a lighthouse bar) - the mood only, never named on the island.
+# Seven sandy keys on a turquoise reef plateau 2.5 m down (Shape 2, Style 0), four of them the generator's and three raised
+# by the recipe, joined by boardwalks (decks 2.6 m): the marina key in the south-west (-70 -55) with its three piers, the
+# office and the beach bar; the hotel key in the middle (17 -18) with the hotel tower; the water park key in the north-east
+# (45 75) with its wave pool; the villa key in the north (-10 66) with three villas and their pools; the lighthouse point
+# (-50 45) with its bar. Not joined: the power islet (45 -78) and the casino key (-11 -93) with the Golden Gull - its
+# front doors chained, its only way in the service tunnel from the marina's floor under the third pier into the flooded
+# pit in its walled service yard; its own dock on its east side.
+# Quest "The Job" (30 steps, 5 chapters): the marina (5), the crew's five kits (12), lights out and the tunnel (6), the
+# vault - rats, lasers, time lock, gold (4), the getaway (3).
+include lib_rt
+include lib_huts
+include lib_relay
+include lib_sea
+new
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=9024 Radius=142 Height=10 Roughness=0.35 Peaks=1 Shape=2 Style=0 BeachWidth=0.8 Cliffs=0.1 PeakShape=0.25 Bays=0.3
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== The land ==========================================================================================================
+# (ramps: flatten dabs from one height to another along a line - paths between the pads and the boardwalks' landings)
+macro dabs x1 z1 h1 x2 z2 h2 n=8 r=3
+for i 0 $n
+brush flatten at {$x1+($x2-$x1)*$i/$n} {$z1+($z2-$z1)*$i/$n} r=$r s=20 frames=25 h={$h1+($h2-$h1)*$i/$n}
+next
+end
+# (the three raised keys: the villa key, the casino key, the power islet; sand round them, grass on top)
+brush flatten at -10 66 r=20 s=20 frames=60 h=2.5
+brush flatten at -10 66 r=14 s=20 frames=60 h=2.5
+brush flatten at -21 76 r=7 s=20 frames=40 h=2.5
+brush flatten at -3 76 r=7 s=20 frames=40 h=2.5
+brush flatten at -3 58 r=7 s=20 frames=40 h=2.5
+brush flatten at -10 78 r=12 s=20 frames=40 h=2.5
+brush flatten at -3 80 r=7 s=20 frames=40 h=2.5
+brush flatten at 2 50 r=7 s=20 frames=40 h=2.5
+brush flatten at -12 50 r=6 s=20 frames=40 h=2.5
+brush flatten from -26 -101 to 6 -101 r=9 s=20 frames=60 h=3.5
+brush flatten from -26 -89 to 6 -89 r=9 s=20 frames=60 h=3.5
+brush flatten at -11 -80 r=7 s=20 frames=60 h=3.5
+brush flatten at -29 -93 r=7 s=20 frames=60 h=3.5
+brush flatten at 45 -78 r=9 s=20 frames=60 h=2.5
+brush sand at -10 66 r=21 s=20 frames=30
+brush grass at -10 66 r=14 s=20 frames=30
+brush sand from -26 -95 to 6 -95 r=16 s=20 frames=30
+brush grass from -24 -95 to 4 -95 r=10 s=20 frames=30
+brush sand at 45 -78 r=10 s=20 frames=30
+# (the marina's waterfront on the marina key's south-east; its basin, 3 m, and the service tunnel's approach, 8 m)
+brush flatten from -70 -76 to -46 -76 r=9 s=20 frames=60 h=2.45
+brush flatten at -58 -68 r=9 s=20 frames=60 h=2.45
+brush flatten from -72 -94 to -54 -94 r=7 s=20 frames=40 h=-3
+brush flatten from -62 -92 to -58.6 -92 r=2.6 s=20 frames=40 h=-8
+# (the casino's service yard: the pit for the tunnel's far end, 8 m down, the sea in it)
+for px -25.5 -23.5 2
+for pz -95 -91 2
+brush flatten at $px $pz r=2.2 s=20 frames=30 h=-8
+next
+next
+# (the hotel's pad on the hotel key; the water park's on its key, its wave pool; the villas' pools; the lighthouse's pad)
+brush flatten at 12.5 -18 r=9 s=20 frames=60 h=6
+brush flatten at 15 -18 r=6 s=20 frames=40 h=6
+brush flatten at 45 72 r=16 s=20 frames=60 h=1.8
+brush flatten from 38 76 to 54 76 r=6 s=20 frames=60 h=-3
+brush flatten at -21 66 r=3 s=20 frames=30 h=-4
+brush flatten at -3 66.7 r=2.2 s=20 frames=30 h=-4
+brush flatten at -14 56 r=3 s=20 frames=30 h=-4
+brush flatten at -51 44 r=8 s=20 frames=60 h=3
+brush flatten at -44 40 r=4 s=20 frames=40 h=3
+# (the boardwalks' landings)
+brush flatten at -46 -52 r=3 s=20 frames=30 h=2.45
+brush flatten at -19 -32 r=3 s=20 frames=30 h=2.45
+brush flatten at 22 16 r=3 s=20 frames=30 h=2.45
+brush flatten at 36 54 r=3 s=20 frames=30 h=2.45
+brush flatten at 24 72 r=3 s=20 frames=30 h=2.45
+brush flatten at 6 66 r=3 s=20 frames=30 h=2.45
+brush flatten at -24 53 r=3 s=20 frames=30 h=2.45
+brush flatten at -34 44 r=3 s=20 frames=30 h=2.45
+brush flatten at 13 -100.5 r=3 s=20 frames=30 h=2.45
+# (the paths: from the marina's waterfront to the first boardwalk; from the hotel's pad down to the second; from its far
+# end up to the water park; from the water park to the third)
+brush flatten from -52 -62 to -46 -52 r=3 s=20 frames=40 h=2.45
+call dabs 17 -10 6 22 15 2.45 n=12
+call dabs 36 54 2.45 41 63 1.8
+call dabs 31 64 1.8 24 72 2.45
+brush flatten from -12 50 to -24 53 r=3 s=20 frames=40 h=2.45
+# (the built areas cleared of the generator's palms, bushes and rocks)
+clear at -58 -72 r=14
+clear from -72 -94 to -54 -94 r=8
+clear from -28 -95 to 8 -95 r=14
+clear at -11 -80 r=8
+clear at 45 -78 r=10
+clear at 12.5 -18 r=11
+clear at 45 72 r=17
+clear at -10 66 r=21
+clear at -51 44 r=9
+clear from -34 44 to -42 38 r=3
+
+# ===== The boardwalks between the keys ==================================================================================
+# (marina - hotel; hotel - water park; water park - villas; villas - lighthouse point: two blocks wide, rope rails)
+push at -45.11 -53.21 h=-2.5 yaw=-36.5
+call boardwalk n=22 wide=2 y=5.1
+pop
+push at 23.41 15.48 h=-2.5 yaw=-69.8
+call boardwalk n=27 wide=2 y=5.1
+pop
+push at 23.53 73.42 h=-2.5 yaw=161.6
+call boardwalk n=13 wide=2 y=5.1
+pop
+push at -25.00 54.11 h=-2.5 yaw=138.0
+call boardwalk n=9 wide=2 y=5.1
+pop
+
+# ===== Chapter 1 - the marina ============================================================================================
+# --- Three piers south from the waterfront, the crew's yacht at the end of the long one, boats at the others -----------
+push at -73 -79 h=-3 yaw=90
+call boardwalk n=17 wide=1 y=5.6 rs=none
+pop
+push at -68 -79 h=-3 yaw=90
+call boardwalk n=10 wide=1 y=5.6
+pop
+push at -55 -79 h=-3 yaw=90
+call boardwalk n=10 wide=1 y=5.6
+pop
+# (the yacht moored west of the long pier's end, her deck 1.6 m, her rail level with the pier; a gangway of planks over
+# her rail onto her aft deck; a ladder up her side for swimmers; the planner's briefing and her cabin chest on deck)
+place BoatStranded yacht at -77.5 -98 h=1.8 scale=0.9
+ramp Block_Floor_Wood from -73.1 -103 2.6 to -75.1 -103 2.6 len=1.5 top=0
+place Block_Ladder - at -80.9 -102 h=-1.4 yaw=90
+place Note_Paper briefing at -77.5 -103.5 h=5 drop yaw=20
+place Loot_Chest yachtchest at -78.6 -102.3 h=5 drop yaw=90
+place RT_PlasticBoat - at -70 -90 h=0 yaw=10
+place RT_PlasticBoat - at -63 -99 h=0 yaw=-5
+place RT_PlasticBoat - at -69.5 -98 h=0 yaw=175
+place RT_PlasticBoat - at -55 -86 h=0 yaw=80
+# (on the marina's floor: what fell off the yachts all season, a barrel)
+place "VG_DecorationPrefabBase_Tray1 Variant" - at -62 -97.5 ground sit yaw=20
+place WBottle_01 - at -61 -95.5 ground sit
+place Bottles_01 - at -65 -96 ground sit yaw=40
+place Loot_SunkenBarrel marinabarrel at -60.4 -97 ground sit yaw=30
+# --- The marina office (a relay house, its veranda east) with the crew's locker ----------------------------------------
+push at -52 -66 h=2.55 yaw=0
+call relay_house
+pop
+place Locker crewlocker at -61.2 -68.2 h=2.55 yaw=180
+place Table_Common_01 - at -58.5 -72.5 h=2.55 yaw=0
+# --- The beach bar: a thatched roof on posts over Raft's floor, the bar, a box -----------------------------------------
+push at -72 -78 h=2.45
+call floors w=4 d=3 y=0.1
+call corners w=4 d=3
+roof 4 3 at 0 0 y=0.1
+place VG_LoungeBar2 - at 3 3 y=0.1 sit yaw=180
+place VG_LoungeBarStool - at 2 1.2 y=0.1 sit
+place VG_LoungeBarStool - at 3.6 1.2 y=0.1 sit
+place "Box Small" beachbarbox at 0.8 3.8 y=0.1 sit yaw=20
+pop
+# --- The security dogs, the marina's zone ------------------------------------------------------------------------------
+place Creature_Hyena securitydogs at -56 -73 h=2.8
+place Zone_Trigger marina at -60 -76 h=3.5
+
+# ===== Chapter 2 - the hotel tower on the hotel key =====================================================================
+# (four storeys of the radio tower's rooms, their doors on the east; the fire stair up the east side: a flight from the
+# ground to the second floor's door, another back to the third floor's landing and room 304; a railing and loungers on
+# the roof; balconies on the sea side)
+push at 8 -18 h=6.1 yaw=180
+call rt_storey l1=RT_WallDoor1 b1=RT_WallWindow1 b2=RT_WallWindow1 f1=RT_WallWindow1 r1=RT_WallWindow1 r3=RT_WallWindow1
+pop
+push at 8 -18 h=9.1 yaw=180
+call rt_storey l1=RT_WallDoor1 b1=RT_WallWindow1 b2=RT_WallWindow1 f1=RT_WallWindow1 f2=RT_WallWindow1 r1=RT_WallWindow1 r2=RT_WallWindow1 r3=RT_WallWindow1
+pop
+push at 8 -18 h=12.1 yaw=180
+call rt_storey l3=RT_WallDoor1 b1=RT_WallWindow1 b2=RT_WallWindow1 f1=RT_WallWindow1 f2=RT_WallWindow1 r1=RT_WallWindow1 r2=RT_WallWindow1 r3=RT_WallWindow1 l1=RT_WallWindow1
+pop
+push at 8 -18 h=15.1 yaw=180
+call rt_storey b1=RT_WallWindow1 b2=RT_WallWindow1 f1=RT_WallWindow1 f2=RT_WallWindow1 r1=RT_WallWindow1 r2=RT_WallWindow1 r3=RT_WallWindow1 l1=RT_WallWindow1 l2=RT_WallWindow1 l3=RT_WallWindow1
+pop
+push at 8 -18 h=18.1 yaw=180
+call rt_storey b1=none b2=none f1=none f2=none l1=none l2=none l3=none r1=none r2=none r3=none
+call rt_railing y=0
+place VG_PoolChair - at -2 -2 y=0 drop yaw=90
+place VG_PoolChair - at -2 0 y=0 drop yaw=90
+place VG_PoolChair - at -2 2 y=0 drop yaw=90
+pop
+place RT_Stair - at 14 -21.75 h=6.1 yaw=90
+place RT_Stair - at 17 -14.25 h=9.1 yaw=270
+place RT_Floor - at 15.5 -20.25 h=12.1 sx=0.25 sz=0.167
+place Apartment_Ext_Balcony_Mid - at 8 -18 h=9.1 yaw=90
+place Apartment_Ext_Balcony_Mid - at 8 -18 h=12.1 yaw=90
+place Apartment_Ext_Balcony_Mid - at 8 -18 h=15.1 yaw=90
+place Zone_Trigger hotel at 17 -13 h=7
+# --- Ground floor: the kitchen and the service room; the roaches ------------------------------------------------------
+push at 8 -18 h=6.1 yaw=180
+place TangaroaKitchen_Bench5 - at -0.4 3.8 y=0 sit yaw=180
+place TangaroaKitchen_StoveOven - at -0.4 -1 y=0 sit yaw=270
+place "VG_DecorationPrefabBase_WorkshopStorage_3 Variant" - at -5.2 4.1 y=0 sit yaw=90
+place "Box Small" servicebox at -5.2 2.6 y=0.05 sit yaw=10
+place Creature_Roach kitchenroaches at -2 1 y=0.3
+place Zone_Trigger hotelkitchen at -3 1 y=1.5
+pop
+# --- Room 304 on the third floor: the bed, the desk with the electrician's notes, the minibar -------------------------
+push at 8 -18 h=12.1 yaw=180
+place "VG_DecorationPrefabBase_BedKingsize Variant" - at -1.6 -2 y=0 sit yaw=90
+place "VG_DecorationPrefabBase_Desk Variant" - at -0.6 3 y=0 sit yaw=270
+place Note_Papers electriciannotes at -0.6 3 y=1.5 drop yaw=20
+place Placeable_Fridge minibar at -3.2 -3.4 y=0 sit yaw=0
+pop
+
+# ===== Chapter 2 - the water park ========================================================================================
+# (the wave pool cut down to 3 m, Utopia's water wheels laid flat on it turning, the spinner on its post, diving boards
+# and ladders round the pool, sunshades; the lifeguard tower; the wave-machine hut with the diver's box, bees in a hive
+# by it)
+place UT_WaterChallengeWheel1 wheels at 42 76 h=0.05
+place UT_WaterChallengeWheel2 wheels at 51.5 76 h=0.05
+place RT_PillarThick - at 46 83.5 h=1.8 sy=0.6
+place UT_Spinner spinner at 46 83.5 h=9.1 yaw=0
+place VG_PoolTrampoline - at 40 69.3 h=1.8 yaw=90
+place VG_PoolTrampoline - at 50 69.3 h=1.8 yaw=90
+place RestaSunshadeGround - at 33 71 ground
+place RestaSunshadeGround - at 44 64 ground
+place RestaSunshadeGround - at 57 68 ground
+place Relay_support_beam_wood - at 53.7 63.7 h=1.8 rot=0,0,-90 sx=0.676
+place Relay_support_beam_wood - at 58.3 63.7 h=1.8 rot=0,0,-90 sx=0.676
+place Relay_support_beam_wood - at 53.7 68.3 h=1.8 rot=0,0,-90 sx=0.676
+place Relay_support_beam_wood - at 58.3 68.3 h=1.8 rot=0,0,-90 sx=0.676
+place Relay_Floor_deck - at 58.63 68.63 h=8.15
+place LandmarkLadder_6m lifeguardladder at 56 68.9 h=1.8 yaw=180
+place Block_Wall_Fence_Plank - at 54.2 63.4 h=8.3 yaw=0
+place Block_Wall_Fence_Plank - at 56 63.4 h=8.3 yaw=0
+place Block_Wall_Fence_Plank - at 57.8 63.4 h=8.3 yaw=0
+place "Box Small" lifeguardbox at 57.4 66 h=8.3 sit yaw=15
+push at 36 64 h=1.8
+call floors w=2 d=2 y=0.1
+place Block_Wall_Wood - at 0.75 0 y=0.1
+place Block_Wall_Wood - at 0.75 3 y=0.1
+place Block_Wall_Wood - at 2.25 3 y=0.1
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 3 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 3 2.25 y=0.1 yaw=90
+call corners w=2 d=2
+roof 2 2 at 0 0 y=0.1 wood
+place "Box Small" wavehut at 0.7 2.3 y=0.1 sit yaw=20
+pop
+place Placeable_BeeHive - at 34.5 66.5 ground
+place Creature_BugSwarm_Bee bees at 34.5 66.5 h=3.5
+place Zone_Trigger waterpark at 44 70 h=3
+
+# ===== Chapter 2 - the villa key: three villas and their pools ==========================================================
+push at -15.5 81 h=2.6 yaw=0
+call relay_house
+pop
+push at 2 81 h=2.6 yaw=0
+call relay_house
+pop
+push at 2 63 h=2.6 yaw=0
+call relay_house
+pop
+place "VG_DecorationPrefabBase_WideStationarySunbed Variant" - at -18 59.3 ground yaw=0
+place "VG_DecorationPrefabBase_WideStationarySunbed Variant" - at -8 72.4 ground yaw=90
+place "VG_DecorationPrefabBase_WideStationarySunbed Variant" - at -14 51 ground y=0.5 yaw=0
+# (the corner villa: the dealer's letter on its table, the fridge; the card's box on the floor of its pool)
+place Table_Common_01 - at -3.5 59 h=2.6 yaw=0
+place Note_Paper dealerletter at -3.5 59 h=4 drop yaw=15
+place Placeable_Fridge villafridge at -7.6 53.5 h=2.6 yaw=90
+place Loot_ChestSmall poolbox at -14 56 ground sit yaw=30
+place Zone_Trigger villas at -3 66.5 h=3.5
+place Creature_Turtle turtles at -30 80 h=-1.5
+
+# ===== Chapter 2 - lighthouse point: the bar over the lighthouse's ground room ==========================================
+push at -48 44 h=3.1 yaw=0
+call rt_storey f1=RT_WallDoor1 l2=RT_WallWindow1 b1=RT_WallWindow1
+pop
+push at -48 44 h=6.1 yaw=0
+call rt_storey f2=RT_WallDoor1 l1=RT_WallWindow1 l2=RT_WallWindow1 l3=RT_WallWindow1 b1=RT_WallWindow1 b2=RT_WallWindow1 r1=RT_WallWindow1 r3=RT_WallWindow1
+place VG_LoungeBar2 - at -3 2.6 y=0 sit yaw=180
+place VG_LoungeBarStool - at -4.5 0.9 y=0 sit
+place VG_LoungeBarStool - at -3.3 0.9 y=0 sit
+place VG_LoungeBarStool - at -2.1 0.9 y=0 sit
+place VG_LoungeBarStool - at -0.9 0.9 y=0 sit
+place VG_LoungeBarShelf - at -3 4.1 y=0 sit yaw=180
+place TradingPost_Register register at -1.8 2.6 y=1.5 drop
+place Cupboard barcupboard at -5.4 4.0 y=2 yaw=180
+place Note_Paper safecrackerpostcard at -3.6 4.35 y=1.7 rot=90,180,0
+place Zone_Trigger lighthousebar at -3 0 y=1.5
+pop
+push at -48 44 h=9.1 yaw=0
+call rt_storey b1=none b2=none f1=none f2=none l1=none l2=none l3=none r1=none r2=none r3=none
+call rt_railing y=0
+place RT_Floodlight - at -3 0 y=0 sit yaw=180
+pop
+place RT_Stair - at -42 38 h=3.1 yaw=0
+
+# ===== Chapter 3 - the power islet =====================================================================================
+# (Utopia's generator thundering on its own, two smaller ones, cable hubs, the cable down into the sea towards the casino;
+# the breaker board with its three breakers; a locker)
+place UT_Generator01 - at 43 -81 h=4.9 scale=0.6
+place Generator - at 49 -75 ground yaw=90
+place Generator - at 49.5 -78 ground yaw=90
+place UT_ElectricCableHub01 - at 46 -82.5 ground
+place UT_ElectricCableHub02 - at 47 -73 ground
+# (its high end on the islet by the hub, its low end down in the sea towards the casino - it rises 16.35 m over 28.8 m; 2026-10-23)
+place UT_ElectricCable01 - at 17.7 -87.7 h=-13.7 yaw=89.6
+place RT_Wall1 - at 46 -72 h=2.5 yaw=0
+place RT_PowerBox breaker1 at 43.8 -72.2 h=4 yaw=180
+place RT_PowerBox breaker2 at 44.5 -72.2 h=4 yaw=180
+place RT_PowerBox breaker3 at 45.2 -72.2 h=4 yaw=180
+place Locker powerlocker at 50 -82 ground yaw=270
+place Zone_Trigger powerisle at 45 -78 h=3.5
+
+# ===== Chapter 3 - the service tunnel from the marina's floor to the casino's yard ======================================
+# (two of Tangaroa's harbour tunnel pieces end to end along the floor, 8 m down, under the reef and the casino key's shore;
+# its mouth under the third pier closed by a grate of bars; its far end in the flooded pit of the casino's service yard,
+# a ladder up out of it. The pieces' passage lies 56.2 m west of their pivots)
+place TangaroaHarbor_Tunnel tunnelpieces at 7 -92 h=-9.61
+place TangaroaHarbor_Tunnel tunnelpieces at 21.8 -92 h=-9.61
+place TP_Selene_Int_Room_Bars tunnelgrate at -56.8 -89.3 h=-8 yaw=90
+place TP_Selene_Int_Room_Bars tunnelgrate at -56.8 -89.3 h=-5.3 yaw=90
+place Zone_Trigger tunnel at -52 -92 h=-6
+place Creature_AnglerFish tunnelthing at -42 -92 h=-6
+place Zone_Atmosphere tunneldark at -42 -92 h=-6
+place LandmarkLadder_6m pitladder at -21.5 -92 h=-3 yaw=270
+
+# ===== Chapter 3-4 - the Golden Gull casino on the casino key ===========================================================
+# Its cells (the radio tower's rooms, 6 x 9 m): the gaming floor along the front (x -20..-2, z -105..-96), behind it the
+# back room (x -20..-14, its yard door on the west), the vault corridor (x -14..-8) and the counting room (x -8..-2); the
+# vault north of the corridor (z -87..-78). The service yard west of it (x -29.5..-20, z -99..-87) walled round its pit.
+push at -14 -100.5 h=3.6 yaw=0
+call rt_storey r1=none r2=none r3=none b2=none f1=RT_WallWindow1 f2=RT_WallWindow1 l2=RT_WallWindow1
+pop
+push at -8 -100.5 h=3.6 yaw=0
+call rt_storey l1=none l2=none l3=none r1=none r2=none r3=none f2=none b2=none
+pop
+push at -2 -100.5 h=3.6 yaw=0
+call rt_storey l1=none l2=none l3=none r2=none b1=none f1=RT_WallWindow1 f2=RT_WallWindow1
+pop
+push at -14 -91.5 h=3.6 yaw=0
+call rt_storey f1=none f2=none l2=none
+pop
+push at -8 -91.5 h=3.6 yaw=0
+call rt_storey f1=none f2=none l1=none l2=none l3=none b1=none b2=none
+pop
+push at -2 -91.5 h=3.6 yaw=0
+call rt_storey f1=none f2=none l1=none l2=none l3=none
+pop
+push at -8 -82.5 h=3.6 yaw=0
+call rt_storey f1=none f2=none
+pop
+for rx -14 -2 6
+push at $rx -100.5 h=6.6 yaw=0
+call rt_storey b1=none b2=none f1=none f2=none l1=none l2=none l3=none r1=none r2=none r3=none
+pop
+push at $rx -91.5 h=6.6 yaw=0
+call rt_storey b1=none b2=none f1=none f2=none l1=none l2=none l3=none r1=none r2=none r3=none
+pop
+next
+push at -8 -82.5 h=6.6 yaw=0
+call rt_storey b1=none b2=none f1=none f2=none l1=none l2=none l3=none r1=none r2=none r3=none
+pop
+# (the front doors chained shut, the sign over them; the service shutter at the back of the gaming floor, down until the
+# vault is opened)
+place UT_Hut_LockedDoor_DoorL - at -9.5 -105 h=3.6 yaw=0
+place UT_Hut_LockedDoor_DoorR - at -9.5 -105 h=3.6 yaw=0
+place TangaroaStoreSign_VRArcade - at -9.5 -104.6 h=6.62 sit yaw=180
+place RT_Wall1 exitdoor at -2 -102 h=3.6 yaw=90
+# --- The gaming floor: carpet, pool tables, the claw machine, the slot machine, the stage, the bar, chandeliers, the
+# cameras and their red lights (dark after the blackout); the cashier's cage with the pit boss's ledger ---------------
+place Carpet_01 - at -11 -100.5 h=3.62
+place "VG_DecorationPrefabBase_Pooltable Variant" - at -17 -101.5 h=3.6 sit yaw=90
+place "VG_DecorationPrefabBase_Pooltable Variant" - at -13 -101.5 h=3.6 sit yaw=90
+place Tangaroa_BallroomKit_ChandelierOn - at -17 -101.5 h=6.55
+place Tangaroa_BallroomKit_ChandelierOn - at -13 -101.5 h=6.55
+place Claw_ControlBoard - at -19 -104.2 h=3.6 sit yaw=0
+place VendingMachine_w_Animations slotmachine at -18.6 -96.9 h=3.6 sit yaw=180
+place VG_LoungeStage - at -5 -103.2 h=3.6 sit yaw=0
+place "VG_DecorationPrefabBase_DJ_MixTable Variant" - at -5 -103.5 h=4.15 sit yaw=180
+place VG_LoungeBar2 - at -15 -104 h=3.6 sit yaw=180
+place RT_Camera - at -19.6 -104.6 h=6.2 yaw=45
+place RT_Camera - at -2.4 -104.6 h=6.2 yaw=-45
+place RT_Camera - at -19.6 -96.4 h=6.2 yaw=135
+place RT_Camera - at -13.6 -88 h=6.2 yaw=135
+place RT_Camera - at -2.4 -87.4 h=6.2 yaw=-135
+place RT_Camera - at -8.4 -79 h=6.2 yaw=-135
+place TP_RotatingRedLight camlights at -19.85 -104.85 h=5.9
+place TP_RotatingRedLight camlights at -2.15 -104.85 h=5.9
+place TP_RotatingRedLight camlights at -19.85 -96.6 h=5.9
+place TP_RotatingRedLight camlights at -13.85 -88 h=5.9
+place TP_RotatingRedLight camlights at -2.15 -87.4 h=5.9
+place TP_RotatingRedLight camlights at -8.15 -79 h=5.9
+place TP_Selene_Int_Room_Bars - at -7.2 -100 h=3.6 yaw=0
+place "Table Office" - at -4 -98 h=3.6 sit yaw=0
+place Note_Book ledger at -4 -98 h=5 drop yaw=20
+# --- The back room by the yard door; the counting room with its rats -------------------------------------------------
+place Zone_Trigger casinofloor at -17 -91.5 h=4.6
+place "Box Small" - at -19 -88 h=3.6 sit yaw=10
+place "Table Office" - at -5 -91 h=3.6 sit yaw=0
+place "VG_DecorationPrefabBase_Tray2 Variant" - at -5.4 -91 h=5 drop
+place "VG_DecorationPrefabBase_Tray2 Variant" - at -4.6 -91 h=5 drop yaw=30
+place Creature_Rat_Tangaroa cashrats at -4 -89 h=3.9
+place Zone_Trigger countingroom at -5 -91.5 h=4.6
+# --- The vault corridor: the laser emitters facing each other, the beams an invisible wall and a red glow; the panel by
+# its entrance; the time lock by the vault door (Selene's gate, slides aside) -----------------------------------------
+place TP_LaserEmitter - at -13.7 -91 h=5.3 yaw=90
+place TP_LaserEmitter - at -8.3 -91 h=5.3 yaw=270
+place Helper_Wall laserwall at -11 -91 h=3.6 sx=1.5
+place TP_RotatingRedLight laserglow at -11 -91 h=6.4
+place TP_LaserControlPanel laserpanel at -13.85 -94.5 h=3.6 yaw=90
+place Zone_Trigger vaultcorridor at -11 -88.4 h=4.6
+place TP_SeleneEntranceGate vaultdoor at -11 -87 h=3.6 sx=0.83
+place VP_GarageDoor_KeyHole timelock at -8.15 -87.6 h=4.8 yaw=270
+place RT_Pillar - at -8.15 -87.6 h=3.6 sy=0.37
+# --- The vault: crates of gold, the house's reserve -------------------------------------------------------------------
+for gx -13 -10 1.5
+place TP_Moontown_SealedCrate02_Clean goldcrates at $gx -79.5 h=3.6 sit
+place TP_Moontown_SealedCrate02_Clean goldcrates at $gx -79.5 h=4.6 sit
+next
+place Loot_ChestLarge goldreserve at -11 -81.5 h=3.6 yaw=180
+place Zone_Trigger vaultzone at -11 -83 h=4.6
+# --- The service yard: walls round the pit ---------------------------------------------------------------------------
+for wz -99 -90 3
+place RT_Wall1 - at -29.5 $wz h=3.5 yaw=90
+next
+place RT_Wall1 - at -26.5 -99 h=3.5 yaw=0
+place RT_Wall1 - at -23.5 -99 h=3.5 yaw=0
+place RT_Wall1 - at -20.4 -99 h=3.5 yaw=0
+place RT_Wall1 - at -26.5 -87 h=3.5 yaw=0
+place RT_Wall1 - at -23.5 -87 h=3.5 yaw=0
+place RT_Wall1 - at -20.4 -87 h=3.5 yaw=0
+
+# ===== Chapter 5 - the getaway: the casino's own dock =================================================================
+push at 13 -102 h=-2.5 yaw=0
+call boardwalk n=8 wide=2 y=5.1
+pop
+place RT_PlasticBoat getawayboat at 21 -97.4 h=0 yaw=90
+place Note_Paper lastpostcard at 21 -97.4 h=2 drop yaw=10
+place MayorsChest crewstrongbox at 23 -101.2 h=2.6 sit yaw=270
+place Zone_Trigger getawayzone at 20 -100.5 h=3.6
+
+# ===== The friendly animals, Raft's finds in the shallows ==============================================================
+place Creature_Dolphin dolphins at 100 40 h=-1.5
+call shallows r=160 deep=5 n=2
+prop turtles creature.count=2
+prop dolphins creature.count=3
+prop wheels beh.spin=20
+prop spinner beh.spin=40
+prop goldcrates tint.color=#c8a040
+prop goldcrates tint.amount=0.6
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): palms, melons, pineapples ----------
+scatter "Pickup_Landmark_Tree_Palm 1" 6 at 0 0 r=99.4 seed=4454 free=5
+scatter "Pickup_Landmark_Tree_Palm 3" 6 at 0 0 r=99.4 seed=4455 free=5
+scatter "Pickup_Landmark_WatermelonLandmark" 9 at 0 0 r=99.4 seed=4464 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 9 at 0 0 r=99.4 seed=4474 free=3
+
+# ===== Settings, story items, notes, behaviours, quest (30 steps, 5 chapters) =============================================
+info title=Paradise Archipelago
+info author=Custom Islands
+info description=A holiday-resort archipelago gone quiet - marina, hotel tower, water park, villas, a lighthouse bar - and on its own key the Golden Gull casino, its gold reserve still in the vault. A crew of five came to take it and never met again. Their plan is still here, a piece on every key. Finish the job.
+island on.arrive=message||Seven sandy keys on a turquoise reef: a marina, a hotel tower, water slides, villas - and on its own key, a casino with a gold sign. Not a soul. Dogs bark on the marina.
+
+story crewkey|Crew's locker key|quest:Vasagatan_BlueKey|The key of the crew's locker in the marina office, from the planner's cabin.
+story fusepuller|Fuse puller|quest:Balboa_BrunosTool_Wrench|The electrician's insulated fuse puller, for the power islet's breakers.
+story divemap|Diver's map|Placeable_PaperBundle|The diver's map of the service tunnel from the marina floor to the casino.
+story dealercard|Croupier's card|quest:Tangaroa_KeyCard|The dealer's croupier card: it kills the vault corridor's lasers for thirty seconds.
+story timelockkey|Time-lock key|quest:Vasagatan_GreenKey|The safecracker's key for the vault's time lock.
+story blackout|Blackout|quest:Caravan_BatteryChargerPart|The casino's cameras and alarms are dark - the breakers are pulled.
+
+note briefing Planner's briefing | THE JOB - Golden Gull casino, Azure Keys resort\n\nThe resort is closed, the sea is rising, and the house left its gold reserve in the vault because the insurance won't pay for a boat.\n\nFive of us, five jobs.\nSol (electrician): the cameras run off the power islet - three breakers; his notes say which order.\nNoa (diver): the service tunnel from the marina floor up under the casino - her map.\nMarco (dealer): his croupier's card kills the laser grid in the vault corridor for thirty seconds.\nIris (safecracker): the vault's time lock - her key.\nMe: the plan, and the getaway boat at the casino's own dock.\n\nWe split up to get our kits and meet back on the yacht. Nobody came back. Our locker's in the marina office; its key is in my cabin chest.\n\n- Vera
+note electriciannotes Electrician's notes | (on the desk in room 304)\n\nBreakers on the power islet, for the cameras and the vault corridor's alarm:\nBLUE first, then GREEN, then RED.\nWrong order and the backup kicks in - you start over.\n\nMy fuse puller's in the service room downstairs. The roaches in the kitchen are the size of shoes.\n- Sol
+note dealerletter Dealer's letter | Vera -\n\nI'm not coming. My card's at the bottom of the villa pool, where I threw it. If you want it, swim for it.\nIt kills the lasers for thirty seconds. Not one more.\n\nSorry.\n- Marco
+note safecrackerpostcard Safecracker's postcard | (a postcard of the lighthouse bar, pinned behind the bar)\n\nV. - Time-lock key's in the bar cupboard. Set it, wait twenty seconds, the door opens.\nDon't be in the corridor when the lasers come back.\nI'm going to the mainland. I've had enough of islands.\n- I.
+note ledger Pit boss's ledger | GOLDEN GULL - PIT BOSS'S LEDGER\n\nHouse reserve moved to the vault on the 9th.\nInsurance won't cover the boat. Gold stays until the season.\n\n(Season cancelled.)
+note lastpostcard The crew's last postcard | (taped to the getaway boat's wheel)\n\nWhoever you are - you finished our job.\nOur shares are in the strongbox by the boat. We're not coming back for them.\nSpend it somewhere dry.\n- V., S., N., M., I.
+note yachtchest Planner's cabin chest | Vera's cabin chest: charts, a pair of sunglasses, a deck of marked cards - and the key to the crew's locker.
+loot yachtchest story:crewkey*1;Hat_Glasses_Aviator*1;Rope*2
+prop yachtchest loot.refill=0
+note crewlocker Crew's locker | The crew's locker: five sets of overalls, radios with dead batteries, and the plan of the job pinned inside the door.
+loot crewlocker Battery*1;Rope*3;Plastic*3
+prop crewlocker loot.refill=0
+prop crewlocker if.open=has|story:crewkey|1
+prop crewlocker else.open=message||The crew's locker is padlocked. The planner's briefing said the key is in her cabin chest.
+prop crewlocker on.open=journal|The plan of the job|Five jobs, in order: Sol's breakers on the power islet (blue, green, red) for the blackout. Noa's tunnel from the marina floor under the third pier up into the casino. Marco's card for the lasers - thirty seconds. Iris's time lock - twenty seconds. Out to the getaway boat at the casino's own dock.
+note servicebox Electrician's toolbox | Sol's toolbox in the service room: wire, tape - and his insulated fuse puller.
+loot servicebox story:fusepuller*1;CopperIngot*2
+prop servicebox loot.refill=0
+note wavehut Diver's box | A dive bag in the wave-machine hut: fins, a mask - and Noa's map: "Tunnel mouth under the marina's third pier, behind a grate. Its bottom bolts are rusted through - push. Comes up under the casino's back room. Something lives in it."
+loot wavehut story:divemap*1;OxygenBottle*2
+prop wavehut loot.refill=0
+note poolbox Box in the villa pool | A waterproof card wallet on the pool's floor: the croupier's card.
+loot poolbox story:dealercard*1;TradeToken*2
+prop poolbox loot.refill=0
+note barcupboard Bar cupboard | The lighthouse bar's cupboard: glasses, limes gone to stone - and a heavy brass key tagged TIME LOCK.
+loot barcupboard story:timelockkey*1;Glass*3
+prop barcupboard loot.refill=0
+note goldreserve House gold reserve | The Golden Gull's gold reserve: chips, coins, bars - the house's last season, never banked.
+loot goldreserve TradeToken*30;TitaniumIngot*2;Placeable_ToyRobot_Golden*1
+prop goldreserve loot.refill=0
+prop goldreserve on.open=show|getawayzone\nopen|exitdoor\nhide|lasers\nmessage||Gold! The corridor's grid dies for good with the vault open, and at the back of the gaming floor a service shutter rattles down. Now out - the crew's getaway boat waits at the casino's own dock.
+note crewstrongbox Crew's strongbox | The crew's strongbox: five shares, each in a velvet bag with a name on it, the plans they meant to retire on - a zipline for a beach house, beds for a garden, carpentry for a boat - and a tape for the long ride home.
+loot crewstrongbox Blueprint_ZiplineBase*1;Blueprint_Cropplot_Small_Tier3*1;Blueprint_DetailPlank*1;TradeToken*40;Cassette_EDM*1
+prop crewstrongbox loot.refill=0
+prop crewstrongbox if.open=signal|heistdone
+prop crewstrongbox else.open=message||The strongbox is wired to the boat's ignition - the crew's joke: no share without the job done.
+note marinabarrel Marina floor barrel | A barrel on the marina floor: what fell off the yachts all season.
+loot marinabarrel Plastic*4;Scrap*3;Rope*2
+prop marinabarrel loot.refill=0
+note beachbarbox Beach bar box | The beach bar's box: coconuts, glasses, a crate of tonic.
+loot beachbarbox Coconut*4;Glass*2;PlasticBottle_Water*2
+prop beachbarbox loot.refill=0
+note minibar Room 304's minibar | The minibar: two cocktails and a jar of nuts.
+loot minibar DrinkingGlass_Mangonana*1;DrinkingGlass_StrawberryColada*1;Banana*2
+prop minibar loot.refill=0
+note lifeguardbox Lifeguard's box | The lifeguard's box: a whistle, sun cream, a first-aid kit.
+loot lifeguardbox HealingSalve*2;Rope*2;Plastic*2
+prop lifeguardbox loot.refill=0
+note villafridge Villa fridge | The villa's fridge: champagne gone flat, cheese gone strange, fruit.
+loot villafridge Watermelon*1;Pineapple*1;Mango*2
+prop villafridge loot.refill=0
+note register Lighthouse bar's till | The bar's till: the last night's takings.
+loot register TradeToken*6
+prop register loot.refill=0
+note powerlocker Power plant locker | The power plant's locker: spare fuses (the wrong size), a hard hat, wire.
+loot powerlocker CopperIngot*2;Bolt*4;Hat_Construction*1
+prop powerlocker loot.refill=0
+note slotmachine Slot machine | A slot machine on the dark gaming floor, its glass cracked. Its coin box comes away in your hands.
+loot slotmachine TradeToken*8;Glass*2
+prop slotmachine loot.refill=0
+
+prop breaker1 obj.name=breaker1
+prop breaker1 beh.use=Pull the blue breaker
+prop breaker1 if.use=has|story:fusepuller|1
+prop breaker1 on.use=message||The blue breaker comes out with a fat spark. Across the water, the casino's sign flickers.\nsignal||b1\nsound||event:/raft/radar/lever
+prop breaker1 else.use=message||Live breakers - you'd want the electrician's insulated fuse puller for these.
+prop breaker2 obj.name=breaker2
+prop breaker2 beh.use=Pull the green breaker
+prop breaker2 if.use=has|story:fusepuller|1\nsignal|b1
+prop breaker2 on.use=message||The green breaker comes out. The casino's sign goes dark.\nsignal||b2\nsound||event:/raft/radar/lever
+prop breaker2 else.use=message||The backup hums and the breakers snap back - wrong order (or no fuse puller). Blue, then green, then red.
+prop breaker3 obj.name=breaker3
+prop breaker3 beh.use=Pull the red breaker
+prop breaker3 if.use=has|story:fusepuller|1\nsignal|b2
+prop breaker3 on.use=message||The red breaker comes out - and across the water every red light on the casino goes dark. Blackout.\ngive||story:blackout*1\nsignal||blackout\nhide|camlights\nsound||event:/raft/radar/radar_off
+prop breaker3 else.use=message||The backup hums and the breakers snap back - wrong order (or no fuse puller). Blue, then green, then red.
+prop camlights obj.name=camlights
+prop tunnelgrate obj.name=tunnelgrate
+prop tunnelgrate beh.use=Push the grate where its bolts are rusted through
+prop tunnelgrate beh.turn=-80
+prop tunnelgrate beh.moveTime=2
+prop tunnelgrate beh.moveMode=switch
+prop tunnelgrate if.use=has|story:divemap|1
+prop tunnelgrate on.use=message||Just where the map said: the bottom bolts are rusted through. The grate swings in.\nopen|tunnelgrate\nsound||event:/exploring/utopia/gate_metal_open
+prop tunnelgrate else.use=message||A heavy grate over a dark tunnel mouth, bolted fast - as far as you can see.
+prop laserpanel obj.name=laserpanel
+prop laserpanel beh.use=Swipe the croupier's card
+prop laserpanel if.use=has|story:dealercard|1\nsignal|blackout
+prop laserpanel on.use=message||The panel blinks green and the red beams across the corridor die. Thirty seconds - not one more.\nhide|lasers\nsound||event:/exploring/obstacles/keypad/keypad_correct\nwait|30\nshow|lasers\nmessage||The lasers snap back on.
+prop laserpanel else.use=message||CORRIDOR SECURED. The panel wants a croupier's card - and with the alarms still live, it would only raise them.
+prop laserwall obj.name=lasers
+prop laserglow obj.name=lasers
+prop laserglow beh.spin=120
+prop timelock obj.name=timelock
+prop timelock beh.use=Set the time lock
+prop timelock if.use=quest|25\ntake|story:timelockkey|1
+prop timelock on.use=message||The brass key turns with a clunk: TIME LOCK - 20 SECONDS. Something inside the door begins to tick.\nsound||event:/exploring/obstacles/doorbomb_tick\nwait|20\nopen|vaultdoor\nsignal||vaultopen\nmessage||The vault door rolls aside.
+prop timelock else.use=message||A keyhole marked TIME LOCK. The safecracker had the key.
+prop vaultdoor obj.name=vaultdoor
+prop vaultdoor beh.move=-6,0,0
+prop vaultdoor beh.moveTime=4
+prop vaultdoor beh.moveMode=switch
+prop exitdoor obj.name=exitdoor
+prop exitdoor beh.move=0,-3.1,0
+prop exitdoor beh.moveTime=2
+prop exitdoor beh.moveMode=switch
+prop getawayzone obj.name=getawayzone
+prop getawayzone beh.hidden=1
+prop getawayzone on.enter=signal||heistdone\nsound||event:/raft/engine/controller_on
+
+prop marina zone.id=marina
+prop marina zone.radius=14
+prop marina zone.message=The resort's marina: yachts at their moorings, an office, a beach bar - and three security dogs who haven't been paid either.
+prop hotel zone.id=hotel
+prop hotel zone.radius=10
+prop hotel zone.message=The hotel tower: four storeys of empty rooms, a fire stair up the side, the lobby's fountain dry.
+prop hotelkitchen zone.id=hotelkitchen
+prop hotelkitchen zone.radius=5
+prop hotelkitchen zone.message=The hotel kitchen - and the roaches, exactly the size of shoes.
+prop waterpark zone.id=waterpark
+prop waterpark zone.radius=12
+prop waterpark zone.message=The water park: wheels turning on the wave pool by themselves, diving boards, a lifeguard tower - and humming from the wave-machine hut.
+prop villas zone.id=villas
+prop villas zone.radius=12
+prop villas zone.message=The villas: three of them, three pools - and in the corner one, a letter on the table.
+prop lighthousebar zone.id=lighthousebar
+prop lighthousebar zone.radius=6
+prop lighthousebar zone.message=The lighthouse bar: stools up, glasses on the shelf - and a postcard pinned behind the bar.
+prop powerisle zone.id=powerisle
+prop powerisle zone.radius=10
+prop powerisle zone.message=The power islet: a generator thundering on its own, and three breakers - blue, green, red.
+prop tunnel zone.id=servicetunnel
+prop tunnel zone.radius=4.5
+prop tunnel zone.message=The service tunnel. Black water - and far in, a light, coming.
+prop casinofloor zone.id=casinofloor
+prop casinofloor zone.radius=6
+prop casinofloor zone.message=The Golden Gull's gaming floor, dark but for the slot machines' glow. Somewhere a chandelier tinkles.
+prop countingroom zone.id=countingroom
+prop countingroom zone.radius=5
+prop countingroom zone.message=The counting room - and the rats have been counting the money.
+prop vaultcorridor zone.id=vaultcorridor
+prop vaultcorridor zone.radius=3
+prop vaultcorridor zone.message=Through the lasers. The vault door is in front of you, a brass keyhole beside it.
+prop vaultzone zone.id=vault
+prop vaultzone zone.radius=3
+prop vaultzone zone.message=Inside the vault. Gold, stacked to the ceiling.
+prop getawayzone zone.id=getaway
+prop getawayzone zone.radius=6
+prop getawayzone zone.message=The casino's own dock - and the getaway boat, the crew's postcard taped to its wheel. The engine turns over first time.
+prop securitydogs creature.count=3
+prop securitydogs creature.respawn=0
+prop securitydogs creature.zone=marina
+prop kitchenroaches creature.count=4
+prop kitchenroaches creature.respawn=0
+prop kitchenroaches creature.zone=hotelkitchen
+prop bees creature.count=1
+prop bees creature.respawn=0
+prop tunnelthing creature.count=1
+prop tunnelthing creature.size=1.8
+prop tunnelthing creature.health=3
+prop tunnelthing creature.respawn=0
+prop tunnelthing creature.zone=servicetunnel
+prop cashrats creature.count=3
+prop cashrats creature.respawn=0
+prop cashrats creature.zone=countingroom
+prop tunneldark atmo.fog=#04080c
+prop tunneldark atmo.fogAmount=0.8
+prop tunneldark atmo.light=#0c141c
+prop tunneldark atmo.lightAmount=0.85
+prop tunneldark zone.radius=16
+
+quest title=The Job
+quest intro=A resort archipelago, a casino with its gold still in the vault, and a crew's plan in five pieces. The crew's yacht is at the marina.
+# Chapter 1 - the marina
+step reach|marina|1|Tie up at the resort's marina
+step kill|Hyena|3|Deal with the security dogs loose on the marina
+step read|Planner's briefing|1|Read the planner's briefing on the crew's yacht
+step collect|story:crewkey|1|Find the crew's locker key in the yacht's cabin chest
+step open|Crew's locker|1|Open the crew's locker in the marina office
+# Chapter 2 - the crew
+step reach|hotel|1|Cross the boardwalk to the hotel key
+step kill|Roach|4|Clear the roaches out of the hotel kitchen
+step read|Electrician's notes|1|Find the electrician's notes in room 304
+step collect|story:fusepuller|1|Take his fuse puller from the hotel's service room
+step reach|waterpark|1|Cross to the water park
+step collect|story:divemap|1|Find the diver's map in the wave-machine hut (mind the bees)
+step reach|villas|1|Reach the villa key
+step read|Dealer's letter|1|Read the dealer's letter in the corner villa
+step collect|story:dealercard|1|Dive into the villa's pool for the croupier's card
+step reach|lighthousebar|1|Climb to the lighthouse bar on the point
+step read|Safecracker's postcard|1|Read the safecracker's postcard behind the bar
+step collect|story:timelockkey|1|Find her time-lock key in the bar cupboard
+# Chapter 3 - lights out
+step reach|powerisle|1|Swim to the resort's power plant on its islet
+step collect|story:blackout|1|Pull the three breakers in the electrician's order
+step reach|servicetunnel|1|Dive under the marina's third pier and push through the service tunnel's grate
+step kill|Angler fish|1|Face the thing living in the service tunnel
+step reach|casinofloor|1|Climb the service shaft onto the dark casino floor
+step read|Pit boss's ledger|1|Read the pit boss's ledger in the cashier's cage
+# Chapter 4 - the vault
+step kill|Tangaroa rat|3|Clear the rats out of the counting room
+step reach|vaultcorridor|1|Kill the lasers with the croupier's card and get through in thirty seconds
+step reach|vault|1|Set the time lock and get into the vault when the door rolls open
+step open|House gold reserve|1|Open the house's gold reserve
+# Chapter 5 - the getaway
+step reach|getaway|1|Carry the gold out to the crew's getaway boat at the casino's dock
+step read|The crew's last postcard|1|Read the postcard taped to the boat's wheel
+step open|Crew's strongbox|1|Open the crew's strongbox
+quest done=The job is done - five specialists' worth of it, by one. The Golden Gull's lights are out, its vault is empty, and the crew's shares are yours. Spend them somewhere dry.
+quest reward=TitaniumIngot*4;Battery*4;MetalIngot*10
+
+save Paradise Archipelago

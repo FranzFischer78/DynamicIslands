@@ -1,0 +1,17 @@
+# Guide pictures of Engine Court (CIPlay engine_court_pics): Raft's camera, midday, calm; the rings from above, the
+# housing and its levers, Teo's store
+island Engine Court
+offset 0 0
+hour 11
+weather Calm
+at 0 33
+wait 3
+picture sl14_engine_court_island 71.4 65.7 -137.1 0 4 0
+picture sl14_engine_court_rings 0 40 -40 0 4 4
+picture sl14_engine_court_housing 0 7 12 0 5 0
+picture sl14_engine_court_drone 22 8 -4 16 6 0
+storespot -16 0
+picture sl14_engine_court_ridge 10 18 -38 0 15 -62
+picture sl14_engine_court_cave -62 9 30 -64 6 8
+picture sl14_engine_court_ruin 34 9 48 24 4 60
+picture sl14_engine_court_plane 56 10 -4 72 4 8

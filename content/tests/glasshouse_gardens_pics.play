@@ -1,0 +1,15 @@
+# Guide pictures of Glasshouse Gardens (CIPlay glasshouse_gardens_pics): Raft's camera, midday, calm. Points as in its
+# recipe ("offset").
+island Glasshouse Gardens
+offset 0 0
+hour 11
+weather Calm
+at 4 -40 h=24.6
+wait 3
+picture glasshouse_gardens_island 70 70 -110 0 20 0
+picture glasshouse_gardens_gardens 20 34 -30 0 25 6
+picture glasshouse_gardens_orchid 10 27 22 0 25 34
+picture glasshouse_gardens_palm -14 28 -8 -27 27 2
+picture glasshouse_gardens_great 14 27 -16 0 25 0
+picture glasshouse_gardens_road 30 12 -84 -2 12 -60
+picture glasshouse_gardens_mirrors 4 30 -27 4 25 -4

@@ -1,0 +1,16 @@
+# Guide pictures of The Lockkeeper's Isle (CIPlay lockkeepers_isle_pics): Raft's camera, afternoon, calm; the keypad
+# opened first so the strongbox shows
+island The Lockkeeper's Isle
+offset 0 0
+hour 14
+weather Calm
+at 0 -6
+wait 3
+code keypad 2704
+wait 2
+picture lockkeepers_isle_island 36 24 -42 0 3 0
+picture lockkeepers_isle_landing 8 4 -40 0 2 -31
+picture lockkeepers_isle_shed 9.5 5 -2 6.5 4 3.5
+picture lockkeepers_isle_pen 2 6 -20 13 3 -10
+picture lockkeepers_isle_lookout 0 6 4 0 3.5 14
+picture lockkeepers_isle_hut -2 5 -5 -9 3.5 5

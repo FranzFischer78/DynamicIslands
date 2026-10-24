@@ -1,0 +1,26 @@
+# The Last Post - a world plan of the library: the route of the Coastal Post, the last postal service on the sea
+# A main story in place of Raft's (Raft's own story off, random islands on): nine stops down the Coastal Post's route -
+# the dead letter office, the pier, the airstrip in the jungle, the pneumatic tube town, the sorting rock, the telegraph
+# line, the franking works, the postmistress's house - and at the end the General Post Office on its drowned square,
+# where Ada Lind waits with the last letter. Five dead letters from the first stop are delivered along the way. The
+# blueprints of Raft's own story are in the stops' chests. A sorting barge turns up again and again while you sail.
+#
+# Built by the recipe player (CIRecipe plan_last_post) in the editor's World plans window. Its play test:
+# content\tests\plan_last_post.play (run it on day 10 or later: CISetDay 10).
+plan new The Last Post
+plan description The route of the Coastal Post, the last postal service on the sea: nine stops - a dead letter office, a pier, a jungle airstrip, a tube town, a sorting rock, a telegraph line, a franking works and the postmistress's house - and at the end the General Post Office on its drowned square. Deliver the dead letters on the way. Raft's own story is off; its blueprints are in the stops' chests. Its main islands are about 60% the size of Raft's own big islands.
+plan random on
+plan story off
+plan rule deadletter | island:The Dead Letter Office | start | receiver:500 | The Receiver crackles: a post office's call sign, then a recorded voice - "Coastal Post. Letters held for collection." | The Dead Letter Office | first | note:1249
+plan rule pier | island:Pillarbox Pier | start | receiver:800 | The route card's second stop answers on 800: a bell on a pier, a ferry master's call. | Pillarbox Pier | after:deadletter | zone:sorting
+plan rule jungle | island:Parcel Canopy | start | receiver:900 | From the pier the Receiver catches an airstrip's beacon, blinking out of a jungle canopy. | Parcel Canopy | after:pier | signal:beacon
+plan rule tubes | island:Pneumatic Heights | day:10 | receiver:1000 | On 1000, the hiss of pneumatic tubes and a town's exchange: "Heights post now open." | Pneumatic Heights | after:jungle | step:16
+plan rule sorting | island:Sorting Rock | start | receiver:1000 | The linesman's hut gives the next band: Sorting Rock, its scales still ringing. | Sorting Rock | after:tubes | quest
+plan rule telegraph | island:Telegraph Narrows | start | receiver:1100 | Morse on 1100, faint and slow, down a line of sea stacks: the Telegraph Narrows. | Telegraph Narrows | after:sorting | quest
+plan rule franking | island:The Franking Works | start | receiver:1100 | Over the live wire: the Franking Works, still stamping. | The Franking Works | after:telegraph | visit
+plan rule adas | island:Ada's Round | start | receiver:1200 | Ada's route map: up a green hill, to her house. Pigeons on 1200. | Ada's Round | after:franking | quest
+plan rule gpo | island:The General Post Office | start | receiver:1400 | On 1400 a clock strikes nine, then a woman's voice: "General Post Office. I'm still here." | The General Post Office | after:adas | quest
+plan rule barge | island:The Wandering Sorting Barge | km:6:again | ahead:450 | A barge with a mail flag lies aground on a sandbar ahead. | The Wandering Sorting Barge
+plan credits The Last Post | Custom Islands
+plan ending The post-horn's last note rolls out over the drowned square. Ada Lind reads the last letter, folds it into her bag and steps on to your raft: there is a whole sea that wants its post.\n\nThe end of The Last Post.
+plan save

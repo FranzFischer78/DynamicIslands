@@ -1,0 +1,62 @@
+# Current Locks (CIPlay current_locks): the banks at 2 m either side of the canal (x 0); lock 1, the rules, the lock
+# house, crank 2 refused before crank 1, crank 1, the basin's anglers and air, the basin chest, crank 2, the bear, its
+# den, crank 3, Ines's note (no step), the kitchen.
+island Current Locks
+offset 0 0
+expect step 0
+expect title Three Locks
+zone lock_1
+expect step 1
+read Lock keeper's rules
+expect step 2
+open Lock house
+wait 3
+expect step 3
+use crank2
+expect story lock2 0
+use crank1
+expect story lock1 1
+expect hidden gate1
+expect step 4
+zone lock_basin
+kill Angler fish
+expect animals Angler fish 0
+air gate_air
+expect step 5
+open Basin chest
+wait 3
+expect step 6
+use crank2
+expect story lock2 1
+expect step 7
+zone lock_2
+kill Bear
+expect animals Bear 0
+expect step 8
+open Bear den
+wait 3
+expect step 9
+zone lock_3
+use crank3
+expect story lock3 1
+expect hidden gate3
+expect step 10
+read Ines's note
+expect step 10
+zone locksridge
+expect step 11
+read Canal plane log
+expect step 12
+open Fuel crate
+wait 3
+expect story raft-Vasagatan_GasTank 1
+expect step 13
+read Diggers' roll
+use dredgeengine
+expect shown dredgelocker
+open Engine room locker
+wait 3
+expect step 14
+open Keeper's kitchen
+wait 3
+expect done

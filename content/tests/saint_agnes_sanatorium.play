@@ -1,0 +1,56 @@
+# Saint Agnes Sanatorium (CIPlay saint_agnes_sanatorium): The Lullaby Frequency's second island, quest "Admitted With the
+# Song". The terrace (6 m); the day room x -15..-3 z -6..0 (door x -10.5..-9 on z -6; the piano at -6 -2.2); Ward C
+# x 3..12 z -6..0 (its door panel x 6..7.5); the veranda x -15..-3 z -12.5..-9.5; the hydrotherapy house x -5..2.5
+# z 6..12 (door x -3.5..-2 on z 6); the gate at 0 -30, the vending machine at 9 -17.
+island Saint Agnes Sanatorium
+offset 0 0
+expect step 0
+expect title Admitted With the Song
+wait 3
+expect hidden musicbox
+walk 0 -40 to 0 -34
+zone gate
+expect step 1
+walk 0 -26 to 0 -8 to -9.75 -8 to -9.75 -4.6 h=6.2
+read Admissions book
+expect step 2
+read Nurse Edda's rota
+expect step 3
+use piano
+expect shown musicbox
+expect story pianoplayed 1
+use piano
+expect message keeps playing by itself
+expect step 4
+open Music box
+expect story wardckey 1
+expect step 5
+use wardcdoor
+expect hidden wardcdoor
+walk 6.75 -8 to 6.75 -4 h=6.2
+zone ward_c
+expect step 6
+read Bed 4 chart
+read Bed 7 chart
+read Bed 7 chart
+expect story chart 2
+read Bed 9 chart
+expect story chart 3
+expect step 7
+walk 0 -2 to 0 3 to -2.75 4 to -2.75 7.5 h=6.2
+zone hydro
+expect step 8
+expect hidden drainzone
+use crank
+expect hidden basinwater
+expect shown drainzone
+expect step 9
+zone drain
+wait 2
+kill Roach
+expect step 10
+open Doctor Vell's cabinet
+expect step 11
+read Vell - final entry
+expect done
+storespot 0 -18

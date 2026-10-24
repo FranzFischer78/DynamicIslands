@@ -1,0 +1,11 @@
+# Guide pictures of The Iron Whale - Engine Decks (CIPlay iron_whale_decks_pics): Raft's camera, midday, calm
+island The Iron Whale - Engine Decks
+offset 0 0
+hour 11
+weather Calm
+# (RESIZE 10-24 retest: the player on the mast platform, out of the sea - in it the pictures took the water's wobble;
+# fixed heights: on the bigger island "+h" measured from the wrong ground. The boiler shot (black inside) and the stern shot
+# (taken from the air above the sea, the seabed looked like snow in daylight) left out)
+at 3 0 h=18.2
+wait 5
+picture sl12_iron_whale_decks_mast 16 22 -16 3 18 0

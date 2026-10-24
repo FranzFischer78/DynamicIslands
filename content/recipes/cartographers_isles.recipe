@@ -1,0 +1,250 @@
+# The Cartographer's Isles - a new island of the library, twice the size (x2)
+# A mapmaker's archipelago (Shape 2, Style 2): sandy desert islets round a shallow green lagoon - the hut islet in the
+# west, the knoll islet in the south with a white trig pillar on its top, the flat islet in the east with a survey tower,
+# a survey post the sea took standing in a hole in the lagoon's floor, and the sandbar in the north with the X. Ines
+# Achterberg mapped these islets for forty years and left her savings to whoever can read a map: she cut her last map
+# into four pieces, each giving the bearing to the next, and each only to be found where the last one sends you. Quest
+# "Four Bearings" (11 steps, a map trail): the hut, the will, the map case (piece I), the trig pillar (II), the survey
+# tower (III), the drowned post (IV, a dive), the X on the sandbar, the dig (the canteen blueprint).
+#
+# Built by the recipe player (CIRecipe cartographers_isles) through the editor's own operations. Points: the lagoon's
+# floor -2.5 m; the hut islet (dome 7.5 m at -47.5 -5), the hut's pad on its east slope at -39 -5 (2.5 m), the hut x
+# -41.25..-36.75, z -7.25..-2.75 (deck 3.9 m, ladder on the south side at -39 -7.4); the knoll islet (-5..25, -30..-3),
+# its path from the north beach (0 -4) up the west flank (0 -20, 7.5 m) to the top (10 -16, 12 m), the trig pillar on
+# it; the flat islet (40..60, 10..28), the tower's pad at 50 20 (4.6 m), the tower's posts at 48.5..51.5, 18.5..21.5,
+# its deck 14.6 m, the ladder on the south side at 50.75 18.3; the drowned post at 34 22 in a hole 6 m deep; the sandbar
+# levelled at 1 m over x 10..26, z 28..42, the X at 18 35.
+include lib_huts
+include lib_sea
+include lib_features
+new
+# (nature: desert, Like Raft - acacias, cacti and scrub on the islets; the lagoon's floor sandy)
+gen Trees=0.38 Bushes=0.5 Rocks=0.55 Harvest=0.25 BeachThings=0.3
+gen Seed=9204 Radius=63 Height=12 Roughness=0.45 Peaks=3 Shape=2 Style=2 BeachWidth=0.6 Cliffs=0.25 PeakShape=0.35
+gen SeaFloor=0 Shelf=0.45 Seabed=0
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+macro dabs x1 z1 h1 x2 z2 h2 n=8 r=2.6
+for i 0 $n
+brush flatten at {$x1+($x2-$x1)*$i/$n} {$z1+($z2-$z1)*$i/$n} r=$r s=20 frames=50 h={$h1+($h2-$h1)*$i/$n}
+next
+end
+
+# ===== The ground: the hut's pad, the knoll's path and top, the tower's pad, the drowned post's hole, the sandbar =====
+brush flatten at -39 -5 r=5 s=20 frames=60 h=2.5
+call dabs 0 -4 2.5 0 -20 7.5 n=12
+call dabs 0 -20 7.5 7 -20.5 11 n=6
+brush flatten at 10 -16 r=3.4 s=20 frames=60 h=12
+brush flatten at 50 20 r=4 s=20 frames=60 h=4.6
+brush flatten at 34 22 r=4.5 s=20 frames=80 h=-6
+for sz 28 42 2
+brush flatten from 10 $sz to 26 $sz r=1.9 s=20 frames=60 h=1
+next
+brush sand at 18 35 r=9 s=20 frames=40
+clear at -39 -5 r=5
+clear from 0 -4 to 0 -20 r=3
+clear from 0 -20 to 7 -20.5 r=3
+clear at 10 -16 r=5
+clear at 50 20 r=5
+clear at 18 35 r=9
+
+# ===== The hut islet: Ines's drafting hut on stilts - the drafting table with the map case, the globe, quill and paper,
+# the chart cabinets; her will by the door; a box under the hut; llamas on the dome, date palms ========================
+push at -41.25 -7.25 h=2.5
+call stilt_hut y=1.4
+place Placeable_Table_Square - at 3.3 3.3 y=1.4 sit yaw=90
+place Loot_ChestSmall mapcase at 3.6 3.3 y=2.14 sit yaw=90
+place Placeable_WorldGlobe - at 3.1 2.6 y=2.14 sit
+place Placeable_Quill - at 3.1 3.9 y=2.14 sit
+place Placeable_PaperBundle - at 2.8 3.4 y=2.14 sit yaw=20
+place TP_CabinetCharts01 - at 1 4.1 y=1.4 sit yaw=180
+place TP_CabinetCharts03 - at 0.4 2.2 y=1.4 sit yaw=90
+place Note_Paper will at 1.5 0.4 y=1.4 sit yaw=15
+pop
+place "Box Small" hutbox at -38 -4.5 ground sit yaw=30
+place Zone_Trigger landing at -36.5 -5 h=2
+place Creature_Llama llamas at -48 -5 ground
+place "Pickup_Landmark_Tree_Palm 2" - at -50 1 ground yaw=40
+place "Pickup_Landmark_Tree_Palm 2" - at -45.5 -11 ground yaw=160
+place "Pickup_Landmark_Tree_Palm 2" - at -52.5 -8 ground yaw=280
+
+# ===== The knoll islet: the white trig pillar (a short concrete pipe on end) on the knoll's top, its brass plate (hidden until the map case
+# is opened); cacti and rocks round it; a cairn with a box ================================================================
+place VP_ConcretePipe02 trigpillars at 10 -16 h=12.75 rot=90,0,0 scale=0.35
+place Note_Sign piece2 at 10 -17.1 h=12 yaw=180
+place Zone_Trigger trig1 at 10 -16 h=13
+prop trigpillars tint.color=#ffe0b8
+prop trigpillars tint.amount=1
+place Cactus2A - at 12.6 -13.4 ground yaw=40
+place Cactus4B - at 7.2 -18.2 ground yaw=200
+place CaravanIsland_SmallRock_1 - at 12.8 -18.4 ground yaw=70
+for c 0 3 1
+place SmallBoulder3 - at {7.6+0.5*$c} {-13.6+0.3*$c} ground scale=0.3 yaw={$c*70}
+next
+place "Box Small" knollbox at 8.2 -12.8 ground sit yaw=20
+
+# ===== The flat islet: the survey tower - four posts stacked four high at a 3 m square, a deck with plank rails, a
+# ladder up its south side on a fifth post; the theodolite; piece III on the rail (hidden until the plate is read); a crate and a box ==
+for th 4.6 12.2 2.5
+place Block_Pillar_Wood - at 48.5 18.5 h=$th
+place Block_Pillar_Wood - at 51.5 18.5 h=$th
+place Block_Pillar_Wood - at 48.5 21.5 h=$th
+place Block_Pillar_Wood - at 51.5 21.5 h=$th
+place Block_Pillar_Wood - at 50.75 18.5 h=$th
+next
+for th 4.6 14.3 2.42
+place Block_Ladder - at 50.75 18.3 h=$th
+next
+push at 48.5 18.5 h=14.6
+place Block_Floor_Wood - at 0.75 0.75 y=0
+place Block_Floor_Wood - at 2.25 0.75 y=0
+place Block_Floor_Wood - at 0.75 2.25 y=0
+place Block_Floor_Wood - at 2.25 2.25 y=0
+place Block_Wall_Fence_Plank - at 0.75 0 y=0
+place Block_Wall_Fence_Plank - at 0.75 3 y=0
+place Block_Wall_Fence_Plank - at 2.25 3 y=0
+place Block_Wall_Fence_Plank - at 0 0.75 y=0 yaw=90
+place Block_Wall_Fence_Plank - at 0 2.25 y=0 yaw=90
+place Block_Wall_Fence_Plank - at 3 0.75 y=0 yaw=90
+place Block_Wall_Fence_Plank - at 3 2.25 y=0 yaw=90
+place TP_Telescope - at 2.0 1.85 y=0.1 sit yaw=300 scale=0.35
+place Note_Paper piece3 at 0.6 2.4 y=0.1 sit yaw=80
+pop
+place Zone_Trigger trig2 at 50 20 h=15.5
+place Crate_Big_01 - at 53.6 17.6 ground sit yaw=20
+place "Box Small" towerbox at 53.4 16.4 ground sit yaw=50
+
+# ===== The drowned post: a trig pillar on the floor of a hole in the lagoon, the top of its survey mast breaking the
+# surface beside it; the bottle at its foot (hidden until piece III is read); a sunk barrel, corals =======================
+place VP_ConcretePipe02 trigpillars at 34 22 h=-5.25 rot=90,0,0 scale=0.35
+place RT_Pillar - at 35.2 22.6 h=-6
+place RT_Pillar - at 35.2 22.6 h=-3 sy=1.2
+place Note_Bottle piece4 at 33 21 ground yaw=40
+place Zone_Trigger trig3 at 34 22 h=-4.5
+place Loot_SunkenBarrel postbarrel at 36.6 20 ground
+place CauliCoral - at 32.4 23.6 ground yaw=30
+place TableCoral_1 - at 35.6 24.2 ground yaw=110
+
+# ===== The sandbar: a cross of dark stones on the sand; the dig mound in its middle and the treasure under it (hidden);
+# the X's zone (shown with piece IV) and the hyenas waiting for it ========================================================
+for k -1.8 1.9 0.9
+place SmallBoulder1 - at {18+$k} {35+$k} ground scale=0.35 yaw={$k*50}
+place SmallBoulder1 - at {18+$k} {35-$k} ground scale=0.35 yaw={$k*80}
+next
+place VP_RubblePile_Small03 digmound at 18.8 34.2 ground scale=0.45 yaw=30
+prop digmound tint.color=#c9a06a
+prop digmound tint.amount=0.8
+place Loot_ChestLarge treasure at 18.8 34.2 ground sit yaw=200
+place Zone_Trigger xmark at 18 35 h=2
+place Creature_Hyena hyenas at 23 39 ground
+
+# ===== The lagoon: dolphins outside the islets, the haze; Raft's finds in the shallows ===================================
+place Creature_Dolphin dolphins at 0 58 h=-3
+place Zone_Atmosphere haze at 0 0 h=10
+call shallows r=83 deep=5 n=1
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): melons, flowers, pineapples ----------
+scatter "Pickup_Landmark_WatermelonLandmark" 6 at 0 0 r=44.1 seed=4381 free=3
+scatter "Pickup_Landmark_Flower_Yellow" 4 at 0 0 r=44.1 seed=4391 free=3
+scatter "Pickup_Landmark_Flower_Red" 4 at 0 0 r=44.1 seed=4392 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=44.1 seed=4401 free=3
+
+# ===== Settings, story items, notes, behaviours, quest (11 steps) =========================================================
+info title=The Cartographer's Isles
+info author=Custom Islands
+info description=Five sandy islets a mapmaker spent forty years measuring - trig pillars, a survey tower, a post the sea took - and her last map, cut into four pieces and hidden along them. Each piece sends you to the next. X marks the spot.
+island on.arrive=message||Red-and-sand islets round a green lagoon. On one, a white pillar; on another, a wooden tower with something glinting on top.
+
+note will Ines Achterberg's will | THE LAST WILL OF INES ACHTERBERG, CARTOGRAPHER\n\nI leave my savings to whoever can read a map.\n\nI have cut my last map in four. The first is in my map case on the drafting table. Each piece gives the bearings to the next; the next is only to be found where the last one sends you - I had the wind put it there.\n\nThe last piece will take you to the X. Bring a strong back.\n- I. A.
+note mapcase Map piece I | (a quarter of a hand-drawn chart, from the map case)\n\nFROM THE HUT: bearing 100, across the lagoon, to the islet with the round knoll. On its top, the white trig pillar. Read its plate.
+loot mapcase Rope*2;Plank*2;MetalDetector*1;Shovel*1
+prop mapcase loot.refill=0
+prop mapcase on.open=show|piece2\nmessage||As you lift the chart, a gull lifts off the knoll across the lagoon. Something on the white pillar catches the sun.
+note piece2 Map piece II | (a brass plate on the trig pillar, engraved)\n\nTRIG STATION 2. FROM HERE: bearing 050 to the flat islet. Climb the survey tower; the third quarter is pinned to its rail.
+prop piece2 obj.name=piece2
+prop piece2 beh.hidden=1
+prop piece2 on.read=show|piece3\nmessage||On the flat islet to the north-east, the survey tower. A paper flutters on its rail now.
+note piece3 Map piece III | (pinned to the tower's rail with a brass tack)\n\nFROM THE TOWER: look down into the water just west of this islet. There stood my third post, before the sea took it. At its foot, a bottle. Swim.
+prop piece3 obj.name=piece3
+prop piece3 beh.hidden=1
+prop piece3 on.read=show|piece4\nmessage||Down in the green water west of the islet, the top of a mast - and something glinting at its foot.
+note piece4 Map piece IV | (rolled in the bottle, dry)\n\nTHE LAST QUARTER. From the drowned post: the sandbar to the north-west. X is where the dark stones cross. Dig.\n\nThat's all of it. It was always a very simple map, once you had walked it.
+prop piece4 obj.name=piece4
+prop piece4 beh.hidden=1
+prop piece4 on.read=show|xmark\nshow|digmound\nmessage||The sandbar to the north-west - you can see the dark stones from here.
+note treasure Achterberg's treasure | Ines's savings in an oilcloth chest: forty years of a surveyor's pay, a brass compass, the plans for the canteen she carried every day - and a note: GOOD. YOU CAN READ A MAP.
+loot treasure TradeToken*12;Blueprint_Canteen*1;Compass*1;Glass*3
+prop treasure loot.refill=0
+prop treasure obj.name=treasure
+prop treasure beh.hidden=1
+note hutbox Box under the hut | A box under the hut: tent pegs, a water skin, a tin of beans.
+loot hutbox PlasticBottle_Water*2;Cooked_GenericMeat*2;Rope*1
+prop hutbox loot.refill=0
+note knollbox Cairn box | A box in the cairn on the knoll: surveyor's chalk and stakes.
+loot knollbox Plank*4;Stone*3;Clay*2
+prop knollbox loot.refill=0
+note towerbox Tower box | A box at the tower's foot: spare nails, a hammer head, a coil of line.
+loot towerbox Nail*8;Rope*2;Scrap*2
+prop towerbox loot.refill=0
+note postbarrel Sunk barrel | A barrel by the drowned post: brass fittings gone green, and ore.
+loot postbarrel MetalOre*2;CopperOre*2;Scrap*2
+prop postbarrel loot.refill=0
+
+prop digmound obj.name=digmound
+prop digmound beh.hidden=1
+prop digmound beh.use=Dig at the X
+prop digmound on.use=message||You dig with your hands, then with a plank. A foot down: oilcloth, and under it the corner of a chest.\nhide|digmound\nshow|treasure\nsound||event:/crafting/shovel_dig
+
+prop landing zone.id=landing
+prop landing zone.radius=8
+prop landing zone.message=The drafting hut on its stilts, a paper pinned to the door. Llamas look up from the scrub.
+prop trig1 zone.id=trig1
+prop trig1 zone.radius=5
+prop trig1 zone.message=Trig Station 2: a white pillar on the knoll's top, and the whole archipelago laid out round you.
+prop trig2 zone.id=trig2
+prop trig2 zone.radius=3
+prop trig2 zone.message=The survey tower's top. The theodolite still points at the knoll.
+prop trig3 zone.id=trig3
+prop trig3 zone.radius=4
+prop trig3 zone.message=The drowned post: a white pillar standing on the sand of the sea floor, fish round it.
+prop xmark obj.name=xmark
+prop xmark beh.hidden=1
+prop xmark zone.id=xmark
+prop xmark zone.radius=5
+prop xmark zone.repeat=never
+prop xmark zone.message=X: dark stones crossed on the sand - and something laughing behind the dunes.
+prop hyenas creature.count=2
+prop hyenas creature.respawn=0
+prop hyenas creature.zone=xmark
+prop haze atmo.fog=#e8d8b8
+prop haze atmo.fogAmount=0.08
+prop haze atmo.light=#fff0c8
+prop haze atmo.lightAmount=0.15
+prop haze zone.radius=50
+prop llamas creature.count=3
+prop dolphins creature.count=2
+
+# --- Raft's special features (the user, 2026-10-05: every Raft feature on at least one island): the surveyor's metal detector in her map case;
+# her buried survey caches on the knoll and the flat islet, for it and a shovel
+call treasure x=10 z=-16 r=10 n=1 seed=41
+call treasure x=50 z=20 r=9 n=1 seed=42
+
+quest title=Four Bearings
+quest intro=An archipelago a cartographer mapped all her life, and her will on the drafting hut's door.
+step reach|landing|1|Land at the drafting hut on the biggest islet
+step read|Ines Achterberg's will|1|Read the will pinned to the door
+step open|Map piece I|1|Open the map case on the drafting table
+step reach|trig1|1|Follow the first bearing to the white trig pillar on the knoll
+step read|Map piece II|1|Read the pillar's brass plate
+step reach|trig2|1|Climb the survey tower on the flat islet
+step read|Map piece III|1|Read the third quarter pinned to the tower's rail
+step reach|trig3|1|Dive to the drowned survey post
+step read|Map piece IV|1|Read the last quarter from the bottle at its foot
+step reach|xmark|1|Find the X on the sandbar
+step open|Achterberg's treasure|1|Dig at the X and open the treasure
+quest done=Four bearings, five islets, one X. Ines was right: it was a very simple map, once you had walked it.
+quest reward=Rope*3;Plank*4;Cooked_GenericMeat*2
+
+save The Cartographer's Isles
+

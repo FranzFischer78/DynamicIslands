@@ -1,0 +1,63 @@
+# lib_frozen - shared pieces of the plan The Frozen Horizon's islands ("include lib_frozen"): the north's insulated
+# wooden huts, air pockets for the flooded decks and the Seed Ark, snowfall, ice floes and ice-white rock. A recipe that
+# calls hut includes lib_huts first (floors, corners).
+#
+# hut: a wooden hut of w x d cells (1.5 m) from the frame's corner (push to place it): floor blocks, walls round it with
+# a door in the south wall's first cell (x 0.75, z 0), pillars at the four corners and a hipped roof standing on them.
+# w and d at least 2.
+macro hut w=2 d=2 y=0.1
+call floors w=$w d=$d y=$y
+place Block_Wall_Door_Wood - at 0.75 0 y=$y
+for fx 2.25 {$w*1.5-0.75} 1.5
+place Block_Wall_Wood - at $fx 0 y=$y
+next
+for fx 0.75 {$w*1.5-0.75} 1.5
+place Block_Wall_Wood - at $fx {$d*1.5} y=$y
+next
+for fz 0.75 {$d*1.5-0.75} 1.5
+place Block_Wall_Wood - at 0 $fz y=$y yaw=90
+place Block_Wall_Wood - at {$w*1.5} $fz y=$y yaw=90
+next
+call corners w=$w d=$d y=$y
+roof $w $d at 0 0 y=$y wood
+end
+#
+# airpocket: an air pocket on the ground at x z (Raft's air pocket, its trigger zone with air and bubbles): zone id,
+# alias for the zone (al) and its bubbles (bub), its radius r
+macro airpocket x=0 z=0 id=air al=air bub=airbub r=2.5 msg="An air pocket - breathe."
+place AirPocket_1 - at $x $z ground y=0.05 scale=0.6
+place Zone_Trigger $al at $x $z ground y=1.6
+place Zone_Atmosphere $bub at $x $z ground y=1.2
+prop $al obj.name=$al
+prop $al zone.id=$id
+prop $al zone.radius=$r
+prop $al zone.repeat=1
+prop $al zone.air=1
+prop $al zone.message=$msg
+prop $bub atmo.particles=bubbles
+prop $bub zone.radius=3
+end
+#
+# snowfall: falling snow and a white haze round x z (radius r), al its alias
+macro snowfall x=0 z=0 r=40 al=snow fog=#e8eef2 fa=0.35
+place Zone_Atmosphere $al at $x $z ground y=8
+prop $al atmo.particles=snow
+prop $al atmo.fog=$fog
+prop $al atmo.fogAmount=$fa
+prop $al zone.radius=$r
+end
+#
+# floe: an ice floe at x z - the shoal under it levelled just under the water, a snow drift laid flat on it (alias a)
+macro floe x=0 z=0 a=- r=2.6
+brush flatten at $x $z r=$r s=20 frames=200 h=-0.3
+place TP_SnowDrift01 $a at $x $z h=-0.3 sit sy=0.5 yaw={37*$x}
+end
+#
+# icerock: a rock tinted ice-white (al its alias, for one tint line per island)
+macro icerock x=0 z=0 s=1 yaw=0 al=ice
+place SmallRock_02 $al at $x $z ground y={-0.45*$s} scale=$s yaw=$yaw
+end
+macro icetint al=ice
+prop $al tint.color=#dcebf5
+prop $al tint.amount=0.7
+end

@@ -1,0 +1,55 @@
+# Pinewood Haul - a vehicle island (VI1, no quest, no banner)
+# A forest island of pines where a small logging crew worked a clearing. Their van is backed up to the log pile, a
+# caravan was the bunkhouse, an excavator did the lifting, and a wagon waits by the log pile near the stumps of the last
+# trees they cut.
+#
+# Points (metres from the land centre): the clearing round 2 0 (h 3), the log pile 1 -7, the van 7 -3, the bunkhouse -7 4, the
+# landing beach 0 -24.
+include lib_sea
+new
+gen Trees=0.3 Bushes=0.28 Rocks=0.35 Harvest=0.2 BeachThings=0.25
+gen Seed=15109 Radius=30 Height=7 Roughness=0.4 Peaks=1 Shape=0.35 Style=3 PeakShape=0.5 Cliffs=0.15 BeachWidth=0.45
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.1 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the clearing, the track, the landing -----------------------------------------------------------------
+brush flatten at 2 0 r=11 s=20 frames=150 h=3
+brush grass at 2 0 r=11 s=6 frames=20
+brush flatten at 1 -12 r=4 s=20 frames=80 h=2.2
+brush flatten at 0 -18 r=4 s=20 frames=80 h=1.6
+brush flatten at 0 -24 r=6 s=20 frames=100 h=1.1
+brush sand at 0 -24 r=6 s=10 frames=30
+origin
+clear at 2 0 r=11
+clear at 0 -24 r=5
+
+# --- The van at the log pile, the wagon, the excavator ---------------------------------------------------------------
+place Van_1 - at 7 -3 ground sit yaw=100
+place TreeLog_02 - at 1 -6 ground sit yaw=10
+place TreeLog_02 - at 1.6 -7 ground sit yaw=8
+place TreeLog_02 - at 0.4 -7.6 ground sit yaw=14
+place VP_Wagon02 - at -2 -6 ground sit yaw=10
+place VP_Excavator - at 8 5 ground sit yaw=210
+
+# --- The bunkhouse caravan and the crew's fire ---------------------------------------------------------------------
+place Caravan_Blue_01 - at -7 4 ground sit yaw=80
+place campfire_1 - at -4 -1 ground sit
+place Bench_01 - at -6 -2 ground sit yaw=90
+place Placeable_Lantern_Metal - at -3 3 ground sit
+place Loot_ChestSmall crewchest at -9 1 ground sit yaw=80
+loot crewchest Plank*4;Rope*2;Nail*4
+place Balboa_DecorationPrefabBase_SimpleTent - at -10 -6 ground sit yaw=40
+
+# --- The stumps of the last cut and the forest round it -------------------------------------------------------------
+place Tree_Stump - at -1 6 ground sit
+place Tree_Stump - at 2 8 ground sit yaw=60
+place Tree_Stump - at -3 9 ground sit yaw=130
+scatter Pickup_Landmark_Tree_Pine 5 at -14 12 r=8 seed=15191 free=3
+scatter Pickup_Landmark_Tree_Pine 3 at 16 10 r=6 seed=15192 free=3
+scatter Pickup_Landmark_BerryBush 2 at -16 -8 r=5 seed=15193 free=2
+call shallows x=0 z=0 r=38 deep=5 n=1 seed=15194
+
+info title=Pinewood Haul
+info description=A pine forest island where a small logging crew worked a clearing: their van backed up to the log pile, a caravan for a bunkhouse, an excavator for the lifting and a wagon by the stumps.
+info author=Custom Islands
+save Pinewood Haul

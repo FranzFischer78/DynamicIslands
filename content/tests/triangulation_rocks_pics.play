@@ -1,0 +1,14 @@
+# Guide pictures of Triangulation Rocks (CIPlay triangulation_rocks_pics): Raft's camera, midday, calm
+island Triangulation Rocks
+offset 0 0
+hour 11
+weather Calm
+at -0.1 -3.2
+wait 3
+picture sl14_triangulation_rocks_island 78.3 54.4 -152.6 0 5 0
+picture sl14_triangulation_rocks_camp 5.9 7 -13.2 -0.1 3 -3.2
+picture sl14_triangulation_rocks_relay -39.2 9 15.4 -33.2 8 21.4
+picture sl14_triangulation_rocks_ridge -36 18 30 -59 14 26
+picture sl14_triangulation_rocks_cave 44 10 -52 46 6 -28
+picture sl14_triangulation_rocks_ruin 22 9 54 12 4 66
+picture sl14_triangulation_rocks_plane -26 10 -60 -40 4 -48

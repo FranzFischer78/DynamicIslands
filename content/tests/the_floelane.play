@@ -1,0 +1,41 @@
+# The Floelane (CIPlay the_floelane): the first floe, the distress card, the winch and the lead to the hull floe, the
+# motor wheel's plans, the cage keys (west floe), three cages, the hull bell (signal rescued), the wheelhouse, the thanks.
+island The Floelane
+offset 0 0
+expect step 0
+expect title The White Sea
+expect hidden icebridge
+expect hidden thanks
+zone first_floe
+expect step 1
+read Sealer's distress card
+expect step 2
+use winch
+expect shown icebridge
+zone hull
+expect step 3
+open Engine room
+wait 3
+expect step 4
+use hullbell
+expect message not yet
+open Sealer's locker
+expect story sealkey 3
+use cage1
+use cage2
+use cage3
+wait 3
+expect survivor frozen_sigrid
+expect survivor frozen_bo
+expect story sealkey 0
+use hullbell
+expect story rescued 1
+expect shown thanks
+expect step 5
+open Wheelhouse locker
+wait 3
+expect step 6
+read Survivors' thanks
+expect done
+wait 40
+expect hidden icebridge

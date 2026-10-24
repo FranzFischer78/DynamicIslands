@@ -1,0 +1,32 @@
+# Play test of Highpine Island (CIPlay highpine_island): no quest - the path up the west peak, the rope bridge to the
+# east peak and its cache, the zipline's end, the cabin, the pier, the wreck, the den, the monsters
+island Highpine Island
+offset 0 0
+expect animals Bear 1
+expect animals Hyena 3
+expect animals Screecher 2
+expect animals Warthog 2
+expect animals Dolphin 2
+wait 5
+where BalboaCave
+kill Hyena
+kill Screecher
+walk -66 30 to -50 30 to -36 30 to -26 30 h=24
+read Bridge sign
+walk -15 30 to -9 30 to 0 30 to 9 30 to 15 30 h=24
+open Lookout's cache
+expect item Leather 3
+walk -49.75 -38 to -47.75 -35.5 to -47.75 -32.5 h=4.1
+read The woodcutter's book
+open Woodcutter's chest
+open Barrel by the cabin
+walk 30 -76 to 30 -82 to 30 -90 to 30 -97 h=1.8
+open Barrel at the pier
+open Barrel by the wreck
+open Bear den hoard
+expect hidden vinechest
+dig
+kill Bear
+kill Warthog
+expect animals Bear 0
+expect animals Hyena 0

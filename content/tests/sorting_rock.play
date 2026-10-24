@@ -1,0 +1,42 @@
+# Sorting Rock (CIPlay sorting_rock_solo; in the plan after Pneumatic Heights): quest "Weighed and Sorted"
+# (it needs Lise's dead letter from The Dead Letter Office: sorting_rock_solo.play reads it first)
+island Sorting Rock
+offset 0 0
+expect step 0
+expect title Weighed and Sorted
+expect hidden lisereply
+zone hall_door
+expect step 1
+read Rate chart
+expect step 2
+use scale1
+expect message Nothing to weigh
+open Sorter's tool rack
+wait 3
+expect item MetalDetector 1
+expect item Shovel 1
+expect step 3
+dig 0
+expect story parcelweights 1
+expect step 4
+open Rates office
+expect message shutter
+use scale1
+use scale1
+use scale2
+use scale4
+expect story weighed 3
+expect step 5
+open Rates office
+wait 3
+expect item Blueprint_WaterTank 1
+expect item Blueprint_Pipe_Water 1
+expect item Blueprint_ElectricPurifier 1
+expect item Blueprint_Storage_Large 1
+expect step 10
+use liselocker
+expect story lisedelivered 1
+expect shown lisereply
+expect step 11
+read Lise's reply
+expect done

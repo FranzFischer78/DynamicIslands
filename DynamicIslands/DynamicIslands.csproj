@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -37,20 +37,300 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AwaitExtensions\Engine\ContextHelper.cs" />
+    <Compile Include="BlueprintSteps.cs" />
+    <Compile Include="DevTestsRecipeLeaves.cs" />
+    <Compile Include="RaftStore.cs" />
+    <Compile Include="RaftVending.cs" />
     <Compile Include="AwaitExtensions\Engine\ExtensionsHelper.cs" />
     <Compile Include="AwaitExtensions\Engine\ManualAwaiter.cs" />
     <Compile Include="AwaitExtensions\Engine\RoutineHelper.cs" />
     <Compile Include="AwaitExtensions\Extensions.cs" />
     <Compile Include="AwaitExtensions\WaitForBackgroundThread.cs" />
     <Compile Include="AwaitExtensions\WaitForUpdate.cs" />
-    <Compile Include="CameraMovementScript.cs" />
+    <Compile Include="AmbienceZones.cs" />
+    <Compile Include="SoundPickerWindow.cs" />
+    <Compile Include="StoryItems.cs" />
+    <Compile Include="StoryItemsWindow.cs" />
+    <Compile Include="ContentCatalog.cs" />
+    <Compile Include="CreatureSpawner.cs" />
+    <Compile Include="CustomNote.cs" />
+    <Compile Include="IslandInfo.cs" />
+    <Compile Include="ItemPickerWindow.cs" />
+    <Compile Include="LootCrate.cs" />
+    <Compile Include="NoteEditorWindow.cs" />
+    <Compile Include="ObjectInspector.cs" />
+    <Compile Include="ObjectProps.cs" />
+    <Compile Include="CaveBacks.cs" />
+    <Compile Include="CaveGround.cs" />
+    <Compile Include="CaveMountain.cs" />
+    <Compile Include="CustomIslandSpawner.cs" />
+    <Compile Include="DevTests.cs" />
+    <Compile Include="DevTestsGapsB.cs" />
+    <Compile Include="DevTestsSize.cs" />
+    <Compile Include="DevTestsGapsC.cs" />
+    <Compile Include="DevTestsContent.cs" />
+    <Compile Include="DevTestsStableIds.cs" />
+    <Compile Include="DevTestsDirector.cs" />
+    <Compile Include="DevTestsBehaviour.cs" />
+    <Compile Include="DevTestsCamera.cs" />
+    <Compile Include="DevTestsCameraSettings.cs" />
+    <Compile Include="DevTestsUI.cs" />
+    <Compile Include="DevTestsUiFit.cs" />
+    <Compile Include="DevTestsStory.cs" />
+    <Compile Include="DevTestsTerrainBrushes.cs" />
+    <Compile Include="DevTestsMultiplayer.cs" />
+    <Compile Include="DevTestsMultiplayerFull.cs" />
+    <Compile Include="DevTestsAll.cs" />
+    <Compile Include="DevTestsBigWorld.cs" />
+    <Compile Include="DevTestsFloorPickups.cs" />
+    <Compile Include="DevTestsGenerator.cs" />
+    <Compile Include="DevTestsLooks.cs" />
+    <Compile Include="DevTestsMore.cs" />
+    <Compile Include="DevTestsLand.cs" />
+    <Compile Include="DevTestsRandomizer.cs" />
+    <Compile Include="DevTestsRecipe.cs" />
+    <Compile Include="DevTestsPlay.cs" />
+    <Compile Include="DevTestsRelease.cs" />
+    <Compile Include="DevTestsOptions.cs" />
+    <Compile Include="DevTestsHeadStart.cs" />
+    <Compile Include="DevTestsWorldIslands.cs" />
+    <Compile Include="DevTestsIslandPicker.cs" />
+    <Compile Include="DevTestsStoryChain.cs" />
+    <Compile Include="DevTestsQuestBook.cs" />
+    <Compile Include="QuestBook.cs" />
+    <Compile Include="QuestBookPreview.cs" />
+    <Compile Include="MainStoryHelper.cs" />
+    <Compile Include="DevTestsSafety.cs" />
+    <Compile Include="DevTestsPolish.cs" />
+    <Compile Include="DevTestsSkySea.cs" />
+    <Compile Include="DevTestsRename.cs" />
+    <Compile Include="DevTestsReadyPieces.cs" />
+    <Compile Include="DevTestsT8cb.cs" />
+    <Compile Include="DevTestsLibrary.cs" />
+    <Compile Include="DevTestsLibraryOnline.cs" />
+    <Compile Include="DevTestsMapTypes.cs" />
+    <Compile Include="DevTestsReleaseFixes.cs" />
+    <Compile Include="DevTestsGround.cs" />
+    <Compile Include="DevTestsHang.cs" />
+    <Compile Include="DevTestsGuideShots.cs" />
+    <Compile Include="DevTestsRadarNeeds.cs" />
+    <Compile Include="DevTestsRaftView.cs" />
+    <Compile Include="DevTestsScenarios.cs" />
+    <Compile Include="DevTestsScenarioStory.cs" />
+    <Compile Include="DevTestsScenarioAuthor.cs" />
+    <Compile Include="DevTestsAdventure.cs" />
+    <Compile Include="DevTestsScenarioMP.cs" />
+    <Compile Include="DevTestsCoverage.cs" />
     <Compile Include="DynamicIslands.cs" />
     <Compile Include="EditorGameObject.cs" />
-    <Compile Include="IslandData.cs" />
+    <Compile Include="EditorTools.cs" />
+    <Compile Include="EditorAutosave.cs" />
+    <Compile Include="EditorUI.cs" />
+    <Compile Include="FileNames.cs" />
+    <Compile Include="RaftQuirks.cs" />
+    <Compile Include="EditorLoadingBox.cs" />
+    <Compile Include="IslandFile.cs" />
+    <Compile Include="GeneratorWindow.cs" />
+    <Compile Include="IslandFilesWindow.cs" />
+    <Compile Include="IslandRename.cs" />
+    <Compile Include="PiecesWindow.cs" />
+    <Compile Include="SelectionTools.cs" />
+    <Compile Include="MyIslandsWindow.cs" />
+    <Compile Include="StoryRemakes.cs" />
+    <Compile Include="IslandLooks.cs" />
+    <Compile Include="ReadyPieces.cs" />
+    <Compile Include="LaserBeam.cs" />
+    <Compile Include="UpgradeTable.cs" />
+    <Compile Include="GenFeatures.cs" />
+    <Compile Include="PcCheck.cs" />
+    <Compile Include="VersionMismatch.cs" />
+    <Compile Include="BuildCostRefund.cs" />
+    <Compile Include="RaftColliderGuard.cs" />
+    <Compile Include="IslandGenerator.cs" />
+    <Compile Include="IslandNetwork.cs" />
+    <Compile Include="IslandObjectState.cs" />
+    <Compile Include="IslandRadar.cs" />
+    <Compile Include="IslandSpawner.cs" />
+    <Compile Include="IslandWorldState.cs" />
+    <Compile Include="PlacementTools.cs" />
+    <Compile Include="PlanPickerWindow.cs" />
+    <Compile Include="PlayerHold.cs" />
+    <Compile Include="PlayerMove.cs" />
+    <Compile Include="Quest.cs" />
+    <Compile Include="SaveSoon.cs" />
+    <Compile Include="QuestEditorWindow.cs" />
+    <Compile Include="TriggerZone.cs" />
+    <Compile Include="GapFeatures.cs" />
+    <Compile Include="ObjectInspectorGaps.cs" />
+    <Compile Include="WorldDirector.cs" />
+    <Compile Include="AnimalLooks.cs" />
+    <Compile Include="WorldRandomizer.cs" />
+    <Compile Include="WorldOptions.cs" />
+    <Compile Include="WorldIslands.cs" />
+    <Compile Include="LibraryPack.cs" />
+    <Compile Include="LibraryJson.cs" />
+    <Compile Include="LibraryWindows.cs" />
+    <Compile Include="LibraryDrive.cs" />
+    <Compile Include="LibraryOnline.cs" />
+    <Compile Include="LibraryWindow.cs" />
+    <Compile Include="IslandPickerWindow.cs" />
+    <Compile Include="IslandThumbs.cs" />
+    <Compile Include="GhostRafts.cs" />
+    <Compile Include="PrivateStorage.cs" />
+    <Compile Include="IronRaft.cs" />
+    <Compile Include="NightDanger.cs" />
+    <Compile Include="DailyQuest.cs" />
+    <Compile Include="RogueShark.cs" />
+    <Compile Include="GoldenBarrels.cs" />
+    <Compile Include="StormDays.cs" />
+    <Compile Include="LightningStrikes.cs" />
+    <Compile Include="DevTestsLightning.cs" />
+    <Compile Include="GlowSea.cs" />
+    <Compile Include="DevTestsGlowSea.cs" />
+    <Compile Include="DevTestsGfx.cs" />
+    <Compile Include="DevTestsReady.cs" />
+    <Compile Include="DevTestsSaveSoon.cs" />
+    <Compile Include="StormSeas.cs" />
+    <Compile Include="DevTestsStormSeas.cs" />
+    <Compile Include="UfoSightings.cs" />
+    <Compile Include="WhaleBreach.cs" />
+    <Compile Include="DevTestsWhaleBreach.cs" />
+    <Compile Include="Kraken.cs" />
+    <Compile Include="DevTestsKraken.cs" />
+    <Compile Include="DevTestsMpKraken.cs" />
+    <Compile Include="DevTestsUfo.cs" />
+    <Compile Include="DevTestsMpNewOptions.cs" />
+    <Compile Include="FogBanks.cs" />
+    <Compile Include="DevTestsFog.cs" />
+    <Compile Include="ExtraUpgrades.cs" />
+    <Compile Include="TraderRaft.cs" />
+    <Compile Include="GhostShip.cs" />
+    <Compile Include="DevTestsGhostShip.cs" />
+    <Compile Include="BossPhases.cs" />
+    <Compile Include="Survivors.cs" />
+    <Compile Include="HeadStart.cs" />
+    <Compile Include="StoryOrder.cs" />
+    <Compile Include="StoryChain.cs" />
+    <Compile Include="PatchHealth.cs" />
+    <Compile Include="IslandSettingsUndo.cs" />
+    <Compile Include="WorldWindow.cs" />
+    <Compile Include="IslandTest.cs" />
+    <Compile Include="Housekeeping.cs" />
+    <Compile Include="HotkeyHints.cs" />
+    <Compile Include="DropList.cs" />
+    <Compile Include="PlanChecker.cs" />
+    <Compile Include="PlanCheckWindow.cs" />
+    <Compile Include="PlanProgressWindow.cs" />
+    <Compile Include="RaftFeatures.cs" />
+    <Compile Include="DevTestsLeftovers.cs" />
+    <Compile Include="EditorLighting.cs" />
+    <Compile Include="RaftSkySea.cs" />
+    <Compile Include="ScrambledBlueprints.cs" />
+    <Compile Include="WorldSettingsWindow.cs" />
+    <Compile Include="ErrorNotes.cs" />
+    <Compile Include="ExperimentalNotice.cs" />
+    <Compile Include="EscKey.cs" />
+    <Compile Include="RandomizerContent.cs" />
+    <Compile Include="RaftProps.cs" />
+    <Compile Include="RandomizerIslands.cs" />
+    <Compile Include="Behaviours.cs" />
+    <Compile Include="TriggerSounds.cs" />
+    <Compile Include="CameraMoment.cs" />
+    <Compile Include="StoryCredits.cs" />
+    <Compile Include="Claims.cs" />
+    <Compile Include="PlayerTrust.cs" />
+    <Compile Include="BehaviourWindow.cs" />
+    <Compile Include="MapTypeFiles.cs" />
+    <Compile Include="MapTypes.cs" />
+    <Compile Include="RaftIslands.cs" />
+    <Compile Include="RaftUnderwater.cs" />
+    <Compile Include="RaftLand.cs" />
+    <Compile Include="IslandReach.cs" />
+    <Compile Include="LevelSystem.cs" />
+    <Compile Include="LevelWindow.cs" />
+    <Compile Include="WorldCopy.cs" />
+    <Compile Include="WorldSaveShare.cs" />
+    <Compile Include="DevTestsHostSwap.cs" />
+    <Compile Include="DevTestsWorldSave.cs" />
+    <Compile Include="DevTestsLaser.cs" />
+    <Compile Include="DevTestsKrakenLook.cs" />
+    <Compile Include="DevTestsRf.cs" />
+    <Compile Include="DevTestsRf35.cs" />
+    <Compile Include="DevTestsErrors.cs" />
+    <Compile Include="DevTestsHelp.cs" />
+    <Compile Include="DevTestsChoiceTiming.cs" />
+    <Compile Include="DevTestsLevels.cs" />
+    <Compile Include="DevTestsLevelsMore.cs" />
+    <Compile Include="DevTestsUpgradeShots.cs" />
+    <Compile Include="DevTestsMoreB.cs" />
+    <Compile Include="ChoiceWindow.cs" />
+    <Compile Include="IslandDifficulty.cs" />
+    <Compile Include="IslandSummaries.cs" />
+    <Compile Include="WorldPlanWindow.cs" />
+    <Compile Include="CreateWindow.cs" />
+    <Compile Include="EditorEntry.cs" />
+    <Compile Include="DevTestsEditorStart.cs" />
+    <Compile Include="MenuWindows.cs" />
+    <Compile Include="HelpLinks.cs" />
+    <Compile Include="InfoWindow.cs" />
+    <Compile Include="MissingIslandsCheck.cs" />
+    <Compile Include="RmlCache.cs" />
+    <Compile Include="DevTestsLoad.cs" />
+    <Compile Include="NewWorldOptions.cs" />
+    <Compile Include="MonsterDifficulty.cs" />
+    <Compile Include="WorldRules.cs" />
+    <Compile Include="DevTestsDifficulty.cs" />
+    <Compile Include="DevTestsHostSettings.cs" />
+    <Compile Include="DefaultsWindow.cs" />
+    <Compile Include="DevTestsSettingsWindow.cs" />
+    <Compile Include="PlaceableCatalog.cs" />
     <Compile Include="ObjectPlacer.cs" />
-    <Compile Include="PrivateAccessor.cs" />
-    <Compile Include="ProceduralTerrainGenerator.cs" />
-    <Compile Include="RTSCamera.cs" />
+    <Compile Include="ObjectBrowser.cs" />
+    <Compile Include="GenGather.cs" />
+    <Compile Include="QuestRewards.cs" />
+    <Compile Include="DevTestsCodeLock.cs" />
+    <Compile Include="CodeLock.cs" />
+    <Compile Include="DevTestsQuestItems.cs" />
+    <Compile Include="QuestItemPickups.cs" />
+    <Compile Include="DevTestsStoryAudit.cs" />
+    <Compile Include="DevTestsGatherAll.cs" />
+    <Compile Include="DevTestsFeatureCheck.cs" />
+    <Compile Include="ZiplineEnds.cs" />
+    <Compile Include="DevTestsBuriedTreasure.cs" />
+    <Compile Include="BuriedTreasure.cs" />
+    <Compile Include="KeycardDoor.cs" />
+    <Compile Include="DevTestsRfKeycard.cs" />
+    <Compile Include="DevTestsTreasureProbe.cs" />
+    <Compile Include="DevTestsStoryPieces.cs" />
+    <Compile Include="DevTestsStoryline.cs" />
+    <Compile Include="DevTestsUpgradeTable.cs" />
+    <Compile Include="DevTestsUpgradeTableMp.cs" />
+    <Compile Include="DevTestsGapPieces.cs" />
+    <Compile Include="DevTestsGapWorld.cs" />
+    <Compile Include="DevTestsGapHost.cs" />
+    <Compile Include="DevTestsGapStory.cs" />
+    <Compile Include="DevTestsStorylineMp.cs" />
+    <Compile Include="DevTestsDirtHoney.cs" />
+    <Compile Include="DevTestsShovelProbe.cs" />
+    <Compile Include="DevTestsGenGather.cs" />
+    <Compile Include="DevTestsScatter.cs" />
+    <Compile Include="DevTestsNewPieces.cs" />
+    <Compile Include="DevTestsPlanBlueprints.cs" />
+    <Compile Include="DevTestsStore.cs" />
+    <Compile Include="DevTestsVending.cs" />
+    <Compile Include="DevTestsPlanOrder.cs" />
+    <Compile Include="DevTestsPlanProgress.cs" />
+    <Compile Include="DevTestsQuestTraps.cs" />
+    <Compile Include="DevTestsCopiesIndex.cs" />
+    <Compile Include="DevTestsX5.cs" />
+    <Compile Include="DevTestsGapsA.cs" />
+    <Compile Include="DevTestsGenSweep.cs" />
+    <Compile Include="ScatterTool.cs" />
+    <Compile Include="StableIds.cs" />
+    <Compile Include="ObjectThumbnails.cs" />
+    <Compile Include="UIKit.cs" />
+    <Compile Include="CameraSettings.cs" />
+    <Compile Include="EditorCamera.cs" />
     <Compile Include="RuntimeGizmo\Custom\TransformGizmoCustomGizmo.cs" />
     <Compile Include="RuntimeGizmo\Helpers\ExtMathf.cs" />
     <Compile Include="RuntimeGizmo\Helpers\ExtTransform.cs" />
@@ -72,10 +352,43 @@
     <Compile Include="RuntimeGizmo\UndoRedo\UndoRedo.cs" />
     <Compile Include="RuntimeGizmo\UndoRedo\UndoRedoManager.cs" />
     <Compile Include="terraineditor.cs" />
+    <Compile Include="TerrainStamps.cs" />
+    <Compile Include="TextPromptWindow.cs" />
+    <Compile Include="GroupLibrary.cs" />
+    <Compile Include="TerrainBrushes.cs" />
+    <Compile Include="TerrainPainter.cs" />
     <Compile Include="UnityScripts\TabSelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <!-- Paths: override on the command line (/p:RaftDir=...) or in a Directory.Build.props if your install differs -->
+  <PropertyGroup>
+    <RaftDir Condition=" '$(RaftDir)' == '' ">D:\Games\SteamLibrary\steamapps\common\Raft</RaftDir>
+    <RaftManaged>$(RaftDir)\Raft_Data\Managed</RaftManaged>
+    <RMLDir Condition=" '$(RMLDir)' == '' ">$(APPDATA)\RaftModLoader</RMLDir>
+    <RMLPublicized>$(RMLDir)\cache\publicizedAssemblies</RMLPublicized>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- RML publicizes these at first launch (all private members become public); prefer them over the originals -->
+    <Reference Include="$(RMLPublicized)\*.dll" Private="false" />
+    <!-- Raft / Unity assemblies. Framework assemblies come from the .NET 4.8 reference pack instead -->
+    <Reference Include="$(RaftManaged)\*.dll"
+               Exclude="$(RaftManaged)\mscorlib.dll;$(RaftManaged)\netstandard.dll;$(RaftManaged)\System.dll;$(RaftManaged)\System.*.dll;$(RaftManaged)\Mono.*.dll;$(RaftManaged)\Assembly-CSharp.dll;$(RaftManaged)\com.rlabrecque.steamworks.net.dll;$(RaftManaged)\FMODUnity.dll;$(RaftManaged)\PlayFab.dll;$(RaftManaged)\RaftModLoader_AssemblyLoader.dll"
+               Private="false" />
+    <!-- .NET Framework -->
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.IO.Compression" />
+    <!-- Raft Mod Loader (HMLCoreLibrary holds Mod / HMLLibrary; coremod holds RAPI / ConsoleCommand) -->
+    <Reference Include="$(RMLDir)\binaries\HMLCoreLibrary.dll" Private="false" />
+    <Reference Include="$(RMLDir)\binaries\0Harmony.dll" Private="false" />
+    <Reference Include="$(RMLDir)\binaries\coremod.dll" Private="false" />
+    <Reference Include="$(RMLDir)\binaries\SharpZipLib.dll" Private="false" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -85,300 +398,4 @@
     <None Include="RuntimeGizmo\TransformGizmo.cs.meta" />
     <None Include="UnityScripts\TabSelector.cs.meta" />
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Assembly-CSharp-firstpass.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\Assembly-CSharp-firstpass.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly-CSharp.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\Assembly-CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Autodesk.Fbx.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\Autodesk.Fbx.dll</HintPath>
-    </Reference>
-    <Reference Include="com.unity.multiplayer-hlapi.Runtime.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="MeshExtension.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\MeshExtension.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Posix.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\Mono.Posix.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Security.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\Mono.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="mscorlib.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\mscorlib.dll</HintPath>
-    </Reference>
-    <Reference Include="NavMeshComponents.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\NavMeshComponents.dll</HintPath>
-    </Reference>
-    <Reference Include="PathCreator.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\PathCreator.dll</HintPath>
-    </Reference>
-    <Reference Include="Sirenix.OdinInspector.Attributes.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\Sirenix.OdinInspector.Attributes.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Configuration.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\System.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Core.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\System.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="System.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\System.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\System.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\System.Xml.dll</HintPath>
-    </Reference>
-    <Reference Include="Tayx.Graphy.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\Tayx.Graphy.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Analytics.DataPrivacy.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\Unity.Analytics.DataPrivacy.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Analytics.StandardEvents.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\Unity.Analytics.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Analytics.Tracker.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\Unity.Analytics.Tracker.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Formats.Fbx.Runtime.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\Unity.Formats.Fbx.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Recorder.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\Unity.Recorder.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RemoteConfig.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\Unity.RemoteConfig.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Timeline.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\Unity.Timeline.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.AccessibilityModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.AccessibilityModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.AIModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.AIModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.AndroidJNIModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.AndroidJNIModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.AnimationModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.AnimationModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.ARModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.ARModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.AssetBundleModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.AssetBundleModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.AudioModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.AudioModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.ClothModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.ClothModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.ClusterInputModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.ClusterInputModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.ClusterRendererModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.ClusterRendererModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.CoreModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.CrashReportingModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.CrashReportingModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.DirectorModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.DirectorModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.DSPGraphModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.DSPGraphModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.GameCenterModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.GameCenterModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.GridModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.GridModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.HotReloadModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.HotReloadModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.ImageConversionModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.ImageConversionModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.IMGUIModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.IMGUIModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.InputLegacyModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.InputLegacyModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.InputModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.InputModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.JSONSerializeModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.LocalizationModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.LocalizationModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.ParticleSystemModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.PerformanceReportingModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.PerformanceReportingModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Physics2DModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.Physics2DModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.PhysicsModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.PhysicsModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.ProfilerModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.ProfilerModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Purchasing.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.Purchasing.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.ScreenCaptureModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.ScreenCaptureModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.SharedInternalsModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.SharedInternalsModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.SpatialTracking.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.SpatialTracking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.SpriteMaskModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.SpriteMaskModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.SpriteShapeModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.SpriteShapeModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.StreamingModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.StreamingModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.SubstanceModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.SubstanceModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.SubsystemsModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.SubsystemsModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.TerrainModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.TerrainModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.TerrainPhysicsModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.TerrainPhysicsModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.TextCoreModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.TextCoreModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.TextRenderingModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.TextRenderingModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.TilemapModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.TilemapModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.TLSModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.TLSModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UIElementsModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.UIElementsModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UIModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.UIModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UmbraModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.UmbraModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UNETModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.UNETModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UnityAnalyticsModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.UnityAnalyticsModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UnityConnectModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.UnityConnectModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UnityTestProtocolModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.UnityTestProtocolModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UnityWebRequestAudioModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UnityWebRequestModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.UnityWebRequestModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UnityWebRequestTextureModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UnityWebRequestWWWModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.VehiclesModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.VehiclesModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.VFXModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.VFXModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.VideoModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.VideoModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.VRModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.VRModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.WindModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.WindModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.XR.LegacyInputHelpers.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.XRModule.dll">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Raft\Raft_Data/Managed\UnityEngine.XRModule.dll</HintPath>
-    </Reference>
-    <Reference Include="0Harmony.dll">
-      <HintPath>C:\Users\jscha\AppData\Roaming\RaftModLoader\binaries\0Harmony.dll</HintPath>
-    </Reference>
-    <Reference Include="coremod.dll">
-      <HintPath>C:\Users\jscha\AppData\Roaming\RaftModLoader\binaries\coremod.dll</HintPath>
-    </Reference>
-    <Reference Include="HMLCoreLibrary.dll">
-      <HintPath>C:\Users\jscha\AppData\Roaming\RaftModLoader\binaries\HMLCoreLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpZipLib.dll">
-      <HintPath>C:\Users\jscha\AppData\Roaming\RaftModLoader\binaries\SharpZipLib.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ValueTuple.dll">
-      <HintPath>C:\Users\jscha\AppData\Roaming\RaftModLoader\binaries\System.ValueTuple.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent>call cd $(SolutionDir)
-call build.bat
-echo 🔰 =============== 🔰 MOD BUILD SCRIPT 🔰 =============== 🔰
-echo ✔️ Mod successfully built as $(SolutionDir)$(ProjectName).rmod ✔️
-echo ===========================================================
-    </PostBuildEvent>
-  </PropertyGroup>
 </Project>

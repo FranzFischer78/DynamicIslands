@@ -1,0 +1,12 @@
+# Play test of Basalt Cay (CIPlay basalt_cay, in a test world 'CI ...'). No quest: up the ladders to the lookout, its
+# chest, the treasure. Points as in its recipe.
+island Basalt Cay
+offset 0 0
+wait 3
+at 2 -9 h=2
+climb 2 -7.15 h=2
+expect stand 2 -5 h=4.2 below=5
+climb 2 -3.65 h=4.2
+expect stand 2 -1.5 h=9 below=10
+open Chest on the lookout
+dig

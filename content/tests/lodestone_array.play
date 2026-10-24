@@ -1,0 +1,67 @@
+# The Lodestone Array (CIPlay lodestone_array): a sky island 35 m up; the landing ring (manual, screechers, locker,
+# generator, coil status), the four arms' coils in order (a coil out of order refuses), the "Coils offline" board, the
+# west arm cache; the glass bridge (it breaks), the beam (emitter, two mirrors, the core door), the iron guardian, the
+# core warning, the core cutoff and the core (zone core: the plan's done-when, it brings the Array Root).
+island The Lodestone Array
+offset 0 0
+expect step 0
+expect title Shutting the Crown
+zone ring
+expect step 1
+read Array operating manual
+expect step 2
+kill Screecher
+expect step 3
+open Ring locker
+wait 3
+expect step 4
+use generator
+expect story arraypower 1
+expect step 5
+read Coil status
+expect step 6
+zone north_arm
+expect step 7
+use northcoil
+expect story coilnorth 1
+expect step 8
+zone east_arm
+use southcoil
+expect story coilsouth 0
+use eastcoil
+expect story coileast 1
+zone south_arm
+use southcoil
+expect story coilsouth 1
+zone west_arm
+use westcoil
+expect story coilwest 1
+expect shown coilsoff
+expect step 14
+read Coils offline
+expect step 15
+open West arm cache
+wait 3
+expect step 16
+use cutoff
+expect story crownoff 0
+zone bridge
+expect shown bridgebroken
+expect step 17
+beam emitter
+use mirror1
+use mirror2
+wait 2
+beam emitter
+expect story beamset 1
+expect step 18
+kill Bear
+expect step 19
+read Core warning
+expect step 20
+use cutoff
+expect story crownoff 1
+expect step 21
+zone core
+storespot 22 -12
+expect done

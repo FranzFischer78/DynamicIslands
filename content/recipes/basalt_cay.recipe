@@ -1,0 +1,57 @@
+# Basalt Cay - a new small island of the library (ROADMAP 3d NI3), no quest
+# A black little cay where an old volcano broke the sea: dark rock, ash-grey sand, dead trees standing in it, a few hardy
+# palms. Ladders go up its cliff to a flat top where someone left a lookout stand of planks and a chest; metal ore in
+# the rocks, Raft's finds in the shallows. Nothing hostile.
+#
+# Built by the recipe player (CIRecipe basalt_cay) through the editor's own operations. Points: the top (9 m, r 3.5
+# round 2 2); the lookout's stand x 0.5..3.5, z 0.5..3.5 (floor 9.1 m), its chest at 1.4 2.8; the ladders' foot on the
+# south shore at 2 -8.5 (2 m), the ledge at 2 -5 (4.2 m), ladders at x 2 against the faces at z -7.15 and -3.65.
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+new
+# (nature: a volcanic cay - few trees, more rocks)
+gen Trees=0.12 Bushes=0.2 Rocks=0.5 Harvest=0.15 BeachThings=0.3
+gen Seed=7410 Radius=25 Height=7 Roughness=0.45 Peaks=1 Shape=0 Style=4 BeachWidth=0.4 Cliffs=0.6 PeakShape=0.5
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== Terrain: the flat top, the ledge on the south face, the ladders' foot ==============================================
+brush flatten at 2 2 r=4.5 s=20 frames=140 h=9
+brush flatten from 0 -1.5 to 4 -1.5 r=1.8 s=20 frames=100 h=9
+brush flatten from 0 -5 to 4 -5 r=1.8 s=20 frames=100 h=4.2
+brush flatten from 0 -8.5 to 4 -8.5 r=1.6 s=20 frames=60 h=2
+brush rock at 2 -3 r=8 s=20 frames=30
+clear at 2 -2 r=9
+
+# ===== Ladders up the south face, the lookout stand and its chest on the top ===============================================
+call ladders x=2 z=-7.15 h=2 n=1 yaw=180
+call ladders x=2 z=-3.65 h=4.2 n=2 yaw=180
+push at 0.5 0.5 h=9
+call floors w=2 d=2 y=0.1
+place Block_Wall_Fence_Rope - at 0.75 3 y=0.1
+place Block_Wall_Fence_Rope - at 2.25 3 y=0.1
+place Block_Wall_Fence_Rope - at 3 0.75 y=0.1 yaw=90
+place Block_Wall_Fence_Rope - at 3 2.25 y=0.1 yaw=90
+place Loot_ChestSmall lookoutchest at 0.9 2.3 y=0.1 sit yaw=90
+pop
+
+# ===== Dead trees in the ash, a few palms; ore in the rocks; Raft's finds in the shallows ==================================
+place DeadTree1 - at -9 6 ground sit yaw=40
+place DeadTree2 - at 10 8 ground sit yaw=200
+scatter "Pickup_Landmark_Tree_Palm 4" 2 at 0 0 r=20 seed=7420 free=6
+scatter "Pickup_Landmark_Flower_Black" 2 at 0 0 r=18 seed=7430 free=2
+call treasure x=0 z=0 r=16 n=1 seed=7410
+call shallows r=42 deep=5 n=1 seed=750
+
+info title=Basalt Cay
+info author=Custom Islands
+info description=A black little cay where an old volcano broke the sea - dead trees in the ash, ladders up the cliff to a lookout stand on the top. No quest - an island to explore.
+
+note lookoutchest Chest on the lookout | Somebody watched the sea from here: a spyglass case (empty), and what they left.
+loot lookoutchest MetalOre*3;CopperIngot*1;Rope*2;Glass*2
+prop lookoutchest loot.refill=0
+
+save Basalt Cay

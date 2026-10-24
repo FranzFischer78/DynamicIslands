@@ -1,0 +1,240 @@
+# Rootweave Caves - the sixth island of the library's plan The Last Green World (SL11, Verdance)
+# A rock hill grown over with jungle, the grove's roots running down through it: four caves in its flanks. The Fungus
+# Hall (south, dim green, the survey team's camp), the Bee Hall (east, a vine-choked cave humming with wild hives), the
+# Flooded Passage (west, its floor under the sea, two air pockets on the way in) and the Den (north, Balboa's bear cave,
+# where a mama bear keeps the river people's cache). On the hilltop over the Bee Hall the survey team's wind turbine
+# still turns. Quest "The Living Labyrinth" (12 steps): the Fungus Hall, the cave survey, the wind turbine plans on the
+# hilltop, the Bee Hall, the advanced battery plans there, the Flooded Passage, the advanced headlight plans at its
+# end, the mama bear, the electric grill plans in the den cache, the poison sample report.
+#
+# Built by the recipe player (CIRecipe rootweave_caves) through the editor's own operations. Each cave is placed from a
+# frame at its mouth as on Ironreef Caverns (the frame's floor the ground there, its +z out of the mouth; the ground
+# levelled from the mouth into the hill where the passage runs). Points: the landing beach 1.4 m round 0 -72, the Fungus
+# Hall's mouth 0 -45 (into the hill northwards), the Bee Hall's 42 4 (westwards), the Den's -4 44 (southwards), the
+# Flooded Passage's -48 -8 at 4 m under the sea (eastwards), the turbine 24 10 on the hilltop.
+include lib_sea
+include lib_features
+include lib_gravity
+include lib_verdance
+new
+gen Trees=0.35 Bushes=0.35 Rocks=0.5 Harvest=0.24 BeachThings=0.3
+gen Seed=11071 Radius=85 Height=34 Roughness=0.45 Peaks=1 Shape=0 Style=0 BeachWidth=0.5 Cliffs=0.35 PeakShape=0.45
+gen SeaFloor=0 Shelf=0.5 Seabed=1
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.3 Hostiles=0 Friendly=0.3 SeaLife=0.4
+generate
+
+# --- The hill: raised into one rocky top; the landing beach ------------------------------------------------------------
+brush raise at 0 0 r=45 s=20 frames=14
+brush rock at 0 0 r=24 s=10 frames=40
+brush flatten at 0 -72 r=8 s=20 frames=60 h=1.4
+brush sand at 0 -72 r=10 s=10 frames=30
+clear at 0 -72 r=8
+clear from 0 -66 to 0 -50 r=4
+
+# --- The Fungus Hall: Balboa's dead-end cave on the south flank, dim green, the survey camp inside ------------------
+push at 0 -45 yaw=180
+brush flatten from 0 0 to 0 -40 r=8 s=20 frames=70
+brush flatten from 0 0 to 0 12 r=10 s=20 frames=30
+clear from 0 10 to 0 -40 r=10
+brush sand from 0 0 to 0 -40 r=9 s=10 frames=40
+place BalboaCave_DeadEnd fungushallcave at -1.7 -20.5 y=9.4 scale=1.25
+place Zone_Trigger fungushall at 0 -10 y=1.5
+place Zone_Atmosphere fungusair at 0 -20 y=4
+place Note_Sign survey at -3 -8 sit yaw=90
+place Crate_Big_01 - at 2.5 -14 sit yaw=20
+place Placeable_Lantern_Metal - at 2.5 -14 y=0.45 sit
+place Loot_Crate mushroombasket at 2 -24 sit yaw=200
+# REDO 10-24: the survey team's fuse box (the island's machine) and the lab corner it lights
+place RT_PowerBox fusebox at -3.2 -15 sit yaw=90
+place Loot_Chest labchest at -2.5 -27 sit yaw=0
+place "Box Small" - at 0 -28 sit
+place Note_Paper samplereport at 0 -28 y=0.7 drop yaw=20
+pop
+
+# (the east flank raised round the Bee Hall, so the hill covers the cave's shell)
+brush raise at 26 4 r=34 s=20 frames=16
+# --- The hilltop: the survey team's wind turbine and its mast box -----------------------------------------------------
+place Placeable_WindTurbine turbine at 24 10 ground sit
+place Loot_Crate mastbox at 26.5 12 ground sit yaw=40
+
+# --- The Bee Hall: Balboa's vine cave on the east flank, wild hives inside, flowers at its mouth --------------------
+# (the frame held at 8.5 m, as on Ironreef: at the slope's own 13.5 m the shell stood 9 m over the hilltop - X7, 2026-10-23)
+push at 42 4 h=8.5 yaw=90
+brush flatten from 0 0 to 0 -14 r=4 s=20 frames=40
+brush flatten from 0 0 to 0 8 r=7 s=20 frames=25
+clear from 0 6 to 0 -16 r=6
+brush sand from 0 2 to 0 -16 r=5 s=10 frames=25
+place BalboaCave_Vines beehallcave at -1.2 -28.6 y=5.5 scale=1.3
+place Zone_Trigger beehall at 0 -6 y=1.5
+place Loot_WildHive beehive1 at -2 -10 sit
+place Loot_WildHive beehive2 at 2 -13 sit yaw=90
+place Loot_Chest beecache at 0 -16 sit yaw=180
+beside ChoppableVines beevines beecache d=1.6
+scatter Pickup_Landmark_Flower_Red 3 at 0 6 r=5 seed=11072 free=1
+pop
+loot beehive1 HoneyComb*3
+prop beehive1 note.title=Wild beehive
+loot beehive2 HoneyComb*3
+prop beehive2 note.title=Wild beehive
+
+# --- The Flooded Passage: Balboa's dead-end cave on the west coast, its floor under the sea; two air pockets ---------
+push at -48 -8 h=-4 yaw=270
+for dz 4 -28 -4
+brush lower at 0 $dz r=6 s=20 frames=8
+next
+brush lower at 0 0 r=6 s=20 frames=4
+brush flatten from 0 0 to 0 -32 r=6 s=20 frames=80
+brush flatten from 0 0 to 0 30 r=8 s=20 frames=60
+brush smooth from 0 4 to 0 30 r=12 s=20 frames=40
+clear from 0 28 to 0 -32 r=8 all
+place BalboaCave_DeadEnd floodedcave at -1.4 -16 y=7.5
+place Zone_Trigger floodedzone at 0 -4 y=3
+call airpocket x=-1 z=-12 id=pocket1 al=pocket1 bub=pocket1bub
+call airpocket x=1 z=-20 id=pocket2 al=pocket2 bub=pocket2bub
+place Loot_Crate drownedcrate at 0.8 -26 ground yaw=20
+place SeaVine3 - at -3 -8 ground
+place SeaVine3 - at 3 -16 ground
+pop
+
+# --- The Den: Balboa's bear cave on the north flank, the mama bear, the den cache and the sample report --------------
+push at -4 44
+brush flatten from 0 0 to 0 -34 r=6 s=20 frames=70
+brush flatten from 0 0 to 0 10 r=9 s=20 frames=30
+clear from 0 6 to 0 -34 r=8
+brush sand from 0 2 to 0 -34 r=7 s=10 frames=40
+place BalboaCave_Bear dencave at 1.2 -18.4 y=5.2 scale=1.15
+place Zone_Trigger denzone at 1 -4 y=1.5
+# GAPS 10-24: the den is pitch dark (a headlight - its plans are in the drowned crate)
+place Zone_Trigger dendark at 1 -18 y=1.5
+place Creature_MamaBear denbear at 1 -18 y=0.8
+prop denbear creature.count=1
+prop denbear creature.respawn=0
+place Loot_Chest dencache at 1 -27 sit yaw=180
+place "Pickup_Landmark_Iron 1" - at -5 -11 sit
+place "Pickup_Landmark_Copper 1" - at -5.2 -18 sit
+place "Pickup_Landmark_Iron 2" - at 7.6 -22 sit
+place "Pickup_Landmark_Copper 2" - at -3.5 -26 sit
+place Zone_Atmosphere denair at 1.2 -18 y=4
+pop
+
+# --- Outside: berries and bananas on the slopes, clay on the beach; the shallows ---------------------------------
+scatter Pickup_Landmark_BerryBush 4 at 30 -30 r=12 seed=11073 free=3
+scatter Pickup_Landmark_MarketGood_Banana_Basket01 2 at -20 -60 r=8 seed=11074 free=2
+scatter "Pickup_Landmark_Clay 3" 2 at 10 -68 r=6 seed=11075 free=2
+call shallows x=0 z=0 r=96 deep=5 n=2 seed=11076
+
+# --- REDO 10-24 secrets (optional): a buried survey case for the metal detector; a vine-hidden cache on the west slope;
+#     the survey team's beach camp and their wrecked boat
+call treasure x=34 z=-42 r=10 n=1 seed=11197
+# REDO 10-24 TREASURE2: a second buried treasure on the far side for the detector + shovel
+call treasure x=-27.2 z=33.6 r=12 n=1 seed=11247
+prop treasure11247 treasure.loot=TitaniumOre*1;MetalOre*2;TradeToken*2
+call vinecache x=-40 z=-34 r=10 seed=11198 chest=dvinechest vines=dvines items=Rope*3;CopperIngot*2;Leather*2
+place Balboa_DecorationPrefabBase_SimpleTent - at 9 -64 ground sit yaw=160
+place campfire_1 - at 6 -61 ground sit
+place RT_PlasticBoat - at -9 -70 ground sit yaw=40
+
+# REDO 10-24: four generated boulders left hanging over the cut cave terrain (ground check) are cleared
+clear at -18.4 1.1 r=2.5
+clear at 2.8 31 r=2.5
+clear at 35.3 45.6 r=2.5
+clear at 15.6 20.3 r=2.5
+# --- FILL 10-24 (RESIZE rework): the bigger island's whole area at Raft-like density - trees, bushes, rocks; free= keeps them
+#     off the quest's objects and paths
+scatter "Pickup_Landmark_Tree_Palm 1" 10 at 0 0 r=80 seed=11190 free=5
+scatter "Pickup_Landmark_Tree_Palm 2" 10 at 0 0 r=80 seed=11191 free=5
+scatter "Pickup_Landmark_Tree_Palm 4" 6 at 0 0 r=80 seed=11192 free=5
+scatter "Pickup_Landmark_Tree_Mango" 6 at 0 0 r=80 seed=11193 free=5
+scatter "Balboa_Bush_01 Variant" 30 at 0 0 r=80 seed=11194 free=2.5
+scatter "Balboa_Bush_03 Variant" 30 at 0 0 r=80 seed=11195 free=2.5
+scatter CaravanIsland_SmallRock_1 14 at 0 0 r=80 seed=11196 free=3 ground y=-0.6
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=80 seed=11197 free=3
+scatter "Pickup_Landmark_Flower_Red" 8 at 0 0 r=80 seed=11198 free=2
+
+# --- Settings, notes, behaviours, quest -------------------------------------------------------------------------
+info title=Rootweave Caves
+info author=Custom Islands
+info description=A rock hill with four caves in its flanks: a fungus hall, a bee hall, a flooded passage and a bear's den - the grove's roots run through them all. The sixth island of The Last Green World.
+island on.arrive=message||A hill of rock and roots. Every cave mouth breathes the same warm, rotten air as the grove's root hole.
+
+prop fungusair atmo.fog=#1e3a20
+prop fungusair atmo.fogAmount=0.3
+prop fungusair atmo.light=#80ff90
+prop fungusair atmo.lightAmount=0.25
+prop fungusair atmo.particles=fireflies
+prop fungusair zone.radius=16
+prop denair atmo.fog=#20180e
+prop denair atmo.fogAmount=0.3
+prop denair zone.radius=14
+
+note survey Cave survey | CAVE SURVEY - SEEDKEEPERS\n\nFungus Hall: camp. Lamps on the crates.\nBee Hall (east): hives in the roots. Leave them be.\nFlooded Passage (west): two air pockets. Swim between them.\nDen (north): a mama bear. Our cache is in there. Wait for her to sleep.\n\nFuses: one in each far cave. Three in the box and the lab lights up.\n\nThe turbine on the top charges the lamps.
+note samplereport Poison sample report | SAMPLE 31 - ROOT TISSUE, DEN\n\nThe rot is not fungus. Not bacteria. It grows where the roots are cut, and it grows TOWARDS the cut.\n\nSomething in the roots. Not natural.\n\nAll samples to the marsh station. - M.
+note mushroombasket Mushroom basket | The survey camp's mushroom basket, still full.
+note mastbox Turbine mast box | The box at the turbine's foot: its plans, oiled and rolled.
+note beecache Bee hall cache | A chest deep in the Bee Hall, behind the vines: an advanced battery's plans in wax, and a fuse.
+note drownedcrate Drowned crate | A crate at the end of the flooded passage, sealed tight: a headlight's plans and a fuse, dry inside.
+note dencache Den cache | The river people's cache in the den: a fuse in a tin, and a lump of leather.
+loot mushroombasket CaveMushroom*6
+prop mushroombasket loot.refill=0
+loot mastbox Blueprint_WindTurbine*1;CopperIngot*2
+prop mastbox loot.refill=0
+loot beecache Blueprint_BatteryAdvanced*1;Battery*1;story:fuse*1
+prop beecache loot.refill=0
+loot drownedcrate Blueprint_HeadLight_Advanced*1;CaveMushroom*2;story:fuse*1
+prop drownedcrate loot.refill=0
+loot dencache story:fuse*1;Leather*2
+prop dencache loot.refill=0
+story fuse|Fuse|Placeable_Lantern_Metal|A ceramic fuse from the survey team's kit. The camp's fuse box takes three.
+story camplight|Camp lights on|Placeable_Lantern_Metal|The Fungus Hall's lamps burn again; the lab corner is lit.
+prop beecache obj.name=beecache
+prop beecache beh.hidden=1
+prop beevines obj.name=beevines
+prop beevines on.use=hide|\nshow|beecache\nmessage||The machete clears the Bee Hall's back wall of vines. A chest, waxed shut by the bees.
+prop fusebox obj.name=fusebox
+prop fusebox beh.use=Fit the fuses
+prop fusebox if.use=take|story:fuse|3
+prop fusebox on.use=message||Three fuses in. The turbine's charge reaches the lamps: the Fungus Hall glows, and the lab corner at the back comes out of the dark.\ngive||story:camplight*1\nshow|labchest\nshow|samplereport
+prop fusebox else.use=message||The survey camp's fuse box: three empty fuse clips. The survey kit was split between the far caves.
+note labchest Lab chest | The survey lab's chest: an electric grill's plans (for the samples), and glass.
+loot labchest Blueprint_ElectricGrill*1;Glass*2;CaveMushroom*2
+prop labchest loot.refill=0
+prop labchest obj.name=labchest
+prop labchest beh.hidden=1
+prop samplereport obj.name=samplereport
+prop samplereport beh.hidden=1
+
+prop fungushall zone.id=fungus_hall
+prop fungushall zone.radius=5
+prop fungushall zone.message=The Fungus Hall. Pale green light off the cave walls; crates and lamps of a camp.
+prop beehall zone.id=bee_hall
+prop beehall zone.radius=4
+prop beehall zone.message=The Bee Hall. The roots hum.
+prop floodedzone zone.id=flooded_passage
+prop floodedzone zone.radius=4
+prop floodedzone zone.message=The Flooded Passage. Swim from air pocket to air pocket.
+prop denzone zone.id=den
+prop denzone zone.radius=4
+prop dendark obj.name=dendark
+prop dendark zone.radius=7
+prop dendark zone.hazard=dark
+prop dendark zone.hazardMsg=The den is pitch black. Something big breathes in there - wear a headlight.
+prop denzone zone.message=The Den. Something big breathes in the dark.
+
+quest title=The Living Labyrinth
+quest intro=Four caves in a hill of roots. The survey team camped in the Fungus Hall on the south side.
+step reach|fungus_hall|1|Go into the Fungus Hall
+step read|Cave survey|1|Read the cave survey
+step blueprint|Blueprint_WindTurbine|1|Take the wind turbine plans from the mast box on the hilltop
+step reach|bee_hall|1|Go into the Bee Hall
+step blueprint|Blueprint_BatteryAdvanced|1|Take the advanced battery plans from the Bee Hall's cache
+step reach|flooded_passage|1|Swim into the Flooded Passage
+step blueprint|Blueprint_HeadLight_Advanced|1|Take the headlight plans from the drowned crate
+step kill|Mama bear|1|Defeat the mama bear in the Den
+step collect|story:fuse|3|Find the three fuses: the Bee Hall, the Flooded Passage and the Den
+step collect|story:camplight|1|Fit the fuses to the survey camp's fuse box
+step blueprint|Blueprint_ElectricGrill|1|Take the electric grill plans from the lab chest
+step read|Poison sample report|1|Read the poison sample report in the lab
+quest done=Something in the roots. The marsh station has the samples - band 1000.
+quest reward=CaveMushroom*3;Leather*2
+
+save Rootweave Caves

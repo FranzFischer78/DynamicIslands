@@ -1,0 +1,185 @@
+# Gullsong Bazaar - a new island of the library, normal size
+# A low tropical marsh, and in its middle a lagoon dug down to the sea's level with a boardwalk out over it from the north
+# landing: five stall pontoons along it (the net-maker, the spice-seller, the potter, the lamp-maker, and the merchant's
+# at its south end with his strongbox), awnings, tables with the keepers' last goods, chalk prices. Closed for the season.
+# Quest "A Fair Trade" (6 steps): the notice, the shell crate, a barter chain - a pink shell traded up, stall by stall, to the merchant's key.
+#
+# Built by the recipe player (CIRecipe gullsong_bazaar) through the editor's own operations.
+include lib_huts
+include lib_sea
+new
+gen Trees=0.35 Bushes=0.35 Rocks=0.3 Harvest=0.24 BeachThings=0.3
+gen Seed=9104 Radius=45 Height=4 Roughness=0.3 Peaks=1 Shape=5 Style=0 BeachWidth=0.5 Cliffs=0 PeakShape=0.2
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the lagoon dug 2.5 m under the sea's level round 0 10 (14 m across), its banks eased; the landing at its
+# north end lowered to the boardwalk's deck (1 m) ---------------------------------------------------------------------------
+brush flatten at 0 10 r=7 s=20 frames=150 h=-2.5
+for a 0 315 45
+brush flatten at {7*cos($a)} {10+7*sin($a)} r=5.5 s=20 frames=120 h=-2.5
+next
+for a 0 340 20
+brush smooth at {13*cos($a)} {10+13*sin($a)} r=3.5 s=10 frames=12
+next
+brush flatten from 0 26 to 0 31 r=2.5 s=20 frames=60 h=1
+brush smooth from 0 25 to 0 33 r=3.5 s=10 frames=8
+clear at 0 10 r=16
+clear from 0 26 to 0 38 r=3
+
+# --- The boardwalk from the landing south over the lagoon, the four stall pontoons along it and the merchant's at its end
+push at -0.75 28 h=-2.5 yaw=90
+call boardwalk n=20 wide=1 y=3.5 rs=none rn=none
+pop
+macro stall x z table goods
+push at $x $z h=-2.5
+call boardwalk n=2 wide=2 y=3.5 rs=none rn=none
+place Placeable_Table_Basic $table at 1.5 1.6 y=3.5 sit yaw=90
+place $goods - at 1.5 1.6 y=4.3 drop
+place RestaSunshadeGround - at 1.5 1.5 y=3.5 scale=0.8
+pop
+end
+call stall -3.75 18 netstall UT_MarketBasket01
+call stall 0.75 14 spicestall TangaroaBucket
+call stall -3.75 9 potstall UT_EndRoom_Pot02
+call stall 0.75 5 lampstall Placeable_Lantern_Metal
+push at -3 -2.5 h=-2.5
+call boardwalk n=4 wide=3 y=3.5 rs=none
+place Placeable_Table_Basic merchantstall at 3 2.6 y=3.5 sit yaw=90
+place Loot_ChestLarge strongbox at 4.8 3.3 y=3.5 sit yaw=180
+place RestaSunshadeGround - at 3 2.4 y=3.5
+place "Box Small" stallbox at 1 1 y=3.5 sit yaw=20
+place Loot_Barrel pontoonbarrel at 5.5 0.8 y=3.5 sit
+pop
+place Note_Board closing at 2.6 28 ground yaw=90
+place Zone_Trigger bazaar at 0 18 y=2
+
+# --- The south bank's shell crate (a small wooden crate beside a bucket); mangrove bamboo round the lagoon; the gulls' song --------------------------------------
+place TangaroaBucket - at -11.8 -7 ground sit
+place "Box Small" shellbucket at -11 -7.6 ground sit yaw=20
+scatter Bamboo_2 6 at 0 10 r=19 seed=501
+scatter Bush 4 at 0 10 r=19 seed=502
+place Zone_Sound gulls at 0 12 y=4
+
+# --- Hens on the marsh, a turtle in the lagoon, dolphins outside; Raft's finds in the shallows (lib_sea) -----------------
+place Creature_Chicken hens at -16 22 ground
+prop hens creature.count=3
+place Creature_Turtle turtles at 6 9 h=-1.5
+prop turtles creature.count=1
+place Creature_Dolphin dolphins at 0 60 h=-3
+prop dolphins creature.count=2
+call shallows r=58 deep=5 n=1
+
+# --- Raft's special features (lib_features; the user, 2026-10-10: every Raft feature on more than one island): the
+# spice stall's scales; its two weighing pails borrowed by the net stall and the potter - put back, they open the
+# scale-keeper's strongbox (hidden)
+place TangaroaBucket gbweight1 at -3.25 18.5 h=1 sit
+prop gbweight1 obj.name=gbweight1
+prop gbweight1 beh.use=Take the weighing pail
+prop gbweight1 on.use=hide|\nsignal||gbw1\nmessage||A brass-bottomed weighing pail - the spice stall's, by the stamp.
+place TangaroaBucket gbweight2 at -3.25 9.5 h=1 sit
+prop gbweight2 obj.name=gbweight2
+prop gbweight2 beh.use=Take the weighing pail
+prop gbweight2 on.use=hide|\nsignal||gbw2\nmessage||The potter was using it for slip. It is the spice stall's second weighing pail.
+place TangaroaScaleModel gbscales at 3.15 14.6 h=1 sit yaw=270
+prop gbscales obj.name=gbscales
+prop gbscales if.use=signal|gbw1\nsignal|gbw2
+prop gbscales on.use=message||Both pails on the scales, and they settle level. A drawer clicks open under the stall.\nsignal||gbscale\nshow|gbweighchest
+prop gbscales else.use=message||The scales swing empty. Both weighing pails are missing - see the keeper's note.
+place Loot_ChestSmall gbweighchest at 3.35 16.5 h=1 sit yaw=270
+prop gbweighchest obj.name=gbweighchest
+prop gbweighchest note.title=Scale-keeper's strongbox
+prop gbweighchest beh.hidden=1
+loot gbweighchest TradeToken*5;Glass*2
+place Note_Paper gbweighnote at 2.25 16.1 h=1.9 drop yaw=270
+note gbweighnote Scale-keeper's note | Who has my weighing pails AGAIN? One went to the net stall for bait, one to the potter. Both back on the scales by morning, or the strongbox stays shut. - Odile
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): mangoes, palms, flowers ----------
+scatter "Pickup_Landmark_Tree_Mango" 3 at 0 0 r=31.5 seed=4559 free=5
+scatter "Pickup_Landmark_Tree_Palm 1" 2 at 0 0 r=31.5 seed=4569 free=5
+scatter "Pickup_Landmark_Tree_Palm 3" 2 at 0 0 r=31.5 seed=4570 free=5
+scatter "Pickup_Landmark_Flower_Red" 2 at 0 0 r=31.5 seed=4579 free=3
+scatter "Pickup_Landmark_Flower_Yellow" 2 at 0 0 r=31.5 seed=4580 free=3
+
+# ===== Settings, story items, notes, behaviours, quest (6 steps) ==========================================================
+info title=Gullsong Bazaar
+info author=Custom Islands
+info description=A floating bazaar of stalls on pontoons in a mangrove marsh, closed for the season - but each stall still holds one thing, and each keeper left a note saying what they'd take for it. Trade your way from a pink shell to the merchant's strongbox.
+island on.arrive=message||Stalls on pontoons among the mangroves, faded awnings, chalk prices on boards - and gulls, singing on every roof.
+
+story shell|Pink shell|quest:Tangaroa_Tape|A pink shell the size of your hand, polished smooth.
+story rope|Net-maker's rope|Rope|A coil of the net-maker's best rope, tarred.
+story pepper|Pepper pouch|quest:Caravan_BatteryChargerPart|A leather pouch of red pepper, sealed with wax.
+story jar|Glazed jar|quest:Utopia_KeyPhase1|A blue glazed jar with a lid, from the potter's kiln.
+story lamp|Brass lamp|Placeable_Lantern_Metal|A brass lamp that burns fish oil.
+story merchantkey|Merchant's key|quest:Caravan_KeyMayor|The merchant's strongbox key.
+
+note closing Notice of the closing bazaar | GULLSONG BAZAAR - CLOSED FOR THE SEASON\n\nThe keepers have left one thing at every stall, each with a price on the board. No coin: trade only.\n\nThe net-maker takes a pink shell (you will find one in the small wooden crate by the bucket on the south bank).\nThe spice-seller takes rope.\nThe potter takes pepper.\nThe lamp-maker takes a jar.\nThe merchant takes a lamp - and gives the key to his strongbox, the best thing in the bazaar.\n\nGood trading!
+note shellbucket Shell crate | A small wooden crate beside a bucket on the south bank, full of shells - and one pink one, polished, the kind the net-maker wants.
+loot shellbucket story:shell*1;Clay*2
+prop shellbucket loot.refill=0
+note strongbox Merchant's strongbox | The merchant's strongbox: a season's takings in trade coin, a spyglass, the plans for a recycler.
+loot strongbox TradeToken*15;Blueprint_Recycler*1;Glass*4;Plastic*4
+prop strongbox loot.refill=0
+prop strongbox if.open=has|story:merchantkey|1
+prop strongbox else.open=message||The merchant's strongbox. Its key is at the merchant's stall - for a price.
+note stallbox Fish stall's box | The fish stall's ice box, the ice long gone: salted fish that kept.
+loot stallbox Cooked_Herring*3;Raw_Mackerel*2
+prop stallbox loot.refill=0
+note pontoonbarrel Pontoon barrel | A barrel lashed to a pontoon: the bazaar's spare planks and nails.
+loot pontoonbarrel Plank*6;Nail*10;Rope*2
+prop pontoonbarrel loot.refill=0
+
+prop netstall obj.name=netstall
+prop netstall beh.use=Trade the pink shell for the net-maker's rope
+prop netstall if.use=take|story:shell|1
+prop netstall on.use=message||You leave the shell on the net-maker's board and take the coil of rope.\ngive||story:rope*1\nsound||event:/ui/pickup
+prop netstall else.use=message||NET-MAKER: rope for a pink shell. (Look in the small wooden crate by the bucket on the south bank.)
+prop spicestall obj.name=spicestall
+prop spicestall beh.use=Trade the rope for the pepper pouch
+prop spicestall if.use=take|story:rope|1
+prop spicestall on.use=message||The rope for the pepper. It smells like a kitchen on fire.\ngive||story:pepper*1\nsound||event:/ui/pickup
+prop spicestall else.use=message||SPICE-SELLER: pepper for rope.
+prop potstall obj.name=potstall
+prop potstall beh.use=Trade the pepper for a glazed jar
+prop potstall if.use=take|story:pepper|1
+prop potstall on.use=message||The pepper for the blue jar.\ngive||story:jar*1\nsound||event:/ui/pickup
+prop potstall else.use=message||POTTER: a jar for pepper.
+prop lampstall obj.name=lampstall
+prop lampstall beh.use=Trade the jar for a brass lamp
+prop lampstall if.use=take|story:jar|1
+prop lampstall on.use=message||The jar for the lamp. It still smells of fish oil.\ngive||story:lamp*1\nsound||event:/ui/pickup
+prop lampstall else.use=message||LAMP-MAKER: a lamp for a jar.
+prop merchantstall obj.name=merchantstall
+prop merchantstall beh.use=Trade the lamp for the merchant's key
+prop merchantstall if.use=take|story:lamp|1
+prop merchantstall on.use=message||The lamp for the key. The merchant's board says: A FAIR TRADE.\ngive||story:merchantkey*1\nsound||event:/ui/pickup
+prop merchantstall else.use=message||MERCHANT: the strongbox key for a lamp.
+prop bazaar zone.id=bazaar
+prop bazaar zone.radius=10
+prop bazaar zone.message=Gullsong Bazaar: stalls on pontoons, faded awnings, chalk prices - and gulls singing on every roof.
+prop gulls sound.event=event:/amb/ocean
+prop gulls sound.volume=0.5
+prop gulls zone.radius=25
+
+quest title=A Fair Trade
+quest intro=A floating bazaar, closed for the season. The keepers left a notice on the landing.
+step read|Notice of the closing bazaar|1|Tie up at the bazaar and read the notice on the landing
+step open|Shell crate|1|Open the small wooden crate by the bucket on the south bank for the pink shell
+step collect|story:rope|1|Trade the pink shell for the net-maker's rope
+step collect|story:lamp|1|Trade down the boardwalk: rope for pepper, pepper for a jar, a jar for a lamp
+step collect|story:merchantkey|1|Trade the lamp for the merchant's key
+step open|Merchant's strongbox|1|Open the merchant's strongbox
+quest done=From a pink shell to the best thing in the bazaar, in five fair trades. The gulls approve.
+quest reward=Plank*6;Rope*3;Cooked_Herring*3
+
+# --- A Raft store on the marsh west of the lagoon: the one stall still open this season (Raft's goods, and plans the crew missed) --
+store openstall at -28 0 ground
+
+# --- Raft's vending machine beside the open stall, from Tangaroa's arcade: Tangaroa's plants for its tokens; three tokens lie about the marsh --
+vending marshvend at -24 -3.5 ground yaw=270
+place QuestItemPickup_Tangaroa_Token - at -21 1 ground
+place QuestItemPickup_Tangaroa_Token - at -31 5 ground
+place QuestItemPickup_Tangaroa_Token - at -25 -8 ground
+
+save Gullsong Bazaar

@@ -1,0 +1,208 @@
+# Stillwater Terraces - the fifth island of the library's plan The Lullaby Frequency (SL1, horror)
+# A green hill climbed by three flooded rice terraces (shallow water of Raft's grey plates, tinted green, on each level)
+# and an altar terrace on top: a stone platform on pillars with a shrine wall, a piano bench and a gong, its stair laid
+# only when the three Bell stones are set in their stand. Twelve robed figures (Tangaroa's founder statue, small, heads
+# down) mourn in the paddies - there three times over, one set shown at a time: as you climb they stand closer each
+# time you look up, and at the top they all face the sea. Quest "The Planting Song" (10 steps): paddy 1, the planting
+# song, paddy 2, the three Bell stones (the plan's WHEN for Mistlock Causeway: step 4), paddy 3 (fog; two grey bears
+# push through the paddies), the Bell stone stand, the bears, the monk's confession, the offering box, the altar.
+#
+# Built by the recipe player (CIRecipe stillwater_terraces) through the editor's own operations.
+include lib_sea
+include lib_features
+new
+# (nature: tropical on the lower slopes, Like Raft - the terraces cleared)
+gen Trees=0.3 Bushes=0.3 Rocks=0.43 Harvest=0.3 BeachThings=0.35
+gen Seed=1205 Radius=63 Height=18 Roughness=0.3 Peaks=1 Shape=0 Style=0 PeakShape=0.4 Cliffs=0.1 BeachWidth=0.6
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.3 Hostiles=0 Friendly=0.15 SeaLife=0.35
+generate
+
+# --- Terrain: four terraces climbing north (3, 7, 11 m and the altar's 15 m, 16 m apart), a path up the middle -------
+brush flatten from -20 -38 to 20 -38 r=8 s=20 frames=120 h=3
+brush flatten from -20 -22 to 20 -22 r=8 s=20 frames=120 h=7
+brush flatten from -20 -6 to 20 -6 r=8 s=20 frames=120 h=11
+brush flatten from -14 12 to 14 12 r=9 s=20 frames=120 h=15
+# (the path up the middle: a ramp of pads at each terrace edge, 4 m up over 10 m, then smoothed)
+for k 0 10
+brush flatten at 0 {-35+$k} r=1.5 s=20 frames=40 h={3+0.4*$k}
+brush flatten at 0 {-19+$k} r=1.5 s=20 frames=40 h={7+0.4*$k}
+brush flatten at 0 {-6+$k} r=1.5 s=20 frames=40 h={11+0.4*$k}
+next
+brush smooth from 0 -48 to 0 5 r=2 s=4 frames=20
+origin
+clear from -22 -38 to 22 -38 r=9
+clear from -22 -22 to 22 -22 r=9
+clear from -22 -6 to 22 -6 r=9
+clear from -16 12 to 16 12 r=10
+clear from 0 -56 to 0 -40 r=3
+
+# --- The paddies: on each terrace two fields of shallow water (grey plates 3 m, tinted), either side of the path ---
+macro paddy zc=-38 h=3
+push at 0 $zc h=$h
+for px -12 -3 3
+place Block_Floor_Tier3 paddywater at $px -1.5 y=0.08 sx=1.86 sz=1.86
+place Block_Floor_Tier3 paddywater at $px 1.5 y=0.08 sx=1.86 sz=1.86
+place Block_Floor_Tier3 paddywater at {0-$px} -1.5 y=0.08 sx=1.86 sz=1.86
+place Block_Floor_Tier3 paddywater at {0-$px} 1.5 y=0.08 sx=1.86 sz=1.86
+next
+place VP_BrickStack01 - at -19 -2 y=0 sit yaw=90
+place VP_BrickStack02 - at 19 1 y=0 sit yaw=270
+pop
+end
+call paddy zc=-38 h=3
+call paddy zc=-22 h=7
+call paddy zc=-6 h=11
+
+# --- The mourners: twelve small founder statues, heads down, on the dry strip behind the paddies - three sets -------
+# st_a: on the altar terrace's front, facing down the hill (shown at the start)
+# st_b: on terrace 3's back strip, facing the sea (shown from paddy 2 on, and again at the altar)
+# st_c: on terrace 2's back strip, facing up the hill - behind you (shown from paddy 3 on)
+# (st_a from the fourth on: the altar terrace's west end falls away to the sea)
+# (not the seventh and eleventh: x 1.6 sits on the path's ramp, x 14.4 on the terrace's falling east end)
+for i 3 5
+place TangaroaFounderStatue st_a at {-17.6+3.2*$i} 5 ground sit yaw=180 scale=0.4
+next
+for i 7 9
+place TangaroaFounderStatue st_a at {-17.6+3.2*$i} 5 ground sit yaw=180 scale=0.4
+next
+place TangaroaFounderStatue st_a at 17.6 5 ground sit yaw=180 scale=0.4
+for i 0 11
+place TangaroaFounderStatue st_b at {-17.6+3.2*$i} -1 ground sit yaw=180 scale=0.4
+place TangaroaFounderStatue st_c at {-17.6+3.2*$i} -17 ground sit yaw=0 scale=0.4
+next
+
+# --- The marker with the planting song; the three Bell stones; the stand; the fog; the bears ----------------------
+place Note_Sign plantingsong at 2.6 -42.5 ground sit yaw=180
+place Zone_Trigger paddy1 at 0 -40 ground y=1
+place Zone_Trigger paddy2 at 0 -24 ground y=1
+place Zone_Trigger paddy3 at 0 -8 ground y=1
+place Placeable_Brick_Wet bellstone1 at 16.5 -42 ground sit scale=2.2
+place Placeable_Brick_Wet bellstone2 at -16.5 -26 ground sit scale=2.2 yaw=40
+place Placeable_Brick_Wet bellstone3 at 16.5 -10 ground sit scale=2.2 yaw=80
+place Bench_01 bellstand at 2.8 -10 ground sit yaw=270
+place Zone_Atmosphere terracefog at 0 -6 ground y=2
+place Creature_Bear bears at -8 -6 ground y=0.5
+
+# --- The altar: a stone platform 9 x 4.5 m on pillars (2.42 m), the shrine wall at its back, its stair (hidden) -----
+push at -4.5 8 h=15
+for fx 0.75 8.25 1.5
+for fz 0.75 3.75 1.5
+place Block_Floor_Tier3 - at $fx $fz y=2.42
+next
+next
+for px 0 9 1.5
+place Block_Pillar_Tier3 - at $px 0 y=0
+place Block_Pillar_Tier3 - at $px 4.5 y=0
+next
+for wx 0.75 8.25 1.5
+place Block_Wall_Tier3 - at $wx 4.5 y=2.42
+next
+place Block_Stair_Tier3 altarstair at 4.5 -1.535 y=0 sit centred yaw=0
+place Note_Sign confession at 6.5 4.1 y=2.42 sit yaw=180
+place Loot_Chest offeringbox at 2.4 3.8 y=2.42 sit yaw=180
+place Bench_01 - at 4.5 3.2 y=2.42 sit yaw=180
+place Antenna_dish - at 7.8 2 y=2.42 sit scale=1.6
+place Placeable_Lantern_Metal fogcam at 4.5 0.4 y=2.42 sit
+place Zone_Trigger altar at 4.5 2 y=3.4
+pop
+place Zone_Trigger foglook at 0 -78 y=1
+
+# --- Things to gather, two reefs off the beaches ----------------------------------------------------------------
+scatter "Pickup_Landmark_Tree_Mango" 2 at 0 0 r=52 seed=1251 free=5
+scatter "Pickup_Landmark_PineappleLandmark" 2 at 0 0 r=52 seed=1252 free=5
+call dirt x=-34 z=24 r=9 n=2 seed=1253
+call shallows x=-50 z=-30 r=14 deep=5 n=1 seed=1254
+call shallows x=50 z=-24 r=14 deep=5 n=1 seed=1255
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Stillwater Terraces
+info author=Custom Islands
+info description=Flooded rice terraces climbing a green hill to an altar, and twelve robed figures mourning in the paddies. The fifth island of The Lullaby Frequency.
+island on.arrive=message||Terraces of still water, one above the other, and figures standing in them. None of them moves. The water does not move either.
+
+story bellstone|Bell stone|Placeable_Brick_Wet|A smooth grey stone that rings like a bell when you knock it. Three of them belong in the stand on the third terrace.
+story bellsset|Bell stones set|Placeable_Brick_Wet|The three Bell stones sit in their stand. The altar's stair is laid.
+
+note plantingsong Planting song | THE PLANTING SONG\n(sung in the paddies, slow, one line to each step)\n\nmi - re - do,  mi - re - do,\nso - fa - mi - re - mi...\n\nHush now, the water is listening.\n\n(Under it, cut later, deeper: DO NOT SING IT AT NIGHT)
+note confession Monk's confession | I taught them the planting song. I did not write it. It came over the water one night at twelve past three and I wrote it down as it came.\n\nThey sang it in the paddies and the rice grew as it never had. Then they sang it at night, and stood still in the water, and did not come in.\n\nI made the statues so there would be someone in the paddies when the song came. Forgive me. Follow the lamps to the causeway; the Choir went that way.
+note offeringbox Offering box | The monks' offering box: a fishing rod, a lantern, rice cakes wrapped in leaves (long since gone to dust), dried fish.
+loot offeringbox FishingRod_Metal*1;Placeable_Lantern_Basic*1;Cooked_Mackerel*3;Coconut*2
+prop offeringbox loot.refill=0
+
+prop paddywater tint.color=#55715a
+prop paddywater tint.amount=0.8
+
+prop st_a obj.name=st_a
+prop st_b obj.name=st_b
+prop st_b beh.hidden=1
+prop st_c obj.name=st_c
+prop st_c beh.hidden=1
+
+prop paddy1 zone.id=paddy1
+prop paddy1 zone.radius=5
+prop paddy1 zone.message=The figures stand up on the top terrace, heads down. Twelve of them.
+prop paddy2 zone.id=paddy2
+prop paddy2 zone.radius=5
+prop paddy2 zone.repeat=never
+prop paddy2 on.enter=hide|st_a\nshow|st_b\nplaysound||event:/amb/wreck_creaks|0.7|once|near\nmessage||You look up. They are on the terrace just above you now.
+prop paddy3 zone.id=paddy3
+prop paddy3 zone.radius=5
+prop paddy3 zone.repeat=never
+prop paddy3 on.enter=hide|st_b\nshow|st_c\nshow|terracefog\nmessage||Fog comes down over the water - and behind you, below, something big is pushing through the paddies. The figures are behind you too.
+prop terracefog obj.name=terracefog
+prop terracefog beh.hidden=1
+prop terracefog atmo.fog=#b9c2bd
+prop terracefog atmo.fogAmount=0.65
+prop terracefog atmo.light=#9aa6a0
+prop terracefog atmo.lightAmount=0.4
+prop terracefog atmo.particles=mist
+prop terracefog zone.radius=34
+prop bears creature.count=2
+prop bears creature.respawn=0
+prop bears creature.zone=paddy3
+prop bears creature.health=3
+prop bears creature.size=1.2
+prop bears tint.color=#8c8c8c
+prop bears tint.amount=0.8
+
+prop bellstone1 obj.name=bellstone1
+prop bellstone2 obj.name=bellstone2
+prop bellstone3 obj.name=bellstone3
+prop bellstone1 beh.use=Take the Bell stone
+prop bellstone2 beh.use=Take the Bell stone
+prop bellstone3 beh.use=Take the Bell stone
+prop bellstone1 on.use=hide|\ngive||story:bellstone*1\nsound||event:/raft/radar/lever\nmessage||The stone rings under your knuckle, faint and clear.
+prop bellstone2 on.use=hide|\ngive||story:bellstone*1\nsound||event:/raft/radar/lever\nmessage||The stone rings under your knuckle, faint and clear.
+prop bellstone3 on.use=hide|\ngive||story:bellstone*1\nsound||event:/raft/radar/lever\nmessage||The stone rings under your knuckle, faint and clear.
+prop bellstand obj.name=bellstand
+prop bellstand beh.use=Set the Bell stones in the stand
+prop bellstand if.use=take|story:bellstone|3
+prop bellstand on.use=give||story:bellsset*1\nshow|altarstair\nplaysound||event:/crafting/horns/viking|0.6|once|near\nmessage||Three notes ring out together. Up on the altar terrace, stone grinds on stone: a stair.
+prop bellstand else.use=message||Three hollows in the bench, worn smooth. Three stones belong here.
+prop altarstair obj.name=altarstair
+prop altarstair beh.hidden=1
+
+prop fogcam obj.name=fogcam
+prop foglook obj.name=foglook
+prop foglook zone.radius=1
+prop altar zone.id=altar
+prop altar zone.radius=3
+prop altar zone.repeat=never
+prop altar on.enter=hide|st_c\nshow|st_b\ncamera|fogcam|foglook|6|40\nmessage||Below you every figure has turned to face the sea. Out there a fog bank lies on the water, and lamps burn in it, in a line.
+
+quest title=The Planting Song
+quest intro=Flooded terraces and a path up the middle. Climb to the first paddy.
+step reach|paddy1|1|Walk up to the first paddy
+step read|Planting song|1|Read the planting song on the wooden marker
+step reach|paddy2|1|Climb to the second paddy
+step collect|story:bellstone|3|Find the three Bell stones on the terraces
+step reach|paddy3|1|Climb to the third paddy
+step collect|story:bellsset|1|Set the Bell stones in their stand
+step kill|Bear|2|Deal with what came up through the paddies
+step read|Monk's confession|1|Read the monk's confession at the shrine wall
+step open|Offering box|1|Open the offering box
+step reach|altar|1|Stand at the altar
+quest done=They face the sea now, all of them. Out in the fog bank a line of lamps - a causeway. The Receiver crackles; tune it when it settles.
+quest reward=MetalIngot*4;TitaniumIngot*1
+
+save Stillwater Terraces

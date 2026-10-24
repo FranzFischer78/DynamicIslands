@@ -1,0 +1,63 @@
+# Play test of The Drowned Metropolis (CIPlay drowned_metropolis, in a test world 'CI ...'). Points as in its recipe:
+# the ferry islet west, the Harbour Tower south-west (roof 12-21 m), the sunken offices and the Spire's foundations in
+# the middle, the Meridian Tower east (pool deck 6-9 m). The quest has 20 steps; the city's papers (notes and the chests'
+# tags) go into the journal as they are read, and its pages steps follow (3, 4, 5, 6).
+island The Drowned Metropolis
+expect step 0
+expect title The Keys of Meridian
+
+# The ferry islet: the evacuation notice
+walk -52 -41 to -44 -34 h=4
+zone ferry
+expect step 1
+read Evacuation notice
+expect step 2
+
+# Up the Harbour Tower's ladders, up its roof to the mayor's penthouse
+climb -19.2 -50 h=0.3
+climb -19.2 -50 h=6.5
+expect stand -22 -50 h=12.4
+zone harbourroof
+expect step 3
+walk -22 -50 to -35 -50 to -45 -50 to -55 -50 h=21.2
+read Mayor's memo
+expect step 4
+open Penthouse safe
+expect story keycard 1
+wait 1
+expect step 7
+
+# Down to the sunken council offices: puffer fish, the filing cabinet
+zone offices
+expect step 8
+expect message puffs up
+kill Puffer fish
+expect step 9
+open Council filing cabinet
+expect story keycard 2
+wait 1
+expect step 12
+
+# The Spire's foundations: the Lantern Lord, the treasurer's strongbox
+zone foundations
+expect step 13
+expect message a light swings
+kill Angler fish
+expect step 14
+open Foundation strongbox
+expect story keycard 3
+wait 1
+expect step 17
+
+# Up the Meridian Tower to the pool deck: the vault
+climb 45.7 -2 h=-3
+climb 45.7 -2 h=3
+expect stand 48 -2 h=8.8
+zone meridianroof
+expect step 18
+open Meridian Vault
+wait 2
+expect story keycard 0
+expect item Blueprint_BatteryAdvanced 1
+wait 1
+expect done

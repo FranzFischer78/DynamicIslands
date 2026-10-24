@@ -1,0 +1,229 @@
+# The Ice Organ - a new island of the library, twice the size (x2)
+# A frozen crescent (Shape 6, Style 1) round a still bay that opens to the north-west: the south ridge and the east ridge
+# meet in a hook of snow. Halvard Rime, an organist, spent thirty winters tuning five pillars of ice in the sea cave under
+# the south ridge; his score is cut into an ice slab beside them, and behind the organ an iron gate shuts the crypt he
+# called the house of the last note. Strike the pipes in the score's order with his felt mallet and the great icicle over
+# the organ lets go of the crypt's key - and the white bear sleeping in the crypt wakes. Quest "The Frozen Score" (12 steps,
+# a music sequence): the bay, the letter, the mallet, the snowmobile box, the cave, the score, the cave cache, the five
+# pipes in order (the key), the crypt, the bear, the last page, the coffer (the head light blueprint).
+#
+# Built by the recipe player (CIRecipe ice_organ) through the editor's own operations. Points: the bay's south beach at
+# -14 1 (0.3 m); the organ cave (Balboa's bear cave) under the south ridge, its mouth north at -15 -3 (2.1 m), a ramp
+# from it down along the shore to the beach at -6 0.6; its floor about 2.5 m from z -8 to -31; the organ along the hall's
+# west side (x -19.6, z -10 to -21), the score on its east wall; the crypt gate across the cave at z -23; the hut's pad
+# on the east ridge's slope at 11 12 (3 m), the hut x 8.75..13.25, z 10.5..15, its deck 1.2 m up and its ladder on the
+# south side at 11 10.4; the goats' horn at 24 38.
+include lib_huts
+include lib_sea
+new
+# (nature: snowy, Like Raft's Temperance - a few pines and drifts; the east horn a little greener for the goats)
+gen Trees=0.08 Bushes=0.15 Rocks=0.25 Harvest=0.05 BeachThings=0.3
+gen Seed=9201 Radius=63 Height=30 Roughness=0.4 Peaks=2 Shape=6 Style=1 BeachWidth=0.4 Cliffs=0.6 PeakShape=0.45 Bays=0.3
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+macro dabs x1 z1 h1 x2 z2 h2 n=8 r=2.6
+for i 0 $n
+brush flatten at {$x1+($x2-$x1)*$i/$n} {$z1+($z2-$z1)*$i/$n} r=$r s=20 frames=25 h={$h1+($h2-$h1)*$i/$n}
+next
+end
+
+# ===== The organ cave: Balboa's bear cave set into the south ridge, its mouth north onto the beach; the way in level
+# with its floor, a ramp down along the shore to the beach ==============================================================
+place BalboaCave_Bear cavehill at -14 -18 h=7.05 yaw=0
+# (the cave's trench through the ridge, as wide as the cave: the ground lowered to just under its floor along its whole
+# length, so the cave's own rock is its walls and roof)
+brush flatten from -15 -33 to -15 -5 r=13 s=20 frames=80 h=2
+brush flatten from -15 -5 to -15 -1.5 r=4.5 s=20 frames=60 h=2.1
+call dabs -12.5 -2.5 2.1 -6 0.6 0.4 n=6 r=2.8
+brush rock from -15 -9 to -15 -2 r=4 s=20 frames=30
+clear from -15 -9 to -15 0 r=5
+clear from -12.5 -2.5 to -6 0.6 r=3
+place Zone_Trigger bay at -14 1 h=1
+place Zone_Trigger organcave at -15 -10 h=3.3
+place Zone_Atmosphere cavelight at -15 -16 h=5
+place Zone_Sound cavewind at -15 -14 h=4
+
+# ----- The organ: five pillars of ice along the hall's west side, each its own height and shape; the score's slab on the
+# east wall; the great icicle hanging in front of the great pipe; a snow bank, a cache behind it
+place TP_IcePillar04_Snow pipethin at -19.6 -10 h=2.45 scale=1.0
+place TP_IcePillar02 pipecracked at -19.8 -13 h=2.5 scale=0.45 tilt=3
+place TP_IcePillar01 pipegreat at -19.6 -16.5 h=2.55 scale=0.55
+place TP_IcePillar01 pipebent at -19.5 -20 h=2.7 scale=0.35 tilt=6
+place TP_IcePillar02 pipeblue at -17.2 -21.2 h=3.2 scale=0.3
+prop pipeblue tint.color=#7fb8ff
+prop pipeblue tint.amount=0.6
+place Note_Sign score at -10 -14.5 h=4 drop yaw=270
+place TP_Icicles04 greaticicle at -18.2 -16.5 h=11.2 scale=2.2
+place TP_SnowDrift02 cavedrift at -9.5 -19.5 h=2.6 yaw=200
+place "Box Small" cavecache at -8.2 -20.6 h=4 drop yaw=30
+
+# ----- The crypt behind the gate: Selene's entrance gate across the cave (it sinks into the floor); Halvard's stone, his
+# last page, his coffer, candles; the sleeper; the dark
+place TP_SeleneEntranceGate cryptgate at -14 -23 h=2.1 yaw=0 sx=2 sy=1.55
+place Zone_Trigger crypt at -14 -27.5 h=3
+place Zone_Atmosphere cryptdark at -14 -28 h=4
+place UT_EndRoom_Table halvardstone at -17 -28 h=2.4 scale=0.35 yaw=90
+place Note_Book lastpage at -17 -28 h=2.76 yaw=80
+place Loot_ChestLarge coffer at -13 -30 h=4 drop yaw=0
+place "VG_DecorationPrefabBase_CandleSmall Variant" cryptcandles at -17.1 -27 h=2.75
+place "VG_DecorationPrefabBase_CandleSmall Variant" cryptcandles at -16.9 -29 h=2.75
+place "VG_DecorationPrefabBase_CandleSmall Variant" cryptcandles at -12 -29 h=2.5
+place "VG_DecorationPrefabBase_CandleSmall Variant" cryptcandles at -14.5 -29.8 h=2.45
+place Creature_PolarBear cryptbear at -11 -28 h=3
+
+# ===== Halvard's hut on the east ridge's slope above the bay: low stilts, the stove, the bed, a candle; his letter by the
+# door, his chest; the woodpile and its box, the dead snowmobile half in a drift and the box by it ======================
+brush flatten at 11 12 r=4.5 s=20 frames=60 h=3
+clear at 11 12 r=6
+push at 8.75 10.5 h=3
+call stilt_hut y=1.2
+place "Balboa_DecorationPrefabBase_Old Stove" - at 3.7 3.7 y=1.2 sit yaw=180
+place Bed_Simple - at 1 2.8 y=1.2 sit
+place "VG_DecorationPrefabBase_CandleBig Variant" - at 3.5 1.2 y=1.2 sit
+place Loot_Chest hutchest at 2.3 3.9 y=1.2 sit yaw=180
+place Note_Paper letter at 1.4 0.5 y=1.2 sit yaw=10
+pop
+place Firewood_1 - at 14.4 11.2 ground
+place Firewood_1 - at 14.5 11.8 ground yaw=40
+place Firewood_1 - at 14.3 12.4 ground yaw=80
+place "Box Small" woodbox at 9.8 9.8 ground sit yaw=15
+place TP_SnowVehicle02 - at 5.5 7.5 ground tilt=8 yaw=30
+place TP_SnowDrift01 - at 6.5 9.5 ground yaw=20
+place "Box Small" sledbox at 4 6.2 ground sit yaw=40
+place TP_SnowDrift03 - at 8 16 ground yaw=60
+place TP_SnowDrift03 - at 14.5 15.5 ground yaw=150
+
+# ===== The east horn: a pine to cut; the goats, berry bushes in a hollow ===========
+place Pickup_Landmark_Tree_Pine - at 19 38 ground yaw=30
+place Creature_Goat goats at 24 37 ground
+place Pickup_Landmark_BerryBush - at 20 43 ground
+place Pickup_Landmark_BerryBush - at 27.5 43 ground yaw=90
+
+# ===== The bay: a barrel sunk on its floor; dolphins in its mouth; snow over both ridges; Raft's finds in the shallows ===
+place Loot_SunkenBarrel baybarrel at -20 20 ground
+place Creature_Dolphin dolphins at -30 45 h=-3
+place Zone_Atmosphere snowfall at -22 -15 h=15
+place Zone_Atmosphere snowfall at 22 22 h=15
+call shallows r=83 deep=5 n=1
+
+# ===== Settings, story items, notes, behaviours, quest (12 steps) ==========================================================
+info title=The Ice Organ
+info author=Custom Islands
+info description=A frozen crescent with an organ of ice in its sea cave: five pillars that each ring a different note when struck. The old organist's score is cut into an ice slab beside them - play it right and the house of the last note opens.
+island on.arrive=message||A crescent of ice cliffs round a still bay. From a cave in the southern cliff comes a low, hollow note, as if the wind were playing something.
+
+story mallet|Felt mallet|quest:Utopia_Hammer|Halvard's organ mallet: a birch handle, a head of felt wrapped in sealskin.
+story icekey|Crypt key of ice-blue iron|quest:Temperance_SeleneGateKey|A heavy key, frozen into the great icicle for thirty winters.
+
+note letter Halvard's letter | (pinned to the hut's door post)\n\nTo whoever lands in my bay.\n\nI am Halvard Rime, organist. Thirty winters I have tuned the five pillars in the cave under the south cliff. Each sings when struck - but only one order of them is music.\n\nThe order is cut into the ice beside them. My mallet is in my chest; use nothing else, iron cracks them.\n\nPlay the score through and the great icicle over the organ will let go of what it holds. Then the house of the last note is yours to open. Mind the one who sleeps in it.\n- H. R.
+note hutchest Organist's chest | Halvard's chest: wool socks, a tuning fork, sheets of music frozen together - and his felt mallet.
+loot hutchest story:mallet*1;Wool*2;Rope*2
+prop hutchest loot.refill=0
+note score The frozen score | (cut into the ice slab, the grooves filled with soot)\n\nTHE LAST NOTE - for five voices of ice\n\nFirst the thin voice, alone.\nThen the cracked one, answering.\nThen the great voice under them both.\nThen the bent one, leaning.\nLast - the small blue one, and listen.
+note lastpage Halvard's last page | (in the crypt, on the stone)\n\nIf you read this you played it. Good. Nobody else ever did.\n\nThe white bear came in here the winter my hands stopped working, and we kept each other warm. Forgive him his temper; he was the only audience I had.\n\nIn the coffer is what an old organist owns. Take it. Play for him sometimes.\n- Halvard
+note coffer Halvard's coffer | Halvard's coffer: a miner's lamp he read his music by, and the plans to build one; wool, candles, and what the summers paid him.
+loot coffer Blueprint_HeadLight*1;HeadLight*1;Wool*4;TradeToken*8
+prop coffer loot.refill=0
+note baybarrel Sunk barrel | A barrel frozen to the bay's floor: nails and a little scrap.
+loot baybarrel Nail*8;Scrap*3;MetalOre*1
+prop baybarrel loot.refill=0
+note woodbox Woodpile box | A box by the woodpile: kindling, a hatchet head, rope.
+loot woodbox Plank*5;Rope*2;Stone*2
+prop woodbox loot.refill=0
+note sledbox Snowmobile box | A box by the dead snowmobile: a thermos and a tin of meat.
+loot sledbox Cooked_GenericMeat*2;PlasticBottle_Water*1;Plastic*2
+prop sledbox loot.refill=0
+note cavecache Cave cache | A cache behind the snow bank: someone's spare candles and ore.
+loot cavecache MetalOre*2;CopperOre*1;Clay*2
+prop cavecache loot.refill=0
+
+prop pipethin obj.name=pipethin
+prop pipethin beh.use=Strike the thin pipe
+prop pipethin if.use=has|story:mallet|1
+prop pipethin on.use=message||A high, thin note, like wind in a keyhole. It hangs in the cave a long time.\nsignal||p1\nsound||event:/exploring/shop/new_tier
+prop pipethin else.use=message||You tap it with a knuckle. Nothing - Halvard's letter says use his mallet.
+prop pipecracked obj.name=pipecracked
+prop pipecracked beh.use=Strike the cracked pipe
+prop pipecracked if.use=has|story:mallet|1\nsignal|p1
+prop pipecracked on.use=message||The cracked pipe answers - a buzzing, broken note that somehow fits.\nsignal||p2\nsound||event:/crafting/horns/bugle
+prop pipecracked else.use=message||A sour clang rings round the cave and the icicles shiver. Not that one - not yet.
+prop pipegreat obj.name=pipegreat
+prop pipegreat beh.use=Strike the great pipe
+prop pipegreat if.use=has|story:mallet|1\nsignal|p2
+prop pipegreat on.use=message||The great pipe booms under the other two. You feel it in your teeth.\nsignal||p3\nsound||event:/crafting/horns/viking
+prop pipegreat else.use=message||A sour clang rings round the cave and the icicles shiver. Not that one - not yet.
+prop pipebent obj.name=pipebent
+prop pipebent beh.use=Strike the bent pipe
+prop pipebent if.use=has|story:mallet|1\nsignal|p3
+prop pipebent on.use=message||The bent pipe leans its note against the others - and the chord holds.\nsignal||p4\nsound||event:/crafting/horns/air
+prop pipebent else.use=message||A sour clang rings round the cave and the icicles shiver. Not that one - not yet.
+prop pipeblue obj.name=pipeblue
+prop pipeblue beh.use=Strike the small blue pipe
+prop pipeblue if.use=has|story:mallet|1\nsignal|p4\n!signal|played
+prop pipeblue on.use=message||The last note, small and clear. The whole cave rings - and with a crack like a shot the great icicle lets go and shatters on the floor. In the shards: a key of ice-blue iron.\nsignal||played\nopen|greaticicle\ngive||story:icekey*1\nsound||event:/raft/radar/radar_jingle
+prop pipeblue else.use=message||A sour clang rings round the cave and the icicles shiver. Not that one - not yet.
+prop greaticicle obj.name=greaticicle
+prop greaticicle beh.move=0,-6.2,0
+prop greaticicle beh.moveTime=0.4
+prop greaticicle beh.moveMode=switch
+prop cryptgate obj.name=cryptgate
+prop cryptgate beh.use=Unlock the crypt gate
+prop cryptgate beh.move=0,-9.5,0
+prop cryptgate beh.moveTime=4
+prop cryptgate beh.moveMode=switch
+prop cryptgate if.use=has|story:icekey|1\nstate|cryptgate|closed
+prop cryptgate on.use=message||The key turns with a sound like ice breaking. The gate sinks into the floor.\nopen|cryptgate\nsound||event:/exploring/temperence/selene/gate_open
+prop cryptgate else.use=message||A gate of iron bars, rimed white. Its keyhole is frozen over - the key must be somewhere in this cave.
+prop cryptbear creature.count=1
+prop cryptbear creature.size=1.3
+prop cryptbear creature.health=2
+prop cryptbear creature.respawn=0
+prop cryptbear creature.zone=crypt
+
+prop bay zone.id=bay
+prop bay zone.radius=10
+prop bay zone.message=The frozen bay: still water, a hut on the slope - and from the southern cliff, that low note again.
+prop organcave zone.id=organcave
+prop organcave zone.radius=6
+prop organcave zone.message=The organ cave: five pillars of ice along the wall, a slab of ice cut with writing, a giant icicle hanging over it all - and at the back, an iron gate.
+prop crypt zone.id=crypt
+prop crypt zone.radius=3.5
+prop crypt zone.repeat=never
+prop crypt zone.message=The house of the last note: a stone, a coffer, candles - and something white and huge lifting its head.
+prop cavelight atmo.fog=#a8c8e0
+prop cavelight atmo.fogAmount=0.3
+prop cavelight atmo.light=#9ab8e8
+prop cavelight atmo.lightAmount=0.35
+prop cavelight zone.radius=14
+prop cryptdark atmo.fog=#1c2836
+prop cryptdark atmo.fogAmount=0.35
+prop cryptdark atmo.light=#3a5068
+prop cryptdark atmo.lightAmount=0.45
+prop cryptdark zone.radius=5
+prop cavewind sound.event=event:/amb/cave_ice
+prop cavewind sound.volume=0.6
+prop cavewind zone.radius=18
+prop snowfall atmo.particles=snow
+prop snowfall zone.radius=45
+prop goats creature.count=3
+prop dolphins creature.count=2
+
+quest title=The Frozen Score
+quest intro=A frozen bay, an organist's hut, and a cave that hums. Halvard left a letter on his door.
+step reach|bay|1|Land in the frozen bay
+step read|Halvard's letter|1|Read the letter on the hut's door post
+step open|Organist's chest|1|Take Halvard's felt mallet from his chest
+step open|Snowmobile box|1|Dig out the box by the dead snowmobile below the hut
+step reach|organcave|1|Find the organ cave in the southern cliff
+step read|The frozen score|1|Read the score cut into the ice slab
+step open|Cave cache|1|Look behind the snow bank in the cave - someone kept a cache there
+step collect|story:icekey|1|Play the five pipes in the score's order
+step reach|crypt|1|Unlock the crypt gate and step into the house of the last note
+step kill|Polar bear|1|Face the sleeper when it wakes
+step read|Halvard's last page|1|Read Halvard's last page on the stone
+step open|Halvard's coffer|1|Open Halvard's coffer
+quest done=The last note still rings faintly in the cave when you leave. Somebody finally played Halvard's music all the way through.
+quest reward=Wool*3;Rope*3;Cooked_Salmon*2
+
+save The Ice Organ

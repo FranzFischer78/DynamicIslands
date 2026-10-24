@@ -1,0 +1,220 @@
+# Rookery Cliffs - a new island of the library, twice the size (x2), with no quest
+# Two snowy crags full of sea-birds (Shape 7, Style 1) standing out of a high moor with cliffs to the sea all round, a
+# low flat on the west side going down to the beach. The egg collector Eskil's cabin stands on the flat at the crags'
+# foot; his winch basket rides 16 m up the south crag's west cliff to a ledge; on the north crag's north face three
+# ledges are cut one above the other, joined by ladders, with nests on every ledge - and the screechers on the top one.
+# No quest: climb, gather the eggs, read his log and his tally, help yourself to his boxes.
+#
+# Built by the recipe player (CIRecipe rookery_cliffs) through the editor's own operations. Points: the west flat at
+# about 2.7 m (x -45..-15, z -25..15), the beach at -55 0; the cabin's pad at -24 0 (2.9 m), the cabin x -26.25..-21.75,
+# z -2.25..2.25 (deck 3.9 m, ladder on the south side at -24 -2.4); the winch's foot at -18.5 -12.5 (4.2 m), the basket
+# at -18 -12.5 riding up to the ledge at 20.3 m; the north crag (top 39 m at -2.5 20), the ladders' foot on
+# the moor at -7.5 41 (8.5 m), the ledges x -10..-5 at 12.5 m (z 37.5), 18 m (z 33.5) and 23.5 m (z 29.5), the
+# ladders at x -7.5 against the face at the back of each ledge (z 39.7, 36.1, 32.1); the winch's ledge x -15..-9,
+# z -14..-11.
+include lib_huts
+include lib_sea
+include lib_features
+new
+# (nature: snowy, Like Raft's Temperance - a few pines and drifts; the generator's own)
+gen Trees=0.08 Bushes=0.15 Rocks=0.15 Harvest=0.05 BeachThings=0.3
+gen Seed=9205 Radius=63 Height=40 Roughness=0.45 Peaks=2 Shape=7 Style=1 BeachWidth=0.35 Cliffs=0.8 PeakShape=0.6
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== The ground: the cabin's pad, the winch's foot and its top ledge, the ladders' foot and the three ledges ==========
+brush flatten at -24 0 r=5 s=20 frames=60 h=2.9
+brush flatten at -19 -12.5 r=2.5 s=20 frames=60 h=4.2
+brush flatten from -15 -11.5 to -9 -11.5 r=2.4 s=20 frames=100 h=20.3
+brush flatten from -15 -13.5 to -9 -13.5 r=2.4 s=20 frames=100 h=20.3
+brush flatten from -10 41 to -5 41 r=1.6 s=20 frames=60 h=8.5
+brush flatten from -10 37.5 to -5 37.5 r=1.8 s=20 frames=80 h=12.5
+brush flatten from -10 33.5 to -5 33.5 r=1.8 s=20 frames=80 h=18
+brush flatten from -10 29.5 to -5 29.5 r=1.8 s=20 frames=80 h=23.5
+brush rock from -10 41 to -10 29.5 r=4 s=20 frames=30
+clear at -24 0 r=6
+clear from -52 0 to -40 -2 r=3
+clear from -40 -2 to -28 -4 r=3
+clear at -19 -12.5 r=3
+clear from -15 -12.5 to -9 -12.5 r=2.5
+clear from -7.5 42 to -7.5 28 r=4
+# (Eskil's egg hoist: a lookout ledge cut into the south crag's sheer north face over the saddle, 10.6 m - Raft's lift up to it)
+brush flatten at -4 -4.2 r=2.2 s=20 frames=120 h=10.6
+clear at -4 -4.2 r=3
+clear at -4 0.5 r=3
+
+# ===== Eskil's cabin on the flat: low stilts, the stove, the bunk, egg crates; his log on the table, the chest; the tally
+# board outside, firewood; the goats ======================================================================================
+push at -26.25 -2.25 h=2.9
+call stilt_hut y=1
+place "Balboa_DecorationPrefabBase_Old Stove" - at 3.7 3.7 y=1 sit yaw=180
+place Bed_Simple - at 1 2.8 y=1 sit
+place Placeable_Table_Basic - at 3.4 1.4 y=1 sit
+place Note_Book collectorlog at 3.4 1.4 y=1.74 sit yaw=20
+place "VG_DecorationPrefabBase_WoodenBoxes_ShortSquare Variant" - at 2.3 3.9 y=1 sit scale=0.4
+place Loot_Chest cabinchest at 1.1 0.9 y=1 sit yaw=90
+pop
+place Note_Board tally at -20.6 -2.6 ground yaw=120
+place Firewood_1 - at -20.4 1.2 ground
+place Firewood_1 - at -20.2 1.8 ground yaw=50
+place Zone_Trigger saddle at -22 -4 h=4
+place Creature_Goat goats at -32 8 ground
+
+# ===== The winch: the basket at the foot of the south crag's west cliff with its lever on a post, the gallows and the
+# cable drum on the ledge above with the top lever; the arrival spots; a box by the foot =================================
+place UT_HookRoom_Lift basket at -18 -12.5 h=4.2 yaw=90
+place RT_Pillar - at -20.6 -14.4 ground sy=0.4
+place TP_LaserControlPanel_lever winchup at -20.6 -14.4 ground y=1.25 scale=3 yaw=90
+place "Box Small" winchbox at -21 -10.6 ground sit yaw=20
+place RT_PillarThick - at -14.4 -11.4 h=20.3 sy=0.6
+place RT_PillarThick - at -14.4 -13.6 h=20.3 sy=0.6
+place RT_Beam - at -14.4 -13.85 h=23.9 yaw=90 sx=0.45
+place Cableroll_01 - at -11.8 -11.4 h=20.3 sit
+place RT_Pillar - at -12.4 -13.8 h=20.3 sy=0.4
+place TP_LaserControlPanel_lever winchdown at -12.4 -13.8 h=21.55 scale=3 yaw=270
+place Zone_Trigger crestop at -12 -12.5 h=21.5
+place Zone_Trigger winchfoot at -21 -12.5 h=5.5
+
+# ===== The north crag's bird cliff: the warning sign at the foot, ladders from ledge to ledge (each ladder on posts at
+# the back edge of the ledge below), the nests on every ledge, droppings; Eskil's lost basket and the screechers on the
+# top ledge
+place Note_Sign cliffsign at -5.4 42.4 ground yaw=180
+macro ladders z h n
+for k 0 {$n-1} 1
+place Block_Ladder - at -7.5 $z h={$h+2.42*$k}
+place Block_Pillar_Wood - at -7.5 {$z-0.2} h={$h+2.42*$k}
+next
+end
+call ladders 39.7 8.5 2
+call ladders 36.1 13.3 2
+call ladders 32.1 18.7 2
+place Placeable_BirdsNest nest1 at -9.5 37.6 h=12.5 sit yaw=20
+place Bird_Nest nest2 at -5.6 37.8 h=12.5 sit yaw=140
+place Placeable_BirdsNest nest3 at -9.4 33.4 h=18 sit yaw=200
+place Bird_Nest nest4 at -5.5 33.3 h=18 sit yaw=80
+place Placeable_BirdsNest nest5 at -9.5 29.2 h=23.5 sit yaw=300
+place Bird_Nest nest6 at -10.2 -11.4 h=20.3 sit yaw=10
+place TP_SnowDrift04 - at -8.6 37.2 h=12.5 scale=0.6 yaw=30
+place TP_SnowDrift04 - at -6.4 33.0 h=18 scale=0.6 yaw=120
+place UT_MarketBasket02 - at -6 29.4 h=23.5 sit yaw=40
+place "Box Small" ledgebox at -5.3 30.2 h=23.5 sit yaw=10
+place Zone_Trigger highledge at -7.5 29.5 h=24.5
+place Creature_StoneBird screechers at -6 25.5 h=31
+
+# ===== The beach below the flat: the upturned dinghy with a box under it, a barrel in the shallows; wind, snow on the
+# tops, dolphins; Raft's finds in the shallows ==============================================================================
+place RT_PlasticBoat - at -51 -4 ground y=0.35 rot=180,20,0
+place "Box Small" dinghybox at -49.2 -2.6 ground sit yaw=30
+place Loot_SunkenBarrel beachbarrel at -63 2 ground
+place Zone_Sound wind at 0 0 h=20
+place Zone_Atmosphere snowtops at 0 20 h=30
+place Zone_Atmosphere snowtops at 0 -20 h=30
+place Creature_Dolphin dolphins at -72 0 h=-3
+call shallows r=83 deep=5 n=1
+# --- Raft's story machinery (lib_features; the user, 2026-10-06: every Raft feature on at least one island): Eskil's egg
+# hoist - one of Varuna Point's skylifts at the foot of the south crag's north face in the saddle (5.4 m), riding 4.7 m up
+# to the lookout ledge cut into the face, his hoist chest up there
+call lift x=-4 z=0.1 yaw=90 alias=egghoist upalias=egghoistup chest=hoistchest tx=-4 tz=-5.4 items=Egg*3;Feather*4;Rope*2 title="Eskil's hoist chest"
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): pines, berries, flowers ----------
+scatter "Pickup_Landmark_Tree_Pine" 6 at 0 0 r=44.1 seed=4478 free=5
+scatter "Pickup_Landmark_BerryBush" 6 at 0 0 r=44.1 seed=4488 free=3
+scatter "Pickup_Landmark_Flower_White" 4 at 0 0 r=44.1 seed=4498 free=3
+scatter "Pickup_Landmark_Flower_Blue" 4 at 0 0 r=44.1 seed=4499 free=3
+
+# ===== Settings, notes, behaviours (no quest) =============================================================================
+info title=Rookery Cliffs
+info author=Custom Islands
+info description=Two snowy crags loud with sea-birds, an egg collector's cabin at their foot, a winch basket up the south crag's cliff and ladders from ledge to ledge. No quest - climb, gather the eggs, read his log, and mind the screechers on the top ledges.
+island on.arrive=message||Two white crags and a noise like a market: thousands of birds on the cliffs. At their foot, a little cabin with smoke-black windows.
+
+note collectorlog The egg collector's log | ROOKERY CLIFFS - COLLECTOR'S LOG\n\nMay 2. Up the ladders at first light. 60 eggs. The guillemots don't mind me. The big grey things on the top ledges DO.\nMay 9. Winch cable frayed. Spliced it. The basket still goes up the south crag if you pull the lever slow.\nMay 20. 140 eggs. Took the boat round to the trading post.\nJune 3. The grey ones took my hat.\nJune 4. The grey ones took my basket. It's on the north crag's top ledge. They can keep it.\nJune 30. Season's end. Leaving the cabin open for whoever comes. Take what eggs you like - the birds lay more.\n- Eskil
+note tally Tally of the seasons | (chalked on a board, one line a year)\n\n11 seasons. Best year 1,200 eggs. Worst year: the year of the grey ones (210, and a hat).
+note cliffsign Warning sign | LADDERS ARE OLD. LEDGES ARE SLIPPERY. THE GREY BIRDS ON TOP ARE NOT BIRDS YOU WANT TO MEET.\n- E.
+note cabinchest Collector's chest | Eskil's chest: a wool jumper, a tin of dried meat, rope for the ladders.
+loot cabinchest Wool*2;Rope*3;Cooked_GenericMeat*2
+prop cabinchest loot.refill=0
+note winchbox Winch box | A box by the winch: rope, scrap, a lump of ore.
+loot winchbox Rope*2;Scrap*2;MetalOre*1
+prop winchbox loot.refill=0
+note ledgebox Eskil's lost basket | Eskil's basket, where the grey birds dropped it: a few eggs still whole, grey feathers and his leather hat.
+loot ledgebox Egg*4;Feather*3;Leather*1
+prop ledgebox loot.refill=0
+note dinghybox Box under the dinghy | A box under the upturned dinghy: planks, nails, bait for a fishing line.
+loot dinghybox Nail*6;FishingBait_Simple*2;Plank*3
+prop dinghybox loot.refill=0
+note beachbarrel Barrel in the shallows | A barrel in the shallows: ore, scrap.
+loot beachbarrel MetalOre*2;Scrap*2;Stone*2
+prop beachbarrel loot.refill=0
+
+prop nest1 obj.name=nest1
+prop nest1 beh.use=Gather the eggs
+prop nest1 if.use=!signal|egg1
+prop nest1 on.use=message||Warm eggs in a nest of feathers and seaweed. The bird on the next ledge screams at you.\nsignal||egg1\ngive||Egg*2\ngive||Feather*2
+prop nest1 else.use=message||You've taken this nest's eggs - leave the birds the rest.
+prop nest2 obj.name=nest2
+prop nest2 beh.use=Gather the eggs
+prop nest2 if.use=!signal|egg2
+prop nest2 on.use=message||Warm eggs in a nest of feathers and seaweed. The bird on the next ledge screams at you.\nsignal||egg2\ngive||Egg*2\ngive||Feather*1
+prop nest2 else.use=message||You've taken this nest's eggs - leave the birds the rest.
+prop nest3 obj.name=nest3
+prop nest3 beh.use=Gather the eggs
+prop nest3 if.use=!signal|egg3
+prop nest3 on.use=message||Warm eggs in a nest of feathers and seaweed. The bird on the next ledge screams at you.\nsignal||egg3\ngive||Egg*3\ngive||Feather*1
+prop nest3 else.use=message||You've taken this nest's eggs - leave the birds the rest.
+prop nest4 obj.name=nest4
+prop nest4 beh.use=Gather the eggs
+prop nest4 if.use=!signal|egg4
+prop nest4 on.use=message||Warm eggs in a nest of feathers and seaweed. The bird on the next ledge screams at you.\nsignal||egg4\ngive||Egg*2\ngive||Feather*2
+prop nest4 else.use=message||You've taken this nest's eggs - leave the birds the rest.
+prop nest5 obj.name=nest5
+prop nest5 beh.use=Gather the eggs
+prop nest5 if.use=!signal|egg5
+prop nest5 on.use=message||Warm eggs in a nest of feathers and seaweed. The bird on the next ledge screams at you.\nsignal||egg5\ngive||Egg*2\ngive||Feather*1
+prop nest5 else.use=message||You've taken this nest's eggs - leave the birds the rest.
+prop nest6 obj.name=nest6
+prop nest6 beh.use=Gather the eggs
+prop nest6 if.use=!signal|egg6
+prop nest6 on.use=message||Warm eggs in a nest of feathers and seaweed. The bird on the next ledge screams at you.\nsignal||egg6\ngive||Egg*3\ngive||Feather*2
+prop nest6 else.use=message||You've taken this nest's eggs - leave the birds the rest.
+
+prop basket obj.name=basket
+prop basket beh.move=0,16,0
+prop basket beh.moveTime=8
+prop basket beh.moveMode=switch
+prop winchup obj.name=winchup
+prop winchup beh.use=Pull the winch lever (ride the basket up)
+prop winchup if.use=state|basket|closed
+prop winchup on.use=message||The winch groans, the cable sings - you jump into the basket and it lurches up the cliff.\nopen|basket\nsound||event:/exploring/utopia/lift_pull\nwait|8\nteleport|crestop\nmessage||The basket bumps against the top ledge. You step off, knees shaking.
+prop winchup else.use=message||The basket is up at the top. Pull the top lever to bring it down - or climb.
+prop winchdown obj.name=winchdown
+prop winchdown beh.use=Pull the winch lever (ride the basket down)
+prop winchdown if.use=state|basket|open
+prop winchdown on.use=message||Down you go, slowly, the birds watching.\nclose|basket\nsound||event:/exploring/utopia/lift_pull\nwait|8\nteleport|winchfoot
+prop winchdown else.use=message||The basket is down at the foot. Pull the foot lever to bring it up.
+prop crestop obj.name=crestop
+prop crestop zone.id=crestop
+prop crestop zone.radius=3
+prop crestop zone.message=The south crag's ledge, at the winch's top. Below you, the whole flat - and a lot of birds.
+prop winchfoot obj.name=winchfoot
+prop winchfoot zone.id=winchfoot
+prop winchfoot zone.radius=3
+prop saddle zone.id=saddle
+prop saddle zone.radius=10
+prop saddle zone.message=The flat at the crags' foot: the collector's cabin, his tally board, goats in the lee of the rocks.
+prop highledge zone.id=highledge
+prop highledge zone.radius=4
+prop highledge zone.message=The north crag's top ledge - and the grey ones' ledge. Something big shifts on the rock above you.
+prop screechers creature.count=2
+prop wind sound.event=event:/amb/temperance
+prop wind sound.volume=0.6
+prop wind zone.radius=40
+prop snowtops atmo.particles=snow
+prop snowtops atmo.fog=#d8e0e8
+prop snowtops atmo.fogAmount=0.12
+prop snowtops zone.radius=30
+prop goats creature.count=3
+prop dolphins creature.count=2
+
+save Rookery Cliffs
+

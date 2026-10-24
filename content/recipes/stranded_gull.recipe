@@ -1,0 +1,159 @@
+# The Stranded Gull - a small island of the library (inspired by Raft's Vasagatan)
+# A long sandbar where the motor yacht "Gull" ran aground: the boat beached on the sand, the crew's castaway camp
+# furnished with what they saved from the yacht, and the yacht's torn-off stern lying dark on the reef below, an
+# angler fish's lure the only light. Quest "The Gull's Safe" (5 steps): the deckhand's note at the camp, the rats in
+# the tender's wheelhouse, the captain's key in his locker, the angler fish, the ship's safe.
+#
+# Built by the recipe player (CIRecipe stranded_gull) through the editor's own operations.
+
+include lib_sea
+include lib_features
+new
+# (nature: a sandbar: few trees and rocks, driftwood - Raft's islands as the generator's Like Raft has them, CIGenLikeRaft)
+gen Trees=0.15 Bushes=0.25 Rocks=0.1 Harvest=0.24 BeachThings=0.7
+gen Seed=421 Radius=22 Height=3 Roughness=0.2 Peaks=1 Shape=0 Style=0 BeachWidth=1 Cliffs=0 PeakShape=0
+gen Stretch=1.7 StretchAngle=30 SeaFloor=1 Seabed=2
+# (sea: Raft's finds and corals as dense as around Raft's islands - Like Raft 0.5 - the review, 2026-10-03)
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.5 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# --- The beached boat on the south-east shore (Raft's stranded boat, listing on the sand): the yacht's tender -------
+clear at 10 -14 r=7
+place BoatStranded boat at 9 -13 rot=0,0,0 yaw=125 roll=8
+# a boarding ladder from the sand on its island side, the captain's locker on the bow deck by the wheelhouse
+place Block_Ladder boarding at 10.5 -10.75 yaw=215
+place Loot_ChestSmall locker at 8.0 -12.9 h=2.55 sit yaw=125
+place Zone_Trigger aboard at 8.0 -12.8 h=3.3
+place Creature_Rat rats at 8.4 -13.4 h=2.7
+place "VG_DecorationPrefabBase_Lockers_Open Variant" - at 7.4 -12.3 h=2.55 sit yaw=305
+
+# --- The crew's camp in the middle of the sandbar: a tarp on posts, the yacht's couches, a bar, a sunbed, a fire ---
+clear at -4 3 r=8
+# (the posts under the tarp's edges: at z 1.6 / 4.4 they stood 11 cm outside them and the tarp hung on nothing,
+# CIGroundIslands)
+place ReefHuts_Pillar1 - at -6.2 1.75 sit
+place ReefHuts_Pillar1 - at -6.2 4.25 sit
+place ReefHuts_Pillar1 - at -1.8 1.75 sit
+place ReefHuts_Pillar1 - at -1.8 4.25 sit
+place ReefHuts_Tarpaulin tarp at -4 3 y=2.7 tilt=6 rot=0,0,0
+place VG_LoungeCouch - at -4.8 3.9 sit yaw=180
+place VG_LoungeCouch - at -2.9 3.9 sit yaw=180
+place VG_LoungeTable table at -4 2.6 sit
+place Note_Paper dnote at -3.8 2.5 y=0.78 sit
+place VG_LoungeBarStool - at -6.7 0.9 sit
+place VG_LoungeBarStool - at -6.6 2.2 sit
+place "VG_DecorationPrefabBase_WideStationarySunbed Variant" - at -9.5 5.5 sit yaw=60
+place "VG_DecorationPrefabBase_Speaker Variant" - at -7.4 5.0 sit yaw=150
+place VG_LoungeBar2 - at 0.5 8.5 sit yaw=20
+place VG_LoungeBarShelf - at 0.8 9.9 y=0.9 yaw=20
+place campfire_1 - at -4 -1.2 sit
+place Firewood_1 - at -5.2 -1.6 sit
+place Placeable_Lantern_FireBasket - at -1.2 2.9 sit
+place Placeable_Lantern_Basic - at -7 3 sit
+place "VG_DecorationPrefabBase_WoodenBoxes_ShortRect Variant" - at 1.5 4.5 sit yaw=15
+place "Box Small" - at 2.2 2.6 sit yaw=40
+place "Box Small" - at 2.9 3.6 sit yaw=10
+place BoatLandmark_Flag flag at -13 8 sit yaw=40
+place Pickup_Landmark_LandmarkCrateRaft - at -15 -7
+place Zone_Trigger camp at -4 3 y=1
+
+# --- Palms and bushes on the sand, shells and stones to pick up ---------------------------------------------------
+scatter "Pickup_Landmark_Tree_Palm 2" 2 at -10 0 r=5 seed=31
+scatter "Pickup_Landmark_Tree_Palm 4" 2 at 8 4 r=5 seed=32
+scatter "Pickup_Landmark_Tree_Palm 1" 1 at -16 -4 r=3 seed=33
+scatter Bush2 5 at 0 0 r=14 seed=34
+# (giant clams in the shallows off the beach, not on it: Raft has them under water)
+scatter Pickup_Landmark_GiantClam 3 at 20 0 r=9 wet seed=35
+scatter "Pickup_Landmark_Rock 2" 4 at -8 -6 r=6 seed=36
+
+# --- Raft's special features (lib_features; the user, 2026-10-10: every Raft feature on more than one island): the
+# Gull's tender engine hauled up the beach by the crew, its spares locker beside it (opens once it runs); the gas tank
+# in a fuel crate on the sand; the yacht's lazarette hatch washed up east of the camp, a stash under it
+call enginecache x=0.5 z=-6 yaw=300 alias=tenderengine locker=tenderlocker items=MetalIngot*2;Bolt*3;Rope*2 kx=0 kz=0 kr=16 seed=361 crate=gullfuel free=3
+prop tenderengine on.use=message||The tender's outboard coughs, catches and roars on the sand - and the spares locker beside it rattles open.\nsignal||engine\nshow|tenderlocker
+prop tenderengine else.use=message||The tank is dry. The crew must have hidden the spare gas somewhere on the sand - a fuel crate.
+call hatchcache x=10 z=0 r=6 seed=362 alias=gullhatch chest=gullstash items=Rope*3;Plastic*2;Bolt*2
+prop gullhatch on.use=hide|\nshow|gullstash\nmessage||The Gull's lazarette hatch, washed up and dug in. Someone stowed their things under it.
+
+# --- The yacht's stern on the reef slope (south-east, 8 to 13 m down): engine, lockers, a container, the safe ------
+place Reef_Container - at 13 -26 sit tilt=12 yaw=40
+place "VG_DecorationPrefabBase_Engine Variant" - at 16.5 -29 sit roll=18 yaw=10
+place "VG_DecorationPrefabBase_Engine_EndPart Variant" - at 18.5 -30.5 sit roll=-30 yaw=100
+place VG_Safe safe at 15.2 -27.2 sit yaw=320
+place Locker - at 14 -29.5 sit tilt=80 yaw=30
+place Locker - at 12.6 -29 sit tilt=85 yaw=-20
+place "VG_DecorationPrefabBase_BunkBed Variant" - at 17.5 -25.8 sit tilt=15 yaw=200
+place VG_DoorPlastic_Broken - at 11.5 -27.5 sit tilt=70
+place RT_Wall1 - at 16.5 -23.5 sit tilt=70 yaw=30
+place RT_Wall1 - at 19.5 -27 sit tilt=72 yaw=100
+place RT_WallWindowBroken1 - at 18.5 -32 sit tilt=65 yaw=160
+place "VG_DecorationPrefabBase_WorkshopStorage_1 Variant" - at 14 -31.5 sit tilt=30
+place VG_LoungeBar1 - at 10.5 -31 sit tilt=12 yaw=75
+place "VG_DecorationPrefabBase_Frame_5 Variant" - at 15 -25 sit tilt=80
+scatter "Box Small" 3 at 15 -28 r=4 any seed=41
+scatter SeaVine3 5 at 15 -27 r=7 any seed=42
+place Loot_SunkenBarrel barrel at 12 -24 sit tilt=30
+place Zone_Atmosphere murk at 15 -27.5 h=-7
+place Zone_Sound creaks at 15 -27.5 h=-7
+place Creature_AnglerFish angler at 15.5 -27.5 h=-6
+
+# --- Settings, story item, notes, behaviours, quest -----------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): melons, pineapples ----------
+scatter "Pickup_Landmark_WatermelonLandmark" 3 at 0 0 r=15.4 seed=4102 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 3 at 0 0 r=15.4 seed=4112 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=42 deep=5 n=1
+
+info title=The Stranded Gull
+info author=Custom Islands
+info description=A sandbar where the motor yacht Gull ran aground. The crew's camp, their beached tender - and the yacht's stern on the reef below, where something with a light has moved in. Inspired by Raft's Vasagatan.
+island on.arrive=message||A distress flag flies over a sandbar. Couches and a bar stand on the sand.
+
+story capkey|Captain's safe key|quest:Vasagatan_BlueKey|A small brass key on a chain. It opens the Gull's safe.
+
+note dnote Deckhand's note | Day 3 on this sandbar. We dragged what we could off the Gull before her stern broke away and slid down the reef: the good couches, the bar stools, the captain's speaker (no power, of course).\n\nThe captain won't leave the tender. He sleeps on the bow with the safe key on a chain and mutters about "the chart".\n\nSomething with a light lives down in the stern now. Marco dived for the safe and came back white as a sheet. He says the light has teeth.\n\n- Jules, deckhand
+note locker Captain's locker | A. Varga, master of the Gull - personal.\n\nThe chart stays in the safe until we are picked up. Nobody touches it.\n\n(Underneath, in a shakier hand:) The stern is gone, and the safe with it. If you hold this key, you are braver than my crew.
+loot locker story:capkey*1;Compass*1;Rope*3
+prop locker loot.refill=0
+note safe Ship's safe | Wrapped in oilcloth, the captain's last entry:\n\n"The Gull was never a pleasure yacht. We carried parts for the relay stations along the old shipping line. If the beacons are lit again, the line can be followed - east, from beacon to beacon."
+loot safe Hat_Captain*1;TitaniumIngot*2;Binoculars*1;Battery*1
+prop safe loot.refill=0
+prop safe if.open=take|story:capkey|1
+prop safe else.open=message||Locked tight. The captain must have kept the key somewhere.
+loot barrel Plastic*6;Scrap*4;Rope*2
+
+prop camp zone.id=camp
+prop camp zone.radius=6
+prop camp zone.message=The crew's camp - couches and bar stools from the yacht, dragged up the sand. Nobody is here.
+prop aboard zone.id=aboard
+prop aboard zone.radius=2.5
+prop aboard zone.message=Rats pour out of the wheelhouse!
+prop rats creature.count=3
+prop rats creature.zone=aboard
+
+prop murk atmo.fog=#0b2a33
+prop murk atmo.fogAmount=0.5
+prop murk atmo.light=#2c4a5a
+prop murk atmo.lightAmount=0.6
+prop murk atmo.particles=mist
+prop murk zone.radius=14
+prop creaks sound.event=event:/amb/wreck_creaks
+prop creaks sound.volume=0.7
+prop creaks zone.radius=13
+prop angler creature.count=1
+prop angler creature.size=1.8
+prop angler creature.health=3
+prop angler creature.damage=1.5
+prop angler creature.respawn=0
+
+quest title=The Gull's Safe
+quest intro=A distress flag over a sandbar, a camp with yacht furniture and nobody in it. Find out what happened to the crew of the Gull.
+step read|Deckhand's note|1|Find the crew's camp and read the note left on the table
+step kill|Rat|3|Board the beached tender and clear the rats out of the wheelhouse
+step open|Captain's locker|1|Search the captain's locker on the tender's bow
+step kill|Angler fish|1|Deal with the light in the sunken stern
+step open|Ship's safe|1|Open the ship's safe on the reef
+quest done=The Gull's secret is out: she carried parts for the relay stations. East, from beacon to beacon.
+quest reward=Glass*4;Nail*10
+
+save The Stranded Gull

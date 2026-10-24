@@ -1,0 +1,22 @@
+# Guide pictures of Ranger Landing (CIPlay ranger_landing_pics): Raft's camera, midday, calm
+island Ranger Landing
+# AREAS 10-24: points in the island's own frame (the station south, the ruins west, the cave north-west, the shed north, the plane east)
+offset 0 0
+hour 11
+weather Calm
+at -10 -40
+wait 3
+picture sl11_ranger_landing_island 75 +45 -95 0 4 0
+picture sl11_ranger_landing_station -6 +5 -52 -21.6 +2 -68.3
+at -38 -20
+wait 2
+picture sl11_ranger_landing_ruins -32 +6 -26 -46 +1.5 -10
+at -36 10
+wait 2
+picture sl11_ranger_landing_cave -38 +3 3 -38 7 20
+at 12 55
+wait 2
+picture sl11_ranger_landing_shed 15 +4 55 7 +1.5 69
+at 40 -40
+wait 2
+picture sl11_ranger_landing_plane 38 +5 -44 52 +1.5 -28

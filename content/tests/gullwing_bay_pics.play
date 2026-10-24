@@ -1,0 +1,11 @@
+# Guide pictures of Gullwing Bay (CIPlay gullwing_bay_pics): Raft's camera, morning, calm
+island Gullwing Bay
+offset 0.0084 -5.2062
+hour 9
+weather Calm
+at 6 12
+wait 3
+picture ni_gullwing_bay_island 0 30 90 0 0 20
+picture ni_gullwing_bay_jetty 16 5 10 6 1.5 26
+picture ni_gullwing_bay_wreck 4 -4 26 -6 -6 34
+picture ni_gullwing_bay_cave -31 5 28 -31 4 8

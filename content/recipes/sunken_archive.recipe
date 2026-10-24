@@ -1,0 +1,140 @@
+# The Sunken Archive - an island of the library's plan Raft 2: The Drowned Frontier (station Four of the Frontier Corps)
+# Five palm islets on a shallow coral bank, and in a basin in the middle the Corps' archive, two of its three floors under
+# the sea: the reading room on top with its jetty and the index desk, the flooded stacks below (broken windows to swim in
+# by, air under the reading room's floor and a pocket of it in the deepest room), the rare book vault and its keeper.
+# Quest "Card Catalogue" (10 steps): the reading room, the archivist's letter, the shelf's and the floor's card boxes in
+# the flooded stacks, the deepest room's air pocket, the vault, the angler there, the deep card box, the three cards, the
+# index desk and the vault opened (the engine controls', the metal detector's, the firework's and the zipline's
+# blueprints).
+#
+# Built by the recipe player (CIRecipe sunken_archive) through the editor's own operations.
+include lib_sea
+include lib_rt
+new
+# (nature: Like Raft - Raft's islands as the generator's Like Raft has them, CIGenLikeRaft)
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=8104 Radius=70 Height=6 Roughness=0.3 Shape=2 Style=0
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.4 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the basin in the bank where the archive stands (5.7 m down) -------------------------------------------
+brush flatten at -7 -8 r=12 s=20 frames=80 h=-5.7
+origin
+clear at -7 -8 r=14
+
+# --- The archive: three of the radio tower's rooms stacked, turned to face north; the flooded stacks below (broken
+# windows), the reading room on top, a roof ----------------------------------------------------------------------------
+push at -8 -12 h=-5.6 yaw=180
+call rt_storey f1=RT_WallWindowBroken f2=RT_WallWindowBroken l2=RT_WallWindowBroken r2=RT_WallWindowBroken b1=RT_WallWindowBroken
+place "VP_DecorationPrefabBase_Bookshelf Filled 1" - at -0.7 -1.5 sit yaw=-90
+place "VP_DecorationPrefabBase_Bookshelf Filled 2" - at -0.4 1.5 sit yaw=-90
+place VG_Safe rarebookvault at -5.3 3.6 sit yaw=90
+place "Box Small" cardbox3 at -3 3.6 sit yaw=10
+place Zone_Trigger vault at -3 0 y=1.5
+place Zone_Trigger deepair at -1.5 -2.5 y=1.6
+place Creature_AnglerFish keeper at -3 1 y=1.5
+push at 0 0 y=3.05
+call rt_storey f1=RT_WallWindowBroken r2=RT_WallWindowBroken l2=RT_WallWindowBroken b2=RT_WallWindowBroken
+place "VP_DecorationPrefabBase_Bookshelf Filled 3" - at -5.6 -1.5 sit yaw=90
+place "VP_DecorationPrefabBase_Bookshelf Filled 1" - at -5.3 1.5 sit yaw=90
+place "Box Small" cardbox1 at -1 3.6 sit yaw=-15
+place "Box Small" cardbox2 at -4.6 -3.6 sit yaw=30
+push at 0 0 y=3.05
+call rt_storey f2=RT_WallDoor1 f1=RT_WallWindow1 l2=RT_WallWindow1 r2=RT_WallWindow1 b1=RT_WallWindow2 b2=RT_WallWindow2
+place RT_Floor - at 0 4.5 y=3.05
+place "Table Office" indexdesk at -3 2.6 sit yaw=180
+place RT_RadarScreen indexterminal at -3 2.35 y=1.08 sit yaw=180 scale=0.5
+place "Chair Office" - at -3 1.6 sit yaw=10
+place Table_Common_01 - at -4.6 -2 sit yaw=90
+place Note_Book archivistsletter at -4.6 -2 y=1.6 sit drop yaw=20
+place "VP_DecorationPrefabBase_Bookshelf Filled 2" - at -5.3 2.5 sit yaw=90
+place Zone_Trigger readingroom at -3 0 y=1.5
+pop
+pop
+pop
+
+# --- The jetty at the reading room's door (0.55 m), a ladder down to the water, the archivist's boat ------------------
+place RT_Floor jetty at -3 1.5 h=0.55
+place LandmarkLadder_6m jettyladder at -6 1.62 h=-5.75 yaw=180
+place RT_PlasticBoat archivistsboat at 1.5 -2 h=-0.3 yaw=10
+
+# --- Friendly animals (placed: the generator's Friendly and SeaLife are whole numbers - the 0.2 and 0.3 above gave none;
+# the user, 2026-10-03: "add some friendly animals to some of the islands"): turtles on the coral bank, dolphins outside it -
+place Creature_Turtle turtles at 30 2 h=-1.3
+prop turtles creature.count=2
+place Creature_Dolphin dolphins at 0 90 h=-3
+prop dolphins creature.count=2
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): mangoes, palms, pineapples ----------
+scatter "Pickup_Landmark_Tree_Mango" 6 at 0 0 r=49.0 seed=4545 free=5
+scatter "Pickup_Landmark_Tree_Palm 1" 4 at 0 0 r=49.0 seed=4555 free=5
+scatter "Pickup_Landmark_Tree_Palm 3" 4 at 0 0 r=49.0 seed=4556 free=5
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=49.0 seed=4565 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=90 deep=5 n=2
+
+info title=The Sunken Archive
+info author=Custom Islands
+info description=Station Four of the Frontier Corps: five palm islets on a coral bank, and in a basin between them the Corps' archive, two of its floors flooded - the stacks full of books and fish, the rare book vault at the bottom. The fourth island of Raft 2: The Drowned Frontier.
+island on.arrive=message||Palm islets on a bank of coral - and in the middle, a square building standing in the sea, water to its top floor's windows.
+
+story card|Catalogue card|quest:Tangaroa_KeyCard|A catalogue card from the archive's flooded stacks - the index desk needs three.
+
+note archivistsletter Archivist's letter | FRONTIER CORPS - STATION FOUR - THE ARCHIVE\n\nThe sea came up two floors in one winter. The stacks are under water now, and the rare book vault at the bottom with them.\n\nThe vault opens to the index: put the three catalogue cards from the stacks through the index desk up here and its lock lets go. There is air under the reading room's floor, and a pocket of it in the deepest room.\n\nSomething with a lamp on its head has moved into the vault. The Corps went on to Hightide Harbor - the map is in the vault.
+note cardbox1 Shelf card box | A box of catalogue cards on a shelf of the stacks, swollen with water - one still readable.
+loot cardbox1 story:card*1;Plastic*2
+prop cardbox1 loot.refill=0
+note cardbox2 Floor card box | A box of catalogue cards on the stacks' floor - one still readable.
+loot cardbox2 story:card*1;Rope*1
+prop cardbox2 loot.refill=0
+note cardbox3 Deep card box | The last box of catalogue cards, in the deepest room - one still readable.
+loot cardbox3 story:card*1;Scrap*2
+prop cardbox3 loot.refill=0
+note rarebookvault Rare book vault | The archive's vault: the Corps' rarest plans - engine controls, a metal detector, fireworks, a zipline - and their map to Hightide Harbor.
+loot rarebookvault Blueprint_EngineControls*1;Blueprint_MetalDetector*1;Blueprint_Firework*1;Blueprint_ZiplineBase*1;Battery*1
+prop rarebookvault loot.refill=0
+prop rarebookvault if.open=signal|indexed
+prop rarebookvault else.open=message||The vault's lock is wired to the index desk upstairs - it wants the three catalogue cards first.
+
+prop indexterminal obj.name=indexterminal
+prop indexterminal beh.use=Feed the catalogue cards through the index
+prop indexterminal if.use=take|story:card|3
+prop indexterminal on.use=message||The index whirrs through the three cards - far below, under the water, a heavy lock clunks open.\nsignal||indexed
+prop indexterminal else.use=message||The index desk wants three catalogue cards. The archivist's letter said they are in the flooded stacks.
+
+prop readingroom zone.id=readingroom
+prop readingroom zone.radius=4
+prop readingroom zone.message=The reading room: dry, dusty - and under its floor, the sea.
+prop vault zone.id=vault
+prop vault zone.radius=4
+prop vault zone.message=The deepest room - and a lamp swinging in the dark by the vault.
+prop deepair zone.id=deepair
+prop deepair zone.radius=1.6
+prop deepair zone.air=1
+prop keeper creature.count=1
+prop keeper creature.size=1.4
+prop keeper creature.health=3
+prop keeper creature.respawn=0
+prop keeper creature.zone=vault
+
+quest title=Card Catalogue
+quest intro=Palm islets on a coral bank and a building standing in the sea. Station Four: start in the archive's reading room.
+step reach|readingroom|1|Climb onto the jetty and into the archive's reading room
+step read|Archivist's letter|1|Read the archivist's letter
+step open|Shelf card box|1|Dive into the flooded stacks: a card box waits on a shelf
+step open|Floor card box|1|Find the second card box on the stacks' floor
+step reach|deepair|1|Swim down to the deepest room and breathe in its air pocket
+step reach|vault|1|Find the lamp swinging in the dark by the vault
+step kill|Angler fish|1|Face the vault's keeper, the angler with the lamp on its head
+step open|Deep card box|1|Take the last catalogue card from the deep room's box
+step collect|story:card|3|Carry the three catalogue cards up to the index desk
+step open|Rare book vault|1|Feed the cards through the index, then open the rare book vault
+step blueprint|Blueprint_EngineControls|1|Take the engine controls plans from the rare book vault
+step blueprint|Blueprint_MetalDetector|1|Take the metal detector plans from the rare book vault
+step blueprint|Blueprint_Firework|1|Take the firework plans from the rare book vault
+step blueprint|Blueprint_ZiplineBase|1|Take the zipline plans from the rare book vault
+quest done=The vault gives up the Corps' rarest plans - and their map: Hightide Harbor, a fishing town on stilts, where the fleet went.
+quest reward=Plank*6;Plastic*6;Rope*2
+
+save The Sunken Archive

@@ -1,0 +1,78 @@
+# Play test of Ashfall (CIPlay ashfall, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The table-land's top at 21.8 m: the road up from the landing (30 -50) in two legs (a turn at -23 -44.5, 12 m) to the square at 4 -30; the bell house
+# at 0 -16 (deck 28.9 m); the town hall x -20.5..-13.5, z -14.5..-4 (door east at z -11..-7.5); the bakery round 14 -10
+# (open on the north); the tool shed at 22 4 (open south); the school x 9.5..16.5, z 9.5..20 (door east at z 13..16.5);
+# the crypt's stair from -10 8 down west to -21 8 (17.8 m); the goat path 18 28 - 32 42 - 16 53; the shelter round 1 45 (the lava tube dug from its mouth at z 52 back to 38).
+island Ashfall
+offset 0 0
+expect step 0
+expect title Under the Ash
+wait 5
+expect animals Chicken 3
+expect animals Dolphin 2
+at 30 -50 h=2.6
+walk 30 -50 to 17 -49 h=4.2
+at 17 -49 h=5.2
+walk 17 -49 to 4 -48 h=6.8
+at 4 -48 h=7.8
+walk 4 -48 to -9 -47 h=9.4
+at -9 -47 h=10.4
+walk -9 -47 to -21 -45.5 h=12.0
+at -23 -44.5 h=13
+walk -23 -44.5 to -24 -42 to -14.7 -39.3 to -5.3 -36.7 to 4 -34 h=21.8
+walk 4 -34 to 4 -30 h=21.8
+zone rooftops
+expect step 1
+use bell
+expect message read her pages first
+read The last proclamation
+expect step 2
+at -6 -9.2 h=23
+walk -6 -9.2 to -16 -9.2 h=21.9
+zone townhall
+expect message full of rats
+kill Rat
+expect step 3
+read Mayor's diary, page one
+at 14 -5 h=23
+walk 14 -5 to 14 -9.5 h=21.85
+read Mayor's diary, page two
+expect step 4
+at 22 1 h=23
+walk 22 1 to 22 2.6 h=21.8
+open Tool shed box
+expect story ashshovel 1
+expect step 5
+at 22 14.77 h=23
+use schooldoor
+expect message You dig
+wait 4
+walk 22 14.77 to 13 14.77 h=21.9
+zone school
+expect step 6
+read Mayor's diary, page three
+at -6 8 h=23
+walk -6 8 to -22 8 h=17.8
+zone chapel
+expect message Beetles
+read Mayor's diary, page four
+expect step 7
+kill Roach
+expect step 8
+at 0 -16 h=29.5
+read Mayor's diary, page five
+expect step 9
+use bell
+expect shown shelter
+wait 6
+at 18 28 h=23
+walk 18 28 to 32 42 h=12
+walk 32 42 to 16 53 h=2.2
+walk 16 53 to 2 51 h=2
+walk 2 51 to 1 45 h=2.05
+zone shelter
+expect step 10
+read The shelter's roll
+expect step 11
+open The village chest
+expect done

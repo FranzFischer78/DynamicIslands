@@ -1,0 +1,57 @@
+# Play test of Viaduct Lagoon (CIPlay viaduct_lagoon, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The station on the west ring (6 m; the platform x -52..-40 z 5.5..7.6), the viaduct's deck along z 2.5..5.5 at 7 m from
+# x -40 to -15.8 (the brake van at -20) and from 2.3 to 36, the trench below the break (11 m down) with the three cars at
+# -9 6, -1 2 and 7 5; the signal cabin on the east ring (x 45.5..54.5, z 4..10, its door on the west side).
+# Quest (12 steps): the station, the telegram, the parcel box, the wreck, the brake van, car one's locker, the three
+# bags, the sack in the silt, the cabin, the receipt, the safe, two goats.
+island Viaduct Lagoon
+offset 0 0
+expect step 0
+expect title The Winter Post
+wait 5
+expect animals Goat 3
+expect animals Dolphin 2
+at -46 9 h=7.5
+zone station
+expect step 1
+read Station master's telegram
+expect step 2
+open Platform parcel box
+expect step 3
+open Coal barrel
+at -9 4 h=-7
+zone wreckage
+expect step 4
+open Mail locker of car one
+expect message bent shut
+at -26 4 h=8
+walk -26 4 to -21.5 4 h=7.05
+open Brake van locker
+expect story crowbar 1
+expect step 5
+at -9 4 h=-7
+zone wreckage
+air air1
+open Mail locker of car one
+expect step 6
+at -1 4 h=-7.5
+air air2
+open Mail locker of car two
+at 7 3 h=-7.5
+air air3
+open Mail locker of car three
+expect story mailbag 3
+expect step 7
+open Mail sack in the silt
+expect step 8
+at 43.5 8.5 h=7
+walk 43.5 8.5 to 47.5 8.5 h=6.1
+zone office
+expect step 9
+use counter
+expect story receipt 1
+expect step 10
+open Station master's safe
+expect step 11
+catch Goat 2
+expect done

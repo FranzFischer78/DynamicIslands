@@ -1,0 +1,58 @@
+# Play test of Wreckers' Cove (CIPlay wreckers_cove, in a test world 'CI ...'). Points as in its recipe: the jetty
+# (2.75 m) up to the hamlet's terrace (2.4 m), the Marigold on the reef at the cove's mouth (her deck awash), the den's
+# floor at the sea (0.1-0.9 m), the boardwalk along the east arm (0.4 m), the false lantern's roof (11.2 m).
+island Wreckers' Cove
+expect step 0
+expect title The False Lantern
+
+# Up the jetty onto the hamlet's terrace
+walk -12 -20 to -12 -2 to -11 1 h=2.4
+zone cove
+expect step 1
+read Hamlet notice
+expect step 2
+
+# Out to the Marigold on the reef: her log, the captain's chest and the den key
+at -7.5 -50
+zone aboard
+expect message stripped to the ribs
+expect step 3
+read Marigold's log
+expect step 4
+open Captain's chest
+expect story denkey 1
+expect step 6
+
+# Along the shore to the smugglers' den in the hills' north-east corner: the rats, the strongbox and the lantern key
+walk -6 -4.5 to 2 -6 to 8 -5 to 15 2 h=0.5
+zone den
+expect step 7
+expect message something squeaking
+kill Rat
+expect step 8
+expect animals Rat 0
+walk 15 2 to 23 10 h=0.7
+open Smugglers' strongbox
+expect story lanternkey 1
+expect step 9
+
+# Out of the den, along the boardwalk to the south point: the keeper's log in his room; up the false lantern's ladder
+# onto its roof
+walk 23 10 to 15 2 to 8 -5 to 10.9 -7.4 to 16.2 -19 to 16.6 -32 to 25 -42.6 to 30 -44.5 to 36 -47.3 h=4.5
+read Keeper's log
+expect step 10
+at 36 -47.3 h=4.5
+climb 41 -52.6 h=5.4
+expect stand 41 -48 h=11.18
+at 41 -47 h=11.35
+zone lantern
+expect step 11
+
+# The lantern doused: the hoard's chain falls slack
+use douse
+expect message lantern gutters
+expect hidden lantern
+open Wreckers' hoard
+wait 3
+expect item Blueprint_HeadLight 1
+expect done

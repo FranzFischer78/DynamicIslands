@@ -1,0 +1,34 @@
+# lib_relay - macros for buildings of Balboa's relay station pieces (include lib_relay in a recipe).
+# The pieces' own frames (CIMeasureProps): Relay_Floor_deck is 5.23 m square, spanning 5.23 m west and south of its
+# pivot (its top 0.15 m above it); Relay_Wall* are 3.49 m wide westward from the pivot, 4.49 m tall (turned 90: 3.49 m
+# northward); Relay_Roof_Mid / _End are 7.69 m wide, centred on the pivot, 3.6 m deep southward; Relay_stairs_30_short
+# climbs 1.83 m over 3.76 m southward, the tall one 3.38 m over 6.53 m.
+
+# relay_house: a house of two walls by three on a 2 x 2 deck (10.47 x 10.47 m, floor at the frame's y=0), the west
+# 7 m walled in and roofed, the east 3.5 m an open veranda with a railing. e1..e3 = the walls facing the veranda (north to
+# south: e1 at the north end); n1/n2, s1/s2 north and south (west part first); w1..w3 the west wall (south to north).
+macro relay_house n1=Relay_Wall_Windows n2=Relay_Wall s1=Relay_Wall s2=Relay_Wall_Windows w1=Relay_Wall_2smallwindows w2=Relay_Wall w3=Relay_Wall_2smallwindows e1=Relay_Wall_Window e2=Relay_Wall_door e3=Relay_Wall_Window
+place Relay_Floor_deck - at 0 0 y=-0.148
+place Relay_Floor_deck - at -5.233 0 y=-0.148
+place Relay_Floor_deck - at 0 -5.233 y=-0.148
+place Relay_Floor_deck - at -5.233 -5.233 y=-0.148
+place $n1 - at -6.978 0
+place $n2 - at -3.489 0
+place $s1 - at -6.978 -10.467
+place $s2 - at -3.489 -10.467
+place $w1 - at -10.467 -10.467 yaw=90
+place $w2 - at -10.467 -6.978 yaw=90
+place $w3 - at -10.467 -3.489 yaw=90
+place $e3 - at -3.489 -10.467 yaw=90
+place $e2 - at -3.489 -6.978 yaw=90
+place $e1 - at -3.489 -3.489 yaw=90
+place Relay_Wall_support - at -3.489 0
+place Relay_Wall_support - at -10.467 0
+place Relay_Wall_support - at -3.489 -10.467
+place Relay_Wall_support - at -10.467 -10.467
+place Relay_Roof_End - at -6.978 0.2 y=4.49
+place Relay_Roof_Mid - at -6.978 -3.46 y=4.49
+place Relay_Roof_End - at -6.978 -10.67 y=4.49 yaw=180
+line Relay_Fence_wood from 0 -10.467 to 0 0 step=1.825 y=0
+line Relay_Fence_wood from -3.489 0 to 0 0 step=1.825 y=0
+end

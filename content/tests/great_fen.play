@@ -1,0 +1,148 @@
+# Play test of The Great Fen (CIPlay great_fen, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The mere round -10 -10 (water 28..64 m out), Sevenbridge's island inside it (r 26, 1.5 m): the hall -15.3..-4.8 x
+# -15.3..-4.8, its bell tower's deck at -11 -19 (12 m up), the vault at -29..-23 x -20.3..-11.3. The villages: Reedcut -10 95,
+# Eelmarsh 64 64 (its pool at 72 72, 7 m down), Mothwick 75 -10 (the pond's islet 75 6), Turfholm 64 -84 (the bog 78 -90),
+# Heronsby 35 -130 (the healer's table 43 -127), Willowbend -115 -10 (the mill isle -132 -28), Stillwater -85 70 (the beast
+# at -62 45.4). Each bridge's windlass ~37 m out from the middle, its town-side zone 23 m out. The landing 40 -189.
+island The Great Fen
+offset 2.1017 1.5915
+expect step 0
+expect title The Seven Bridges
+wait 5
+expect animals Chicken 3
+expect animals Goat 3
+at 40 -189 h=2.5
+zone fenlanding
+expect step 1
+read The fen-warden's map
+expect step 2
+open Warden's chest
+expect step 3
+at -10 95 h=3
+zone reedcut
+expect step 4
+read Reedcut's elder
+expect step 5
+at -10 27.4 h=2.2
+use windlass1
+expect message geese first
+catch Chicken 3
+expect step 6
+use windlass1
+expect shown lowered1
+at -10 17 h=3
+zone bridge1
+expect step 7
+at 64 64 h=3
+zone eelmarsh
+expect step 8
+read Eelmarsh's elder
+expect step 9
+at 72 72 h=-6
+zone eelpool
+open The old eel trap
+expect story bridgepin 1
+expect step 10
+at 16.45 16.45 h=2.2
+use windlass2
+expect shown lowered2
+at 9.09 9.09 h=3
+zone bridge2
+expect step 11
+at 75 -10 h=3
+zone mothwick
+expect step 12
+read The wisp rhyme
+expect step 13
+at 75 15 h=2.5
+use hornheron
+expect message Not yet
+use hornreed
+use hornheron
+use hornwillow
+expect shown wisp
+at 75 6 h=2
+zone wisp
+expect step 14
+expect shown lowered3
+at 17 -10 h=3
+zone bridge3
+expect step 15
+at 64 -84 h=3
+zone turfholm
+expect step 16
+read Turfholm's elder
+expect step 17
+at 84 -94 h=2
+zone bog
+kill Warthog
+expect step 18
+expect shown lowered4
+at 9.09 -29.09 h=3
+zone bridge4
+expect step 19
+at 35 -130 h=3
+zone heronsby
+expect step 20
+read The healer's request
+expect step 21
+at 43 -127 h=2.6
+use healertable
+expect message asked for fen-mint
+at -73 -127 h=2.5
+zone hermitisle
+use fenmint
+expect story fenmint 1
+expect step 22
+at 43 -127 h=2.6
+use healertable
+expect shown lowered5
+at -0.52 -35.28 h=3
+zone bridge5
+expect step 23
+at -115 -10 h=3
+zone willowbend
+expect step 24
+read The lock-keeper's note
+expect step 25
+at -118 -13 h=2.5
+use locklever
+at -131 -27 h=3
+zone millisle
+expect step 26
+use windlass6
+expect shown lowered6
+at -37 -10 h=3
+zone bridge6
+expect step 27
+at -85 70 h=3
+zone stillwater
+expect step 28
+read The last villager's warning
+expect step 29
+at -62 45.4 h=2.5
+zone beastcauseway
+kill Mama bear
+expect step 30
+expect shown lowered7
+at -28.47 9.7 h=3
+zone bridge7
+expect step 31
+read The Sevenbridge charter
+expect step 32
+at -11.5 -10 h=3
+zone hallcellar
+kill Rat
+expect step 33
+at -11 -19 h=14
+use townbell
+expect story townseal 1
+expect step 34
+at -26 -16 h=3
+open Sevenbridge's hoard
+expect done
+open Reedcut box
+open Eelmarsh box
+open Turfholm box
+open Willowbend box
+open Sunk punt

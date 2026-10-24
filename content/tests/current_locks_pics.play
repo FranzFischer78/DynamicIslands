@@ -1,0 +1,14 @@
+# Guide pictures of Current Locks (CIPlay current_locks_pics): Raft's camera, midday, calm
+island Current Locks
+offset 0 0
+hour 11
+weather Calm
+at 8 -34.7
+wait 3
+picture sl14_current_locks_island 76.7 54.4 -134.2 0 2 0
+picture sl14_current_locks_canal 0 6 -30 0 1 0
+picture sl14_current_locks_kitchen -4 6 20.7 -10 2 28.7
+picture sl14_current_locks_ridge -24 18 -14 -44 14 8
+picture sl14_current_locks_cave 42 12 60 44 8 36
+picture sl14_current_locks_ruin -6 9 -76 -16 4 -64
+picture sl14_current_locks_plane -20 9 48 -36 3 60

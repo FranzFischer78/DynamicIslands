@@ -1,0 +1,10 @@
+# Guide pictures of Altitude Market (CIPlay altitude_market_pics): Raft's camera, midday, calm
+island Altitude Market
+offset 0 0
+hour 11
+weather Calm
+at 0 0
+wait 3
+picture sl5_altitude_market_island 55 25 -70 0 6 0
+picture sl5_altitude_market_square 10 +3 -10 0 +1.2 2
+picture sl5_altitude_market_clocktower -10 12 4 0 12 8

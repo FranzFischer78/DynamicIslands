@@ -1,0 +1,69 @@
+# The Heart of Green (CIPlay heart_of_green): the three areas in order; the valves locked before the crown keypad, a
+# wrong code, then BURN (the SPREAD valve refused after it); the gate lever.
+island The Heart of Green
+offset 0 0
+expect step 0
+expect title The Heart
+zone trunk_door
+expect step 1
+read Heart lab notice
+expect step 2
+kill Warthog
+expect animals Warthog 0
+expect step 3
+open Root store
+wait 2
+expect step 4
+use generator
+expect story power 1
+expect step 5
+read Organism file 1
+expect step 6
+zone balcony_1
+expect step 7
+zone balcony_2
+expect step 8
+use spore1
+use spore2
+use spore3
+expect story spore 3
+expect step 9
+use sporepress
+expect story pressed 1
+expect step 10
+read Organism file 2
+expect step 11
+zone balcony_3
+expect step 12
+read The purpose
+expect step 13
+use burnvalve
+expect story choice 0
+code crownpad 1111 wrong
+code crownpad 2611
+expect story crown 1
+zone crown
+expect step 15
+read Two valves
+expect step 16
+use burnvalve
+expect story choice 1
+expect shown burnfires
+expect shown verdictburn
+use spreadvalve
+expect hidden sporebloom
+expect step 17
+read The verdict
+expect step 18
+zone lab
+expect step 19
+open Lab safe
+wait 2
+expect step 20
+read Seedkeeper's last letter
+expect step 21
+zone root_gate
+expect step 22
+use gatelever
+expect story gate 1
+expect done

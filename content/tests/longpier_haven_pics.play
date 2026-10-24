@@ -1,0 +1,11 @@
+# Guide pictures of Longpier Haven (CIPlay longpier_haven_pics): Raft's camera, morning, calm
+island Longpier Haven
+offset 0.9253 0.0291
+hour 9
+weather Calm
+at 0 -36
+wait 3
+picture ni7_longpier_haven_island 58 28 -66 4 3 -4
+picture ni7_longpier_haven_harbour 14 6 -52 -2 2 -40
+picture ni7_longpier_haven_bridge 48 7 -14 54 3 2
+picture ni7_longpier_haven_cave -29 6 48 -29 4 22

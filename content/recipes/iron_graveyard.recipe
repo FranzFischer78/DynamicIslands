@@ -1,0 +1,236 @@
+# The Iron Graveyard - an island of the library's plan Raft 2: The Drowned Frontier (station Six of the Frontier Corps)
+# A ship breakers' yard on a desert mesa's south beach: three hulls drawn up on the sand (the tanker under the yard's
+# A-frame crane, the trawler, the ferry), the crane's cab on its tower, the yard office, the store between two containers,
+# a barge sunk off the beach; up a ramp cut in the mesa's cliff, the yard's turbine - a bare mast. Quest "Breakers' Yard"
+# (11 steps): the gate, the foreman's board, the yard's dogs and their alpha, three turbine blades from the beached hulls,
+# the angler in the sunken barge and the fourth blade, the crane operator's note in the cab, the office safe's crane key,
+# the hub lifted off the tanker, the turbine turning again and the store (the wind turbine's, the advanced battery's, the
+# head lamp's and the electric grill's blueprints).
+#
+# Built by the recipe player (CIRecipe iron_graveyard) through the editor's own operations.
+include lib_sea
+include lib_rt
+include lib_features
+new
+# (nature: desert - trees to cut on the mesa as on Raft's desert islands; Trees 0.19 gave 1.1 per 1000 m2 against Raft's 5.6)
+gen Trees=0.38 Bushes=0.5 Rocks=0.55 Harvest=0.25 BeachThings=0.3
+gen Seed=8106 Radius=85 Height=14 Roughness=0.4 Peaks=2 Shape=4 Style=2 BeachWidth=0.9 Cliffs=0.5
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.4 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the yard levelled on the south beach (2 m), the ramp cut up the mesa's south-east flank to its top (13.6 m), the
+# turbine's pad on the rim, a hole off the beach where the barge sank (8 m down) --------------------------------------
+brush flatten from -26 -65 to 26 -65 r=8 s=20 frames=70 h=2
+brush flatten from -26 -69 to 26 -69 r=6 s=20 frames=60 h=2
+brush flatten from -26 -60 to 30 -60 r=6 s=20 frames=60 h=2
+# (the ramp up the mesa's south-east flank, clear of the yard's office and containers: 27 m, 22 degrees - strokes 9 m
+# wide every 1.5 m: 5 m wide every 2.4 m it stood as a causeway with steep sides and the walker slid off it, as at
+# Frontier Beacon)
+for i 0 18 1
+brush flatten at {42-$i*1.2222} {-60+$i*0.8889} r=4.5 s=20 frames=15 h={2.5+$i*0.6167}
+next
+brush smooth from 42 -60 to 20 -44 r=5 s=10 frames=12
+brush flatten at 19 -43.5 r=3 s=20 frames=30 h=13.6
+brush flatten at -4 -42 r=4.5 s=20 frames=50 h=13.8
+brush flatten at -6 -99 r=9 s=20 frames=70 h=-8
+origin
+clear from -30 -65 to 30 -65 r=10
+clear from 42 -60 to 20 -44 r=5.5
+clear from 20 -44 to -4 -42 r=2.5
+clear from -50 -64.5 to -32 -64.5 r=4
+clear at -4 -42 r=6
+clear at -6 -99 r=12
+clear from -16 -82 to 26 -82 r=8
+
+# --- The yard's gate at its west end: plank fences, the gate's sign, the yard's flags -------------------------------
+for fz -72.25 -69.25 1.5
+place Block_Wall_Fence_Plank - at -34 $fz ground yaw=90
+next
+for fz -60.25 -57.25 1.5
+place Block_Wall_Fence_Plank - at -34 $fz ground yaw=90
+next
+place Sign_02 - at -35 -67.4 ground yaw=-90
+place PulauKafilahFlag - at -34.4 -61.6 ground
+place Zone_Trigger yardgate at -33 -64.5 h=3
+place Creature_Hyena dogs at -20 -64 h=2.5
+place Creature_Hyena alpha at -16 -60 h=2.5
+
+# --- The hulls drawn up on the beach, bows in the yard, sterns in the sea: the tanker (the big one) by the yard's crawler
+# crane (its boom over her deck), the trawler, the ferry under the A-frame; a blade's locker on each deck -------------
+place BoatStranded tanker at -14 -82 ground scale=1.35
+place BoatStranded trawler at 8 -82 ground yaw=-12 roll=-7
+place BoatStranded ferry at 25 -79 ground yaw=15 roll=9 scale=1.1
+place "Box Small" bladecrate1 at -14 -84 h=12 sit drop
+place "Box Small" bladecrate2 at 8.4 -84 h=12 sit drop
+place "Box Small" bladecrate3 at 24.4 -81 h=12 sit drop
+# (Raft's ladders up each hull's side from the sand to its deck - the stranded boat's own ladder, at its stern in the sea,
+# is only its mesh: CIProfile found the decks 6.0 m (the tanker), 4.5-5 m (the trawler), 5.1-5.5 m (the ferry) up)
+place Block_Ladder - at -11.1 -78 y=0 ground yaw=270
+place Block_Ladder - at -11.1 -78 y=2.42 ground yaw=270
+place Block_Ladder - at 5.35 -79 y=0 ground yaw=90
+place Block_Ladder - at 5.35 -79 y=2.42 ground yaw=90
+place Block_Ladder - at 22.75 -75 y=0 ground yaw=90
+place Block_Ladder - at 22.75 -75 y=2.42 ground yaw=90
+place UT_ElectricityIsland_Crane01 aframe at 25 -74 ground yaw=90
+place VP_Scaffolding_M_Open - at 1.5 -74 ground yaw=90
+place VP_Scaffolding_S_Open - at -21 -74 ground yaw=90
+place UT_ElectricityIsland_Crane02 crane at -2 -66 ground yaw=180
+# (the crane's own ladder up its north end to the cab's platform, 6.6 m, lost its climbing with Raft's scripts: two of Raft's
+# ladders beside it, the climber facing the crane)
+place Block_Ladder - at 0.35 -63.56 y=0 ground yaw=180
+place Block_Ladder - at 0.35 -63.56 y=2.42 ground yaw=180
+place Note_Paper operatorsnote at -1.6 -64.6 h=8 sit drop yaw=20
+
+# --- The yard office (a radio tower room, its door to the west), the foreman's board by it; the store between two
+# containers ---------------------------------------------------------------------------------------------------------
+push at 18 -64 h=2.05
+call rt_storey l2=RT_WallDoor1 f1=RT_WallWindow1 b2=RT_WallWindow2
+place RT_Floor - at 0 4.5 y=3.05
+place VG_Safe officesafe at -5.3 3.6 sit yaw=90
+place "Table Office" - at -3 3.4 sit
+place "Chair Office" - at -3 2.6 sit yaw=170
+pop
+place Note_Board foremansboard at 10.4 -60.6 h=2 yaw=-90
+place Reef_Container - at 25 -58.5 ground sit yaw=90
+place Reef_Container - at 25 -66.5 ground sit yaw=90
+place Loot_Crate yardstore at 25 -62.5 ground yaw=90
+
+# --- Up on the mesa's rim: the turbine's bare mast, the whole turbine (shown when it turns), the yard's lights ---------
+place RT_PillarThick turbine at -4 -42 h=13.8
+place Placeable_WindTurbine turbinefull at -4 -42 h=13.8 scale=2
+place Zone_Trigger turbinehill at -4 -42 h=15
+place RT_Floodlight yardlight at 15.5 -60.5 h=5.05 yaw=210
+place RT_Floodlight yardlight at -2 -61 h=2 ground yaw=200
+
+# --- The barge, sunk off the beach on her side, two of her containers spilled beside her, the fourth blade's crate in
+# the hole; what lives in her ----------------------------------------------------------------------------------------
+place BoatStranded bargehull at -6 -99 ground yaw=70 roll=-28
+place Reef_Container - at -14 -95 ground sit yaw=30
+place Reef_Container - at 2 -104 ground sit yaw=-20
+place "Box Big" bladecrate4 at -1.5 -95.5 ground yaw=15
+place Zone_Trigger barge at -6 -99 h=-4
+place Creature_AnglerFish lurker at -6 -97 h=-5
+
+# --- Friendly animals (placed: the generator's Friendly and SeaLife are whole numbers - the 0.2 and 0.3 above gave none;
+# the user, 2026-10-03: "add some friendly animals to some of the islands"): llamas on the mesa's top, dolphins off the beach -
+place Creature_Llama llamas at 5 -15
+prop llamas creature.count=2
+place Creature_Dolphin dolphins at 0 -125 h=-3
+prop dolphins creature.count=2
+
+# --- Settings, story items, notes, behaviours, quest (11 steps) -------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): date palms, melons, pineapples ----------
+scatter "Pickup_Landmark_Tree_Palm 2" 4 at 0 0 r=59.5 seed=4127 free=5
+scatter "Pickup_Landmark_Tree_Palm 4" 4 at 0 0 r=59.5 seed=4128 free=5
+scatter "Pickup_Landmark_WatermelonLandmark" 6 at 0 0 r=59.5 seed=4137 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=59.5 seed=4147 free=3
+# --- Raft's story machinery (lib_features; the user, 2026-10-06: every Raft feature on at least one island): the yard's
+# generator by the office, wanting a generator part (in a mechanic's toolbox at the yard's west end), and the office
+# radio on its table that works once the power is on - its voice gives away a supply drop up on the mesa; the trawler's
+# engine pulled out on the yard, dry - the gas tank in a fuel crate at the yard's north-west - and its locker beside it
+call powerradio x=10.5 z=-69.5 yaw=90 alias=yardgenerator rx=15.2 rz=-60.7 rh=4 ryaw=180 ralias=officeradio cache=supplydrop cx=0 cz=-25 cr=14 cseed=4161 items=Battery*2;CopperIngot*2;Bolt*3 kx=-18 kz=-70 kr=6 seed=4162 toolbox=mechanicsbox
+call enginecache x=-22 z=-65 yaw=0 alias=trawlerengine locker=enginelocker items=MetalIngot*3;Bolt*4;Hinge*2 kx=-28 kz=-52 kr=8 seed=4163 crate=fuelcrate
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=105 deep=5 n=2
+
+info title=The Iron Graveyard
+info author=Custom Islands
+info description=Station Six of the Frontier Corps: a breakers' yard on a desert mesa's beach, ship hulls half cut up on the sand, a crane over them - and the wind turbine that powered it all standing still on the mesa. The sixth island of Raft 2: The Drowned Frontier.
+island on.arrive=message||Rusting hulls drawn up on a red beach, a crane leaning over them, a mast on the mesa with no blades. Dogs bark somewhere in the yard.
+
+story blade|Turbine blade|quest:Varuna_SpotlightPart|One of the yard turbine's four blades, stowed in a hull when the storm came.
+story cranekey|Crane key|quest:Varuna_CraneKey|The crane's key, from the yard office's safe.
+story hub|Turbine hub|quest:Balboa_BrunosTool_Wrench|The turbine's hub, lifted off the tanker's deck by the crane.
+
+note foremansboard Foreman's board | IRON GRAVEYARD - BREAKERS' YARD - FOREMAN'S BOARD\n\nStorm coming: turbine blades OFF and stowed - one in each of the four hulls (the tanker, the trawler, the ferry, and the barge that sank off the slip).\nThe hub stays on the tanker's deck until the crane can lift it.\nCrane key in the office safe.\n\n(chalked underneath, later) The Corps' fleet came through and went on to Storm Spire. Get the turbine turning and the store is yours.
+note operatorsnote Crane operator's note | (on the crane's platform, under a stone) Key's in the office safe, the hub's still on the tanker. The dogs got into the yard the night we left - don't go in there alone.
+note officesafe Yard office safe | The yard office's safe: the crane's key, the yard's ledger.
+loot officesafe story:cranekey*1;Scrap*4
+prop officesafe loot.refill=0
+note bladecrate1 Tanker's locker | A blade wrapped in canvas in the tanker's deck locker.
+loot bladecrate1 story:blade*1;Nail*6
+prop bladecrate1 loot.refill=0
+note bladecrate2 Trawler's locker | A blade lashed in the trawler's net locker.
+loot bladecrate2 story:blade*1;Rope*2
+prop bladecrate2 loot.refill=0
+note bladecrate3 Ferry's locker | A blade in the old ferry's deck locker.
+loot bladecrate3 story:blade*1;Plastic*3
+prop bladecrate3 loot.refill=0
+note bladecrate4 Barge's hold | A crate out of the sunken barge's hold: the fourth blade, and the yard's spare bolts.
+loot bladecrate4 story:blade*1;Scrap*3;Bolt*4
+prop bladecrate4 loot.refill=0
+note yardstore Yard store | The yard's store: the plans the breakers kept for themselves - a wind turbine, advanced batteries, a head lamp, a grill.
+loot yardstore Blueprint_WindTurbine*1;Blueprint_BatteryAdvanced*1;Blueprint_HeadLight_Advanced*1;Blueprint_ElectricGrill*1;MetalIngot*4
+prop yardstore loot.refill=0
+prop yardstore if.open=signal|turbine
+prop yardstore else.open=message||The store's crate is chained to an electric lock - and the yard has no power while the turbine stands still.
+
+prop crane obj.name=crane
+prop crane beh.use=Unlock the crane and lift the turbine hub
+prop crane if.use=has|story:cranekey|1
+prop crane on.use=message||The crane coughs into life and swings the turbine hub off the tanker's deck onto the sand. You roll it free.\ngive||story:hub*1\nsound||event:/raft/engine/controller_on
+prop crane else.use=message||The crane's controls are locked. The foreman's board said the key is in the office safe.
+prop turbine obj.name=turbine
+prop turbine beh.use=Fit the hub and the four blades
+prop turbine if.use=take|story:blade|4\ntake|story:hub|1
+prop turbine on.use=message||Hub, then blades, one by one - the wind catches them and the turbine turns. Lights come on across the yard.\nhide|turbine\nshow|turbinefull\nshow|yardlight\nsignal||turbine
+prop turbine else.use=message||The mast needs the turbine's hub and all four blades.
+prop turbinefull obj.name=turbinefull
+prop turbinefull beh.hidden=1
+prop yardlight obj.name=yardlight
+prop yardlight beh.hidden=1
+
+prop yardgate zone.id=yardgate
+prop yardgate zone.radius=8
+prop yardgate zone.message=The breakers' yard: hulls on the sand, a crane, an office - and dogs, coming fast.
+prop barge zone.id=barge
+prop barge zone.radius=8
+prop barge zone.message=The sunken barge on its side - and something with a lamp on its head stirring in her hold.
+prop turbinehill zone.id=turbinehill
+prop turbinehill zone.radius=6
+prop turbinehill zone.message=The turbine's mast on the mesa's rim: no hub, no blades - the whole yard dark below it.
+prop dogs creature.count=2
+prop dogs creature.respawn=0
+prop dogs creature.zone=yardgate
+prop alpha creature.count=1
+prop alpha creature.size=1.4
+prop alpha creature.health=3
+prop alpha creature.respawn=0
+prop alpha creature.zone=yardgate
+prop lurker creature.count=1
+prop lurker creature.size=1.3
+prop lurker creature.health=2
+prop lurker creature.respawn=0
+prop lurker creature.zone=barge
+
+quest title=Breakers' Yard
+quest intro=A breakers' yard on a desert beach, its turbine standing still. Station Six: start at the yard's gate.
+step reach|yardgate|1|Come in through the yard's gate
+step read|Foreman's board|1|Read the foreman's board by the office
+step kill|Hyena|3|Deal with the yard's dogs - and their alpha
+step collect|story:blade|3|Find three turbine blades in the hulls on the beach
+step kill|Angler fish|1|Face what lives in the barge sunk off the beach
+step collect|story:blade|4|Take the fourth blade from the barge's hold
+step read|Crane operator's note|1|Climb up to the crane's cab and read the operator's note
+step collect|story:cranekey|1|Open the yard office's safe for the crane key
+step collect|story:hub|1|Lift the turbine hub off the tanker with the crane
+step reach|turbinehill|1|Carry the parts up the ramp to the turbine on the mesa
+step open|Yard store|1|Get the turbine turning and open the yard store
+step blueprint|Blueprint_WindTurbine|1|Take the wind turbine plans from the yard store
+step blueprint|Blueprint_BatteryAdvanced|1|Take the advanced battery plans from the yard store
+step blueprint|Blueprint_HeadLight_Advanced|1|Take the advanced headlamp plans from the yard store
+step blueprint|Blueprint_ElectricGrill|1|Take the electric grill plans from the yard store
+quest done=The turbine turns over a lit yard. The breakers' plans are yours - and the chalk on the board says the Corps' fleet went on to Storm Spire.
+quest reward=Plank*8;MetalIngot*4;Bolt*6
+
+# the generator's rocks that floated over the slope (VI4 ground check, 2026-10-24)
+clear at -17.38 48.1 r=1.5 only=CaravanIsland_SmallRock
+clear at -20.37 47.41 r=1.5 only=CaravanIsland_SmallRock
+clear at -12.93 49.36 r=1.5 only=BigSharpRock
+clear at 1.52 52.09 r=1.5 only=CaravanIsland_SmallRock
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=60 n=1 seed=8847
+prop treasure8847 treasure.loot=TitaniumOre*2
+
+save The Iron Graveyard

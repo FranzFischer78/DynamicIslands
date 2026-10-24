@@ -1,0 +1,14 @@
+# Guide pictures of Beacon Saddle (CIPlay beacon_saddle_pics): Raft's camera, midday, calm
+island Beacon Saddle
+offset 0 0
+hour 11
+weather Calm
+at 4.7 -19.3
+wait 3
+picture sl14_beacon_saddle_island 80.3 51.2 -153 0 6 0
+picture sl14_beacon_saddle_tower 6.8 8 -5.8 -1.2 8 8.2
+picture sl14_beacon_saddle_camp 6.7 6 -23.3 12.7 4 -14.3
+picture sl14_beacon_saddle_ridge 12 22 28 -4 16 63
+picture sl14_beacon_saddle_cave -54 9 26 -56 6 4
+picture sl14_beacon_saddle_ruin 28 12 -80 18 7 -68
+picture sl14_beacon_saddle_plane 46 13 10 62 8 24

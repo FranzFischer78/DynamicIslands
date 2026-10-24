@@ -1,0 +1,13 @@
+# Guide pictures of Twin Forges (CIPlay twin_forges_pics): Raft's camera, midday, calm. Points as in its recipe ("offset").
+island Twin Forges
+offset 0 0
+hour 11
+weather Calm
+at 2.5 -8.5 h=31.5
+wait 3
+picture twin_forges_island 80 80 -100 2 20 -8
+picture twin_forges_bridge 18 36 -24 2 30 -8
+picture twin_forges_anvil 4 35 -10 14 31 -1.5
+picture twin_forges_bellows 2 35 -10 -9 31 -15.6
+picture twin_forges_adit 36 9 52 29 7 36
+picture twin_forges_clamps 2 16 -40 -11 8 -50

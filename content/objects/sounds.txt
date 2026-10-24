@@ -1,0 +1,536 @@
+[loop] event:/amb/caravan
+[loop] event:/amb/caravan_creaks
+[loop] event:/amb/cave
+[loop] event:/amb/cave_ice
+[loop] event:/amb/crane_creaks
+[loop] event:/amb/grass
+[loop] event:/amb/ocean
+[loop] event:/amb/pineforest
+[loop] event:/amb/rain_ocean
+[loop] event:/amb/selene
+[loop] event:/amb/tangaroa_apartments
+[loop] event:/amb/tangaroa_habitat
+[loop] event:/amb/tangaroa_tunnels
+[loop] event:/amb/temperance
+[loop] event:/amb/temperence_inside
+[loop] event:/amb/underwater
+[loop] event:/amb/utopia
+[loop] event:/amb/utopia_inside
+[loop] event:/amb/varuna_tunnels
+[loop] event:/amb/wreck
+[loop] event:/amb/wreck_creaks
+event:/char/chew
+event:/char/cup_fill
+event:/char/cup_pour
+event:/char/damage
+event:/char/damage_claws
+event:/char/damage_electricity
+event:/char/damage_fire
+event:/char/damage_poison
+event:/char/damage_smashed
+event:/char/damage_spikes
+event:/char/damage_spikes_slow
+event:/char/drink
+event:/char/drowning
+event:/char/equip
+[loop] event:/char/fall
+event:/char/footsteps
+event:/char/hungry
+event:/char/jump
+event:/char/land
+event:/char/land_water
+event:/char/logbook_close
+event:/char/logbook_flip
+event:/char/logbook_open
+event:/char/lowbreath
+event:/char/npc/eat_fruit
+event:/char/npc/footsteps
+event:/char/paddle
+event:/char/salve_apply
+event:/char/swim
+event:/char/swing
+event:/char/thirsty
+event:/char/throw
+event:/char/vo/logs
+event:/char/vo/npc
+event:/char/vo/olof
+event:/coll/armor
+event:/coll/container
+event:/coll/netanimal
+event:/coll/netground
+[loop] event:/coll/object_fall
+event:/coll/stoneground
+event:/coll/stoneplayer
+event:/crafting/add_ingredient
+event:/crafting/axe_impact
+[loop] event:/crafting/cookingpot/cp_boiling
+event:/crafting/cookingpot/cp_lidoff
+event:/crafting/cookingpot/cp_lidon
+event:/crafting/craft_item
+[loop] event:/crafting/fire
+[loop] event:/crafting/grilling
+event:/crafting/grill_add
+event:/crafting/hammer_impact
+event:/crafting/hooksplash
+event:/crafting/hook_impact
+event:/crafting/hook_impact_raft
+event:/crafting/hook_impact_reef
+[loop] event:/crafting/hook_pull
+event:/crafting/horns/air
+event:/crafting/horns/bugle
+event:/crafting/horns/viking
+[loop] event:/crafting/juicer
+event:/crafting/learn
+event:/crafting/lightbulb_screw
+event:/crafting/mysterybox
+event:/crafting/paint_item
+event:/crafting/place_item
+event:/crafting/plant_harvest
+event:/crafting/plant_plant
+event:/crafting/raft_break
+event:/crafting/reinforce
+event:/crafting/research
+event:/crafting/scarecrow_break
+event:/crafting/scissors
+event:/crafting/shovel_dig
+event:/crafting/shovel_throw
+event:/crafting/sprinkler
+event:/crafting/tikipole_finished
+[loop] event:/crafting/tikipole_rotate
+[loop] event:/crafting/torch
+event:/crafting/zipline_place
+event:/exploring/boxes/locker_boltcutter
+event:/exploring/boxes/safe_unlock
+event:/exploring/elevator/elevator_button
+event:/exploring/elevator/elevator_changefloor
+event:/exploring/elevator/elevator_door_close
+event:/exploring/elevator/elevator_door_open
+[loop] event:/exploring/elevator/elevator_music
+[loop] event:/exploring/elevator/elevator_running
+event:/exploring/metaldetector/md_bip
+[loop] event:/exploring/metaldetector/md_loop
+[loop] event:/exploring/metaldetector/md_use
+[loop] event:/exploring/obstacles/acidpuddle
+event:/exploring/obstacles/bicyclebell
+[loop] event:/exploring/obstacles/doorbomb_tick
+event:/exploring/obstacles/door_breakopen
+event:/exploring/obstacles/door_explosion
+event:/exploring/obstacles/electricwater
+event:/exploring/obstacles/fridge_fall
+event:/exploring/obstacles/keypad/keypad_correct
+event:/exploring/obstacles/keypad/keypad_error
+event:/exploring/obstacles/keypad/keypad_input
+event:/exploring/obstacles/keypad/keypad_selene_correct
+event:/exploring/obstacles/keypad/keypad_selene_error
+event:/exploring/obstacles/keypad/keypad_selene_input
+event:/exploring/obstacles/mannequin_destroy
+[loop] event:/exploring/obstacles/poisonpuddle
+[loop] event:/exploring/obstacles/poisonpuddle_sinking
+event:/exploring/obstacles/rocketlaunch
+event:/exploring/obstacles/ropebridge_fall
+event:/exploring/obstacles/tangaroa/baydoor_gate
+event:/exploring/obstacles/tangaroa/baydoor_slide
+event:/exploring/obstacles/tangaroa/clawmachine/cm_button
+event:/exploring/obstacles/tangaroa/clawmachine/cm_drop
+event:/exploring/obstacles/tangaroa/clawmachine/cm_move
+event:/exploring/obstacles/tangaroa/clawmachine/cm_movedown
+event:/exploring/obstacles/tangaroa/clawmachine/cm_pickup
+event:/exploring/obstacles/tangaroa/cockpit_fly
+[loop] event:/exploring/obstacles/tangaroa/floodchallenge_floor
+[loop] event:/exploring/obstacles/tangaroa/floodchallenge_hatch
+[loop] event:/exploring/obstacles/tangaroa/generator_on
+event:/exploring/obstacles/tangaroa/generator_placepart
+event:/exploring/obstacles/tangaroa/tapecables
+event:/exploring/obstacles/tangaroa/unlock_suit
+event:/exploring/obstacles/toolboard_collapse
+event:/exploring/obstacles/toolboard_place
+event:/exploring/obstacles/varuna/garagedoor_open
+event:/exploring/obstacles/varuna/towercrane/tc_impact
+event:/exploring/obstacles/varuna/towercrane/tc_lever_fail
+[loop] event:/exploring/obstacles/varuna/towercrane/tc_move
+[loop] event:/exploring/obstacles/varuna/towercrane/tc_on
+event:/exploring/obstacles/varuna/towercrane/tc_success
+event:/exploring/obstacles/varuna/trap_logs_reset
+event:/exploring/obstacles/varuna/trap_logs_swing
+event:/exploring/obstacles/varuna/trap_metal_reset
+event:/exploring/obstacles/varuna/trap_metal_swing
+event:/exploring/obstacles/varuna/tripwire
+event:/exploring/obstacles/varuna/underwaterlight_off
+event:/exploring/obstacles/varuna/underwaterlight_on
+[loop] event:/exploring/obstacles/varuna/waterleak
+event:/exploring/obstacles/waterflow_short
+event:/exploring/obstacles/waterpump
+event:/exploring/obstacles/watersplash_small
+[loop] event:/exploring/relaystation/computer01
+[loop] event:/exploring/relaystation/computer02
+[loop] event:/exploring/relaystation/crt
+[loop] event:/exploring/relaystation/electricity
+event:/exploring/shop/buy
+event:/exploring/shop/close
+event:/exploring/shop/new_tier
+event:/exploring/shop/open
+event:/exploring/shop/sell
+[loop] event:/exploring/temperence/antenna_on
+event:/exploring/temperence/cable_connect
+event:/exploring/temperence/cable_disconnect
+[loop] event:/exploring/temperence/cable_pull
+event:/exploring/temperence/cable_success
+[loop] event:/exploring/temperence/generator
+event:/exploring/temperence/ravine_collapse
+[loop] event:/exploring/temperence/selene/cryotube_engine
+[loop] event:/exploring/temperence/selene/cryotube_monitor
+event:/exploring/temperence/selene/cryotube_open
+event:/exploring/temperence/selene/fightchallenge_door_close
+[loop] event:/exploring/temperence/selene/fightchallenge_door_open
+event:/exploring/temperence/selene/gate_blowtorch
+event:/exploring/temperence/selene/gate_keys
+event:/exploring/temperence/selene/gate_open
+[loop] event:/exploring/temperence/selene/handle_spin
+event:/exploring/temperence/selene/hazmatlocker_close
+event:/exploring/temperence/selene/hazmatlocker_open
+event:/exploring/temperence/selene/hazmat_drop
+event:/exploring/temperence/selene/hazmat_equip
+[loop] event:/exploring/temperence/selene/laser_endpoint
+event:/exploring/temperence/selene/laser_lever
+[loop] event:/exploring/temperence/selene/laser_projector
+[loop] event:/exploring/temperence/selene/laser_rotate
+event:/exploring/temperence/selene/laser_sparks
+[loop] event:/exploring/temperence/selene/radiation
+[loop] event:/exploring/temperence/selene/reactor
+event:/exploring/temperence/selene/reactor_alarm
+event:/exploring/temperence/selene/reactor_cooldown
+[loop] event:/exploring/temperence/selene/reactor_error
+event:/exploring/temperence/selene/reactor_insert
+event:/exploring/temperence/selene/reactor_key
+[loop] event:/exploring/temperence/selene/reactor_spin
+event:/exploring/temperence/selene/reactor_spin_complete
+[loop] event:/exploring/temperence/selene/reactor_top
+[loop] event:/exploring/temperence/selene/selene_outside
+event:/exploring/temperence/selene/unlock_scientist
+[loop] event:/exploring/temperence/servers
+event:/exploring/temperence/weatherstation_rotate
+event:/exploring/temperence/weatherstation_safe
+event:/exploring/temperence/weatherstation_tilt
+event:/exploring/utopia/bugs_crawl
+event:/exploring/utopia/dettosdoor_open
+[loop] event:/exploring/utopia/dettos_stove
+event:/exploring/utopia/dogcage_close
+event:/exploring/utopia/dogcage_open
+event:/exploring/utopia/door_bamboo_break
+event:/exploring/utopia/door_bamboo_open
+event:/exploring/utopia/door_barred_open
+event:/exploring/utopia/door_entrance_open
+event:/exploring/utopia/door_warehouse_open
+event:/exploring/utopia/drawbridge/drawbridge_land
+event:/exploring/utopia/drawbridge/drawbridge_mechanism
+event:/exploring/utopia/drawbridge/drawbridge_move1
+event:/exploring/utopia/drawbridge/drawbridge_move2
+[loop] event:/exploring/utopia/electric_balls
+event:/exploring/utopia/elevator_repair
+event:/exploring/utopia/gate_metal_open
+event:/exploring/utopia/harpoon_fire
+event:/exploring/utopia/harpoon_impact
+event:/exploring/utopia/ladder_release
+[loop] event:/exploring/utopia/lift_loop
+event:/exploring/utopia/lift_pull
+event:/exploring/utopia/metal_pickup
+event:/exploring/utopia/metal_putdown
+event:/exploring/utopia/olof_fall
+event:/exploring/utopia/prison_unlock
+[loop] event:/exploring/utopia/prison_voices
+[loop] event:/exploring/utopia/prison_walla
+event:/exploring/utopia/scale/1_canister
+event:/exploring/utopia/scale/2_sack
+event:/exploring/utopia/scale/3_basket
+event:/exploring/utopia/scale/4_carton
+event:/exploring/utopia/scale/5_box
+event:/exploring/utopia/scale/6_oildrum
+[loop] event:/exploring/utopia/scale/scale_move
+event:/exploring/utopia/scale/weight_move
+[loop] event:/exploring/utopia/waterleak_loop
+[loop] event:/exploring/utopia/waterpump_big
+[loop] event:/exploring/utopia/waterwheel_rotate
+[loop] event:/exploring/utopia/water_running
+[loop] event:/exploring/utopia/windblades_rotate
+event:/exploring/utopia/wood_pickup
+event:/exploring/utopia/wood_putdown
+[loop] event:/exploring/vehicles/snowmobile/engine
+event:/exploring/vehicles/snowmobile/impact
+event:/exploring/vehicles/snowmobile/remove
+event:/exploring/vendingmachine/vm_fail
+[loop] event:/exploring/vendingmachine/vm_idle
+event:/exploring/vendingmachine/vm_insertcoin
+event:/exploring/vendingmachine/vm_purchase
+[loop] event:/exploring/zipline/zipline
+[loop] event:/exploring/zipline/zipline_engine
+event:/exploring/zipline/zipline_impactpole
+event:/fishing/bobbersplash
+[loop] event:/fishing/fishingpole_hooked
+[loop] event:/fishing/fish_hooked
+[loop] event:/music/music_boss
+event:/music/music_final
+[loop] event:/music/music_ingame
+event:/music/music_menu
+[loop] event:/raft/anchor3_loop
+[loop] event:/raft/anchor_loop
+event:/raft/anchor_splash
+[loop] event:/raft/batterycharger
+event:/raft/chest/chest_close
+event:/raft/chest/chest_open
+event:/raft/chest/chest_squeal
+event:/raft/chest/cupboard_close
+event:/raft/chest/cupboard_open
+event:/raft/chest/fridge_close
+event:/raft/chest/fridge_open
+event:/raft/chest/locker_close
+event:/raft/chest/locker_open
+event:/raft/chest/plasticbox_close
+event:/raft/chest/plasticbox_open
+event:/raft/chest/trashcan_close
+event:/raft/chest/trashcan_open
+event:/raft/chest/trashcan_use
+event:/raft/chest/wardrobe_close
+event:/raft/chest/wardrobe_open
+event:/raft/compost/biofuel2_close
+[loop] event:/raft/compost/biofuel2_loop
+event:/raft/compost/biofuel2_open
+event:/raft/compost/compost_drop
+[loop] event:/raft/compost/compost_on
+event:/raft/door/airlock_close
+event:/raft/door/airlock_open
+event:/raft/door/cabinet_close
+event:/raft/door/cabinet_open
+event:/raft/door/doorhandle_pull
+event:/raft/door/door_apartment_close
+event:/raft/door/door_apartment_locked
+event:/raft/door/door_apartment_open
+event:/raft/door/door_close
+event:/raft/door/door_double_close
+event:/raft/door/door_double_open
+event:/raft/door/door_igloo_close
+event:/raft/door/door_igloo_open
+event:/raft/door/door_metal_open
+event:/raft/door/door_open
+event:/raft/door/door_selene_open
+event:/raft/door/door_squeal
+event:/raft/door/door_tunnels_close
+event:/raft/door/door_tunnels_open
+event:/raft/door/door_unlock_key
+event:/raft/door/door_unlock_keycard
+event:/raft/door/door_weatherstation
+event:/raft/door/drawer_close
+event:/raft/door/drawer_open
+event:/raft/drawbridge/down
+event:/raft/drawbridge/up
+[loop] event:/raft/engine/boiler
+event:/raft/engine/controller_direction
+event:/raft/engine/controller_down
+event:/raft/engine/controller_on
+event:/raft/engine/controller_up
+[loop] event:/raft/engine/steam_engine
+[loop] event:/raft/engine/waterwheel
+event:/raft/furniture/curtain_close
+event:/raft/furniture/curtain_open
+event:/raft/furniture/tictac_place
+event:/raft/furniture/tictac_take
+[loop] event:/raft/piano
+[loop] event:/raft/purifier3
+event:/raft/radar/button
+event:/raft/radar/lever
+event:/raft/radar/radar_bip
+[loop] event:/raft/radar/radar_humm
+event:/raft/radar/radar_jingle
+event:/raft/radar/radar_off
+event:/raft/radar/radar_on
+event:/raft/radar/radar_search
+event:/raft/radio/casette_switch
+[loop] event:/raft/radio/cassette/cassette01
+[loop] event:/raft/radio/cassette/cassette02
+[loop] event:/raft/radio/cassette/cassette03
+[loop] event:/raft/radio/cassette/cassette04
+[loop] event:/raft/radio/cassette/cassette05
+[loop] event:/raft/radio/cassette/cassette06
+[loop] event:/raft/radio/radio_on
+[loop] event:/raft/radio/radio_transmitter
+[loop] event:/raft/radio/tradingpost
+event:/raft/raft_anchored
+event:/raft/raft_impact_isle
+[loop] event:/raft/raft_movement
+event:/raft/recycler/reset
+event:/raft/recycler/use
+[loop] event:/raft/sail/sail_flaps
+event:/raft/sail/sail_set
+[loop] event:/raft/smelter/loop
+event:/raft/smelter/open
+[loop] event:/raft/windturbine
+[loop] event:/raft/windturbine_charge
+event:/ui/click
+event:/ui/click_soft
+event:/ui/drop
+event:/ui/fail
+event:/ui/highlight
+event:/ui/menu
+event:/ui/pickup
+event:/weapons/armor
+event:/weapons/bow/arrow_hit
+event:/weapons/bow/arrow_hitwater
+event:/weapons/bow/bow_draw
+event:/weapons/bow/bow_fire
+event:/weapons/dynamite/explode
+[loop] event:/weapons/dynamite/fire
+[loop] event:/weapons/dynamite/fuse
+event:/weapons/dynamite/land
+event:/weapons/firework/explode
+[loop] event:/weapons/firework/fuse
+event:/weapons/firework/launch
+event:/weapons/hitmarker
+event:/weapons/machete
+event:/weapons/netgun/netgun_fire
+event:/weapons/netgun/netgun_reload
+[loop] event:/weapons/netgun/net_fly
+[loop] event:/weapons/projectile_fly
+event:/weapons/sword_titanium_swing
+event:/wildlife/alfa/bite
+event:/wildlife/alfa/catch_meat
+event:/wildlife/alfa/charge
+event:/wildlife/alfa/charge_load
+event:/wildlife/alfa/charge_roar
+event:/wildlife/alfa/die
+event:/wildlife/alfa/hold
+event:/wildlife/alfa/jump
+event:/wildlife/alfa/jump_load
+event:/wildlife/alfa/land
+event:/wildlife/alfa/pull_stone
+event:/wildlife/alfa/stabbed
+event:/wildlife/anglerfish/af_bite
+event:/wildlife/anglerfish/af_biteplayer
+event:/wildlife/anglerfish/af_die
+event:/wildlife/anglerfish/af_stabbed
+[loop] event:/wildlife/anglerfish/af_swim
+event:/wildlife/bear/bear_attack
+event:/wildlife/bear/bear_charge
+event:/wildlife/bear/bear_eat
+event:/wildlife/bear/bear_idle
+event:/wildlife/bear/bear_land
+event:/wildlife/bear/bear_pant
+event:/wildlife/bear/bear_roar
+event:/wildlife/bear/bear_stabbed
+event:/wildlife/bear/bear_stomp
+event:/wildlife/bear_footstep
+[loop] event:/wildlife/beehive
+event:/wildlife/bird_footstep
+event:/wildlife/boar/boar_attack
+[loop] event:/wildlife/boar/boar_glide
+event:/wildlife/boar/boar_gruntlong
+event:/wildlife/boar/boar_gruntshort
+event:/wildlife/boar/boar_load
+event:/wildlife/boar/boar_stabbed
+event:/wildlife/boar/boar_stabbed_squeal
+event:/wildlife/boss/boss_charge
+event:/wildlife/boss/boss_chargeup
+event:/wildlife/boss/boss_die
+[loop] event:/wildlife/boss/boss_idle
+event:/wildlife/boss/boss_rumble
+event:/wildlife/boss/boss_smash_barrel
+event:/wildlife/boss/boss_smash_door
+event:/wildlife/boss/boss_smash_pillar
+event:/wildlife/boss/boss_smash_static
+event:/wildlife/boss/boss_smash_wall
+event:/wildlife/clucker/clucker_distressed
+event:/wildlife/clucker/clucker_idle
+event:/wildlife/clucker/clucker_layegg
+event:/wildlife/clucker/clucker_peck
+event:/wildlife/clucker/clucker_stabbed
+[loop] event:/wildlife/dolphin/dolphin_call
+[loop] event:/wildlife/dolphin/dolphin_idle
+event:/wildlife/dolphin/dolphin_jump
+event:/wildlife/dolphin/dolphin_land
+event:/wildlife/footsteps_boots
+[loop] event:/wildlife/geese_call
+event:/wildlife/goat/goat_distressed
+event:/wildlife/goat/goat_graze
+event:/wildlife/goat/goat_idle
+event:/wildlife/goat/goat_milked
+event:/wildlife/goat/goat_stabbed
+event:/wildlife/hoof_step
+event:/wildlife/hyena/attack
+[loop] event:/wildlife/hyena/drag_player
+event:/wildlife/hyena/hyena_footstep
+event:/wildlife/hyena/laugh
+event:/wildlife/hyena/stabbed
+[loop] event:/wildlife/jellyfish/jellyfish_idle
+[loop] event:/wildlife/jellyfish/jellyfish_move
+event:/wildlife/llama/llama_distressed
+event:/wildlife/llama/llama_graze
+event:/wildlife/llama/llama_idle
+event:/wildlife/llama/llama_stabbed
+event:/wildlife/pufferfish/pf_bubble
+[loop] event:/wildlife/pufferfish/pf_cloud
+event:/wildlife/pufferfish/pf_die
+event:/wildlife/pufferfish/pf_expand
+event:/wildlife/pufferfish/pf_explode
+event:/wildlife/pufferfish/pf_stabbed
+event:/wildlife/rat/rat_charge
+event:/wildlife/rat/rat_jump
+event:/wildlife/rat/rat_land
+event:/wildlife/rat/rat_melee
+event:/wildlife/rat/rat_pant
+event:/wildlife/rat/rat_stabbed
+event:/wildlife/rat_footstep
+event:/wildlife/robotbutler/robotbutler_chaseplayer
+event:/wildlife/robotbutler/robotbutler_circulate
+event:/wildlife/robotbutler/robotbutler_damageplayer
+event:/wildlife/robotbutler/robotbutler_idle01
+event:/wildlife/robotbutler/robotbutler_idle02
+event:/wildlife/robotbutler/robotbutler_impact
+event:/wildlife/robotbutler/robotbutler_ko
+event:/wildlife/robotbutler/robotbutler_reboot
+event:/wildlife/robotbutler/robotbutler_takedamage
+[loop] event:/wildlife/robotbutler/robotbutler_tracks
+event:/wildlife/scarab/charge
+event:/wildlife/scarab/footstep
+event:/wildlife/scarab/idle
+event:/wildlife/scarab/jump
+event:/wildlife/scarab/land
+event:/wildlife/scarab/melee
+event:/wildlife/scarab/stabbed
+event:/wildlife/seagull/seagull_peck
+event:/wildlife/seagull/seagull_screach
+event:/wildlife/seagull/seagull_stabbed
+event:/wildlife/seagull/seagull_wingflap
+event:/wildlife/shark/shark_bite_player
+[loop] event:/wildlife/shark/shark_bite_raft
+[loop] event:/wildlife/shark/shark_idle
+event:/wildlife/shark/shark_splash
+event:/wildlife/shark/shark_stabbed
+event:/wildlife/stonebird/sb_attack
+event:/wildlife/stonebird/sb_die
+event:/wildlife/stonebird/sb_land
+event:/wildlife/stonebird/sb_pullstone
+event:/wildlife/stonebird/sb_pullstonefinish
+event:/wildlife/stonebird/sb_stabbed
+event:/wildlife/stonebird/sb_wingflap
+[loop] event:/wildlife/whale/whale_call
+[loop] event:/wildlife/whale/whale_idle
+event:/wildlife/whale/whale_spray
+[loop] snapshot:/bossmusic
+[loop] snapshot:/caravan
+[loop] snapshot:/cave
+[loop] snapshot:/fINAL
+[loop] snapshot:/forest
+[loop] snapshot:/inside
+[loop] snapshot:/logs sidechain
+[loop] snapshot:/menu
+[loop] snapshot:/no music
+[loop] snapshot:/npc sidechain
+[loop] snapshot:/ocean waves off
+[loop] snapshot:/outside down
+[loop] snapshot:/outside off
+[loop] snapshot:/selene
+[loop] snapshot:/tangaroa
+[loop] snapshot:/tangaroa_apartments
+[loop] snapshot:/temperence
+[loop] snapshot:/tradingpost off
+[loop] snapshot:/tunnels
+[loop] snapshot:/underwater
+[loop] snapshot:/utopia

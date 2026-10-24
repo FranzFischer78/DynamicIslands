@@ -1,0 +1,18 @@
+# Kit check (not content): Balboa's shack, the bear den cave, the relay building kit
+new
+gen Seed=1 Radius=60 Height=4 Shape=4 Roughness=0.1 ObjectDensity=0 Trees=0 Bushes=0 Rocks=0 BeachThings=0 Harvest=0
+gen Hostiles=0 Friendly=0 SeaLife=0 Water=0 SeaRocks=0 SeaFinds=0 Sunken=0
+generate
+brush flatten at 0 0 r=60 s=20 frames=80
+place Balboa_Shack shack at -20 0
+place Relay_Floor_deck deck at 10 0 y=3
+place Relay_Wall wall at 16 0
+place Relay_Wall_door wdoor at 20 0
+place Relay_stairs_30_tall st30 at 10 -8
+place Relay_stairs_45_tall st45 at 14 -8
+place Relay_stairs_platform plat at 18 -8
+place Relay_Roof_Mid roof at 10 10 y=3
+place Relay_support_beam_wood beam at 22 10 y=1
+place Relay_Fence_wood fw at 18 6 y=1
+place Relay_Fence_pole fp at 20 6
+place BalboaCave_Bear cave at 0 -40 y=5

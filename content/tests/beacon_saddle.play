@@ -1,0 +1,38 @@
+# Beacon Saddle (CIPlay beacon_saddle): the saddle plateau at 4 m (round 0 0); the beacon, the pilgrims' log, the radio
+# hut chest, the tower chest, the bearing card, the radio set (used twice: the second use is refused).
+island Beacon Saddle
+offset 0 0
+expect step 0
+expect title The Last Beacon
+zone beacon
+expect step 1
+read Pilgrims' log
+expect step 2
+open Radio hut
+wait 3
+expect step 3
+open Beacon tower
+wait 3
+expect step 4
+read Bearing card
+expect step 5
+open Cave chest
+wait 3
+expect step 6
+read Mail plane log
+expect step 7
+read Keeper's last page
+expect step 8
+open Keeper's strongbox
+expect message wants three numbers
+code keeperpad 147 wrong
+code keeperpad 741
+open Keeper's strongbox
+wait 3
+expect story raft-Tangaroa_KeyCard 1
+expect step 9
+use radioset
+expect story pulse 1
+use radioset
+expect story pulse 1
+expect done

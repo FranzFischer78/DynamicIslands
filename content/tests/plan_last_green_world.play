@@ -1,0 +1,29 @@
+# Play test of the plan 'The Last Green World' (CIPlay plan_last_green_world, in a test world 'CI ...' set to day 6
+# first with CISetDay 6, for Thornback Ridge's day:6): a main story in place of Raft's - each island's frequency comes by
+# its rule (a quest, a visit, a step, a zone, a signal), it is tuned to on the Receiver and played to its end with its
+# own test. At the Heart the BURN valve is turned, so at the Rootcore only the BURN core valve works.
+plan The Last Green World
+tune spit
+include pollenreach_spit.play
+tune landing
+include ranger_landing.play
+tune delta
+include riverfork_delta.play
+tune rise
+include trackers_rise.play
+tune grove
+include hollowtrunk_grove.play
+tune caves
+include rootweave_caves.play
+tune mire
+include blightmire.play
+tune canopy
+include canopy_stair.play
+tune heart
+include heart_of_green.play
+tune rootcore
+include the_rootcore.play
+arrive ridge
+include thornback_ridge.play
+expect blueprints
+plan end

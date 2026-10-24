@@ -1,0 +1,98 @@
+# Play test of the plan 'The Long Voyage' (CIPlay plan_long_voyage, in a test world 'CI ...'): Raft's story from its
+# start with Raft's own notes read as the game does; after each story island the plan's island must come on the
+# Receiver, be played to its end with its own test, and lead on to the next story island - and the side trips, sailed to.
+plan The Long Voyage
+note RadioTower
+expect chain RadioTower unlocked
+expect chain cove locked
+
+# The Radio Tower's note leads to Wreckers' Cove first, its quest to Vasagatan
+note Vasagatan
+expect chain cove unlocked
+tune cove
+include wreckers_cove.play
+expect chain cove done
+expect chain Vasagatan unlocked
+
+# Vasagatan's note: Thornwood, then Balboa
+note Balboa
+expect chain thornwood unlocked
+tune thornwood
+include thornwood.play
+expect chain thornwood done
+expect chain Balboa unlocked
+
+# Balboa's note: Scrapyard Haven, then Caravan Town
+note CaravanTown
+expect chain scrapyard unlocked
+tune scrapyard
+include scrapyard_haven.play
+expect chain scrapyard done
+expect chain CaravanTown unlocked
+
+# Caravan Town's note: Ironreef Caverns, then Tangaroa
+note Tangaroa
+expect chain ironreef unlocked
+tune ironreef
+include ironreef_caverns.play
+expect chain ironreef done
+expect chain Tangaroa unlocked
+
+# Tangaroa's note: the Drowned Metropolis, then Varuna Point
+note VarunaPoint
+expect chain metropolis unlocked
+tune metropolis
+include drowned_metropolis.play
+expect chain metropolis done
+expect chain VarunaPoint unlocked
+
+# Varuna Point's note: the Coral Observatory, then Temperance
+note Temperance
+expect chain observatory unlocked
+tune observatory
+include coral_observatory.play
+expect chain observatory done
+expect chain Temperance unlocked
+
+# Temperance's note: Glacier Station, then Utopia - the end of Raft's story
+note Utopia
+expect chain glacier unlocked
+tune glacier
+include glacier_station.play
+expect chain glacier done
+expect chain Utopia unlocked
+
+# The side trips: the library's smaller islands come ahead of the raft while it sails (at 2 to 32 km), each played
+# to its end
+sail 2
+arrive gull
+include stranded_gull.play
+sail 2
+arrive signal
+include signal_rock.play
+sail 3
+arrive ranger
+include rangers_rest.play
+sail 3
+arrive stilt
+include stilt_hollow.play
+sail 3
+arrive wharf
+include mayors_wharf.play
+sail 3
+arrive crane
+include crane_yard.play
+sail 4
+arrive frost
+include frost_hollow.play
+sail 4
+arrive farm
+include tide_farm.play
+sail 4
+arrive mine
+include old_mine_islet.play
+sail 4
+arrive shelter
+include shelter_atoll.play
+expect blueprints
+plan end

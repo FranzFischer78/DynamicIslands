@@ -1,0 +1,40 @@
+# Play test of Gullsong Bazaar (CIPlay gullsong_bazaar, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The lagoon round 0 10 (2.5 m deep), the boardwalk from the landing (0 28) south to z -2 (x -0.75..0.75, deck 1 m), the
+# stall pontoons: the net-maker (-3.75..-0.75 18..21), the spice-seller (0.75..3.75 14..17), the potter (-3.75..-0.75 9..12),
+# the lamp-maker (0.75..3.75 5..8), the merchant's (-3..3 -2.5..2); the shell crate on the south bank (-11 -7.6).
+island Gullsong Bazaar
+offset 0.0248 -0.7349
+expect step 0
+expect title A Fair Trade
+wait 5
+expect animals Chicken 3
+expect animals Dolphin 2
+walk 0 36 to 0 31 to 0 27.5 h=1
+zone bazaar
+expect step 0
+read Notice of the closing bazaar
+expect step 1
+use spicestall
+expect message SPICE-SELLER
+open Shell crate
+expect story shell 1
+expect step 2
+use netstall
+expect story rope 1
+expect step 3
+use spicestall
+expect story pepper 1
+expect step 3
+use potstall
+expect story jar 1
+expect step 3
+use lampstall
+expect story lamp 1
+expect step 4
+use merchantstall
+expect story merchantkey 1
+expect step 5
+open Merchant's strongbox
+expect done
+open Fish stall's box
+open Pontoon barrel

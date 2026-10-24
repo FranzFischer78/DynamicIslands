@@ -1,0 +1,63 @@
+# Play test of Saltpan Delta (CIPlay saltpan_delta, in a test world 'CI ...'). Points as in its recipe: the works at
+# 1.5 m; the pump house's veranda x -34.5..-31, z 41.5..52 (open to the south), the zone by the pump at -29 45; the pans
+# x -31..-19 (north z 31, middle 18, south 5), the crank posts at x -22; the salt store x -41..-38, z 2..5, its doorway
+# east; the wagon at -25 -9 and its brake; the jetty (deck 1.5 m) and the shipping office x -33..-30, z -51..-48
+island Saltpan Delta
+offset 0.822 -0.6864
+expect step 0
+expect title The Last Harvest
+expect animals Chicken 3
+expect animals Goat 2
+expect animals Dolphin 2
+expect hidden salt1
+wait 5
+
+# The pump house: the notice, the crank in the foreman's locker
+walk -33 37 to -33 40.5 to -33 44 h=1.5
+zone pumphouse
+expect step 1
+read Foreman's notice
+expect step 2
+open Foreman's locker
+expect story crank 1
+expect step 3
+
+# The pans in turn, north to south; the middle one first is refused
+use crank2
+expect message North sluice first
+use crank1
+wait 10
+expect shown salt1
+use salt1
+expect story saltsack 1
+expect step 4
+use crank2
+wait 10
+expect shown salt2
+use salt2
+expect story saltsack 2
+expect step 5
+# The salt store by the south pan: the rats
+walk -33 3.5 to -36.5 3.5 h=1.5
+zone saltstore
+kill Rat
+expect step 6
+open Salt store box
+use crank3
+wait 10
+expect shown salt3
+use salt3
+expect story saltsack 3
+expect step 7
+
+# The wagon loaded; the brake off - the ride down the line to the jetty; the pay chest in the shipping office
+use wagon
+expect story waybill 1
+expect step 8
+use brake
+wait 13
+expect step 9
+open Jetty barrel
+walk -25 -52 to -29 -50 h=1.5
+open Works pay chest
+expect done

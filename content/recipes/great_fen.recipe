@@ -1,0 +1,787 @@
+# The Great Fen - a new island of the library, twenty times the size (x20)
+# A vast forested wetland - reed beds, willows, channels and pools - with seven stilt villages round its rim and in the
+# middle, on an island in the great mere, the lost town of Sevenbridge, cut off since its seven drawbridges were raised in
+# the fever year. Each bridge's windlass belongs to one village, and each village wants something done first.
+# Quest "The Seven Bridges" (35 steps in 9 chapters): the warden's hut at the landing; then one chapter per village -
+# Reedcut's geese, Eelmarsh's sunk bridge pin, Mothwick's wisp called with three horns, Turfholm's bog boars, Heronsby's
+# fen-mint from the hermit's isle, Willowbend's timed lock, Stillwater's Bog Beast; and Sevenbridge itself - the charter,
+# the hall's rats, the town bell for seven bridges, the hoard.
+#
+# Built by the recipe player (CIRecipe great_fen) through the editor's own operations.
+include lib_huts
+include lib_relay
+include lib_rt
+include lib_sea
+new
+# (nature: forest, Like Raft's Balboa - birch, pine and bushes on the firm ground; the meres open water)
+gen Trees=0.21 Bushes=0.38 Rocks=0.42 Harvest=0.1 BeachThings=0.3
+gen Seed=9228 Radius=200 Height=6 Roughness=0.35 Peaks=1 Shape=5 Style=3 BeachWidth=0.5 Cliffs=0 PeakShape=0.2 Lakes=0.6
+gen Water=0.6 SeaRocks=0.2 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== THE LAND ===========================================================================================================
+# The fen (the map, seed 9228): low marsh everywhere (0.5-6 m), pools of the generator's own. The great mere dug round
+# its middle (-10 -10): water from 28 to 64 m out, 4 m deep; Sevenbridge's island inside it (r 26, 1.5 m). The seven
+# villages ~105-130 m out on the firm ground, each levelled at 1.5 m: Reedcut -10 95, Eelmarsh 64 64, Mothwick 75 -10, Turfholm 64 -84, Heronsby 35 -130, Willowbend -115 -10, Stillwater -85 70.
+# From each village a sunken causeway (1 m) runs to the mere's shore, a boardwalk on posts across the water (deck 1 m),
+# and the last 12 m to the town's shore is the drawbridge's gap. The landing on the south coast at 40 -190.
+
+# --- Terrain: the mere (two rings of strokes), the town's island levelled at 1.5 m; the villages' ground; the causeways'
+# beds to the mere's shore; Eelmarsh's deep pool, Mothwick's pond and islet, Turfholm's bog, the hermit's isle and the
+# mill isle in their rings of water; the landing --------------------------------------------------------------------------
+for a 0 345 15
+brush flatten at {-10+40*cos($a)} {-10+40*sin($a)} r=10 s=20 frames=300 h=-4
+brush flatten at {-10+54*cos($a)} {-10+54*sin($a)} r=10 s=20 frames=300 h=-4
+brush flatten at {-10+33*cos($a)} {-10+33*sin($a)} r=6 s=20 frames=300 h=-4
+next
+brush flatten at -10 -10 r=29 s=20 frames=600 h=1.5
+brush smooth at -10 -10 r=36 s=10 frames=8
+brush flatten at -10 -10 r=25 s=20 frames=300 h=1.5
+brush flatten at -10 95 r=16 s=20 frames=300 h=1.5
+brush flatten from -10 95 to -10 56 r=3 s=20 frames=200 h=1
+brush flatten at 64 64 r=16 s=20 frames=300 h=1.5
+brush flatten from 64 64 to 36.67 36.67 r=3 s=20 frames=200 h=1
+brush flatten at 75 -10 r=16 s=20 frames=300 h=1.5
+brush flatten from 75 -10 to 56 -10 r=3 s=20 frames=200 h=1
+brush flatten at 64 -84 r=16 s=20 frames=300 h=1.5
+brush flatten from 64 -84 to 36.67 -56.67 r=3 s=20 frames=200 h=1
+brush flatten at 35 -130 r=18 s=20 frames=300 h=1.5
+brush flatten from 35 -130 to 13.17 -71.8 r=3 s=20 frames=200 h=1
+brush flatten at -115 -10 r=16 s=20 frames=300 h=1.5
+brush flatten from -115 -10 to -76 -10 r=3 s=20 frames=200 h=1
+brush flatten at -85 70 r=16 s=20 frames=300 h=1.5
+brush flatten from -85 70 to -55.14 38.15 r=3 s=20 frames=200 h=1
+brush flatten from -57.88 41.07 to -66.08 49.82 r=6 s=20 frames=200 h=1
+brush flatten at 72 72 r=5.5 s=20 frames=300 h=-7
+for a 0 315 45
+brush flatten at {75+6.5*cos($a)} {6+6.5*sin($a)} r=3.5 s=20 frames=300 h=-1.5
+next
+brush flatten at 75 6 r=2.5 s=20 frames=200 h=0.8
+brush flatten at 84 -94 r=6 s=20 frames=200 h=0.3
+for a 0 315 45
+brush flatten at {-75+11*cos($a)} {-125+11*sin($a)} r=5 s=20 frames=300 h=-2
+next
+brush flatten at -75 -125 r=6 s=20 frames=200 h=1
+for a 0 330 30
+brush flatten at {-132+13*cos($a)} {-28+13*sin($a)} r=5 s=20 frames=300 h=-2
+next
+brush flatten at -132 -28 r=7 s=20 frames=200 h=1.5
+brush flatten at 40 -186 r=7 s=20 frames=200 h=1
+clear at -10 -10 r=66
+clear at -10 95 r=17
+clear at 64 64 r=17
+clear at 75 -10 r=17
+clear at 64 -84 r=17
+clear at 35 -130 r=19
+clear at -115 -10 r=17
+clear at -85 70 r=17
+clear at 72 72 r=7
+clear at 75 6 r=10
+clear at -132 -28 r=19
+clear at -75 -125 r=17
+clear at 40 -186 r=8
+
+# ===== CHAPTER 1 - THE WARDEN'S HUT (the landing, south) ==================================================================
+# --- The jetty and two punts, the fen-warden's hut on stilts (his map inside, his chest), the signpost ----------------
+place Block_Floor_Wood - at 40 -192.75 h=0.85
+place Block_Floor_Wood - at 40 -194.25 h=0.85
+place Block_Floor_Wood - at 40 -195.75 h=0.85
+place Block_Floor_Wood - at 40 -197.25 h=0.85
+place RT_PlasticBoat - at 37.5 -196 h=0 yaw=10
+place RT_PlasticBoat - at 42.6 -197 h=0 yaw=-15
+push at 36 -186 h=1
+call stilt_hut y=1.2
+place Note_Board wardenmap at 2.25 4.1 y=1.2 yaw=180
+place Loot_Chest wardenchest at 3.6 2.6 y=1.2 drop yaw=270
+place Pickup_Landmark_Plastic3_Land - at 1.1 1.9 y=1.5 drop yaw=37
+pop
+place Zone_Trigger fenlanding at 40 -189 y=1.5
+place Balboa_DirectionSign - at 44.5 -183 ground yaw=20
+
+# ===== THE SEVEN DRAWBRIDGES =============================================================================================
+# Each causeway's boardwalk across the mere (in a frame along it: local x 0 at the mere's shore, 64 m out, +x towards
+# the town); at its end the windlass (a drum on a post); the gap's lowered deck (hidden till lowered), the raised leaf
+# standing at the town's shore (two radio tower walls on two posts), the bridge's zone on the town's side (hidden till lowered)
+# (1: the Reed Bridge, from Reedcut)
+push at -10 54 h=-4 yaw=90
+call boardwalk n=18 y=5
+place Pillar_04 - at 26.6 0.3 y=5
+place Cableroll_01 windlass1 at 26.6 0.3 y=6.5 drop
+place Block_Floor_Wood lowered1 at 27.75 0.75 y=5
+place Block_Floor_Wood lowered1 at 29.25 0.75 y=5
+place Block_Floor_Wood lowered1 at 30.75 0.75 y=5
+place Block_Floor_Wood lowered1 at 32.25 0.75 y=5
+place Block_Floor_Wood lowered1 at 33.75 0.75 y=5
+place RT_Wall1 raised1 at 35 -0.75 y=5 yaw=90
+place RT_Wall1 raised1 at 35 -0.75 y=8 yaw=90
+place ReefHuts_Pillar3 - at 35 0.1 y=0 sy=1.04place ReefHuts_Pillar3 - at 35 1.4 y=0 sy=1.04
+place Zone_Trigger bridge1 at 37 0.75 y=6.5
+pop
+# (2: the Eel Bridge, from Eelmarsh)
+push at 35.25 35.25 h=-4 yaw=135
+call boardwalk n=18 y=5
+place Pillar_04 - at 26.6 0.3 y=5
+place Cableroll_01 windlass2 at 26.6 0.3 y=6.5 drop
+place Block_Floor_Wood lowered2 at 27.75 0.75 y=5
+place Block_Floor_Wood lowered2 at 29.25 0.75 y=5
+place Block_Floor_Wood lowered2 at 30.75 0.75 y=5
+place Block_Floor_Wood lowered2 at 32.25 0.75 y=5
+place Block_Floor_Wood lowered2 at 33.75 0.75 y=5
+place RT_Wall1 raised2 at 35 -0.75 y=5 yaw=90
+place RT_Wall1 raised2 at 35 -0.75 y=8 yaw=90
+place ReefHuts_Pillar3 - at 35 0.1 y=0 sy=1.04place ReefHuts_Pillar3 - at 35 1.4 y=0 sy=1.04
+place Zone_Trigger bridge2 at 37 0.75 y=6.5
+pop
+# (3: the Wisp Bridge, from Mothwick)
+push at 54 -10 h=-4 yaw=-180
+call boardwalk n=18 y=5
+place Pillar_04 - at 26.6 0.3 y=5
+place Cableroll_01 - at 26.6 0.3 y=6.5 drop
+place Block_Floor_Wood lowered3 at 27.75 0.75 y=5
+place Block_Floor_Wood lowered3 at 29.25 0.75 y=5
+place Block_Floor_Wood lowered3 at 30.75 0.75 y=5
+place Block_Floor_Wood lowered3 at 32.25 0.75 y=5
+place Block_Floor_Wood lowered3 at 33.75 0.75 y=5
+place RT_Wall1 raised3 at 35 -0.75 y=5 yaw=90
+place RT_Wall1 raised3 at 35 -0.75 y=8 yaw=90
+place ReefHuts_Pillar3 - at 35 0.1 y=0 sy=1.04place ReefHuts_Pillar3 - at 35 1.4 y=0 sy=1.04
+place Zone_Trigger bridge3 at 37 0.75 y=6.5
+pop
+# (4: the Turf Bridge, from Turfholm)
+push at 35.25 -55.25 h=-4 yaw=-135
+call boardwalk n=18 y=5
+place Pillar_04 - at 26.6 0.3 y=5
+place Cableroll_01 - at 26.6 0.3 y=6.5 drop
+place Block_Floor_Wood lowered4 at 27.75 0.75 y=5
+place Block_Floor_Wood lowered4 at 29.25 0.75 y=5
+place Block_Floor_Wood lowered4 at 30.75 0.75 y=5
+place Block_Floor_Wood lowered4 at 32.25 0.75 y=5
+place Block_Floor_Wood lowered4 at 33.75 0.75 y=5
+place RT_Wall1 raised4 at 35 -0.75 y=5 yaw=90
+place RT_Wall1 raised4 at 35 -0.75 y=8 yaw=90
+place ReefHuts_Pillar3 - at 35 0.1 y=0 sy=1.04place ReefHuts_Pillar3 - at 35 1.4 y=0 sy=1.04
+place Zone_Trigger bridge4 at 37 0.75 y=6.5
+pop
+# (5: the Heron Bridge, from Heronsby)
+push at 12.47 -69.93 h=-4 yaw=-110.56
+call boardwalk n=18 y=5
+place Pillar_04 - at 26.6 0.3 y=5
+place Cableroll_01 - at 26.6 0.3 y=6.5 drop
+place Block_Floor_Wood lowered5 at 27.75 0.75 y=5
+place Block_Floor_Wood lowered5 at 29.25 0.75 y=5
+place Block_Floor_Wood lowered5 at 30.75 0.75 y=5
+place Block_Floor_Wood lowered5 at 32.25 0.75 y=5
+place Block_Floor_Wood lowered5 at 33.75 0.75 y=5
+place RT_Wall1 raised5 at 35 -0.75 y=5 yaw=90
+place RT_Wall1 raised5 at 35 -0.75 y=8 yaw=90
+place ReefHuts_Pillar3 - at 35 0.1 y=0 sy=1.04place ReefHuts_Pillar3 - at 35 1.4 y=0 sy=1.04
+place Zone_Trigger bridge5 at 37 0.75 y=6.5
+pop
+# (6: the Mill Bridge, from Willowbend)
+push at -74 -10 h=-4 yaw=-0
+call boardwalk n=18 y=5
+place Pillar_04 - at 26.6 0.3 y=5
+place Cableroll_01 - at 26.6 0.3 y=6.5 drop
+place Block_Floor_Wood lowered6 at 27.75 0.75 y=5
+place Block_Floor_Wood lowered6 at 29.25 0.75 y=5
+place Block_Floor_Wood lowered6 at 30.75 0.75 y=5
+place Block_Floor_Wood lowered6 at 32.25 0.75 y=5
+place Block_Floor_Wood lowered6 at 33.75 0.75 y=5
+place RT_Wall1 raised6 at 35 -0.75 y=5 yaw=90
+place RT_Wall1 raised6 at 35 -0.75 y=8 yaw=90
+place ReefHuts_Pillar3 - at 35 0.1 y=0 sy=1.04place ReefHuts_Pillar3 - at 35 1.4 y=0 sy=1.04
+place Zone_Trigger bridge6 at 37 0.75 y=6.5
+pop
+# (7: the Still Bridge, from Stillwater)
+push at -53.77 36.69 h=-4 yaw=46.85
+call boardwalk n=18 y=5
+place Pillar_04 - at 26.6 0.3 y=5
+place Cableroll_01 - at 26.6 0.3 y=6.5 drop
+place Block_Floor_Wood lowered7 at 27.75 0.75 y=5
+place Block_Floor_Wood lowered7 at 29.25 0.75 y=5
+place Block_Floor_Wood lowered7 at 30.75 0.75 y=5
+place Block_Floor_Wood lowered7 at 32.25 0.75 y=5
+place Block_Floor_Wood lowered7 at 33.75 0.75 y=5
+place RT_Wall1 raised7 at 35 -0.75 y=5 yaw=90
+place RT_Wall1 raised7 at 35 -0.75 y=8 yaw=90
+place ReefHuts_Pillar3 - at 35 0.1 y=0 sy=1.04place ReefHuts_Pillar3 - at 35 1.4 y=0 sy=1.04
+place Zone_Trigger bridge7 at 37 0.75 y=6.5
+pop
+
+# ===== CHAPTER 2 - REEDCUT (north) ========================================================================================
+push at -19 98 h=1.5
+call stilt_hut
+place Pickup_Landmark_Plastic3_Land - at 1.2 1.5 y=2.9 drop yaw=112
+place Pickup_Landmark_Plank_Land - at 3.2 3.0 y=2.9 drop yaw=64
+pop
+push at -6 98 h=1.5
+call stilt_hut w1=ReefHuts_PlasticWall4
+pop
+push at -27 89 h=1.5
+call stilt_hut w3=ReefHuts_Wall3
+pop
+push at -2 89 h=1.5
+call stilt_hut w5=ReefHuts_Wall2
+pop
+place Zone_Trigger reedcut at -10 95 y=1.5
+place Note_Sign reedelder at -7 93 ground yaw=180
+place Creature_Chicken geese at 2 107 ground
+place "Box Small" reedbox at -14 96 ground sit yaw=30
+scatter Bamboo_1 4 at 4 105 r=5 seed=2801
+scatter Bamboo_2 4 at -26 105 r=5 seed=2802
+
+# ===== CHAPTER 3 - EELMARSH (north-east) ===================================================================================
+push at 52 67 h=1.5
+call stilt_hut
+pop
+push at 68 54 h=1.5
+call stilt_hut w1=ReefHuts_PlasticWall4
+pop
+push at 60 70 h=1.5
+call stilt_hut w3=ReefHuts_Wall3
+place "Pickup_Landmark_Scrap 1_Land" - at 3.0 1.4 y=2.9 drop yaw=205
+pop
+place Zone_Trigger eelmarsh at 64 64 y=1.5
+place Note_Sign eelelder at 66 65 ground yaw=225
+place UT_MarketBasket02 - at 66.5 66 ground sit
+place UT_MarketBasket02 - at 65 68 ground sit yaw=40
+place Loot_ChestSmall eeltrap at 72.5 72.5 h=-7 drop yaw=30
+place Zone_Trigger eelpool at 72 72 h=-6
+place RT_PlasticBoat - at 70.6 71.5 h=-6.6 rot=180,0,0
+place Zone_Trigger eelair at 70.6 71.5 h=-6.4
+place Zone_Atmosphere eelbubbles at 70.6 71.5 h=-6.4
+place "Box Small" eelbox at 58 65 ground sit yaw=60
+
+# ===== CHAPTER 4 - MOTHWICK (east) ========================================================================================
+push at 66 -18 h=1.5
+call stilt_hut
+pop
+push at 79 -18 h=1.5
+call stilt_hut w1=ReefHuts_PlasticWall4
+pop
+push at 63 -6 h=1.5
+call stilt_hut w3=ReefHuts_Wall3
+pop
+place Zone_Trigger mothwick at 75 -10 y=1.5
+place Note_Board wisprhyme at 75 -4 ground yaw=180
+place Pillar_04 - at 64 8 ground
+place Placeable_HonkHorn_1 hornreed at 64 8 y=1.5 drop
+place Pillar_04 - at 75 17 ground
+place Placeable_HonkHorn_2 hornheron at 75 17 y=1.5 drop
+place Pillar_04 - at 86 8 ground
+place Placeable_HonkHorn_3 hornwillow at 86 8 y=1.5 drop
+place UT_LightBottle03 wisplight at 75 6 ground sit
+place Zone_Atmosphere wispglow at 75 6 y=2
+place Zone_Trigger wisp at 75 6 y=1
+
+# ===== CHAPTER 5 - TURFHOLM (south-east) ==================================================================================
+push at 52 -88 h=1.5
+call stilt_hut
+place Pickup_Landmark_Plank_Land - at 3.3 2.2 y=2.9 drop yaw=151
+pop
+push at 68 -96 h=1.5
+call stilt_hut w1=ReefHuts_PlasticWall4
+pop
+push at 60 -98 h=1.5
+call stilt_hut w3=ReefHuts_Wall3
+pop
+place Zone_Trigger turfholm at 64 -84 y=1.5
+place Note_Sign turfelder at 66 -85 ground yaw=315
+place VP_BrickStack01 turfstack at 70 -80 ground sit
+place VP_BrickStack02 turfstack at 72 -83 ground sit yaw=40
+place TangaroaHandSpade - at 73 -87 ground sit yaw=70
+place TangaroaHandSpade - at 74 -89 ground sit yaw=10
+place Zone_Trigger bog at 84 -94 h=1.3
+place Creature_Boar bogboars at 85 -96 ground
+place "Box Small" turfbox at 59 -85 ground sit yaw=15
+place Creature_Goat goats at 50 -72 ground
+
+# ===== CHAPTER 6 - HERONSBY (south) and the hermit's isle ==================================================================
+push at 23 -134 h=1.5
+call stilt_hut
+pop
+push at 29 -142 h=1.5
+call stilt_hut w1=ReefHuts_PlasticWall4
+pop
+push at 39 -144 h=1.5
+call stilt_hut w3=ReefHuts_Wall3
+pop
+place Zone_Trigger heronsby at 35 -130 y=1.5
+push at 49 -122 h=1.55
+call relay_house
+place Placeable_Table_Square healertable at -6 -5 sit
+place Placeable_Utopia_Herb_1 - at -9 -2 sit
+place Placeable_Utopia_Herb_3 - at -9 -4 sit
+place Placeable_Utopia_Herb_5 - at -9 -8 sit
+place Note_Sign healernote at -1.5 -3 sit yaw=90
+pop
+place Balboa_Shack - at -75 -125 h=1 scale=0.4 yaw=30
+place Placeable_Utopia_Herb_6 fenmint at -71 -128 ground sit
+place Placeable_Utopia_Herb_6 - at -73.9 -128.4 ground sit
+place Zone_Trigger hermitisle at -73 -127 y=1.5
+
+# ===== CHAPTER 7 - WILLOWBEND (west) and the mill isle =====================================================================
+push at -127 -7 h=1.5
+call stilt_hut
+place Pickup_Landmark_Plastic6_Land - at 2.8 2.9 y=2.9 drop yaw=20
+pop
+push at -119 -6 h=1.5
+call stilt_hut w1=ReefHuts_PlasticWall4
+pop
+push at -117 -18 h=1.5
+call stilt_hut w3=ReefHuts_Wall3
+pop
+place Zone_Trigger willowbend at -115 -10 y=1.5
+place Note_Sign locknote at -119 -15.5 ground yaw=225
+place TP_LaserControlPanel_lever locklever at -118.6 -14 ground sit scale=3 yaw=225
+place "Box Small" willowbox at -121 -9 ground sit yaw=50
+# (the mill isle's banks walled where they could be waded, the lock gate in the gap facing the village)
+place Helper_Wall - at -129.42 -19.9 h=-2 sy=1.8 yaw=197.69
+place Helper_Wall - at -133.19 -19.58 h=-2 sy=1.8 yaw=171.97
+place Helper_Wall - at -136.72 -20.93 h=-2 sy=1.8 yaw=146.26
+place Helper_Wall - at -139.32 -23.68 h=-2 sy=1.8 yaw=120.54
+place Helper_Wall - at -140.47 -27.28 h=-2 sy=1.8 yaw=94.83
+place Helper_Wall - at -139.94 -31.03 h=-2 sy=1.8 yaw=69.11
+place Helper_Wall - at -137.84 -34.18 h=-2 sy=1.8 yaw=43.4
+place Helper_Wall - at -134.58 -36.1 h=-2 sy=1.8 yaw=17.69
+place Helper_Wall - at -130.81 -36.42 h=-2 sy=1.8 yaw=-8.03
+place Helper_Wall - at -127.28 -35.07 h=-2 sy=1.8 yaw=-33.74
+place Helper_Wall - at -124.68 -32.32 h=-2 sy=1.8 yaw=-59.46
+place Helper_Wall - at -123.53 -28.72 h=-2 sy=1.8 yaw=-85.17
+place Helper_Wall - at -124.06 -24.97 h=-2 sy=1.8 yaw=-110.89
+place RT_Wall1 lockgate at -127.25 -20.79 h=-1.5 sy=1.7 yaw=-136.6
+place RT_WindMill - at -134 -30 ground sit yaw=30
+place Pillar_04 - at -128 -27 ground
+place Cableroll_01 windlass6 at -128 -27 y=1.5 drop
+place Zone_Trigger millisle at -131 -27 y=1.5
+
+# ===== CHAPTER 8 - STILLWATER (north-west) ================================================================================
+push at -97 73 h=1.5
+call stilt_hut w2=none w5=none
+pop
+push at -81 76 h=1.5
+call stilt_hut w1=none w4=none
+pop
+push at -89 56 h=1.5
+call stilt_hut w3=none w6=none
+pop
+place Zone_Trigger stillwater at -85 70 y=1.5
+place Note_Sign stillnote at -83 68 ground yaw=135
+place Zone_Trigger beastcauseway at -61.98 45.44 y=1.5
+place Creature_MamaBear bogbeast at -61.98 45.44 ground
+place Zone_Sound beastmusic at -61.98 45.44 y=3
+
+# ===== CHAPTER 9 - SEVENBRIDGE ============================================================================================
+# --- The town hall in the middle (a relay house, the cellar its walled part, the charter by its door), its bell tower
+# south, the vault south-west (a closed storey, its door a hinged wall), five houses round the ring --------------------------
+push at -4.8 -4.8 h=1.55
+call relay_house
+place Pickup_Landmark_Plank_Land - at -8 -3 y=0.3 drop yaw=88
+pop
+place Note_Board charter at -3.5 -12 ground yaw=270
+place Zone_Trigger hallcellar at -11.5 -10 h=3
+place Creature_Rat hallrats at -11.5 -10 h=1.8
+place Zone_Trigger townsquare at 0 -10 y=1.5
+place RT_PillarThick - at -10 -19.75 y=0
+place RT_PillarThick - at -10 -19.75 y=6
+place RT_PillarThick - at -10 -18.25 y=0
+place RT_PillarThick - at -10 -18.25 y=6
+place LandmarkLadder_6m - at -9.7 -19 y=0 yaw=270
+place LandmarkLadder_6m - at -9.7 -19 y=6.6 yaw=270
+place RT_Floor - at -10 -17.15 y=12.05 sx=0.4 sz=0.35
+place TangaroaBucket townbell at -11.6 -19 y=12.2 drop scale=2 rot=180,0,0
+push at -23 -15.8 h=1.55
+call rt_storey f1=none f2=RT_WallWindow1
+place RT_Wall1 vaultdoor at -3 -4.5
+place RT_Floor - at 0 4.5 y=3
+place Loot_ChestLarge hoard at -3 2.5 sit yaw=180
+pop
+push at -13.37 5.76 h=1.55
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 l2=RT_WallWindow2
+place RT_Floor - at 0 4.5 y=3
+place Pickup_Landmark_Plastic3_Land - at -4.5 1.5 y=0.3 drop yaw=296
+pop
+push at -22.65 -3.36 h=1.55
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 l2=RT_WallWindow2
+place RT_Floor - at 0 4.5 y=3
+pop
+push at -15.5 -24.72 h=1.55
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 l2=RT_WallWindow2
+place RT_Floor - at 0 4.5 y=3
+pop
+push at -5.52 -26.94 h=1.55
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 l2=RT_WallWindow2
+place RT_Floor - at 0 4.5 y=3
+pop
+push at 8.76 -3.63 h=1.55
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 l2=RT_WallWindow2
+place RT_Floor - at 0 4.5 y=3
+pop
+
+# ===== ALL ROUND THE FEN ==================================================================================================
+# --- Reeds round the mere, birch and pine on the firm ground, berries and flowers; sunk punts in the mere; turtles in the
+# mere, dolphins off the coast; the mist and the frogs ------------------------------------------------------------------
+scatter Bamboo_1 4 at 54.72 7.34 r=4 seed=2810
+scatter Bamboo_2 4 at 37.38 37.38 r=4 seed=2811
+scatter Bamboo_3 4 at 7.34 54.72 r=4 seed=2812
+scatter Bamboo_1 4 at -27.34 54.72 r=4 seed=2813
+scatter Bamboo_2 4 at -57.38 37.38 r=4 seed=2814
+scatter Bamboo_3 4 at -74.72 7.34 r=4 seed=2815
+scatter Bamboo_1 4 at -74.72 -27.34 r=4 seed=2816
+scatter Bamboo_2 4 at -57.38 -57.38 r=4 seed=2817
+scatter Bamboo_3 4 at -27.34 -74.72 r=4 seed=2818
+scatter Bamboo_1 4 at 7.34 -74.72 r=4 seed=2819
+scatter Bamboo_2 4 at 37.38 -57.38 r=4 seed=2820
+scatter Bamboo_3 4 at 54.72 -27.34 r=4 seed=2821
+scatter Pickup_Landmark_Tree_Birch 3 at 30 100 r=8 seed=2830
+scatter Pickup_Landmark_Tree_Pine 3 at -50 100 r=8 seed=2831
+scatter Pickup_Landmark_Tree_Birch 3 at 100 30 r=8 seed=2832
+scatter Pickup_Landmark_Tree_Pine 3 at 20 -90 r=8 seed=2833
+scatter Pickup_Landmark_Tree_Birch 3 at -60 -70 r=8 seed=2834
+scatter Pickup_Landmark_Tree_Pine 3 at -120 40 r=8 seed=2835
+scatter Pickup_Landmark_Tree_Birch 3 at 110 -60 r=8 seed=2836
+scatter Pickup_Landmark_Tree_Pine 3 at -40 140 r=8 seed=2837
+scatter Pickup_Landmark_BerryBush 5 at 15 -150 r=10 seed=2840
+scatter Pickup_Landmark_BerryBush 5 at -100 30 r=10 seed=2841
+scatter Pickup_Landmark_Flower_Blue 4 at 30 95 r=8 seed=2842
+scatter Pickup_Landmark_Flower_White 4 at -100 -60 r=8 seed=2843
+place RT_PlasticBoat - at -22 41 h=-3.6 rot=0,40,150
+place Loot_SunkenBarrel sunkpunt1 at -20 42 h=-4 drop
+place RT_PlasticBoat - at 30 -38 h=-3.6 rot=0,120,160
+place Loot_SunkenBarrel sunkpunt2 at 31 -40 h=-4 drop
+place Creature_Turtle turtles at -10 38 h=-2
+place Creature_Dolphin dolphins at 40 -215 h=-2
+place Zone_Atmosphere fenmist at -10 -10 y=3
+place Zone_Atmosphere fenmist at 60 60 y=3
+place Zone_Atmosphere fenmist at 60 -70 y=3
+place Zone_Atmosphere fenmist at -80 -40 y=3
+place Zone_Atmosphere fenmist at -70 70 y=3
+place Zone_Atmosphere fenmist at 20 -150 y=3
+place Zone_Sound fensound at 40 40 y=3
+place Zone_Sound fensound at -60 30 y=3
+place Zone_Sound fensound at 10 -80 y=3
+
+# --- Raft's finds in the shallows round the fen's coast (lib_sea; keep this after the terrain and building lines) -------
+call shallows r=220 deep=5 n=3
+
+# ===== Settings, story items, notes, behaviours, quest (35 steps, 9 chapters) =============================================
+info title=The Great Fen
+info author=Custom Islands
+info description=A vast forested wetland of reeds, channels and meres, seven stilt villages round its rim and in the middle the lost town of Sevenbridge, cut off since its seven drawbridges were raised. Each bridge belongs to a village, and each village wants something done first.
+island on.arrive=message||Reeds and willows and water to the horizon, stilt villages on the firmer ground - and in the middle of a great mere, a town on an island with seven drawbridges standing up like hands raised against you.
+
+story bridgepin|Bridge pin|quest:Varuna_CraneKey|An iron pin as long as your forearm: the Eel Bridge's windlass won't turn without it.
+story fenmint|Fen-mint|Placeable_Utopia_Herb_6|A bunch of fen-mint from the hermit's isle, sharp enough to make your eyes water.
+story townseal|Sevenbridge's seal|quest:Tangaroa_Token|The town seal, dropped from the town bell's rope when it rings for seven bridges.
+
+note wardenmap The fen-warden's map | THE GREAT FEN - WARDEN'S MAP\n\nSevenbridge raised its seven bridges in the fever year. Each windlass is held by a village:\nREEDCUT (north) - the Reed Bridge. EELMARSH (north-east) - the Eel Bridge. MOTHWICK (east) - the Wisp Bridge. TURFHOLM (south-east) - the Turf Bridge. HERONSBY (south) - the Heron Bridge. WILLOWBEND (west) - the Mill Bridge. STILLWATER (north-west) - the Still Bridge.\nEach village will lower its bridge for whoever helps it. When all seven are down, ring the town bell: the hall's vault opens.\nNet launcher in my chest - Reedcut's geese are loose again.
+note wardenchest Warden's chest | The fen-warden's chest: a net launcher, a bundle of net canisters, a bag of smoked herring.
+loot wardenchest NetGun*1;NetCanister*8;Cooked_Herring*2
+prop wardenchest loot.refill=0
+note reedelder Reedcut's elder | REEDCUT - TO WHOEVER COMES\n\nOur geese are loose in the reeds, three of them, and we're too old to run. Net them and they'll go home. Then turn our windlass - the Reed Bridge is yours.
+note eelelder Eelmarsh's elder | EELMARSH\n\nThe Eel Bridge's pin is in the old trap at the bottom of our pool - it fell in the year the bridges went up. Seven metres. There's air under the sunk punt. Fetch it and put it in the windlass at our causeway's end, out on the mere.
+note wisprhyme The wisp rhyme | (painted on Mothwick's board)\n\nCall the wisp the old way:\nfirst the REED horn, low and long,\nthen the HERON's, sharp as a beak,\nlast the WILLOW's, soft as leaves.\nIt comes to the islet. Stand in its light, and our bridge comes down.
+note turfelder Turfholm's elder | TURFHOLM\n\nThe bog boars are in the cutting again - four of them. We can't cut turf, we can't sleep. Drive them off and we'll let down the Turf Bridge.
+note healernote The healer's request | HERONSBY - THE HEALER\n\nI need fen-mint for my remedies, and it only grows on the hermit's isle, out in the pools west of here. Bring me a bunch and the Heron Bridge comes down - I hold its windlass.
+note locknote The lock-keeper's note | WILLOWBEND LOCK\n\nThe mill isle is only reached through the lock. Pull the lever: the near gate opens for a minute, then shuts. Swim or punt through quick.\nThe miller holds the Mill Bridge's windlass on the isle.
+note stillnote The last villager's warning | STILLWATER\n\nThe Bog Beast came out of the mere the night the bridges went up and sleeps on our causeway. Everyone else has gone to Heronsby. The Still Bridge's windlass is at the causeway's end - past it.
+note charter The Sevenbridge charter | SEVENBRIDGE - CHARTER OF THE TOWN\n\nThe town stands on seven bridges and is ruled by none.\nIn time of danger the bridges are raised; when all seven are down again, the town bell is rung, and the town's hoard is opened for whoever brought the town back to the fen.
+note hoard Sevenbridge's hoard | The town's hoard: seven villages' worth of savings, the plans for the town's great planting beds and for the recycler that made rope from reeds, eel-skin leather, and bars of titanium.
+loot hoard TradeToken*25;Blueprint_Cropplot_Large_Tier3*1;Blueprint_Recycler*1;Leather*6;TitaniumIngot*3;Rope*6
+prop hoard loot.refill=0
+prop hoard if.open=has|story:townseal|1
+prop hoard else.open=message||The town's hoard, locked. The charter says how it opens.
+note eeltrap The old eel trap | The old eel trap at the bottom of the pool: an eel's skeleton - and the Eel Bridge's iron pin.
+loot eeltrap story:bridgepin*1;Leather*1
+prop eeltrap loot.refill=0
+note reedbox Reedcut box | A box in Reedcut: reed rope and a basket of eggs.
+loot reedbox Rope*3;Egg*3
+prop reedbox loot.refill=0
+note eelbox Eelmarsh box | A box in Eelmarsh: smoked eel and line.
+loot eelbox Cooked_Herring*3;FishingBait_Simple*2
+prop eelbox loot.refill=0
+note turfbox Turfholm box | A box in Turfholm: ore from a turf spade's iron, dry peat for a fire and a few planks.
+loot turfbox MetalOre*2;BioFuel*1;Plank*3
+prop turfbox loot.refill=0
+note willowbox Willowbend box | A box in Willowbend: willow withies, a few planks and potatoes from the miller's sack.
+loot willowbox Plank*4;Raw_Potato*3;Rope*2
+prop willowbox loot.refill=0
+note sunkpunt1 Sunk punt | A punt sunk in a channel with its load: crates of scrap.
+loot sunkpunt1 Scrap*3;MetalOre*2;Nail*6
+prop sunkpunt1 loot.refill=0
+note sunkpunt2 Sunk punt | Another punt the fen swallowed: clay and copper.
+loot sunkpunt2 Clay*3;CopperOre*2;Scrap*2
+prop sunkpunt2 loot.refill=0
+
+prop raised1 obj.name=raised1
+prop lowered1 obj.name=lowered1
+prop lowered1 beh.hidden=1
+prop bridge1 obj.name=bridge1
+prop bridge1 beh.hidden=1
+prop bridge1 zone.id=bridge1
+prop bridge1 zone.radius=5
+prop bridge1 zone.message=Across the Reed Bridge and into Sevenbridge's ring road.
+prop raised2 obj.name=raised2
+prop lowered2 obj.name=lowered2
+prop lowered2 beh.hidden=1
+prop bridge2 obj.name=bridge2
+prop bridge2 beh.hidden=1
+prop bridge2 zone.id=bridge2
+prop bridge2 zone.radius=5
+prop bridge2 zone.message=Across the Eel Bridge and into Sevenbridge's ring road.
+prop raised3 obj.name=raised3
+prop lowered3 obj.name=lowered3
+prop lowered3 beh.hidden=1
+prop bridge3 obj.name=bridge3
+prop bridge3 beh.hidden=1
+prop bridge3 zone.id=bridge3
+prop bridge3 zone.radius=5
+prop bridge3 zone.message=Across the Wisp Bridge and into Sevenbridge's ring road.
+prop raised4 obj.name=raised4
+prop lowered4 obj.name=lowered4
+prop lowered4 beh.hidden=1
+prop bridge4 obj.name=bridge4
+prop bridge4 beh.hidden=1
+prop bridge4 zone.id=bridge4
+prop bridge4 zone.radius=5
+prop bridge4 zone.message=Across the Turf Bridge and into Sevenbridge's ring road.
+prop raised5 obj.name=raised5
+prop lowered5 obj.name=lowered5
+prop lowered5 beh.hidden=1
+prop bridge5 obj.name=bridge5
+prop bridge5 beh.hidden=1
+prop bridge5 zone.id=bridge5
+prop bridge5 zone.radius=5
+prop bridge5 zone.message=Across the Heron Bridge and into Sevenbridge's ring road.
+prop raised6 obj.name=raised6
+prop lowered6 obj.name=lowered6
+prop lowered6 beh.hidden=1
+prop bridge6 obj.name=bridge6
+prop bridge6 beh.hidden=1
+prop bridge6 zone.id=bridge6
+prop bridge6 zone.radius=5
+prop bridge6 zone.message=Across the Mill Bridge and into Sevenbridge's ring road.
+prop raised7 obj.name=raised7
+prop lowered7 obj.name=lowered7
+prop lowered7 beh.hidden=1
+prop bridge7 obj.name=bridge7
+prop bridge7 beh.hidden=1
+prop bridge7 zone.id=bridge7
+prop bridge7 zone.radius=5
+prop bridge7 zone.message=Across the Still Bridge and into Sevenbridge's ring road.
+
+prop windlass1 obj.name=windlass1
+prop windlass1 beh.use=Turn the Reed Bridge's windlass
+prop windlass1 if.use=quest|6\n!signal|down1
+prop windlass1 on.use=message||The windlass creaks round - and out on the mere the Reed Bridge comes down with a slap of planks on water.\nsignal||down1\nhide|raised1\nshow|lowered1\nshow|bridge1\nsound||event:/exploring/utopia/drawbridge/drawbridge_land
+prop windlass1 else.use=message||Reedcut's windlass. The elder asked for the geese first - or the bridge is down already.
+prop windlass2 obj.name=windlass2
+prop windlass2 beh.use=Put the pin in the Eel Bridge's windlass and turn it
+prop windlass2 if.use=quest|10\ntake|story:bridgepin|1
+prop windlass2 on.use=message||The pin slides home, the drum turns - the Eel Bridge drops across the gap.\nsignal||down2\nhide|raised2\nshow|lowered2\nshow|bridge2\nsound||event:/exploring/utopia/drawbridge/drawbridge_land
+prop windlass2 else.use=message||The Eel Bridge's windlass. Its pin is missing - Eelmarsh's elder knows where it went.
+prop hornreed obj.name=hornreed
+prop hornreed beh.use=Blow the REED horn
+prop hornreed on.use=message||A low, long note over the pond.\nsignal||h1\nsound||event:/crafting/horns/viking
+prop hornheron obj.name=hornheron
+prop hornheron beh.use=Blow the HERON horn
+prop hornheron if.use=signal|h1
+prop hornheron on.use=message||A sharp note, like a beak snapping.\nsignal||h2\nsound||event:/crafting/horns/bugle
+prop hornheron else.use=message||A squawk that sets the frogs off. Not yet - read the rhyme.
+prop hornwillow obj.name=hornwillow
+prop hornwillow beh.use=Blow the WILLOW horn
+prop hornwillow if.use=signal|h2\n!signal|wisp
+prop hornwillow on.use=message||A soft note, like wind in leaves - and over the pond's islet a pale light kindles and hangs, swaying. The wisp.\nsignal||wisp\nshow|wisplight\nshow|wispglow\nshow|wisp\nsound||event:/crafting/horns/air
+prop hornwillow else.use=message||A squawk that sets the frogs off. Not yet - read the rhyme.
+prop wisplight obj.name=wisplight
+prop wisplight beh.hidden=1
+prop wisplight beh.bob=0.4
+prop wispglow obj.name=wispglow
+prop wispglow beh.hidden=1
+prop wispglow atmo.particles=fireflies
+prop wispglow atmo.light=#c0ffd0
+prop wispglow atmo.lightAmount=0.3
+prop wispglow zone.radius=6
+prop wisp obj.name=wisp
+prop wisp beh.hidden=1
+prop wisp zone.id=wisp
+prop wisp zone.radius=3
+prop wisp zone.repeat=never
+prop wisp zone.message=You stand in the wisp's light - and from out on the mere comes the crash of the Wisp Bridge coming down.
+prop wisp on.enter=signal||down3\nhide|raised3\nshow|lowered3\nshow|bridge3\nsound||event:/exploring/utopia/drawbridge/drawbridge_land
+prop bogboars on.defeat=signal||down4\nhide|raised4\nshow|lowered4\nshow|bridge4\nmessage||The last bog boar crashes off into the reeds. Behind you, Turfholm cheers - and their windlass lets the Turf Bridge down.\nsound||event:/exploring/utopia/drawbridge/drawbridge_land
+prop fenmint obj.name=fenmint
+prop fenmint beh.use=Pick a bunch of fen-mint
+prop fenmint if.use=!signal|picked
+prop fenmint on.use=message||The hermit's mint, sharp enough to make your eyes water.\ngive||story:fenmint*1\nsignal||picked\nsound||event:/crafting/plant_harvest
+prop fenmint else.use=message||You have a bunch already.
+prop healertable obj.name=healertable
+prop healertable beh.use=Give the healer the fen-mint
+prop healertable if.use=quest|22\ntake|story:fenmint|1
+prop healertable on.use=message||You lay the fen-mint on her table. Somewhere outside, the Heron Bridge's windlass clanks - and the bridge comes down.\nsignal||down5\nhide|raised5\nshow|lowered5\nshow|bridge5\nsound||event:/exploring/utopia/drawbridge/drawbridge_land
+prop healertable else.use=message||The healer's table, her mortar empty. She asked for fen-mint.
+prop locklever obj.name=locklever
+prop locklever beh.use=Pull the lock lever (the gate opens for a minute)
+prop locklever if.use=state|lockgate|closed
+prop locklever on.use=message||The lock gate swings open. A minute - go!\nopen|lockgate\nsound||event:/raft/radar/lever\nwait|60\nclose|lockgate\nmessage||The lock gate swings shut.
+prop locklever else.use=message||The gate is open - go!
+prop lockgate obj.name=lockgate
+prop lockgate beh.turn=-95
+prop lockgate beh.moveTime=2
+prop lockgate beh.moveMode=switch
+prop windlass6 obj.name=windlass6
+prop windlass6 beh.use=Turn the Mill Bridge's windlass
+prop windlass6 if.use=!signal|down6
+prop windlass6 on.use=message||The miller's windlass turns - out on the mere, the Mill Bridge comes down.\nsignal||down6\nhide|raised6\nshow|lowered6\nshow|bridge6\nsound||event:/exploring/utopia/drawbridge/drawbridge_land
+prop windlass6 else.use=message||The Mill Bridge is down.
+prop bogbeast creature.count=1
+prop bogbeast creature.size=2.3
+prop bogbeast creature.health=4
+prop bogbeast creature.damage=2.5
+prop bogbeast creature.respawn=0
+prop bogbeast creature.zone=beastcauseway
+prop bogbeast tint.color=#3a4a2a
+prop bogbeast tint.amount=0.6
+prop bogbeast on.defeat=signal||down7\nhide|raised7\nshow|lowered7\nshow|bridge7\nhide|beastmusic\nmessage||The Bog Beast sinks back into the mere and doesn't come up. At the causeway's end the Still Bridge's windlass spins free, and the last bridge comes down.\nsound||event:/exploring/utopia/drawbridge/drawbridge_land
+prop beastmusic obj.name=beastmusic
+prop beastmusic beh.hidden=1
+prop beastmusic sound.event=event:/music/music_boss
+prop beastmusic sound.volume=0.6
+prop beastmusic zone.radius=35
+prop townbell obj.name=townbell
+prop townbell beh.use=Ring the town bell
+prop townbell if.use=signal|down1\nsignal|down2\nsignal|down3\nsignal|down4\nsignal|down5\nsignal|down6\nsignal|down7\n!signal|rung
+prop townbell on.use=message||The town bell rings out over the mere - seven times, once for each bridge. Down in the hall, the vault's door swings open, and a seal drops into your hand from the bell's rope.\nsignal||rung\nopen|vaultdoor\ngive||story:townseal*1\nsound||event:/exploring/obstacles/bicyclebell\nwait|1\nsound||event:/exploring/obstacles/bicyclebell
+prop townbell else.use=message||The town bell. The charter says: when all seven bridges are down.
+prop vaultdoor obj.name=vaultdoor
+prop vaultdoor beh.turn=-95
+prop vaultdoor beh.moveTime=2
+prop vaultdoor beh.moveMode=switch
+
+prop fenlanding zone.id=fenlanding
+prop fenlanding zone.radius=9
+prop fenlanding zone.message=The fen landing: punts, a jetty, the warden's hut on stilts - and reeds to the horizon.
+prop reedcut zone.id=reedcut
+prop reedcut zone.radius=9
+prop reedcut zone.message=Reedcut: huts on a reed island, reed bundles stacked - and honking somewhere out in the beds.
+prop geese creature.count=3
+prop geese tint.color=#d8d8d0
+prop geese tint.amount=0.5
+prop eelmarsh zone.id=eelmarsh
+prop eelmarsh zone.radius=9
+prop eelmarsh zone.message=Eelmarsh: huts round a dark, deep pool, eel traps hanging from every post.
+prop eelpool zone.id=eelpool
+prop eelpool zone.radius=5
+prop eelpool zone.message=The pool's floor: old traps, an eel skeleton - and one trap with something iron in it.
+prop eelair zone.id=eelair
+prop eelair zone.radius=2.5
+prop eelair zone.repeat=1
+prop eelair zone.air=1
+prop eelbubbles atmo.particles=bubbles
+prop eelbubbles zone.radius=3
+prop mothwick zone.id=mothwick
+prop mothwick zone.radius=9
+prop mothwick zone.message=Mothwick: huts round a round pond with a tiny islet, three horns on posts - and moths everywhere.
+prop turfholm zone.id=turfholm
+prop turfholm zone.radius=9
+prop turfholm zone.message=Turfholm: turf stacks, spades stuck in the cutting - and grunting from the bog beyond.
+prop bog zone.id=bog
+prop bog zone.radius=12
+prop bog zone.repeat=never
+prop bog zone.message=The bog - and four mud-caked boars heave themselves up out of it!
+prop bogboars creature.count=4
+prop bogboars creature.respawn=0
+prop bogboars creature.zone=bog
+prop bogboars tint.color=#5a4a3a
+prop bogboars tint.amount=0.5
+prop heronsby zone.id=heronsby
+prop heronsby zone.radius=9
+prop heronsby zone.message=Heronsby: herons on every roof, and a healer's house that smells of herbs.
+prop hermitisle zone.id=hermitisle
+prop hermitisle zone.radius=7
+prop hermitisle zone.message=The hermit's isle: a tiny hut and a bed of fen-mint, sharp in the air.
+prop willowbend zone.id=willowbend
+prop willowbend zone.radius=9
+prop willowbend zone.message=Willowbend: willows over the water, a lock channel, and on the far isle a windmill turning slowly.
+prop millisle zone.id=millisle
+prop millisle zone.radius=7
+prop millisle zone.message=The mill isle - through the lock in time. The miller's windlass stands by the mill.
+prop stillwater zone.id=stillwater
+prop stillwater zone.radius=9
+prop stillwater zone.message=Stillwater: broken huts, no smoke, no sound - not even frogs.
+prop beastcauseway zone.id=beastcauseway
+prop beastcauseway zone.radius=10
+prop beastcauseway zone.repeat=never
+prop beastcauseway zone.message=The causeway's last stretch - and the mere heaves. Something huge and mossy climbs up onto the stones in front of you.
+prop beastcauseway on.enter=show|beastmusic
+prop townsquare zone.id=townsquare
+prop townsquare zone.radius=10
+prop townsquare zone.message=Sevenbridge: empty streets, a town hall with a bell tower, seven gates onto seven bridges.
+prop hallcellar zone.id=hallcellar
+prop hallcellar zone.radius=6
+prop hallcellar zone.repeat=never
+prop hallcellar zone.message=The town hall's cellar - squeaking, scrabbling. Rats!
+prop hallrats creature.count=4
+prop hallrats creature.respawn=0
+prop hallrats creature.zone=hallcellar
+prop fenmist atmo.fog=#a8b4a0
+prop fenmist atmo.fogAmount=0.18
+prop fenmist atmo.particles=mist
+prop fenmist zone.radius=50
+prop fensound sound.event=event:/amb/grass
+prop fensound sound.volume=0.5
+prop fensound zone.radius=50
+prop goats creature.count=3
+prop turtles creature.count=3
+prop dolphins creature.count=2
+
+quest title=The Seven Bridges
+quest intro=A great fen with a lost town in its middle, cut off behind seven raised drawbridges. The fen-warden's map is in his hut at the landing.
+# Chapter 1 - the warden's hut
+step reach|fenlanding|1|Land at the fen landing
+step read|The fen-warden's map|1|Read the fen-warden's map in his hut
+step open|Warden's chest|1|Open the warden's chest
+# Chapter 2 - Reedcut
+step reach|reedcut|1|Pole north to Reedcut
+step read|Reedcut's elder|1|Read the elder's request on the meeting post
+step catch|Chicken|3|Net Reedcut's three runaway geese
+step reach|bridge1|1|Turn Reedcut's windlass and cross the Reed Bridge
+# Chapter 3 - Eelmarsh
+step reach|eelmarsh|1|Go on to Eelmarsh
+step read|Eelmarsh's elder|1|Read the elder's request
+step collect|story:bridgepin|1|Dive to the old eel trap for the bridge pin (air under the sunk punt)
+step reach|bridge2|1|Put the pin in the windlass and cross the Eel Bridge
+# Chapter 4 - Mothwick
+step reach|mothwick|1|Go on to Mothwick
+step read|The wisp rhyme|1|Read the wisp rhyme
+step reach|wisp|1|Blow the three horns in the rhyme's order and stand in the wisp's light
+step reach|bridge3|1|Cross the Wisp Bridge
+# Chapter 5 - Turfholm
+step reach|turfholm|1|Go on to Turfholm
+step read|Turfholm's elder|1|Read the elder's request
+step kill|Warthog|4|Drive the bog boars out of the cutting
+step reach|bridge4|1|Cross the Turf Bridge
+# Chapter 6 - Heronsby
+step reach|heronsby|1|Go on to Heronsby
+step read|The healer's request|1|Read the healer's request
+step collect|story:fenmint|1|Fetch fen-mint from the hermit's isle
+step reach|bridge5|1|Give the healer the mint and cross the Heron Bridge
+# Chapter 7 - Willowbend
+step reach|willowbend|1|Go on to Willowbend
+step read|The lock-keeper's note|1|Read the lock-keeper's note
+step reach|millisle|1|Get through the lock to the mill isle before the gate shuts
+step reach|bridge6|1|Turn the miller's windlass and cross the Mill Bridge
+# Chapter 8 - Stillwater
+step reach|stillwater|1|Go on to silent Stillwater
+step read|The last villager's warning|1|Read the last villager's warning
+step kill|Mama bear|1|Face the Bog Beast on the causeway
+step reach|bridge7|1|Cross the Still Bridge
+# Chapter 9 - Sevenbridge
+step read|The Sevenbridge charter|1|Read the charter on the town hall's door
+step kill|Rat|4|Clear the rats out of the hall's cellar
+step collect|story:townseal|1|Ring the town bell for the seven bridges
+step open|Sevenbridge's hoard|1|Open the town's hoard
+quest done=Seven bridges down, the bell rung, and Sevenbridge joined to the fen again. The villages will come over the causeways tomorrow - to a town somebody saved.
+quest reward=Cooked_Herring*4;Rope*6;Plank*8
+
+save The Great Fen

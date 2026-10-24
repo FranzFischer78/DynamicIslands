@@ -1,0 +1,52 @@
+# Play test of Driftglass Bay (CIPlay driftglass_bay, in a test world 'CI ...'). Points as in its recipe: the landing
+# beach at -1 0 (0.4 m) with the driftwood man; Pell's hut on the north horn (pad 4.8 m, deck 5.8 m, ladder at -6 24.9);
+# the way up over the south horn and along the crest to the tower's pad (6 m); the bottle tower at 10 0, its ladder at 10 -1.9, the
+# gallery 11.97 m; the eight bottles round the bay and under water
+island Driftglass Bay
+expect step 0
+expect title The Bottle Light
+expect animals Turtle 2
+expect animals Dolphin 2
+expect hidden lamplight
+wait 5
+
+# The landing: the driftwood man's bottle, the welcome board
+walk -4 0 to -1.5 0 h=0.4
+zone landing
+expect step 1
+read Pell's bottle, the driftwood man
+read Welcome board
+expect story bottle 1
+# Pell's hut on the north horn: up its ladder; the bottle on the floor, his diary, the box below
+walk -6 20 to -6 23.6 h=4.8
+climb -6 24.9 h=4.8
+expect stand -6 27 h=5.8 below=7
+read Pell's bottle, the hut
+read Pell's diary
+expect step 2
+open Pell's box
+# The other six: the horns, the scrap whale, the bay's floor, the east reef, the north-west shallows
+read Pell's bottle, the north horn
+read Pell's bottle, the south horn
+read Pell's bottle, the whale
+read Pell's bottle, the bay
+read Pell's bottle, the east reef
+read Pell's bottle, the north-west shallows
+expect story bottle 8
+expect step 3
+
+# Up the south horn and along the crest; the tower's ladder to the lamp; the lamp filled
+walk -22 -27 to -15 -25 to -5 -24 to 3 -20 to 8 -12 to 8 -4 h=6
+zone crest
+walk 8 -3.5 to 10 -2.6 h=6
+climb 10 -1.9 h=6
+expect stand 10 -1 h=11.97 below=14
+zone lamptop
+expect step 4
+use lamp
+expect shown lamplight
+expect story lamplit 1
+expect story bottle 0
+expect step 5
+open Pell's chest
+expect done

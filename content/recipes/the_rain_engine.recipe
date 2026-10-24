@@ -1,0 +1,517 @@
+# The Rain Engine - an island of the library's plan The Rainmakers (Nimbus Works' last station, the finale)
+# A mountain island under a storm that never ends, crowned by the Rain Engine: four huge brass sky cannons (Utopia's
+# harpoon guns, scaled up and pointed at the clouds) on four spurs round the crown, an electric zipline from arm to arm,
+# the drum hall where the seeding drums turn, a laser court, and the Heart - the cold engine room with its master
+# switch. Quest "The Rain Engine" (30 steps): the Foot (the sign, the bears of the salt caves, the gatehouse, the
+# Tangaroa lift up the cliff, the operator's note), the Four Arms (lever, crank, claw, generator - zipline from each to
+# the next; the master board; the screechers; the west locker), the Drum Hall (camera moment, the chemistry note, the
+# laser through three mirrors, the cutoff, the master key, the engine room door, Dagny's first design) and the Heart
+# (the guardian polar bear with its second phase, the master switch that ends the storm, the vault, the last broadcast,
+# the summit).
+#
+# Built by the recipe player (CIRecipe the_rain_engine) through the editor's own operations.
+include lib_sea
+include lib_features
+include lib_huts
+new
+# (nature: a mountain - Rocks 0.5, few trees (0.2) on the lower slopes, Bushes and Harvest light)
+gen Trees=0.05 Bushes=0.3 Rocks=0.1 Harvest=0.15 BeachThings=0.3
+gen Seed=9991 Radius=95 Height=40 Roughness=0.4 Peaks=1 Shape=0 Style=1 PeakShape=0.5 Cliffs=0.4 BeachWidth=0.4
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0.2
+generate
+origin
+
+# --- Terrain: the crown levelled at 28 m (r 24), the four arms' spurs round it (N 37, E 35, S 33, W 31), the lift's
+# top pad; the Foot at 3 m on the south side with the salt caves west of it, the landing beach ---------------------
+brush flatten at 0 0 r=24 s=20 frames=200 h=28
+for fx -18 18 9
+for fz -18 18 9
+brush flatten at $fx $fz r=7 s=20 frames=30 h=28
+next
+next
+brush flatten at 0 -28 r=6 s=20 frames=60 h=28
+brush flatten at 3.5 -26 r=4 s=20 frames=60 h=28
+brush flatten at -3.5 -26 r=4 s=20 frames=60 h=28
+brush flatten at 0 -30 r=4 s=20 frames=60 h=28
+brush flatten at 0 34 r=7 s=20 frames=80 h=37
+brush flatten at 34 0 r=7 s=20 frames=80 h=35
+brush flatten at 24 -24 r=8 s=20 frames=80 h=33
+brush flatten at -34 0 r=7 s=20 frames=80 h=31
+brush smooth from 0 20 to 0 29 r=4 s=6 frames=20
+brush smooth from 20 0 to 29 0 r=4 s=6 frames=20
+brush smooth from 15 -15 to 19 -19 r=4 s=6 frames=20
+brush smooth from -20 0 to -29 0 r=4 s=6 frames=20
+brush flatten at 0 -60 r=11 s=20 frames=80 h=3
+brush flatten at -25 -61 r=9 s=20 frames=80 h=3
+brush flatten at 0 -72 r=6 s=20 frames=60 h=2.5
+brush flatten at 0 -82 r=6 s=20 frames=60 h=1.2
+brush smooth from 0 -86 to 0 -66 r=4 s=6 frames=20
+clear at 0 0 r=42
+clear from 0 -88 to 0 -50 r=10
+clear at -25 -61 r=10
+
+# --- The Foot: the visitor sign, the gate across the path (its middle two panels the locked gate), the gatehouse's
+# strongbox; the Tangaroa lift at the cliff foot and its top station on the crown -----------------------------------
+place Note_Sign visitorsign at 3 -70 ground sit yaw=180
+place Zone_Trigger footzone at 0 -70 h=4
+for gx -6.75 6.75 1.5
+place Block_Wall_Tier3 gatewall at $gx -61 ground y=0.02
+next
+prop gatewall tint.color=#5d6063
+place Block_Pillar_Tier3 - at -7.5 -61 ground y=0.02
+place Block_Pillar_Tier3 - at 7.5 -61 ground y=0.02
+place Block_Wall_Tier3 gatedoor at -0.75 -61.4 ground y=0.02
+place Block_Wall_Tier3 gatedoor at 0.75 -61.4 ground y=0.02
+prop gatedoor tint.color=#8a6a3a
+place Loot_ChestLarge gatehouse at 3 -63 ground sit yaw=180
+place Elevator lift at 0 -55 ground sit yaw=180
+place Zone_Trigger liftfoot at 0 -58 h=4.5
+place Elevator liftup at 0 -30.5 ground sit yaw=0
+place Zone_Trigger lifttop at 0 -27 h=29.5
+place "Box Big" - at 3.5 -26 ground sit yaw=15
+place Note_Paper operatornote at 3.5 -26 h=31 sit drop yaw=30
+place Locker operatorlocker at -3.5 -26 ground sit yaw=90
+
+# --- The salt caves west of the Foot: white salt boulders round a hollow, the bears' den and their chest ----------
+place SmallRock_02 saltrock at -31 -57 ground scale=1.5 yaw=20
+place SmallRock_02 saltrock at -32.5 -61.5 ground scale=1.6 yaw=95
+place SmallRock_02 saltrock at -31 -66 ground scale=1.5 yaw=150
+place SmallRock_02 saltrock at -26.5 -68.5 ground scale=1.4 yaw=80
+place SmallRock_02 saltrock at -21.5 -67.5 ground scale=1.2 yaw=30
+place SmallRock_02 saltrock at -26.5 -54.5 ground scale=1.4 yaw=100
+place SmallRock_02 saltrock at -21.5 -55.5 ground scale=1.2 yaw=150
+prop saltrock tint.color=#eeeeea
+place Loot_Chest bearchest at -28.5 -61.5 ground sit yaw=90
+place Creature_Bear bears at -27 -59 ground
+place Zone_Trigger saltcaves at -21 -61.5 h=4.5
+
+# --- The four arms: a pad of floor plates on each spur, a brass harpoon base 5 m high and its barrel, 8 m, tilted
+# out at the sky; each arm's own device beside it (local x 3.4), its zone on the crown side (local z -4) ----------
+macro arm x=0 z=0 h=0 yaw=0
+push at $x $z h=$h yaw=$yaw
+for px -1.5 1.5 1.5
+for pz -1.5 1.5 1.5
+place Block_Floor_Tier3 armpad at $px $pz y=0.08
+next
+next
+place UT_Harpoon_Base armbrass at 0 0 y=0.1 sit scale=2.5
+place UT_Harpoon_Barrel armbrass at 0 0.3 y=3.9 rot=25,0,0 scale=2.5
+place Placeable_Lantern_Metal armlamp at -1.6 -1.6 y=0.1 sit
+pop
+end
+call arm x=0 z=34 h=37 yaw=0
+call arm x=34 z=0 h=35 yaw=90
+call arm x=24 z=-24 h=33 yaw=135
+call arm x=-34 z=0 h=31 yaw=270
+prop armbrass tint.color=#b8893c
+prop armpad tint.color=#6b6158
+
+# North arm: its lever; the summit's lookout lamp on the pad's outer edge
+place UT_JumpPuzzle_LiftMechanism_Lever lever at 3.4 33 ground sit yaw=90
+place Zone_Trigger armnorth at 0 30 h=38.5
+place Placeable_Lantern_Metal summitcam at 0 36.4 h=37.1 sit yaw=0
+place Zone_Trigger summitzone at 0 37.5 h=38.5
+# East arm: the crank wheel on its post
+place RT_Pillar crankpost at 33 -3.4 ground sit sy=0.45
+place TP_Selene_DoorCrankWheel crank at 33 -3.5 h=36.2 yaw=0
+place Zone_Trigger armeast at 30 0 h=36.5
+# South arm: the salt crane (its claw) and the salt heap it loads from
+place UT_ElectricityIsland_Crane01 claw at 28.5 -20.5 ground sit scale=0.45 yaw=135
+place SmallRock_02 saltheap at 20 -28 ground scale=0.7 yaw=40
+prop saltheap tint.color=#eeeeea
+place Zone_Trigger armsouth at 21.2 -21.2 h=34.5
+# West arm: the generator and the arm's locker
+place Generator westgen at -33 -3.6 ground sit yaw=0
+place UT_JumpPuzzle_LiftMechanism_Lever power at -31.2 -3.6 ground sit yaw=90
+place Locker westlocker at -36.5 3.2 ground sit yaw=180
+place Zone_Trigger armwest at -30 0 h=32.5
+
+# The electric zipline from arm to arm, each line downhill to the next
+# (fixed heights: on "ground" Raft's piece sank its near floor 19 m into the North spire, 2 m into the East one and
+# hung the South one 14 m over the crown - each near floor (5.72 m west, 0.97 m north of the pivot, 1.35 m under it)
+# now stands on its spire's flat top beside the pad, each far end on the next spire's top by its zone, every line downhill)
+place ZiplinePath_Landmark zipnorth at 9.02 34.33 h=38.35
+zipto zipnorth 33 3.2
+place ZiplinePath_Landmark zipeast at 42.02 -3.57 h=36.35
+zipto zipeast 22.5 -21.5
+place ZiplinePath_Landmark zipsouth at 26.22 -26.47 h=34.35
+zipto zipsouth -30.8 2.6
+
+# --- The master board in the middle of the crown (Selene's reactor controls), its arms-offline sheet; the screechers
+# the storm sends when the arms go down ---------------------------------------------------------------------------
+place TP_SeleneReactorControls masterboard at 0 -6 ground sit sx=0.6 sz=0.6 sy=0.45 yaw=180
+place "Box Big" - at 2.2 -6.5 ground sit yaw=10
+place Note_Paper armsnote at 2.2 -6.5 h=31 sit drop yaw=25
+place Zone_Trigger stormcrown at 0 -10 h=29.5
+place Creature_StoneBird screechers at 0 -4 h=40
+
+# --- The drum hall (west of the crown, 9 x 6 m, its door south): the seeding drums turning, the cutoff, the drum
+# cage behind bars, the chemistry note; two seeding stacks outside -----------------------------------------------
+macro hall w=4 d=3 y=0.05
+for fx 0.75 {$w*1.5-0.75} 1.5
+for fz 0.75 {$d*1.5-0.75} 1.5
+place Block_Floor_Tier3 hallfloor at $fx $fz y=$y
+next
+next
+for wx 0.75 {$w*1.5-0.75} 1.5
+place Block_Wall_Tier3 hallwall at $wx {$d*1.5} y={$y+0.15}
+next
+for wz 0.75 {$d*1.5-0.75} 1.5
+place Block_Wall_Tier3 hallwall at 0 $wz y={$y+0.15} yaw=90
+place Block_Wall_Tier3 hallwall at {$w*1.5} $wz y={$y+0.15} yaw=90
+next
+place Block_Pillar_Tier3 - at 0 0 y={$y+0.15}
+place Block_Pillar_Tier3 - at {$w*1.5} 0 y={$y+0.15}
+place Block_Pillar_Tier3 - at 0 {$d*1.5} y={$y+0.15}
+place Block_Pillar_Tier3 - at {$w*1.5} {$d*1.5} y={$y+0.15}
+roof $w $d at 0 0 y={$y+0.15}
+end
+
+push at -20 0 h=28
+call hall w=6 d=4 y=0.09
+place Block_Wall_Tier3 hallwall at 0.75 0 y=0.2
+place Block_Wall_Tier3 hallwall at 2.25 0 y=0.2
+place Block_Wall_Door_Tier3 - at 3.75 0 y=0.2
+place Block_Wall_Tier3 hallwall at 5.25 0 y=0.2
+place Block_Wall_Tier3 hallwall at 6.75 0 y=0.2
+place Block_Wall_Tier3 hallwall at 8.25 0 y=0.2
+place TP_Moontown_Barrel01_Clean drumspin at 2 4.5 y=0.03 sit sx=2.2 sz=2.2 sy=1.64
+place TP_Moontown_Barrel01_Clean drumspin at 4.5 4.5 y=0.03 sit sx=2.2 sz=2.2 sy=1.64
+place TP_Moontown_Barrel01_Clean drumspin at 7 4.5 y=0.03 sit sx=2.2 sz=2.2 sy=1.64
+place TP_Moontown_Barrel01_Clean drumstop at 2 4.5 y=0.03 sit sx=2.2 sz=2.2 sy=1.64
+place TP_Moontown_Barrel01_Clean drumstop at 4.5 4.5 y=0.03 sit sx=2.2 sz=2.2 sy=1.64
+place TP_Moontown_Barrel01_Clean drumstop at 7 4.5 y=0.03 sit sx=2.2 sz=2.2 sy=1.64
+place "Box Small" - at 1 1.3 y=0.25 sit yaw=0
+place TP_LaserControlPanel_lever cutoff at 1 1.3 y=1.5 sit drop yaw=0
+place "Box Big" drumcam at 0.8 3 y=0.25 sit yaw=0
+place "Box Big" - at 8.3 4.8 y=0.25 sit yaw=10
+place Note_Paper chemnote at 8.3 4.8 y=1.6 sit drop yaw=20
+place TP_Selene_Int_Room_Bars cagebars at 3.95 2.2 y=0.25 sit
+place Loot_ChestLarge drumcage at 7.6 1.0 y=0.25 sit yaw=270
+place Placeable_Lantern_Metal - at 5.5 1 y=0.25 sit
+pop
+prop drumspin tint.color=#a8733a
+prop drumstop tint.color=#a8733a
+place Zone_Trigger drumhallzone at -15.5 2.5 h=29.5
+place TP_SeleneReactorControls seedstack at -23 4 ground sit
+place TP_SeleneReactorControls seedstack at -17 8.5 ground sit
+prop seedstack tint.color=#9a6a3a
+
+# --- The laser court north of the crown's middle: the emitter's beam runs north; three turning mirrors (each one a
+# quarter turn: north to east, east to north, north to east) bring it to the drum cutoff's panel -----------------
+place TP_LaserEmitter emitter at -8.8 8 h=28 sit yaw=0
+place TP_MirrorHousing_Rotating mirror1 at -8 12 h=28 sit yaw=0
+place TP_MirrorHousing_Rotating mirror2 at -2 12 h=28 sit yaw=270
+# (the beam turns at the mirror's centre since 2026-10-18: mirror3 in line with the panel's centre)
+place TP_MirrorHousing_Rotating mirror3 at -2 16.8 h=28 sit yaw=0
+place TP_LaserDoorPanel drumpanel at 6 16.8 h=28 sit scale=2 yaw=-90
+
+# --- The Heart (east of the crown, 9 x 7.5 m, its door west - the engine room door): Dagny's first design, the
+# cold core, the guardian, the master switch, the vault and the last broadcast; the engine room's lock box ----------
+push at 6 -4 h=28
+call hall w=6 d=5
+pop
+push at 6 -4 h=28 yaw=0
+place Block_Wall_Tier3 heartwall at 0.75 0 y=0.2
+place Block_Wall_Tier3 heartwall at 2.25 0 y=0.2
+place Block_Wall_Tier3 heartwall at 3.75 0 y=0.2
+place Block_Wall_Tier3 heartwall at 5.25 0 y=0.2
+place Block_Wall_Tier3 heartwall at 6.75 0 y=0.2
+place Block_Wall_Tier3 heartwall at 8.25 0 y=0.2
+place "Box Big" - at 1.2 6.6 y=0.25 sit yaw=0
+place Note_Paper dagnydesign at 1.2 6.6 y=1.6 sit drop yaw=15
+place TP_SeleneReactorControls enginecore at 4.5 6.4 y=0.25 sit sx=0.7 sz=0.7 sy=0.21
+place UT_JumpPuzzle_LiftMechanism_Lever masterswitch at 8.3 6 y=0.25 sit yaw=270
+place Loot_ChestLarge enginevault at 8.2 1.3 y=0.25 sit yaw=270
+place "Box Big" - at 6.3 6.8 y=0.25 sit yaw=0
+place RT_CommRadio lastradio at 6.3 6.8 y=1.6 sit drop yaw=180
+place Note_Paper lastbroadcast at 6.6 6.6 y=1.6 sit drop yaw=40
+place Creature_PolarBear guardian at 5.5 3.8 y=0.3
+place Placeable_Lantern_Metal - at 2.5 0.8 y=0.25 sit
+pop
+prop hallwall tint.color=#5d6063
+prop heartwall tint.color=#5d6063
+# the west wall: its middle panel the engine room door
+place Block_Wall_Tier3 heartwall at 6 -3.25 h=28.2 yaw=90
+place Block_Wall_Tier3 enginedoor at 6 -1.75 h=28.2 yaw=90
+place Block_Wall_Tier3 heartwall at 6 -0.25 h=28.2 yaw=90
+place Block_Wall_Tier3 heartwall at 6 1.25 h=28.2 yaw=90
+place Block_Wall_Tier3 heartwall at 6 2.75 h=28.2 yaw=90
+prop enginedoor tint.color=#8a6a3a
+place Loot_Chest enginelock at 4.6 -3.4 ground sit yaw=270
+place Zone_Trigger heartzone at 10.5 -0.25 h=29.5
+
+# --- The weather: the storm over the whole island (shown), the clear sky the master switch brings (hidden), the
+# rain, the engine's drone, the guardian's music --------------------------------------------------------------
+place Zone_Atmosphere storm at 0 0 h=30
+place Zone_Atmosphere clearsky at 0 0 h=30
+place Zone_Atmosphere heartcold at 10.5 -0.25 h=29.5
+place Zone_Sound stormsound at 0 0 h=30
+place Zone_Sound engineloop at 0 0 h=30
+place Zone_Sound bossmusic at 10.5 -0.25 h=29.5
+
+# --- Things to gather, reefs -----------------------------------------------------------------------------------
+scatter "Pickup_Landmark_PineappleLandmark" 2 at 0 -70 r=20 seed=9992 free=3
+scatter "Pickup_Landmark_Flower_Blue" 2 at 40 -50 r=30 seed=9993 free=3
+call dirt x=35 z=-60 r=10 n=3 seed=9994
+call shallows r=125 deep=6 n=3
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=The Rain Engine
+info author=Custom Islands
+info description=Nimbus Works' last station: a mountain under a storm that never ends, crowned by the Rain Engine - four brass sky cannons on its spurs, an electric zipline from arm to arm, the drum hall where the seeding drums turn, a laser court and the cold Heart with the master switch. The finale of The Rainmakers.
+island on.arrive=message||A mountain under a black cloud that never moves. On its crown four brass guns point at the sky - and the rain comes down harder than anywhere you've seen.
+
+story gatekey|Gatehouse key|Placeable_Lantern_Metal|The gatehouse strongbox's key, from the bears' den in the salt caves.
+story liftride|Ride up the cliff|Placeable_Lantern_Metal|You rode the Tangaroa lift up to the Engine's crown.
+story armlever|North arm down|Battery|The North arm's lever is pulled: its cannon is cold.
+story armcrank|East arm down|Battery|The East arm's crank is wound back: its cannon is cold.
+story armclaw|South arm down|Battery|The South arm's salt crane is stopped: its cannon gets no more salt.
+story armpower|West arm down|Battery|The West arm's generator is off: its cannon is cold.
+story beamset|Beam on the panel|Battery|The laser runs through the three mirrors onto the drum cutoff's panel.
+story drumsoff|Drums stopped|Battery|The seeding drums are stopped at the cutoff.
+story masterkey|Engine master key|Placeable_Lantern_Metal|The Rain Engine's master key, from the drum cage.
+story enginestopped|The Engine is still|Battery|The master switch is thrown: the Rain Engine is stopped.
+
+note visitorsign Engine visitor sign | NIMBUS WORKS - THE RAIN ENGINE\n\nVISITORS: report to the gatehouse.\nThe lift to the crown runs on gate authority only.\n\nDO NOT FEED THE BEARS IN THE SALT CAVES.\n(They were here first. They have learned to like salt.)
+note bearchest Bear den chest | A miner's chest, dragged into the salt caves by something big: the gatehouse key on a nail inside the lid, and a crust of salt over everything.
+loot bearchest story:gatekey*1;Rope*2;Scrap*3
+prop bearchest loot.refill=0
+note gatehouse Gatehouse | The gatehouse strongbox: the gate's lever, and the lift's run key on a brass tag - GATE AUTHORITY.
+loot gatehouse Bolt*3;Hinge*2
+prop gatehouse loot.refill=0
+prop gatehouse if.open=has|story:gatekey|1
+prop gatehouse else.open=message||The gatehouse strongbox is locked. The key? The sign says the bears were here first...
+prop gatehouse on.open=hide|gatedoor\nsignal||gate\nmessage||The lever in the strongbox throws the gate open. Behind it the old Tangaroa lift wakes up with a hum.\nsound||event:/exploring/obstacles/keypad/keypad_correct
+note operatornote Operator's last shift | LIFT OPERATOR - LAST SHIFT\n\nDagny came up tonight with her face like the sky. She said: shut the four arms, then the drums, then the switch in the Heart. In that order or the Engine fights you.\n\nThe arms are on the four spurs - North first. The zipline goes round them downhill, North, East, South, West. Use the electric handle in my locker.\n\nI'm taking the lift down and I'm not coming back. Something big lives in the Heart now. It likes the cold.
+note operatorlocker Operator's locker | The lift operator's locker: his electric zipline handle and a spare battery.
+loot operatorlocker ZiplineTool_Electric*1;Battery*1;Cooked_GenericMeat*2
+prop operatorlocker loot.refill=0
+note armsnote Arms offline | MASTER BOARD - ARMS\n\nNORTH ..... OFFLINE\nEAST ...... OFFLINE\nSOUTH ..... OFFLINE\nWEST ...... OFFLINE\n\nSEEDING HALTED AT THE ARMS. DRUMS STILL TURNING.\nWARNING: CLOUD BASE UNSTABLE - EXPECT WILDLIFE.
+note westlocker Arm West locker | The West arm crew's locker: batteries, circuits and titanium - and a hand-written list: 'drums at the cutoff, beam first'.
+loot westlocker Battery*2;CircuitBoard*2;TitaniumIngot*2;Bolt*4
+prop westlocker loot.refill=0
+note chemnote Seeding chemistry | SEEDING CHEMISTRY (D. HOLM)\n\nThe salt from the kilns goes into the drums. The drums turn it into a fine smoke; the arms fire the smoke into the cloud base. Every grain of salt pulls a drop of rain out of the sky.\n\nThe drums only stop at the CUTOFF, and the cutoff only works on the beam: the emitter in the court outside, three mirrors, the panel on the court's east side. Turn the mirrors one quarter each.\n\nThe master key is in the drum cage. The cage opens when the drums stop.
+note drumcage Drum cage | The drum cage: the Rain Engine's master key on its chain, and a crate of seeding salt.
+loot drumcage story:masterkey*1;Scrap*4
+prop drumcage loot.refill=0
+prop drumcage if.open=has|story:drumsoff|1
+prop drumcage else.open=message||The drum cage's bars are locked while the drums turn. Stop them first.
+note enginelock Engine room | The engine room's lock box: the master key turns in it and the bolts of the door slide back.
+loot enginelock Bolt*2
+prop enginelock loot.refill=0
+prop enginelock if.open=has|story:masterkey|1
+prop enginelock else.open=message||The engine room door is bolted. The lock box wants the Engine's master key.
+prop enginelock on.open=hide|enginedoor\nmessage||The bolts slide back and the door swings in. Cold air pours out - and something breathes in the dark.
+note dagnydesign Dagny's first design | Dagny's first design, pinned to a board: a pencil drawing of four guns pointing at the clouds, and in the margin, in her neat young hand: "Rain for the dry towns. Rain on demand. Nobody will ever be thirsty again."\n\nUnder it, years later and in a hurry: "It doesn't stop. Why doesn't it stop."
+note enginevault Engine vault | The Engine's vault: Nimbus Works' titanium, its best battery, and the company's trade tokens - all of it useless to a company that drowned.
+loot enginevault TitaniumIngot*4;Battery_Advanced*1;TradeToken*10;MetalIngot*6
+prop enginevault loot.refill=0
+prop enginevault if.open=signal|stopped
+prop enginevault else.open=message||The vault is held shut by the Engine's own power. Stop the Engine first.
+note lastbroadcast Last broadcast | NIMBUS WORKS - LAST BROADCAST (transcript)\n\n"This is the Rain Engine. To every station on the line: the Engine is still running and I can't reach the Heart. If anybody hears this - the arms, the drums, then the switch.\n\nWhen it stops, go up to the North arm and look at the sea. You'll be the first to see it dry in eleven years.\n\nDagny Holm, signing off."
+
+prop visitorsign obj.name=visitorsign
+prop gatedoor obj.name=gatedoor
+prop lift obj.name=lift
+prop lift beh.use=Ride the lift up the cliff
+prop lift if.use=signal|gate
+prop lift on.use=message||The cage door rattles shut and the old lift climbs the cliff in the rain.\nsound||event:/exploring/utopia/lift_pull\nwait|4\nteleport|lifttop\ngive||story:liftride*1\nmessage||The lift stops at the crown. Above you, the four guns of the Rain Engine.
+prop lift else.use=message||The lift is dead: GATE AUTHORITY ONLY. The gatehouse strongbox works it.
+prop liftup obj.name=liftup
+prop liftup beh.use=Ride the lift down
+prop liftup on.use=message||Down the cliff you go.\nsound||event:/exploring/utopia/lift_pull\nwait|4\nteleport|liftfoot
+prop lifttop obj.name=lifttop
+prop liftfoot obj.name=liftfoot
+
+prop lever obj.name=lever
+prop lever beh.use=Pull the North arm's lever
+prop lever on.use=signal||lever\ngive||story:armlever*1\nmessage||The lever groans down. Above you the North gun shudders and goes quiet.\nsound||event:/exploring/obstacles/keypad/keypad_correct
+prop crank obj.name=crank
+prop crank beh.use=Wind the East arm's crank back
+prop crank on.use=signal||crank\ngive||story:armcrank*1\nmessage||The wheel spins back and the East gun's breech opens with a hiss.\nsound||event:/exploring/obstacles/keypad/keypad_correct
+prop claw obj.name=claw
+prop claw beh.use=Stop the salt crane
+prop claw on.use=signal||claw\ngive||story:armclaw*1\nmessage||The crane's claw stops over the salt heap. No more salt for the South gun.\nsound||event:/exploring/obstacles/keypad/keypad_correct
+prop power obj.name=power
+prop power beh.use=Switch the West arm's generator off
+prop power on.use=signal||power\ngive||story:armpower*1\nmessage||The generator coughs and dies. The last gun is cold - the master board in the middle of the crown should know.\nsound||event:/exploring/obstacles/keypad/keypad_correct
+
+prop masterboard obj.name=masterboard
+prop masterboard beh.use=Read the master board
+prop masterboard if.use=signal|lever\nsignal|crank\nsignal|claw\nsignal|power
+prop masterboard on.use=show|armsnote\nshow|stormcrown\nmessage||All four arm lights go red - and the cloud overhead boils. Something screams up in the rain.
+prop masterboard else.use=message||The master board: four arm lights, and some of them still burn green. All four arms must go down.
+prop armsnote obj.name=armsnote
+prop armsnote beh.hidden=1
+prop stormcrown obj.name=stormcrown
+prop stormcrown beh.hidden=1
+prop stormcrown zone.id=storm_crown
+prop stormcrown zone.radius=8
+prop stormcrown zone.repeat=never
+prop stormcrown zone.message=Screechers dive out of the cloud base!
+prop screechers creature.count=5
+prop screechers creature.respawn=0
+prop screechers creature.zone=storm_crown
+
+prop bears creature.count=4
+prop bears creature.respawn=0
+prop bears creature.zone=salt_caves
+prop saltcaves zone.id=salt_caves
+prop saltcaves zone.radius=6
+prop saltcaves zone.repeat=never
+prop saltcaves zone.message=Salt caves - white boulders, bones, and a smell of wet fur. The bears are home.
+
+prop footzone zone.id=foot
+prop footzone zone.radius=5
+prop footzone zone.message=The Foot of the Rain Engine: a gate, a lift up the cliff, and rain, rain, rain.
+prop armnorth zone.id=arm_north
+prop armnorth zone.radius=3.5
+prop armnorth zone.message=The North arm: a brass gun as tall as a house, firing smoke into the cloud.
+prop armeast zone.id=arm_east
+prop armeast zone.radius=3.5
+prop armeast zone.message=The East arm, its crank wheel on a post.
+prop armsouth zone.id=arm_south
+prop armsouth zone.radius=3.5
+prop armsouth zone.message=The South arm, and the crane that feeds it salt.
+prop armwest zone.id=arm_west
+prop armwest zone.radius=3.5
+prop armwest zone.message=The West arm, its generator roaring.
+
+prop drumhallzone zone.id=drum_hall
+prop drumhallzone zone.radius=2.5
+prop drumhallzone zone.message=The drum hall: three great drums turning salt into smoke.
+prop drumhallzone on.enter=camera|drumcam|drumspin|5|30
+prop drumcam obj.name=drumcam
+prop drumspin obj.name=drumspin
+prop drumspin beh.spin=50
+prop drumspin beh.spinOwn=1
+prop drumstop obj.name=drumstop
+prop drumstop beh.hidden=1
+prop cagebars obj.name=cagebars
+
+prop emitter obj.name=emitter
+prop mirror1 obj.name=mirror1
+prop mirror1 col.mode=box
+prop mirror1 on.use=switch|\nmessage||The mirror grinds round a quarter turn.
+prop mirror2 obj.name=mirror2
+prop mirror2 col.mode=box
+prop mirror2 on.use=switch|\nmessage||The mirror grinds round a quarter turn.
+prop mirror3 obj.name=mirror3
+prop mirror3 col.mode=box
+prop mirror3 on.use=switch|\nmessage||The mirror grinds round a quarter turn.
+prop drumpanel obj.name=drumpanel
+prop drumpanel col.mode=box
+prop drumpanel if.laser=!signal|laser
+prop drumpanel on.laser=signal||laser\ngive||story:beamset*1\nmessage||The panel drinks the beam and hums. Inside the drum hall a light comes on over the cutoff.
+prop cutoff obj.name=cutoff
+prop cutoff beh.use=Pull the drum cutoff
+prop cutoff if.use=signal|laser
+prop cutoff on.use=hide|drumspin\nshow|drumstop\nhide|cagebars\ngive||story:drumsoff*1\nmessage||The drums run down and stop. The bars of the drum cage slide back.\nsound||event:/exploring/obstacles/keypad/keypad_correct
+prop cutoff else.use=message||The cutoff is dead. Its light is off - the panel out in the laser court has no beam.
+
+prop enginedoor obj.name=enginedoor
+prop heartzone zone.id=heart
+prop heartzone zone.radius=3
+prop heartzone zone.repeat=never
+prop heartzone zone.message=The Heart of the Rain Engine - ice on the walls, and the guardian rises from its sleep!
+prop heartzone on.enter=show|bossmusic
+prop guardian creature.count=1
+prop guardian creature.respawn=0
+prop guardian creature.zone=heart
+prop guardian creature.health=12
+prop guardian creature.damage=1.5
+prop guardian creature.size=1.3
+prop guardian boss.phase=0.5
+prop guardian boss.summon=4
+prop guardian boss.summonKind=Creature_Bear
+prop guardian boss.speed=1.3
+prop guardian on.phase=message||The guardian roars - and bears come running up out of the rain!
+prop guardian on.defeat=signal||guardian\nhide|bossmusic\nmessage||The guardian falls. The Heart is quiet but for the Engine's drone - and the master switch on the wall.
+prop masterswitch obj.name=masterswitch
+prop masterswitch beh.use=Throw the master switch
+prop masterswitch if.use=signal|guardian
+prop masterswitch on.use=hide|storm\nhide|stormsound\nhide|engineloop\nshow|clearsky\nshow|summitzone\nstopsound||all\nsignal||stopped\ngive||story:enginestopped*1\nmessage||You throw the switch. The drone winds down... and stops. On the roof, for the first time in eleven years, the rain stops drumming.\nsound||event:/exploring/obstacles/keypad/keypad_correct
+prop masterswitch else.use=message||The guardian won't let you near the switch.
+
+prop storm obj.name=storm
+prop storm atmo.fog=#3e4652
+prop storm atmo.fogAmount=0.55
+prop storm atmo.light=#6f7a8c
+prop storm atmo.lightAmount=0.5
+prop storm atmo.particles=mist
+prop storm zone.radius=110
+prop clearsky obj.name=clearsky
+prop clearsky beh.hidden=1
+prop clearsky atmo.fog=#cfe7f2
+prop clearsky atmo.fogAmount=0.1
+prop clearsky atmo.light=#fff2d6
+prop clearsky atmo.lightAmount=0.35
+prop clearsky zone.radius=110
+prop heartcold obj.name=heartcold
+prop heartcold atmo.fog=#c8dbe8
+prop heartcold atmo.fogAmount=0.3
+prop heartcold atmo.particles=snow
+prop heartcold zone.radius=5
+prop stormsound obj.name=stormsound
+prop stormsound sound.event=event:/amb/rain_ocean
+prop stormsound sound.volume=0.7
+prop stormsound zone.radius=110
+prop engineloop obj.name=engineloop
+prop engineloop sound.event=event:/exploring/temperence/generator
+prop engineloop sound.volume=0.5
+prop engineloop zone.radius=40
+prop bossmusic obj.name=bossmusic
+prop bossmusic beh.hidden=1
+prop bossmusic sound.event=event:/music/music_boss
+prop bossmusic sound.volume=0.6
+prop bossmusic zone.radius=12
+
+prop summitcam obj.name=summitcam
+prop summitzone obj.name=summitzone
+prop summitzone beh.hidden=1
+prop summitzone zone.id=summit
+prop summitzone zone.radius=2.5
+prop summitzone zone.message=The summit: the North gun cold above you, and the sea all round - blue, and bright, and still.
+prop summitzone on.enter=camera|summitcam||6|60
+
+quest title=The Rain Engine
+quest intro=A mountain under a black cloud. Land at the Foot.
+step reach|foot|1|Land at the Foot of the Rain Engine
+step read|Engine visitor sign|1|Read the visitor sign at the Foot
+step kill|Bear|4|Drive the bears out of the salt caves west of the Foot
+step open|Gatehouse|1|Open the gatehouse strongbox with the key from the bears' den
+step collect|story:liftride|1|Ride the Tangaroa lift up the cliff to the crown
+step read|Operator's last shift|1|Read the lift operator's last note at the top station
+step reach|arm_north|1|Climb to the North arm
+step collect|story:armlever|1|Pull the North arm's lever
+step reach|arm_east|1|Ride the electric zipline to the East arm
+step collect|story:armcrank|1|Wind the East arm's crank back
+step reach|arm_south|1|Ride the zipline on to the South arm
+step collect|story:armclaw|1|Stop the South arm's salt crane
+step reach|arm_west|1|Ride the zipline on to the West arm
+step collect|story:armpower|1|Switch the West arm's generator off
+step read|Arms offline|1|Read the master board in the middle of the crown
+step kill|Screecher|5|Fight off the screechers the storm sends
+step open|Arm West locker|1|Open the West arm crew's locker
+step reach|drum_hall|1|Go into the drum hall
+step read|Seeding chemistry|1|Read Dagny's seeding chemistry note
+step collect|story:beamset|1|Turn the three mirrors in the laser court to bring the beam to the panel
+step collect|story:drumsoff|1|Pull the drum cutoff
+step collect|story:masterkey|1|Take the Engine's master key from the drum cage
+step open|Engine room|1|Open the engine room door with the master key
+step read|Dagny's first design|1|Read Dagny's first design inside the door
+step reach|heart|1|Go into the Heart
+step kill|Polar bear|1|Defeat the Engine's guardian
+step collect|story:enginestopped|1|Throw the master switch
+step open|Engine vault|1|Open the Engine vault
+step read|Last broadcast|1|Read Dagny's last broadcast
+step reach|summit|1|Climb to the summit by the North arm and look at the sea
+quest done=The Rain Engine is still, and the sky over the sea is clear for the first time in eleven years.
+quest reward=TitaniumIngot*4;MetalIngot*6;Bolt*6;Battery*2
+
+# Buried treasure (one of the story line's last islands): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=48 n=1 seed=8827
+prop treasure8827 treasure.loot=TitaniumOre*3
+
+save The Rain Engine

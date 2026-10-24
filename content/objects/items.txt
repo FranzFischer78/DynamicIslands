@@ -1,0 +1,584 @@
+Arrow_Metal | Metal arrow | True
+Arrow_Stone | Stone arrow | True
+Arrow_Titanium | Titanium arrow | True
+Axe | Metal axe | True
+Axe_Stone | Stone axe | True
+Axe_Titanium | Titanium axe | True
+Backpack | Backpack | True
+Backpack_Advanced | Big backpack | True
+Banana | Banana | True
+Barrel | An item | False
+Battery | Simple Battery | True
+Battery_Advanced | Advanced Battery | True
+Berries_Red | Red berries | True
+Binoculars | Binoculars | True
+BioFuel | Biofuel | True
+Block_Floor_Tier3 | Solid wooden floor | True
+Block_Floor_Triangular_Tier3 | Triangular solid wooden floor | True
+Block_Floor_Triangular_Tier3_Mirrored | Triangular solid wooden floor | True
+Block_Floor_Triangular_Wood | Triangular wooden floor | True
+Block_Floor_Wood | Wooden floor | True
+Block_Foundation | Foundation | True
+Block_Foundation_Tier3 | Solid foundation | True
+Block_Foundation_Triangular_Tier3 | Triangular solid foundation | True
+Block_Foundation_Triangular_Tier3_Mirrored | Triangular solid foundation | True
+Block_Foundation_Triangular_Wood | Triangular foundation | True
+Block_FoundationArmor | Foundation armor | True
+Block_HalfFloor_Tier3 | Raised solid floor | True
+Block_HalfFloor_Triangular_Tier3 | Triangular raised solid floor | True
+Block_HalfFloor_Triangular_Tier3_Mirrored | Triangular raised solid floor | True
+Block_HalfFloor_Triangular_Wood | Triangular raised floor | True
+Block_HalfFloor_Wood | Raised floor | True
+Block_HalfPillar_Wood | Half wooden pillar | True
+Block_HalfStair | Half stair | True
+Block_HalfWall_Thatch | Half thatch wall | True
+Block_HalfWall_Wood | Half wooden wall | True
+Block_HorizontalPillar_Tier3 | Horizontal solid wooden pillar | True
+Block_HorizontalPillar_Tier3_Half | Horizontal solid half wooden pillar | True
+Block_HorizontalPillar_Wood | Horizontal wooden pillar | True
+Block_HorizontalPillar_Wood_Half | Horizontal half wooden pillar | True
+Block_Ladder | Ladder | True
+Block_Ladder_Half | Half ladder | True
+Block_Ladder_Tier3 | Solid ladder | True
+Block_Ladder_Tier3_Half | Solid half ladder | True
+Block_Pillar_Tier3 | Solid wooden pillar | True
+Block_Pillar_Tier3_Half | Solid half wooden pillar | True
+Block_Pillar_Wood | Wooden pillar | True
+Block_Roof_Corner_Thatch | Thatch roof corner | True
+Block_Roof_Corner_Wood | Wooden roof corner | True
+Block_Roof_InvCorner_Thatch | Inverted thatch roof corner | True
+Block_Roof_InvCorner_Wood | Inverted wooden roof corner | True
+Block_Roof_Straight_Thatch | Thatch roof | True
+Block_Roof_Straight_Wood | Wooden roof | True
+Block_Roof_Thatch_EndCap | Thatch roof endcap | True
+Block_Roof_Thatch_LJunction | Thatch L-junction | True
+Block_Roof_Thatch_Pyramid | Thatch roof pyramid | True
+Block_Roof_Thatch_StraightV | Thatch double roof | True
+Block_Roof_Thatch_TJunction | Thatch T-junction | True
+Block_Roof_Thatch_XJunction | Thatch X-junction | True
+Block_Roof_Tier3_Corner | Solid wooden roof corner | True
+Block_Roof_Tier3_EndCap | Solid wooden roof endcap | True
+Block_Roof_Tier3_InvCorner | Inverted solid wooden roof corner | True
+Block_Roof_Tier3_LJunction | Solid wooden L-junction | True
+Block_Roof_Tier3_Pyramid | Solid wooden roof pyramid | True
+Block_Roof_Tier3_Straight | Solid wooden roof | True
+Block_Roof_Tier3_StraightV | Solid wooden double roof | True
+Block_Roof_Tier3_TJunction | Solid wooden T-junction | True
+Block_Roof_Tier3_XJunction | Solid wooden X-junction | True
+Block_Roof_Wood_EndCap | Wooden roof endcap | True
+Block_Roof_Wood_LJunction | Wooden L-junction | True
+Block_Roof_Wood_Pyramid | Wooden roof pyramid | True
+Block_Roof_Wood_StraightV | Wooden double roof | True
+Block_Roof_Wood_TJunction | Wooden T-junction | True
+Block_Roof_Wood_XJunction | Wooden X-junction | True
+Block_Stair | Stair | True
+Block_Stair_Tier3 | Solid stair | True
+Block_Stair_Tier3_Half | Solid half stair | True
+Block_Upgrade_Thatch | Replace with thatch | True
+Block_Upgrade_Tier3 | Replace with solid wood | True
+Block_Upgrade_Wood | Replace with wood | True
+Block_Wall_Door_Thatch | Thatch door | True
+Block_Wall_Door_Tier3 | Solid wooden door | True
+Block_Wall_Door_Wood | Wooden door | True
+Block_Wall_Fence_Plank | Plank fence | True
+Block_Wall_Fence_Rope | Rope fence | True
+Block_Wall_Fence_Tier3 | Solid wooden fence | True
+Block_Wall_Gate_Thatch | Thatch gate | True
+Block_Wall_Gate_Tier3 | Solid wooden gate | True
+Block_Wall_Gate_Wood | Wooden gate | True
+Block_Wall_Slope_Thatch | Triangular thatch wall | True
+Block_Wall_Slope_Thatch_Inverted | Triangular thatch wall | True
+Block_Wall_Slope_Tier3 | Triangular solid wooden wall | True
+Block_Wall_Slope_Tier3_Inverted | Triangular solid wooden wall | True
+Block_Wall_Slope_Wood | Triangular wooden wall | True
+Block_Wall_Slope_Wood_Inverted | Triangular wooden wall | True
+Block_Wall_Thatch | Thatch wall | True
+Block_Wall_Tier3 | Solid wooden wall | True
+Block_Wall_Tier3_Half | Solid half wooden wall | True
+Block_Wall_VSlope_Thatch | Pyramid thatch wall | True
+Block_Wall_VSlope_Tier3 | Pyramid solid wooden wall | True
+Block_Wall_VSlope_Wood | Pyramid wooden wall | True
+Block_Wall_Window_Thatch | Thatch window | True
+Block_Wall_Window_Thatch_Half | Half thatch window | True
+Block_Wall_Window_Tier3 | Solid wooden window | True
+Block_Wall_Window_Tier3_Half | Solid half wooden window | True
+Block_Wall_Window_Wood | Wooden window | True
+Block_Wall_Window_Wood_Half | Half wooden window | True
+Block_Wall_Wood | Wooden wall | True
+Blueprint | An item | True
+Blueprint_AnchorStationaryAdvanced | Blueprint: Advanced stationary anchor | True
+Blueprint_Antenna | Blueprint: Antenna | True
+Blueprint_BackpackAdvanced | Blueprint: Big backpack | True
+Blueprint_BatteryAdvanced | Blueprint: Advanced battery | True
+Blueprint_BatteryCharger | Blueprint: Battery charger | True
+Blueprint_BiofuelExtractor | Blueprint: Biofuel refiner | True
+Blueprint_BiofuelExtractorAdvanced | Blueprint: Advanced biofuel refiner | True
+Blueprint_Canteen | Blueprint: Canteen | True
+Blueprint_Cropplot_Large_Tier3 | Blueprint: Advanced large crop plot | True
+Blueprint_Cropplot_Medium_Tier3 | Blueprint: Advanced medium crop plot | True
+Blueprint_Cropplot_Small_Tier3 | Blueprint: Advanced small crop plot | True
+Blueprint_DetailPlank | Blueprint: Detail plank | True
+Blueprint_ElectricGrill | Blueprint: Electric grill | True
+Blueprint_ElectricPurifier | Blueprint: Electric purifier | True
+Blueprint_EngineControls | Blueprint: Engine controls | True
+Blueprint_Firework | Blueprint: Firework | True
+Blueprint_Fueltank | Blueprint: Fuel tank | True
+Blueprint_HeadLight | Blueprint: Head light | True
+Blueprint_HeadLight_Advanced | Blueprint: Advanced head light | True
+Blueprint_Machete | Blueprint: Machete | True
+Blueprint_MetalDetector | Blueprint: Metal detector | True
+Blueprint_MotorWheel | Blueprint: Engine | True
+Blueprint_Pipe_Fuel | Blueprint: Fuel pipe | True
+Blueprint_Pipe_Water | Blueprint: Water pipe | True
+Blueprint_Reciever | Blueprint: Receiver | True
+Blueprint_Recycler | Blueprint: Recycler | True
+Blueprint_SmelterElectric | Blueprint: Electric smelter | True
+Blueprint_SteeringWheel | Blueprint: Steering wheel | True
+Blueprint_Storage_Large | Blueprint: Large storage | True
+Blueprint_TitaniumTools | Blueprint: Titanium tools | True
+Blueprint_WaterTank | Blueprint: Water tank | True
+Blueprint_WindTurbine | Blueprint: Wind turbine | True
+Blueprint_ZiplineBase | Blueprint: Zipline | True
+Blueprint_ZiplineTool | Blueprint: Zipline tool | True
+Blueprint_ZiplineToolElectric | Blueprint: Electric zipline tool | True
+Bolt | Bolt | True
+Bow | Basic bow | True
+Brick_Dry | Dry brick | True
+Bucket | Bucket | True
+Bucket_Milk | Bucket of milk | True
+Canteen_Empty | Empty canteen | True
+Canteen_SaltWater | Canteen of salt water | True
+Canteen_Water | Canteen of fresh water | True
+Cassette_Classical | Classical cassette | True
+Cassette_EDM | EDM cassette | True
+Cassette_Elevator | Elevator cassette | True
+Cassette_Pop | Pop cassette | True
+Cassette_Rock | Rock cassette | True
+Cassette_TradingPost | Trading post cassette | True
+CaveMushroom | Cave mushroom | True
+Chili | Chili | True
+CircuitBoard | Circuit board | True
+Clay | Clay | True
+Claybowl_CoconutChicken | Coconut chicken | True
+Claybowl_Empty | Clay bowl | True
+Claybowl_HeadBroth | Head broth | True
+Claybowl_HeartyStew | Hearty stew | True
+Claybowl_Leftover | Leftovers | True
+Claybowl_RootVegetableSoup | Vegetable soup | True
+Claybowl_SimpleFishStew | Simple fish stew | True
+ClayPlate_BBQ | BBQ | True
+ClayPlate_CatfishDeluxe | Catfish deluxe | True
+ClayPlate_MushroomOmelette | Mushroom omelette | True
+ClayPlate_SalmonSalad | Salmon salad | True
+ClayPlate_SharkDinner | Shark dinner | True
+ClayPlate_SteakWithJam | Steak with jam | True
+ClayPlate_Sushi | Sushi | True
+Coconut | Coconut | True
+Color_Black | Black paint | True
+Color_Blue | Blue paint | True
+Color_Red | Red paint | True
+Color_White | White paint | True
+Color_Yellow | Yellow paint | True
+Compass | Compass | True
+Cooked_Beet | Cooked beet | True
+Cooked_Catfish | Cooked catfish | True
+Cooked_Drumstick | Cooked drumstick | True
+Cooked_GenericMeat | Cooked meat | True
+Cooked_Herring | Cooked  herring | True
+Cooked_Mackerel | Cooked mackerel | True
+Cooked_Pomfret | Cooked pomfret | True
+Cooked_Potato | Cooked potato | True
+Cooked_Salmon | Cooked salmon | True
+Cooked_Shark | Cooked shark | True
+Cooked_Tilapia | Cooked tilapia | True
+CopperIngot | Copper Ingot | True
+CopperOre | Copper | True
+DevSpear | OP weapon | True
+Dirt | Dirt | True
+DrinkingGlass | Drinking glass | True
+DrinkingGlass_CoconutBeat | Coconut beat | True
+DrinkingGlass_Leftover | Leftovers | True
+DrinkingGlass_Mangonana | Mangonana | True
+DrinkingGlass_RedbeetShot | Redbeet shot | True
+DrinkingGlass_RedMelon | Red melon | True
+DrinkingGlass_SilverSmoothie | Silver smoothie | True
+DrinkingGlass_SimpleSmoothie | Simple smoothie | True
+DrinkingGlass_SpicyPineberry | Spicy pineberry | True
+DrinkingGlass_StrawberryColada | Strawberry colada | True
+DropItem | An item | False
+Egg | Egg | True
+Equipment_LeatherChest | Leather body armor | True
+Equipment_LeatherHelmet | Leather helmet | True
+Equipment_LeatherLegs | Leather greaves | True
+ExplosiveGoo | Explosive goo | True
+ExplosivePowder | Explosive powder | True
+FakeTitaniumTools | Titanium tools | True
+Feather | Feather | True
+FishingBait_Advanced | Advanced fishing bait | True
+FishingBait_Expert | Expert fishing bait | True
+FishingBait_Simple | Simple fishing bait | True
+FishingRod | Fishing rod | True
+FishingRod_Metal | Metal fishing rod | True
+Flipper | Flippers | True
+Flower_Black | Black flower | True
+Flower_Blue | Blue flower | True
+Flower_Red | Red flower | True
+Flower_White | White flower | True
+Flower_Yellow | Yellow flower | True
+Glass | Glass | True
+Hammer | Building Hammer | True
+Hat_Captain | Captain's hat | True
+Hat_Chef | Chef's hat | True
+Hat_Construction | Construction helmet | True
+Hat_Dev | Developer hat | True
+Hat_Diving | Diving helmet | True
+Hat_Fishing | Fishing hat | True
+Hat_Glasses_Aviator | Sunglasses | True
+Hat_Glasses_Disguise | Disguise glasses | True
+Hat_Mayor | Mayor hat | True
+Hat_Pilot | Pilot helmet | True
+Hat_Pirate | Pirate hat | True
+Hat_Sailor | Sailor hat | True
+Hat_Tiki | Tiki mask | True
+Head_AnglerFish | Anglerfish head | True
+Head_Bear | Bear head | True
+Head_Boar | Warthog head | True
+Head_Hyena | Hyena head | True
+Head_HyenaBoss | Alpha's head | True
+Head_MamaBear | Mama bear head | True
+Head_PoisonPuffer | Poison-puffer head | True
+Head_PolarBear | Polar bear head | True
+Head_Screecher | Screecher head | True
+Head_Screecher_Caravan | White screecher head | True
+Head_Shark | Shark head | True
+HeadLight | Head light | True
+HeadLight_Advanced | Advanced head light | True
+HealingSalve | Healing salve | True
+HealingSalve_Good | Good healing salve | True
+Hinge | Hinge | True
+HoneyComb | Honeycomb | True
+Hook_Plastic | Plastic hook | True
+Hook_Scrap | Scrap hook | True
+Hook_Titanium | Titanium hook | True
+Jar_Bee | Bee jar | True
+Jar_Honey | Honey | True
+Juniper | Juniper | True
+Leather | Leather | True
+Machete | Machete | True
+Mango | Mango | True
+MetalDetector | Metal detector | True
+MetalIngot | Metal ingot | True
+MetalOre | Metal ore | True
+Mystery_Package | Decoration package | True
+Nail | Nail | True
+NetCanister | Net canister | True
+NetGun | Net launcher | True
+OxygenBottle | Oxygen bottle | True
+Paddle | Paddle | True
+PaintBrush | Paint brush | True
+Pineapple | Pineapple | True
+Placeable | An item | True
+Placeable_Anchor_Stationary | Stationary anchor | True
+Placeable_Anchor_Stationary_Advanced | Advanced stationary anchor | True
+Placeable_Anchor_Throwable | Throwable anchor | True
+Placeable_Bathtub | Wooden bathtub | True
+Placeable_BatteryCharger | Battery charger | True
+Placeable_Bed_Basic | Simple bed | True
+Placeable_Bed_Hammock | Hammock | True
+Placeable_Bed_Wood | Bed | True
+Placeable_BeeHive | Beehive | True
+Placeable_BiofuelExtractor | Biofuel refiner | True
+Placeable_BiofuelExtractor_Advanced | Advanced biofuel refiner | True
+Placeable_BirdsNest | Birds nest | True
+Placeable_Bookpile | Bookpile | True
+Placeable_Bookpile_Standing | Bookpile | True
+Placeable_Brick_Wet | Wet brick | True
+Placeable_Calendar | Calendar | True
+Placeable_Candelabra | Candlestick | True
+Placeable_Candlestick | Candlestick | True
+Placeable_Chair_Basic | Chair | True
+Placeable_Chair_Stool | Chair | True
+Placeable_Chair_Stool_Small | Chair | True
+Placeable_Chair_Wood | Chair | True
+Placeable_Clock_Basic | Clock | True
+Placeable_Clock_Fine | Clock | True
+Placeable_CollectionNet_Advanced | Advanced collection net | True
+Placeable_CollectionNet_Basic | Simple collection net | True
+Placeable_CookingPot | Cookingpot | True
+Placeable_CookingStand_Food_Electric | Electric grill | True
+Placeable_CookingStand_Food_One | Simple grill | True
+Placeable_CookingStand_Food_Two | Advanced grill | True
+Placeable_CookingStand_Purifier_One | Simple purifier | True
+Placeable_CookingStand_Purifier_Two | Advanced purifier | True
+Placeable_CookingStand_Smelter | Smelter | True
+Placeable_CookingStand_Smelter_Electric | Electric Smelter | True
+Placeable_Cropplot_Grass | Grass plot | True
+Placeable_Cropplot_Large | Large crop plot | True
+Placeable_Cropplot_Large_Tier3 | Advanced large crop plot | True
+Placeable_Cropplot_Medium | Medium crop plot | True
+Placeable_Cropplot_Medium_Tier3 | Advanced medium crop plot | True
+Placeable_Cropplot_Shoe | Old shoe | True
+Placeable_Cropplot_Small | Small crop plot | True
+Placeable_Cropplot_Small_Tier3 | Advanced small crop plot | True
+Placeable_Cupboard_Large | Cupboard | True
+Placeable_Cupboard_Medium | Cupboard | True
+Placeable_Cupboard_Small | Cupboard | True
+Placeable_Curtain_Horizontal | Curtain | True
+Placeable_Curtain_Vertical | Curtain | True
+Placeable_Cutlery | Cutlery | True
+Placeable_DetailPlank | Detail plank | True
+Placeable_DrawBridgeLong | Long draw bridge | True
+Placeable_DrawBridgeShort | Short draw bridge | True
+Placeable_Electric_Purifier | Electric purifier | True
+Placeable_EngineControls | Engine controls | True
+Placeable_Figurine_Chicken | Clucker | True
+Placeable_Figurine_Goat | Goat | True
+Placeable_Figurine_Llama | Llama | True
+Placeable_FirewoodRack | Firewood rack | True
+Placeable_Firework | Firework | True
+Placeable_Flag_01 | Flag | True
+Placeable_Flag_02 | Flag | True
+Placeable_Flag_03 | Flag | True
+Placeable_Flag_04 | Flag | True
+Placeable_Flag_05 | Flag | True
+Placeable_Flag_06 | Flag | True
+Placeable_Flag_07 | Flag | True
+Placeable_Flower_AloeVera | Aloe Vera | True
+Placeable_Flower_Cactus | Cactus | True
+Placeable_Flower_Hibiscus | Hibiscus | True
+Placeable_Flower_Monstera | Monstera | True
+Placeable_Flower_Rose | Rose | True
+Placeable_Flower_Sunflower | Sunflower | True
+Placeable_FoundationCounter | Foundation counter | True
+Placeable_Fridge | Fridge | True
+Placeable_FuelTank | Fuel tank | True
+Placeable_GiantClam | Giant clam | True
+Placeable_GlassCandle | Candle Bottle | True
+Placeable_HonkHorn_1 | Air horn | True
+Placeable_HonkHorn_2 | Honk horn | True
+Placeable_HonkHorn_3 | Viking horn | True
+Placeable_Juicer | Juicer | True
+Placeable_Lantern_Basic | Lantern | True
+Placeable_Lantern_FireBasket | Fire basket | True
+Placeable_Lantern_Fireplace | Fireplace | True
+Placeable_Lantern_Metal | Metal lantern | True
+Placeable_LuckyCat | Lucky cat | True
+Placeable_MajorTom | Major Tom | True
+Placeable_MotivationalSign_1 | Motivational quote | True
+Placeable_MotivationalSign_2 | Motivational quote | True
+Placeable_MotivationalSign_3 | Motivational quote | True
+Placeable_MotivationalSign_4 | Motivational quote | True
+Placeable_MotorWheel | Engine | True
+Placeable_Mug | Mug | True
+Placeable_Nametag | Nametag | True
+Placeable_OpenBook | Open book | True
+Placeable_Outhouse | Outhouse | True
+Placeable_Painting_André | Man And Moon | True
+Placeable_Painting_Crafted_1 | Painting | True
+Placeable_Painting_Crafted_2 | Painting | True
+Placeable_Painting_Crafted_3 | Painting | True
+Placeable_Painting_Crafted_4 | Painting | True
+Placeable_Painting_Ellen | The Pot | True
+Placeable_Painting_Felicia | After The Rain | True
+Placeable_Painting_Gabriel | Octohenge | True
+Placeable_Painting_Illayda | Neighbors Dog | True
+Placeable_Painting_Petter | Real Self Portrait | True
+Placeable_Painting_Semih | What Even Is? | True
+Placeable_Painting_Tangaroa_1 | Tangaroa painting | True
+Placeable_Painting_Tangaroa_2 | Tangaroa painting | True
+Placeable_Painting_Tangaroa_3 | Tangaroa painting | True
+Placeable_Painting_Tangaroa_4 | Tangaroa painting | True
+Placeable_Painting_Tangaroa_5 | Tangaroa painting | True
+Placeable_Painting_William | Foul Fogs | True
+Placeable_PaintMill | Paint mill | True
+Placeable_PaperBundle | Paper bundle | True
+Placeable_Piano | Piano | True
+Placeable_Pipe_Fuel | Fuel pipe | True
+Placeable_Pipe_Water | Water pipe | True
+Placeable_Quill | Quill | True
+Placeable_Radio | Radio | True
+Placeable_Reciever | Receiver | True
+Placeable_Reciever_Antenna | Antenna | True
+Placeable_Recipe | An item | True
+Placeable_Recipe_BBQ | Recipe: BBQ | True
+Placeable_Recipe_CatfishDeluxe | Recipe: Catfish deluxe | True
+Placeable_Recipe_CoconutBeat | Recipe: Coconut beat | True
+Placeable_Recipe_CoconutChicken | Recipe: Coconut chicken | True
+Placeable_Recipe_HeadBroth | Recipe: Head broth | True
+Placeable_Recipe_HeartyStew | Recipe: Hearty stew | True
+Placeable_Recipe_Mangonana | Recipe: Mangonana | True
+Placeable_Recipe_MushroomOmelette | Recipe: Mushroom omelette | True
+Placeable_Recipe_RedbeetShot | Recipe: Redbeet shot | True
+Placeable_Recipe_RedMelon | Recipe: Red melon | True
+Placeable_Recipe_SalmonSalad | Recipe: Salmon salad | True
+Placeable_Recipe_SharkDinner | Recipe: Shark dinner | True
+Placeable_Recipe_SilverSmoothie | Recipe: Silver smoothie | True
+Placeable_Recipe_SimpleFishStew | Recipe: Simple fish stew | True
+Placeable_Recipe_SimpleSmoothie | Recipe: Simple smoothie | True
+Placeable_Recipe_SpicyPineberry | Recipe: Spicy pineberry | True
+Placeable_Recipe_SteakWithJam | Recipe: Steak with jam | True
+Placeable_Recipe_StrawberryColada | Recipe: Strawberry colada | True
+Placeable_Recipe_Sushi | Recipe: Sushi | True
+Placeable_Recipe_VegetableSoup | Recipe: Vegetable soup | True
+Placeable_Recycler | Recycler | True
+Placeable_ResearchTable | Research table | True
+Placeable_RhinoSharkTrophy | Rhino shark trophy | True
+Placeable_Rug_Door | Rug | True
+Placeable_Rug_Rectangle | Rug | True
+Placeable_Rug_Round_Large | Rug | True
+Placeable_Rug_Round_Small | Rug | True
+Placeable_Sail | Sail | True
+Placeable_Scarecrow | Scarecrow | True
+Placeable_Scarecrow_Advanced | Advanced Scarecrow | True
+Placeable_ScrapMechanic | Scrap Mechanic duck | True
+Placeable_SharkTrophy | Shark trophy | True
+Placeable_Shelf_Large | Shelf | True
+Placeable_Shelf_Small_Basic | Shelf | True
+Placeable_Shelf_Small_Fine | Shelf | True
+Placeable_Shelf_Wood | Shelf | True
+Placeable_Sign | Sign | True
+Placeable_Sofa | Sofa | True
+Placeable_Sofa2Seat | Sofa | True
+Placeable_Sofa3Seat | Sofa | True
+Placeable_SpiralStair | Spiral stair case | True
+Placeable_SpiralStair_Half | Half spiral staircase | True
+Placeable_Sprinkler | Sprinkler | True
+Placeable_SteeringWheel | Steering Wheel | True
+Placeable_Storage_Large | Large Storage | True
+Placeable_Storage_Medium | Storage | True
+Placeable_Storage_Small | Small storage | True
+Placeable_Streamer | Streamer | True
+Placeable_StringLight_Horizontal | String light | True
+Placeable_StringLight_Vertical | String light | True
+Placeable_Surfboard | Surfboard | True
+Placeable_Table_Basic | Table | True
+Placeable_Table_Round | Table | True
+Placeable_Table_Round_Small | Table | True
+Placeable_Table_Sofa_Round | Table | True
+Placeable_Table_Sofa_Square | Table | True
+Placeable_Table_Square | Table | True
+Placeable_Table_Square_Small | Table | True
+Placeable_Table_Square_Tall | Table | True
+Placeable_TangaroaPlant_1 | Tangaroa plant | True
+Placeable_TangaroaPlant_2 | Tangaroa plant | True
+Placeable_TangaroaPlant_3 | Tangaroa plant | True
+Placeable_TangaroaPlant_4 | Tangaroa plant | True
+Placeable_TangaroaPlant_5 | Tangaroa plant | True
+Placeable_TangaroaPlant_6 | Tangaroa plant | True
+Placeable_Temperance_Cutlery | Temperance cutlery | True
+Placeable_Temperance_Mug | Temperance mug | True
+Placeable_Temperance_Painting_1 | Temperance painting | True
+Placeable_Temperance_Painting_2 | Temperance painting | True
+Placeable_Temperance_Painting_3 | Temperance painting | True
+Placeable_Temperance_Plant_1 | Temperance plant | True
+Placeable_Temperance_Plant_2 | Temperance plant | True
+Placeable_Temperance_Plant_3 | Temperance plant | True
+Placeable_Temperance_Rug_1 | Temperance rug | True
+Placeable_Temperance_Rug_2 | Temperance rug | True
+Placeable_TicTacToe | Tic-tac-toe | True
+Placeable_TikiPole_Complete | Tiki pole | True
+Placeable_TikiPole_Feet | Tiki piece | True
+Placeable_TikiPole_Mid_1 | Tiki piece | True
+Placeable_TikiPole_Mid_2 | Tiki piece | True
+Placeable_TikiPole_Top | Tiki piece | True
+Placeable_ToyRobot | Toy robot | True
+Placeable_ToyRobot_Golden | Golden toy robot | True
+Placeable_Trashcan | Trashcan | True
+Placeable_TrophyBoard_Large | Large trophy board | True
+Placeable_TrophyBoard_Medium | Medium trophy board | True
+Placeable_TrophyBoard_Small | Small trophy board | True
+Placeable_Utopia_Bottle | Utopia bottles | True
+Placeable_Utopia_DanglyDecoration_1 | Utopia dream catcher | True
+Placeable_Utopia_DanglyDecoration_2 | Utopia decoration | True
+Placeable_Utopia_DanglyDecoration_3 | Utopia decoration | True
+Placeable_Utopia_DanglyDecoration_4 | Utopia decoration | True
+Placeable_Utopia_DanglyDecoration_5 | Utopia decoration | True
+Placeable_Utopia_DanglyDecoration_6 | Utopia decoration | True
+Placeable_Utopia_Herb_1 | Utopia herbs | True
+Placeable_Utopia_Herb_2 | Utopia herbs | True
+Placeable_Utopia_Herb_3 | Utopia herbs | True
+Placeable_Utopia_Herb_4 | Utopia herbs | True
+Placeable_Utopia_Herb_5 | Utopia herbs | True
+Placeable_Utopia_Herb_6 | Utopia herbs | True
+Placeable_Utopia_LightBottleWhite | Utopia light bottle | True
+Placeable_Utopia_LightBottleYellow | Utopia light bottle | True
+Placeable_Utopia_Plant_1 | Utopia plant | True
+Placeable_Utopia_Plant_2 | Utopia plant | True
+Placeable_Utopia_Plant_3 | Utopia plant | True
+Placeable_Wardrobe | Wardrobe | True
+Placeable_WaterTank | Water tank | True
+Placeable_WindTurbine | Wind turbine | True
+Placeable_WorldGlobe | World globe | True
+Placeable_ZiplineBase | Zipline | True
+Plank | Plank | True
+Plastic | Plastic | True
+PlasticBottle_Empty | Empty bottle | True
+PlasticBottle_SaltWater | Bottle of salt water | True
+PlasticBottle_Water | Bottle of fresh water | True
+PlasticCup_Empty | Empty cup | True
+PlasticCup_SaltWater | Cup of salt water | True
+PlasticCup_Water | Cup of fresh water | True
+Raw_Beet | Raw beet | True
+Raw_Catfish | Raw catfish | True
+Raw_Drumstick | Raw drumstick | True
+Raw_GenericMeat | Raw meat | True
+Raw_Herring | Raw herring | True
+Raw_Mackerel | Raw mackerel | True
+Raw_Pomfret | Raw pomfret | True
+Raw_Potato | Raw potato | True
+Raw_Salmon | Raw salmon | True
+Raw_Shark | Raw sharkmeat | True
+Raw_Tilapia | Raw tilapia | True
+Repair | Repair | True
+Rope | Rope | True
+Sand | Sand | True
+Scrap | Scrap | True
+SeaVine | Seaweed | True
+Seed_Banana | Banana seed | True
+Seed_Birch | Birch seed | True
+Seed_Flower_Black | Black seed | True
+Seed_Flower_Blue | Blue seed | True
+Seed_Flower_Red | Red seed | True
+Seed_Flower_White | White seed | True
+Seed_Flower_Yellow | Yellow seed | True
+Seed_Grass | An item | True
+Seed_Mango | Mango seed | True
+Seed_Palm | Palm seed | True
+Seed_Pine | Pinecone | True
+Seed_Pineapple | Pineapple seed | True
+Seed_Strawberry | Strawberry seed | True
+Seed_Watermelon | Watermelon seed | True
+SharkBait | Shark bait | True
+Shear | Shears | True
+Shovel | Shovel | True
+SilverAlgae | Silver algae | True
+Spear_Plank | Wooden spear | True
+Spear_Scrap | Metal Spear | True
+Stone | Stone | True
+Strawberry | Strawberry | True
+SweepNet | Sweep net | True
+Sword_Titanium | Titanium sword | True
+Thatch | Palm Leaf | True
+ThrowableAnchor | An item | True
+TitaniumIngot | Titanium ingot | True
+TitaniumOre | Titanium ore | True
+TradeToken | Trade coin | True
+Trashcube | Trash cube | True
+TrophyFish_T1_Glow_Shrimp | GlowShrimp | True
+TrophyFish_T1_NetNibbler | Netnibbler | True
+TrophyFish_T1_SharpCarp | Sharp Carp | True
+TrophyFish_T2_Foamspitter | Foamspitter | True
+TrophyFish_T2_Pufferlisk | Pufferlisk | True
+TrophyFish_T2_TrapSnapper | Trap Snapper | True
+TrophyFish_T3_Lionfish | LionFish | True
+TrophyFish_T3_Lunarfish | Lunarfish | True
+TrophyFish_T3_Pentapus | Pentapus | True
+TrophyFish_T3_PinkPike | Pink Pike | True
+TrophyFish_T3_RainbowLobster | Rainbow Lobster | True
+TrophyFish_T3_Sharkeater | Sharkeater | True
+Turmeric | Turmeric | True
+VineGoo | Vine goo | True
+Watermelon | Watermelon | True
+Wool | Wool | True
+ZiplineTool | Zipline tool | True
+ZiplineTool_Electric | Electric zipline tool | True

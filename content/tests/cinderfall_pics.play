@@ -1,0 +1,10 @@
+# Guide pictures of Cinderfall (CIPlay cinderfall_pics): Raft's camera, midday, calm
+island Cinderfall
+hour 11
+weather Calm
+at -10 46
+wait 3
+picture cinderfall_island 80 60 110 -6 8 0
+picture cinderfall_camp 2 9 62 -10 4 47
+picture cinderfall_hall 14 10 46 3 5 31
+picture cinderfall_valve -2.5 19.5 18.5 -8 17 12

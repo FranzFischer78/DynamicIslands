@@ -1,0 +1,65 @@
+# Play test of Signal Rock (CIPlay signal_rock, in a test world 'CI ...'): the island played as a player would.
+# Points are metres from the island's land middle, as in its recipe. The station's frame is at (-11,-11) turned 45:
+# a point (x, z) of the station is (-11 + 0.707 (x + z), -11 + 0.707 (z - x)).
+island Signal Rock
+expect step 0
+expect title Dead Air
+
+# Getting on: the ladder from the water at the deck's front, the walkway from the ridge's southern arm onto deck B
+climb -12.41 -16.66 h=0.3
+walk 0.8 -20.0 to -3.93 -15.24 to -7.46 -13.12
+expect stand -8.88 -13.12 h=2.5
+zone deck
+expect step 1
+expect message radio room door
+
+# Into the radio room through its door: the operator's log
+walk -8.88 -13.12 to -11 -11 to -13.12 -8.88
+expect stand -13.12 -8.88 h=2.5 below=4
+read Operator's log
+expect step 2
+
+# The transmitter without its coil
+use radioDead
+expect message coil socket is empty
+expect hidden printout
+expect hidden beaconswitch
+
+# The puffer fish round the coil's crate on the cove floor
+kill Puffer fish
+expect step 3
+expect animals Puffer fish 0
+
+# The coil's crate on the cove floor
+openat -15 -14.5
+expect story coil 1
+expect step 4
+
+# Fitted: the transmitter works, the printout appears
+use radioDead
+expect message transmitter hums
+expect story coil 0
+expect shown printout
+expect shown radioLive
+expect hidden radioDead
+expect shown beaconswitch
+use radioLive
+expect message Follow the beacons east
+read Signal printout
+expect step 5
+
+# Up the stair to the roof, up the mast ladder to the platform
+walk -2.87 -14.18 to -4.46 -12.24 to -8.88 -7.82 to -13.12 -8.88
+expect stand -13.12 -8.88 h=5.5
+climb -12.27 -8.03 h=5.6
+expect stand -11.07 -6.83 h=24.5
+
+# The mast top wakes the screechers; the switch lights the beacon and ends the quest
+zone masttop
+expect message Screechers lift off
+zone beaconswitch
+expect shown beacon
+expect done
+expect item HeadLight 1
+kill Screecher
+expect animals Screecher 0

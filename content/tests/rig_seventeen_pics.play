@@ -1,0 +1,22 @@
+# Guide pictures of Rig Seventeen (CIPlay rig_seventeen_pics): Raft's camera, evening, calm; the rig started and burning
+island Rig Seventeen
+hour 18
+weather Calm
+zone landing
+read Manager's handover
+zone derrick
+kill Screecher
+open Manager's locker
+zone tankstack
+open Fuel store
+read Restart checklist
+use controldesk
+wait 8
+at -6 -30
+wait 3
+picture rig_seventeen_island 85 40 -60 40 8 -9
+picture rig_seventeen_rig 62 18 -26 45 10 -9
+picture rig_seventeen_landing 30 6 -20 39 6 -12
+picture rig_seventeen_control 36 20 -16 47 16 -10
+picture rig_seventeen_bridge 30 18 -1 40 12.5 -8
+picture rig_seventeen_beach 4 6 -36 -5 2 -30

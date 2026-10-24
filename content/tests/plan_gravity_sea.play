@@ -1,0 +1,35 @@
+# Play test of the plan 'The Gravity Sea' (CIPlay plan_gravity_sea, in a test world 'CI ...'): no Raft story, no random
+# islands - each sky island's WHEN brings its sunken root; every stop is tuned to on the Receiver and played to its end
+# with its own test (the orchard's apples are carried down to the cellar); then the side pair, sailed to.
+plan The Gravity Sea
+tune quay
+include lodestone_quay.play
+expect chain orchard unlocked
+tune orchard
+include upfall_orchard.play
+expect chain cellar unlocked
+tune cellar
+include rootcellar_deep.play
+tune market
+include altitude_market.play
+expect chain sink unlocked
+tune sink
+include sinkmarket_floor.play
+tune pendulum
+include pendulum_isle.play
+tune gravewell
+include gravewell_shaft.play
+tune stair
+include stair_of_hours.play
+tune array
+include lodestone_array.play
+expect chain root unlocked
+tune root
+include array_root.play
+expect blueprints
+sail 5
+arrive shoal
+include weatherglass_shoal.play
+arrive deep
+include weatherglass_deep.play
+plan end

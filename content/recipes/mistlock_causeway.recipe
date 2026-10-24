@@ -1,0 +1,195 @@
+# Mistlock Causeway - the sixth island of the library's plan The Lullaby Frequency (SL1, horror)
+# Two low rock islets and between them a shallow lagoon under dense mist. A causeway of plank decks on posts crosses it,
+# lit by a row of street lamps (Raft's antenna poles with a lantern on top, standing on the decks). Twice the causeway
+# forks; only one branch of each is safe - the lamps and the lullaby (sound zones) mark it - and the other throws you
+# back to the start. On the far islet a stone gatehouse, its roof on its corner pillars; a lever opens its gate for
+# twenty seconds. Quest "Walk Where She Sings" (6 steps): the causeway's start, the pilgrim's rule, the midpoint, the
+# gatehouse, the lever, the pilgrim's satchel inside.
+#
+# Built by the recipe player (CIRecipe mistlock_causeway) through the editor's own operations.
+include lib_sea
+include lib_features
+include lib_sl1
+new
+# (nature: two bare rock islets round a lagoon - few trees, Rocks Like Raft)
+gen Trees=0.15 Bushes=0.2 Rocks=0.43 Harvest=0.15 BeachThings=0.35
+gen Seed=1206 Radius=55 Height=4 Roughness=0.25 Peaks=1 Shape=0 Style=0 PeakShape=0.3 Cliffs=0.05 BeachWidth=0.7
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.4 Sunken=0.3 Hostiles=0 Friendly=0.1 SeaLife=0.3
+generate
+
+# --- Terrain: the lagoon (1.5 m deep) across the middle, the two islets (0.9 m) at its ends -------------------------
+brush flatten from 0 -14 to 0 14 r=12 s=20 frames=120 h=-1.5
+brush flatten at 0 -38 r=12 s=20 frames=100 h=0.9
+brush flatten at 0 38 r=12 s=20 frames=100 h=0.9
+# (the landings: where lagoon and islet meet the ground humped up over the deck ends - lay it just under the planks)
+brush flatten from 0 -27 to 0 -23 r=2.5 s=20 frames=60 h=0.7
+brush flatten from 0 23 to 0 27 r=2.5 s=20 frames=60 h=0.7
+# (and the gatehouse's pad: the islet brush left its floor in the rock)
+brush flatten from -4 31.5 to 4 31.5 r=4 s=20 frames=80 h=0.9
+origin
+clear from 0 -46 to 0 46 r=13
+
+# --- The causeway: 3 m plank decks (0.8 m over the water) on four posts each, standing on the lagoon floor ----------
+# Rows every 3 m from z -22.5 to 22.5 on the lane x 0; fork 1 (z -16.5..-10.5) and fork 2 (z 4.5..10.5) run on two
+# branches at x -6 and 6, joined to the lane by crossbars (z -19.5, -7.5, 1.5, 13.5). Fork 1 is safe on the left (x -6),
+# fork 2 on the right (x 6). Lamps stand on the lane and the safe branches only.
+macro deck x=0 z=0
+place Block_Floor_Wood - at $x $z y=2.3 sx=2.15 sz=2.15
+for px -1.2 1.2 2.4
+for pz -1.2 1.2 2.4
+place Block_Pillar_Wood - at {$x+$px} {$z+$pz} y=0 sy=0.95
+next
+next
+end
+macro decklamp x=0 z=0
+place Antenna_pole - at $x $z y=2.3 sy=0.5
+place Placeable_Lantern_Metal - at $x $z y=5.7 sit drop
+end
+macro crossbar z=0
+for cx -6 6 3
+call deck x=$cx z=$z
+next
+end
+push at 0 0 h=-1.5
+for rz -22.5 -22.5 3
+call deck x=0 z=$rz
+next
+call crossbar z=-19.5
+for rz -16.5 -10.5 3
+call deck x=-6 z=$rz
+call deck x=6 z=$rz
+next
+call crossbar z=-7.5
+for rz -4.5 -1.5 3
+call deck x=0 z=$rz
+next
+call crossbar z=1.5
+for rz 4.5 10.5 3
+call deck x=-6 z=$rz
+call deck x=6 z=$rz
+next
+call crossbar z=13.5
+for rz 16.5 22.5 3
+call deck x=0 z=$rz
+next
+call decklamp x=1.35 z=-22
+call decklamp x=-7.35 z=-19.5
+call decklamp x=-7.35 z=-13.5
+call decklamp x=-4.65 z=-7.5
+call decklamp x=1.35 z=-4
+call decklamp x=7.35 z=1.5
+call decklamp x=7.35 z=7.5
+call decklamp x=4.65 z=13.5
+call decklamp x=1.35 z=19.5
+call decklamp x=-1.35 z=22
+place Zone_Sound safesong1 at -6 -13.5 y=3.5
+place Zone_Sound safesong2 at 6 7.5 y=3.5
+place Zone_Trigger wrong1 at 6 -13.5 y=3.3
+place Zone_Trigger wrong2 at -6 7.5 y=3.3
+place Zone_Trigger midpoint at 0 -3 y=3.3
+pop
+
+# --- The start on the south islet: the pilgrims' rule, a lamp post on the rock ------------------------------------
+place Zone_Trigger causeway_start at 0 -30 ground y=1
+place Zone_Trigger cwstart at 0 -32 ground y=1
+place Note_Sign pilgrimsrule at 2.2 -29 ground sit yaw=180
+call lamppost x=-2.2 z=-29
+call lamppost x=-2.2 z=-36
+
+# --- The gatehouse on the north islet: Raft's grey walls, the roof on its corner pillars, the gate in the doorway, the
+# lever outside it, the satchel inside -----------------------------------------------------------------------------
+push at -3.75 30 h=0.9
+call shed w=5 d=3 door=2
+place Block_Wall_Tier3 gate at 3.75 0 y=0.2
+place Loot_Chest satchel at 3.75 3.5 y=0.2 sit yaw=180
+place Placeable_Lantern_Metal - at 1 3.6 y=0.2 sit
+pop
+place UT_JumpPuzzle_LiftMechanism_Lever lever at 2.8 28.6 ground sit yaw=90
+place Zone_Trigger gatehouse at 0 28 ground y=1
+call lamppost x=-2.4 z=28
+
+# --- Mist over everything; things to gather, two tight reefs in the lagoon ----------------------------------------
+place Zone_Atmosphere causewaymist at 0 0 ground y=2
+scatter "Pickup_Landmark_PineappleLandmark" 2 at 0 0 r=46 seed=1261 free=5
+call dirt x=-26 z=-36 r=7 n=1 seed=1262
+call shallows x=-12 z=0 r=4 deep=3 n=1 seed=1263
+call shallows x=12 z=0 r=4 deep=3 n=1 seed=1264
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Mistlock Causeway
+info author=Custom Islands
+info description=A plank causeway lit by street lamps across a misty lagoon, to a stone gatehouse. Walk where she sings. The sixth island of The Lullaby Frequency.
+island on.arrive=message||Mist so thick the lamps are only smudges. A causeway goes out into it. Somewhere ahead, very faint, the song.
+
+story lever|Gatehouse gate opened|Note_Paper|You pulled the gatehouse lever; the gate stood open twenty seconds.
+
+note pilgrimsrule Pilgrim's rule | THE PILGRIMS' RULE\n\nWalk only where she sings.\nWhere she is silent, the water takes you back.\n\n(Scratched under it: twice it forks. Listen.)
+note satchel Pilgrim's satchel | A pilgrim's satchel on the gatehouse floor: a spear, a bundle of arrows, food for the road - and a ticket stamped GANNET ROCK, ADMIT ONE.
+loot satchel Spear_Scrap*1;Arrow_Metal*8;Cooked_Mackerel*3;Canteen_Water*1
+prop satchel loot.refill=0
+
+prop causeway_start zone.id=causeway_start
+prop causeway_start zone.radius=4
+prop causeway_start zone.message=The causeway starts here. The lamps go out into the mist and vanish.
+prop cwstart obj.name=cwstart
+prop cwstart zone.radius=1
+prop midpoint zone.id=midpoint
+prop midpoint zone.radius=2.5
+prop midpoint zone.message=Halfway. Behind you the lamps you passed have gone out.
+prop gatehouse zone.id=gatehouse
+prop gatehouse zone.radius=3
+prop gatehouse zone.message=A stone gatehouse, its gate shut. A lever stands by it.
+
+macro wrongturn a
+prop $a zone.id=wrong_turn
+prop $a zone.radius=2
+prop $a zone.repeat=1
+prop $a zone.message=The song stops. Cold water closes over the planks - and you are back at the start of the causeway.
+prop $a on.enter=teleport|cwstart
+end
+call wrongturn wrong1
+call wrongturn wrong2
+
+macro safesong a
+prop $a sound.event=event:/exploring/elevator/elevator_music
+prop $a sound.volume=0.35
+prop $a zone.radius=4.5
+end
+call safesong safesong1
+call safesong safesong2
+
+prop causewaymist atmo.fog=#c4c9cc
+prop causewaymist atmo.fogAmount=0.85
+prop causewaymist atmo.light=#a7adb2
+prop causewaymist atmo.lightAmount=0.45
+prop causewaymist atmo.particles=mist
+prop causewaymist zone.radius=48
+
+prop gate obj.name=gate
+prop gate beh.move=0,-2.5,0
+prop gate beh.moveMode=switch
+prop lever obj.name=lever
+prop lever beh.use=Pull the gatehouse lever (the gate opens for 20 seconds)
+prop lever if.use=state|gate|closed
+prop lever on.use=open|gate\ngive||story:lever*1\nsound||event:/raft/radar/lever\nmessage||The gate grinds down into the floor. Twenty seconds - go!\nwait|20\nclose|gate
+prop lever else.use=message||The gate is still open - go!
+
+quest title=Walk Where She Sings
+quest intro=A causeway into the mist. Find where it starts on the south islet.
+step reach|causeway_start|1|Find the start of the causeway
+step read|Pilgrim's rule|1|Read the pilgrims' rule
+step reach|midpoint|1|Cross to the causeway's midpoint - walk only where she sings
+step reach|gatehouse|1|Reach the gatehouse on the far islet
+step collect|story:lever|1|Pull the lever by the gate
+step open|Pilgrim's satchel|1|Get through the gate in time and open the pilgrim's satchel
+quest done=The ticket in the satchel says GANNET ROCK. The Receiver has caught a new voice: a choir, singing, very far off.
+quest reward=Rope*4;Plank*6;MetalIngot*2
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=44 n=1 seed=8850
+prop treasure8850 treasure.loot=TitaniumOre*2
+# Animals (reach audit 10-24: a late island of its story line had none)
+place Creature_Turtle turtles at -6 54 h=-1.5
+prop turtles creature.count=2
+
+save Mistlock Causeway

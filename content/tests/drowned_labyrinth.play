@@ -1,0 +1,63 @@
+# Play test of The Drowned Labyrinth (CIPlay drowned_labyrinth, in a test world 'CI ...'). Points as in its recipe: the
+# dive camp on the largest islet (round -9.6 16, top ~5 m); the hole in the reef by the buoy (17 9) down to the mouth 19 m
+# down; the first fork (14..23 x, -16..-5 z; its dead end east to x 33), the second fork (1..10 x) with the air bell, the
+# Hall of Columns west of it (x -34..-2), the tide gate at the gate tunnel's north end (4 5) and the hole beyond it.
+# Under water the steps put the player where they act (zones, chests, notes, levers).
+island The Drowned Labyrinth
+offset 0 0
+expect step 0
+expect title Forty Breaths
+wait 5
+
+# The camp: the dive plan on the chart table, a reel from the dive locker, the camp crate
+walk -9 7 to -8.5 13 h=4.5
+zone camp
+expect step 0
+read Dive leader's plan
+expect step 1
+open Dive locker
+expect story reel 1
+expect step 2
+open Camp crate
+
+# Down the hole by the buoy to the mouth; the line post - the lamps light down the tunnel; the barrel at the mouth
+zone entrance
+expect step 2
+use linepost
+expect message small lamps wake
+expect shown guidelamps
+expect story reel 0
+open Barrel at the mouth
+
+# The first fork: the slate; the dead end's box
+read First fork slate
+expect step 3
+open Dead end box
+
+# The second fork's air bell
+air airbell
+zone airbell
+expect step 4
+
+# The Hall of Columns: the angler, the trader's strongbox, the leader's last slate, the second air pocket
+zone hall
+kill Angler fish
+expect step 5
+open Trader's strongbox
+wait 2
+expect item Blueprint_Canteen 1
+expect step 7
+read Noor's last slate
+air airbell2
+
+# The tide gate's lever: the grate sinks, out through the gate before it shuts - and forty breaths later it shuts
+use tidelever
+expect message forty breaths
+expect shown exitzone
+zone exit
+expect done
+wait 42
+expect message tide gate grinds shut
+
+# The smallest islet's box under a bush
+open Islet box

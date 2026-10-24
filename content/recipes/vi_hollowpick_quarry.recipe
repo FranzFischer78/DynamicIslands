@@ -1,0 +1,166 @@
+# Hollowpick Quarry - a new medium island of the library (ROADMAP 3e VI2), a vehicle island with a quest
+# A bare grey island of rock cut open by a quarry: the excavator still in the pit, a line of ore wagons on their track
+# down to the loading yard, a crane over the yard and a forklift among the pallets, the foreman's van by the office
+# cabin, the powder store behind a keypad on the west bench. Rats in the wagons, goats on the rocks. A scissor lift at
+# the pit's east face up to the blasters' ledge, a cave in the north rock.
+#
+# Built by the recipe player (CIRecipe vi_hollowpick_quarry) through the editor's own operations. Points: the pit (3 m,
+# r 14 round 6 -2); the wagon track x 6, z -12..-32; the loading yard (2 m, r 8 round 6 -37); the office bench (5 m,
+# r 6 round -13 -12), the cabin x -16..-11.5 z -15..-12 (door south); the powder bench (6 m, r 7 round -20 6); the pit
+# lift at 17.5 -2 (rides 4.7 m) up to the ledge (7.7 m, r 3 round 21.5 -2); the cave rock at -14 26, floor 2.45 m, mouth north.
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+include lib_ni8
+include lib_vi
+new
+# (nature: grey rock, few trees, many stones)
+gen Trees=0.2 Bushes=0.3 Rocks=0.95 Harvest=0.4 BeachThings=0.5
+gen Seed=8622 Radius=50 Height=14 Roughness=0.5 Peaks=2 Shape=0 Style=0 BeachWidth=0.3 Cliffs=0.7 PeakShape=0.6
+gen SeaFloor=0 Shelf=0.4 Seabed=1
+gen Water=0.4 SeaRocks=0.6 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0.2 SeaLife=0.2
+generate
+
+# ===== Terrain: the island to bare rock, the pit, the track and the yard, the office and powder benches, the rim pad ====
+brush rock at 0 0 r=48 s=8 frames=40
+brush flatten at 6 -2 r=14 s=20 frames=140 h=3
+brush rock at 6 -2 r=18 s=20 frames=20
+brush smooth from 6 -12 to 6 -32 r=4 s=10 frames=80
+brush flatten from 6 -10 to 6 -30 r=3 s=6 frames=40 h=2.5
+brush flatten at 6 -37 r=8 s=20 frames=100 h=2
+brush flatten at -13 -12 r=6 s=20 frames=80 h=5
+brush flatten at -20 6 r=7 s=20 frames=80 h=6
+brush smooth from -8 -8 to -16 2 r=3 s=10 frames=60
+brush flatten at 21.5 -2 r=3 s=20 frames=80 h=7.7
+# (level spots for the crate pallet by the landing and the van below the office)
+brush flatten at -1 -34 r=3 s=20 frames=60 h=2
+brush flatten at 12 -39 r=3.5 s=20 frames=60 h=2
+brush flatten at -10 -19 r=5.5 s=20 frames=80 h=5
+call ni8cave x=-14 z=26 h=2 yaw=0 al=quarrycave
+clear at 6 -2 r=16
+clear from 6 -10 to 6 -34 r=4
+clear at 6 -37 r=9
+clear at -13 -12 r=7
+clear at -20 6 r=8
+clear at 21.5 -2 r=3.5
+
+# ===== The pit: the excavator at the face, rubble and blocks of stone =====================================================
+place VP_Excavator digger at 2 3 ground sit yaw=210
+place VP_RubblePile_Medium02 - at -2 6 ground y=-0.2 sit yaw=30
+place VP_RubblePile_Medium02 - at 12 4 ground sit yaw=120
+place VP_RubblePile_Small01 - at 9 -6 ground sit
+place SmallBoulder2 - at -4 -2 ground y=-3.3 yaw=50
+place SmallBoulder3 - at 14 -3 ground y=-1.1 yaw=10
+place VP_Spotlight - at 13 -8 ground sit yaw=300
+place Zone_Trigger quarrypit at 6 -2 ground y=1
+
+# ===== The wagon track down to the yard, five wagons on it, the chalk on the third ============================================
+call sleepersz z1=-31 z2=-11 x=6
+place VP_Wagon01 - at 6 -12.5 ground sit
+place VP_Wagon01 - at 6 -15 ground sit
+place VP_Wagon02 - at 6 -18 ground sit
+place VP_Wagon02 - at 6 -22 ground sit yaw=4
+place VP_Wagon01 - at 6 -35 ground sit yaw=6
+place Note_Paper wagonchalk at 7.4 -18 ground sit yaw=90
+place Creature_Rat rats at 4 -20 ground
+prop rats creature.count=4
+prop rats creature.respawn=0
+
+# ===== The loading yard: the crane, its generator, the hoist crate, the forklift and the pallets ===========================
+place UT_ElectricityIsland_Crane02 yardcrane at 12 -39 ground y=-1.7 sit scale=0.5 yaw=270
+place "VG_DecorationPrefabBase_EmergencyGenerator Variant" cranegen at 9 -33 ground sit yaw=180
+place Loot_ChestLarge hoistcrate at 8.5 -41 ground sit yaw=10
+place VP_Forklift - at 0 -38 ground sit yaw=80
+place Pallet - at -1 -34 ground sit
+place Pallet - at 1.5 -34 ground sit yaw=5
+place VP_StorageCrate01 - at -1 -34 ground y=0.15 sit
+place VP_BrickStack02 - at 1.5 -34 ground y=0.15 sit
+place VP_SteelBeam02 - at 3 -42 ground sit yaw=80
+place RT_PlasticBoat - at -6 -46 ground sit rot=0,0,0 yaw=200 roll=6
+
+# ===== The office bench: the cabin, the foreman's van, the board ===========================================================
+push at -16 -15 h=5
+call cabin w=3 d=2 al=quarryoffice
+place Placeable_Table_Basic - at 3.2 1.6 y=0.1 sit
+place Note_Book shiftledger at 3.2 0.6 y=0.1 sit yaw=20
+place Bed_Simple - at 1.15 2.2 y=0.1 sit yaw=90
+pop
+place Van_4 - at -10 -19 ground sit yaw=10
+place VP_PortableToilet - at -11 -9 ground sit yaw=250
+place Placeable_Lantern_FireBasket - at -12 -17 ground sit
+
+# ===== The powder bench: the store behind its keypad, the barrels, the cable drum ==========================================
+place VP_MetalCrate01 - at -23.5 6 ground y=-0.1 sit yaw=0
+place VP_MetalCrate03 - at -23 9 ground y=-0.1 sit yaw=90
+place VP_ExplosiveBarrel_Pile - at -17 10 ground sit
+place VP_Cable_Roll01 - at -15 3 ground sit
+place RT_PowerBox powderpad at -18 4 ground sit yaw=180
+place Loot_ChestLarge powderstore at -20.5 8.5 ground sit yaw=180
+
+# ===== The scissor lift up the pit face to the blasters' ledge, goats on the rock
+call lift x=17.5 z=-2 yaw=90 alias=pitlift upalias=pitliftup chest=ledgechest tx=21.5 tz=-2 items=Rope*2;Bolt*2;Feather*2 title="Blasters' chest"
+place Creature_Goat goats at 24 -14 ground
+prop goats creature.count=2
+
+# ===== The cave in the north rock, a chest inside =========================================================================
+call cavein x=-14 z=26 h=2 yaw=0 al=quarrycavechest
+
+# ===== Things to gather; Raft's finds in the shallows ======================================================================
+scatter PineTree_Small1 3 at 20 20 r=20 seed=8631 free=6
+scatter SmallBoulder3 5 at 0 0 r=42 seed=8632 free=3 ground y=-1
+scatter "Pickup_Landmark_Tree_Pine" 3 at 0 10 r=38 seed=8633 free=6
+scatter "Pickup_Landmark_BerryBush" 2 at 20 -20 r=16 seed=8634 free=3
+call dirt x=20 z=-20 r=16 n=2 seed=8635
+call treasure x=0 z=0 r=40 n=1 seed=8622
+call shallows r=74 deep=5 n=2 seed=863
+
+info title=Hollowpick Quarry
+info author=Custom Islands
+info description=A grey island cut open by a quarry: the excavator in the pit, five ore wagons on their track to the loading yard, the crane over the yard with a crate still on its hook, and a powder store locked behind a keypad.
+
+story powderopen|Powder store open|quest:Varuna_CraneKey|The powder store's keypad took the code 2-7-4.
+story craneup|The yard crane running|Placeable_Lantern_Metal|The crane's generator runs and the hoist crate is down in the yard.
+
+note shiftledger Shift ledger | HOLLOWPICK QUARRY - LAST SHIFT\n\nWagons 1-5 loaded, not sent. Crane stopped with the crate on the hook - generator part pulled and locked in the powder store, by order.\n\nPowder store code: two, seven - and the last digit is chalked on wagon 3, where the night shift can see it.\n\nRATS IN THE WAGONS AGAIN.
+note wagonchalk Chalk on wagon 3 | Chalked on the wagon's side, half rubbed off by a sleeve: ...4. And under it: DON'T TELL THE FOREMAN.
+note powderstore Powder store | The quarry's powder store: no powder left, but the crane generator's part in a padded box, and the foreman's spare tools.
+loot powderstore story:raft-Tangaroa_GeneratorPart*1;Bolt*4;Hinge*2;MetalIngot*2
+prop powderstore loot.refill=0
+prop powderstore obj.name=powderstore
+prop powderstore beh.hidden=1
+note hoistcrate Hoist crate | The crate that hung on the crane's hook since the last shift: the quarry's pay chest, never paid out.
+loot hoistcrate MetalIngot*4;CopperIngot*3;TradeToken*2;Rope*3
+prop hoistcrate loot.refill=0
+prop hoistcrate obj.name=hoistcrate
+prop hoistcrate beh.hidden=1
+prop ledgechest loot.refill=0
+note quarrycavechest Chest in the north cave | Stone-dust on the lid. Someone kept their own stash away from the foreman.
+loot quarrycavechest MetalIngot*2;Glass*2;Scrap*4
+prop quarrycavechest loot.refill=0
+
+prop powderpad obj.name=powderpad
+prop powderpad beh.use=Type the powder store code
+prop powderpad lock.code=274
+prop powderpad on.use=sound||event:/exploring/obstacles/keypad/keypad_correct\nmessage||The keypad beeps two-seven-four and the powder store's shutter rolls up.\nshow|powderstore\ngive||story:powderopen*1
+prop cranegen obj.name=cranegen
+prop cranegen on.use=message||The generator coughs and hums. Over the yard the crane whines, swings - and lowers its crate to the ground.\nsignal||power\nshow|hoistcrate\ngive||story:craneup*1
+
+prop quarrypit zone.id=quarry_pit
+prop quarrypit zone.radius=8
+prop quarrypit zone.message=The quarry pit: the excavator still at the face, its bucket full.
+
+quest title=Payday in the Pit
+quest intro=A quarry stopped in the middle of a shift: the wagons loaded, a crate on the crane's hook. Go down into the pit.
+step reach|quarry_pit|1|Go down into the quarry pit
+step read|Shift ledger|1|Read the shift ledger in the office cabin
+step kill|Rat|4|Clear the four rats out of the ore wagons
+step read|Chalk on wagon 3|1|Find the chalk mark on wagon 3
+step collect|story:powderopen|1|Open the powder store with its code
+step open|Powder store|1|Open the powder store
+step collect|story:craneup|1|Start the crane's generator in the loading yard
+step open|Hoist crate|1|Open the crate the crane lowered
+quest done=The quarry crew is paid at last. The crane stands still over the yard, its hook empty at last.
+quest reward=MetalIngot*3;Bolt*3;Rope*2
+
+save Hollowpick Quarry

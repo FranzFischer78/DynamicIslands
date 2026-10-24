@@ -1,0 +1,9 @@
+# Guide pictures of Cormorant Skerry (CIPlay cormorant_skerry_pics): Raft's camera, morning, calm
+island Cormorant Skerry
+offset 0 0
+hour 9
+weather Calm
+at 4 -12
+wait 3
+picture ni_cormorant_skerry_island 34 16 -34 0 3 0
+picture ni_cormorant_skerry_boat 12 4 -16 5.5 2 -7

@@ -1,0 +1,260 @@
+# Thornwood - a very large island of the library (jungle)
+# Quest "The Boar King of Thornwood" (21 steps): the explorer's camp, his diary and map; the Shrine of the Roots and its
+# tusk; the gorge's rim, the carved post and the rope bridge; the trail to the falls, the Shrine of the Falls and its
+# tusk, a wild beehive, the Shrine of the Hill and the third tusk; the boar trail up the hill, the stone temple, the
+# Boar King and his guards, the boar idol, the offering on the altar (the machete); the explorer's two vine caches.
+include lib_sea
+include lib_features
+new
+# (nature: a jungle: three times Raft's trees, two and a half times its bushes - Raft's islands as the generator's Like Raft has them, CIGenLikeRaft)
+gen Trees=0.5 Bushes=0.45 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=8831 Radius=115 Height=16 Roughness=0.55 Peaks=2 Shape=0 Style=0 BeachWidth=0.5 Cliffs=0.25 PeakShape=0.35
+gen SeaFloor=0 Shelf=0.45 Seabed=1
+# (sea: Raft's finds and corals as dense as around Raft's islands - Like Raft 0.5 - the review, 2026-10-03)
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.5 Sunken=0.2 Hostiles=0 Friendly=0.4 SeaLife=0.4
+generate
+
+# --- The temple hill: raised in the north-east, its top levelled for the stone ring ---------------------------------
+brush raise at 25 25 r=40 s=20 frames=16
+brush flatten at 25 25 r=13 s=20 frames=40
+# --- The gorge: a river cut across the island from the west coast to the south-east coast, deep below the sea ----
+macro gorge x1 z1 x2 z2 n d=10
+for i 0 $n
+brush lower at {$x1+($x2-$x1)*$i/$n} {$z1+($z2-$z1)*$i/$n} r=6 s=20 frames=$d
+next
+clear from $x1 $z1 to $x2 $z2 r=12
+end
+call gorge -125 5 -80 0 9
+call gorge -80 0 -45 -10 7 d=14
+call gorge -45 -10 -15 -22 6 d=18
+call gorge -15 -22 15 -35 6 d=18
+call gorge 15 -35 45 -55 7 d=14
+call gorge 45 -55 80 -85 9
+call gorge 80 -85 120 -110 9
+brush smooth from -125 5 to -45 -10 r=10 s=20 frames=30
+brush smooth from -45 -10 to 45 -55 r=10 s=20 frames=30
+brush smooth from 45 -55 to 120 -110 r=10 s=20 frames=30
+brush rock from -125 5 to -45 -10 r=8 s=10 frames=30
+brush rock from -45 -10 to 45 -55 r=8 s=10 frames=30
+brush rock from 45 -55 to 120 -110 r=8 s=10 frames=30
+# (the jungle floor: grass over the island's middle, the beaches left sandy)
+brush grass at 0 0 r=70 s=8 frames=30
+brush grass at -55 35 r=35 s=8 frames=20
+brush grass at 40 -30 r=35 s=8 frames=20
+# (points below are from the land centre of the finished land - the gorge split the island in two)
+origin
+
+# --- Trails through the jungle: from the camp to the rope bridge, from the bridge up to the temple, to the shrines -----
+macro trail x1 z1 x2 z2
+clear from $x1 $z1 to $x2 $z2 r=3.5
+brush sand from $x1 $z1 to $x2 $z2 r=1.6 s=8 frames=20
+end
+call trail -45 -70 -40 -60
+call trail -40 -60 -32 -50
+call trail -32 -50 -25 -40
+call trail -25 -40 -20 -32
+brush smooth from -16 -8 to 12 20 r=6 s=20 frames=80
+brush smooth from -12 -2 to 2 12 r=4 s=20 frames=60
+call trail -20 -12 -10 0
+call trail -10 0 0 10
+call trail 0 10 10 18
+call trail -32 -50 5 -58
+call trail 5 -58 20 -62
+call trail -20 -12 -35 2
+call trail -35 2 -50 12
+call trail 10 18 30 24
+call trail 30 24 45 30
+
+# --- More jungle: big palms, banana bushes and bamboo thickets away from the trails ---------------------------------------
+scatter BigPalm2 4 at -60 30 r=18 seed=611
+scatter BigPalm3 3 at 50 -20 r=16 seed=612
+scatter BigPalm1 3 at -5 -55 r=14 seed=613
+scatter Banana_Bush_3 6 at -40 20 r=20 seed=614
+scatter Bamboo_3 8 at 55 5 r=14 seed=615
+scatter Monstera_2 8 at 30 -50 r=16 seed=616
+
+# --- The explorer's camp on the south beach ----------------------------------------------------------------------------
+clear at -45 -72 r=12
+place Balboa_DecorationPrefabBase_SimpleTent - at -48 -69 ground sit yaw=20
+place campfire_1 - at -43.5 -72.5 ground sit
+place Crate_Big_01 - at -41.5 -69 ground sit yaw=80
+place Note_Book diary at -41.5 -69 y=0.45
+place Note_Board thornmap at -49.5 -74.5 ground yaw=150
+place "Box Small" - at -46 -66 ground sit yaw=15
+place RT_PlasticBoat - at -52 -82 ground yaw=200 tilt=8
+place Zone_Trigger camp at -45 -72 y=1.5
+
+# --- The old rope bridge over the gorge: two lanes of planks, poles at its ends, ropes along its sides ------------------
+clear from -20 -10 to -20 -35 r=6
+ramp Block_Floor_Wood from -20.75 -13.2 13.2 to -20.75 -31 14.15 len=1.5 top=0
+ramp Block_Floor_Wood from -19.25 -13.2 13.2 to -19.25 -31 14.15 len=1.5 top=0
+place ReefHuts_Pillar3 - at -21.8 -13 ground
+place ReefHuts_Pillar3 - at -18.2 -13 ground
+place ReefHuts_Pillar3 bridgepost at -21.8 -31.2 ground
+place ReefHuts_Pillar3 - at -18.2 -31.2 ground
+for rz -16 -28 -5.5
+place RopeFence_Medium - at -21.6 $rz h={13.2+(-13.2-$rz)/17.8*0.95} sit rot=0,0,0 yaw=90
+place RopeFence_Medium - at -18.4 $rz h={13.2+(-13.2-$rz)/17.8*0.95} sit rot=0,0,0 yaw=90
+next
+place Zone_Trigger bridge at -20 -11 y=1.5
+# (quest zones on the trails: the gorge's rim on the way to the bridge, the trail to the falls, the boar trail up the hill)
+place Zone_Trigger gorgerim at -25 -40 y=1.5
+place Zone_Trigger falls at -42 6.7 y=1.5
+place Zone_Trigger hilltrail at 0 10 y=1.5
+
+# --- The three jungle shrines: a stone ring, two pillars, a brazier, an offering box with a carved tusk ---------------
+macro shrine x z box
+clear at $x $z r=6 all
+place SmallBoulder4 - at {$x-2.5} {$z+1.5} ground sit
+place SmallBoulder4 - at {$x+2.5} {$z+1.5} ground sit yaw=60
+place SmallBoulder4 - at $x {$z+3.4} ground sit yaw=130
+place BigBoulder3_Low - at {$x-1.7} {$z-1.6} ground sit scale=0.2 yaw=20
+place BigBoulder3_Low - at {$x+1.7} {$z-1.6} ground sit scale=0.2 yaw=-25
+place campfire_1 - at {$x+1.2} {$z+1.6} ground sit
+place Loot_Chest $box at $x $z ground sit yaw=180
+end
+call shrine 20 -62 shrine1
+call shrine -50 12 shrine2
+call shrine 45 30 shrine3
+
+# --- The temple on the hill: a ring of standing stones, the boar idol, the altar and its offering chest, braziers -------
+clear at 15 25 r=14
+# (the gap in the south-west is the way in, where the trail arrives)
+macro standingstone a
+place BigBoulder3_Low stone at {15+9*cos($a)} {25+9*sin($a)} ground sit scale=0.5 yaw={$a+90}
+end
+for a 0 180 45
+call standingstone $a
+next
+call standingstone 270
+call standingstone 315
+place TangaroaFounderStatue idol at 15 29 ground sit yaw=180
+place SmallRock_02 - at 15 25.2 ground sit scale=0.8 yaw=90
+place Loot_ChestLarge offering at 15 23.2 ground sit yaw=180
+place campfire_1 - at 11.8 22.8 ground sit
+place campfire_1 - at 18.2 22.8 ground sit
+place SmallBoulder4 - at 11 21.6 ground sit scale=0.6
+place SmallBoulder4 - at 19 21.6 ground sit scale=0.6
+place Creature_Boar king at 15 32 ground
+place Creature_Boar guards at 10 28 ground
+place Zone_Trigger temple at 15 22 y=1.5
+place Zone_Atmosphere templeair at 15 25 y=3
+place Zone_Sound jungle at 0 0 y=8
+
+# --- Settings, notes, behaviours, quest ---------------------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): mangoes, flowers, pineapples ----------
+scatter "Pickup_Landmark_Tree_Mango" 6 at 0 0 r=80.5 seed=4582 free=5
+scatter "Pickup_Landmark_Flower_Red" 4 at 0 0 r=80.5 seed=4592 free=3
+scatter "Pickup_Landmark_Flower_Yellow" 4 at 0 0 r=80.5 seed=4593 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=80.5 seed=4602 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=135 deep=5 n=3
+
+info title=Thornwood
+info author=Custom Islands
+info description=A jungle island split by a river gorge. An explorer's camp on the beach, an old rope bridge, three shrines in the jungle - and on the hill, a ring of standing stones where the Boar King guards the boar idol. Inspired by Raft's Balboa.
+island on.arrive=message||Dense jungle, a gorge cut through it - and on the hill, a ring of standing stones.
+
+story tusk|Carved tusk|Placeable_HonkHorn_3|A boar's tusk carved with spirals - an offering from one of Thornwood's shrines.
+note diary Explorer's diary | EXPEDITION DIARY - THORNWOOD\n\nDay 3: The island is split by a gorge. The natives' old rope bridge still holds, barely.\nDay 5: Three shrines in the jungle, each with a carved tusk in an offering box. The stone ring on the hill is their temple - they laid the tusks on its altar for the boar spirit.\nDay 6: The boar spirit is real. A warthog the size of a cow, with two guards. It charged me off the hill.\nDay 7: I'm leaving. Whoever reads this: three tusks on the altar, and the temple's offering is yours. If the King lets you.
+note thornmap Map of Thornwood | MAP OF THORNWOOD (drawn by the expedition)\n\n- Camp: the south beach.\n- The gorge runs from the west coast to the south-east. Rope bridge in the middle.\n- Shrine of the Roots: south-east jungle, this side of the gorge.\n- Shrine of the Falls: north-west, where the gorge meets the sea.\n- Shrine of the Hill: the east slope of the temple hill.\n- Temple: the stone ring on the hill, north of the gorge.
+note shrine1 Shrine of the Roots | An offering box among the roots, a brazier burning beside it. Inside: a boar's tusk carved with spirals.
+loot shrine1 story:tusk*1;Raw_Beet*2
+prop shrine1 loot.refill=0
+note shrine2 Shrine of the Falls | An offering box above the gorge's mouth, damp with spray. Inside: a carved tusk.
+loot shrine2 story:tusk*1;Rope*2
+prop shrine2 loot.refill=0
+note shrine3 Shrine of the Hill | An offering box on the hill's east slope, facing the sunrise. Inside: a carved tusk.
+loot shrine3 story:tusk*1;Feather*4
+prop shrine3 loot.refill=0
+note offering Temple offering | The temple's offering chest at the foot of the boar idol, its lid carved with three tusks.
+loot offering Blueprint_Machete*1;Machete*1;HealingSalve_Good*3;Jar_Honey*2;Seed_Mango*3
+prop offering loot.refill=0
+prop offering if.open=take|story:tusk|3
+prop offering else.open=message||Three tusks are carved into the lid. The chest won't open without three carved tusks laid on the altar.
+prop offering tint.color=#77756a
+prop offering tint.amount=0.5
+prop idol tint.color=#4f6a3c
+prop idol tint.amount=0.6
+note idol The boar idol | A stone boar, mossed green, its eyes two polished shells. Spirals run down its flanks to the altar - and three of them end in the shape of a carved tusk, empty.
+note bridgepost Carved post | Spirals and a boar's head cut deep into the bridge's post, and the explorer's pencil beside them: "Same marks as the shrines. A warning, I think - the boar's land starts on the other side."
+prop stone tint.color=#6b6a5e
+prop stone tint.amount=0.3
+
+prop camp zone.id=camp
+prop camp zone.radius=9
+prop camp zone.message=An explorer's camp, abandoned in a hurry: a tent, a cold fire, a diary on a crate.
+prop bridge zone.id=bridge
+prop bridge zone.radius=4
+prop bridge zone.message=The old rope bridge creaks under you - and holds.
+prop gorgerim zone.id=gorgerim
+prop gorgerim zone.radius=3
+prop gorgerim zone.message=The jungle drops away into the gorge - a river far below, and the old rope bridge strung across it.
+prop falls zone.id=falls
+prop falls zone.radius=3
+prop falls zone.message=Spray drifts up from the gorge's mouth. The Shrine of the Falls is just ahead.
+prop hilltrail zone.id=hilltrail
+prop hilltrail zone.radius=3
+prop hilltrail zone.message=The trail steepens. Boar tracks in the mud, big ones - all heading up the hill.
+prop temple zone.id=temple
+prop temple zone.radius=12
+prop temple zone.message=The stone ring of Thornwood. Something huge snorts behind the idol - the Boar King!
+prop king creature.count=1
+prop king creature.size=2.6
+prop king creature.health=8
+prop king creature.damage=2.5
+prop king creature.respawn=0
+prop king creature.zone=temple
+prop king tint.color=#3b2a1e
+prop king tint.amount=0.6
+prop guards creature.count=2
+prop guards creature.size=1.3
+prop guards creature.respawn=0
+prop guards creature.zone=temple
+prop templeair atmo.light=#c8e0a0
+prop templeair atmo.lightAmount=0.25
+prop templeair atmo.particles=fireflies
+prop templeair zone.radius=16
+prop jungle sound.event=event:/amb/grass
+prop jungle sound.volume=0.6
+prop jungle zone.radius=90
+
+# --- Raft's special features (the user, 2026-10-05: every Raft feature on at least one island): two caches behind the jungle's vines, for the machete
+# the Boar King's offering gives (its blueprint and one to start with)
+call vinecache x=-45 z=-60 r=22 seed=61 chest=thornvine1 vines=thornvines1 items=Rope*4;Seed_Banana*2;Bolt*3
+call vinecache x=15 z=45 r=20 seed=62 chest=thornvine2 vines=thornvines2 items=HealingSalve*2;MetalIngot*2;Plank*6
+# (the explorer's own caches, the vines grown over them since: his notes in them; the vines named for the play test)
+note thornvine1 Vine cache by the camp | Another oilcloth bundle, a short walk from the camp: rope, bolts, banana seed. The note inside:\n\n"Day 7. The boat's ready. If anyone finds this - the King can be beaten. I just couldn't do it alone."
+note thornvine2 Vine cache by the temple | The explorer's oilcloth bundle, grown over with vines: salve, two ingots, planks. A note pinned inside:\n\n"Day 4. Kit stashed by the temple path, in case the boar keeps me off the hill. The vines here grow a hand's width a night."
+prop thornvines1 obj.name=thornvines1
+prop thornvines2 obj.name=thornvines2
+call hives x=0 z=0 r=60 n=2 seed=63
+
+quest title=The Boar King of Thornwood
+quest intro=A jungle island split by a deep gorge. On the south beach, an explorer's camp - abandoned in a hurry, the diary still on a crate.
+step reach|camp|1|Find the explorer's camp on the south beach
+step read|Explorer's diary|1|Read the explorer's diary
+step read|Map of Thornwood|1|Study the expedition's map on the board by the tent
+step open|Shrine of the Roots|1|Follow the trail east to the Shrine of the Roots
+step collect|story:tusk|1|Take the first carved tusk from its offering box
+step reach|gorgerim|1|Follow the trail north to the rim of the gorge
+step read|Carved post|1|Read the marks carved into the rope bridge's post
+step reach|bridge|1|Cross the gorge on the old rope bridge
+step reach|falls|1|Take the west trail towards the falls at the gorge's mouth
+step open|Shrine of the Falls|1|Find the Shrine of the Falls where the gorge meets the sea
+step collect|story:tusk|2|Take the second tusk, damp with the falls' spray
+step open|Wild beehive|1|Raid a wild beehive in the jungle for its honeycomb
+step open|Shrine of the Hill|1|Find the Shrine of the Hill on the temple hill's east slope
+step collect|story:tusk|3|Carry all three carved tusks up the hill
+step reach|hilltrail|1|Follow the boar trail up the temple hill
+step reach|temple|1|Climb to the stone temple on the hill
+step kill|Warthog|3|Defeat the Boar King and his guards
+step read|The boar idol|1|Read the spirals carved down the boar idol's flanks
+step open|Temple offering|1|Lay the three tusks on the altar
+step blueprint|Blueprint_Machete|1|Take the machete plans from the temple offering
+step open|Vine cache by the temple|1|Cut through the vines near the temple with the new machete
+step open|Vine cache by the camp|1|Back towards the beach: cut open the second cache behind the vines
+quest done=The Boar King is dead, the tusks lie on the altar and the explorer's caches are found. The temple's offering - and a machete blueprint the explorer left - are yours.
+quest reward=Leather*6;Feather*6;Rope*4
+
+save Thornwood

@@ -1,0 +1,200 @@
+# Storm Spire - an island of the library's plan Raft 2: The Drowned Frontier (station Seven of the Frontier Corps)
+# A needle of rock in the storm belt, its top cut flat for the Corps' weather station (33.5 m): a radio tower room with a
+# mast and a turning wind vane on its roof; up the needle's west side the station's lift tower - its car
+# stuck at the top, a ladder up the tower with a landing halfway - and a bridge from its top to the station; the shed and
+# the meteorologist's tapes at the landing on the west beach; grey storm light, mist and rain round the spire. Quest "Eye
+# of the Storm" (6 steps, short on purpose): the tapes, the climb, the storm bird on the mast, the dive for the cove's
+# box, three conductor rods (the shed, the tower's landing, the cove), the station's locker (the electric smelter's, the advanced biofuel
+# extractor's and the advanced anchor's blueprints).
+#
+# Built by the recipe player (CIRecipe storm_spire) through the editor's own operations.
+include lib_sea
+include lib_rt
+new
+# (nature: forest, Like Raft - pines up a rock needle; Whiteout Reach after it is the snowy one)
+gen Trees=0.21 Bushes=0.38 Rocks=0.42 Harvest=0.1 BeachThings=0.3
+gen Seed=8107 Radius=55 Height=48 Roughness=0.6 Peaks=1 Shape=0 Style=3 PeakShape=0.9 Cliffs=0.6
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.4 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the needle's top cut flat for the station (33.5 m), the lift tower's pad at its west foot (9.5 m), the
+# landing on the west beach (3 m) ---------------------------------------------------------------------------------------
+# (the top 16 m across: at 11 m the station's corners hung over its edge; 0.1 m under the bridge and the station's floor)
+brush flatten at 1 9 r=8 s=20 frames=90 h=33.4
+brush flatten at -11 9 r=3.5 s=20 frames=50 h=9.5
+# (a path up to the pad from the beach side - its edge stood as a 2 m bank: 14 m long, rising to the pad's height at
+# its west edge; a shorter one ended in a step under the tower's west pillars)
+for i 0 12 1
+brush flatten at {-28+$i*1.17} 9 r=2.6 s=20 frames=15 h={3.6+$i*0.5}
+next
+brush smooth from -29 9 to -15.5 9 r=2.6 s=10 frames=12
+# (the pad levelled again after the path: its smoothing left the tower's west pillars 0.4-0.6 m over the ground)
+brush flatten at -11 9 r=2.6 s=20 frames=40 h=9.5
+# (and under the tower's west pillars, where the pad meets the path: their feet stood 0.4 m over the ground)
+brush flatten from -12.25 7.5 to -12.25 10.5 r=1.8 s=20 frames=40 h=9.55
+brush flatten at -33 8 r=5 s=20 frames=50 h=3
+# (the needle's sides and top painted rock: cut flat and widened, it stood as a smooth tan column)
+brush rock at 1 9 r=11 s=20 frames=40
+origin
+clear at 1 9 r=9
+clear at -11 9 r=5
+clear at -33 8 r=7
+clear from -33 8 to -12 9 r=2.5
+
+# --- The landing on the west beach: the shed (Raft's wooden walls, a wooden roof, its door to the spire) with the first
+# rod, the meteorologist's tapes on a crate by it ------------------------------------------------------------------------
+push at -35.5 5.5 h=3
+for fx 0.75 2.25 1.5
+for fz 0.75 2.25 1.5
+place Block_Floor_Wood - at $fx $fz y=0.2
+next
+next
+place Block_Wall_Wood - at 0.75 0 y=0.2
+place Block_Wall_Wood - at 2.25 0 y=0.2
+place Block_Wall_Wood - at 0.75 3 y=0.2
+place Block_Wall_Wood - at 2.25 3 y=0.2
+place Block_Wall_Wood - at 0 0.75 y=0.2 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.2 yaw=90
+place Block_Wall_Wood - at 3 0.75 y=0.2 yaw=90
+place Block_Pillar_Wood - at 0 0 y=0.2
+place Block_Pillar_Wood - at 3 0 y=0.2
+place Block_Pillar_Wood - at 0 3 y=0.2
+place Block_Pillar_Wood - at 3 3 y=0.2
+roof 2 2 at 0 0 y=0.2 wood
+place "Box Small" rodshed at 0.9 2.2 y=0.2 sit yaw=10
+pop
+place Crate_Big_01 - at -30.5 9.5 ground yaw=15
+place Note_Paper tapes at -30.5 9.5 h=8 sit drop yaw=80
+place Placeable_Lantern_Metal - at -30.1 9.9 h=8 sit drop
+place Zone_Trigger spirefoot at -31 8 h=4
+
+# --- The station's lift tower at the needle's west foot: four storeys of the radio tower's thick pillars, Raft's 6 m
+# ladders up its west face, a landing halfway with the second rod, the stuck car on its top, a bridge to the station -----
+push at -11 9 h=9.5
+for lv 0 18 6
+place RT_PillarThick - at -1.25 -1.25 y=$lv
+place RT_PillarThick - at 1.25 -1.25 y=$lv
+place RT_PillarThick - at -1.25 1.25 y=$lv
+place RT_PillarThick - at 1.25 1.25 y=$lv
+place LandmarkLadder_6m - at -1.45 0 y=$lv yaw=90
+next
+place Block_Floor_Wood landing at 0 0 y=12
+place "Box Small" rodledge at 0.2 0.3 y=12 sit yaw=35
+for fx -0.75 0.75 1.5
+for fz -0.75 0.75 1.5
+place Block_Floor_Wood - at $fx $fz y=24
+next
+next
+place Block_Wall_Fence_Rope - at -0.75 1.5 y=24
+place Block_Wall_Fence_Rope - at 0.75 1.5 y=24
+place Block_Wall_Fence_Rope - at -0.75 -1.5 y=24
+place Block_Wall_Fence_Rope - at 0.75 -1.5 y=24
+# (the bridge to the station's door: five blocks - three ended 2 m short of the top, over a 22 m drop)
+for bx 2.25 8.25 1.5
+place Block_Floor_Wood - at $bx 0 y=24
+place Block_Wall_Fence_Rope - at $bx -0.75 y=24
+place Block_Wall_Fence_Rope - at $bx 0.75 y=24
+next
+pop
+
+# --- The weather station on the needle's top: a radio tower room (its door to the bridge), the instrument panel and the
+# locker behind it; on its roof the mast with a wind vane turning in the storm, the storm bird (the radio tower's
+# down-pipe as a lightning rod lay flat on the roof - left out) ----------------------------------------------------------
+push at 4 9 h=33.5
+call rt_storey l2=RT_WallDoor1 f1=RT_WallWindow1 b2=RT_WallWindow1 r2=RT_WallWindow2
+place RT_Floor - at 0 4.5 y=3.05
+place "Table Office" - at -3 3.4 sit
+place RT_RadarScreen - at -2.9 3.85 y=1.08 sit yaw=180 scale=0.5
+place Locker stationlocker at -0.55 2.4 sit yaw=270
+place Placeable_Lantern_Metal - at -4.2 3.6 y=1.2 sit drop
+place RT_PillarThick mast at -1.2 -3.2 y=3.05
+# (the vane's foot is wider than the mast: it stands on a 2 x 2 m scaffold platform on the mast's top)
+place Scaffolding_2x2m - at -1.2 -3.2 y=9.05
+place Placeable_WindTurbine vane at -1.2 -3.2 y=10.05 scale=0.45
+place Zone_Trigger spiretop at -3 0 y=1.5
+place Creature_StoneBird stormbird at -3 0 y=9
+pop
+
+# --- The north cove off the north-west shore (3.8 m down, a level spot - CISeaSpots): the third rod's box on its floor --
+place "Box Small" rodcove at -30 57 ground yaw=40
+
+# --- The storm round the spire: grey light and mist, the rain's sound -----------------------------------------------------
+place Zone_Atmosphere storm at 0 9 h=18
+place Zone_Sound rain at 0 9 h=10
+
+# --- Settings, story items, notes, behaviours, quest (6 steps) ---------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): pines, birches, berries ----------
+scatter "Pickup_Landmark_Tree_Pine" 3 at 0 0 r=38.5 seed=4353 free=5
+scatter "Pickup_Landmark_Tree_Birch" 3 at 0 0 r=38.5 seed=4363 free=5
+scatter "Pickup_Landmark_BerryBush" 3 at 0 0 r=38.5 seed=4373 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=75 deep=5 n=2
+
+info title=Storm Spire
+info author=Custom Islands
+info description=Station Seven of the Frontier Corps: a weather station on a needle of rock in the storm belt, its lightning line broken. A short climb, three conductor rods and a storm bird. The seventh island of Raft 2: The Drowned Frontier.
+island on.arrive=message||A needle of rock in grey rain, a mast on its top crackling with every gust. A tape recorder clicks somewhere at the landing: "...the line is broken..."
+
+story rod|Conductor rod|quest:Temperance_ElectricalCable|A copper conductor rod for the spire's lightning line.
+
+note tapes Meteorologist's tapes | (a tape recorder on a crate by the shed, still playing) ...the lightning line is broken in three places and the instruments burn out with every strike. Spare rods: one in the shed here, one on the lift tower's landing halfway up, one went over the edge into the north cove... The lift's car is stuck at the top - climb its tower. The smelter plans are in the station's locker, behind the instrument panel. The Corps went on north - to Whiteout Reach, before winter.
+note rodshed Shed box | The shed's box: a copper rod, a coil of wire.
+loot rodshed story:rod*1;Rope*2
+prop rodshed loot.refill=0
+note rodledge Landing box | A box on the lift tower's landing, halfway up: a copper rod, wet and green.
+loot rodledge story:rod*1;Scrap*3
+prop rodledge loot.refill=0
+note rodcove Cove box | A box on the north cove's floor: the third copper rod.
+loot rodcove story:rod*1;Plastic*2
+prop rodcove loot.refill=0
+note stationlocker Station locker | The weather station's locker, behind the instrument panel: an electric smelter, an advanced biofuel extractor, an anchor for any storm.
+loot stationlocker Blueprint_SmelterElectric*1;Blueprint_BiofuelExtractorAdvanced*1;Blueprint_AnchorStationaryAdvanced*1;CopperIngot*3
+prop stationlocker loot.refill=0
+prop stationlocker if.open=take|story:rod|3
+prop stationlocker else.open=message||The locker is behind the instrument panel - and the panel's lightning line is broken in three places. It takes three rods.
+
+prop vane obj.name=vane
+prop vane beh.spin=40
+prop spirefoot zone.id=spirefoot
+prop spirefoot zone.radius=8
+prop spirefoot zone.message=The spire's landing: a shed, a crate with a tape recorder still clicking - and the station far above in the rain.
+prop spiretop zone.id=spiretop
+prop spiretop zone.radius=9
+prop spiretop zone.message=The weather station on the needle's top - and a stone bird screaming from the mast!
+prop stormbird creature.count=1
+prop stormbird creature.size=1.5
+prop stormbird creature.health=3
+prop stormbird creature.respawn=0
+prop stormbird creature.zone=spiretop
+prop storm atmo.fog=#5a6670
+prop storm atmo.fogAmount=0.35
+prop storm atmo.light=#8a98a8
+prop storm atmo.lightAmount=0.35
+prop storm atmo.particles=mist
+prop storm zone.radius=45
+prop rain sound.event=event:/amb/rain_ocean
+prop rain sound.volume=0.6
+prop rain zone.radius=40
+
+quest title=Eye of the Storm
+quest intro=A weather spire in the storm belt, its lightning line broken. Station Seven: start at the spire's landing.
+step read|Meteorologist's tapes|1|Listen to the meteorologist's tapes at the spire's landing
+step reach|spiretop|1|Climb the lift tower to the station - a rod waits on the landing halfway
+step kill|Screecher|1|Drive off the storm bird on the mast
+step open|Cove box|1|Dive into the north cove for the rod that went over the edge
+step collect|story:rod|3|Have all three conductor rods: the shed, the tower's landing, the cove
+step open|Station locker|1|Mend the lightning line and open the station's locker
+step blueprint|Blueprint_SmelterElectric|1|Take the electric smelter plans from the station locker
+step blueprint|Blueprint_BiofuelExtractorAdvanced|1|Take the advanced biofuel extractor plans from the station locker
+step blueprint|Blueprint_AnchorStationaryAdvanced|1|Take the advanced stationary anchor plans from the station locker
+quest done=The line holds as the next strike hits - the instruments live again, and their last reading points north: Whiteout Reach.
+quest reward=CopperIngot*2;Plank*6;Rope*2
+
+# --- A Raft store at the needle's foot: the Corps' supply post, still trading (Raft's goods, and plans the crew missed) --
+store supplypost at -34 -8 ground
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=42 n=1 seed=8856
+prop treasure8856 treasure.loot=TitaniumOre*2
+
+save Storm Spire

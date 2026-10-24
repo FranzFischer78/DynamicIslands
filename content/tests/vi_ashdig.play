@@ -1,0 +1,31 @@
+# Ashdig (CIPlay vi_ashdig; VI1 vehicle island): quest "The Last Load", the six steps in order
+island Ashdig
+offset 0 0
+expect step 0
+expect title The Last Load
+expect hidden assaybox
+zone dig
+expect step 1
+read Foreman's tally
+expect step 2
+kill Screecher
+expect animals Screecher 0
+expect step 3
+use leadwagon
+expect message waits for its load
+open First sample box
+wait 2
+open Second sample box
+wait 2
+open Third sample box
+wait 2
+expect story oresample 3
+expect step 4
+use leadwagon
+expect story loaded 1
+expect shown assaybox
+expect step 5
+open Assay box
+wait 2
+expect item TitaniumOre 1
+expect done

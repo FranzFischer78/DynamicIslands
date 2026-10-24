@@ -1,0 +1,13 @@
+# Guide pictures of Ribcage Reef (CIPlay ribcage_reef_pics): Raft's camera, midday, calm. Points as in its recipe ("offset").
+island Ribcage Reef
+offset 0 0
+hour 11
+weather Calm
+at 10 0 h=3
+wait 3
+picture ribcage_reef_island 40 90 120 20 0 0
+picture ribcage_reef_ribs -10 8 12 20 6 2
+picture ribcage_reef_village 18 24 -18 18 4 2
+picture ribcage_reef_stage 58 10 -10 44 4 2
+picture ribcage_reef_skull 76 10 14 62 0 30
+picture ribcage_reef_altar 84 8 34 92 3 22

@@ -1,0 +1,39 @@
+# Altitude Market (CIPlay altitude_market): a sky island 35 m up; the rim, the crier's board, the station (vines), the
+# clock tower (screechers, keypad 3517), the fireworks stall, the rigger's chest, the zipline down to the lower terrace
+# (step 9: the plan's done-when) and the ballast release (signal ballast: it brings Sinkmarket Floor). Vending machine.
+island Altitude Market
+offset 0 0
+expect step 0
+expect title Market Day in the Sky
+zone market_rim
+expect step 1
+read Market crier's board
+expect step 2
+open Porter's toolbox
+wait 3
+expect item Machete 1
+use stationvines
+expect hidden stationvines
+zone station
+expect step 3
+open Station office
+wait 3
+expect step 5
+zone clocktower
+kill Screecher
+expect step 6
+code clockpad 3517
+open Clock tower room
+wait 3
+expect step 7
+open Fireworks stall
+wait 3
+expect step 8
+open Rigger's chest
+wait 3
+expect step 9
+zone lower_terrace
+expect step 10
+use release
+expect story ballastdrop 1
+expect done

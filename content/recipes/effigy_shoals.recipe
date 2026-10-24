@@ -1,0 +1,132 @@
+# Effigy Shoals - the third island of the library's plan The Lullaby Frequency (SL1, horror), unlocked on day eight
+# Three low sandbars in a ring round a sandy middle, cut apart by three shallow channels. Thirty straw effigies of the
+# Quiet Choir stand on them, every one facing the middle; there are no buildings at all. Each effigy is there twice: the
+# second set faces the landing beach and is hidden - stepping into the circle swaps the sets once, so the effigies have
+# all turned to face you. Quest "Count Them Again" (5 steps): the landing, the tide marker, the circle, the choir hymn
+# sheet at the tallest effigy's feet (a story item Gannet Rock's pit gate asks for), "Who made them" (note 3: the plan's
+# done-when).
+#
+# Built by the recipe player (CIRecipe effigy_shoals) through the editor's own operations.
+include lib_sea
+include lib_features
+include lib_sl1
+new
+# (nature: bare sand - few trees (0.08), Rocks Like Raft)
+gen Trees=0.08 Bushes=0.12 Rocks=0.43 Harvest=0.1 BeachThings=0.45
+gen Seed=1203 Radius=48 Height=3 Roughness=0.2 Peaks=1 Shape=0 Style=0 PeakShape=0.2 Cliffs=0 BeachWidth=0.9
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.5 Sunken=0.3 Hostiles=0 Friendly=0.1 SeaLife=0.35
+generate
+
+# --- Terrain: the whole shoal levelled low (1.2 m), three channels cut between the bars, the middle kept -------------
+brush flatten at 0 0 r=36 s=20 frames=150 h=1.2
+origin
+for ca 90 330 120
+brush flatten from {13*cos($ca)} {13*sin($ca)} to {46*cos($ca)} {46*sin($ca)} r=4 s=16 frames=60 h=-1.6
+next
+brush smooth at 0 0 r=40 s=3 frames=10
+clear at 0 0 r=36
+
+# --- The effigies: three bars (centred on 30, 150 and 270 degrees), an inner row of five at 20 m and an outer row of
+# five at 28 m on each. Set "effin" faces the middle; set "effout" (hidden) faces the landing beach (0 -38). ----------
+for bar 30 270 120
+for off -30 30 15
+call effigy x={20*cos($bar+$off)} z={20*sin($bar+$off)} yaw={270-$bar-$off} alias=effin
+next
+for off -32 32 16
+call effigy x={28*cos($bar+$off)} z={28*sin($bar+$off)} yaw={270-$bar-$off} alias=effin
+next
+next
+# (set "effout": its yaws worked out beforehand - each faces the landing beach at 0 -38)
+call effigy x=20.00 z=0.00 yaw=-152.2 alias=effout
+call effigy x=19.32 z=5.18 yaw=-155.9 alias=effout
+call effigy x=17.32 z=10.00 yaw=-160.2 alias=effout
+call effigy x=14.14 z=14.14 yaw=-164.8 alias=effout
+call effigy x=10.00 z=17.32 yaw=-169.8 alias=effout
+call effigy x=27.98 z=-0.98 yaw=-142.9 alias=effout
+call effigy x=27.17 z=6.77 yaw=-148.8 alias=effout
+call effigy x=24.25 z=14.00 yaw=-155.0 alias=effout
+call effigy x=19.45 z=20.14 yaw=-161.5 alias=effout
+call effigy x=13.15 z=24.72 yaw=-168.2 alias=effout
+call effigy x=-10.00 z=17.32 yaw=169.8 alias=effout
+call effigy x=-14.14 z=14.14 yaw=164.8 alias=effout
+call effigy x=-17.32 z=10.00 yaw=160.2 alias=effout
+call effigy x=-19.32 z=5.18 yaw=155.9 alias=effout
+call effigy x=-20.00 z=0.00 yaw=152.2 alias=effout
+call effigy x=-13.15 z=24.72 yaw=168.2 alias=effout
+call effigy x=-19.45 z=20.14 yaw=161.5 alias=effout
+call effigy x=-24.25 z=14.00 yaw=155.0 alias=effout
+call effigy x=-27.17 z=6.77 yaw=148.8 alias=effout
+call effigy x=-27.98 z=-0.98 yaw=142.9 alias=effout
+call effigy x=-10.00 z=-17.32 yaw=154.2 alias=effout
+call effigy x=-5.18 z=-19.32 yaw=164.5 alias=effout
+call effigy x=-0.00 z=-20.00 yaw=180.0 alias=effout
+call effigy x=5.18 z=-19.32 yaw=-164.5 alias=effout
+call effigy x=10.00 z=-17.32 yaw=-154.2 alias=effout
+call effigy x=-14.84 z=-23.75 yaw=133.9 alias=effout
+call effigy x=-7.72 z=-26.92 yaw=145.2 alias=effout
+call effigy x=-0.00 z=-28.00 yaw=180.0 alias=effout
+call effigy x=7.72 z=-26.92 yaw=-145.2 alias=effout
+call effigy x=14.84 z=-23.75 yaw=-133.9 alias=effout
+
+# --- The tallest effigy in the middle (it faces south both ways), the hymn sheet at its feet ------------------------
+place Placeable_Scarecrow_Advanced - at 0 6 ground sit yaw=180 scale=1.5
+place Note_Paper hymnsheet at 0.8 4.6 ground sit yaw=10
+place Zone_Trigger circlezone at 0 0 ground y=1
+
+# --- The landing on the south bar, its tide-marker post; the Choir's basket and note on the east bar ---------------
+place Note_Sign tidemarker at -3 -32 ground sit yaw=180
+place Zone_Trigger landingzone at 0 -34 ground y=1
+place Crate_Big_01 - at 22 8 ground sit yaw=60
+place Note_Paper whomade at 22 8 ground y=0.6 sit drop yaw=30
+place Loot_Chest offerings at 24.5 6 ground sit yaw=240
+place Zone_Sound windsound at 0 0 ground y=2
+
+# --- Things to gather, two tight reefs in the channels -------------------------------------------------------------
+scatter "Pickup_Landmark_PineappleLandmark" 2 at 0 0 r=30 seed=1231 free=4
+call shallows x=-34 z=20 r=10 deep=4 n=1 seed=1232
+call shallows x=34 z=20 r=10 deep=4 n=1 seed=1233
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Effigy Shoals
+info author=Custom Islands
+info description=Three low sandbars in a ring and thirty straw effigies on them, all facing the middle. No houses, no people. The third island of The Lullaby Frequency.
+island on.arrive=message||Figures stand on the sandbars - dozens of them, still as posts. Straw. Effigies. All of them looking inward.
+
+story hymn|Choir hymn sheet|Note_Paper|The Quiet Choir's hymn, written out by hand. "Only those who know the hymn may listen."
+
+note tidemarker Tide marker | Carved into the post, deep:\n\nCOUNT THEM.\nTHEN COUNT AGAIN.
+note hymnsheet Choir hymn sheet | THE LISTENING HYMN\n\nHush now, the water is listening,\nhush now, the lantern is low,\nshe sings at the hour of twelve past three,\nand all of the drowned ones know.\n\n- to be learned by heart before the pit. The Quiet Choir.
+note whomade Who made them | We made them so she would have someone to sing to who could not walk into the sea.\n\nThirty of us, thirty of them. When the song stops we will burn them.\n\nCome to Gannet Rock if you hear her too. Bring the hymn - the Listener will not let you near the pit without it.\n\n- the Quiet Choir
+note offerings Choir's offering basket | A basket of food left for whoever comes to count them.
+loot offerings Cooked_Mackerel*3;Coconut*2;Watermelon*2;Canteen_Water*1
+prop offerings loot.refill=0
+
+prop hymnsheet if.read=!signal|ef_hymn
+prop hymnsheet on.read=signal||ef_hymn\ngive||story:hymn*1
+
+prop effin obj.name=effin
+prop effout obj.name=effout
+prop effout beh.hidden=1
+prop circlezone zone.id=circle
+prop circlezone zone.radius=5
+prop circlezone zone.repeat=never
+prop circlezone on.enter=hide|effin\nshow|effout\nplaysound||event:/amb/wreck_creaks|0.8|once|near\nmessage||A creak of straw, all round you at once. You did not see them move.
+
+prop landingzone zone.id=landing
+prop landingzone zone.radius=5
+prop landingzone zone.message=Effigy Shoals. Thirty of them - you think. Count them.
+prop windsound sound.event=event:/amb/wreck_creaks
+prop windsound sound.volume=0.25
+prop windsound zone.radius=40
+
+quest title=Count Them Again
+quest intro=Sandbars, and straw figures on them. Come ashore on the south bar.
+step reach|landing|1|Come ashore on the south bar
+step read|Tide marker|1|Read the tide marker
+step reach|circle|1|Walk into the middle of the circle
+step read|Choir hymn sheet|1|Read the hymn sheet at the tallest effigy's feet
+step read|Who made them|1|Find out who made them (the east bar)
+quest done=They all face you now. The Quiet Choir is on Gannet Rock - and the hymn will get you in.
+quest reward=Cooked_Mackerel*2;Rope*3;Plank*4
+
+save Effigy Shoals

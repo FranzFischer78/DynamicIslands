@@ -1,0 +1,10 @@
+# Guide pictures of The Frontier (CIPlay the_frontier_pics): Raft's camera, midday, calm
+island The Frontier
+hour 11
+weather Calm
+at 30 88
+wait 5
+picture the_frontier_harbour -34 16 136 6 12 80
+picture the_frontier_terraces 58 30 104 0 18 62
+picture the_frontier_town -4 50 52 44 36 8
+picture the_frontier_hall 112 22 34 58 26 7

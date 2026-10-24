@@ -1,0 +1,20 @@
+# Play test of Charbone Cove (CIPlay charbone_cove, in a test world 'CI ...'). No quest: the camp behind the palisade and
+# the chest by the fire, the bone cave on the east shore and the camp's hoard, the boars, the treasure. Points as in its
+# recipe.
+island Charbone Cove
+offset 0 0
+expect animals Hyena 3
+expect animals Warthog 2
+expect animals Turtle 2
+wait 3
+kill Hyena
+kill Warthog
+# The camp's clearing, the chest by the fire
+walk -4 -6 to -6 -3 to -7.6 -2.2 h=4 below=6
+expect stand -6 -3 h=4 below=5
+open Chest by the fire
+# The bone cave: in from the east beach to the hoard
+walk 44 7 to 38 7 to 32 8 to 27.5 9.5 h=2.1 below=3
+expect stand 30 8 h=2.1 below=3
+open The camp's hoard
+dig

@@ -1,0 +1,117 @@
+# Play test of The Trade Wind Archipelago (CIPlay trade_wind_archipelago, in a test world 'CI ...'). Points as in its
+# recipe ("offset"). Port Alize on the main island's south shore (the quay at 1 m along z 11, the office -54.5..-44 x
+# 19.5..30, the harbour dug to 6 m at -45 1); the committee boat at -40 -22; the buoys at 15 25, 50 90, 75 145, 155 75,
+# 155 25, the wreck 25 -115 (8 m down), -150 20, -88 -2; Windward Cay's boardwalk at 78..93 x 138.5..140 (deck 2.1 m), the
+# fish market 103.5..114 x 134.5..145; Leeward Key's landing at -103 -35, the pen at -126..-117 x -39..-31 (5 m); the
+# clubhouse -43.5..-33 x 55.5..66 (11 m), the bell tower's deck at -38 52 (12 m up).
+island The Trade Wind Archipelago
+offset 0 0
+expect step 0
+expect title The Trade Wind Regatta
+wait 5
+expect animals Chicken 3
+expect animals Goat 3
+at -45 14 h=3
+zone portalize
+expect step 1
+read The regatta notice
+expect step 2
+at -40 -22 h=2
+use startcannon
+expect message Sign on
+at -49 24.8 h=3.5
+use register
+expect story racenumber 1
+expect step 3
+at -45 3 h=-4.5
+zone harbourfloor
+expect step 4
+open Harbourmaster's tiller box
+expect story pennant 1
+expect step 6
+at -40 -22 h=2
+zone startline
+expect step 6
+use startcannon
+expect shown buoy1
+at 15 25 h=0.5
+zone buoy1
+expect step 7
+at 50 90 h=0.5
+zone buoy2
+expect step 8
+at 75 145 h=0.5
+zone buoy3
+expect step 9
+at 88 139.2 h=3.5
+zone windwardcay
+expect step 10
+read The fishwife's complaint
+expect step 11
+open Windward Cay's pennant box
+expect message FOR WHOEVER CLEARS
+at 107 140 h=3.5
+zone fishmarket
+kill Rat
+expect step 12
+open Windward Cay's pennant box
+expect story pennant 2
+expect step 13
+at 155 75 h=0.5
+zone buoy4
+expect step 14
+at 155 25 h=0.5
+zone buoy5
+expect step 15
+expect shown wreckmark
+at 25 -115 h=0.5
+zone wreckmark
+expect step 16
+at 28 -111 h=-6.5
+use wreckflag
+expect story leaderflag 1
+expect step 17
+at -103 -35 h=3
+zone leewardkey
+expect step 18
+read The goatherd's plea
+expect step 19
+open Goatherd's basket
+catch Goat 3
+expect step 20
+open Leeward Key's pennant box
+expect story pennant 3
+expect step 21
+at -150 20 h=0.5
+zone buoy7
+expect step 22
+at -88 -2 h=0.5
+zone buoy8
+expect step 23
+expect shown finish
+at -40 -22 h=2
+zone finish
+expect step 24
+read The committee's ledger
+expect step 25
+use entrybox
+expect story entryslip 1
+expect step 26
+at -36 59 h=12.5
+zone clubhouse
+expect step 27
+at -38.4 52 h=14
+zone clubtower
+expect step 28
+use winnersbell
+expect shown celebration
+expect shown engraving
+read The trophy's engraving
+expect step 29
+open The Trade Wind Trophy
+expect done
+open Fruit stall box
+open Committee boat box
+open Windward barrel
+open Wreck's crate
+open Islet box

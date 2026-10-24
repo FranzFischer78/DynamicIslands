@@ -1,0 +1,15 @@
+# Guide pictures of Blackwall (CIPlay blackwall_pics): Raft's camera, mid-afternoon, calm; the flooded shaft from its
+# mouth (its black water draws nothing from inside)
+island Blackwall
+offset 3.1075 -10.8314
+hour 15
+weather Calm
+at 4.1 -3 h=9.5
+wait 3
+picture blackwall_island -55 32 18 4 7 -6
+picture blackwall_seawall 17 5 57 2 4 41
+picture blackwall_flats 4.1 17 15 4.1 11 -4
+picture blackwall_minehead 19 13 -23 3 10 -39
+picture blackwall_postoffice 0.4 11.3 1 -3 9.8 -3.5
+picture blackwall_flat 0.4 14.3 -1 -2 12.8 -5.5
+picture blackwall_shaft 4.5 12.5 -33 3 0 -39.5

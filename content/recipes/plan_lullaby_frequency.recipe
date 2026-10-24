@@ -1,0 +1,26 @@
+# The Lullaby Frequency - a world plan of the library: a horror story line beside Raft's own (SL1)
+# Raft's story stays on; this line runs beside it in Raft's notebook (purple tabs, the finale red). Every night at 3:12
+# the Receiver hums a lullaby, and little Pim hums it in his sleep. Eight islands follow the song: a cannery, a
+# sanatorium, a shoal of effigies (day 8), rice terraces with statues that move, a causeway in the mist, the Quiet
+# Choir's cliff camp, a drowned children's home under the sea - and at the end a quarry with five listening mirrors
+# and the Lantern-Mother in its flooded pit. A side islet with a hut and a table set for four comes back every two
+# days until its quest is done.
+#
+# Built by the recipe player (CIRecipe plan_lullaby_frequency) in the editor's World plans window. Its play test:
+# content\tests\plan_lullaby_frequency.play (run it on day 8 or later: CISetDay 8, for Effigy Shoals' day:8).
+plan new The Lullaby Frequency
+plan description A horror story line beside Raft's own: at 3:12 every night the Receiver hums a lullaby. Follow it - a cannery, a sanatorium, a shoal of effigies, terraces where the statues move, a causeway in the mist, the Quiet Choir's cliff, a drowned children's home - to the quarry where five mirrors listen to the sea. A hut that keeps coming back sets a table for four. Its main islands are about 60% the size of Raft's own big islands.
+plan random on
+plan story on
+plan rule cannery | island:Hollins Cannery | start | receiver:500 | At 3:12 the Receiver hums by itself - a lullaby, under it a cannery's call sign. | Hollins Cannery | beside | quest | Hollins Cannery | 4
+plan rule agnes | island:Saint Agnes Sanatorium | quest:cannery | receiver:800 | The lullaby again, clearer - and a nurse's voice: "Saint Agnes. The children are asleep." | Saint Agnes Sanatorium | beside | quest | Saint Agnes Sanatorium | 4
+plan rule effigy | island:Effigy Shoals | day:8 | receiver:700 | On the eighth night the hum has words, and a bearing: sandbars, and figures standing on them. | Effigy Shoals | beside | note:3 | Effigy Shoals | 4
+plan rule returning | island:The Returning Islet | day:2:again | ahead:400 | A small grey rock ahead with one palm, and a hut on stilts. A candle is lit. | The Returning Islet
+plan rule terraces | island:Stillwater Terraces | zone:effigy:circle | receiver:900 | In the effigies' circle the Receiver finds the song's next voice: rice terraces, and bells. | Stillwater Terraces | beside | zone:altar | Stillwater Terraces | 4
+plan rule causeway | island:Mistlock Causeway | step:terraces:4 | receiver:900 | The bell stones hum when they touch: a bearing, to a causeway lost in mist. | Mistlock Causeway | beside | quest | Mistlock Causeway | 4
+plan rule commune | island:Gannet Cliff | visit:causeway | receiver:1000 | Across the lagoon the Receiver catches a choir singing the lullaby, very far off: a cliff of gannets. | Gannet Cliff | beside | quest | Gannet Cliff | 4
+plan rule cradle | island:Cradle Reef | quest:commune | receiver:1000 | The Choir's chart marks a buoy at sea - and under it, the Receiver says, little beds in rows. | Cradle Reef | beside | quest | Cradle Reef | 4
+plan rule mirrors | island:The Listening Mirrors | quest:cradle | receiver:1200 | The tooth hums on 1200. The last frequency: a quarry, and five mirrors listening to the sea. | The Listening Mirrors | beside | quest | The Listening Mirrors | 7
+plan credits The Lullaby Frequency | Custom Islands
+plan ending At 3:12 the Receiver is silent. Pim sleeps without humming.\n\nThe end of The Lullaby Frequency.
+plan save

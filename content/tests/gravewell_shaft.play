@@ -1,0 +1,33 @@
+# Gravewell Shaft (CIPlay gravewell_shaft): 45 m down; the rim, the permit, the cage elevator to the pit floor, gallery 1
+# (anglers, the logbook), gallery 2 (the pump key), the pump hall, the smelter store's three plans, Halvard's log 7.
+island Gravewell Shaft
+offset 0 0
+expect step 0
+expect title The Gravewell
+zone rim
+expect step 1
+read Shaft entry permit
+expect step 2
+use cage
+expect story cagedown 1
+expect step 3
+air gallery_1
+expect step 4
+zone shaft
+kill Angler fish
+expect step 5
+read Gallery logbook
+expect step 6
+air gallery_2
+open Gallery crate
+wait 3
+expect story pumpkey 1
+expect step 7
+open Pump hall
+wait 3
+expect step 8
+open Smelter store
+wait 3
+expect step 11
+read Halvard's log 7
+expect done

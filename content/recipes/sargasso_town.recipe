@@ -1,0 +1,354 @@
+# Sargasso Town - a new island of the library, four times the size (x4)
+# A floating town of wrecks in the calm lagoon of a sunken volcano (Shape 1, Style 4): a ring of black rock round a
+# shallow lagoon, a channel cut through the rim on the south for the way in, and in the lagoon's middle the town on its
+# weed islets - plank streets on posts from the quay to the council house, the captains' ships and houses round it, a
+# scrap barge, a schooner at the north pier, a capsized hull off the west side; the crater spring at the north rim's foot
+# and a lookout tower on the east rim's foot. The Council of Captains is away for the season; each captain left a favour
+# for their vote: fetch, fight, dive, fix, find. Win all five votes and the town chest is yours. Quest "Five Votes" (15
+# steps, five favours of five kinds).
+#
+# Built by the recipe player (CIRecipe sargasso_town) through the editor's own operations. Points: the lagoon's floor
+# -3.3 m, the channel x 5 from z -40 to the sea; the weed islets at 0.3 m - the council's at 0 0 (r 7), Mbeki's at -16 2,
+# Rourke's at 16 2, Ilka's at 16 -16; the streets' decks at 1 m: the quay x -1.5..1.5, z -26..-3.5, the north street
+# x 0..1.5, z 7..22 (Fen's pier), the west street x -12..-6 (z 1.25..2.75), the east street x 6..12, the south-east street
+# x 1.5..12 (z -15.5..-14); the council house x -2.25..2.25, z -2.25..2.25 (door south); Rourke's galley x 14..18.5,
+# z -0.25..4.25 (door west); the capsized hull at -26 -12 over a hole 8 m deep; the spring's pad at 0 46 (2.4 m); the
+# lookout's pad at 51 -4 (4.6 m), its deck 12.1 m, its ladder at 51.75 -5.7.
+include lib_huts
+include lib_sea
+new
+# (nature: volcanic - scrub and a few hardy trees on the rim, black sand; the lagoon weedy)
+gen Trees=0.2 Bushes=0.3 Rocks=0.5 Harvest=0.25 BeachThings=0.3
+gen Seed=9213 Radius=90 Height=18 Roughness=0.5 Peaks=2 Shape=1 Style=4 BeachWidth=0.3 Cliffs=0.5 PeakShape=0.45
+gen Water=0.7 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.5 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== The ground: the channel through the rim, the weed islets, the hole under the capsized hull, the spring's and the
+# lookout's pads ===========================================================================================================
+brush flatten from 5 -40 to 5 -100 r=5 s=20 frames=120 h=-3.5
+brush flatten at 0 0 r=7 s=20 frames=60 h=0.3
+brush flatten at -16 2 r=4.5 s=20 frames=60 h=0.3
+brush flatten at 16 2 r=4.5 s=20 frames=60 h=0.3
+brush flatten at 16 -16 r=4 s=20 frames=60 h=0.3
+brush grass at 0 0 r=7 s=20 frames=30
+brush grass at -16 2 r=4.5 s=20 frames=30
+brush grass at 16 2 r=4.5 s=20 frames=30
+brush grass at 16 -16 r=4 s=20 frames=30
+brush flatten at -26 -12 r=8 s=20 frames=80 h=-8
+brush flatten at 0 46 r=3.5 s=20 frames=60 h=2.4
+brush flatten at 51 -4 r=4.6 s=20 frames=80 h=4.6
+clear from 5 -40 to 5 -100 r=6
+clear at 0 0 r=8
+clear at -16 2 r=5
+clear at 16 2 r=5
+clear at 16 -16 r=5
+clear at -26 -12 r=9
+clear at 0 46 r=4
+clear at 51 -4 r=4
+
+# ===== The streets: decks of planks on posts from the lagoon's floor - the quay, the north street to Fen's pier, the west,
+# east and south-east streets; lanterns, awnings, the market raft's box, the hens; the Council's notice on the quay ========
+push at 1.5 -26 h=-3.3 yaw=270
+call boardwalk n=15 wide=2 y=4.3
+pop
+push at 1.5 7 h=-3.3 yaw=270
+call boardwalk n=10 wide=1 y=4.3
+pop
+push at -6 2.75 h=-3.3 yaw=180
+call boardwalk n=4 wide=1 y=4.3
+pop
+push at 6 1.25 h=-3.3
+call boardwalk n=4 wide=1 y=4.3
+pop
+push at 1.5 -15.5 h=-3.3
+call boardwalk n=7 wide=1 y=4.3
+pop
+place Note_Board notice at -1.2 -24.5 h=1 yaw=90
+place Pillar_04 - at -2.2 -26.5 ground
+place Pillar_04 - at 2.4 -26.5 ground
+place Loot_Barrel fishbarrel at 1 -22.4 h=1.05 sit
+place Zone_Trigger quay at 0 -22 h=2
+place Placeable_Lantern_Metal - at -1.3 -18 h=1.05 sit
+place Placeable_Lantern_Metal - at 1.3 -12 h=1.05 sit
+place Placeable_Lantern_Metal - at 1.3 12 h=1.05 sit
+place Placeable_Lantern_Metal - at -9 2.5 h=1.05 sit
+place Placeable_Lantern_Metal - at 9 1.5 h=1.05 sit
+place "Box Small" marketbox at -0.9 -11 h=1.05 sit yaw=20
+place Creature_Chicken hens at 0 -16 h=1.3
+
+# ===== The council house on the council's islet: walls of planks with windows, its door to the quay, a wooden roof; the
+# council table and five chairs, the charter, the ballot box, the town chest; the council's hulk beached beside it, flags
+push at -2.25 -2.25 h=0.3
+call floors w=3 d=3 y=0.15
+place Block_Wall_Wood - at 0.75 0 y=0.2
+place Block_Wall_Wood - at 3.75 0 y=0.2
+place Block_Wall_Window_Wood - at 0.75 4.5 y=0.2
+place Block_Wall_Wood - at 2.25 4.5 y=0.2
+place Block_Wall_Window_Wood - at 3.75 4.5 y=0.2
+place Block_Wall_Wood - at 0 0.75 y=0.2 yaw=90
+place Block_Wall_Window_Wood - at 0 2.25 y=0.2 yaw=90
+place Block_Wall_Wood - at 0 3.75 y=0.2 yaw=90
+place Block_Wall_Wood - at 4.5 0.75 y=0.2 yaw=90
+place Block_Wall_Window_Wood - at 4.5 2.25 y=0.2 yaw=90
+place Block_Wall_Wood - at 4.5 3.75 y=0.2 yaw=90
+roof 3 3 at 0 0 y=0.2 wood
+place "VG_DecorationPrefabBase_DinnerTable_Oval Variant" - at 2.25 2.6 y=0.25 sit
+place Placeable_Chair_Wood - at 1 2.6 y=0.25 sit yaw=90
+place Placeable_Chair_Wood - at 3.5 2.6 y=0.25 sit yaw=270
+place Placeable_Chair_Wood - at 1.7 3.5 y=0.25 sit yaw=180
+place Placeable_Chair_Wood - at 2.8 3.5 y=0.25 sit yaw=180
+place Placeable_Chair_Wood - at 2.25 1.6 y=0.25 sit
+place Placeable_Storage_Small ballotbox at 2.25 2.6 y=1.02 sit
+place Note_Board charter at 2.25 4.25 y=0.25 yaw=180
+place Loot_ChestLarge townchest at 3.9 1 y=0.25 sit yaw=270
+place Pickup_Landmark_Plastic3_Land - at 0.9 1.0 y=0.45 drop yaw=58
+pop
+place Zone_Trigger council at 0 -0.5 h=1.5
+place BoatStranded - at -8.5 -6 ground sit yaw=35 scale=1.4
+place Placeable_Flag_01 - at -4 3.5 ground
+place Placeable_Flag_04 - at 4 3.5 ground
+place Placeable_Flag_07 - at 4.5 -4.5 ground
+
+# ===== Captain Mbeki's ship on the west islet: her hull beached, her water butt and note on the islet ===================
+place BoatStranded - at -19 7 ground sit yaw=80
+place Placeable_WaterTank mbekibutt at -15 -0.6 ground sit yaw=90
+place Note_Paper mbekinote at -13.2 1.4 ground sit yaw=20
+
+# ===== Captain Rourke's galley on the east islet: a long house of planks, its door to the street, the stove; his note by
+# the door, his vote's tin (hidden until the rats are dead); the rats ======================================================
+push at 14 -0.25 h=0.3
+call floors w=3 d=3 y=0.15
+place Block_Wall_Wood - at 0.75 0 y=0.2
+place Block_Wall_Wood - at 2.25 0 y=0.2
+place Block_Wall_Wood - at 3.75 0 y=0.2
+place Block_Wall_Wood - at 0.75 4.5 y=0.2
+place Block_Wall_Wood - at 2.25 4.5 y=0.2
+place Block_Wall_Wood - at 3.75 4.5 y=0.2
+place Block_Wall_Wood - at 0 0.75 y=0.2 yaw=90
+place Block_Wall_Wood - at 0 3.75 y=0.2 yaw=90
+place Block_Wall_Wood - at 4.5 0.75 y=0.2 yaw=90
+place Block_Wall_Wood - at 4.5 2.25 y=0.2 yaw=90
+place Block_Wall_Wood - at 4.5 3.75 y=0.2 yaw=90
+roof 3 3 at 0 0 y=0.2 wood
+place "Balboa_DecorationPrefabBase_Old Stove" - at 3.7 3.6 y=0.25 sit yaw=270
+place Loot_ChestSmall rourkechest at 3.6 2.2 y=0.25 sit yaw=270
+place "Pickup_Landmark_Scrap 1_Land" - at 1.8 3.2 y=0.45 drop yaw=287
+place Pickup_Landmark_Plank_Land - at 2.4 1.0 y=0.45 drop yaw=101
+pop
+place Note_Paper rourkenote at 13.3 3.6 ground sit yaw=80
+place Zone_Trigger galley at 16 2 h=1.5
+place Creature_Rat_Tangaroa rats at 17 1.5 h=0.8
+
+# ===== Captain Ilka's ship on the south-east islet: her listing hull, her bilge pump and note; the scrap barge beside it,
+# heaped with junk, its scrap box =========================================================================================
+place BoatStranded - at 20.5 -21 ground sit yaw=20 tilt=12
+place Pump ilkapump at 15 -14.4 ground sit
+place Note_Paper ilkanote at 13.6 -15.8 ground sit yaw=40
+place FL_Foundation2 - at 24.5 -13.5 h=0
+place FL_Foundation2 - at 26 -13.5 h=0
+place FL_Foundation2 - at 24.5 -15 h=0
+place FL_Foundation2 - at 26 -15 h=0
+place MetalSheet_3 - at 24.8 -14.5 h=0.05 sit yaw=30
+place Tire_02 - at 26.2 -13.4 h=0.05 sit
+place Scrap_02 - at 25.6 -15.4 h=0.05 sit scale=0.4 yaw=70
+place Loot_Crate scrapbox at 24.4 -13.3 h=0.05 sit yaw=15
+
+# ===== Captain Yusuf's capsized hull off the west side: keel up, a hole in the lagoon's floor under it; his note on the
+# keel, his strongbox on the floor, the air trapped under the hull; turtles in the weed ===================================
+place BoatStranded - at -26 -12 h=-2.4 rot=0,20,180
+place Note_Sign yusufnote at -26 -12 h=1.05 yaw=200
+place Loot_Chest yusufbox at -23 -12 h=-8 sit yaw=110
+place Zone_Trigger sunkhull at -23 -12 h=-6.5
+place Zone_Trigger hullair at -23.5 -12 h=-5
+place Zone_Atmosphere hullbubbles at -23.5 -12 h=-5
+place Creature_Turtle turtles at -20 -20 h=-1.5
+
+# ===== Captain Fen's schooner at the north pier: its hull, the wheel on the pier's end; his note ==========================
+place RT_PlasticBoat - at 4.5 23.5 h=-0.3 scale=3
+place Placeable_SteeringWheel fenwheel at 0.75 21.3 h=1.05 sit
+place Note_Paper fennote at 0.4 20.2 h=1.05 sit yaw=10
+
+# ===== The rim: the crater spring at the north rim's foot (the pipe out of the rock, the tap on its post); the lookout
+# tower at the east rim's foot - posts stacked three high, a ladder up its south side on a post, a deck with rails, Fen's
+# spyglass in a box on it; goats on the rim, hardy trees on the inner slopes ============================================
+place WaterPipe_Out_1 springpipe at 0 47.9 h=3.3 yaw=270
+place Pump springtap at 1.4 47 ground sit
+place Zone_Trigger spring at 0 46 h=3.5
+for th 4.6 9.7 2.5
+place Block_Pillar_Wood - at 49.5 -5.5 h=$th
+place Block_Pillar_Wood - at 52.5 -5.5 h=$th
+place Block_Pillar_Wood - at 49.5 -2.5 h=$th
+place Block_Pillar_Wood - at 52.5 -2.5 h=$th
+place Block_Pillar_Wood - at 51.75 -5.5 h=$th
+next
+for th 4.6 12 2.42
+place Block_Ladder - at 51.75 -5.7 h=$th
+next
+push at 49.5 -5.5 h=12.1
+place Block_Floor_Wood - at 0.75 0.75 y=0
+place Block_Floor_Wood - at 2.25 0.75 y=0
+place Block_Floor_Wood - at 0.75 2.25 y=0
+place Block_Floor_Wood - at 2.25 2.25 y=0
+place Block_Wall_Fence_Plank - at 0.75 0 y=0
+place Block_Wall_Fence_Plank - at 0.75 3 y=0
+place Block_Wall_Fence_Plank - at 2.25 3 y=0
+place Block_Wall_Fence_Plank - at 0 0.75 y=0 yaw=90
+place Block_Wall_Fence_Plank - at 0 2.25 y=0 yaw=90
+place Block_Wall_Fence_Plank - at 3 0.75 y=0 yaw=90
+place Block_Wall_Fence_Plank - at 3 2.25 y=0 yaw=90
+place "Box Small" lookoutbox at 0.8 2.3 y=0.1 sit yaw=30
+place Pickup_Landmark_Plastic3_Land - at 2.2 1.6 y=0.3 drop yaw=164
+pop
+place Zone_Trigger lookout at 51 -4 h=13
+place Creature_Goat goats at -52 42 ground
+place "Pickup_Landmark_Tree_Palm 3" - at -46 20 ground yaw=40
+place "Pickup_Landmark_Tree_Palm 3" - at 46 30 ground yaw=150
+place "Pickup_Landmark_Tree_Palm 3" - at -30 -48 ground yaw=260
+place Pickup_Landmark_Tree_Mango - at 20 52 ground yaw=80
+place Pickup_Landmark_Tree_Mango - at -20 50 ground yaw=200
+place Pickup_Landmark_Tree_Mango - at 40 -48 ground yaw=320
+
+# ===== The lagoon: kelp round the islets, dolphins, a sunk crate between the hulls, the town's creak; Raft's finds =======
+for a 0 330 30
+place SeaVine3 - at {0+10*cos($a)} {0+10*sin($a)} ground scale=0.35 yaw=$a
+next
+place SeaVine3_klump - at -20 6 ground scale=0.4
+place SeaVine3_klump - at 20 -2 ground scale=0.4 yaw=90
+place SeaVine3_klump - at 19 -12 ground scale=0.4 yaw=200
+place Creature_Dolphin dolphins at -20 25 h=-1.6
+place Loot_SunkenBarrel sunkcrate at -8 -15 ground
+place Zone_Sound creak at 0 0 h=2
+call shallows r=110 deep=5 n=1
+
+# ===== Settings, story items, notes, behaviours, quest (15 steps) =========================================================
+info title=Sargasso Town
+info author=Custom Islands
+info description=A floating town of lashed-together wrecks in the lagoon of a sunken volcano, its streets made of decks, its council of five captains away for the season. Each left a favour to be done for their vote - win all five and the town's chest is yours.
+island on.arrive=message||A ring of black rock, and inside it, on a calm green lagoon, a whole town made of wrecks: hulls roped to hulls, decks for streets, flags and washing lines - and nobody home.
+
+story springwater|Cask of spring water|PlasticBottle_Water|A small cask of sweet water from the crater spring.
+story vote|Captain's vote token|quest:Tangaroa_Token|A brass token stamped with a ship: one vote in the Council of Captains.
+story pumphandle|Pump handle|quest:Varuna_CraneKey|An iron pump handle out of the scrap barge, near enough the right size.
+story spyglass|Fen's spyglass|Binoculars|A brass spyglass with F.F. scratched on it.
+
+note notice Notice of the Council | SARGASSO TOWN - NOTICE OF THE COUNCIL OF CAPTAINS\n\nThe town's chest goes to whoever wins the Council: five votes of five.\n\nThe Council is at sea for the season. Each captain has left a vote token on board - for whoever does them a favour. Read the notes on their ships.\n\nThe ballot box is in the council hulk. Cast all five there.
+note mbekinote Captain Mbeki's note | Captain Mbeki - the Hesper, on the weed islet by the quay.\n\nMy water butt is empty and the lagoon's salt. Bring me a cask from the crater spring on the north rim and my vote is yours.
+note rourkenote Captain Rourke's note | Rourke - the Galley.\n\nRats. Big ones, the brown sort from the old towns. They've had my galley since spring. Clear them out and you'll find my vote on the stove.
+note yusufnote Captain Yusuf's note | Captain Yusuf, nailed to the keel of what used to be the Tamarind.\n\nShe rolled over in a squall. My strongbox is on the bottom under her - air's still trapped under the hull. Bring it up, open it, keep the vote that's in it.
+note ilkanote Captain Ilka's note | Ilka - the Merrow, listing.\n\nMy bilge pump's handle snapped and she's filling. There's a handle in the scrap barge that'll do. Fit it, pump her dry, and my vote's in the pump box.
+note fennote Captain Fen's note | Fen - the Kittiwake.\n\nLeft my spyglass up in the rim's lookout tower, east side. Can't climb it any more with this knee. Bring it back to the Kittiwake's wheel and I'll give you my vote.
+note charter The Council's charter | THE CHARTER OF SARGASSO TOWN\n\n1. No ship sinks while another can hold it up.\n2. Everything is decided by the Council of Captains, five votes of five.\n3. The town's chest belongs to the town - and to whoever the whole Council votes for.\n4. Nobody pays rent. Everybody helps.
+note townchest The town chest | Sargasso Town's chest: everybody's savings, the plans for the recycler that turns the town's junk into rope and nails, a captain's hat, dried fish.
+loot townchest TradeToken*12;Blueprint_Recycler*1;Hat_Captain*1;Cooked_Herring*3;Rope*4
+prop townchest loot.refill=0
+prop townchest if.open=signal|voted
+prop townchest else.open=message||The town chest is chained to the deck. The charter says: five votes of five.
+note rourkechest Rourke's vote, on the stove | On the galley's stove, in a tin: Captain Rourke's vote token, and a ham he'd hidden from the rats.
+loot rourkechest story:vote*1;Cooked_GenericMeat*2
+prop rourkechest loot.refill=0
+prop rourkechest obj.name=rourkechest
+prop rourkechest beh.hidden=1
+note yusufbox Yusuf's strongbox | Captain Yusuf's strongbox, up from under the Tamarind: his charts, his pipe - and a vote token.
+loot yusufbox story:vote*1;TradeToken*3
+prop yusufbox loot.refill=0
+note scrapbox Scrap barge box | A box on the scrap barge: bolts, a hinge, and an iron pump handle.
+loot scrapbox story:pumphandle*1;Bolt*2;Scrap*3
+prop scrapbox loot.refill=0
+note lookoutbox Lookout's box | A box on the lookout's deck: Fen's spyglass, a stub of pencil and a log of passing ships.
+loot lookoutbox story:spyglass*1;Plastic*1
+prop lookoutbox loot.refill=0
+note fishbarrel Quay fish barrel | A fish barrel on the quay: salt herring.
+loot fishbarrel Cooked_Herring*3;Rope*2
+prop fishbarrel loot.refill=0
+note marketbox Market raft box | A box on the market raft: odds and ends traded and never collected.
+loot marketbox Nail*8;Plank*4;Glass*2
+prop marketbox loot.refill=0
+note sunkcrate Sunk crate | A crate that slipped off a deck between the hulls.
+loot sunkcrate MetalOre*2;Scrap*3;Plastic*2
+prop sunkcrate loot.refill=0
+
+prop springtap obj.name=springtap
+prop springtap beh.use=Fill a cask at the crater spring
+prop springtap if.use=!signal|filled
+prop springtap on.use=message||Sweet cold water out of the black rock. You fill a little cask to the bung.\ngive||story:springwater*1\nsignal||filled\nsound||event:/char/cup_fill
+prop springtap else.use=message||You've filled your cask.
+prop mbekibutt obj.name=mbekibutt
+prop mbekibutt beh.use=Pour the spring water into Mbeki's water butt
+prop mbekibutt if.use=quest|3\ntake|story:springwater|1
+prop mbekibutt on.use=message||The butt drinks the cask. Taped inside its lid: a brass token. Mbeki's vote.\ngive||story:vote*1\nsound||event:/char/cup_pour
+prop mbekibutt else.use=message||Captain Mbeki's water butt, dry as a bone.
+prop rats creature.count=4
+prop rats creature.respawn=0
+prop rats creature.zone=galley
+prop rats on.defeat=show|rourkechest\nmessage||The galley is quiet. On the stove, a tin you hadn't noticed.
+prop ilkapump obj.name=ilkapump
+prop ilkapump beh.use=Fit the handle and pump the Merrow dry
+prop ilkapump if.use=quest|9\ntake|story:pumphandle|1
+prop ilkapump on.use=message||The handle fits, more or less. You pump until your arms burn; the bilge water gushes over the side and the Merrow comes upright with a sigh. In the pump box: Ilka's vote.\ngive||story:vote*1\nsound||event:/exploring/obstacles/waterpump
+prop ilkapump else.use=message||Ilka's bilge pump - no handle. Her note says the scrap barge has one.
+prop fenwheel obj.name=fenwheel
+prop fenwheel beh.use=Hang Fen's spyglass on the Kittiwake's wheel
+prop fenwheel if.use=take|story:spyglass|1
+prop fenwheel on.use=message||You hang the spyglass on its hook by the wheel. Under the hook, a token: Fen's vote.\ngive||story:vote*1\nsound||event:/ui/pickup
+prop fenwheel else.use=message||The Kittiwake's wheel, an empty brass hook beside it.
+prop ballotbox obj.name=ballotbox
+prop ballotbox beh.use=Cast the five votes
+prop ballotbox if.use=quest|14\ntake|story:vote|5
+prop ballotbox on.use=message||Five tokens rattle into the box. The council's bell rings by itself in the wind - five votes of five. The town chest's chain drops to the deck.\nsignal||voted\nsound||event:/exploring/obstacles/bicyclebell
+prop ballotbox else.use=message||The ballot box. Five votes of five - read the charter.
+
+prop quay zone.id=quay
+prop quay zone.radius=8
+prop quay zone.message=Sargasso Town's quay: mooring posts, a notice board, and the town creaking all round you on the water.
+prop galley zone.id=galley
+prop galley zone.radius=3
+prop galley zone.repeat=never
+prop galley zone.message=Rourke's galley - and the rats are home. Big brown ones!
+prop sunkhull zone.id=sunkhull
+prop sunkhull zone.radius=5
+prop sunkhull zone.message=Under the Tamarind: dark water, silver air trapped against the hull, and a strongbox on the sand.
+prop hullair zone.id=hullair
+prop hullair zone.radius=3
+prop hullair zone.repeat=1
+prop hullair zone.air=1
+prop hullbubbles atmo.particles=bubbles
+prop hullbubbles zone.radius=3
+prop spring zone.id=spring
+prop spring zone.radius=5
+prop spring zone.message=The crater spring: a tap in the black rock, and the sweetest water on the island.
+prop lookout zone.id=lookout
+prop lookout zone.radius=3
+prop lookout zone.message=The lookout's deck on the rim. The whole town below you looks like a heap of toys in a bath.
+prop council zone.id=council
+prop council zone.radius=3
+prop council zone.message=The council hulk: a long table, five chairs, a framed charter and a ballot box.
+prop creak sound.event=event:/amb/wreck_creaks
+prop creak sound.volume=0.5
+prop creak zone.radius=35
+prop hens creature.count=3
+prop goats creature.count=2
+prop turtles creature.count=2
+prop dolphins creature.count=2
+
+quest title=Five Votes
+quest intro=A floating town of wrecks, its Council of Captains away at sea. The Council's notice is on the quay.
+step reach|quay|1|Tie up at the town quay
+step read|Notice of the Council|1|Read the Council's notice
+step collect|story:springwater|1|Fill a cask at the crater spring on the north rim (Captain Mbeki)
+step collect|story:vote|1|Pour it into Mbeki's water butt for her vote
+step kill|Tangaroa rat|4|Clear the rats out of Captain Rourke's galley
+step collect|story:vote|2|Take Rourke's vote from the galley's stove
+step reach|sunkhull|1|Dive under Captain Yusuf's capsized hull
+step collect|story:vote|3|Bring up Yusuf's strongbox for his vote
+step collect|story:pumphandle|1|Find a pump handle in the scrap barge (Captain Ilka)
+step collect|story:vote|4|Fit it and pump the Merrow dry for Ilka's vote
+step reach|lookout|1|Climb the lookout tower on the east rim (Captain Fen)
+step collect|story:vote|5|Bring Fen's spyglass back to his wheel for his vote
+step reach|council|1|Go aboard the council hulk
+step read|The Council's charter|1|Read the town's charter
+step open|The town chest|1|Cast the five votes and open the town chest
+quest done=Five votes of five: the first stranger the Council of Captains ever agreed on. The town creaks round you like applause.
+quest reward=Cooked_Herring*3;Rope*4;Plank*6
+
+save Sargasso Town
+

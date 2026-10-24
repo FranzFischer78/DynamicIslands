@@ -1,0 +1,500 @@
+# Primeval Park - a themed island, five times the size (x5)
+# Inspiration: the island theme-park-of-ancient-beasts film (a visitor centre, paddock fences, a storm that cuts the power,
+#   a river ride, an aviary, a show lagoon, a great gate and the park's queen behind it) - the mood only, never named.
+# Island type: Shape 6 (Crescent), Style 0 (tropical), low (Height 14: the generator's crescent at 36 m was one steep
+#   ridge with no level ground for a park). A jungle crescent round a shallow bay that opens east: the arrival dock on the
+#   bay's south shore, the visitor centre on a terrace at the crescent's middle, the boar paddock north of it, the show
+#   lagoon dug at the bay's head, the river ride, the power house and the aviary on the south horn, the great gate across
+#   the north horn's neck with the Queen's valley behind it.
+# Primeval Park bred its animals big: ironback boars, the aviary's screechers, a leviathan in the show lagoon - and the
+# park's crown, a giant bear the keepers called the Queen. A storm blew the park's three fuses and the staff fled on the
+# last boat. Bring the power back, cross the park, open the great gate and meet the Queen.
+# Quest "Welcome to Primeval Park" (20 steps, 4 chapters): arrival (4), the power (6), the aviary and the lagoon (6), the
+# Queen (4) - large crop plot and recycler blueprints, titanium, batteries.
+#
+# Built by the recipe player (CIRecipe primeval_park) through the editor's own operations.
+include lib_rt
+include lib_huts
+include lib_relay
+include lib_sea
+include lib_features
+new
+# (nature: a jungle a little denser than Raft's tropical islands; the park's terraces, roads and paddocks cleared)
+gen Trees=0.35 Bushes=0.35 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=9021 Radius=100 Height=14 Roughness=0.35 Peaks=2 Shape=6 Style=0 BeachWidth=0.5 Cliffs=0.3 PeakShape=0.4
+gen SeaFloor=0 Shelf=0.45 Seabed=0
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the visitor centre's terrace (7 m) cut into the crescent's middle, the maintenance shed on its west end;
+# the boar paddock's field (5 m) and the keeper's pad; the river ride's channel cut from the bay into the south horn and
+# its station's landing; the power house's yard (6.5 m); the aviary's hilltop (12 m); the show lagoon dug 12 m deep at
+# the bay's head and the grandstand's three steps on its shore; the keeper lodge's pad in the Queen's valley ---------------
+for vz -14 16 3.75
+brush flatten from -30 $vz to 2 $vz r=4 s=20 frames=150 h=7
+next
+for vz 4 16 4
+brush flatten from -37 $vz to -24 $vz r=4 s=20 frames=150 h=7
+next
+brush smooth from -26 -18 to 4 -18 r=4 s=10 frames=10
+brush smooth from 5 -16 to 5 18 r=4 s=10 frames=10
+for pz 29 45 4
+brush flatten from -20 $pz to 4 $pz r=3.5 s=20 frames=60 h=5
+next
+brush flatten at 10.25 45.25 r=4 s=20 frames=80 h=3.5
+for pass 1 2 1
+brush flatten from 50 -21 to 56 -34 r=4 s=20 frames=200 h=-3
+brush flatten from 56 -34 to 61 -46 r=4 s=20 frames=200 h=-3
+brush flatten from 61 -46 to 60 -58 r=4 s=20 frames=200 h=-3
+next
+brush smooth from 50 -21 to 56 -34 r=5 s=10 frames=8
+brush smooth from 56 -34 to 61 -46 r=5 s=10 frames=8
+brush smooth from 61 -46 to 60 -60 r=5 s=10 frames=8
+brush flatten at 61 -69.5 r=4 s=20 frames=80 h=1.8
+for wz -58 -46 4
+brush flatten from 32 $wz to 48 $wz r=3.5 s=20 frames=60 h=6.5
+next
+for az -53 -37 4
+brush flatten from -10 $az to 10 $az r=4 s=20 frames=60 h=12
+next
+brush flatten at 24 22 r=8 s=20 frames=150 h=-12
+for a 0 315 45
+brush flatten at {24+9*cos($a)} {22+9*sin($a)} r=6 s=20 frames=100 h=-10
+next
+for a 0 340 20
+brush smooth at {24+15*cos($a)} {22+15*sin($a)} r=4 s=10 frames=10
+next
+brush flatten from -2 12 to -2 32 r=2 s=20 frames=60 h=4
+brush flatten from 1.5 12 to 1.5 32 r=2 s=20 frames=60 h=3
+brush flatten from 5 12 to 5 32 r=2 s=20 frames=60 h=2
+for lz 78 90 4
+brush flatten from -8 $lz to 12 $lz r=4 s=20 frames=60 h=3.5
+next
+brush grass from -24 -14 to 2 16 r=6 s=20 frames=20
+# (the generator's jungle off the park's grounds and roads)
+clear from -40 -18 to 6 -18 r=16
+clear from -37 10 to -24 10 r=8
+clear from -22 37 to 6 37 r=10
+clear at 10 45 r=5
+clear from 50 -21 to 60 -62 r=6
+clear at 61 -69 r=6
+clear at 24 22 r=17
+clear at 40 -52 r=11
+clear at 0 -45 r=13
+clear from -4 10 to -4 34 r=6
+clear from -50 56 to 26 56 r=4
+clear at 2 84 r=11
+clear from 20 -24 to 40 -24 r=6
+clear from 20 -22 to 2 -14 r=3
+clear from -4 -8 to -4 26 r=3
+clear from -4 28 to -10 52 r=3
+clear from 40 -26 to 40 -50 r=3
+clear from 32 -52 to 10 -48 r=3
+
+# ===== CHAPTER 1 - ARRIVAL ===============================================================================================
+# --- The arrival dock: a broad boardwalk out into the bay from its south beach, two tour boats at it; the welcome arch -
+# two thick pillars and Caravan's banner between them - with the evacuation notice under it; the kiosk on the sand ------
+push at 30 -19 h=-2 yaw=-90
+call boardwalk n=10 wide=2 y=3.6
+pop
+place RT_PlasticBoat - at 24.5 -10 h=0.3 yaw=10
+place RT_PlasticBoat - at 36 -6 h=0.3 yaw=-20
+place RT_PillarThick - at 26 -25 ground
+place RT_PillarThick - at 34 -25 ground
+place Banner_01 - at 30 -25 y=2.7 sit sx=1.6
+place Note_Board evacnotice at 28 -27 ground yaw=180
+place Zone_Trigger dock at 30 -17 y=1
+push at 38 -30 h=1.5
+call stilt_hut y=2.6
+place "Box Small" kioskbox at 3.4 3.4 y=2.6 sit yaw=20
+pop
+place Balboa_DirectionSign - at 21 -23 ground yaw=60
+
+# --- The visitor centre on its terrace: four of the radio tower's rooms in a block - the lobby (its door to the plaza)
+# and the gift shop at the front, the restaurant and the control room behind; the founder's statue on the plaza --------
+push at -12 -2 h=7.15
+push at 0 0
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 l2=RT_WallWindow1 r2=none b2=none
+place RT_Floor - at 0 4.5 y=3
+pop
+push at 6 0
+call rt_storey f1=RT_WallWindow1 f2=RT_WallWindow1 l1=none l2=none l3=none r2=RT_WallWindow1 b2=none
+place RT_Floor - at 0 4.5 y=3
+pop
+push at 0 9
+call rt_storey f1=none f2=none l2=RT_WallWindow1 b1=RT_WallWindow1 b2=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+pop
+push at 6 9
+call rt_storey f1=none f2=none l1=none l2=none l3=none r2=RT_WallWindow1 b1=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+pop
+# (the lobby: banners, plants, a bench)
+place Placeable_TangaroaPlant_4 - at -5.4 -3.8 y=0 sit
+place Placeable_TangaroaPlant_4 - at -0.6 3.8 y=0 sit
+place Bench_01 - at -5.3 0 y=0 sit yaw=90
+place Zone_Trigger visitorcentre at -3 0 y=1.5
+# (the gift shop: shelves of souvenirs, the stockroom crate)
+place Shelf_Empty_02 - at 3 4.2 y=0 sit yaw=180
+place Shelf_Empty_02 - at 5.7 1 y=0 sit yaw=270
+place Placeable_Figurine_Llama - at 2.35 3.95 y=1.15 sit scale=0.8 yaw=180
+place Placeable_Figurine_Goat - at 3.4 4.1 y=1.15 sit yaw=180
+place Placeable_Figurine_Chicken - at 5.6 1 y=1.15 sit yaw=270
+place Loot_Crate giftshop at 1.2 -3.6 y=0 sit
+# (the restaurant: two tables, chairs, the kitchen's fridge)
+place Table_Dining_01 - at -3.5 10 y=0 sit
+place Table_Dining_01 - at -3.5 14 y=0 sit
+place Dinnerchair_01 - at -3.5 9 y=0 sit
+place Dinnerchair_01 - at -3.5 11 y=0 sit yaw=180
+place Dinnerchair_01 - at -3.5 13 y=0 sit
+place Dinnerchair_01 - at -3.5 15 y=0 sit yaw=180
+place TangaroaKitchen_Fridge kitchenfridge at -5.4 12.6 y=0 sit yaw=90
+# (the control room: the console, a server, the park's map - dark till the power comes back - the engineer's report,
+# the ceiling lamps)
+place VG_ControlBoard - at 3 12.1 y=0 sit scale=0.5 yaw=180
+place TP_Selene_ComputerRoom_Server01 - at 5.1 6.5 y=0 sit yaw=270
+place Placeable_Table_Basic - at 1.5 7 y=0 sit
+place Note_Papers engreport at 1.5 7 y=2 drop yaw=15
+place RadiationMap_Off mapoff at 0.1 9 y=1.6
+place RadiationMap_On mapon at 0.1 9 y=1.6
+place Stairwell_CeilingLamp parklights at 3 9 y=2.98
+place Stairwell_CeilingLamp parklights at -3 0 y=2.98
+pop
+place TangaroaFounderStatue - at -9 -14 ground yaw=180
+place Balboa_DirectionSign - at 3 -14 ground yaw=120
+
+# ===== CHAPTER 2 - THE POWER ==============================================================================================
+# --- The maintenance shed at the terrace's west end (a relay-station house, its veranda to the visitor centre): the
+# workbench, the storage rack, the spares box ---------------------------------------------------------------------------
+push at -24.5 16 h=7.05
+call relay_house
+place Workbench - at -9 -2 y=0 sit yaw=90
+place "VG_DecorationPrefabBase_WorkshopStorage_2 Variant" - at -9 -6.5 y=0 sit yaw=90
+place "Box Small" fuse1box at -5.5 -1.6 y=0 sit
+pop
+
+# --- The boar paddock north of the centre: Balboa's chain-link round a muddy field, one stretch broken; the ironbacks;
+# the keeper's hut beside it with his locker -----------------------------------------------------------------------------
+brush sand from -18 37 to 2 37 r=7 s=20 frames=20
+line Balboa_DecorationPrefabBase_Fence_Mid from -20 29 to 4 29 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from -20 45 to 4 45 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from -20 29 to -20 45 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from 4 29 to 4 35 step=2.98
+place Balboa_DecorationPrefabBase_Fence_EndBroken - at 4 37.5 ground yaw=90
+line Balboa_DecorationPrefabBase_Fence_Mid from 4 41 to 4 45 step=2.98
+place Balboa_DecorationPrefabBase_Fence_Sign - at 4.5 32 y=1 yaw=90
+place Balboa_DecorationPrefabBase_Fence_Sign - at -8 28.6 y=1 yaw=180
+place Creature_Boar ironbacks at -8 38 ground
+place Zone_Trigger boarpaddock at -4 36 y=1
+push at 8 43 h=3.5
+call stilt_hut y=2.6
+place Balboa_DecorationPrefabBase_SmallLocker fuse2box at 2.25 4.1 y=2.6 sit yaw=180
+pop
+
+# --- The river ride: the channel from the bay into the south horn, tour boats on it, one sunk by the station; the
+# station's platform over the channel's end ------------------------------------------------------------------------------
+place RT_PlasticBoat - at 53 -27 h=0.3 yaw=25
+place RT_PlasticBoat - at 59 -40 h=0.3 yaw=15
+place RT_PlasticBoat - at 60.5 -53 h=-2.8 drop roll=160 yaw=5
+place "Box Small" fuse3box at 60.3 -52.4 h=-2 drop yaw=10
+push at 62.5 -63 h=-3 yaw=-90
+call boardwalk n=4 wide=2 y=5.1
+place Sign_02 - at 3 2.5 y=6 yaw=90
+pop
+place Zone_Trigger river at 61 -62 y=1.5
+
+# --- The power house: a yard in Balboa's chain-link with Utopia's big generator, cable hubs, the master switch on a
+# crate, a crate of cable -------------------------------------------------------------------------------------------------
+line Balboa_DecorationPrefabBase_Fence_Mid from 31 -60 to 49 -60 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from 31 -44 to 37 -44 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from 43 -44 to 49 -44 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from 31 -60 to 31 -44 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from 49 -60 to 49 -44 step=2.98
+place UT_Generator01 - at 40 -54 ground sit
+place UT_ElectricCableHub01 parkcable at 34 -48 ground sit
+# (scenery: the generator yard's cable hubs; the gate panel is the lock - the ready piece's lock taken off)
+prop parkcable beh.use=
+prop parkcable if.use=
+prop parkcable else.use=
+prop parkcable on.use=
+place UT_ElectricCableHub02 parkcable2 at 46 -48 ground sit
+prop parkcable2 beh.use=
+prop parkcable2 if.use=
+prop parkcable2 else.use=
+prop parkcable2 on.use=
+place TP_Moontown_SealedCrate02_Clean - at 40 -47 ground sit
+place RT_PowerBox masterswitch at 40 -47 y=0.95 sit yaw=180
+place Loot_Crate powercrate at 34 -57 ground sit yaw=15
+place Balboa_DirectionSign - at 40 -38 ground yaw=0
+
+# ===== CHAPTER 3 - THE AVIARY AND THE LAGOON =============================================================================
+# --- The aviary on the south horn's hilltop: a ring of Balboa's chain-link stretched to 4 m (Tangaroa's dome frame is
+# one segment of its dome, no cage on its own), its gate to the south; palms inside; the keeper's platform on four legs
+# with a ladder, his notes and locker on it -----------------------------------------------------------------------------
+for a 0 252 18
+place Balboa_DecorationPrefabBase_Fence_Mid - at {9.5*cos($a)} {-45+9.5*sin($a)} ground yaw={90-$a} sy=1.8
+next
+for a 288 342 18
+place Balboa_DecorationPrefabBase_Fence_Mid - at {9.5*cos($a)} {-45+9.5*sin($a)} ground yaw={90-$a} sy=1.8
+next
+place Balboa_DecorationPrefabBase_Fence_Sign - at 3 -54.6 y=1 yaw=180
+scatter "Pickup_Landmark_Tree_Palm 1" 2 at -4 -48 r=4 seed=81
+scatter "Pickup_Landmark_Tree_Palm 3" 2 at 4 -41 r=4 seed=82
+place RT_PillarThick - at -1.5 -46.5 ground
+place RT_PillarThick - at 1.5 -46.5 ground
+place RT_PillarThick - at -1.5 -43.5 ground
+place RT_PillarThick - at 1.5 -43.5 ground
+place RT_Floor - at 1.6 -43.4 h=18 sx=0.53 sz=0.356
+place LandmarkLadder_6m - at 0 -46.75 ground
+place RT_Fence - at 0 -43.4 h=18.05
+place RT_Fence - at 1.5 -43.4 h=18.05
+place RT_Fence - at 1.6 -45 h=18.05 yaw=90
+place RT_Fence - at 1.6 -46.5 h=18.05 yaw=90
+place RT_Fence - at -1.6 -45 h=18.05 yaw=90
+place RT_Fence - at -1.6 -46.5 h=18.05 yaw=90
+place Note_Book aviarynotes at 0.4 -44 h=18.1 yaw=200
+place Locker aviarylocker at -1 -43.9 h=18.05 sit yaw=180
+place Creature_StoneBird aviarybirds at 6 -40 h=20
+place Zone_Trigger aviary at 0 -45 h=19
+
+# --- The show lagoon at the bay's head: the grandstand's three steps of benches on its shore, the feeding platform out
+# over the deep water with Utopia's crane beside it; the leviathan; on the floor the keeper's satchel and a feed barrel --
+line Bench_01 from -2 14 to -2 26.8 step=1.6
+line Bench_01 from 1.5 14 to 1.5 26.8 step=1.6
+line Bench_01 from 5 14 to 5 19 step=1.6
+line Bench_01 from 5 25 to 5 30 step=1.6
+push at 6.5 21 h=-11
+call boardwalk n=7 wide=2 y=12.5
+pop
+place UT_ElectricityIsland_Crane02 - at 9 30 ground sit yaw=180
+place Creature_AnglerFish leviathan at 24 22 h=-8
+place Zone_Trigger lagoonshow at 13 22.5 y=2
+place Loot_ChestSmall showtankbox at 25 18 h=-11 drop yaw=30
+place Loot_SunkenBarrel lagoonbarrel at 20 26 h=-10 drop
+
+# ===== CHAPTER 4 - THE QUEEN ===============================================================================================
+# --- The great gate across the north horn's neck: Utopia's great entrance door (Tangaroa's harbour gate is an open
+# frame, and its mesh sits 84 m off its pivot) between double walls of chain-link from shore
+# to shore; its panel on a post outside; the Queen in her valley; the keeper lodge at its head with the founder's desk and
+# vault --------------------------------------------------------------------------------------------------------------------
+place UT_MainEntranceDoor queengate at -12 56 y=-4.7 sit
+line Balboa_DecorationPrefabBase_Fence_Mid from -50 56 to -18 56 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from -50 57.2 to -18 57.2 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from -6 56 to 26 56 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from -6 57.2 to 26 57.2 step=2.98
+place RT_PillarThick - at 0 52.5 ground sy=0.22
+place TP_LaserControlPanel gatepanel at 0 52.15 y=0 yaw=180
+place Zone_Trigger queengatezone at -12 66 y=1
+place Creature_MamaBear queen at -10 76 ground
+place Balboa_Shack - at 2 84 h=3.5
+place Placeable_Table_Basic - at 0 84 h=5 drop
+place Note_Book farewell at 0 84 h=6 drop yaw=20
+place Loot_ChestLarge vault at 1 86.6 h=5 drop yaw=180
+
+# --- Along the tour road: the road's lights on poles (dark till the power is back), direction signs ------------------
+place Antenna_pole - at 14 -21 ground
+place RT_Floodlight parklights at 14 -21 y=6.2 yaw=200
+place Antenna_pole - at -2 22 ground
+place RT_Floodlight parklights at -2 22 y=6.2 yaw=90
+place Antenna_pole - at 40 -30 ground
+place RT_Floodlight parklights at 40 -30 y=6.2 yaw=180
+place Antenna_pole - at -8 50 ground
+place RT_Floodlight parklights at -8 50 y=6.2 yaw=0
+place Balboa_DirectionSign - at -4 27 ground yaw=0
+
+# --- Animals: llamas grazing the north horn's shore, goats on the south horn, turtles in the bay, dolphins off the east;
+# the jungle's sound -------------------------------------------------------------------------------------------------------
+place Creature_Llama llamas at 18 70 ground
+prop llamas creature.count=2
+place Creature_Goat goats at -25 -45 ground
+prop goats creature.count=3
+place Creature_Turtle turtles at 40 10 h=-1.5
+prop turtles creature.count=2
+place Creature_Dolphin dolphins at 95 0 h=-3
+prop dolphins creature.count=3
+place Zone_Sound jungle at -20 10 y=10
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): flowers, melons, mangoes ----------
+scatter "Pickup_Landmark_Flower_Red" 4 at 0 0 r=70.0 seed=4144 free=3
+scatter "Pickup_Landmark_Flower_Yellow" 4 at 0 0 r=70.0 seed=4145 free=3
+scatter "Pickup_Landmark_WatermelonLandmark" 6 at 0 0 r=70.0 seed=4154 free=3
+scatter "Pickup_Landmark_Tree_Mango" 6 at 0 0 r=70.0 seed=4164 free=5
+
+# --- Raft's finds in the shallows round the island and over the bay (lib_sea) -------------------------------------------
+call shallows r=125 deep=5 n=2
+call shallows x=52 z=30 r=15 deep=4 seed=90
+
+# ===== Settings, story items, notes, behaviours, quest (20 steps, 4 chapters) =============================================
+info title=Primeval Park
+info author=Custom Islands
+info description=A park of giant beasts on a jungle crescent, dark since a storm blew its fuses and the staff fled: ironback boars loose from their paddock, screechers in the aviary, a leviathan in the show lagoon - and behind the great gate, the park's Queen. Bring the power back and see the whole park.
+island on.arrive=message||A jungle crescent round a blue bay - a dock, a welcome arch, a great grey building on a terrace, fences everywhere. Somewhere inland, something big bellows.
+
+story fuse|Park fuse|quest:Caravan_BatteryChargerPart|One of the park's three big fuses for the power house's master switch.
+story gatecard|Gate card|quest:Tangaroa_KeyCard|The keepers' gate card, printed by the control room when the power came back.
+story queenkey|Queen's paddock key|quest:Varuna_CraneKey|The Queen's keeper's key, dropped in the show lagoon.
+
+note evacnotice Evacuation notice | PRIMEVAL PARK - EVACUATION NOTICE\n\nStorm warning. All guests and staff to the dock for the last boat.\nThe park is closing until further notice.\n\nDo NOT leave the tour road. Do NOT feed the animals. Do NOT go past the great gate.\n\n- Park Management
+note engreport Chief engineer's report | CHIEF ENGINEER - STORM DAMAGE\n\nAll three master fuses blew in the storm. The power house is dead, the fences are dead, the gates are dead.\n\nSpare fuses: one in the maintenance shed behind this building, one in the boar keeper's locker by the paddock (the ironbacks broke out - careful), one in the river ride's tour boat that sank at the station.\n\nPut all three in the master switch at the power house and the control room will print a keeper's gate card.\n\nThe Queen's keeper dropped his key in the show lagoon running from the leviathan. Nobody went in after it.
+note aviarynotes Aviary keeper's notes | AVIARY - KEEPER'S NOTES\n\nThe screechers went wild when the fences died. Three of them, nesting on my platform.\nThe Queen is the founder's pride: a bear twice the size of any bear living. He built the great gate for her, and his lodge behind it, and kept his own vault there.\nThe gate wants power, a gate card and the Queen's keeper's key. All three.
+note farewell Founder's farewell | (on the founder's desk in the keeper lodge)\n\nTo whoever has come this far: you have seen my park. Every animal in it was bred to be bigger than nature meant, and the Queen biggest of all. I thought people would come to wonder at them. They came to be frightened.\n\nThe storm was a mercy. The park is closed.\n\nWhat I kept back for the day it ended is in the vault beside this desk. Take it, and plant something that grows the size it should.\n\n- The Founder
+note fuse1box Maintenance shed box | The maintenance shed's spares box: wire, tape - and a big fuse in its packing.
+loot fuse1box story:fuse*1;Rope*2;Bolt*2
+prop fuse1box loot.refill=0
+note fuse2box Boar keeper's locker | The boar keeper's locker: boots, a feed scoop - and a spare fuse wrapped in an oily rag.
+loot fuse2box story:fuse*1;Leather*2
+prop fuse2box loot.refill=0
+note fuse3box Sunken tour boat's box | The tour boat's box, under three metres of water: guides' maps, a whistle - and the third fuse, sealed in a bag.
+loot fuse3box story:fuse*1;Plastic*3
+prop fuse3box loot.refill=0
+note showtankbox Box on the lagoon floor | A keeper's satchel on the show lagoon's floor, weighted with a stone: the Queen's paddock key.
+loot showtankbox story:queenkey*1;Scrap*2
+prop showtankbox loot.refill=0
+note vault Founder's vault | The founder's vault: the plans of his gardens and his recycling plant, titanium bars, batteries, and the park's last takings.
+loot vault Blueprint_Cropplot_Large_Tier3*1;Blueprint_Recycler*1;TitaniumIngot*4;Battery*3;TradeToken*15
+prop vault loot.refill=0
+prop vault if.open=signal|queendown
+prop vault else.open=message||The vault's wheel won't turn while the lodge shakes with every step of the Queen outside.
+note kioskbox Dock kiosk box | The kiosk's box: maps, sun hats, bottled water.
+loot kioskbox PlasticBottle_Water*3;Plastic*3;Rope*2
+prop kioskbox loot.refill=0
+note giftshop Gift shop crate | The gift shop's stockroom crate: plush animals, plastic, glass snow globes.
+loot giftshop Plastic*6;Glass*3;Wool*2
+prop giftshop loot.refill=0
+note kitchenfridge Restaurant fridge | The restaurant's fridge, warm since the storm - but the tins kept.
+loot kitchenfridge Cooked_GenericMeat*3;Raw_Potato*3;Egg*2
+prop kitchenfridge loot.refill=0
+note aviarylocker Aviary keeper's locker | The aviary keeper's locker: gloves, a net, feathers.
+loot aviarylocker Feather*6;Leather*2;Rope*2
+prop aviarylocker loot.refill=0
+note powercrate Power house crate | A crate of cable and copper by the generator.
+loot powercrate CopperIngot*3;Bolt*4;Scrap*3
+prop powercrate loot.refill=0
+note lagoonbarrel Sunk feed barrel | A feed barrel on the lagoon floor: fish gone to bone, and the scrap the leviathan didn't eat.
+loot lagoonbarrel Scrap*4;MetalOre*2;Raw_Mackerel*2
+prop lagoonbarrel loot.refill=0
+
+prop masterswitch obj.name=masterswitch
+prop masterswitch beh.use=Fit the three fuses and throw the master switch
+prop masterswitch if.use=quest|9\ntake|story:fuse|3
+prop masterswitch on.use=message||Fuses in, switch over: the generator roars, the fences hum, lights run along the tour road - and up at the visitor centre a printer chatters out a keepers' gate card. You take it on your way past.\nsignal||power\ngive||story:gatecard*1\nshow|parklights\nshow|mapon\nhide|mapoff\nsound||event:/exploring/obstacles/tangaroa/generator_on
+prop masterswitch else.use=message||The master switch has three empty fuse slots. The chief engineer's report says where the spares are.
+prop parklights obj.name=parklights
+prop parklights beh.hidden=1
+prop mapon obj.name=mapon
+prop mapon beh.hidden=1
+prop mapoff obj.name=mapoff
+prop gatepanel obj.name=gatepanel
+prop gatepanel beh.use=Open the great gate
+prop gatepanel if.use=signal|power\nhas|story:gatecard|1\nhas|story:queenkey|1
+prop gatepanel on.use=message||Card in, key turned. Klaxons - and the great gate sinks into the ground, slowly, twelve metres of steel, and the Queen's valley lies open.\nopen|queengate\nsound||event:/exploring/obstacles/tangaroa/baydoor_gate
+prop gatepanel else.use=message||GREAT GATE - POWER, GATE CARD AND KEEPER'S KEY REQUIRED.
+prop queengate obj.name=queengate
+prop queengate beh.move=0,-12.8,0
+prop queengate beh.moveTime=8
+prop queengate beh.moveMode=switch
+# (scenery: Utopia's entrance door wants Raft's entrance key and goes when used: this gate only sinks from its panel - the ready piece's lock taken off)
+prop queengate beh.use=
+prop queengate if.use=
+prop queengate else.use=
+prop queengate on.use=
+# (Utopia's entrance door as a ready piece wants Raft's entrance key and goes when used: this gate only sinks when the gate panel is used - the ready piece's settings taken off)
+prop queengate beh.use=
+prop queengate if.use=
+prop queengate else.use=
+prop queengate on.use=
+prop queen obj.name=queen
+prop queen creature.count=1
+prop queen creature.size=1.3
+prop queen creature.health=4
+prop queen creature.damage=2
+prop queen creature.respawn=0
+prop queen creature.zone=queengate
+prop queen on.defeat=signal||queendown\nmessage||The Queen goes down like a hill falling. The valley is very quiet.
+
+prop dock zone.id=dock
+prop dock zone.radius=8
+prop dock zone.message=The arrival dock of Primeval Park. The welcome arch still stands; the gift shop's balloons don't.
+prop visitorcentre zone.id=visitorcentre
+prop visitorcentre zone.radius=8
+prop visitorcentre zone.message=The visitor centre: the founder's statue, dark screens, a gift shop full of plush animals - and silence.
+prop boarpaddock zone.id=boarpaddock
+prop boarpaddock zone.radius=12
+prop boarpaddock zone.message=The boar paddock's fence is down - and the ironbacks are out, grey as stone and twice the size of a warthog!
+prop river zone.id=river
+prop river zone.radius=8
+prop river zone.message=The river ride's station. Tour boats drift on their lines - and one lies on the bottom by the platform.
+prop aviary zone.id=aviary
+prop aviary zone.radius=8
+prop aviary zone.message=Inside the aviary - and the screechers come off their nests at you!
+prop lagoonshow zone.id=lagoonshow
+prop lagoonshow zone.radius=12
+prop lagoonshow zone.message=The show lagoon. Seats for a thousand. Below the feeding platform, something as long as a boat turns over.
+prop queengatezone zone.id=queengate
+prop queengatezone zone.radius=12
+prop queengatezone zone.message=The Queen's valley. The ground shakes - and she comes down the slope towards you, bigger than a hut.
+prop ironbacks creature.count=4
+prop ironbacks creature.size=1.4
+prop ironbacks creature.health=1.5
+prop ironbacks creature.respawn=0
+prop ironbacks creature.zone=boarpaddock
+prop ironbacks tint.color=#4a4a50
+prop ironbacks tint.amount=0.5
+prop aviarybirds creature.count=3
+prop aviarybirds creature.respawn=0
+prop aviarybirds creature.zone=aviary
+prop leviathan creature.count=1
+prop leviathan creature.size=2.4
+prop leviathan creature.health=4
+prop leviathan creature.damage=2
+prop leviathan creature.respawn=0
+prop leviathan creature.zone=lagoonshow
+prop leviathan tint.color=#2a4a3a
+prop leviathan tint.amount=0.5
+
+# --- Raft's special features (the user, 2026-10-05: every Raft feature on at least one island): the keepers' storm cache, overgrown by
+# the jungle's vines - for a player with Raft's machete; Raft's dirt spots on the park's lawns
+call vinecache x=-20 z=-20 r=30 seed=71 chest=keepercache vines=keepervines items=Rope*3;Cooked_GenericMeat*2;Bolt*3;Battery*1
+call dirt x=0 z=20 r=40 n=4 seed=72
+# --- Raft's story machinery (the user, 2026-10-06): the boar keeper's feed chest, locked in one of Utopia's dog cages in the
+# paddock's north-west corner - Raft's bolt cutters in his tool chest by the hut; and a security camera on the keeper's hut,
+# sweeping the paddock
+call cagecache x=-16 z=41.5 yaw=90 alias=feedcage sig=feedcage chest=feedchest items=Cooked_GenericMeat*3;Leather*2;Rope*2 title="Boar keeper's feed chest" kx=14 kz=38 kr=6 seed=73 keychest=keepertools keytitle="Keeper's tool chest" keyitems=Rope*2;Nail*6
+call camera x=8.2 z=43.2 h=8.5 yaw=-145 alias=paddockcam
+
+quest title=Welcome to Primeval Park
+quest intro=A park of giant beasts, dark since the storm. The welcome arch is still up. Start at the dock.
+# Chapter 1 - arrival
+step reach|dock|1|Tie up at the park's arrival dock
+step read|Evacuation notice|1|Read the evacuation notice under the welcome arch
+step reach|visitorcentre|1|Walk the tour road to the visitor centre
+step read|Chief engineer's report|1|Read the chief engineer's report in the control room
+# Chapter 2 - the power
+step collect|story:fuse|1|Find the first fuse in the maintenance shed
+step kill|Warthog|4|Get past the ironback boars loose from their paddock
+step collect|story:fuse|2|Take the second fuse from the boar keeper's locker
+step reach|river|1|Follow the river ride to its station
+step collect|story:fuse|3|Dive for the third fuse in the sunken tour boat
+step collect|story:gatecard|1|Fit the fuses at the power house and take the gate card the control room prints
+# Chapter 3 - the aviary and the lagoon
+step reach|aviary|1|Climb to the keeper's platform in the aviary
+step kill|Screecher|3|Drive the screechers off their nests
+step read|Aviary keeper's notes|1|Read the aviary keeper's notes
+step reach|lagoonshow|1|Go down to the show lagoon's feeding platform
+step kill|Angler fish|1|Face the leviathan of the show lagoon
+step collect|story:queenkey|1|Dive for the Queen's keeper's key on the lagoon floor
+# Chapter 4 - the Queen
+step reach|queengate|1|Open the great gate on the north horn and walk into the Queen's valley
+step kill|Mama bear|1|Face the Queen
+step read|Founder's farewell|1|Read the founder's farewell in the keeper lodge
+step open|Founder's vault|1|Open the founder's vault
+step blueprint|Blueprint_Cropplot_Large_Tier3|1|Take the large crop plot plans from the founder's vault
+step blueprint|Blueprint_Recycler|1|Take the recycler plans from the founder's vault
+quest done=The park's lights burn on an empty park. The ironbacks, the screechers, the leviathan, the Queen - you've seen them all. The founder's last wish is in your hands: plant something that grows the size it should.
+quest reward=MetalIngot*8;Bolt*8;Plastic*12
+
+# Buried treasure (one of the story line's last islands): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=50 n=1 seed=8811
+prop treasure8811 treasure.loot=TitaniumOre*3
+
+save Primeval Park

@@ -1,0 +1,300 @@
+# The Command Well - the tenth island of The End of the Ocean (SL14, finale part 2: the heart of the Concord Engine)
+# Thirty metres down under the calm circle: a lift shaft of iron pillars from a float deck on the surface to the seabed,
+# two landings with trapped air on the way (at -10 and -20), anglers in the shaft, and at the bottom a dry dome - the
+# engine's heart. Three great rings stand in it, cables to the walls; the command desk where the last crew left their
+# names and their log; and a row of ring consoles. Whatever was chosen up in the Engine Court plays out here: REACTIVATE,
+# the rings light; SHUT DOWN, they go dark; REDIRECT, the middle ring turns the other way; nothing chosen, the engine stays
+# on standby as the last crew left it. Quest "The Heart" (16 steps): the shaft top, the lift order, the first landing, the
+# anglers, the dome, the crew's names, the command desk, the last crew's log, ring 1, the ring console, the closing note,
+# back up to the shaft top.
+#
+# Built by the recipe player (CIRecipe the_command_well) through the editor's own operations. Elevation -30, so the sea's
+# surface is at h=30. Points (metres over the island's base): the dome's floor at 2 m round 0 0 (walls r 8, roof at 8 m,
+# door on the north), the shaft x -2.5..2.5, z 11.5..16.5 from the seabed to 32 m, the float deck x 3..9, z 9.5..18.5 at
+# 29.8 m, the landings under it at 19.5 m (-10) and 9.5 m (-20), the rings round 0 -4, the desk at 3 2, the consoles round
+# -4 1. No treasure.
+include lib_sea
+include lib_features
+include lib_huts
+include lib_gravity
+include lib_concord
+include lib_areas
+new
+gen Trees=0 Bushes=0 Rocks=0.35 Harvest=0 BeachThings=0
+gen Seed=14201 Radius=95 Height=8 Roughness=0.3 Peaks=1 Shape=0 Style=0 BeachWidth=0.1 Cliffs=0.5 PeakShape=0.3
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0.35
+generate
+elevation -30
+
+# --- Terrain: the dome's floor and the shaft's foot at 2 m ----------------------------------------------------------------
+brush flatten at 0 0 r=12 s=20 frames=250 h=2
+brush flatten at 0 14 r=6 s=20 frames=200 h=2
+origin
+clear at 0 0 r=12
+clear at 0 14 r=6
+
+# --- The lift shaft: four columns of thick pillars from the seabed up through the surface ------------------------------
+for k 0 4
+place RT_PillarThick shaft at -2.5 11.5 ground y={$k*6}
+place RT_PillarThick shaft at 2.5 11.5 ground y={$k*6}
+place RT_PillarThick shaft at -2.5 16.5 ground y={$k*6}
+place RT_PillarThick shaft at 2.5 16.5 ground y={$k*6}
+next
+prop shaft tint.color=#4e5358
+prop shaft tint.amount=0.6
+
+# --- The float deck on the surface, the landings under it, the trapped air at -10 and -20 -------------------------------
+place RT_Floor deck at 9 18.5 h=29.8
+place Note_Sign liftorder at 8 12 h=29.9 sit yaw=270
+place RT_Floor landings at 9 18.5 h=19.5
+place RT_Floor landings at 9 18.5 h=9.5
+prop landings tint.color=#4e5358
+prop landings tint.amount=0.6
+macro shaftair x=0 z=0 h=10 id=air al=air bub=airbub msg="An air pocket - breathe."
+place AirPocket_1 - at $x $z h={$h+0.05} scale=0.6
+place Zone_Trigger $al at $x $z h={$h+1.6}
+place Zone_Atmosphere $bub at $x $z h={$h+1.2}
+prop $al obj.name=$al
+prop $al zone.id=$id
+prop $al zone.radius=2.5
+prop $al zone.repeat=1
+prop $al zone.air=1
+prop $al zone.message=$msg
+prop $bub atmo.particles=bubbles
+prop $bub zone.radius=3
+end
+call shaftair x=6 z=14 h=19.5 id=shaft_10 al=air10 bub=bub10 msg="The first landing, ten metres down. Air trapped under the deck - breathe. Something below has a light on its head."
+call shaftair x=6 z=14 h=9.5 id=shaft_20 al=air20 bub=bub20 msg="The second landing, twenty metres down. Air. Below, the dome's roof - lit from inside."
+place Zone_Trigger shafttop at 6 14 h=30.5
+prop shafttop zone.id=shaft_top
+prop shafttop zone.radius=4
+prop shafttop zone.repeat=1
+prop shafttop zone.message=The top of the Command Well. A float deck over a shaft of iron, straight down into the calm water.
+place Creature_AnglerFish anglers at 0 14 h=15
+prop anglers creature.count=3
+prop anglers creature.respawn=0
+prop anglers creature.zone=shaft_10
+
+# --- The buoy over the well, moored on a chain of posts (as the Array Root's) --------------------------------------------
+for k 0 5
+place Antenna_pole - at 12 10 ground y={$k*5.2} sy=0.82
+next
+place Reef_Buoy buoy at 12 10 h=30
+
+# --- The dome: two storeys of iron wall in a ring, a door on the north, a flat roof, air inside -------------------------
+macro domewall r=8 y=0 al=dome
+for a 30 330 30
+push at {$r*sin($a)} {$r*cos($a)} yaw={$a}
+place RT_Wall1 $al at {0.2618*$r} 0 ground y=$y sx={0.1745*$r}
+pop
+next
+end
+call domewall r=8 y=0 al=dome
+call domewall r=8 y=3 al=dome
+push at 0 8 yaw=0
+place RT_Wall1 dome at {0.2618*8} 0 ground y=3 sx={0.1745*8}
+pop
+place RT_Floor dome at -3 0 h=8
+place RT_Floor dome at 3 0 h=8
+place RT_Floor dome at 9 0 h=8
+place RT_Floor dome at -3 9 h=8
+place RT_Floor dome at 3 9 h=8
+place RT_Floor dome at 9 9 h=8
+prop dome tint.color=#4e5358
+prop dome tint.amount=0.6
+place Zone_Trigger domezone at 0 0 h=3.6
+prop domezone zone.id=dome
+prop domezone zone.radius=7
+prop domezone zone.repeat=1
+prop domezone zone.air=1
+prop domezone zone.message=The dome - dry, lit, humming. Three great rings stand in a row. The engine's heart.
+place Zone_Atmosphere domebub at 0 7 h=3
+prop domebub atmo.particles=bubbles
+prop domebub zone.radius=3
+call loopsound x=0 z=-2 al=wellhum ev=event:/exploring/temperence/selene/cryotube_engine r=12 vol=0.5 h=2
+prop wellhum obj.name=wellhum
+call ringwave x=0 z=0 r=6 al=ringwave
+prop ringwave tint.color=#c8a040
+prop ringwave tint.amount=0.6
+
+# --- The three great rings, their lamps, the lights a reactivation turns on, the turned-back ring ------------------------
+place UT_WaterChallengeWheel1 rings at -4 -3.5 ground sit scale=1.4 yaw=20
+place UT_WaterChallengeWheel2 ring2 at 0 -4.5 ground sit scale=1.4 yaw=0
+place UT_WaterChallengeWheel2 ring2rev at 0 -4.5 ground sit scale=1.4 yaw=180
+place UT_WaterChallengeWheel3 rings at 4 -3.5 ground sit scale=1.4 yaw=-20
+prop rings tint.color=#8a7a5a
+prop rings tint.amount=0.5
+prop ring2 obj.name=ring2
+prop ring2 tint.color=#8a7a5a
+prop ring2 tint.amount=0.5
+prop ring2rev obj.name=ring2rev
+prop ring2rev beh.hidden=1
+prop ring2rev tint.color=#a08a5a
+prop ring2rev tint.amount=0.5
+place Placeable_Lantern_Metal ringlamps at -6 -6 ground sit
+place Placeable_Lantern_Metal ringlamps at 0 -7.2 ground sit
+place Placeable_Lantern_Metal ringlamps at 6 -6 ground sit
+prop ringlamps obj.name=ringlamps
+place TP_RotatingRedLight ringlights at -4 -1.6 ground sit
+place TP_RotatingRedLight ringlights at 0 -2.6 ground sit
+place TP_RotatingRedLight ringlights at 4 -1.6 ground sit
+prop ringlights obj.name=ringlights
+prop ringlights beh.hidden=1
+place RT_Beam - at -6 -1 ground y=3 yaw=60 sx=1.6
+place RT_Beam - at 6 -1 ground y=3 yaw=-60 sx=1.6
+
+# --- The command desk, the crew's names, the last crew's log, the mushroom store -----------------------------------------
+place Placeable_Table_Basic - at 3 2 ground sit yaw=180
+place RT_PowerBox commanddesk at 3 2 ground y=0.9 yaw=180
+place Note_Sign crewnames at 5.5 5 ground sit yaw=225
+place "Box Small" - at 1.2 2.5 ground sit yaw=10
+place Note_Paper lastlog at 1.2 2.5 ground y=0.7 drop yaw=25
+prop lastlog obj.name=lastlog
+prop lastlog beh.hidden=1
+place Loot_Crate cellar at 6 1 ground sit yaw=200
+place "Box Big" - at 6.5 3 ground sit yaw=-20
+
+# --- Ring 1 and its consoles: one answers each choice made above, one the standby ----------------------------------------
+call tzone x=-4 z=-1 al=ring1zone id=ring_1 r=2.5 h=1 msg="Ring 1. A row of four consoles - and only one of them is lit."
+call lever x=-6.5 z=1 yaw=180 al=console_re
+call lever x=-5 z=1 yaw=180 al=console_off
+call lever x=-3.5 z=1 yaw=180 al=console_redir
+call lever x=-2 z=1 yaw=180 al=console_standby
+place Note_Sign consolelabels at -4.25 2.2 ground sit yaw=180
+place Note_Sign closing_re at -4.5 5 ground sit yaw=160
+place Note_Sign closing_off at -4.5 5 ground sit yaw=160
+place Note_Sign closing_redir at -4.5 5 ground sit yaw=160
+place Note_Sign closing_standby at -4.5 5 ground sit yaw=160
+macro hiddenpart al=x
+prop $al obj.name=$al
+prop $al beh.hidden=1
+end
+call hiddenpart al=closing_re
+call hiddenpart al=closing_off
+call hiddenpart al=closing_redir
+call hiddenpart al=closing_standby
+
+# --- Kelp, a reef, the shallows -----------------------------------------------------------------------------------------
+scatter SeaVine3 24 at 0 0 r=34 seed=14202 free=2
+scatter SeaVine3_klump 8 at 0 0 r=34 seed=14203 free=2
+call reef x=-18 z=-14 r=4 seed=14204
+call reef x=20 z=-10 r=4 seed=14208
+call shallows x=0 z=0 r=118.75 deep=8 n=1 seed=14212
+
+# --- Discoveries: things to find off the quest path (not needed for the quest) ---------------------------------
+place Loot_Chest sunkcrate at -8.5 72.5 ground sit yaw=174
+prop sunkcrate loot.refill=0
+call notebox x=20.5 z=-72.6 yaw=164 al=droppedorder
+place BoatStranded - at -87.7 -24 ground sit yaw=345 scale=0.7
+call tzone x=-4 z=-59.1 al=seabedview id=seabedview r=4 msg="The seabed far from the shaft. Looking back, the shaft's lights climb straight up to the surface like a ladder of stars."
+
+# --- Areas (10-24: every story island has places all over it and its quest crosses it): places on the seabed all round the shaft - the
+# sunken ridge in the east, the rock cave in the west, the Concord's drowned pump house in the north-east, the sunken
+# supply plane in the south-west (all under water: no plants, Raft's own seabed rocks and reefs round them)
+call ar_ridge x1=44 z1=-12 x2=56 z2=28 h=6 top=8 r=8
+call reef x=50 z=8 r=5 seed=14611
+call tzone x=50 z=8 al=eastridge id=wellridge r=7 msg="The top of a sunken ridge. From here the shaft's lights are a thin line, and the rings' glow comes up through the seabed."
+call ar_cave x=-48 z=24 h=3 yaw=0 al=wellcave chest=wellcavechest
+call tzone x=-48 z=29 al=wellcavezone id=wellcave r=4 msg="A cave in a sunken rock. Cables run in at the mouth and on into the dark - the engine's, laid long before the sea came."
+call ar_ruin x=40 z=52 h=3 yaw=0 al=pumphouse
+call notebox x=42.5 z=47.5 yaw=20 al=pumpbook
+call ar_plane x=-44 z=-40 h=3 yaw=60 al=supplyplane crate=supplycrate
+call notebox x=-49 z=-34.5 yaw=70 al=supplylog
+call reef x=-56 z=-8 r=4 seed=14621
+call reef x=24 z=40 r=4 seed=14631
+
+# --- Unique layer (10-24): the_command_well device - see SL14_progress.md UNIQUE ISLANDS
+place Loot_ChestSmall fusetin at 35.5 48 ground sit yaw=0
+prop fusetin obj.name=fusetin
+place RT_Pillar - at 45 56.5 ground sy=0.4
+place RT_PowerBox fusebox at 45 56.5 ground y=1.25 yaw=180
+prop fusebox obj.name=fusebox
+prop fusebox if.use=!signal|fuses\ntake|story:wellfuse|3
+prop fusebox else.use=message||The pump house fuse box: three empty sockets - or three fuses already burning.
+prop fusebox on.use=message||The three fuses glow. The pump house's drowned locker clanks open.\nsignal||fuses\nshow|pumplocker
+place Loot_ChestLarge pumplocker at 46 52 ground sit yaw=270
+prop pumplocker obj.name=pumplocker
+prop pumplocker beh.hidden=1
+prop supplycrate note.title=Supply plane's crate
+story wellfuse|Pump fuse|Battery|A glass fuse for the pump house fuse box in the Command Well. It takes three.
+note fusetin Fuse tin | A fuse tin on the pump house table, one fuse left in it.
+loot fusetin story:wellfuse*1;Bolt*2
+prop fusetin loot.refill=0
+loot wellcavechest story:wellfuse*1;Copper*3;CircuitBoard*1;Bolt*2;Rope*2
+loot supplycrate story:wellfuse*1;Rope*2;Plank*4
+prop supplycrate loot.refill=0
+note pumplocker Pump house locker | The pump crew's locker. Their last pay, their tags - and a list of the names they shut in below.
+loot pumplocker TitaniumOre*4;Battery*2;CircuitBoard*2
+prop pumplocker loot.refill=0
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=The Command Well
+info author=Custom Islands
+info description=Thirty metres under the calm circle: a lift shaft with trapped air on the way down and, at the bottom, a dry dome with three great rings - the Concord Engine's heart. Whatever was chosen in the court above plays out here.
+island on.arrive=message||A float deck on the calm water, and under it a shaft of iron going straight down. Far below, a light.
+
+story desk|Command desk|quest:Vasagatan_FourDigitCode|You woke the Concord Engine's command desk at the bottom of the well.
+story ringset|The rings|Battery|You set the Concord Engine's rings at the bottom of the well.
+
+note liftorder Lift order | LIFT ORDER - stencilled on the deck\n\nThe lift is out. Go down by the shaft.\nAir at the first landing (-10) and at the second (-20).\nAt the bottom the dome is dry. Keep the door shut behind you.\nNothing living in the shaft. (Somebody has scratched under it: NOT TRUE.)
+note crewnames Crew names | THE LAST CREW - scratched into the wall by the desk\n\nARNE - ring 1\nSOLVEIG - ring 2\nMAKO - ring 3\nPIA - desk\nTOMAS - lift\nHALLE - well\n\nUnder them, in another hand: and the engine, which never left.
+note lastlog Last crew's log | LAST CREW'S LOG - printed by the desk\n\nThe Commons stopped answering in the spring. We kept the engine calling for a year.\n\nWe could have run it full and called louder. We could have stopped it and let the calm go. We did neither. We put it on standby: weak waves, a small calm, the call going on - so that whoever came next could choose with better knowledge than ours.\n\nIf you are reading this, you are whoever came next.
+note consolelabels Console labels | Over the four consoles at ring 1: FULL - STOP - REVERSE - STANDBY. The one that answers is the one the court was told.
+note closing_re Closing note | CLOSING NOTE - REACTIVATE\n\nThe three rings run fast and bright. The surface wave, the deep wave, the ice wave: all three again. Up top the calm circle is already growing, and the pulse carries further than it ever has.\n\nWhoever hears it will come. Leave them a raft.
+note closing_off Closing note | CLOSING NOTE - SHUT DOWN\n\nThe rings stand still. The lamps go out one by one. The pulse that brought every raft here has stopped for good.\n\nThe sea goes back to the sea. That was a choice too.
+note closing_redir Closing note | CLOSING NOTE - REDIRECT\n\nRing 2 turns the other way now. The engine has stopped calling the Commons. It calls the rafts - every receiver on the ocean - and it listens.\n\nSomeone, somewhere, will answer.
+note closing_standby Closing note | CLOSING NOTE - STANDBY\n\nNothing was chosen in the court. The rings turn on as the last crew left them: weak waves, a small calm, a call nobody answers.\n\nThe levers in the housing are still waiting.
+note cellar Well store | The well's store: cave mushrooms, grown in the dark of the dome.
+loot cellar CaveMushroom*4
+prop cellar loot.refill=0
+
+prop commanddesk obj.name=commanddesk
+prop commanddesk beh.use=Wake the command desk
+prop commanddesk if.use=!signal|desk
+prop commanddesk on.use=signal||desk\ngive||story:desk*1\nshow|lastlog\nmessage||The desk's lamps come on one by one. A printer under it chatters out a last page.\nsound||event:/exploring/temperence/selene/cryotube_engine
+prop commanddesk else.use=message||The desk is awake.
+prop console_re beh.use=Use the FULL console
+prop console_re if.use=has|story:reactivateway|1\n!signal|ringset
+prop console_re on.use=signal||ringset\ngive||story:ringset*1\nshow|ringlights\nshow|closing_re\nmessage||FULL. Lights flare on all three rings and they spin up together. The dome rings like a bell.\nsound||event:/exploring/temperence/selene/cryotube_engine
+prop console_re else.use=message||The FULL console is dark - the court did not ask for this.
+prop console_off beh.use=Use the STOP console
+prop console_off if.use=has|story:shutdownway|1\n!signal|ringset
+prop console_off on.use=signal||ringset\ngive||story:ringset*1\nhide|ringlamps\nhide|wellhum\nshow|closing_off\nmessage||STOP. The rings slow, and slow, and stand. The lamps go out. It is very quiet in the dome.
+prop console_off else.use=message||The STOP console is dark - the court did not ask for this.
+prop console_redir beh.use=Use the REVERSE console
+prop console_redir if.use=has|story:redirectway|1\n!signal|ringset
+prop console_redir on.use=signal||ringset\ngive||story:ringset*1\nhide|ring2\nshow|ring2rev\nshow|closing_redir\nmessage||REVERSE. Ring 2 stops with a groan, and turns back the other way.\nsound||event:/exploring/temperence/selene/cryotube_engine
+prop console_redir else.use=message||The REVERSE console is dark - the court did not ask for this.
+prop console_standby beh.use=Use the STANDBY console
+prop console_standby if.use=!has|story:choice|1\n!signal|ringset
+prop console_standby on.use=signal||ringset\ngive||story:ringset*1\nshow|closing_standby\nmessage||STANDBY. The rings turn on, slowly, as they have for years. Nothing changes.
+prop console_standby else.use=message||The STANDBY console is dark - a choice was made above.
+
+note sunkcrate Sunken supply chest | A supply chest that fell from the deck and lay on the seabed ever since.
+loot sunkcrate MetalIngot*2;TitaniumIngot*1;Bolt*3;Rope*2
+note droppedorder Dropped order | A waxed order sheet, still readable under the water\n\nTO THE WELL CREW: the court will decide. Whatever it decides, the heart obeys.\nDo not leave the dome unmanned.\n(on the back, in pencil) Standby set. We go up now. - P.
+note wellcavechest Cable cave chest | A chest where the cables enter the rock: a cable crew's spares, dry inside a waxed bag.\n\nA fuse is wrapped in rag among the cables.
+prop wellcavechest loot.refill=0
+note pumpbook Pump house book | PUMP HOUSE BOOK - in a tin on the table\n\nThe pumps keep the dome dry. The dome keeps the Engine dry. Nobody keeps the pump house dry.\nThe sea came up a finger a year, then a hand a year. We moved the pumps down into the dome.\nThis house we left to the fish.\n\nWe flooded the dome ourselves, to stop the Engine's crew getting out. The fuse box opens our locker - one fuse in the cable cave, one in the supply plane, one in the tin here.
+note supplylog Supply plane log | SUPPLY PLANE LOG\n\nThe last supply run to the Command Well: food, lamp oil, a crate of fuses.\nWe came down on the calm circle - too calm. It held the plane like a hand and pulled it under.\nWhatever is in the crate, the crew below needed it more than I did.
+quest title=The Heart
+quest intro=A float deck over a shaft of iron. Go to the top of the well.
+step reach|shaft_top|1|Go to the deck over the well
+step read|Lift order|1|Read the lift order on the deck
+step reach|shaft_10|1|Dive to the first landing's air
+step kill|Angler fish|3|Clear the anglers out of the shaft
+step reach|dome|1|Swim down into the dome
+step read|Crew names|1|Read the last crew's names
+step collect|story:desk|1|Wake the command desk
+step read|Last crew's log|1|Read the last crew's log
+step reach|ring_1|1|Go to ring 1
+step collect|story:ringset|1|Use the ring console that answers what the court was told
+step read|Closing note|1|Read the closing note
+step reach|wellridge|1|Swim out to the sunken ridge in the east
+step read|Pump house book|1|Read the book in the drowned pump house in the north-east
+step collect|story:wellfuse|3|Find the three fuses: the cable cave, the supply plane and the pump house
+step open|Pump house locker|1|Fit the fuses in the pump house fuse box and open the locker
+step reach|shaft_top|1|Go back up the shaft to the deck
+quest done=The heart of the Concord Engine does what it was told. The end of the ocean was never an end - only a choice.
+quest reward=TitaniumOre*2;Battery*2;CaveMushroom*2
+
+save The Command Well

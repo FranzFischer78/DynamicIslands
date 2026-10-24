@@ -1,0 +1,12 @@
+# Guide pictures of Hailstone Weir (CIPlay hailstone_weir_pics): Raft's camera, midday, calm
+island Hailstone Weir
+offset 0 0
+hour 11
+weather Calm
+at 14 -30
+wait 3
+picture hailstone_weir_island 45 40 -85 0 5 -20
+picture hailstone_weir_weir 7 6 -44 0 1 -32
+picture hailstone_weir_pumphouse -8 7 -40 -19 3 -27
+picture hailstone_weir_sluices 0 -0.8 -40 0 -0.5 -33
+picture hailstone_weir_upriver 0 12 -14 0 2 -32

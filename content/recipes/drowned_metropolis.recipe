@@ -1,0 +1,247 @@
+# The Drowned Metropolis - a very large island of the library (a sunken city)
+# Meridian, a city the sea took: skyscraper crowns rising out of a shallow green sea, sandbar islets with palms, a
+# wrecked ferry. The Harbour Tower's sloping roof with the mayor's glass penthouse on its ridge; the Meridian Tower's
+# pool deck with the city vault; the council offices sunk on the sea floor; the Spire's foundations, a dark pit where
+# the Lantern Lord - a giant angler fish - waits. Quest "The Keys of Meridian" (20 steps): the ferry, the evacuation
+# notice, the Harbour Tower, the mayor's memo and safe (keycard 1), the sunken offices, their puffer fish and filing
+# cabinet (keycard 2), the foundations, the Lantern Lord and the strongbox (keycard 3), the Meridian Tower, the vault -
+# with the city's papers kept in the journal along the way (pages 3, 4, 5, 6).
+#
+# Built by the recipe player (CIRecipe drowned_metropolis) through the editor's own operations (macros from lib_rt).
+# The towers are Utopia's skyline towers, 400 m tall: placed so that only their crowns stand out of the sea.
+include lib_sea
+include lib_rt
+include lib_features
+new
+# (nature: Like Raft - Raft's islands as the generator's Like Raft has them, CIGenLikeRaft)
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=2077 Radius=130 Height=5 Roughness=0.4 Peaks=1 Shape=2 Style=0 BeachWidth=0.6 Cliffs=0 PeakShape=0.3
+gen SeaFloor=0 Shelf=0.3 Seabed=1
+# (sea: Raft's finds and corals as dense as around Raft's islands - Like Raft 0.5 - the review, 2026-10-03)
+gen Water=0.3 SeaRocks=0.6 SeaFinds=0.5 Sunken=0.6 Hostiles=0 Friendly=0 SeaLife=0.6
+generate
+
+# --- The sea floor: the old city centre deeper, the Spire's foundations a dark pit ----------------------------------
+brush lower at 10 -10 r=70 s=20 frames=10
+brush lower at 60 -40 r=40 s=20 frames=8
+
+# --- The skyline: Utopia's towers, only their crowns above the sea -------------------------------------------------
+place UT_Set_Tower01 towerA at -55 -45 centred h=-80
+place UT_Set_TowerDeco01 towerB at 15 -60 centred h=-100
+place UT_Set_Tower03 towerC at 62 15 centred h=-110
+place UT_Set_Tower02 towerD at -20 45 centred h=-95
+place UT_Set_TowerHarpoon towerE at -85 30 centred h=-92 tilt=8
+place UT_Set_TowerDeco02 - at 112 -92 centred h=-89
+place UT_Set_TowerDeco03 - at -118 78 centred h=-71
+place UT_Set_Tower02 - at 104 72 centred h=-90 tilt=-11 yaw=40
+
+# --- From here on, points are from the finished island's land centre: lowering the shelf drowned islets and moved
+# the land above the sea, so the centre a world puts the island by is 13.83 m west and 9.66 m north of where it was
+# when the island was generated (the recipe logs it when it saves). The probe tools measure from that centre too.
+push at -13.83 9.66
+brush lower at 20 -42 r=11 s=20 frames=6
+# (the council offices' pit dug down to their ground floor: the sea floor covered it, with its furniture and the filing
+# cabinet the quest's keycard is in)
+brush flatten at 5 -28 r=8 s=20 frames=60 h=-12.65
+clear at 20 -42 r=14 all
+clear at 8 -28 r=12 all
+
+# --- The ferry islet (west): the wrecked ferry, the evacuation notice, a lifeboat --------------------------------------
+clear at -50 -32 r=16
+place BoatStranded ferry at -56 -27 ground yaw=35 tilt=6
+place Note_Board notice at -41 -33 ground yaw=290
+place RT_PlasticBoat - at -36 -25 ground yaw=120 tilt=12
+place TangaroaBench - at -47 -36 ground yaw=200
+place Zone_Trigger ferryzone at -48 -30 h=4
+# the Ironreef Mining Company's pump store (TODO 4c): its key is in the foreman's locker at Ironreef Caverns (met before
+# in both plans with this island; kept); nothing in the quest needs it
+place Loot_ChestSmall pumpstore at -44 -35.5 ground yaw=200
+scatter "Pickup_Landmark_Tree_Palm 2" 3 at -55 -32 r=9 seed=401
+scatter Bush2 4 at -50 -30 r=10 seed=402
+
+# --- The Harbour Tower: ladders up its east face, the mayor's glass penthouse on its ridge ---------------------------
+place LandmarkLadder_6m harbourladder at -19.2 -50 h=-1.3 yaw=90
+place LandmarkLadder_6m - at -19.2 -50 h=5.2 yaw=90
+place Zone_Trigger harbourroof at -24 -50 h=13.5
+push at -52 -50 h=21.2
+call rt_legs d=18
+call rt_storey f1=RT_WallWindow1 f2=RT_WallWindow2 b1=RT_WallWindow2 b2=RT_WallWindow1 l2=RT_WallWindow1 r2=none
+place RT_Floor - at 0 4.5 y=3
+call rt_railing y=3 rm=none
+place Balboa_DecorationPrefabBase_Desk - at -3.6 1.5 sit yaw=90
+place Balboa_DecorationPrefabBase_Desk_Chair - at -2.4 1.5 sit yaw=270
+place Note_Paper memo at -3.4 1 y=0.94 yaw=90
+place Loot_Chest penthousesafe at -5 -3.2 sit yaw=90
+place "VG_DecorationPrefabBase_FloorLamp Variant" - at -5.4 3.8 sit
+place Painting_Captain - at -3 4.35 y=1.6 yaw=180
+pop
+# (a plank ramp from the ridge of the roof up to the penthouse's open east side)
+ramp Block_Floor_Wood from -45.5 -50.75 18.2 to -52.3 -50.75 21.2 len=1.5 top=0
+ramp Block_Floor_Wood from -45.5 -49.25 18.2 to -52.3 -49.25 21.2 len=1.5 top=0
+
+# --- The Meridian Tower: ladders up its west face to the pool deck, the city vault, deck chairs -----------------------
+place LandmarkLadder_6m meridianladder at 45.7 -2 h=-4.3 yaw=90
+place LandmarkLadder_6m - at 45.7 -2 h=2.5 yaw=90
+place Zone_Trigger meridianroof at 52 -2 h=10
+place Loot_ChestLarge vault at 51 -3.5 h=8.6 sit yaw=270
+place "VG_DecorationPrefabBase_WideStationarySunbed Variant" - at 57 -3 h=8.1 sit yaw=90
+place "VG_DecorationPrefabBase_WideStationarySunbed Variant" - at 62 -3 h=7.8 sit yaw=90
+place Antenna_pole - at 48 1.5 h=8.8 sit
+
+# --- The council offices, sunk on the sea floor: two storeys, windows broken in ----------------------------------------
+push at 8 -28 h=-12.6
+call rt_storey f1=none r2=RT_WallWindowBroken l2=RT_WallWindowBroken b1=RT_WallWindow1 b2=RT_WallWindowBroken
+place "Table Office" - at -3 1.5 sit
+place "Chair Office" - at -3 0.4 sit yaw=10
+place "Table Office" - at -3 -2 sit
+place Loot_Crate cabinet at -5 3.4 sit yaw=90
+place Zone_Trigger offices at -3 0 y=1.5
+place Creature_PufferFish puffers at -3 -6 y=2
+place Zone_Atmosphere officedark at -3 0 y=1.5
+pop
+push at 8 -28 h=-9.6
+call rt_storey r1=RT_WallWindowBroken r3=RT_WallWindowBroken l1=RT_WallWindowBroken l3=RT_WallWindow2 f2=RT_WallWindowBroken
+place RT_Floor - at 0 4.5 y=3
+place "Table Office" - at -2 1 sit yaw=30
+place "Chair Office" - at -4 -2 sit tilt=80
+pop
+
+# --- The Spire's foundations: a pit of broken pillars and pipes, the Lantern Lord, the foundation strongbox -----------
+place RT_PillarThick - at 14 -38 ground tilt=24 yaw=30
+place RT_PillarThick - at 26 -46 ground tilt=-30 yaw=-20
+place RT_PillarThick - at 22 -36 ground
+place VP_ConcretePipe02 - at 16 -47 ground yaw=60
+place VP_ConcretePipe02 - at 25 -39 ground yaw=-10 tilt=8
+place VP_RubblePile_Medium01 - at 19 -43 ground yaw=40
+place Loot_ChestLarge strongbox at 20 -42 ground sit yaw=200
+place Creature_AnglerFish lanternlord at 20 -40 h=-12
+place Zone_Trigger foundations at 20 -42 h=-10
+place Zone_Atmosphere pitdark at 20 -42 h=-12
+
+# --- The drowned avenue: street lamps standing in the sea, from the ferry islet past the offices to the Meridian Tower --
+for sx -20 40 12
+place RT_Pillar - at $sx {-22+$sx*0.25} h=-12 sy=4.6
+place RT_Floodlight_WithoutLightSource - at $sx {-22+$sx*0.25} h=1.85 yaw=90
+next
+
+# --- The north-east islet: palms, a bench, a lamp-post ---------------------------------------------------------------
+scatter "Pickup_Landmark_Tree_Palm 1" 3 at 30 45 r=12 seed=403
+scatter "Pickup_Landmark_Tree_Palm 4" 2 at 45 40 r=8 seed=404
+place TangaroaBench - at 25 38 ground yaw=160
+place Floorlamp_01 - at 28 36 ground
+pop
+
+# --- Settings, notes, behaviours, quest ---------------------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): flowers, mangoes, bananas ----------
+scatter "Pickup_Landmark_Flower_Red" 6 at 0 0 r=91.0 seed=4293 free=3
+scatter "Pickup_Landmark_Flower_Yellow" 6 at 0 0 r=91.0 seed=4294 free=3
+scatter "Pickup_Landmark_Tree_Mango" 9 at 0 0 r=91.0 seed=4303 free=5
+scatter "Banana_Bush_2" 9 at 0 0 r=91.0 seed=4313 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=150 deep=5 n=3
+
+info title=The Drowned Metropolis
+info author=Custom Islands
+info description=Meridian, a city the sea took: skyscraper crowns over a shallow sea, a wrecked ferry, the mayor's penthouse on a sloping roof, council offices on the sea floor - and in the Spire's foundations, the Lantern Lord. Three keycards open the city vault on the Meridian Tower.
+island on.arrive=message||Skyscraper crowns stand out of the sea in a ring - the drowned city of Meridian.
+
+story keycard|Council keycard|quest:Tangaroa_KeyCard|A Meridian council keycard. The city vault needs three.
+note notice Evacuation notice | CITY OF MERIDIAN - EVACUATION ORDER\n\nAll citizens to the ferries. The sea will not stop rising.\n\nThe city vault on the Meridian Tower is SEALED. Three council keycards open it:\n- the mayor's, in the Harbour Tower penthouse\n- the council's, in the city offices (now under water)\n- the treasurer's, kept in the Spire's foundations\n\nGod help whoever goes down there.
+note memo Mayor's memo | From the desk of the Mayor\n\nThe treasurer took his keycard down to the Spire's foundations, to the strongbox there. Something lives in that pit now - a fish with a lantern on its head, as big as a boat. It ate the treasurer.\n\nMy keycard is in the safe. Take it. Open the vault. Someone should have what's in it.
+note penthousesafe Penthouse safe | The mayor's wall safe: a council keycard, the mayor's cufflinks - and the oxygen bottle he kept for the day the water came up.
+loot penthousesafe story:keycard*1;Battery*1;OxygenBottle*1
+prop penthousesafe loot.refill=0
+note cabinet Council filing cabinet | A filing cabinet on the flooded office floor. In the bottom drawer, in a plastic sleeve: a council keycard.
+loot cabinet story:keycard*1;Scrap*3
+prop cabinet loot.refill=0
+note strongbox Foundation strongbox | The treasurer's strongbox, half buried in rubble at the bottom of the pit: a council keycard and a bag of old coins.
+loot strongbox story:keycard*1;CopperIngot*3
+prop strongbox loot.refill=0
+note vault Meridian Vault | The city vault of Meridian: what the council saved from the sea.
+loot vault Blueprint_BatteryAdvanced*1;Battery_Advanced*2;TitaniumIngot*3;Glass*6
+prop vault loot.refill=0
+prop vault if.open=take|story:keycard|3
+prop vault else.open=message||The vault door has three card slots. All three must be filled.
+prop pumpstore obj.name=pumpstore
+note pumpstore Company pump store | The Ironreef Mining Company's pump store, padlocked: hoses, a pump's spare parts and the crew's last rations. A tag: "Meridian contract - key with the foreman at Ironreef."
+loot pumpstore MetalIngot*3;Bolt*4;Rope*3;Cooked_Mackerel*2
+prop pumpstore loot.refill=0
+prop pumpstore if.open=has|story:ironreef-key|1
+prop pumpstore else.open=message||A padlocked company box: IRONREEF MINING CO. - PUMP STORE. The key stayed with the foreman, at the Ironreef Caverns.
+prop vault tint.color=#b08a2a
+prop vault tint.amount=0.5
+
+prop ferryzone zone.id=ferry
+prop ferryzone zone.radius=10
+prop ferryzone zone.message=A wrecked ferry on a sandbar - and all around, the crowns of skyscrapers.
+prop harbourroof zone.id=harbourroof
+prop harbourroof zone.radius=7
+prop harbourroof zone.message=The Harbour Tower's roof. On its ridge, the mayor's glass penthouse.
+prop offices zone.id=offices
+prop offices zone.radius=8
+prop offices zone.message=The council offices, deep under the sea. Something puffs up between the desks.
+prop foundations zone.id=foundations
+prop foundations zone.radius=10
+prop foundations zone.message=The Spire's foundations. In the dark, a light swings - and a mouth full of teeth below it.
+prop meridianroof zone.id=meridianroof
+prop meridianroof zone.radius=8
+prop meridianroof zone.message=The Meridian Tower's pool deck, high over the drowned streets. The vault stands at the rail.
+prop puffers creature.count=2
+prop puffers creature.respawn=0
+prop puffers creature.zone=offices
+prop lanternlord creature.count=1
+prop lanternlord creature.size=3
+prop lanternlord creature.health=6
+prop lanternlord creature.damage=1.8
+prop lanternlord creature.respawn=0
+prop lanternlord creature.zone=foundations
+prop lanternlord tint.color=#1c2430
+prop lanternlord tint.amount=0.5
+prop officedark atmo.fog=#06101a
+prop officedark atmo.fogAmount=0.7
+prop officedark atmo.light=#1a2a3a
+prop officedark atmo.lightAmount=0.8
+prop officedark zone.radius=9
+prop pitdark atmo.fog=#020408
+prop pitdark atmo.fogAmount=0.85
+prop pitdark atmo.light=#101820
+prop pitdark atmo.lightAmount=0.9
+prop pitdark zone.radius=14
+
+quest title=The Keys of Meridian
+quest intro=Skyscraper crowns in a ring, a wrecked ferry on a sandbar. The drowned city of Meridian left its last notice on the ferry's islet.
+step reach|ferry|1|Land at the wrecked ferry on the sandbar
+step read|Evacuation notice|1|Read the evacuation notice on the ferry's islet
+step reach|harbourroof|1|Climb the Harbour Tower's ladders to its sloping roof
+step read|Mayor's memo|1|Cross the plank ramp to the penthouse and read the mayor's memo
+step open|Penthouse safe|1|Open the mayor's wall safe
+step collect|story:keycard|1|Pocket the mayor's keycard - the first of three
+step pages||3|Keep the notice, the memo and the safe's tag in your journal
+step reach|offices|1|Dive down to the council offices on the sea floor
+step kill|Puffer fish|2|Drive the two puffer fish out from between the desks
+step open|Council filing cabinet|1|Search the bottom drawer of the council's filing cabinet
+step collect|story:keycard|2|Take the council's keycard - two of three
+step pages||4|Copy the council's filing note into your journal
+step reach|foundations|1|Swim down into the dark of the Spire's foundations
+step kill|Angler fish|1|Defeat the Lantern Lord in the Spire's foundations
+step open|Foundation strongbox|1|Dig the treasurer's strongbox out of the rubble
+step collect|story:keycard|3|Hold all three council keycards
+step pages||5|Write the treasurer's strongbox tag into your journal
+step reach|meridianroof|1|Climb the Meridian Tower to its pool deck
+step open|Meridian Vault|1|Fill the vault's three card slots and open the Meridian Vault
+step blueprint|Blueprint_BatteryAdvanced|1|Take the advanced battery plans from the meridian Vault
+step pages||6|Close your journal on Meridian: six pages of the drowned city
+quest done=The vault of Meridian is open. The council saved batteries, titanium and a blueprint - and now they're yours.
+quest reward=Battery*2;CircuitBoard*2;Scrap*8
+
+# --- Raft's vending machine on the high ground, from Tangaroa's arcade: Tangaroa's plants for its tokens; three tokens lie about --
+vending cityvend at 44 56 ground
+place QuestItemPickup_Tangaroa_Token - at 42 58 ground
+place QuestItemPickup_Tangaroa_Token - at 46 54 ground
+place QuestItemPickup_Tangaroa_Token - at 42 54 ground
+
+# Buried treasure (one of the story line's last islands): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=36 z=44 r=12 n=1 seed=8814
+prop treasure8814 treasure.loot=TitaniumOre*3
+
+save The Drowned Metropolis

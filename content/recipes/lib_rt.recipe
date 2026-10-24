@@ -1,0 +1,56 @@
+# lib_rt - macros for buildings of Raft's radio tower pieces, shared by the library's recipes ("include lib_rt")
+#
+# rt_storey: one storey, in a frame whose floor is the storey's floor (push at x z h=... yaw=...). Its footprint is
+# x -6..0, z -4.5..4.5 (6 x 9 m: one RT_Floor), walls 3 m high on four sides. Each wall slot takes a piece:
+# RT_Wall1, RT_WallWindow1, RT_WallWindow2, RT_WallWindowBroken (no glass: swim or climb through), RT_WallDoor1, or
+# none (an opening). a: an alias for all its pieces (to tint them together; - none). Slots: b1 b2 at the back (z 4.5, x -6..-3 and -3..0), f1 f2 at the front (z -4.5), l1 l2 l3 on
+# the left (x -6, z -4.5..-1.5, -1.5..1.5, 1.5..4.5), r1 r2 r3 on the right (x 0). floor=none leaves the floor out.
+macro rt_storey floor=RT_Floor b1=RT_Wall1 b2=RT_Wall1 f1=RT_Wall1 f2=RT_Wall1 l1=RT_Wall1 l2=RT_Wall1 l3=RT_Wall1 r1=RT_Wall1 r2=RT_Wall1 r3=RT_Wall1 a=-
+place $floor $a at 0 4.5
+place $b1 $a at -3 4.5
+place $b2 $a at 0 4.5
+place $f1 $a at -3 -4.5
+place $f2 $a at 0 -4.5
+place $l1 $a at -6.04 -4.5 yaw=90
+place $l2 $a at -6.04 -1.5 yaw=90
+place $l3 $a at -6.04 1.5 yaw=90
+place $r1 $a at 0 -4.5 yaw=90
+place $r2 $a at 0 -1.5 yaw=90
+place $r3 $a at 0 1.5 yaw=90
+end
+
+# rt_railing: RT_Fence all round a 6 x 9 roof (or floor) at height y; bm / fm / lm / rm = none leaves the middle 3 m
+# of the back / front / left / right side open (a stair or a walkway arrives there)
+macro rt_railing y=3 bm=RT_Fence fm=RT_Fence lm=RT_Fence rm=RT_Fence
+place RT_Fence - at -4.5 4.5 y=$y
+place $bm - at -3 4.5 y=$y
+place $bm - at -1.5 4.5 y=$y
+place RT_Fence - at 0 4.5 y=$y
+place RT_Fence - at -4.5 -4.5 y=$y
+place $fm - at -3 -4.5 y=$y
+place $fm - at -1.5 -4.5 y=$y
+place RT_Fence - at 0 -4.5 y=$y
+place RT_Fence - at -6.0 -4.5 y=$y yaw=90
+place RT_Fence - at -6.0 -3 y=$y yaw=90
+place $lm - at -6.0 -1.5 y=$y yaw=90
+place $lm - at -6.0 0 y=$y yaw=90
+place RT_Fence - at -6.0 1.5 y=$y yaw=90
+place RT_Fence - at -6.0 3 y=$y yaw=90
+place RT_Fence - at 0 -4.5 y=$y yaw=90
+place RT_Fence - at 0 -3 y=$y yaw=90
+place $rm - at 0 -1.5 y=$y yaw=90
+place $rm - at 0 0 y=$y yaw=90
+place RT_Fence - at 0 1.5 y=$y yaw=90
+place RT_Fence - at 0 3 y=$y yaw=90
+end
+
+# rt_legs: thick pillars (6 m each) under a 6 x 9 footprint, from its floor down to depth d (metres below the floor)
+macro rt_legs d=12
+for lx -5.9 -0.1 5.8
+for lz -4.4 4.4 8.8
+for ly 6 $d 6
+place RT_PillarThick - at $lx $lz y=-$ly
+next
+next
+next
+end

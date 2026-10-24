@@ -24,6 +24,12 @@ namespace RuntimeGizmos
 		{
 			newValues = new TransformValues() {position=transform.position, rotation=transform.rotation, scale=transform.localScale};
 		}
+
+		/// <summary>The transform moved, turned or scaled between the two snapshots (a click on a handle without a drag did not).</summary>
+		public bool Changed
+		{
+			get { return newValues.position != oldValues.position || newValues.rotation != oldValues.rotation || newValues.scale != oldValues.scale; }
+		}
 		
 		public void Execute()
 		{

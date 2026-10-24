@@ -1,0 +1,210 @@
+# The Sleet Kilns - an island of the library's plan The Rainmakers (Nimbus Works' seventh station)
+# A black-sand volcano shore where the company baked its seeding salt: a row of five bottle kilns (Tangaroa's vases blown
+# up to kiln size, brick-red, on stone stacks), white salt heaps, a tramway on grey floors from the landing up to the
+# kiln yard, and the smelter house with its roof on pillars. Quest "Seeding Salt" (6 steps): the tram stop, the kiln
+# master's log, three salt sacks weighed on the scales, Kiln 4's door, the kiln store (the smelter blueprints), and the
+# hyenas that come for the tram stop on the way out.
+#
+# Built by the recipe player (CIRecipe the_sleet_kilns) through the editor's own operations.
+include lib_sea
+include lib_features
+include lib_huts
+new
+# (nature: volcano density - black sand, rocks, few trees and bushes; Harvest 0.2)
+gen Trees=0.1 Bushes=0.15 Rocks=0.5 Harvest=0.2 BeachThings=0.3
+gen Seed=9901 Radius=56 Height=8 Roughness=0.3 Peaks=1 Shape=0 Style=4 PeakShape=0.15 Cliffs=0.3 BeachWidth=0.6
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.2 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+
+# --- Terrain: the kiln yard flattened at 3 m, the tramway's bed north from the landing, the landing beach -------------
+brush flatten at 0 6 r=28 s=20 frames=200 h=3
+brush flatten from 0 -41 to 0 -18 r=4 s=20 frames=120 h=3
+brush flatten at 0 -49 r=6 s=20 frames=60 h=1
+brush flatten at 0 -44 r=3 s=20 frames=40 h=2
+brush flatten at -4.5 -46.2 r=3.5 s=20 frames=40 h=0.95
+brush smooth from 0 -47 to 0 -41 r=3 s=6 frames=20
+origin
+clear at 0 6 r=30
+clear from 0 -50 to 0 -18 r=5
+
+# --- The tram stop at the landing: a shelter on four pillars, a wagon waiting -----------------------------------------
+place Zone_Trigger tramstop at 0 -46 h=2
+push at -6 -47 h=1
+place Block_Floor_Tier3 - at 0.75 0.75 y=0
+place Block_Floor_Tier3 - at 2.25 0.75 y=0
+place Block_Pillar_Tier3 - at 0 0 y=0.15
+place Block_Pillar_Tier3 - at 3 0 y=0.15
+place Block_Pillar_Tier3 - at 0 1.5 y=0.15
+place Block_Pillar_Tier3 - at 3 1.5 y=0.15
+roof 2 1 at 0 0 y=0.15
+place "Box Small" - at 1.5 0.75 y=0.17 sit yaw=20
+pop
+
+# --- The tramway: two floors wide on grey plates, rails along it, ore wagons ------------------------------------------
+push at -1.5 -41 h=3
+for fz 0.75 21.75 1.5
+place Block_Floor_Tier3 tramfloor at 0.75 $fz y=0.06
+place Block_Floor_Tier3 tramfloor at 2.25 $fz y=0.06
+next
+for rz 0 18 6
+place Antenna_pole tramrails at 0.9 $rz y=0.24 rot=90,0,0 sx=0.3 sz=0.3
+place Antenna_pole tramrails at 2.1 $rz y=0.24 rot=90,0,0 sx=0.3 sz=0.3
+next
+place VP_Wagon01 - at 1.5 3 y=0.2 sit
+place VP_Wagon02 - at 1.5 14 y=0.2 sit
+pop
+prop tramfloor tint.color=#6f6c68
+prop tramrails tint.color=#4a4642
+
+# --- The kiln row: five bottle kilns on stone stacks across the yard; Kiln 4's iron door at its foot ------------------
+for kx -20 20 10
+place TP_Moontown_Barrel01_Clean kilnstacks at $kx 2 h=2.9 sx=6.5 sz=6.5 sy=1.1
+place Vases_02 kilns at $kx 2 h=4.1 scale=8
+next
+prop kilnstacks tint.color=#5f5b57
+prop kilns tint.color=#8a5844
+place Loot_Chest kiln4door at 10 -0.7 h=3 sit yaw=180
+place Placeable_Lantern_Metal - at -10 -0.7 h=3 sit
+place Placeable_Lantern_Metal - at 20 -0.7 h=3 sit
+
+# --- The salt heaps: white rocks in three piles round the yard -------------------------------------------------------
+place SmallRock_02 saltheap1 at -22 18 ground scale=0.9
+place SmallRock_02 saltheaps at -23.5 19.5 ground scale=0.6 yaw=70
+place SmallRock_02 saltheaps at -20.5 19 ground scale=0.5 yaw=140
+place SmallRock_02 saltheap2 at 22 18 ground scale=0.9 yaw=200
+place SmallRock_02 saltheaps at 23.5 19.5 ground scale=0.6 yaw=30
+place SmallRock_02 saltheaps at 20.5 19.5 ground scale=0.5 yaw=100
+place SmallRock_02 saltheap3 at -24 -12 ground scale=0.9 yaw=90
+place SmallRock_02 saltheaps at -25.5 -10.5 ground scale=0.6 yaw=10
+place SmallRock_02 saltheaps at -22.5 -10.5 ground scale=0.5 yaw=250
+prop saltheap1 tint.color=#f2f2ef
+prop saltheap2 tint.color=#f2f2ef
+prop saltheap3 tint.color=#f2f2ef
+prop saltheaps tint.color=#f2f2ef
+
+# --- The smelter house behind the kilns: grey walls, its roof on pillars; the scales, the log, the kiln store ---------
+push at -3 14 h=3
+for fx 0.75 5.25 1.5
+for fz 0.75 3.75 1.5
+place Block_Floor_Tier3 - at $fx $fz y=0.05
+next
+next
+place Block_Wall_Tier3 - at 0.75 0 y=0.2
+place Block_Wall_Door_Tier3 - at 2.25 0 y=0.2
+place Block_Wall_Tier3 - at 3.75 0 y=0.2
+place Block_Wall_Tier3 - at 5.25 0 y=0.2
+place Block_Wall_Tier3 - at 0.75 4.5 y=0.2
+place Block_Wall_Tier3 - at 2.25 4.5 y=0.2
+place Block_Wall_Tier3 - at 3.75 4.5 y=0.2
+place Block_Wall_Tier3 - at 5.25 4.5 y=0.2
+place Block_Wall_Tier3 - at 0 0.75 y=0.2 yaw=90
+place Block_Wall_Tier3 - at 0 2.25 y=0.2 yaw=90
+place Block_Wall_Tier3 - at 0 3.75 y=0.2 yaw=90
+place Block_Wall_Tier3 - at 6 0.75 y=0.2 yaw=90
+place Block_Wall_Tier3 - at 6 2.25 y=0.2 yaw=90
+place Block_Wall_Tier3 - at 6 3.75 y=0.2 yaw=90
+place Block_Pillar_Tier3 - at 0 0 y=0.2
+place Block_Pillar_Tier3 - at 6 0 y=0.2
+place Block_Pillar_Tier3 - at 0 4.5 y=0.2
+place Block_Pillar_Tier3 - at 6 4.5 y=0.2
+roof 4 3 at 0 0 y=0.2
+place TangaroaScaleModel scales at 4.6 3.7 y=0.25 sit
+place "Box Big" - at 1.2 3.6 y=0.25 sit
+place Note_Paper kilnlog at 1.2 3.6 y=2 sit drop yaw=15
+place Loot_ChestLarge kilnstore at 5.2 1.2 y=0.25 sit yaw=270
+place Placeable_Lantern_Metal - at 0.8 0.8 y=0.25 sit
+pop
+place Zone_Trigger smelter at 0 16 h=4
+
+# --- The ambush: hyenas from the slag heaps, waiting for the tram stop once the store is opened ----------------------
+place Zone_Trigger ambushzone at 0 -44 h=2
+place Creature_Hyena hyenas at -10 -38 ground
+
+# --- A Raft store by the tramway: Nimbus Works' company shop, still trading (Raft's goods, and plans the crew missed) --
+store kilnshop at 12 -30 ground
+
+# --- Things to gather, reefs ----------------------------------------------------------------------------------------
+scatter "Pickup_Landmark_PineappleLandmark" 2 at 20 -30 r=15 seed=9911 free=3
+scatter "Pickup_Landmark_Flower_Blue" 2 at -30 30 r=15 seed=9912 free=3
+call dirt x=30 z=-25 r=8 n=3 seed=9913
+call shallows r=78 deep=5 n=2
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=The Sleet Kilns
+info author=Custom Islands
+info description=Nimbus Works' seventh station: a black-sand volcano shore with a row of five bottle kilns, white salt heaps, a tramway up from the landing and the smelter house where the seeding salt was weighed. The seventh island of The Rainmakers.
+island on.arrive=message||Black sand, and a row of five brick bottles as tall as houses. Round them, heaps of something white - not snow. Salt.
+
+story saltsack|Salt sack|Placeable_Lantern_Metal|A sack of seeding salt from one of the kiln yard's heaps.
+story weighed|Salt weighed|Battery|The three salt sacks are weighed on the smelter house scales.
+story storekey|Kiln store key|Placeable_Lantern_Metal|The kiln store's key, from behind Kiln 4's iron door.
+
+note kilnlog Kiln master's log | SLEET KILNS - KILN MASTER'S LOG\n\nThe Engine wants salt by the ton now. Bake it white in the kilns, sack it, WEIGH it - three sacks to a batch, no more, no less. Too much salt and the clouds freeze; that's the sleet you hear on the roof.\n\nI've locked the store. The key is behind Kiln 4's door; weigh a batch first and you'll know why.\n\n- Olsen, Kiln Master
+note kiln4door Kiln 4 door | Behind Kiln 4's iron door, in the warm ash: a key tagged STORE, and a few lumps of slag.
+loot kiln4door story:storekey*1;MetalIngot*2
+prop kiln4door loot.refill=0
+prop kiln4door if.open=has|story:weighed|1
+prop kiln4door else.open=message||Kiln 4's door is clamped shut. A chalk note on it: WEIGH A BATCH FIRST.
+note kilnstore Kiln store | The kiln store: Nimbus Works' plans for an electric smelter, an advanced biofuel refiner and a stationary anchor that holds in any storm - and the company's metal.
+loot kilnstore Blueprint_SmelterElectric*1;Blueprint_BiofuelExtractorAdvanced*1;Blueprint_AnchorStationaryAdvanced*1;MetalIngot*4;Bolt*3
+prop kilnstore loot.refill=0
+prop kilnstore if.open=has|story:storekey|1
+prop kilnstore else.open=message||The kiln store is locked. The kiln master hid the key - his log says where.
+prop kilnstore on.open=show|ambushzone
+
+prop saltheap1 obj.name=saltheap1
+prop saltheap1 beh.use=Fill a salt sack
+prop saltheap1 if.use=!signal|heap1
+prop saltheap1 on.use=message||You scoop a sack full of the white salt and tie it off.\nsignal||heap1\ngive||story:saltsack*1
+prop saltheap1 else.use=message||You've taken a sack from this heap.
+prop saltheap2 obj.name=saltheap2
+prop saltheap2 beh.use=Fill a salt sack
+prop saltheap2 if.use=!signal|heap2
+prop saltheap2 on.use=message||You scoop a sack full of the white salt and tie it off.\nsignal||heap2\ngive||story:saltsack*1
+prop saltheap2 else.use=message||You've taken a sack from this heap.
+prop saltheap3 obj.name=saltheap3
+prop saltheap3 beh.use=Fill a salt sack
+prop saltheap3 if.use=!signal|heap3
+prop saltheap3 on.use=message||You scoop a sack full of the white salt and tie it off.\nsignal||heap3\ngive||story:saltsack*1
+prop saltheap3 else.use=message||You've taken a sack from this heap.
+prop scales obj.name=scales
+prop scales beh.use=Weigh a batch of salt
+prop scales if.use=take|story:saltsack|3
+prop scales on.use=message||Three sacks on the pan - the needle swings and stops dead on the line. A batch. Somewhere a clamp clicks loose.\nsignal||scales\ngive||story:weighed*1\nsound||event:/exploring/obstacles/keypad/keypad_correct
+prop scales else.use=message||The scales want a full batch: three sacks of salt from the heaps in the yard.
+
+prop tramstop zone.id=tram_stop
+prop tramstop zone.radius=5
+prop tramstop zone.message=The tram stop: a shelter, a wagon - and rails running up to five great brick kilns.
+prop smelter zone.id=smelter
+prop smelter zone.radius=3
+prop smelter zone.message=The smelter house: the scales, the kiln master's desk, a locked store.
+prop ambushzone zone.id=ambush
+prop ambushzone zone.radius=6
+prop ambushzone zone.repeat=never
+prop ambushzone obj.name=ambushzone
+prop ambushzone beh.hidden=1
+prop ambushzone zone.message=Laughing in the slag heaps - hyenas, come down to the tram stop for you!
+prop hyenas creature.count=3
+prop hyenas creature.respawn=0
+prop hyenas creature.zone=ambush
+
+quest title=Seeding Salt
+quest intro=Black sand and brick kilns. Land at the tram stop.
+step reach|tram_stop|1|Land at the tram stop
+step read|Kiln master's log|1|Read the kiln master's log in the smelter house
+step collect|story:weighed|1|Fill three salt sacks at the heaps and weigh them on the scales
+step open|Kiln 4 door|1|Open Kiln 4's iron door
+step open|Kiln store|1|Open the kiln store with the key from Kiln 4
+step blueprint|Blueprint_SmelterElectric|1|Take the electric smelter plans from the kiln store
+step blueprint|Blueprint_BiofuelExtractorAdvanced|1|Take the advanced biofuel extractor plans from the kiln store
+step blueprint|Blueprint_AnchorStationaryAdvanced|1|Take the advanced stationary anchor plans from the kiln store
+step kill|Hyena|3|Deal with the hyenas at the tram stop on the way out
+quest done=The smelter plans are yours. In the store's ledger: the salt went on to the members' club - the next station answers on 1200.
+quest reward=MetalIngot*6;Bolt*4;Hinge*2
+
+# Buried treasure (one of the story line's last islands): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=28 n=1 seed=8825
+prop treasure8825 treasure.loot=TitaniumOre*3
+
+save The Sleet Kilns

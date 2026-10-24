@@ -1,0 +1,140 @@
+# The Franking Works - an island of the library's plan The Last Post (the Coastal Post's route, the seventh stop)
+# A flat reclaimed islet with the Coastal Post's stamp and franking factory on it: the works hall (Raft's Tier 3 blocks,
+# a hipped roof), the big stamping presses in the yard (Varuna Point's forklifts stood on their noses, tinted to iron),
+# the ink tanks (Temperance's barrels, blown up), the boiler chimney (a radio tower pillar, bricked), and Tangaroa's
+# tokens lying about the yard as rare stamps. A landing jetty on the south shore; a Raft store by the yard.
+# Quest "Rare Stamps" (10 steps): the yard, the franking master's ledger, three rare stamps (Tangaroa tokens), the stamp
+# album, the vault (three blueprints), Ada's dead letter in her pigeonhole, her last route map.
+#
+# Built by the recipe player (CIRecipe franking_works) through the editor's own operations.
+include lib_sea
+include lib_features
+include lib_post
+new
+# (nature: an industrial islet, few trees, rocks Like Raft)
+gen Trees=0.1 Bushes=0.2 Rocks=0.35 Harvest=0.15 BeachThings=0.3
+gen Seed=4701 Radius=48 Height=5 Roughness=0.3 Peaks=1 Shape=0 Style=0 PeakShape=0.6 Cliffs=0.1 BeachWidth=0.5
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.15 Sunken=0.2 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+
+# --- Terrain: the yard and the works (2.5 m), the jetty's root on the south shore (1.6 m) ----------------------------
+brush flatten from 0 -14 to 0 4 r=14 s=20 frames=200 h=2.5
+brush flatten at -14 0 r=6 s=20 frames=80 h=2.5
+brush flatten from 0 -24 to 0 -36 r=4 s=20 frames=100 h=1.6
+brush smooth from 0 -20 to 0 -36 r=5 s=8 frames=30
+origin
+clear from 0 -16 to 0 6 r=15
+clear at -14 0 r=6
+clear from 0 -20 to 0 -38 r=4
+
+# --- The jetty -----------------------------------------------------------------------------------------------------------
+call pier x=0 z1=-34 z2=-48 h=1.45
+place Placeable_Lantern_Metal - at 1.2 -47 h=1.6 sit drop
+
+# --- The works hall: 6 x 4 cells, door to the yard; the ledger, the stamp album, the vault, the pigeonholes -------------
+push at -6 -2 h=2.5
+call posthall w=6 d=4 al=works
+place "Table Office" - at 1.5 4.6 y=1.3 sit drop yaw=0
+place Note_Paper ledger at 1.9 4.9 y=2.2 sit drop yaw=-8
+place "Chair Office" - at 1.5 3.7 y=1.3 sit drop yaw=0
+place Placeable_Cupboard_Small stampalbum at 4.5 5.4 y=1.3 sit drop yaw=180
+place Loot_Chest vault at 7.4 5.2 y=1.3 sit drop yaw=180
+place Placeable_Shelf_Small_Basic adahole at 8.4 2 y=1.3 sit drop yaw=270
+place Note_Paper adamap at 7.6 2.2 y=1.3 sit drop yaw=80
+call mailsack x=1 z=1 yaw=30 al=sacks
+call mailsack x=6.2 z=1.2 yaw=-40 al=sacks
+pop
+place RT_PillarThick chimney at 4.5 5 ground sit scale=2
+
+# --- The yard: the stamping presses, the ink tanks, the rare stamps lying about ----------------------------------------
+macro press x=0 z=0 yaw=0
+place VP_Forklift presses at $x $z ground sit yaw=$yaw
+end
+call press x=-10 z=-10 yaw=0
+call press x=-4.5 z=-13 yaw=0
+call press x=10 z=-11 yaw=180
+macro inktank x=0 z=0
+place TP_Moontown_Barrel01 inks at $x $z ground sit scale=2
+end
+call inktank x=7.5 z=1
+call inktank x=9.5 z=1
+call inktank x=11.5 z=1
+place QuestItemPickup_Tangaroa_Token stamp1 at -7 -7 ground
+place QuestItemPickup_Tangaroa_Token stamp2 at 6 -15 ground
+place QuestItemPickup_Tangaroa_Token stamp3 at 12 -3 ground
+place Zone_Trigger yardzone at 0 -10 ground
+store frankshop at -13 0 ground
+
+# --- Nature: the reefs, a few things to gather -------------------------------------------------------------------------
+call dirt x=-20 z=16 r=10 n=2 seed=4712
+call hives x=18 z=18 r=10 n=1 seed=4713
+place Creature_Dolphin dolphins at 34 -50 h=-3
+prop dolphins creature.count=2
+call shallows r=62 deep=5 n=2
+
+# --- Settings, notes, behaviours, quest --------------------------------------------------------------------------------
+info title=The Franking Works
+info author=Custom Islands
+info description=A flat islet and the Coastal Post's stamp factory: the works hall, stamping presses in the yard, ink tanks and a brick chimney, and rare stamps lying where the last shift dropped them. Fill the stamp album and open the vault. The seventh stop of The Last Post.
+island on.arrive=message||A flat islet, a works hall with a tall brick chimney, and iron presses standing in the yard like sleeping beasts.
+
+prop works tint.color=#a0705a
+prop works tint.amount=0.5
+prop chimney tint.color=#7a4a3a
+prop chimney tint.amount=0.8
+prop presses tint.color=#4b4f55
+prop presses tint.amount=0.7
+prop inks tint.color=#2a3550
+prop inks tint.amount=0.75
+prop sacks tint.color=#b8a478
+prop sacks tint.amount=0.75
+prop stamp1 obj.name=stamp1
+prop stamp2 obj.name=stamp2
+prop stamp3 obj.name=stamp3
+
+story albumfull|Stamp album, full|Note_Paper|The franking master's album, its three empty frames filled with the rare stamps.
+story adadelivered|Letter for Ada|Note_Paper|Ada Lind's letter, in her pigeonhole at the Franking Works.
+note ledger Franking master's ledger | THE FRANKING WORKS - MASTER'S LEDGER\n\nRare issue: three stamps, the gold Tangaroa series. Two went missing from the press line the day the water came, one rolled under the ink tanks.\n\nThe vault opens when the album is complete - the old rule, and I won't change it now.\n\nPostmistress Lind's pigeonhole is by the back wall. She has not been in for her post.
+prop stampalbum obj.name=stampalbum
+prop stampalbum beh.use=Set the rare stamps in the album
+prop stampalbum if.use=take|story:raft-Tangaroa_Token|3
+prop stampalbum on.use=message||Three stamps, three frames. The album is complete - and with a clunk the vault's bolts draw back.\nsignal||vault\ngive||story:albumfull*1\nsound||event:/exploring/obstacles/keypad/keypad_correct
+prop stampalbum else.use=message||The stamp album: three empty frames for the gold Tangaroa series. You need all three rare stamps.
+note vault Vault | The works' vault: the plans of the machines that made the post's metal and fuel, and the anchor of the post ship.
+loot vault Blueprint_SmelterElectric*1;Blueprint_BiofuelExtractorAdvanced*1;Blueprint_AnchorStationaryAdvanced*1;MetalIngot*3;Bolt*2;TitaniumIngot*3
+prop vault loot.refill=0
+prop vault if.open=signal|vault
+prop vault else.open=message||The vault is bolted. A brass plate: "OPENS WHEN THE ALBUM IS COMPLETE".
+prop adahole obj.name=adahole
+prop adahole beh.use=Put the letter in Ada's pigeonhole
+prop adahole if.use=take|story:dl_ada|1
+prop adahole on.use=message||The letter slides into the pigeonhole marked A. LIND - and pushes out a folded map that was waiting there.\ngive||story:adadelivered*1\nshow|adamap
+prop adahole else.use=message||A pigeonhole: A. LIND, POSTMISTRESS. You have nothing for her.
+note adamap Ada's route map | My last round, if anyone wants to follow it: up the green hill to my house - the garden gate is never locked - and then the General Post Office, where the post began.\n\nThe pigeons know the way. Ask them.\n\n- A. L.
+prop adamap obj.name=adamap
+prop adamap beh.hidden=1
+
+prop yardzone zone.id=yard
+prop yardzone zone.radius=8
+prop yardzone zone.message=The works yard: presses, ink tanks, and something small and gold glinting in the dust.
+
+quest title=Rare Stamps
+quest intro=A stamp factory on a flat islet. Walk into its yard.
+step reach|yard|1|Walk into the works yard
+step read|Franking master's ledger|1|Read the franking master's ledger in the works hall
+step collect|story:raft-Tangaroa_Token|3|Find the three rare stamps about the yard
+step collect|story:albumfull|1|Set the stamps in the stamp album
+step open|Vault|1|Open the vault
+step blueprint|Blueprint_SmelterElectric|1|Take the electric smelter plans
+step blueprint|Blueprint_BiofuelExtractorAdvanced|1|Take the advanced biofuel extractor plans
+step blueprint|Blueprint_AnchorStationaryAdvanced|1|Take the advanced stationary anchor plans
+step collect|story:adadelivered|1|Put Ada's letter in her pigeonhole
+step read|Ada's route map|1|Read Ada's route map
+quest done=The album is full and Ada's letter is home. Her map points up a green hill - to her house.
+quest reward=MetalIngot*4;Bolt*4;CopperIngot*2
+
+# Buried treasure (one of the story line's last islands): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=24 n=1 seed=8818
+prop treasure8818 treasure.loot=TitaniumOre*3
+
+save The Franking Works

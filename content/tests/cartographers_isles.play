@@ -1,0 +1,69 @@
+# Play test of The Cartographer's Isles (CIPlay cartographers_isles, in a test world 'CI ...'). Points as in its recipe:
+# the hut's pad at -39 -5 (2.5 m), its deck 3.9 m, its ladder at -39 -7.4; the knoll's path from 0 -4 up to the top at
+# 10 -16 (12 m); the tower's pad at 50 20 (4.6 m), its ladder at 50.75 18.3, its deck 14.6 m; the drowned post at 34 22
+# (6 m down); the sandbar at 1 m, the X at 18 35
+island The Cartographer's Isles
+offset 0.2268 0.4458
+expect step 0
+expect title Four Bearings
+expect animals Llama 3
+expect animals Dolphin 2
+expect hidden piece2
+expect hidden treasure
+wait 5
+
+# The hut: the will, the map case - piece II shows on the knoll's pillar
+walk -40.8 -11.6 to -39.6 -9.4 h=3.8
+zone landing
+expect step 1
+read Ines Achterberg's will
+expect step 2
+climb -39 -7.4 h=2.5
+expect stand -39 -5 h=3.9 below=6
+open Map piece I
+expect shown piece2
+expect step 3
+open Box under the hut
+
+# The knoll: up the path to the pillar, its plate - piece III shows on the tower
+walk 0 -4 to 0 -20 to 7 -20.5 to 9 -17.5 h=12
+zone trig1
+expect step 4
+read Map piece II
+expect shown piece3
+expect step 5
+open Cairn box
+
+# The survey tower: up the ladder, piece III - the bottle shows at the drowned post
+walk 50.75 15.4 to 50.75 17.6 h=4.6
+climb 50.75 18.3 h=4.6
+climb 50.75 18.3 h=7.02
+climb 50.75 18.3 h=9.44
+climb 50.75 18.3 h=11.86
+climb 50.75 18.3 h=14.28
+expect stand 50.75 20.6 h=14.6 below=16
+zone trig2
+expect step 6
+read Map piece III
+expect shown piece4
+expect step 7
+open Tower box
+
+# The drowned post: the bottle - the X shows on the sandbar
+zone trig3
+expect step 8
+read Map piece IV
+expect shown digmound
+expect step 9
+open Sunk barrel
+
+# The sandbar: the hyenas; the dig; the treasure
+walk 12 30 to 16 33 h=1
+zone xmark
+expect step 10
+kill Hyena
+use digmound
+expect hidden digmound
+expect shown treasure
+open Achterberg's treasure
+expect done

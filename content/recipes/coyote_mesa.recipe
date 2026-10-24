@@ -1,0 +1,87 @@
+# Coyote Mesa - a new medium island of the library (ROADMAP 3d NI4), no quest
+# A dry desert island where two flat-topped mesas stand over the sand, a rope bridge hanging between their tops. A hermit
+# built his cabin at the west mesa's foot and ladders up its face; hyenas prowl the flats and a screecher keeps the east
+# mesa's top, where the hermit hid his chest. A monster island: mind the hyenas and the bird. Cactus, melons, a few
+# palms, a treasure buried, Raft's finds in the shallows.
+#
+# Built by the recipe player (CIRecipe coyote_mesa) through the editor's own operations. Points: the west mesa's top
+# (17.4 m) x -22..-14, z -3..3; the east mesa's top (17.4 m) x 10..18, z -3..3; the bridge from -15 0 to 11 0 (its ends on the tops) (deck
+# 17.5 m, sagging 1.6 m); the ladders' foot at -18 -13 (3 m), ledges at z -9.5 (7.8 m) and -6 (12.6 m), ladders at x -18
+# against the faces at z -11.65, -8.15 and -4.65; the hermit's cabin x -28..-23.5, z -22..-19 (pad 3 m, its door on the
+# south side at -25.75 -22), his box inside at -27.1 -20; the hidden chest on the east top at 16 2; the hyenas at 12 -22.
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+new
+# (nature: a desert island - fewer trees, more rocks, less to harvest)
+gen Trees=0.12 Bushes=0.2 Rocks=0.45 Harvest=0.15 BeachThings=0.3
+gen Seed=7413 Radius=52 Height=6 Roughness=0.35 Peaks=1 Shape=0 Style=2 BeachWidth=0.6 Cliffs=0.4 PeakShape=0.3
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0.2
+generate
+
+# ===== Terrain: the two mesas' tops, the valley between, the west mesa's ledges and the ladders' foot; the cabin's pad =======
+for hz -3 3 3
+brush flatten from -22 $hz to -14 $hz r=1.8 s=20 frames=160 h=17.4
+brush flatten from 10 $hz to 18 $hz r=1.8 s=20 frames=160 h=17.4
+next
+brush flatten from -7 0 to 3 0 r=4 s=20 frames=60 h=3
+brush flatten from -20 -6 to -16 -6 r=1.8 s=20 frames=100 h=12.6
+brush flatten from -20 -9.5 to -16 -9.5 r=1.8 s=20 frames=100 h=7.8
+brush flatten from -20 -13 to -16 -13 r=1.6 s=20 frames=60 h=3
+brush flatten at -25.75 -20.5 r=5 s=20 frames=60 h=3
+brush rock at -18 0 r=10 s=20 frames=30
+brush rock at 14 0 r=9 s=20 frames=30
+clear at -18 -4 r=12
+clear at 14 0 r=9
+clear at -25.75 -20.5 r=6
+
+# ===== Ladders up the west mesa's face: foot to ledge, ledge to ledge, ledge to top ========================================
+call ladders x=-18 z=-11.65 h=3 n=2 yaw=180
+call ladders x=-18 z=-8.15 h=7.8 n=2 yaw=180
+call ladders x=-18 z=-4.65 h=12.6 n=2 yaw=180
+
+# ===== The rope bridge between the mesas' tops ============================================================================
+call hangbridge x1=-15 z1=0 h1=17.5 x2=11 z2=0 h2=17.5 sag=1.6 pb=2
+
+# ===== The hermit's cabin at the west mesa's foot: bed, box, fire ==========================================================
+push at -28 -22 h=3
+call cabin w=3 d=2 al=cabinwall
+place Bed_Simple - at 3.25 2.2 y=0.1 sit yaw=90
+place "Box Small" hermitbox at 0.9 2 y=0.1 sit yaw=10
+pop
+place campfire_1 - at -24 -25 ground sit
+
+# ===== The east mesa's top: the hermit's hidden chest, the screecher; nests ===============================================
+place Loot_ChestSmall mesachest at 16 2 h=17.4 sit yaw=270
+place Bird_Nest - at 12 -2 h=17.4 sit
+place Creature_StoneBird screecher at 14 0 h=19.5
+
+# ===== The flats: cactus, dead trees, melons and a few palms; a treasure; hyenas; Raft's finds in the shallows ==============
+scatter Cactus1A 3 at 0 -10 r=34 seed=7613 free=3
+scatter Cactus3A 2 at 0 -10 r=34 seed=7623 free=3
+scatter Cactus5A 2 at 0 -10 r=34 seed=7633 free=3
+place DeadTree2 - at 24 -26 ground sit yaw=60
+place DeadTree1 - at -4 26 ground sit yaw=150
+scatter "Pickup_Landmark_WatermelonLandmark" 3 at 0 -12 r=32 seed=7643 free=4
+scatter "Pickup_Landmark_Tree_Palm 2" 2 at 0 -20 r=24 seed=7653 free=6
+call dirt x=0 z=-12 r=30 n=3 seed=7663
+call treasure x=0 z=-12 r=30 n=1 seed=7413
+place Creature_Hyena hyenas at 12 -22 ground
+prop hyenas creature.count=3
+call shallows r=74 deep=5 n=2 seed=753
+
+info title=Coyote Mesa
+info author=Custom Islands
+info description=A dry desert island where two mesas stand over the sand, a rope bridge hanging between their tops, a hermit's cabin and ladders at the west one's foot - hyenas on the flats and a screecher on the east mesa. No quest - an island to explore.
+
+note hermitbox Hermit's box | His box under the window: dried meat, a water bottle, rope - and a note: "the rest is where only the bird can see it".
+loot hermitbox Cooked_GenericMeat*2;PlasticBottle_Water*2;Rope*2
+prop hermitbox loot.refill=0
+note mesachest The hermit's hidden chest | Where only the bird can see it: his savings.
+loot mesachest MetalIngot*3;CopperIngot*2;Bolt*3;Hinge*2;Glass*2
+prop mesachest loot.refill=0
+
+posts off
+save Coyote Mesa

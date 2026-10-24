@@ -1,0 +1,194 @@
+# Temperance Remade - an island of the library's plan Raft Remade (in place of Raft's Temperance)
+# Raft's Temperance made anew: a snowy ridge island - an igloo village on the north flats, Selene's station on a terrace
+# above it (its reactor tripped in a storm, its inner doors shut), the telescope on a terrace cut into the peak, and a
+# snowmobile that went through the ice in the bay. Quest "The Reactor's Last Breath" (10 steps): the village, the
+# station chief's note, three cable drums each from its crate (the village store, the sunken snowmobile, the telescope)
+# and all three carried, the station, the reactor started and the inner doors passed, the polar bear mother and the
+# chief's vault (Temperance's blueprints: the electric smelter, the advanced biofuel refiner, the advanced stationary
+# anchor).
+#
+# Built by the recipe player (CIRecipe temperance_remade) through the editor's own operations (macros from lib_selene).
+include lib_sea
+include lib_selene
+include lib_features
+new
+# (nature and the life under water: as on Raft's island itself - Randomize existing measures them)
+randomize Temperance like Seed=7107 Radius=62 Height=32 Cliffs=0.2 BeachWidth=0.5 Hostiles=0 Friendly=0 SeaLife=0.3
+
+# --- Terrain: the village's flats (4 m), the station's terrace (9 m), the road between them, the telescope's terrace
+# (18 m) cut into the peak and the path up to it -------------------------------------------------------------------
+brush flatten from -10 38 to 16 38 r=11 s=20 frames=60 h=4
+brush flatten from -22 18 to 6 18 r=9 s=20 frames=90 h=8.85
+for i 0 5 1
+brush flatten at {-2-$i*2.4} {31-$i*1.0} r=2.8 s=20 frames=30 h={4.2+$i*0.96}
+next
+brush smooth from -2 31 to -14 26 r=3 s=10 frames=20
+brush flatten at -5 -6 r=6 s=20 frames=40 h=18
+for i 0 6 1
+brush flatten at {8-$i*2.17} {12-$i*2.67} r=2.6 s=20 frames=30 h={9.2+$i*1.47}
+next
+brush smooth from 8 12 to -5 -4 r=3 s=10 frames=20
+origin
+clear at 2 38 r=16
+clear at -8 18 r=16
+clear from -2 31 to -14 26 r=4
+clear from 8 12 to -5 -4 r=4
+clear at -5 -6 r=7
+clear at -6 -9 r=8 only=Rock|Boulder
+clear at -32 51 r=5 only=Rock|Boulder|Barrel
+# (an ice shore stone the look left buried under the west shelf, X7 2026-10-17)
+clear at -49.1 -3.7 r=1.2 only=IceShore
+# (the look's antenna stood on the old peak, 5.4 m over the ground the telescope's terrace left: set down on it, X7 2026-10-17)
+clear at -7.56 -14.96 r=1.5 only=TelephoneAntenna
+place TP_TelephoneAntenna_NoQuestItem - at -7.56 -14.96 ground sit
+
+# --- The igloo village on the north flats: two Moontown igloos, the store, snow vehicles, the chief's note --------------
+place TP_Igloo_Small_1 igloo1 at -9 38 yaw=180
+place TP_Igloo_Small_2 igloo2 at 13 38.5 yaw=180
+place TP_Moontown_SealedCrate02_Clean noteCrate at 2 34 ground yaw=20
+place Note_Paper chiefsnote at 2 34 h=6 sit drop yaw=20
+place TP_Moontown_TarpCrate02_Clean - at 4.5 33 ground yaw=-10
+place TP_Moontown_Barrel02 - at 0 33.2 ground
+place TP_SnowVehicle01 - at 1.5 44 ground yaw=70
+place TP_SnowShovel02 - at 5.5 36.2 ground yaw=40 tilt=10
+place Loot_Crate cable1 at 4.5 40 ground yaw=30
+place Zone_Trigger village at 2 38 h=5.2
+
+# --- Selene's station on its terrace (9 m): the entrance hall, the reactor room, the inner doors, the inner hall --------
+push at -20 21 h=9
+call selene_cell 0 0 n=TP_Selene_Int_Room_Entrance e=none
+call selene_cell 6 0 w=none e=TP_Selene_Int_Room_Entrance
+call selene_cell 12 0 w=none e=none
+call selene_cell 18 0 w=none
+# (the inner doors: both leaves pivot on the doorway's middle, the left one reaching north, the right one south)
+place TP_Selene_Int_DoorLargeL innerdoorL at 12 -3 yaw=0 sy=1.051
+place TP_Selene_Int_DoorLargeR innerdoorR at 12 -3 yaw=0 sy=1.051
+place RT_PowerBox reactor at 9 -5.75 y=1.4 yaw=0
+place TP_LaboratoryMachine_Large01 - at 7.6 -4.9 sit
+place TP_LaboratoryMachine_Large02 - at 10.9 -4.9 sit
+place TP_Selene_ComputerRoom_Server01 - at 0.7 -2 sit yaw=90
+place TP_Selene_ComputerRoom_Server02 - at 0.7 -4 sit yaw=90
+place TP_FoldingTable_Large - at 16 -5.1 sit
+place TP_CabinetCharts01 - at 23.3 -1.5 sit yaw=270
+place Loot_ChestLarge chiefsvault at 23 -5 sit yaw=270
+place Zone_Atmosphere stationair at 12 -3 y=2
+# (Selene's rooms are made to be seen from inside: an outer skin of tower walls, stretched to their height, a roof)
+for wx 3 24 3
+place RT_Wall1 - at $wx -6.15 sy=1.58
+next
+for wx 7.5 24 3
+place RT_Wall1 - at $wx 0.15 sy=1.58
+next
+place RT_Wall1 - at -0.15 -6 sy=1.58 yaw=90
+place RT_Wall1 - at -0.15 -3 sy=1.58 yaw=90
+place RT_Wall1 - at 24.15 -6 sy=1.58 yaw=90
+place RT_Wall1 - at 24.15 -3 sy=1.58 yaw=90
+for rx 6.04 24.16 6.04
+place RT_Floor - at $rx 0.2 y=4.76
+next
+pop
+place Zone_Trigger station at -17 24 h=10.2
+place Zone_Trigger inner at -2 18 h=10.2
+place Creature_PolarBear bearmother at 0 18 h=9.4
+# (SL9: Temperance's puffins on the west ledge by the snowy pines - they fly off when players come near)
+place Creature_Puffin puffins at -30 6 ground
+place Creature_Puffin - at -32 1 ground
+
+# --- The telescope on its terrace cut into the peak (18 m): the survey team's cable drum beside it ---------------------
+place TP_Telescope telescope at -6 -8 ground yaw=200
+place Loot_Crate cable2 at -2.5 -5 ground yaw=-20
+place TP_Moontown_Barrel02 - at -9 -4 ground
+
+# --- A few snowy pines and drifts (Raft's Temperance is near bare) ---------------------------------------------------
+scatter TP_PineTreeSnowy 3 at -34 4 r=8 seed=71
+scatter TP_SnowDrift01 4 at 20 10 r=10 seed=72
+
+# --- In the bay north-west of the village: the snowmobile that went through the ice (3 m down), the third drum by it ---
+place TP_SnowVehicle02 sunksled at -32 52 ground tilt=10 yaw=40
+place Loot_Crate cable3 at -34 50 ground yaw=60
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): pines, flowers, berries ----------
+scatter "Pickup_Landmark_Tree_Pine" 6 at 0 0 r=43.4 seed=4524 free=5
+scatter "Pickup_Landmark_Flower_White" 4 at 0 0 r=43.4 seed=4534 free=3
+scatter "Pickup_Landmark_Flower_Blue" 4 at 0 0 r=43.4 seed=4535 free=3
+scatter "Pickup_Landmark_BerryBush" 6 at 0 0 r=43.4 seed=4544 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=82 deep=5 n=2
+
+info title=Temperance Remade
+info author=Custom Islands
+info description=Raft's Temperance made anew: an igloo village on a snowy ridge island, Selene's station on the terrace above it - its reactor tripped, its inner doors shut - the telescope on the peak and a snowmobile under the ice. Three cable drums, a reactor and a polar bear mother. Raft Remade's seventh island.
+island on.arrive=message||Snow, two igloos with their lamps out, a dark station on the terrace above - and the wind off the ice.
+
+story cable|Cable drum|quest:Temperance_ElectricalCable|A drum of the reactor's heavy cable - the reactor needs three.
+
+note chiefsnote Station chief's note | TEMPERANCE STATION - CHIEF'S NOTE\n\nThe storm tripped the reactor and tore out every cable run. Three drums of cable are left on the island: one in the village store, one up at the telescope where the survey team left it, and one went through the ice in the bay with Mikkel's snowmobile.\n\nWithout the reactor the inner doors stay shut - and my vault with them: the smelter plans, the refinery, the anchors.\n\nAnd something has moved into the inner hall. The big she-bear. Do not start the reactor unarmed.
+note cable1 Village store crate | The village store's crate: tinned fish, candles - and a drum of the reactor's cable.
+loot cable1 story:cable*1;Wool*2
+prop cable1 loot.refill=0
+note cable2 Survey crate | The survey team's crate by the telescope: star charts, a thermos - and a drum of cable.
+loot cable2 story:cable*1;Glass*2
+prop cable2 loot.refill=0
+note cable3 Sled crate | The crate from Mikkel's sled, under the ice: a drum of cable, his gloves.
+loot cable3 story:cable*1;Leather*2
+prop cable3 loot.refill=0
+note chiefsvault Chief's vault | The station chief's vault: the plans she kept for the day the station would run again - an electric smelter, an advanced refinery, an anchor that holds a raft in any storm.
+loot chiefsvault Blueprint_SmelterElectric*1;Blueprint_BiofuelExtractorAdvanced*1;Blueprint_AnchorStationaryAdvanced*1;Battery_Advanced*1
+prop chiefsvault loot.refill=0
+
+prop reactor obj.name=reactor
+prop reactor beh.use=Connect the cables and start the reactor
+prop reactor if.use=take|story:cable|3
+prop reactor on.use=message||The cables lock in, the reactor wakes with a deep hum - lights run down the hall and the inner doors slide apart. Something big stirs behind them.\nopen|innerdoor\nsound||event:/raft/door/door_selene_open
+prop reactor else.use=message||The reactor is dead. Three cable runs are missing - the chief's note said where the drums are.
+prop innerdoorL obj.name=innerdoor
+prop innerdoorL beh.move=0,0,2.3
+prop innerdoorL beh.moveTime=1.5
+prop innerdoorL beh.moveMode=switch
+prop innerdoorR obj.name=innerdoor
+prop innerdoorR beh.move=0,0,-2.3
+prop innerdoorR beh.moveTime=1.5
+prop innerdoorR beh.moveMode=switch
+prop stationair atmo.light=#b8d4ff
+prop stationair atmo.lightAmount=0.35
+prop stationair zone.radius=13
+
+prop village zone.id=village
+prop village zone.radius=8
+prop village zone.message=The igloo village: two Moontown igloos, their lamps out, snow drifted against the doors.
+prop station zone.id=station
+prop station zone.radius=5
+prop station zone.message=Selene's station: dark, cold - the reactor room through the hall, the inner doors shut.
+prop inner zone.id=inner
+prop inner zone.radius=5
+prop inner zone.message=The inner hall - and the she-bear rising from her bed of torn insulation!
+prop bearmother creature.count=1
+prop bearmother creature.size=1.4
+prop bearmother creature.health=6
+prop bearmother creature.respawn=0
+prop bearmother creature.zone=inner
+
+quest title=The Reactor's Last Breath
+quest intro=A snowy island, an igloo village with its lamps out and Selene's station dark on the terrace above. Start at the village.
+step reach|village|1|Come to the igloo village
+step read|Station chief's note|1|Read the station chief's note
+step open|Village store crate|1|Open the village store's crate - the first drum of cable
+step open|Sled crate|1|Dive to Mikkel's snowmobile under the ice in the bay and open its crate
+step open|Survey crate|1|Climb to the telescope on the peak - the survey team left a drum there
+step collect|story:cable|3|Carry all three cable drums - one for each torn cable run
+step reach|station|1|Go up to Selene's station on the terrace
+step reach|inner|1|Connect the cables, start the reactor and go through the inner doors
+step kill|Polar bear|1|Face the polar bear mother in the inner hall
+step open|Chief's vault|1|Open the station chief's vault
+step blueprint|Blueprint_SmelterElectric|1|Take the electric smelter plans from the chief's vault
+step blueprint|Blueprint_BiofuelExtractorAdvanced|1|Take the advanced biofuel extractor plans from the chief's vault
+step blueprint|Blueprint_AnchorStationaryAdvanced|1|Take the advanced stationary anchor plans from the chief's vault
+quest done=The vault opens on the chief's plans: an electric smelter, an advanced refinery, an anchor for any storm. Behind you the reactor hums, and the station's lights burn over the snow again.
+quest reward=Wool*4;Plank*8;Glass*2
+
+# Buried treasure (one of the story line's last islands): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=30 n=1 seed=8805
+prop treasure8805 treasure.loot=TitaniumOre*3
+
+save Temperance Remade

@@ -1,0 +1,13 @@
+# Guide pictures of Crater Lair (CIPlay crater_lair_pics): Raft's camera, midday, calm
+island Crater Lair
+offset 0.5101 0.0433
+hour 11
+weather Calm
+at -48 0.5
+wait 3
+use doorpanel
+wait 6
+picture crater_lair_cone -82 20 14 -24 11 -4
+picture crater_lair_hangar -41.6 3.4 2.4 -32 1.6 -4.5
+picture crater_lair_control -33.9 2.7 -0.2 -28.5 1.8 5.5
+picture crater_lair_dish 9 31 9 -3 21 -3

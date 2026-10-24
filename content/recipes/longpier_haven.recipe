@@ -1,0 +1,112 @@
+# Longpier Haven - a new medium island of the library (ROADMAP 3d NI7), no quest
+# A harbour island: on the south shore a quay with a long plank pier out into the bay, a harbour-master's cabin, crates and
+# nets and a boat drawn up on the sand; on the east shore a plank bridge on posts runs out over the water to a rock stack,
+# a watch hut on its top. Out in the bay, under the water, lies a boat that never made the harbour, her chest by her.
+# In the west a smugglers' cave, crates hidden inside. Black rock on the stack and the headland, sand on the beaches,
+# grass inland. Boars in the bush, puffer fish by the wreck - a monster island.
+#
+# Built by the recipe player (CIRecipe longpier_haven). Points: the quay (1.6 m, r 9 round 0 -34), the pier from 0 -41 out
+# south (yaw 90, 10 cells, deck 1.5 m; its head at about 0 -59); the harbour master's cabin x -9..-4.5, z -34..-31 (door
+# south); the east landing (3.1 m, r 6 round 40 2), the bridge from 44 2 to 55.5 2 (deck 3 m), the stack (3.1 m, r 6 round 61
+# 2), its watch hut x 58.5..63, z 0.5..3.5 (door south); the sunken boat at 22 -64 and her chest at 25 -61; the cave rock
+# round -28 18, its floor 2 m, its mouth north at -29 34.
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+include lib_ni7a
+new
+# (nature: a green island, palms and bush, rocky headlands)
+gen Trees=0.57 Bushes=0.78 Rocks=0.71 Harvest=0.55 BeachThings=0.70
+gen Seed=7704 Radius=48 Height=9 Roughness=0.35 Peaks=1 Shape=0 Style=0 BeachWidth=0.55 Cliffs=0.3 PeakShape=0.4
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.45 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0.2 SeaLife=0.25
+
+generate
+
+# ===== Terrain: the quay, the east landing and the stack, the cave rock, rock and sand ================================
+brush flatten at 0 -34 r=13 s=20 frames=80 h=1.6
+brush sand at 0 -34 r=12 s=20 frames=20
+brush flatten at 40 2 r=6 s=20 frames=80 h=3.1
+brush flatten at 61 2 r=6 s=20 frames=200 h=3.1
+brush rock at 61 2 r=9 s=12 frames=25
+brush rock at 44 -20 r=10 s=8 frames=20
+brush flatten at -28 18 r=13 s=20 frames=100 h=1.6
+brush flatten from -29 36 to -29 20 r=4.5 s=20 frames=60 h=2
+brush sand from -29 32 to -29 40 r=4 s=20 frames=20
+clear at 0 -34 r=10
+clear from 0 -41 to 0 -62 r=5
+clear at 40 2 r=7
+clear from 44 2 to 56 2 r=3
+clear at 61 2 r=7
+clear at -28 18 r=17
+clear from -29 34 to -29 42 r=4
+
+# ===== The harbour: the pier out south, the harbour master's cabin, crates, nets, barrels, a boat on the sand ===========
+push at 0 -41 yaw=90
+call jetty n=10 h=1.5
+pop
+push at -9 -34 h=1.6
+call cabin w=3 d=2 al=harbourcabin
+place Placeable_Table_Basic - at 3.4 1.8 y=0.1 sit
+place Loot_ChestSmall harbourchest at 1 2.2 y=0.1 sit yaw=180
+pop
+place Loot_Crate - at 4 -33 ground sit yaw=10
+place Loot_Crate - at 5.4 -33.4 ground sit yaw=-15
+place Loot_Crate - at 4.6 -31.6 ground sit yaw=40
+place Reef_Barrel4 - at 6.5 -36 ground sit
+place Reef_Barrel2 - at -3 -38 ground sit
+place FishingNets_02 - at 3 -38 ground sit yaw=80
+place RT_PlasticBoat - at -12 -42 ground sit yaw=200 roll=8
+place Placeable_Lantern_FireBasket - at 1.8 -39.5 ground sit
+
+# ===== The bridge out to the stack, the watch hut on its top ==========================================================
+call longbridge x1=44 z1=2 x2=55.5 z2=2 h=3
+push at 58.5 0.5 h=3.1
+call cabin w=3 d=2 al=watchhut
+place Loot_ChestSmall watchchest at 3.5 2.2 y=0.1 sit yaw=180
+pop
+
+# ===== The boat sunk in the bay, her chest by her; puffers =============================================================
+call wreck x=22 z=-64 yaw=50 roll=14 tilt=4 sink=2.8 al=bayboat seed=7791 where=wet
+place Loot_ChestSmall wreckchest at 25.5 -60.5 ground sit yaw=35 roll=8
+place Creature_PufferFish puffers at 22 -60 h=-4
+prop puffers creature.count=2
+
+# ===== The smugglers' cave, crates inside ==============================================================================
+place BalboaCave_Bear smugglerscave at -28 18 h=6.55
+place Loot_ChestSmall smugglerschest at -30.5 23 h=2.05 sit yaw=60
+place Loot_Crate - at -25.6 22.5 h=2.05 sit yaw=20
+place Loot_Crate - at -25.8 24 h=2.05 sit yaw=-10
+
+# ===== Boars; things to gather: palms, mangoes, pineapples, berries, hives, dirt, a treasure; the shallows; turtles =====
+place Creature_Boar boars at 10 10 ground
+prop boars creature.count=2
+scatter "Pickup_Landmark_Tree_Palm 1" 5 at 0 0 r=38 seed=7792 free=6
+scatter "Pickup_Landmark_Tree_Mango" 2 at -10 0 r=30 seed=7793 free=6
+scatter "Pickup_Landmark_BerryBush" 3 at 0 0 r=36 seed=7794 free=3
+call hives x=10 z=10 r=26 n=2 seed=7795
+call dirt x=0 z=0 r=30 n=3 seed=7796
+call treasure x=0 z=0 r=36 n=1 seed=7704
+call shallows r=72 deep=5 n=2 seed=774
+place Creature_Turtle turtles at -40 -40 h=-2
+prop turtles creature.count=2
+
+info title=Longpier Haven
+info author=Custom Islands
+info description=A harbour island - a quay with a long plank pier out into the bay and the harbour master's cabin, a plank bridge out over the water to a rock stack with a watch hut, a boat sunk in the bay with her chest by her, and a smugglers' cave in the west. Boars in the bush, puffer fish by the wreck. No quest - an island to explore.
+
+note harbourchest Harbour master's chest | Ledgers gone to pulp, and under them what he took as harbour dues.
+loot harbourchest TradeToken*2;Rope*3;Nail*12;Plank*6
+prop harbourchest loot.refill=0
+note watchchest Chest in the watch hut | The watchman's things: a lamp, rope, a flask long dry.
+loot watchchest Rope*2;Feather*3;Glass*2;CopperIngot*1
+prop watchchest loot.refill=0
+note wreckchest The sunk boat's chest | She never made the harbour. Her chest lies in the sand beside her, still shut.
+loot wreckchest MetalIngot*2;Scrap*4;Bolt*2;Battery*1
+prop wreckchest loot.refill=0
+note smugglerschest Smugglers' chest | Hidden where the harbour master would never look.
+loot smugglerschest MetalIngot*2;CopperIngot*2;TradeToken*2;Hinge*2
+prop smugglerschest loot.refill=0
+
+save Longpier Haven

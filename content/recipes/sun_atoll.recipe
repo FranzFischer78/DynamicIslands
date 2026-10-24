@@ -1,0 +1,348 @@
+# Sun Atoll - a themed island of the library, normal size (x1). Inspiration: films about atomic test atolls (a ring of
+# coral islets, an observation blockhouse in the dunes, a tower that was vaporised, a crater in the lagoon, warning signs
+# bleached by the sun) - the mood only, never named on the island.
+# A ring of low desert islets round a turquoise lagoon; on the west islet's dune the observation blockhouse, buried to its
+# roof with its slits to the lagoon, and the instrument bunker buried beside it, a trench between their doors; in the
+# lagoon's middle the tower's four concrete stumps on the crater's rim; measuring posts behind wire on the north and south
+# islets. The last test, shot Juniper, burned the atoll bare. Dr. Varga stayed behind to film it from the blockhouse - she
+# sealed three film canisters in lead (two on the measuring posts, one on the tower itself), wired the blockhouse safe to
+# her projector and left. Quest "Shot Juniper" (7 steps): her notebook in the blockhouse, the roaches in the
+# instrument bunker, her dosimeter, ground zero, the dive for the tower camera's lead case in the crater, the three film
+# canisters (the crater's and the two posts'), the films run and the safe
+# (the recycler blueprint, circuit boards, batteries).
+#
+# Built by the recipe player (CIRecipe sun_atoll) through the editor's own operations.
+include lib_rt
+include lib_sea
+new
+# (nature: desert, Like Raft - a few desert trees and scrub on the islets, the lagoon's corals Like Raft)
+gen Trees=0.38 Bushes=0.5 Rocks=0.55 Harvest=0.25 BeachThings=0.3
+gen Seed=9004 Radius=45 Height=4 Roughness=0.3 Peaks=1 Shape=1 Style=2 BeachWidth=0.8 Cliffs=0 PeakShape=0.2
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.4 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the west islet's dune raised to 3.85 m over the blockhouse and, where the islet bends north-east and widens,
+# over the bunker; the trench between their doors across the islet from the ocean beach to the lagoon, the cut in front of
+# the blockhouse's slits down to the lagoon; the two rooms' pits (floor 0.8 m); the crater in the lagoon (9.5 m down) with
+# its shallow rim (0.7 m down); pads for the measuring posts --------------------------------------------------------------
+# (the islet is 15 m wide: each room sits in a pit under a concrete slab level with the dune, the slab covering the pit's
+# sloping edge - as at Shelter Atoll. The land's heights lie on a grid every 1.95 m (1000 m / 512 in the editor) and the
+# ground runs straight from one to the next: a room stays clear of sand only if every grid line within 1.95 m outside its
+# walls is down at its floor, so the dune can rise only from the second line out. The pits and the dune's edges under the
+# slabs are drawn along the grid lines themselves - on this island x -36.09, -34.14, ... and z 3.49, 5.44, ... every
+# 1.953125 m (found with CIStandOn: the kinks in the ground); a stroke narrower than 1.95 m touches its own line only -
+# and each slab reaches just past its dune edge line. Strokes between the lines left a metre of slope inside the rooms)
+brush flatten from -34 -1 to -34 10 r=7 s=20 frames=120 h=3.85
+brush flatten from -28 17 to -27 25 r=8 s=20 frames=120 h=3.85
+# (the trench's mouth on the ocean beach: a ramp down into the sea - a player wading ashore walks up into the trench;
+# the islet's own bank there was a 1.8 m step)
+for i 0 4 1
+brush flatten at {-47+$i*1.5} 14.5 r=4.5 s=20 frames=15 h={-1.2+$i*0.45}
+next
+brush smooth from -47 14.5 to -41 14.5 r=4.5 s=10 frames=14
+brush flatten from -40 14.5 to -24 14.5 r=3 s=20 frames=60 h=0.8
+brush flatten from -28.5 5.5 to -28.5 12 r=3.5 s=20 frames=40 h=0.8
+# (the blockhouse: room x -36..-30, z 4..13 - its pit on the lines x -36.09 to -28.28 (the cut), z 3.49 to 13.25 (the
+# trench); the bunker: room x -31..-25, z 16..25 - its pit on the lines x -32.18 to -24.37, z 15.2 (the trench) to 24.97)
+for px -36.09 -28.2 1.953125
+brush flatten from $px 3.49 to $px 13.25 r=1.9 s=20 frames=120 h=0.8
+next
+for px -32.18 -24.3 1.953125
+brush flatten from $px 15.2 to $px 24.97 r=1.9 s=20 frames=120 h=0.8
+next
+# (the dune's edges under the slabs, on the second line out: the blockhouse's west and south, the bunker's west, north
+# and east)
+brush flatten from -38.04 1.53 to -38.04 11.3 r=1.9 s=20 frames=80 h=3.85
+brush flatten from -38.04 1.53 to -30.23 1.53 r=1.9 s=20 frames=80 h=3.85
+brush flatten from -34.14 17.16 to -34.14 26.92 r=1.9 s=20 frames=80 h=3.85
+brush flatten from -34.14 26.92 to -22.42 26.92 r=1.9 s=20 frames=80 h=3.85
+brush flatten from -22.42 17.16 to -22.42 26.92 r=1.9 s=20 frames=80 h=3.85
+# (ground zero: the rim's shallows, then the crater in them)
+brush flatten at 0 0 r=13 s=20 frames=80 h=-0.7
+brush flatten at 0 0 r=7 s=20 frames=80 h=-9.5
+brush smooth at 0 0 r=9 s=10 frames=12
+brush rock at 0 0 r=8 s=20 frames=30
+# (the measuring posts' pads: north and south islets; from each gate a ramp down the islet's steep lagoon bank into the
+# water - a swimmer from ground zero walks out up to the post - stepped strokes every 1.5 m from the water up, smoothed,
+# the pads levelled again after the smoothing reached into them)
+brush flatten at 5 35.5 r=5 s=20 frames=50 h=3.9
+brush flatten at 2 -35 r=5 s=20 frames=50 h=3.5
+for i 0 6 1
+brush flatten at 3.5 {20.5+$i*1.5} r=4.5 s=20 frames=15 h={-1.2+$i*0.85}
+next
+for i 0 6 1
+brush flatten at 3.5 {-21-$i*1.5} r=4.5 s=20 frames=15 h={-1.6+$i*0.85}
+next
+brush smooth from 3.5 20.5 to 3.5 29.5 r=4.5 s=10 frames=14
+brush smooth from 3.5 -21 to 3.5 -30 r=4.5 s=10 frames=14
+brush flatten at 5 35.5 r=4.5 s=20 frames=40 h=3.9
+brush flatten at 2 -35 r=4.5 s=20 frames=40 h=3.5
+clear from -34 -6 to -34 13 r=7
+clear from -28 13 to -27 30 r=8
+clear from -48 14.5 to -24 14.5 r=3.5
+clear at 0 0 r=14
+clear at 5 35.5 r=6
+clear at 2 -35 r=6
+clear from 3.5 20 to 3.5 30 r=4.5
+clear from 3.5 -20 to 3.5 -31 r=4.5
+
+# --- The observation blockhouse: a radio tower room in its pit, its slits (blown-out windows) to the lagoon, its door to
+# the trench; a concrete slab over it level with the dune, its edges on the dune's edge lines (x -38.04, z 1.53), wing
+# walls closing the slab's overhang beside its open walls and its corner over the trench -------------------------------
+# (the room turned round - its front to the trench: RT_WallDoor1's leaf stands open in a front or side slot only, shut in
+# a back one - so its slits are the left side's slots; what is in it is placed in the plain frame after it)
+push at -36 8.5 h=0.85 yaw=180
+call rt_storey f1=RT_WallDoor1 l1=RT_WallWindowBroken l2=RT_WallWindowBroken l3=RT_WallWindowBroken
+pop
+push at -30 8.5 h=0.85
+place RT_Floor - at 0.1 4.6 y=3.05 sx=1.3477 sz=1.2856
+place RT_Wall1 - at -6 4.5 sx=0.68
+place RT_Wall1 - at -8.04 2.5 yaw=90 sx=0.7
+place RT_Wall1 - at 0 -6.97 yaw=90 sx=0.8233
+# (inside: the observation desk under the slits with the radar screen, a monitor and her notebook; the projector hanging
+# from the ceiling, its screen on the west wall; her safe, the supply crate, file boxes)
+place "Table Office" - at -1 0 sit yaw=90
+place RT_RadarScreen - at -0.75 -0.05 y=1.08 sit yaw=90 scale=0.45
+place Balboa_DecorationPrefabBase_CRTScreen - at -0.8 0.8 y=1.08 sit drop yaw=-90
+place Note_Book notebook at -0.45 -0.9 y=1.3 sit drop yaw=15
+place "Chair Office" - at -1.9 0 sit yaw=-90
+place "VG_DecorationPrefabBase_Projector Variant" projector at -3 -0.5 y=2.95
+place "VG_DecorationPrefabBase_ProjectorScreen Variant" - at -5.8 0 y=2.95 yaw=-90
+place VG_Safe bhsafe at -5.4 3.6 sit yaw=90
+place Loot_Crate supplycrate at -0.7 -3.8 sit yaw=10
+place TP_FileBox01 - at -3.5 -4 sit yaw=10
+place TP_FileBox02 - at -4.4 -4 sit yaw=-5
+place Zone_Trigger blockhouse at -1.5 6 y=0.8
+pop
+
+# --- The instrument bunker behind it, across the trench: a radio tower room in its pit, buried under its slab, its door
+# to the trench; its slab's edges on the dune's edge lines (x -34.14 and -22.42, z 26.92), wing walls closing the slab's
+# overhang over the trench; dark, the instrument locker, a lab machine, cable, a dead ceiling lamp - and the roaches -----
+push at -25 20.5 h=0.85
+call rt_storey f1=RT_WallDoor1
+place RT_Floor - at 2.58 6.42 y=3.05 sx=1.9404 sz=1.2244
+place RT_Wall1 - at -6 -4.5 sx=1.0467
+place RT_Wall1 - at 2.58 -4.5 sx=0.86
+place RT_Wall1 - at -9.14 -4.6 yaw=90 sx=0.5667
+place RT_Wall1 - at 2.58 -4.6 yaw=90 sx=0.5667
+place Locker instlocker at -0.45 -2 sit yaw=270
+place TP_LaboratoryMachine_Small01 - at -0.6 1.5 sit yaw=270
+place VP_Cable_Roll01 - at -4.8 3.2 sit yaw=20
+place Stairwell_CeilingLamp_NoLight - at -3 0 y=2.97
+place Creature_Roach roaches at -3 -2 y=0.3
+place Creature_Roach queenroach at -4 -3 y=0.3
+place Zone_Trigger bunker at -3 -0.5 y=1.2
+place Zone_Atmosphere bunkerdark at -3 0 y=1.5
+pop
+
+# --- Ground zero: the tower's four concrete footings on the crater's rim, their steel stubs broken off; twisted steel on
+# the shallows, toxic barrels on the lagoon floor; the tower camera's lead case and the ore at the crater's bottom ---------
+for a 45 315 90
+place RT_GroundPillar - at {7.8*cos($a)} {7.8*sin($a)} h=0.5 yaw={$a}
+next
+place RT_PillarThick - at 5.5 5.5 h=0.5 sy=0.35
+place RT_PillarThick - at -5.5 5.5 h=0.5 sy=0.22
+place RT_PillarThick - at -5.5 -5.5 h=0.5 sy=0.4
+place RT_PillarThick - at 5.5 -5.5 h=0.5 sy=0.15
+place VP_SteelBeam02 - at 9 -1 ground yaw=70
+place VP_SteelBeam02 - at -8.5 3 ground yaw=150
+place VP_Rubble_MetalPiece01 - at 7.5 -8 ground yaw=30
+place VP_Rubble_MetalPiece03 - at -7 -8 ground yaw=110
+place VP_Rubble_MetalPiece03 - at 2 9 ground yaw=10
+place Balboa_DecorationPrefabBase_ToxicBarrel - at 13 6 ground sit yaw=20
+place Balboa_DecorationPrefabBase_ToxicBarrel - at 14 -4 ground sit yaw=80
+place Balboa_DecorationPrefabBase_ToxicBarrel - at -12 -9 ground sit yaw=140
+place Balboa_DecorationPrefabBase_ToxicBarrel - at -13 8 ground sit yaw=200
+place Loot_ChestSmall cratercase at 0.5 0.5 ground yaw=30
+place "Pickup_Landmark_Iron 1" - at -1.5 1.2 ground
+place "Pickup_Landmark_Iron 2" - at 1.6 -1.5 ground
+place "Pickup_Landmark_Copper 1" - at -1 -1.8 ground
+place Loot_SunkenBarrel sunkbarrel at -11 -15 ground sit
+place Zone_Trigger groundzero at 0 0 h=0
+place Zone_Sound geiger at 0 0 h=-2
+
+# --- The measuring posts on the north and south islets: an instrument mast each (Balboa's antenna pole, its dish, three
+# braces), a cable reel, the camera's lead box at its foot, a wire fence round it - its gap to the lagoon, the warning
+# signs by the gap; the dish to the lagoon, one brace and the camera box towards the gate (side: 1 gate south, -1 north) -
+macro mpost cx cz h alias gate side
+place Antenna_pole - at $cx $cz h=$h
+place Antenna_dish - at $cx $cz h={$h+6} yaw={$gate+180}
+for b 0 240 120
+place Antenna_support01 - at $cx $cz h={$h+2} yaw={$b+$gate+210}
+next
+place VP_Cable_Roll02 - at {$cx+1.6*$side} {$cz+1.2*$side} h=$h sit yaw=40
+place "Box Small" $alias at {$cx-1.3*$side} {$cz-1.1*$side} h=$h sit yaw=15
+end
+call mpost 5 35.5 3.9 northpost 180 1
+call mpost 2 -35 3.5 southpost 0 -1
+# (the north post's fence, its gap on the south side to the lagoon; a panel's wire stands 0.34 m in front of its pivot:
+# the pivots 3.34 m out put the four sides on a 6 m square, the signs on the wire beside the gap)
+push at 5 35.5 h=3.9
+place Balboa_DecorationPrefabBase_Fence_Mid - at 3.3 -3.34 yaw=0
+place Balboa_DecorationPrefabBase_Fence_Mid - at -3.3 3.34 yaw=180
+place Balboa_DecorationPrefabBase_Fence_Mid - at -0.3 3.34 yaw=180
+place Balboa_DecorationPrefabBase_Fence_Mid - at -3.34 -3.3 yaw=90
+place Balboa_DecorationPrefabBase_Fence_Mid - at -3.34 -0.3 yaw=90
+place Balboa_DecorationPrefabBase_Fence_Mid - at 3.34 3.3 yaw=-90
+place Balboa_DecorationPrefabBase_Fence_Mid - at 3.34 0.3 yaw=-90
+place Balboa_DecorationPrefabBase_Fence_Sign - at 2.2 -3.1 y=1.2 yaw=180
+place VG_SignAuthorized - at 1 -3.06 y=1.25 yaw=180
+pop
+# (the south post's fence, its gap on the north side to the lagoon)
+push at 2 -35 h=3.5
+place Balboa_DecorationPrefabBase_Fence_Mid - at 0.3 -3.34 yaw=0
+place Balboa_DecorationPrefabBase_Fence_Mid - at 3.3 -3.34 yaw=0
+place Balboa_DecorationPrefabBase_Fence_Mid - at -3.3 3.34 yaw=180
+place Balboa_DecorationPrefabBase_Fence_Mid - at -3.34 -3.3 yaw=90
+place Balboa_DecorationPrefabBase_Fence_Mid - at -3.34 -0.3 yaw=90
+place Balboa_DecorationPrefabBase_Fence_Mid - at 3.34 3.3 yaw=-90
+place Balboa_DecorationPrefabBase_Fence_Mid - at 3.34 0.3 yaw=-90
+place Balboa_DecorationPrefabBase_Fence_Sign - at -2.2 3.1 y=1.2
+place VG_SignAuthorized - at -1 3.06 y=1.25
+pop
+
+# --- The beaches: warning signs on steel posts, a supply barrel washed up on the east islet, the only palm left standing on
+# the south-east islet with a stash under its fronds (clear of its trunk: it leans west from its foot) -----------------
+place RT_Pillar - at -40.4 11.2 ground sy=0.6
+place Balboa_DecorationPrefabBase_Fence_Sign - at -40.52 11.2 y=1.2 yaw=-90
+place RT_Pillar - at 0 30 ground sy=0.6
+place Balboa_DecorationPrefabBase_Fence_Sign - at 0 29.88 y=1.2 yaw=180
+place Loot_Barrel beachbarrel at 36.5 9 ground
+place "Pickup_Landmark_Tree_Palm 2" - at 27 -22 ground yaw=40
+place "Box Small" palmbox at 26.6 -19.9 ground yaw=20
+
+# --- Friendly animals (placed: the generator's Friendly/SeaLife take whole numbers): goats - the test's surviving animals -
+# on the east islet, turtles in the lagoon's north, dolphins off the atoll ------------------------------------------------
+place Creature_Goat goats at 33 14 ground
+place Creature_Turtle turtles at -6 18 h=-1.5
+place Creature_Dolphin dolphins at 62 0 h=-3
+
+# --- The glare over the atoll -----------------------------------------------------------------------------------------
+place Zone_Atmosphere glare at 0 0 h=4
+
+where blockhouse
+where notebook
+where projector
+where bhsafe
+where supplycrate
+where instlocker
+where bunker
+where cratercase
+where northpost
+where southpost
+where beachbarrel
+where palmbox
+where sunkbarrel
+where goats
+
+# --- Settings, story items, notes, behaviours, quest (7 steps) ---------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): flowers, melons, pineapples ----------
+scatter "Pickup_Landmark_Flower_Yellow" 2 at 0 0 r=31.5 seed=4384 free=3
+scatter "Pickup_Landmark_Flower_Red" 2 at 0 0 r=31.5 seed=4385 free=3
+scatter "Pickup_Landmark_WatermelonLandmark" 3 at 0 0 r=31.5 seed=4394 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 3 at 0 0 r=31.5 seed=4404 free=3
+
+# --- Raft's finds in the shallows round the island (sand, clay, stones, ores, scrap - every Raft island has them): lib_sea
+call shallows r=60 deep=5
+
+info title=Sun Atoll
+info author=Custom Islands
+info description=A ring of sun-baked islets round a turquoise lagoon - and in the lagoon, the stumps of a tower round a crater. The last test burned the atoll bare; a scientist stayed to film it. Her three films are still out there, and her safe waits for them.
+island on.arrive=message||A ring of sun-baked islets, too quiet: no birds. Faded signs on the beach. In the lagoon's middle, four concrete stumps stand round a darker blue.
+
+story dosimeter|Dosimeter|MetalDetector|Dr. Varga's dosimeter. It ticks faster the closer you get to ground zero.
+story film|Lead film canister|quest:Vasagatan_Recorder|A lead canister of film from one of the test cameras, its seal unbroken.
+
+note notebook Dr. Varga's notebook | SUN ATOLL - OBSERVATION BLOCKHOUSE\n\nThey gave us until dawn to clear the atoll before shot Juniper. I didn't go. Someone has to see what it does - not in numbers. With eyes.\n\nThree cameras, each film sealed in lead: on the north post, on the south post, and on the tower itself at ground zero. The tower will be gone. The can may not be.\n\nMy dosimeter is in the instrument locker in the bunker behind this room. Don't go out to ground zero without it ticking in your pocket - and don't stay.\n\nWhen you have all three cans, run them on the projector. The safe opens to the projector's switch; I wired it myself. The world should see what we did. - I. V.
+note instlocker Instrument locker | The instrument locker in the bunker: a dosimeter on a lanyard, spare batteries, a pencil worn to a stub.
+loot instlocker story:dosimeter*1;Battery*1;Nail*6
+prop instlocker loot.refill=0
+prop instlocker on.open=show|geiger
+note northpost North post camera box | The north post's camera box, its lens melted to the glass behind it - but the lead canister inside is whole.
+loot northpost story:film*1;Scrap*3
+prop northpost loot.refill=0
+note southpost South post camera box | The south post's camera box, blown over and half buried in sand. The canister rattles inside.
+loot southpost story:film*1;CopperOre*2
+prop southpost loot.refill=0
+note cratercase Tower camera's lead case | A lead case at the bottom of the crater, all that is left of the tower's camera. Its film canister is sealed tight.
+loot cratercase story:film*1;MetalOre*3
+prop cratercase loot.refill=0
+note supplycrate Blockhouse supply crate | The blockhouse's supplies: nails, bolts, plastic sheeting for the slits.
+loot supplycrate Nail*10;Bolt*4;Plastic*4
+prop supplycrate loot.refill=0
+note beachbarrel Beached supply barrel | A supply barrel washed up on the east islet, its stencil faded: water, and tins.
+loot beachbarrel PlasticBottle_Water*2;Cooked_GenericMeat*2;Scrap*2
+prop beachbarrel loot.refill=0
+note palmbox Box under the palm | Somebody's private stash under the only palm left standing: rope, a hinge, a deck of cards.
+loot palmbox Rope*3;Hinge*1;Plank*4
+prop palmbox loot.refill=0
+note sunkbarrel Sunken barrel | A barrel on the lagoon floor, crusted white: scrap and ore.
+loot sunkbarrel Scrap*4;MetalOre*2;CopperOre*1
+prop sunkbarrel loot.refill=0
+note bhsafe Blockhouse safe | Dr. Varga's safe: her plans for a machine that turns scrap back into what it was made of, the blockhouse's spare circuits - and a card in her hand: "Never again."
+loot bhsafe Blueprint_Recycler*1;CircuitBoard*2;Battery*2;MetalIngot*4;Glass*4
+prop bhsafe loot.refill=0
+prop bhsafe if.open=signal|filmsrun
+prop bhsafe else.open=message||The safe's lock is wired to the projector's switch. Run the films first - all three.
+
+prop projector obj.name=projector
+prop projector beh.use=Thread the three films and run them
+prop projector if.use=quest|6\ntake|story:film|3
+prop projector on.use=message||The films flicker on the screen: a dawn sky, the palms of the north islet, the tower - then white, a white that eats the picture. A cloud climbs out of the lagoon. The palms bow flat. The south camera, its lens cracked, shows the sea pulling back off the reef - and coming back as a wall. The safe's lock clicks.\nsignal||filmsrun\nsound||event:/exploring/relaystation/crt
+prop projector else.use=message||A film projector, threaded with nothing. Dr. Varga's notebook says there are three canisters.
+prop geiger obj.name=geiger
+prop geiger beh.hidden=1
+prop geiger sound.event=event:/exploring/temperence/selene/radiation
+prop geiger sound.volume=0.6
+prop geiger zone.radius=14
+
+prop blockhouse zone.id=blockhouse
+prop blockhouse zone.radius=6
+prop blockhouse zone.message=A concrete blockhouse half drowned in sand, its slits staring at the lagoon.
+prop bunker zone.id=bunker
+prop bunker zone.radius=4
+prop bunker zone.message=The instrument bunker - and the floor moves: roaches, hundreds, and one the size of a dog.
+prop groundzero zone.id=groundzero
+prop groundzero zone.radius=9
+prop groundzero zone.message=Ground zero. Four concrete stumps, glassy sand, and under you the crater where the tower stood.
+prop roaches creature.count=3
+prop roaches creature.respawn=0
+prop roaches creature.zone=bunker
+prop queenroach creature.count=1
+prop queenroach creature.size=2
+prop queenroach creature.health=2
+prop queenroach creature.respawn=0
+prop queenroach creature.zone=bunker
+prop goats creature.count=2
+prop turtles creature.count=2
+prop dolphins creature.count=2
+prop bunkerdark atmo.fog=#0a0806
+prop bunkerdark atmo.fogAmount=0.7
+prop bunkerdark atmo.light=#2a2218
+prop bunkerdark atmo.lightAmount=0.8
+prop bunkerdark zone.radius=5
+prop glare atmo.fog=#efe6cf
+prop glare atmo.fogAmount=0.15
+prop glare atmo.light=#fff2d6
+prop glare atmo.lightAmount=0.25
+prop glare zone.radius=45
+
+quest title=Shot Juniper
+quest intro=An atoll burned bare by a test that nobody watched - nearly nobody. Start at the blockhouse on the west islet.
+step read|Dr. Varga's notebook|1|Find the blockhouse on the west islet and read the notebook on its desk
+step kill|Roach|4|Clear the roaches out of the instrument bunker behind the blockhouse
+step collect|story:dosimeter|1|Take her dosimeter from the instrument locker
+step reach|groundzero|1|Wade out to the test tower's stumps at ground zero
+step open|Tower camera's lead case|1|Dive into the crater for the tower camera's lead case - don't stay
+step collect|story:film|3|Recover the other two canisters from the north and south measuring posts
+step open|Blockhouse safe|1|Run the films on the projector and open the blockhouse safe
+step blueprint|Blueprint_Recycler|1|Take the recycler plans from the blockhouse safe
+quest done=The films have been seen. Whatever the world does with them, the atoll has its witness - and you have hers.
+quest reward=Scrap*8;Plastic*6;Nail*12
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=39 n=1 seed=8857
+prop treasure8857 treasure.loot=TitaniumOre*2
+
+save Sun Atoll

@@ -1,0 +1,15 @@
+# Play test of Gannet Rock (CIPlay gannet_rock, in a test world 'CI ...'). No quest: the knoll's nests, the jetty out
+# from the east shore and the fisherman's crate on its head, the treasure. Points as in its recipe.
+island Gannet Rock
+offset 0 0
+expect animals Turtle 1
+expect animals Dolphin 2
+wait 3
+# Up on the knoll
+at -3 1
+expect height 6
+# Along the jetty to its head, the crate
+walk 13 0 to 20 0 to 30 0 h=1.5 below=4
+expect stand 25 0.75 h=1.5 below=4
+open Fisherman's crate
+dig

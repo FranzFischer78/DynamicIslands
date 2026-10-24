@@ -1,0 +1,35 @@
+# Guide pictures of Keel & Mast (CIPlay keel_and_mast_pics): Raft's camera, morning, calm; the ship before her launch
+island Keel & Mast
+hour 10
+weather Calm
+at -12 3
+wait 3
+picture keel_and_mast_island -24 45 -95 -24 5 0
+picture keel_and_mast_yard -6 9 -6 -24 6 4
+picture keel_and_mast_ship -12 10 18 -24 7 4
+picture keel_and_mast_house -32 5 -1 -38 3 6
+picture keel_and_mast_loft 4 6 -56 14 3 -62
+picture keel_and_mast_rack -58 10 6 -66 7 2
+zone yard
+read Brandvold's letter
+use plank1
+use plank2
+zone dryingrack
+use plank3
+kill Bear
+zone hull
+use ship
+zone mastwreck
+use mastspar
+use maststep
+open Brandvold's coat
+open Sail loft chest
+use rigging
+read The launching rhyme
+use chockfore
+use chockaft
+use chockmid
+wait 12
+at -12 3
+wait 2
+picture keel_and_mast_launched -4 10 -12 -24 4 -18

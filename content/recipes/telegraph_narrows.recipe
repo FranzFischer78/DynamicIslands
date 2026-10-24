@@ -1,0 +1,184 @@
+# Telegraph Narrows - an island of the library's plan The Last Post (the Coastal Post's route, the sixth stop)
+# Two rocky headlands with a strait between them and eight sea stacks in a line across it, the old telegraph line: a
+# telegraph pole (Balboa's antenna pole) on every stack, ziplines running downhill stack to stack from the tall west
+# headland to the low east one; the first telegraph hut on the west headland (its generator outside), the wire connector
+# on stack 4, screechers nesting on stack 6, the last hut on the east headland with its keypad, the telegraph cabinet,
+# and the telegraphist Holger locked in a cage.
+# Quest "Down the Line" (14 steps): the first hut, the code sheet, the generator, stack 4 by zipline, its wire connector,
+# the screechers, the last hut, its keypad, the telegraph cabinet (four power blueprints and the cage key), Holger
+# freed, his kit.
+#
+# Built by the recipe player (CIRecipe telegraph_narrows) through the editor's own operations.
+include lib_sea
+include lib_features
+include lib_post
+new
+# (nature: rocky headlands, Like Raft's rock islands)
+gen Trees=0.15 Bushes=0.25 Rocks=0.5 Harvest=0.15 BeachThings=0.25
+gen Seed=4601 Radius=70 Height=12 Roughness=0.55 Peaks=1 Shape=0 Style=4 PeakShape=0.4 Cliffs=0.5 BeachWidth=0.25
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.15 Sunken=0.2 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+
+# --- Terrain: the strait cut north-south through the middle, the headlands, the six stacks in it ---------------------
+brush flatten from 0 -80 to 0 80 r=22 s=20 frames=300 h=-8
+brush flatten at -34 0 r=7 s=20 frames=140 h=20
+brush flatten at 34 0 r=7 s=20 frames=140 h=7
+macro stack x=0 h=10
+brush flatten at $x 0 r=3.5 s=20 frames=120 h=$h
+brush rock at $x 0 r=4.5 s=8 frames=20
+end
+call stack x=-20 h=18
+call stack x=-12 h=16.5
+call stack x=-4 h=15
+call stack x=4 h=13.5
+call stack x=12 h=12
+call stack x=20 h=10
+brush rock at -34 0 r=9 s=6 frames=20
+brush rock at 34 0 r=9 s=6 frames=20
+origin
+clear at -34 0 r=7
+clear at 34 0 r=7
+clear from -22 0 to 22 0 r=4
+
+# --- The first hut on the west headland (stack 1), the generator by it ---------------------------------------------
+push at -36.25 -2.25 h=20
+call posthall w=3 d=3 al=huts
+place "Table Office" - at 2.25 3.2 y=1.3 sit drop yaw=0
+place Note_Paper codesheet at 2.6 3.2 y=2.2 sit drop yaw=-6
+place "Chair Office" - at 2.25 2.3 y=1.3 sit drop yaw=0
+place Placeable_Shelf_Small_Basic - at 0.9 1.6 y=1.3 sit drop yaw=90
+place Zone_Trigger firsthutzone at 2.25 1.5 y=0.8
+pop
+place "VG_DecorationPrefabBase_EmergencyGenerator Variant" generator at -35.6 -4.6 ground sit yaw=0
+
+# --- The line: a pole on every stack, a zipline from each to the next, downhill west to east ---------------------------
+macro pole x=0 z=1.6
+place Antenna_pole - at $x $z ground sit
+end
+call pole x=-31 z=3.5
+call pole x=-20
+call pole x=-12
+call pole x=-4
+call pole x=4
+call pole x=12
+call pole x=20
+call pole x=31 z=3.5
+# (Raft's zipline has no stand: its near floor is 5.72 m west, 0.97 m north of where it is put and 1.35 m under its h -
+# put "ground" it hung in the air; each line is put so its near floor sits on its stack's flat top, 2026-10-23)
+place ZiplinePath_Landmark zip1 at -25.78 -1.97 h=21.35
+zipto zip1 -20 -0.5
+place ZiplinePath_Landmark zip2 at -14.28 -1.47 h=19.35
+zipto zip2 -12 -0.5
+place ZiplinePath_Landmark zip3 at -6.28 -1.47 h=17.85
+zipto zip3 -4 -0.5
+place ZiplinePath_Landmark zip4 at 1.72 -1.47 h=16.35
+zipto zip4 4 -0.5
+place ZiplinePath_Landmark zip5 at 9.72 -1.47 h=14.85
+zipto zip5 12 -0.5
+place ZiplinePath_Landmark zip6 at 17.72 -1.47 h=13.35
+zipto zip6 20 -0.5
+place ZiplinePath_Landmark zip7 at 25.72 -1.47 h=11.35
+zipto zip7 30.5 -1
+place Zone_Trigger stack4zone at -4 0 ground
+place UT_ElectricCableHub01 linehub at -4 2.6 ground sit yaw=180
+place Creature_StoneBird screechers at 12 0 h=15
+
+# --- The last hut on the east headland (stack 8): the keypad, the telegraph cabinet; Holger's cage outside ------------
+push at 31.75 -2.25 h=7
+call posthall w=3 d=3 al=huts
+place RT_PowerBox cabinetpad at 4.35 2.25 y=1.4 yaw=270
+place Loot_Chest cabinet at 2.25 3.9 y=1.3 sit drop yaw=180
+place "Table Office" - at 1.5 2.4 y=1.3 sit drop yaw=90
+place Zone_Trigger lasthutzone at 2.25 1.5 y=0.8
+pop
+place Survivor_Cage holgercage at 35 -5.5 ground yaw=0
+place Loot_ChestSmall holgerkit at 32.4 -5.2 ground sit yaw=0
+
+# --- Nature: the reefs at the stacks' feet, a treasure, a turtle --------------------------------------------------------
+call shallows r=80 deep=5 n=2
+call treasure x=-40 z=12 r=8 n=1 seed=4611 kind=0
+call dirt x=-42 z=-14 r=8 n=2 seed=4612
+place Creature_Turtle turtle at 0 -30 h=-4
+
+# --- Settings, notes, behaviours, quest --------------------------------------------------------------------------------
+info title=Telegraph Narrows
+info author=Custom Islands
+info description=Two rocky headlands and eight sea stacks across the strait between them, a telegraph pole on every stack and ziplines running down the line. Power the line, ride it across, and find out who is still at the far end. The sixth stop of The Last Post.
+island on.arrive=message||Two headlands and a line of sea stacks across the strait between them - and on every stack a telegraph pole, wires sagging from one to the next.
+
+prop huts tint.color=#6f5a46
+prop huts tint.amount=0.5
+prop screechers creature.count=2
+prop screechers creature.respawn=0
+prop turtle creature.count=1
+
+story linepower|Line power|Note_Paper|The telegraph line's generator runs again.
+story linewire|Line connected|Note_Paper|Stack 4's connector is joined: the line is live to the far end.
+story cagekey|Cage key|Placeable_Lantern_Metal|The key of the cage outside the last telegraph hut, from the telegraph cabinet.
+note codesheet Telegraph code sheet | COASTAL POST TELEGRAPH - CODE SHEET\n\nThe line runs from this hut down eight stacks to the last hut. Generator first, then the connector on stack 4.\n\nCabinet code, in the line's own numbers:\n--... ..--- ....- .----\n(dashes count from five: --... is 7)\n\nThe screechers nest on stack 6 every spring. Take a spear.
+prop generator obj.name=generator
+prop generator beh.use=Start the generator
+prop generator if.use=!signal|linepower
+prop generator on.use=message||The generator coughs, catches and settles into a hum. Somewhere down the line a relay clicks.\nsignal||power\nsignal||linepower\ngive||story:linepower*1
+prop generator else.use=message||The generator is running.
+prop linehub obj.name=linehub
+prop linehub beh.use=Join the line
+prop linehub if.use=has|story:linepower|1\n!signal|linewire
+prop linehub on.use=open|\nsignal||wire\nsignal||linewire\ngive||story:linewire*1\nmessage||The cable clicks in. Current hums along the wire, down the line to the east.
+prop linehub else.use=message||The line is dead - the generator at the first hut is off. Or it is joined already.
+prop cabinetpad obj.name=cabinetpad
+prop cabinetpad beh.use=Type the cabinet code
+prop cabinetpad lock.code=7241
+prop cabinetpad if.use=has|story:linewire|1
+prop cabinetpad on.use=sound||event:/exploring/obstacles/keypad/keypad_correct\nmessage||The keypad chirps and the telegraph cabinet unlocks.\nsignal||cabinet
+prop cabinetpad else.use=message||The keypad is dark: no current on the line.
+note cabinet Telegraph cabinet | The telegraph cabinet: the line's power plans, and a key on a hook labelled CAGE.
+loot cabinet Blueprint_WindTurbine*1;Blueprint_BatteryAdvanced*1;Blueprint_HeadLight_Advanced*1;Blueprint_ElectricGrill*1;story:cagekey*1;CopperIngot*2
+prop cabinet loot.refill=0
+prop cabinet if.open=signal|cabinet
+prop cabinet else.open=message||The cabinet is locked from the keypad on the wall.
+prop holgercage obj.name=holgercage
+prop holgercage survivor.name=Holger
+prop holgercage survivor.id=lastpost_holger
+prop holgercage survivor.key=cagekey
+prop holgercage survivor.signal=holgerfree
+prop holgercage survivor.line=The line's live? Then the post goes through. I'm Holger - linesman, telegraphist, cage-sitter. The Franking Works is the next stop; I'll show you the way.
+note holgerkit Holger's kit | Holger's kit bag: his tools, his tin mug, and a stamp sheet from the Franking Works.
+loot holgerkit Bolt*3;Rope*2;CopperIngot*1;ExplosiveGoo*3
+prop holgerkit loot.refill=0
+prop holgerkit if.open=signal|holgerfree
+prop holgerkit else.open=message||Holger's kit bag - and Holger is still in the cage beside it.
+
+prop firsthutzone zone.id=first_hut
+prop firsthutzone zone.radius=3
+prop firsthutzone zone.message=The first telegraph hut: a table, a code sheet, and the line running out of the window to the east.
+prop stack4zone zone.id=stack_4
+prop stack4zone zone.radius=3
+prop lasthutzone zone.id=last_hut
+prop lasthutzone zone.radius=3
+prop lasthutzone zone.message=The last hut - and outside it, someone in a cage.
+
+quest title=Down the Line
+quest intro=A telegraph line across the strait. Climb to the first hut on the west headland.
+step reach|first_hut|1|Climb to the first telegraph hut
+step read|Telegraph code sheet|1|Read the telegraph code sheet
+step collect|story:linepower|1|Start the generator by the first hut
+step reach|stack_4|1|Ride the line's zipline to stack 4
+step collect|story:linewire|1|Join the line at stack 4's connector
+step kill|Screecher|2|Drive the screechers off stack 6
+step reach|last_hut|1|Ride the line down to the last hut
+step open|Telegraph cabinet|1|Open the telegraph cabinet with the code from the sheet
+step blueprint|Blueprint_WindTurbine|1|Take the wind turbine plans
+step blueprint|Blueprint_BatteryAdvanced|1|Take the advanced battery plans
+step blueprint|Blueprint_HeadLight_Advanced|1|Take the advanced headlight plans
+step blueprint|Blueprint_ElectricGrill|1|Take the electric grill plans
+step collect|story:cagekey|1|Take the cage key from the cabinet
+step open|Holger's kit|1|Free Holger from the cage, then open his kit bag
+quest done=Holger is free and the line is live. Over the wire, faint: the Franking Works, still stamping.
+quest reward=MetalIngot*3;CopperIngot*2;Bolt*4
+
+# Puffer fish off the shore (explosive goo)
+place Creature_PufferFish puffers at 0 80 h=-3
+prop puffers creature.count=3
+
+save Telegraph Narrows

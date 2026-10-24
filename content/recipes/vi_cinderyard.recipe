@@ -1,0 +1,89 @@
+# Cinderyard - a new medium island of the library (ROADMAP 3e VI2), a vehicle island, no quest
+# A black volcanic island where a salvage crew dragged the wrecks of the coast to break them up, until the mountain woke
+# and the ash came down: two vans and a stripped caravan in rows on the cinder flat, the excavator that hauled them, a
+# forklift by the scrap heaps, a crane with its boom over the yard. The crew's cabin and the crane gantry walk by the
+# boom. A screecher nests on the crane.
+#
+# Built by the recipe player (CIRecipe vi_cinderyard) through the editor's own operations. Points: the cinder flat (3 m,
+# r 17 round 4 -8); the rows of wrecks at z -2 and z -10; the crane at 16 2; the scrap heaps round -8 -16; the cabin
+# x -18..-13.5 z 2..5 (4 m, door south); the crane gantry walk x 4..13 z 3..4.5 (2.5 m over the
+# flat), its ladder off the east end at 13.2 3.75.
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+include lib_ni8
+include lib_vi
+new
+# (nature: volcanic - black rock and ash, very few plants)
+gen Trees=0.12 Bushes=0.2 Rocks=0.8 Harvest=0.25 BeachThings=0.4
+gen Seed=8625 Radius=50 Height=16 Roughness=0.45 Peaks=1 Shape=0 Style=4 BeachWidth=0.4 Cliffs=0.5 PeakShape=0.8
+gen SeaFloor=0 Shelf=0.4 Seabed=1
+gen Water=0.3 SeaRocks=0.5 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0.2
+generate
+
+# ===== Terrain: the cinder flat, the cabin's bench =======================================================================
+brush flatten at 4 -8 r=17 s=20 frames=140 h=3
+brush rock at 4 -8 r=16 s=20 frames=20
+brush flatten at -16 3.5 r=5 s=20 frames=80 h=4
+brush smooth from -10 -2 to -14 0 r=3 s=10 frames=40
+# (the workbench's spot east of the crew cabin, level with the cabin's pad)
+brush flatten at -11.5 3.5 r=3 s=20 frames=60 h=4
+clear at 4 -8 r=18
+clear at -16 3.5 r=6
+
+# ===== The rows of wrecks on the flat, the excavator that dragged them, the crane over the yard ===========================
+place Van_1 - at -4 -2 ground sit yaw=90
+place Van_4 - at 6 -2 ground sit yaw=85
+place CaravanBarebones1 - at -2 -11 ground sit yaw=95
+place VP_Excavator hauler at 10 -12 ground sit yaw=250
+place UT_ElectricityIsland_Crane01 yardcrane at 17 2 ground sit scale=0.5 yaw=200
+place VP_Forklift - at -9 -10 ground sit yaw=40
+place Tire_03 - at 1 -6 ground sit
+place Tire_02 - at 1.8 -6.8 ground sit yaw=30 roll=90
+place Scrap_02 - at 4 -6 ground sit yaw=10
+
+# ===== The scrap heaps, the crew's cabin, its workbench ======================================================================
+place VP_RubblePile_Medium01 - at -8 -17 ground sit yaw=20
+place VP_RubblePile_Small02 - at -4 -19 ground sit yaw=110
+place MetalSheet_2 - at -11 -15 ground sit yaw=60
+place MetalSheet_5 - at -6 -21 ground sit yaw=150
+place VP_SteelBeam01 - at -12 -19 ground sit yaw=30
+place VP_Dumpster01 - at 2 -18 ground sit yaw=180
+push at -18 2 h=4
+call cabin w=3 d=2 al=crewcabin
+place Bed_Simple - at 3.2 2.0 y=0.1 sit yaw=90
+place Loot_ChestSmall crewbox at 1 2.2 y=0.1 sit yaw=10
+pop
+place CaravanWorkbench - at -11 4 ground sit yaw=270
+place Placeable_Lantern_FireBasket - at -12 0 ground sit
+place Placeable_Lantern_FireBasket - at 0 -14 ground sit
+
+# ===== The crane gantry walk the hook crew used, the screecher on the crane
+call gantry x=4 z=3 h=3 n=6 wide=1 al=gantrychest
+place Creature_StoneBird screecher at 17 2 h=22
+place Bird_Nest - at 20 -2 ground sit yaw=40
+
+
+# ===== The few plants that grow in ash; things to gather; Raft's finds in the shallows =======================================
+scatter DeadTree1 2 at 0 0 r=38 seed=8661 free=8
+scatter DeadTree_TreeStumps_2 2 at 0 0 r=38 seed=8662 free=6
+scatter SmallBoulder3 4 at 0 0 r=40 seed=8663 free=5 ground y=-1
+scatter "Pickup_Landmark_Iron 1" 3 at -20 -20 r=14 seed=8664 free=3
+scatter "Pickup_Landmark_Copper 1" 2 at 20 -10 r=12 seed=8665 free=3
+scatter "Pickup_Landmark_Tree_Palm 1" 2 at -10 -30 r=12 seed=8666 free=6
+call treasure x=0 z=0 r=38 n=1 seed=8625
+call shallows r=74 deep=5 n=2 seed=866
+
+info title=Cinderyard
+info author=Custom Islands
+info description=A black volcanic island where a salvage crew broke up the wrecks of the coast until the ash came down: two vans and a stripped caravan in rows on the cinder flat, the excavator that hauled them, a forklift by the scrap, a crane over the yard.
+
+note crewbox Salvage crew's box | The breaking crew's tally: three vans, a caravan, a plane's tail - and under it their share of the copper.
+loot crewbox CopperIngot*3;Bolt*3;Scrap*4;Rope*2
+prop crewbox loot.refill=0
+note gantrychest Chest on the gantry | The hook crew's box at the end of the walk: gloves burnt through, shackles, the yard's best salvage.
+loot gantrychest MetalIngot*3;CopperIngot*1;Bolt*2;Scrap*3
+prop gantrychest loot.refill=0
+
+save Cinderyard

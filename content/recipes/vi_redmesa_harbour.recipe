@@ -1,0 +1,115 @@
+# Red Mesa Harbour - a new large island of the library (ROADMAP 3e VI3), a vehicle island, no quest
+# A red desert island of flat-topped mesas with a small ore harbour on its south shore: two cranes over the quay, two
+# forklifts among the crates, a train of ore wagons on its sleepers from the mesas down to the quay, a long jetty out to
+# sea, a stranded freighter on the beach, a van at the wagon head and another on the mesa road, and the stripped caravan
+# the harbour master lived in. Hyenas in the scrub, and ladders up the west mesa's
+# face to the surveyors' cairn on top.
+#
+# Built by the recipe player (CIRecipe vi_redmesa_harbour) through the editor's own operations. Points: the quay (2.5 m,
+# r 14 round 0 -40); the jetty out south from 0 -52 (18 m) over the harbour inlet (3 m deep, x -9..9, z -51..-98); the cranes at 8 -46 and -10 -46; the wagon track x -30..10
+# at z -28; the mesas (14 m) round -32 20 (r 14) and 28 32 (r 10); the freighter at 24 -81; the ladder
+# notch in the west mesa's south face (3 m, r 2.5 round -32 3), five ladders at -32 5.2 to the top, the cairn at -32 12.
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+include lib_ni8
+include lib_vi
+new
+# (nature: red desert, mesas, cactus and scrub, few trees)
+gen Trees=0.2 Bushes=0.3 Rocks=0.7 Harvest=0.4 BeachThings=0.7
+gen Seed=8634 Radius=86 Height=8 Roughness=0.3 Peaks=1 Shape=0 Style=2 BeachWidth=0.6 Cliffs=0.4 PeakShape=0.3
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.4 Sunken=0.5 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# ===== Terrain: the two mesas, the quay, the wagon track, the mesa road, the ladder notch =================================
+brush flatten at -32 20 r=14 s=20 frames=200 h=14
+brush rock at -32 20 r=17 s=20 frames=30
+brush flatten at 28 32 r=10 s=20 frames=160 h=14
+brush rock at 28 32 r=13 s=20 frames=30
+brush flatten at 0 -40 r=14 s=20 frames=140 h=2.5
+brush flatten from -30 -28 to 10 -28 r=4 s=10 frames=120 h=3
+brush smooth from 10 -28 to 30 0 r=4 s=10 frames=100
+brush flatten at -32 3 r=2.5 s=20 frames=80 h=3
+# (the harbour inlet: the land runs out to z -82, so a channel 3 m deep is cut from the quay's edge to the sea)
+brush flatten from 0 -60 to 0 -98 r=9 s=20 frames=220 h=-3
+clear at -32 20 r=18
+clear at 28 32 r=14
+clear at 0 -40 r=15
+clear from -32 -28 to 12 -28 r=5
+clear from 10 -28 to 30 0 r=4
+clear from 0 -52 to 0 -98 r=10
+
+# ===== The quay: two cranes, two forklifts, crates on pallets, the jetty out to sea ========================================
+place UT_ElectricityIsland_Crane01 - at 8 -46 ground sit scale=0.7 yaw=180
+place UT_ElectricityIsland_Crane02 - at -10 -46 ground y=-1.7 sit scale=0.5 yaw=180
+place VP_Forklift - at 3 -38 ground sit yaw=200
+place VP_Forklift - at -6 -34 ground sit yaw=20
+place Pallet - at -2 -44 ground sit
+place VP_StorageCrate01 - at -2 -44 ground y=0.15 sit
+place Pallet - at -4.5 -44 ground sit yaw=4
+place Crate_Big_01 - at -4.5 -44 ground y=0.15 sit yaw=10
+place Pallet - at 12 -38 ground sit yaw=80
+place VP_MetalCrate01 - at 12 -38 ground y=0.15 sit yaw=80
+place Cableroll_01 - at 4 -48 ground sit
+place Loot_ChestLarge quaychest at -12 -38 ground sit yaw=180
+place Placeable_Lantern_FireBasket - at 0 -36 ground sit
+push at 0 -52 yaw=90
+call jetty n=10 h=2.7 d=6
+pop
+
+# ===== The ore train: five wagons on their sleepers from the mesa foot to the quay, a van at the wagon head ===============
+call sleepersx x1=-30 x2=10 z=-28
+place VP_Wagon01 - at -24 -28 ground sit yaw=90
+place VP_Wagon01 - at -20.5 -28 ground sit yaw=90
+place VP_Wagon02 - at -17 -28 ground sit yaw=91
+place VP_Wagon01 - at -13.5 -28 ground sit yaw=89
+place VP_Wagon02 - at -6 -28 ground sit yaw=90
+place VP_RubblePile_Medium01 - at -30 -24 ground sit yaw=40
+place Van3 - at -27 -33 ground sit yaw=100
+
+# ===== The mesa road: a van climbing it, the stripped caravan, the hyenas ==================================================
+place Van_4 - at 20 -14 ground sit yaw=35
+place CaravanBarebones1 harbourmaster at 18 -24 ground sit yaw=200
+place Tire_02 - at 21 -26 ground sit yaw=20
+place BenchTable_01 - at 15 -21 ground sit yaw=20
+place Creature_Hyena hyenas at 30 8 ground
+prop hyenas creature.count=2
+prop hyenas creature.respawn=0
+
+# ===== The freighter stranded on the south beach, east of the inlet's mouth ============================================================================
+place BoatStranded freighter at 24 -81 ground sit yaw=210 scale=0.7
+
+# ===== The ladders up the west mesa's face, the surveyors' cairn and chest on top
+call ladders x=-32 z=5.2 h=3 n=5 yaw=180
+place SmallBoulder3 - at -32 12 ground y=-1.5 yaw=20
+place SmallBoulder2 - at -31 12.6 ground y=-2.5 yaw=80
+place Loot_Chest cairnchest at -33.2 12.4 ground sit yaw=180
+
+# ===== Cactus, scrub, dead trees (sparing); things to gather; Raft's finds in the shallows ================================
+scatter Cactus1A 4 at 0 10 r=60 seed=8761 free=6
+scatter Cactus4A 3 at 10 30 r=40 seed=8762 free=6
+scatter Cactus6 2 at -20 -10 r=30 seed=8763 free=6
+scatter DesertFern_01 5 at 0 0 r=66 seed=8764 free=4
+scatter SmallBush_2 3 at -10 -10 r=50 seed=8765 free=4
+place AcaciaTree_Big1 - at -10 0 ground sit yaw=40
+place DeadTree2 - at 40 6 ground sit yaw=10
+place SmallBoulder3 - at -20 4 ground y=-1.2 yaw=70
+scatter "Pickup_Landmark_Tree_Palm 2" 3 at 0 -20 r=50 seed=8766 free=6
+scatter "Pickup_Landmark_BerryBush" 2 at -20 -10 r=20 seed=8767 free=3
+call treasure x=0 z=0 r=66 n=2 seed=8634
+call shallows r=110 deep=5 n=2 seed=876
+
+info title=Red Mesa Harbour
+info author=Custom Islands
+info description=A red desert island of flat-topped mesas with an ore harbour on its south shore: two cranes over the quay, two forklifts, a train of ore wagons on its sleepers, a long jetty, a freighter stranded on the beach, two vans and the harbour master's stripped caravan.
+
+note quaychest Quay chest | The harbour's last shipment, never loaded: ore and fittings packed for a freighter that ran aground instead.
+loot quaychest MetalIngot*3;CopperIngot*3;Bolt*3;Rope*2
+prop quaychest loot.refill=0
+note cairnchest Surveyors' chest by the cairn | The harbour's first surveyors climbed up here to map the ore. Their chest: a theodolite's brass, a map of the mesas, rope.
+loot cairnchest CopperIngot*3;MetalIngot*2;Rope*3;Glass*1
+prop cairnchest loot.refill=0
+
+save Red Mesa Harbour

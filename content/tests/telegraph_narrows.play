@@ -1,0 +1,43 @@
+# Telegraph Narrows (CIPlay telegraph_narrows; in the plan after Sorting Rock): quest "Down the Line"
+# West headland (stack 1, 20 m) at -34 0 with the first hut, stacks 2-7 at x -20..20 (18..10 m), the east headland
+# (stack 8, 7 m) at 34 0 with the last hut and Holger's cage.
+island Telegraph Narrows
+offset 0 0
+expect step 0
+expect title Down the Line
+zone first_hut
+expect step 1
+read Telegraph code sheet
+expect step 2
+use linehub
+expect message line is dead
+use generator
+expect story linepower 1
+expect step 3
+zone stack_4
+expect step 4
+use linehub
+expect story linewire 1
+expect step 5
+kill Screecher
+expect animals Screecher 0
+expect step 6
+zone last_hut
+expect step 7
+open Telegraph cabinet
+expect message locked
+code cabinetpad 1111 wrong
+code cabinetpad 7241
+open Telegraph cabinet
+wait 3
+expect item Blueprint_WindTurbine 1
+expect item Blueprint_BatteryAdvanced 1
+expect item Blueprint_HeadLight_Advanced 1
+expect item Blueprint_ElectricGrill 1
+expect step 13
+open Holger's kit
+expect message still in the cage
+use holgercage
+expect survivor lastpost_holger
+open Holger's kit
+expect done

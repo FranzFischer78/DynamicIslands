@@ -1,0 +1,10 @@
+# Guide pictures of Coyote Mesa (CIPlay coyote_mesa_pics): Raft's camera, morning, calm
+island Coyote Mesa
+offset 0 0
+hour 9
+weather Calm
+at -25.75 -26
+wait 3
+picture ni_coyote_mesa_island 10 30 -70 -2 10 0
+picture ni_coyote_mesa_bridge -2 22 -18 -2 16 0
+picture ni_coyote_mesa_cabin -20 5 -32 -25.75 4 -20.5

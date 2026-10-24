@@ -1,0 +1,13 @@
+# Guide pictures of The Great Fen (CIPlay great_fen_pics): Raft's camera, midday, calm. Points as in its recipe ("offset").
+island The Great Fen
+offset 2.1017 1.5915
+hour 11
+weather Calm
+at 40 -189 h=2.5
+wait 3
+picture great_fen_island 60 140 -170 -10 0 -10
+picture great_fen_town 25 18 -45 -10 3 -10
+picture great_fen_bridge -10 8 40 -10 2 18
+picture great_fen_mothwick 75 10 -25 75 2 6
+picture great_fen_landing 55 10 -205 38 2 -186
+picture great_fen_millisle -110 10 -10 -132 3 -28

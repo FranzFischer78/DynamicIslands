@@ -1,0 +1,37 @@
+# Hollowpick Quarry (CIPlay vi_hollowpick_quarry): quest "Payday in the Pit" (8 steps)
+# The pit (6 -2, 3 m), the office cabin x -16..-11.5 z -15..-12 (5 m), the wagons on x 6 z -12..-29, the powder
+# keypad at -18 4 (6 m), the crane generator at 9 -33 and the hoist crate at 8.5 -41 (yard 2 m). offset: set in phase 2.
+island Hollowpick Quarry
+offset 0 0
+expect step 0
+expect title Payday in the Pit
+wait 5
+expect animals Rat 4
+expect hidden powderstore
+expect hidden hoistcrate
+zone quarry_pit
+expect step 1
+read Shift ledger
+expect step 2
+kill Rat
+expect step 3
+read Chalk on wagon 3
+expect step 4
+code powderpad 247 wrong
+expect hidden powderstore
+code powderpad 274
+expect shown powderstore
+expect story powderopen 1
+expect step 5
+use cranegen
+expect hidden hoistcrate
+open Powder store
+wait 3
+expect story raft-Tangaroa_GeneratorPart 1
+expect step 6
+use cranegen
+expect shown hoistcrate
+expect story craneup 1
+expect step 7
+open Hoist crate
+expect done

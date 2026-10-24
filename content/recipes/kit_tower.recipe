@@ -1,0 +1,10 @@
+# Kit check (not content): the radio tower's thick pillar and Raft's 6 m landmark ladder - heights over their pivots
+new
+gen Seed=1 Radius=40 Height=4 Shape=4 Roughness=0.1 ObjectDensity=0 Trees=0 Bushes=0 Rocks=0 BeachThings=0 Harvest=0
+gen Hostiles=0 Friendly=0 SeaLife=0 Water=0 SeaRocks=0 SeaFinds=0 Sunken=0
+generate
+brush flatten at 0 0 r=35 s=20 frames=60
+place RT_PillarThick p1 at 0 0 y=0
+place LandmarkLadder_6m l1 at 4 0 y=0
+place RT_Spotlight s1 at 8 0 y=0
+place TradingPost_Register_Lever lv at 12 0 y=0

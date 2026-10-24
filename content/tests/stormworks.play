@@ -1,0 +1,43 @@
+# Stormworks (CIPlay stormworks): the works plateau at 8 m round 0 0; the hall, note 1, the hall chest, the weather
+# room, note 2, its chest, the screechers on the spur, the anchor store on the beach, the rod top, note 3.
+island Stormworks
+offset 0 0
+expect step 0
+expect title The Works
+zone smelter_hall
+expect step 1
+read Stormworks note 1
+expect step 2
+open Smelter hall
+wait 3
+zone weather_room
+expect step 4
+read Stormworks note 2
+expect step 5
+open Weather room
+wait 3
+expect step 6
+kill Screecher
+expect animals Screecher 0
+expect step 7
+open Anchor store
+wait 3
+zone stormridge
+expect step 8
+read Smelters' roll
+use cellarhatch
+expect message bolted from below
+expect step 9
+use cellarlever
+expect story cellarpin 1
+expect step 10
+use cellarhatch
+expect shown cellarchest
+open Storm cellar
+wait 3
+expect step 12
+zone rod_top
+expect step 13
+read Stormworks note 3
+dig
+expect done

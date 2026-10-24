@@ -1,0 +1,45 @@
+# Saga Drift (CIPlay saga_drift): the gangway, the charter, the screechers, the smelter yard, the council minutes, the
+# rats, the rendering house, the chapel keypad (1909) and strongbox, the winch locker, the last sermon.
+island Saga Drift
+offset 0 0
+expect step 0
+expect title The Floating City
+zone gangway
+expect step 1
+read City charter
+expect step 2
+kill Screecher
+expect step 3
+open Smelter yard chest
+wait 3
+expect step 4
+read Council cabin minutes
+expect step 5
+zone council
+kill Rat
+expect step 6
+open Rendering house chest
+wait 3
+expect step 7
+code chapelpad 1909
+expect story chapelcode 1
+open Chapel strongbox
+wait 3
+expect step 8
+expect hidden anchorchest
+use anchorwinch
+expect story winchfree 0
+use bell1
+use bell2
+use bell3
+expect story bellrung 3
+expect step 9
+use anchorwinch
+expect story bellrung 0
+expect shown anchorchest
+expect step 10
+open Winch locker
+wait 3
+expect step 11
+read Last sermon
+expect done

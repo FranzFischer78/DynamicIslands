@@ -1,0 +1,579 @@
+# The Trade Wind Archipelago - a new island of the library, twenty times the size (x20)
+# Palm islands scattered over one vast turquoise reef, three little harbour towns among them, and the course of the Trade
+# Wind Regatta laid out in buoys round the whole archipelago - sailed in your own raft. A storm scattered the fleet the day
+# before the start; the committee boat is still anchored off Port Alize, the start cannon still loaded, the trophy in the
+# clubhouse on the hill.
+# Quest "The Trade Wind Regatta" (30 steps in 5 chapters): the start at Port Alize (the notice, the register, a dive for
+# the first pennant, the start cannon), the windward leg (three buoys, Windward Cay's fish market and its rats), the reef
+# leg (the passage, the sunken leader's wreck and her flag), Leeward Key (the goatherd's goats), the run home (two buoys,
+# the finish, the entry, the clubhouse's bell tower, the trophy).
+#
+# Built by the recipe player (CIRecipe trade_wind_archipelago) through the editor's own operations.
+include lib_rt
+include lib_huts
+include lib_relay
+include lib_sea
+new
+# (nature: tropical, Like Raft - palms on the islands; a living reef (Seabed reef))
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=9227 Radius=200 Height=12 Roughness=0.4 Peaks=6 Shape=2 Style=0 BeachWidth=0.7 Cliffs=0.1 PeakShape=0.3 Bays=0.3
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== THE LAND ===========================================================================================================
+# The archipelago (the map, seed 9227): the main island in the middle-west (x -90..10, z 10..110, its hill 12 m at -40 60)
+# with Port Alize on its south shore; Windward Cay in the north-east (x 90..150, z 110..170); the south-east island
+# (x 70..150, z -10..-90); the south island (x -110..-30, z -70..-150); Leeward Key in the west (x -150..-100, z -10..-60).
+# THE COURSE (clockwise, ~1 km): the committee boat off Port Alize (-40 -22) -> buoy one (15 25) -> buoy two (50 90) ->
+# buoy three off Windward Cay (75 145) -> the reef passage far east, buoy four at its mouth (155 75) and five at its end
+# (155 25) -> buoy six, the leader's wreck (25 -115) -> buoy seven north of Leeward Key (-150 20) -> buoy eight (-88 -2)
+# -> the finish at the committee boat.
+
+# --- Terrain: Port Alize's town at 2 m and its quay at 1 m, the harbour dug to 6 m; the committee boat's anchorage; the
+# road up to the clubhouse (a slanting ramp in two legs) and the hilltop cut level at 11 m ----------------------------------
+brush flatten from -64 24 to -26 24 r=9 s=20 frames=300 h=2
+brush flatten from -60 13 to -30 13 r=3.5 s=20 frames=200 h=2
+brush flatten at -45 1 r=7 s=20 frames=300 h=-6
+brush flatten at -40 -22 r=10 s=20 frames=300 h=-6
+for i 0 10 1
+brush flatten at {-30+1.2*$i} {32+1.2*$i} r=3 s=20 frames=150 h={2+0.45*$i}
+next
+for i 0 10 1
+brush flatten at {-18-1.2*$i} {44+1.2*$i} r=3 s=20 frames=150 h={6.5+0.45*$i}
+next
+brush flatten at -38 60 r=10 s=20 frames=300 h=11
+# (Windward Cay: the sea floor under the stilt town 2 m down, the shore and the fish market's ground at 2 m)
+brush flatten from 70 139 to 84 139 r=9 s=20 frames=300 h=-2
+brush flatten from 100 130 to 100 150 r=8 s=20 frames=300 h=2
+brush flatten at 110 140 r=9 s=20 frames=300 h=2
+# (Leeward Key: the landing at 1.5 m, a ramp up to the goat pen's ground at 5 m, two hut plots at 4 m)
+brush flatten at -104 -35 r=5 s=20 frames=200 h=1.5
+for i 0 6 1
+brush flatten at {-104-1.5*$i} -35 r=2.5 s=20 frames=150 h={1.5+0.58*$i}
+next
+brush flatten at -121 -35 r=7 s=20 frames=300 h=5
+brush flatten at -110.75 -42.75 r=4 s=20 frames=200 h=4
+brush flatten at -110.75 -24.75 r=4 s=20 frames=200 h=4
+# (the wreck's bed on the reef, 8 m down)
+brush flatten at 25 -115 r=12 s=20 frames=300 h=-8
+brush sand from -60 13 to -30 13 r=4 s=20 frames=20
+clear from -66 22 to -20 22 r=12
+clear from -30 32 to -30 56 r=5
+clear at -38 60 r=11
+clear at 105 140 r=11
+clear from -104 -35 to -121 -35 r=8
+
+# ===== CHAPTER 1 - PORT ALIZE =============================================================================================
+# --- The quay along the harbour (Raft's wooden floor on the 1 m strip), flags on it; the regatta office and the
+# harbourmaster's house (relay houses, verandas east); stilt huts along the shore; the notice, the register on the
+# office's counter, hens in the lanes, a fruit stall's box ---------------------------------------------------------------
+for q 0 17 1
+place Block_Floor_Wood - at {-57.75+1.5*$q} 11.25 h=2.05
+next
+for f 0 4 1
+place Placeable_Flag_01 - at {-56+6*$f} 12.2 h=2.05 drop
+next
+place Placeable_Flag_05 - at -59 12.2 h=2.05 drop
+place Placeable_Flag_05 - at -31 12.2 h=2.05 drop
+place Zone_Trigger portalize at -45 12 y=1.5
+push at -44 30 h=2.05
+call relay_house
+place Placeable_Table_Basic - at -5.5 -5.2 sit yaw=90
+place Placeable_OpenBook register at -5.5 -5.2 y=1 drop yaw=90
+place Placeable_Streamer - at -1.5 -0.5 sit
+place Pickup_Landmark_Plastic3_Land - at -8.5 -2.5 y=0.3 drop yaw=52
+pop
+push at -30 30 h=2.05
+call relay_house
+place Placeable_Streamer - at -1.5 -0.5 sit
+place Pickup_Landmark_Plank_Land - at -6.5 -7.5 y=0.3 drop yaw=180
+pop
+place Note_Board notice at -42 18.5 ground yaw=180
+push at -67 15 h=2
+call stilt_hut
+place Pickup_Landmark_Plastic3_Land - at 1.3 2.2 y=2.9 drop yaw=287
+pop
+push at -61 15 h=2
+call stilt_hut w1=ReefHuts_PlasticWall4
+pop
+push at -67 26 h=2
+call stilt_hut
+pop
+push at -28 15 h=2
+call stilt_hut w3=ReefHuts_Wall3
+place "Pickup_Landmark_Scrap 3_Land" - at 3.2 1.6 y=2.9 drop yaw=33
+pop
+push at -22 15 h=2
+call stilt_hut
+pop
+place Creature_Chicken townhens at -50 17 ground
+place UT_MarketBasket02 - at -36 17 ground sit
+place "Box Small" fruitbox at -35 16.5 ground sit yaw=20
+
+# --- The harbourmaster's skiff on its side on the harbour floor, its tiller box beside it -------------------------------
+place RT_PlasticBoat - at -45 1 h=-5.6 rot=0,30,80
+place Loot_ChestSmall tillerbox at -43 2.5 h=-6 drop yaw=200
+place Zone_Trigger harbourfloor at -45 1 h=-4.5
+
+# --- The committee boat off the harbour mouth: a deck of Raft's foundations at the surface, a tent for a cabin, the
+# start cannon at the bow, the committee's table and ledger, the entries box, flags at the corners, the anchor ----------
+for fx -45.25 -35.25 1.5
+for fz -24 -19.5 1.5
+place Block_Foundation - at $fx $fz h=0.13
+next
+next
+push at -40 -22 h=0.13
+place Balboa_DecorationPrefabBase_SimpleTent - at -3.5 0.3 drop yaw=90
+place UT_Harpoon_Base - at 4.3 0.3 drop yaw=90
+place UT_Harpoon_Barrel startcannon at 4.3 0.3 y=2.4 drop yaw=90
+place Placeable_Table_Basic - at 0.5 -1.6 drop
+place Note_Book ledger at 0.5 -1.6 y=1 drop
+place Placeable_Storage_Small entrybox at 1.8 -2.3 drop
+place "Box Small" committeebox at -0.8 2.4 drop yaw=15
+place Placeable_Anchor_Stationary - at 5 -2.3 drop yaw=90
+place Placeable_Flag_02 - at -5.6 -2.4 drop
+place Placeable_Flag_02 - at -5.6 2.8 drop
+place Placeable_Flag_02 - at 5.2 -2.4 drop
+place Placeable_Flag_02 - at 5.2 2.8 drop
+place Zone_Trigger startline at 0 0 y=1.5
+place Zone_Trigger finish at 0 0 y=2.5
+pop
+
+# ===== THE COURSE'S BUOYS =================================================================================================
+# Each buoy: a marker (Raft's reef buoy) with a flag on its top, both hidden till the buoy before it is rounded, and its
+# zone; buoy six is the wreck's
+place Reef_Buoy buoy1mark at 15 25 h=0.1 scale=1.5
+place Placeable_Flag_04 buoy1mark at 15 25 h=6 drop
+place Zone_Trigger buoy1 at 15 25 h=0.5
+place Reef_Buoy buoy2mark at 50 90 h=0.1 scale=1.5
+place Placeable_Flag_04 buoy2mark at 50 90 h=6 drop
+place Zone_Trigger buoy2 at 50 90 h=0.5
+place Reef_Buoy buoy3mark at 75 145 h=0.1 scale=1.5
+place Placeable_Flag_04 buoy3mark at 75 145 h=6 drop
+place Zone_Trigger buoy3 at 75 145 h=0.5
+place Reef_Buoy buoy4mark at 155 75 h=0.1 scale=1.5
+place Placeable_Flag_04 buoy4mark at 155 75 h=6 drop
+place Zone_Trigger buoy4 at 155 75 h=0.5
+place Reef_Buoy buoy5mark at 155 25 h=0.1 scale=1.5
+place Placeable_Flag_04 buoy5mark at 155 25 h=6 drop
+place Zone_Trigger buoy5 at 155 25 h=0.5
+place Reef_Buoy buoy7mark at -150 20 h=0.1 scale=1.5
+place Placeable_Flag_04 buoy7mark at -150 20 h=6 drop
+place Zone_Trigger buoy7 at -150 20 h=0.5
+place Reef_Buoy buoy8mark at -88 -2 h=0.1 scale=1.5
+place Placeable_Flag_04 buoy8mark at -88 -2 h=6 drop
+place Zone_Trigger buoy8 at -88 -2 h=0.5
+
+# ===== CHAPTER 2 - WINDWARD CAY ===========================================================================================
+# --- The stilt town over the water on the cay's west side: a boardwalk out from the shore, huts on both sides opening
+# onto it; the fish market on the shore (a relay house, its back room the walled part), the complaint on a post by its
+# veranda, baskets, nets, a barrel ---------------------------------------------------------------------------------------
+push at 78 138.5 h=-2
+call boardwalk n=10 y=4.1 rn=none
+pop
+push at 79 140.2 h=-2
+call stilt_hut y=4.1 ladder=none
+place Pickup_Landmark_Plank_Land - at 1.4 3.0 y=4.4 drop yaw=125
+pop
+push at 85 140.2 h=-2
+call stilt_hut y=4.1 ladder=none w2=ReefHuts_PlasticWall4
+pop
+push at 83.5 138.3 h=-2 yaw=180
+call stilt_hut y=4.1 ladder=none
+place Pickup_Landmark_Plastic3_Land - at 3.0 2.0 y=4.4 drop yaw=250
+pop
+push at 89.5 138.3 h=-2 yaw=180
+call stilt_hut y=4.1 ladder=none w5=ReefHuts_Wall2
+pop
+place Zone_Trigger windwardcay at 88 139.2 h=3.5
+place Loot_Barrel caybarrel at 91.5 139.2 h=2.15 drop
+push at 114 145 h=2.05
+call relay_house
+place TangaroaBucket - at -2 -2 sit
+place UT_MarketBasket02 - at -1.5 -8.5 sit
+place "Pickup_Landmark_Scrap 1_Land" - at -6.5 -6 y=0.3 drop yaw=300
+pop
+place Note_Sign fishwife at 112 132.6 ground yaw=180
+place Loot_ChestSmall fishwifebox at 113 137 h=2.05 drop yaw=270
+place Zone_Trigger fishmarket at 107 140 h=3.5
+place Creature_Rat marketrats at 107 140 h=2.2
+place FishingNets_02 - at 97 134 ground sit scale=2
+place FishingNets_02 - at 98 147 ground sit scale=2 yaw=60
+
+# ===== CHAPTER 3 - THE REEF LEG ===========================================================================================
+# --- The reef passage far east: coral heads in two rows 16 m apart from buoy five to buoy four -----------------------------
+for c 0 10 1
+place TableCoral_1 - at 147 {25+5*$c} ground sit scale=2 yaw={37*$c}
+place CylinderCoral_2 - at 163 {27+5*$c} ground sit scale=2 yaw={53*$c}
+next
+for c 0 4 1
+place VP_CoralBulb04 - at 145 {30+10*$c} ground sit scale=2
+place VP_CoralDigitate02 - at 165 {32+10*$c} ground sit scale=2
+next
+
+# --- Buoy six: last year's leader on the reef 8 m down, her broken mast beside her with the flag still on it; air under
+# her deck; her crate; a buoy over her and the zone at the surface -----------------------------------------------------------
+place BoatStranded - at 25 -115 h=-8 drop scale=0.8 yaw=70 roll=14
+place FL_Pillar - at 28 -111 h=-8 rot=80,0,0
+place Placeable_Flag_07 wreckflag at 29.5 -110.5 h=-8 drop
+place Zone_Trigger wreckair at 28 -112 h=-6.5
+place Zone_Atmosphere wreckbubbles at 28 -112 h=-6.5
+place Loot_SunkenBarrel wreckcrate at 21 -118 h=-8 drop
+place Reef_Buoy wreckmarkbuoy at 31 -115 h=0.1 scale=1.5
+place Zone_Trigger wreckmark at 25 -115 h=0.5
+
+# ===== CHAPTER 4 - LEEWARD KEY ============================================================================================
+# --- The landing on the key's east side, the ramp up to the goat pen (its gate open on the east), the plea on the gate,
+# the goatherd's basket and box, two huts on their plots, the goats loose up the hill --------------------------------------
+place Zone_Trigger leewardkey at -103 -35 y=1.5
+line Balboa_DecorationPrefabBase_Fence_Mid from -126 -39 to -117 -39 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from -126 -31 to -117 -31 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from -126 -39 to -126 -31 step=2.98
+place Note_Sign goatherd at -116.5 -32.5 ground yaw=90
+place UT_MarketBasket01 - at -115.5 -38 ground sit
+place "Box Small" netbasket at -115.5 -39.4 ground sit yaw=10
+place Loot_ChestSmall goatherdbox at -124 -32.5 ground sit yaw=180
+push at -113 -45 h=4
+call stilt_hut
+pop
+push at -113 -27 h=4
+call stilt_hut w4=ReefHuts_PlasticWall4
+place Pickup_Landmark_Plastic3_Land - at 2.8 1.5 y=2.9 drop yaw=71
+pop
+place Creature_Goat keygoats at -130 -28 ground
+
+# ===== CHAPTER 5 - THE CLUBHOUSE ==========================================================================================
+# --- The regatta clubhouse on the main island's hilltop (a relay house, the trophy room in its walled part, the veranda
+# east over the course); the bell tower south of it (posts, ladders, a deck at 12 m, the winner's bell); the celebration,
+# hidden till the bell rings ----------------------------------------------------------------------------------------------
+push at -33 66 h=11.05
+call relay_house
+place Placeable_TrophyBoard_Large - at -9.5 -5 sit yaw=90 scale=1.5
+place Loot_ChestLarge trophy at -8 -8.2 sit yaw=90
+place Note_Sign engraving at -8.5 -2.5 sit yaw=90
+place Placeable_StringLight_Horizontal celebration at -1.7 -0.3 sit
+place Placeable_StringLight_Horizontal celebration at -1.7 -10.2 sit
+place Placeable_Streamer celebration at -0.5 -5 sit
+pop
+place Zone_Trigger clubhouse at -38 61 y=1.5
+place RT_PillarThick - at -37 51.25 y=0
+place RT_PillarThick - at -37 51.25 y=6
+place RT_PillarThick - at -37 52.75 y=0
+place RT_PillarThick - at -37 52.75 y=6
+place LandmarkLadder_6m - at -36.7 52 y=0 yaw=270
+place LandmarkLadder_6m - at -36.7 52 y=6.6 yaw=270
+place RT_Floor - at -37 53.85 y=12.05 sx=0.4 sz=0.35
+place TangaroaBucket winnersbell at -38.6 52 y=12.2 drop scale=1.5 rot=180,0,0
+place Zone_Trigger clubtower at -38.4 52 y=13.4
+for f 0 5 1
+place Placeable_Firework celebration at {-30+1.5*$f} 47 ground sit
+next
+for s 0 4 1
+place Placeable_Streamer celebration at {-55+6*$s} 10.8 h=2.05 drop
+next
+place Zone_Sound celebrationmusic at -40 40 y=4
+
+# ===== ALL OVER ===========================================================================================================
+# --- Rival boats where the storm left them, beached round the islands, two wrecks on sandbars; islet boxes; palms,
+# mangoes, pineapples and bananas; dolphins along the course, turtles on the reef, the trade wind ---------------------------
+place RT_PlasticBoat - at -86 58 ground sit yaw=30
+place RT_PlasticBoat - at -45 106 ground sit yaw=160
+place RT_PlasticBoat - at 146 140 ground sit yaw=80 roll=12
+place RT_PlasticBoat - at 102 -14 ground sit yaw=200
+place RT_PlasticBoat - at 115 -86 ground sit yaw=10 roll=-10
+place RT_PlasticBoat - at -98 -118 ground sit yaw=120
+place RT_PlasticBoat - at -40 -132 ground sit yaw=250
+place RT_PlasticBoat - at -148 -32 ground sit yaw=300
+place BoatStranded - at 62 -32 ground sit yaw=40 roll=10 scale=0.8
+place BoatStranded - at -150 -78 ground sit yaw=200 tilt=8 scale=0.8
+place "Box Small" islebox1 at -70 -106 ground sit yaw=30
+place "Box Small" islebox2 at 114 -46 ground sit yaw=200
+place "Box Small" islebox3 at 128 158 ground sit yaw=120
+scatter "Pickup_Landmark_Tree_Palm 1" 3 at -60 80 r=10 seed=2701
+scatter "Pickup_Landmark_Tree_Palm 2" 3 at 125 150 r=8 seed=2702
+scatter "Pickup_Landmark_Tree_Palm 3" 3 at 112 -50 r=10 seed=2703
+scatter "Pickup_Landmark_Tree_Palm 4" 3 at -70 -110 r=10 seed=2704
+scatter "Pickup_Landmark_Tree_Palm 3" 2 at -132 -45 r=6 seed=2705
+scatter Pickup_Landmark_Tree_Mango 2 at -55 45 r=6 seed=2706
+scatter Pickup_Landmark_Tree_Mango 2 at -25 75 r=6 seed=2707
+scatter Pickup_Landmark_PineappleLandmark 3 at 120 -60 r=8 seed=2708
+scatter Pickup_Landmark_PineappleLandmark 3 at -80 -100 r=8 seed=2709
+scatter Banana_Bush_2 3 at -60 30 r=5 seed=2710
+place Creature_Dolphin dolphins1 at 30 60 h=-2
+place Creature_Dolphin dolphins2 at 140 100 h=-2
+place Creature_Dolphin dolphins3 at -60 -60 h=-2
+place Creature_Turtle turtles1 at 155 50 h=-3
+place Creature_Turtle turtles2 at 60 -80 h=-3
+place Zone_Sound tradewind at -40 30 y=8
+place Zone_Sound tradewind at 110 140 y=8
+
+# --- Raft's finds in the shallows round the archipelago (lib_sea; keep this after the terrain and building lines) -------
+call shallows r=220 deep=5 n=3
+
+# ===== Settings, story items, notes, behaviours, quest (30 steps, 5 chapters) =============================================
+info title=The Trade Wind Archipelago
+info author=Custom Islands
+info description=Dozens of palm islets on one vast reef, three little harbour towns, and the course of the Trade Wind Regatta laid out in buoys round them all. The fleet never sailed this year. Sign on, fire the start cannon, and sail the course in your own raft - buoy by buoy, town by town - for the Trade Wind Trophy.
+island on.arrive=message||Turquoise water to the horizon, palm islets scattered over it like a handful of seeds - and off the biggest one, a committee boat with flags on its lines and a cannon on its deck.
+
+story racenumber|Race number|quest:Tangaroa_Tape|Your race number for the Trade Wind Regatta, painted on a board: 17.
+story pennant|Harbour pennant|Placeable_Flag_05|A harbour town's pennant, given to every crew that calls in during the race.
+story leaderflag|The leader's flag|Placeable_Flag_07|Last year's winner's racing flag, from her wreck at buoy six.
+story entryslip|Stamped entry|quest:Utopia_DettoCode|The committee's stamp on your entry: COURSE COMPLETED.
+
+note notice The regatta notice | THE TRADE WIND REGATTA\n\nSign on in the register at the regatta office for your race number.\nThe course: from the start off Port Alize, round EIGHT buoys in order - each one shows you the next - and back to the committee boat.\nCall at the three harbours on the way - Port Alize, Windward Cay, Leeward Key - for a pennant each.\nBuoy six is the wreck of last year's winner. Bring back her flag.\nNumber, three pennants and the flag to the committee; the trophy is in the clubhouse.\n\n(scrawled:) STORM - FLEET SCATTERED - RACE POSTPONED. Cannon's still loaded if anyone fancies it.
+note tillerbox Harbourmaster's tiller box | The tiller box of the harbourmaster's skiff, on the harbour floor: Port Alize's pennant for the race, still dry in its oilcloth.
+loot tillerbox story:pennant*1;Rope*2
+prop tillerbox loot.refill=0
+note ledger The committee's ledger | REGATTA COMMITTEE - LEDGER\n\nEntries this year: 23. Starters: 0. (The storm.)\nTo finish: your race number, the three harbour pennants and the leader's flag into the entries box. The committee's stamp is the key to the trophy room.\nThe winner rings the bell on the clubhouse tower. It's tradition.
+note fishwife The fishwife's complaint | (pinned to the fish market's post)\n\nRATS in my back room, eating the regatta's fish. Whoever clears them gets Windward's pennant - it's in my box, and I'm not going in there.\n- Mags
+note fishwifebox Windward Cay's pennant box | The fishwife's box: Windward Cay's pennant, smelling of fish, and a smoked mackerel for the road.
+loot fishwifebox story:pennant*1;Cooked_Mackerel*2
+prop fishwifebox loot.refill=0
+prop fishwifebox if.open=quest|12
+prop fishwifebox else.open=message||Mags's box, tied shut with net twine: FOR WHOEVER CLEARS THE RATS.
+note goatherd The goatherd's plea | (on the pen's gate)\n\nThe storm knocked the pen down and my three goats are all over the key - one's right up on the hilltop. Net launcher in the basket.\nBring them home and you'll have Leeward's pennant.\n- Tavi
+note netbasket Goatherd's basket | Tavi's basket: the net launcher, its canisters, a goat bell.
+loot netbasket NetGun*1;NetCanister*6
+prop netbasket loot.refill=0
+note goatherdbox Leeward Key's pennant box | The goatherd's box: Leeward Key's pennant, braided with goat hair, and fresh milk in a jar.
+loot goatherdbox story:pennant*1;Bucket_Milk*1
+prop goatherdbox loot.refill=0
+prop goatherdbox if.open=quest|20
+prop goatherdbox else.open=message||Tavi's box. FOR WHOEVER BRINGS MY GOATS HOME.
+note engraving The trophy's engraving | (fresh letters on the trophy's plinth, as if they had always been there)\n\nTHE TRADE WIND TROPHY\nwon by crew number 17,\nthe only starter of the storm year,\nwho sailed it alone.
+note trophy The Trade Wind Trophy | The Trade Wind Trophy's chest: the prize purse of a whole regatta, the plans for the race committee's zipline from the clubhouse to the quay, a captain's hat, a sailor's hat, and the trophy itself - a silver fish on a stand.
+loot trophy TradeToken*25;Blueprint_ZiplineTool*1;Hat_Captain*1;Hat_Sailor*1;Placeable_TrophyBoard_Large*1;TitaniumIngot*3
+prop trophy loot.refill=0
+prop trophy if.open=has|story:entryslip|1
+prop trophy else.open=message||The trophy room's chest. The committee's stamp opens it.
+note fruitbox Fruit stall box | A fruit stall's box: bananas and coconuts.
+loot fruitbox Banana*3;Coconut*2;Mango*2
+prop fruitbox loot.refill=0
+note committeebox Committee boat box | A box on the committee boat's deck: spare flags, rope, a starter's whistle.
+loot committeebox Rope*3;Plastic*2;Plank*4
+prop committeebox loot.refill=0
+note caybarrel Windward barrel | A barrel on Windward's boardwalk: salt fish and net floats.
+loot caybarrel Cooked_Herring*3;Plastic*2;Rope*1
+prop caybarrel loot.refill=0
+note wreckcrate Wreck's crate | A crate by the leader's wreck: her spares.
+loot wreckcrate MetalOre*2;Scrap*3;Bolt*2
+prop wreckcrate loot.refill=0
+note islebox1 Islet box | A box on a little islet, left for passing crews: water and fruit.
+loot islebox1 PlasticBottle_Water*2;Mango*2
+prop islebox1 loot.refill=0
+note islebox2 Islet box | A box on a little islet: rope and planks for repairs.
+loot islebox2 Rope*3;Plank*4
+prop islebox2 loot.refill=0
+note islebox3 Islet box | A box on a little islet: nails and a tin of meat.
+loot islebox3 Nail*8;Cooked_GenericMeat*1
+prop islebox3 loot.refill=0
+
+prop register obj.name=register
+prop register beh.use=Sign on in the regatta register
+prop register if.use=!signal|signed
+prop register on.use=message||You sign the register. The office clerk's last stamp is still inked: your number is 17.\nsignal||signed\ngive||story:racenumber*1\nsound||event:/char/logbook_flip
+prop register else.use=message||You're signed on: number 17.
+prop startcannon obj.name=startcannon
+prop startcannon beh.use=Fire the start cannon
+prop startcannon if.use=has|story:racenumber|1\n!signal|started
+prop startcannon on.use=message||BOOM - the start cannon's smoke rolls over the harbour. The regatta is on! Out to the north-east, a flag goes up on the first buoy.\nsignal||started\nshow|buoy1\nshow|buoy1mark\nsound||event:/weapons/dynamite/explode
+prop startcannon else.use=message||The start cannon. Sign on in the register first - or the race has started already.
+prop buoy1 obj.name=buoy1
+prop buoy1 beh.hidden=1
+prop buoy1 zone.id=buoy1
+prop buoy1 zone.radius=9
+prop buoy1 zone.repeat=never
+prop buoy1 zone.message=Buoy one rounded! A flag goes up to the north-east: buoy two.
+prop buoy1 on.enter=show|buoy2\nshow|buoy2mark\nsound||event:/crafting/horns/air
+prop buoy1mark obj.name=buoy1mark
+prop buoy1mark beh.hidden=1
+prop buoy1mark beh.bob=0.3
+prop buoy2 obj.name=buoy2
+prop buoy2 beh.hidden=1
+prop buoy2 zone.id=buoy2
+prop buoy2 zone.radius=9
+prop buoy2 zone.repeat=never
+prop buoy2 zone.message=Buoy two rounded! The next flag is off Windward Cay.
+prop buoy2 on.enter=show|buoy3\nshow|buoy3mark\nsound||event:/crafting/horns/air
+prop buoy2mark obj.name=buoy2mark
+prop buoy2mark beh.hidden=1
+prop buoy2mark beh.bob=0.3
+prop buoy3 obj.name=buoy3
+prop buoy3 beh.hidden=1
+prop buoy3 zone.id=buoy3
+prop buoy3 zone.radius=9
+prop buoy3 zone.repeat=never
+prop buoy3 zone.message=Buoy three rounded, off Windward Cay - call in for your pennant. Buoy four's flag is up far to the east, at the reef passage's mouth.
+prop buoy3 on.enter=show|buoy4\nshow|buoy4mark\nsound||event:/crafting/horns/air
+prop buoy3mark obj.name=buoy3mark
+prop buoy3mark beh.hidden=1
+prop buoy3mark beh.bob=0.3
+prop buoy4 obj.name=buoy4
+prop buoy4 beh.hidden=1
+prop buoy4 zone.id=buoy4
+prop buoy4 zone.radius=9
+prop buoy4 zone.repeat=never
+prop buoy4 zone.message=Buoy four, at the reef passage's mouth. Mind the coral heads - buoy five is at the far end.
+prop buoy4 on.enter=show|buoy5\nshow|buoy5mark\nsound||event:/crafting/horns/air
+prop buoy4mark obj.name=buoy4mark
+prop buoy4mark beh.hidden=1
+prop buoy4mark beh.bob=0.3
+prop buoy5 obj.name=buoy5
+prop buoy5 beh.hidden=1
+prop buoy5 zone.id=buoy5
+prop buoy5 zone.radius=9
+prop buoy5 zone.repeat=never
+prop buoy5 zone.message=Through the passage - buoy five! Far to the south-west, beyond the south-east island, a buoy rises over a dark shape on the reef: buoy six, the leader's wreck.
+prop buoy5 on.enter=show|wreckmark\nshow|wreckmarkbuoy\nsound||event:/crafting/horns/air
+prop buoy5mark obj.name=buoy5mark
+prop buoy5mark beh.hidden=1
+prop buoy5mark beh.bob=0.3
+prop wreckmark obj.name=wreckmark
+prop wreckmark beh.hidden=1
+prop wreckmark zone.id=wreckmark
+prop wreckmark zone.radius=9
+prop wreckmark zone.repeat=never
+prop wreckmark zone.message=Buoy six: last year's leader, eight metres down on the reef, her flag still on her mast. Leeward Key is the island far to the west; buoy seven's flag is up off its north point.
+prop wreckmark on.enter=show|buoy7\nshow|buoy7mark\nsound||event:/crafting/horns/air
+prop wreckmarkbuoy obj.name=wreckmarkbuoy
+prop wreckmarkbuoy beh.hidden=1
+prop wreckmarkbuoy beh.bob=0.3
+prop wreckflag obj.name=wreckflag
+prop wreckflag beh.use=Take the leader's flag
+prop wreckflag if.use=!signal|flagtaken
+prop wreckflag on.use=message||You unknot the flag from the drowned mast. It's yours to carry home.\nhide|wreckflag\nsignal||flagtaken\ngive||story:leaderflag*1\nsound||event:/ui/pickup
+prop buoy7 obj.name=buoy7
+prop buoy7 beh.hidden=1
+prop buoy7 zone.id=buoy7
+prop buoy7 zone.radius=9
+prop buoy7 zone.repeat=never
+prop buoy7 zone.message=Buoy seven rounded, off Leeward Key. One more: buoy eight, east towards Port Alize's island.
+prop buoy7 on.enter=show|buoy8\nshow|buoy8mark\nsound||event:/crafting/horns/air
+prop buoy7mark obj.name=buoy7mark
+prop buoy7mark beh.hidden=1
+prop buoy7mark beh.bob=0.3
+prop buoy8 obj.name=buoy8
+prop buoy8 beh.hidden=1
+prop buoy8 zone.id=buoy8
+prop buoy8 zone.radius=9
+prop buoy8 zone.repeat=never
+prop buoy8 zone.message=Buoy eight - the last! Run home to the committee boat for the finish.
+prop buoy8 on.enter=show|finish\nsound||event:/crafting/horns/air
+prop buoy8mark obj.name=buoy8mark
+prop buoy8mark beh.hidden=1
+prop buoy8mark beh.bob=0.3
+prop finish obj.name=finish
+prop finish beh.hidden=1
+prop finish zone.id=finish
+prop finish zone.radius=10
+prop finish zone.repeat=never
+prop finish zone.message=ACROSS THE LINE! The committee boat's horn - you have sailed the Trade Wind course.
+prop finish on.enter=sound||event:/crafting/horns/bugle
+prop entrybox obj.name=entrybox
+prop entrybox beh.use=Hand in your number, the three pennants and the leader's flag
+prop entrybox if.use=quest|25\ntake|story:racenumber|1\ntake|story:pennant|3\ntake|story:leaderflag|1
+prop entrybox on.use=message||The committee's stamp comes down on your entry with a thump: COURSE COMPLETED - CREW 17. The trophy room is yours.\ngive||story:entryslip*1\nsound||event:/exploring/obstacles/keypad/keypad_correct
+prop entrybox else.use=message||The entries box. The ledger says what goes in it: your number, three pennants, the leader's flag.
+prop winnersbell obj.name=winnersbell
+prop winnersbell beh.use=Ring the winner's bell
+prop winnersbell if.use=has|story:entryslip|1\n!signal|rung
+prop winnersbell on.use=message||You ring the winner's bell over the whole archipelago - and Port Alize lights up: lanterns on the quay, garlands, rockets going up from the clubhouse lawn. Down in the trophy room, letters appear on the plinth.\nsignal||rung\nshow|celebration\nshow|celebrationmusic\nshow|engraving\nsound||event:/exploring/obstacles/bicyclebell\nwait|2\nsound||event:/weapons/firework/explode
+prop winnersbell else.use=message||The winner's bell. It's for whoever finished the course.
+prop engraving obj.name=engraving
+prop engraving beh.hidden=1
+prop celebration obj.name=celebration
+prop celebration beh.hidden=1
+prop celebrationmusic obj.name=celebrationmusic
+prop celebrationmusic beh.hidden=1
+prop celebrationmusic sound.event=event:/raft/radio/cassette/cassette04
+prop celebrationmusic sound.volume=0.5
+prop celebrationmusic zone.radius=45
+
+prop portalize zone.id=portalize
+prop portalize zone.radius=12
+prop portalize zone.message=Port Alize: a quay hung with flags, a regatta office, and off the harbour mouth the committee boat riding at anchor.
+prop harbourfloor zone.id=harbourfloor
+prop harbourfloor zone.radius=6
+prop harbourfloor zone.message=The harbourmaster's skiff on the harbour floor, its tiller box still bolted on.
+prop startline zone.id=startline
+prop startline zone.radius=10
+prop startline zone.message=The committee boat and the start line. On deck, the start cannon - loaded.
+prop windwardcay zone.id=windwardcay
+prop windwardcay zone.radius=10
+prop windwardcay zone.message=Windward Cay: huts on stilts, boardwalks, a fish market - and something squeaking inside it.
+prop fishmarket zone.id=fishmarket
+prop fishmarket zone.radius=6
+prop fishmarket zone.repeat=never
+prop fishmarket zone.message=The fish market's back room - rats, fat on regatta fish!
+prop marketrats creature.count=4
+prop marketrats creature.respawn=0
+prop marketrats creature.zone=fishmarket
+prop wreckair zone.id=wreckair
+prop wreckair zone.radius=2.5
+prop wreckair zone.repeat=1
+prop wreckair zone.air=1
+prop wreckbubbles atmo.particles=bubbles
+prop wreckbubbles zone.radius=3
+prop leewardkey zone.id=leewardkey
+prop leewardkey zone.radius=10
+prop leewardkey zone.message=Leeward Key: a hill village, a broken goat pen - and goats on every rock but the right one.
+prop keygoats creature.count=3
+prop clubhouse zone.id=clubhouse
+prop clubhouse zone.radius=7
+prop clubhouse zone.message=The regatta clubhouse on the hill: a veranda over the archipelago, a trophy room, a bell tower beside it.
+prop clubtower zone.id=clubtower
+prop clubtower zone.radius=3
+prop clubtower zone.message=The bell tower's deck. The whole course below you - every buoy you rounded.
+prop tradewind sound.event=event:/amb/ocean
+prop tradewind sound.volume=0.4
+prop tradewind zone.radius=50
+prop townhens creature.count=3
+prop dolphins1 creature.count=2
+prop dolphins2 creature.count=2
+prop dolphins3 creature.count=2
+prop turtles1 creature.count=2
+prop turtles2 creature.count=2
+
+quest title=The Trade Wind Regatta
+quest intro=A regatta course laid round a whole archipelago, the fleet scattered by a storm. The regatta notice is by the office in Port Alize.
+# Chapter 1 - the start (Port Alize)
+step reach|portalize|1|Tie up on the quay at Port Alize
+step read|The regatta notice|1|Read the regatta notice by the office
+step collect|story:racenumber|1|Sign on in the register for your race number
+step reach|harbourfloor|1|Dive to the harbourmaster's sunk skiff in the harbour
+step collect|story:pennant|1|Take Port Alize's pennant from the skiff's tiller box
+step reach|startline|1|Sail out to the committee boat and fire the start cannon
+# Chapter 2 - the windward leg
+step reach|buoy1|1|Round buoy one
+step reach|buoy2|1|Round buoy two
+step reach|buoy3|1|Round buoy three off Windward Cay
+step reach|windwardcay|1|Call in at Windward Cay
+step read|The fishwife's complaint|1|Read the fishwife's complaint at the fish market
+step kill|Rat|4|Clear the rats out of the fish market's back room
+step collect|story:pennant|2|Take Windward Cay's pennant from the fishwife's box
+# Chapter 3 - the reef leg
+step reach|buoy4|1|Round buoy four at the reef passage's mouth
+step reach|buoy5|1|Thread the passage and round buoy five
+step reach|wreckmark|1|Round buoy six - the sunken leader's wreck
+step collect|story:leaderflag|1|Dive to the wreck and take the leader's flag
+step reach|leewardkey|1|Call in at Leeward Key
+# Chapter 4 - Leeward Key
+step read|The goatherd's plea|1|Read the goatherd's plea on the pen gate
+step catch|Goat|3|Net the goatherd's three goats
+step collect|story:pennant|3|Take Leeward Key's pennant from the goatherd's box
+step reach|buoy7|1|Round buoy seven
+# Chapter 5 - the run home
+step reach|buoy8|1|Round buoy eight
+step reach|finish|1|Cross the finish line at the committee boat
+step read|The committee's ledger|1|Read the committee's ledger
+step collect|story:entryslip|1|Hand in your number, the three pennants and the leader's flag
+step reach|clubhouse|1|Climb to the regatta clubhouse on the hill
+step reach|clubtower|1|Climb the bell tower
+step read|The trophy's engraving|1|Ring the winner's bell and read the trophy's engraving
+step open|The Trade Wind Trophy|1|Open the Trade Wind Trophy
+quest done=Crew 17, the only starter of the storm year, sailed the whole Trade Wind course alone - and the trophy says so, in silver.
+quest reward=Rope*6;Plank*10;Cooked_Herring*4
+
+save The Trade Wind Archipelago

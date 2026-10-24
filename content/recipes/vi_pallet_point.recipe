@@ -1,0 +1,94 @@
+# Pallet Point - a vehicle island (VI1, quest island)
+# A rocky point where a building yard was left half way through a job: a forklift with a crate still on its forks, an
+# excavator parked on the rock, two wagons of bricks, a site office locker and a dumpster full of rats. Quest
+# "Last Shift" (5 steps): the yard, the foreman's notice, three rats, the forklift key turned so the forks come down,
+# the crate on the forks.
+#
+# Points (metres from the land centre): the yard round 0 0 (h 3), the excavator 8 6, the wagons by -8 6, the landing
+# beach 0 -24 (h 1.2) and the track up to the yard along x 0.
+include lib_sea
+new
+gen Trees=0.12 Bushes=0.2 Rocks=0.5 Harvest=0.12 BeachThings=0.2
+gen Seed=15103 Radius=30 Height=8 Roughness=0.5 Peaks=2 Shape=0.4 Style=0 PeakShape=0.6 Cliffs=0.4 BeachWidth=0.4
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.3 Sunken=0.1 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+
+# --- Terrain: the yard, the track down, the landing, rock round it ------------------------------------------------
+brush rock at 0 0 r=24 s=8 frames=30
+brush flatten at 0 0 r=12 s=20 frames=150 h=3
+brush flatten at 0 -10 r=4 s=20 frames=80 h=2.4
+brush flatten at 0 -16 r=4 s=20 frames=80 h=1.8
+brush flatten at 0 -24 r=6 s=20 frames=100 h=1.2
+brush sand at 0 -24 r=7 s=10 frames=30
+origin
+clear at 0 0 r=12
+clear at 0 -24 r=5
+
+# --- The forklift and its crate, the excavator, the wagons --------------------------------------------------------
+place VP_Forklift fork at 2 -3 ground sit yaw=20
+place Crate_Big_01 - at 0 -6 ground sit yaw=20
+place Loot_Crate forkcrate at 2.9 -0.6 ground sit yaw=20
+place VP_Excavator - at 8 6 ground sit yaw=230
+place VP_Wagon02 - at -8 5 ground sit yaw=90
+place VP_Wagon02 - at -8 7.5 ground sit yaw=90
+place VP_BrickStack01 - at -6 3 ground sit yaw=10
+place VP_BrickStack02 - at -10 3 ground sit yaw=80
+
+# --- The site office corner: locker, notice, toilet, spotlight, dumpster -------------------------------------------
+place Note_Sign notice at -3 -8 ground sit yaw=180
+place Locker officelocker at -8 -3 ground sit yaw=90
+place VP_PortableToilet - at -9 -6 ground sit yaw=90
+place VP_Spotlight - at 5 -8 ground sit yaw=200
+place VP_Dumpster01 - at 6 -2 ground sit yaw=270
+place Pallet - at -4 -1 ground sit yaw=5
+place Pallet - at -4 1.5 ground sit yaw=80
+place VP_MetalCrate01 - at 9 -5 ground sit yaw=30
+place VP_ConcretePipe01 - at -2 8 ground sit yaw=70
+place Creature_Rat rats at 7 -3 ground
+prop rats creature.count=3
+prop rats creature.respawn=0
+place Zone_Trigger yardzone at 0 -5 ground
+scatter SmallBoulder3 3 at 0 16 r=8 seed=15131 free=2 ground y=-1
+scatter Pickup_Landmark_BerryBush 2 at -16 -10 r=5 seed=15132 free=2
+call shallows x=0 z=0 r=38 deep=5 n=1 seed=15133
+
+# --- Settings, notes, quest ---------------------------------------------------------------------------------------
+info title=Pallet Point
+info author=Custom Islands
+info description=A building yard on a rocky point, left mid-job: a forklift with a crate on its forks, an excavator, wagons of bricks and rats in the dumpster.
+island on.arrive=message||A building yard on the rock. A forklift holds a crate in the air, as if the driver stepped off for a minute and never came back.
+
+story forkkey|Forklift key|quest:Varuna_CraneKey|The key of the forklift, from the site office locker.
+story forksdown|Forks lowered|Bolt|The forklift's forks let down, the crate on the ground.
+
+note notice Foreman's notice | NOTICE - LAST SHIFT\n\nWork stops today. Everything stays where it is.\nThe forklift key is in the office locker. The crate on the forks is the crew's share - lower it and split it.\nAnd somebody deal with the rats in the dumpster.
+note officelocker Site office locker | The office locker: the forklift key, a hard hat's worth of odds and ends.
+loot officelocker story:forkkey*1;Nail*6;Plank*3
+prop officelocker loot.refill=0
+note forkcrate Crate on the forks | The crew's share: tools, metal and a day's food.
+loot forkcrate MetalIngot*3;Hinge*2;Battery*1;Canteen_Water*1
+prop forkcrate loot.refill=0
+prop forkcrate obj.name=forkcrate
+prop forkcrate beh.hidden=1
+
+prop fork obj.name=fork
+prop fork beh.use=Turn the key and lower the forks
+prop fork if.use=take|story:forkkey|1
+prop fork on.use=message||The forklift whines and the forks sink. The crew's crate settles on the rock beside it.\ngive||story:forksdown*1\nshow|forkcrate
+prop fork else.use=message||The forklift needs its key. The foreman's notice says where it is.
+
+prop yardzone zone.id=yard
+prop yardzone zone.radius=5
+prop yardzone zone.message=The building yard on Pallet Point. Nobody has worked here for a long time.
+
+quest title=Last Shift
+quest intro=Somebody left a building yard on Pallet Point mid-job. Find the yard.
+step reach|yard|1|Climb the track to the building yard
+step read|Foreman's notice|1|Read the foreman's notice
+step kill|Rat|3|Clear the rats out of the dumpster
+step collect|story:forksdown|1|Find the forklift key and lower the forks
+step open|Crate on the forks|1|Open the crew's crate
+quest done=The last shift is done. The crew's share is yours.
+quest reward=Nail*10;Scrap*3
+
+save Pallet Point

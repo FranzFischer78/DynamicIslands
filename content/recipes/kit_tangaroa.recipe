@@ -1,0 +1,55 @@
+# Kit check (not content): Tangaroa's apartment modules, floating base, harbour platform, underground room, hatch, statue
+new
+gen Seed=1 Radius=60 Height=4 Shape=4 Roughness=0.1 ObjectDensity=0 Trees=0 Bushes=0 Rocks=0 BeachThings=0 Harvest=0
+gen Hostiles=0 Friendly=0 SeaLife=0 Water=0 SeaRocks=0 SeaFinds=0 Sunken=0
+generate
+brush flatten at 0 0 r=60 s=20 frames=80
+# row 1 (z 24): the apartments' inner modules
+place Apartment_Int_BaseFloor af at -36 24
+place Apartment_Int_BaseMidMid amm at -29 24
+place Apartment_Int_BaseMidMidWindow ammw at -22 24
+place Apartment_Int_BaseMidCorner amc at -15 24
+place Apartment_Int_BaseMidCornerWindow amcw at -8 24
+place Apartment_Int_BaseMidCornerMix amcm at -1 24
+place Apartment_Int_BaseDoor01 ad1 at 6 24
+place Apartment_Int_BaseDoor02 ad2 at 13 24
+place Apartment_Int_BasePillar02 ap2 at 20 24
+place Apartment_Int_FoundStair afs at 30 24
+# row 2 (z 10): the outer modules, the elevator
+place Apartment_Ext_Balcony_Door_OpenableDoor ebd at -36 10
+place Apartment_Ext_Balcony_Mid ebm at -29 10
+place Apartment_Ext_BaseMidMidWall ew at -20 10
+place Apartment_Ext_Cube ec at -14 10 y=1
+place Apartment_ExtFound_Mid ef at -8 10
+place Apartment_Int_FoundCeiling ifc at -1 10
+place Apartment_Int_FoundMidCorner ifm at 6 10
+place Apartment_Int_FoundMidWall ifw at 13 10
+place Apartment_ElevatorRoom er at 20 10
+place Elevator el at 30 10
+# row 3 (z -4): the generator, statue, hatch room, street things
+place Generator gen at -36 -4
+place TangaroaFounderStatue statue at -28 -4
+place TangaroaHatchRoom hatch at -20 -4 y=3.1
+place TangaroaHatchRoom_Hatch hatchlid at -20 -8 y=0.04
+place TangaroaHatchLadder hladder at -16 -4
+place VendingMachine_w_Animations vend at -11 -4
+place RestaSunshadeGround shade at -5 -4
+place TangaroaBench bench at 1 -4
+place TangaroaStoreSign_ChisBurgers sign at 7 -4
+place PlantationDoorFrame pdf at 13 -4
+place PlantationDoor pd at 13 -4 y=1.12
+place OuterDoorFrame odf at 19 -4
+place KeyCard card at 24 -4 y=0.05
+place Tangaroa_BoardRoomKit_Table brt at 30 -4
+# row 4 (z -30): the floating base, the underground room's floor and walls
+place Flotation flot at -30 -32
+place FlotationLids flotlid at -30 -32
+place FlotationBase_Ladders flotl at -30 -32
+place Underground_Room_Floor uf at 20 -30
+place Underground_Room_Wall_Bot uw at 20 -30
+place Underground_Room_Wall_ElevatorDoor uwe at 8 -30
+place Underground_Room_Ceiling uc at 20 -30 y=6.3
+place Underground_Stairwell stw at 30 -30
+# the harbour platform (its mesh 72 m west of its pivot)
+place HarborPlatform harbor at 80 40
+place TangaroaHarbor_Tunnel htun at 70 45

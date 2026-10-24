@@ -1,0 +1,111 @@
+# Wingfall Mire - a new medium island of the library (ROADMAP 3e VI2), a vehicle island, no quest
+# A low swamp island of pools, bamboo and birch where a small airliner came down: the plane on its belly at the end of
+# the scar it ploughed, its pieces strewn along it. A van that ran off the old track into the deep pool, three plastic boats left in
+# the pools, a little rowing boat on the bank, and the hermit who stayed in a blue caravan on the dry knoll. Dive the
+# deep pool to the van's chest.
+#
+# Built by the recipe player (CIRecipe vi_wingfall_mire) through the editor's own operations. Points: the crash scar
+# from -18 -26 to 2 -8 (1.6 m), the plane at 4 -5; the pools (0.6 m under the sea) round -18 -2, 16 -14 and 4 18; the
+# hermit's knoll (2.5 m, r 9 round -20 16); the deep pool (3.5 m under the sea, r 6 round 22 6) at the
+# track's end, the van on its floor at 22 6, its chest at 24.5 8.
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+include lib_ni8
+include lib_vi
+new
+# (nature: a low swamp - pools, bamboo, birch, mushrooms)
+gen Trees=0.3 Bushes=0.5 Rocks=0.3 Harvest=0.4 BeachThings=0.4
+gen Seed=8624 Radius=52 Height=6 Roughness=0.35 Peaks=1 Shape=0 Style=3 BeachWidth=0.5 Cliffs=0 PeakShape=0.2 Lakes=0.6
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.6 SeaRocks=0.2 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0.1 SeaLife=0.2
+generate
+
+# ===== Terrain: the crash scar, the pools, the hermit's knoll, the deep pool at the track's end ==================
+brush flatten from -18 -26 to 2 -8 r=3.5 s=10 frames=80 h=1.6
+brush sand from -18 -26 to 2 -8 r=2.5 s=20 frames=20
+brush flatten at 4 -5 r=7 s=20 frames=80 h=1.6
+brush flatten at -18 -2 r=6 s=20 frames=80 h=-0.6
+brush flatten at 16 -14 r=5 s=20 frames=80 h=-0.6
+brush flatten at 4 18 r=5 s=20 frames=60 h=-0.6
+brush seabed at -18 -2 r=5 s=20 frames=15
+brush seabed at 16 -14 r=4 s=20 frames=15
+brush seabed at 4 18 r=4 s=20 frames=15
+brush flatten at -20 16 r=9 s=20 frames=100 h=2.5
+brush grass at -20 16 r=8 s=20 frames=20
+brush flatten from 10 -2 to 16 1 r=3 s=10 frames=60 h=1.4
+brush flatten at 22 6 r=6 s=20 frames=100 h=-3.5
+brush seabed at 22 6 r=5 s=20 frames=15
+clear from -18 -26 to 4 -5 r=6
+clear at -18 -2 r=7
+clear at 16 -14 r=6
+clear at 4 18 r=6
+clear at -20 16 r=10
+clear from 10 -2 to 16 1 r=4
+clear at 22 6 r=7
+
+# ===== The plane on its belly and the scar it ploughed ===================================================================
+place Airplane airliner at 4 -5 ground y=-0.9 sit rot=0,0,0 yaw=35 roll=-6 tilt=4
+place VP_Rubble_MetalPiece01 - at -14 -22 ground sit yaw=40
+place VP_Rubble_MetalPiece02 - at -9 -18 ground sit yaw=130
+place VP_Rubble_MetalPiece03 - at -4 -13 ground sit yaw=210
+place MetalSheet_3 - at -11 -21 ground sit yaw=70
+place Tire_02 - at -6 -16 ground sit roll=90
+place "Box Small" - at -1 -11 ground sit yaw=25
+place Loot_Chest planechest at 8 -9 ground sit yaw=210
+
+# ===== Boats in the pools and on the bank, the van sunk on the track ======================================================
+place RT_PlasticBoat - at -18 -1 ground sit rot=0,0,0 yaw=60 roll=5
+place RT_PlasticBoat - at 16 -14 ground sit rot=0,0,0 yaw=200
+place RT_PlasticBoat - at 3 19 ground sit rot=0,0,0 yaw=310 roll=-6
+place BoatMini - at -13 6 ground sit scale=14 yaw=100 roll=10
+place Van3 sunkvan at 22 6 ground sit yaw=30 roll=8
+place Loot_Chest vanchest at 24.5 8 ground sit yaw=210
+place Loot_Barrel - at 22.5 1.5 ground sit
+
+# ===== The hermit's knoll: the blue caravan, his tent and fire, his woodpile, hens =========================================
+place Caravan_Blue_01 - at -20 19 ground sit yaw=90
+place Balboa_DecorationPrefabBase_SimpleTent - at -25 13 ground sit yaw=60
+place campfire_1 - at -17 13 ground sit
+place Firewood_1 - at -15 11 ground y=0.1 sit yaw=20
+place Firewood_1 - at -14.4 11.3 ground y=0.1 sit yaw=60
+place Bench_01 - at -18.5 11 ground sit yaw=10
+place Loot_ChestSmall hermitbox at -23 19 ground sit yaw=90
+place Creature_Chicken hens at -22 10 ground
+prop hens creature.count=2
+
+
+# ===== Bamboo, birch, ferns and mushrooms (sparing); things to gather; turtles; Raft's finds =================================
+scatter Bamboo_1 3 at -10 -8 r=6 seed=8651 free=3
+scatter Bamboo_2 3 at 12 -22 r=6 seed=8652 free=3
+scatter Bamboo_3 3 at 10 12 r=5 seed=8653 free=3
+scatter BirchTree_Small1 3 at 0 0 r=36 seed=8654 free=8
+scatter Monstera_1 3 at 0 0 r=34 seed=8655 free=4
+place TreeLog_01 - at 26 -6 ground sit yaw=40
+place TreeLog_02 - at -28 -10 ground sit yaw=110
+scatter "Pickup_Landmark_Tree_Birch" 3 at 0 0 r=34 seed=8656 free=6
+scatter "Pickup_Landmark_Mushroom 1" 3 at -10 10 r=24 seed=8657 free=3
+scatter "Pickup_Landmark_Clay 1" 2 at 10 -20 r=10 seed=8658 free=3
+call hives x=10 z=10 r=26 n=1 seed=8659
+call dirt x=-10 z=0 r=30 n=2 seed=8660
+call treasure x=0 z=0 r=36 n=1 seed=8624
+call shallows r=76 deep=5 n=2 seed=865
+place Creature_Turtle turtles at -40 -30 h=-2
+prop turtles creature.count=2
+
+info title=Wingfall Mire
+info author=Custom Islands
+info description=A low swamp of pools, bamboo and birch where a small airliner came down on its belly. A van sunk in a deep pool, three plastic boats left in the pools, and a hermit in a blue caravan on the dry knoll.
+
+note planechest Cargo hold crate | Thrown clear of the plane's hold: the mail sacks rotted long ago, but the freight held.
+loot planechest MetalIngot*2;CopperIngot*2;Plastic*4;Glass*2
+prop planechest loot.refill=0
+note hermitbox Hermit's box | He kept what the plane brought down: a pilot's wings pin, a flight log with the last page torn out, and seeds he grew on the knoll.
+loot hermitbox Seed_Mango*2;Rope*2;Leather*2;Wool*2
+prop hermitbox loot.refill=0
+note vanchest Chest by the sunk van | The van's cargo box, thrown out when it went in: the plane's mailbags, still sealed in plastic.
+loot vanchest Scrap*4;Glass*2;MetalIngot*2;Plastic*3
+prop vanchest loot.refill=0
+
+save Wingfall Mire

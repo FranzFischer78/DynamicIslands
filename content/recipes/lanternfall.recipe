@@ -1,0 +1,354 @@
+# Lanternfall - a new island of the library, twice the size (x2)
+# A festival island at dusk (Shape 6, Style 0): a palm crescent round a warm bay that opens north, ready for a lantern
+# festival that never started - lantern posts along the shore walk and up the hill path, food stalls with their shades
+# up on the west shore, a stage under a thatch roof on the crescent's high middle, rockets in their rack. The festival
+# people sailed in for one night a year, and one year the storm came first: they ran for the boats and left everything
+# laid out. Quest "Twelve Lanterns" (11 steps, light the festival): the pier, the programme, the lamplighter's taper,
+# the sunk goods off the pier, the fish stall, six lanterns along the shore, two loose hens, six up the hill, the stage,
+# the fireworks finale, the festival prize (the zipline blueprint).
+#
+# Built by the recipe player (CIRecipe lanternfall) through the editor's own operations. Points: the bay's south shore
+# at z ~2 (0.5 m); the pier x -0.5..1, z 3..15 (deck 0.8 m); the shore walk from the west horn (-17 20) round the bay
+# by the pier and up the east shore to the east horn's tip (34 27.5); the stall square x -17..-8, z 3..9 (1 m); the
+# hill path up the east horn's crest and along the crescent's ridge - (34 27.5) 0.6 m, (44 25.5) 4.3 m, (40 17) 7.6 m,
+# (37 9) 10.6 m, (34 2) 13.7 m, (30 -4) 15.6 m, (24 -9), (16 -13), (9 -15) 16 m;
+# the stage's pad at 3 -17 (16 m), the stage x -0.8..6.8, z -19.2..-15.8 under a thatch roof on posts, the rocket rack
+# behind it at 3 -20.8.
+include lib_huts
+include lib_sea
+new
+# (nature: tropical, Like Raft - palms round the crescent; the shore walk, the stall square and the stage cleared)
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=9203 Radius=63 Height=18 Roughness=0.35 Peaks=1 Shape=6 Style=0 BeachWidth=0.6 Cliffs=0.15 PeakShape=0.35
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+macro dabs x1 z1 h1 x2 z2 h2 n=8 r=2.6
+for i 0 $n
+brush flatten at {$x1+($x2-$x1)*$i/$n} {$z1+($z2-$z1)*$i/$n} r=$r s=20 frames=50 h={$h1+($h2-$h1)*$i/$n}
+next
+end
+
+# ===== The ground: the stall square on the west shore, the hill path's four legs, the stage's pad; the shore walk swept
+for sz 3 9 2
+brush flatten from -17 $sz to -8 $sz r=1.9 s=20 frames=60 h=1
+next
+call dabs 34 27.5 0.6 44 25.5 4.3 n=10 r=2.6
+call dabs 44 25.5 4.3 40 17 7.6 n=9 r=2.6
+call dabs 40 17 7.6 37 9 10.6 n=9 r=2.6
+call dabs 37 9 10.6 34 2 13.7 n=8 r=2.6
+call dabs 34 2 13.7 30 -4 15.6 n=7 r=2.6
+call dabs 30 -4 15.6 24 -9 15.6 n=7 r=2.6
+call dabs 24 -9 15.6 16 -13 15.7 n=8 r=2.6
+call dabs 16 -13 15.7 9 -15 16 n=7 r=2.6
+brush flatten at 3 -17 r=7 s=20 frames=80 h=16
+brush sand from -17 20 to -13 10 r=2 s=20 frames=20
+brush sand from -13 10 to -6 3 r=2 s=20 frames=20
+brush sand from -6 3 to 4 1.5 r=2 s=20 frames=20
+brush sand from 4 1.5 to 12 3.5 r=2 s=20 frames=20
+brush sand from 12 3.5 to 18 12 r=2 s=20 frames=20
+brush sand from 18 12 to 26 19 r=2 s=20 frames=20
+brush sand from 26 19 to 34 27.5 r=2 s=20 frames=20
+clear from -17 20 to -13 10 r=2.5
+clear from -13 10 to -6 3 r=2.5
+clear from -6 3 to 4 1.5 r=2.5
+clear from 4 1.5 to 12 3.5 r=2.5
+clear from 12 3.5 to 18 12 r=2.5
+clear from 18 12 to 26 19 r=2.5
+clear from 26 19 to 34 27.5 r=2.5
+clear from -17 6 to -8 6 r=5
+clear from 34 27.5 to 44 25.5 r=3
+clear from 44 25.5 to 40 17 r=3
+clear from 40 17 to 37 9 r=3
+clear from 37 9 to 34 2 r=3
+clear from 34 2 to 30 -4 r=3
+clear from 30 -4 to 24 -9 r=3
+clear from 24 -9 to 16 -13 r=3
+clear from 16 -13 to 9 -15 r=3
+clear at 3 -17 r=8
+
+# ===== The pier: a boardwalk out into the bay, paper streamers on it, a boat tied up; the lamplighter's box and the
+# programme at its land end; a crate of festival goods sunk off its end ====================================================
+push at 1 3 h=-3 yaw=270
+call boardwalk n=8 wide=1 y=3.8
+pop
+place Placeable_Streamer - at 0.9 5 h=0.85
+place Placeable_Streamer - at -0.4 8 h=0.85
+place Placeable_Streamer - at 0.9 11 h=0.85
+place Placeable_Streamer - at -0.4 14.3 h=0.85
+place RT_PlasticBoat - at 2.6 11.5 h=-0.2 yaw=5
+place "Box Small" lamplighter at 2.4 0.4 ground sit yaw=20
+place Note_Board programme at -2.2 0.2 ground yaw=200
+place Zone_Trigger pier at 0.25 5.5 h=1.5
+place Loot_SunkenBarrel sunkgoods at 0.5 17 ground
+
+# ===== The stall square: five stalls under their shades - fruit, fish, drinks, cooking, sweets; benches, paper lanterns
+# hanging from the shades' poles; the hens ===============================================================================
+macro stall x z
+place RestaSunshadeGround - at $x $z ground
+place Placeable_Table_Basic - at {$x+0.6} {$z-0.4} ground sit yaw=90
+place Placeable_Utopia_DanglyDecoration_2 - at {$x+0.12} $z ground y=3.3
+end
+call stall -15.5 4.2
+call stall -12 4.2
+call stall -8.5 4.2
+call stall -15.5 8
+call stall -11.5 8.2
+place UT_MarketBasket03_Banana - at -14.9 3.8 ground y=0.74 sit
+place UT_MarketBasket01 - at -15 8.2 ground y=0.74 sit
+place UT_MarketCrateSmall02 - at -11.4 3.8 ground y=0.74 sit
+place Placeable_CookingStand_Food_One - at -10.5 9.6 ground yaw=90
+place Bench_01 - at -13.6 6.2 ground yaw=90
+place Bench_01 - at -10 6.2 ground yaw=270
+place "Box Small" fruitstall at -16.6 3 ground sit yaw=10
+place "Box Small" fishstall at -13 3 ground sit yaw=40
+place Loot_Barrel drinksbarrel at -7.4 3 ground sit
+place Creature_Chicken hens at -15 13 ground
+
+# ===== The twelve lanterns: six along the shore walk, six up the hill path on the ridge; each one's light
+# in its head, dark until lit ==============================================================================================
+macro lantern x z name glow
+place Placeable_Lantern_Basic $name at $x $z ground sit
+place UT_LightBottle02 $glow at $x $z ground y=2.05 scale=0.5
+end
+call lantern -18.5 19 lantern1 glow1
+call lantern -15 11.5 lantern2 glow2
+call lantern -6.5 1.6 lantern3 glow3
+call lantern 4.8 0.2 lantern4 glow4
+call lantern 12.6 1.5 lantern5 glow5
+call lantern 19.6 10.4 lantern6 glow6
+call lantern 45.6 24.4 lantern7 glow7
+call lantern 38.6 8 lantern8 glow8
+call lantern 33.4 -1.6 lantern9 glow9
+call lantern 24.6 -10.6 lantern10 glow10
+call lantern 16.4 -14.6 lantern11 glow11
+call lantern 9.4 -16.6 lantern12 glow12
+
+# ===== The stage on the hill: the stage under a thatch roof on posts, tiki poles either side, the rocket rack behind it
+# with its three rockets; the prize chest on the stage; the finale's rockets round the pad and the string lights on the
+# pier, the roof's posts and the stalls' shades (all hidden until set off) ==================================================
+place VG_LoungeStage - at 3 -17.5 h=16
+for px -0.75 6.76 3.75
+place Block_Pillar_Wood - at $px -19.25 h=16
+next
+place Block_Pillar_Wood - at -0.75 -16.25 h=16
+place Block_Pillar_Wood - at 6.75 -16.25 h=16
+roof 5 2 at -0.75 -19.25 h=16
+place Placeable_TikiPole_Complete - at -2.4 -15.6 ground
+place Placeable_TikiPole_Complete - at 8.4 -15.6 ground
+place Loot_ChestLarge prize at 3 -18.6 h=16.51 sit
+place Placeable_Table_Square rocketrack at 3 -20.8 ground sit yaw=90
+place Placeable_Firework - at 2.6 -20.8 ground y=0.74 sit
+place Placeable_Firework - at 3 -20.8 ground y=0.74 sit
+place Placeable_Firework - at 3.4 -20.8 ground y=0.74 sit
+for a 0 315 45
+place Placeable_Firework fireworks at {3+5.8*cos($a)} {-17+5.8*sin($a)} ground
+next
+place Placeable_StringLight_Horizontal festlights at -0.4 6.5 h=1.85
+place Placeable_StringLight_Horizontal festlights at 0.9 9.5 h=1.85
+place Placeable_StringLight_Horizontal festlights at -0.4 12.5 h=1.85
+place Placeable_StringLight_Horizontal festlights at -0.75 -17.7 h=18.6 yaw=90
+place Placeable_StringLight_Horizontal festlights at 6.75 -17.7 h=18.6 yaw=90
+place Placeable_StringLight_Horizontal festlights at -15.5 4.2 ground y=2.6
+place Placeable_StringLight_Horizontal festlights at -12 4.2 ground y=2.6
+place Placeable_StringLight_Horizontal festlights at -8.5 4.2 ground y=2.6
+place Zone_Trigger stage at 3 -14 h=17
+place Zone_Atmosphere finaleglow at 0 -2 h=10
+place Zone_Sound finalemusic at 0 -2 h=10
+
+# ===== The dusk; palms on the horns, hibiscus by the walk; dolphins in the bay, a turtle by the pier; Raft's finds ======
+place Zone_Atmosphere dusk at -20 5 h=10
+place Zone_Atmosphere dusk at 20 5 h=10
+place "Pickup_Landmark_Tree_Palm 1" - at -28 25 ground yaw=30
+place "Pickup_Landmark_Tree_Palm 3" - at -24 31 ground yaw=110
+place "Pickup_Landmark_Tree_Palm 1" - at -31 16 ground yaw=200
+place "Pickup_Landmark_Tree_Palm 3" - at 28 25 ground yaw=60
+place "Pickup_Landmark_Tree_Palm 1" - at 33 19 ground yaw=150
+place "Pickup_Landmark_Tree_Palm 3" - at 37 13 ground yaw=290
+place Placeable_Flower_Hibiscus - at -19.5 16 ground
+place Placeable_Flower_Hibiscus - at -16.2 13.6 ground yaw=90
+place Placeable_Flower_Hibiscus - at 7 0.9 ground yaw=40
+place Placeable_Flower_Hibiscus - at 15 5 ground yaw=120
+place Placeable_Flower_Hibiscus - at 17.6 8.6 ground yaw=200
+place Placeable_Flower_Hibiscus - at -3.5 1.8 ground yaw=300
+place Creature_Dolphin dolphins at 0 35 h=-2.5
+place Creature_Turtle turtle at 4 9 h=-1.5
+call shallows r=83 deep=5 n=1
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): melons, bananas, pineapples ----------
+scatter "Pickup_Landmark_WatermelonLandmark" 6 at 0 0 r=44.1 seed=4480 free=3
+scatter "Banana_Bush_2" 6 at 0 0 r=44.1 seed=4490 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=44.1 seed=4500 free=3
+
+# ===== Settings, story items, notes, behaviours, quest (11 steps) ==========================================================
+info title=Lanternfall
+info author=Custom Islands
+info description=A festival island at dusk, every path lined with lanterns, the stalls laid out and the rockets in their rack - and every lantern unlit. Light all twelve and the finale is yours to set off.
+island on.arrive=message||A palm crescent in the last light, a pier hung with paper garlands, lantern posts along every path - all of them dark.
+
+story taper|Lamplighter's taper|Placeable_Lantern_FireBasket|A long taper in a brass holder, its wick still oiled.
+story lit|Lit lantern|Placeable_Utopia_LightBottleYellow|One more lantern burning on Lanternfall.
+story fan|Festival fan|Placeable_Utopia_DanglyDecoration_2|A paper fan painted with the twelve lanterns - what the festival gave whoever lit them.
+
+note programme Festival programme | THE LANTERN FESTIVAL - PROGRAMME\n\nAt dusk: the lamplighter lights the twelve lanterns - six along the shore walk, six up the hill path along the ridge.\nWhen all twelve burn: the finale from the stage on the hill.\nAfter: the prize for the lamplighter, from the chest under the pagoda.\n\nThe lamplighter's box is at the pier.\n\n(written across it in pencil: STORM COMING - EVERYONE TO THE BOATS)
+note lamplighter Lamplighter's box | The lamplighter's box at the pier: matches gone soft in the damp, a spare wick - and the long brass taper.
+loot lamplighter story:taper*1;Rope*2
+prop lamplighter loot.refill=0
+note prize The festival prize | Under the pagoda, the lamplighter's prize: the plans for a zipline the festival strung from the hill to the pier, sweets, coins, a paper crown.
+loot prize Blueprint_ZiplineTool*1;TradeToken*8;Cooked_GenericMeat*2;Mango*3
+prop prize loot.refill=0
+prop prize if.open=signal|finale
+prop prize else.open=message||The prize chest is tied with a ribbon: FOR THE LAMPLIGHTER, AFTER THE FINALE.
+note fruitstall Fruit stall box | The fruit stall's box: fruit gone soft, a few still good.
+loot fruitstall Mango*2;Banana*2;Coconut*1
+prop fruitstall loot.refill=0
+note fishstall Fish stall box | The fish stall's box: salt fish, and the stall's spare rope.
+loot fishstall Cooked_Herring*2;Rope*2;Plank*2
+prop fishstall loot.refill=0
+note drinksbarrel Drinks barrel | The drinks stall's barrel: bottles of water and the empties.
+loot drinksbarrel PlasticBottle_Water*2;Glass*2;Plastic*2
+prop drinksbarrel loot.refill=0
+note sunkgoods Sunk festival goods | A crate of festival goods that went off the pier in the storm: string, nails, coloured paper.
+loot sunkgoods Nail*8;Rope*2;Scrap*2
+prop sunkgoods loot.refill=0
+
+prop lantern1 obj.name=lantern1
+prop lantern1 beh.use=Light the lantern
+prop lantern1 if.use=has|story:taper|1\n!signal|l1
+prop lantern1 on.use=show|glow1\ngive||story:lit*1\nsignal||l1\nsound||event:/crafting/torch
+prop lantern1 else.use=message||It needs the lamplighter's taper - or it is already burning.
+prop lantern2 obj.name=lantern2
+prop lantern2 beh.use=Light the lantern
+prop lantern2 if.use=has|story:taper|1\n!signal|l2
+prop lantern2 on.use=show|glow2\ngive||story:lit*1\nsignal||l2\nsound||event:/crafting/torch
+prop lantern2 else.use=message||It needs the lamplighter's taper - or it is already burning.
+prop lantern3 obj.name=lantern3
+prop lantern3 beh.use=Light the lantern
+prop lantern3 if.use=has|story:taper|1\n!signal|l3
+prop lantern3 on.use=show|glow3\ngive||story:lit*1\nsignal||l3\nsound||event:/crafting/torch
+prop lantern3 else.use=message||It needs the lamplighter's taper - or it is already burning.
+prop lantern4 obj.name=lantern4
+prop lantern4 beh.use=Light the lantern
+prop lantern4 if.use=has|story:taper|1\n!signal|l4
+prop lantern4 on.use=show|glow4\ngive||story:lit*1\nsignal||l4\nsound||event:/crafting/torch
+prop lantern4 else.use=message||It needs the lamplighter's taper - or it is already burning.
+prop lantern5 obj.name=lantern5
+prop lantern5 beh.use=Light the lantern
+prop lantern5 if.use=has|story:taper|1\n!signal|l5
+prop lantern5 on.use=show|glow5\ngive||story:lit*1\nsignal||l5\nsound||event:/crafting/torch
+prop lantern5 else.use=message||It needs the lamplighter's taper - or it is already burning.
+prop lantern6 obj.name=lantern6
+prop lantern6 beh.use=Light the lantern
+prop lantern6 if.use=has|story:taper|1\n!signal|l6
+prop lantern6 on.use=show|glow6\ngive||story:lit*1\nsignal||l6\nsound||event:/crafting/torch
+prop lantern6 else.use=message||It needs the lamplighter's taper - or it is already burning.
+prop lantern7 obj.name=lantern7
+prop lantern7 beh.use=Light the lantern
+prop lantern7 if.use=has|story:taper|1\n!signal|l7
+prop lantern7 on.use=show|glow7\ngive||story:lit*1\nsignal||l7\nsound||event:/crafting/torch
+prop lantern7 else.use=message||It needs the lamplighter's taper - or it is already burning.
+prop lantern8 obj.name=lantern8
+prop lantern8 beh.use=Light the lantern
+prop lantern8 if.use=has|story:taper|1\n!signal|l8
+prop lantern8 on.use=show|glow8\ngive||story:lit*1\nsignal||l8\nsound||event:/crafting/torch
+prop lantern8 else.use=message||It needs the lamplighter's taper - or it is already burning.
+prop lantern9 obj.name=lantern9
+prop lantern9 beh.use=Light the lantern
+prop lantern9 if.use=has|story:taper|1\n!signal|l9
+prop lantern9 on.use=show|glow9\ngive||story:lit*1\nsignal||l9\nsound||event:/crafting/torch
+prop lantern9 else.use=message||It needs the lamplighter's taper - or it is already burning.
+prop lantern10 obj.name=lantern10
+prop lantern10 beh.use=Light the lantern
+prop lantern10 if.use=has|story:taper|1\n!signal|l10
+prop lantern10 on.use=show|glow10\ngive||story:lit*1\nsignal||l10\nsound||event:/crafting/torch
+prop lantern10 else.use=message||It needs the lamplighter's taper - or it is already burning.
+prop lantern11 obj.name=lantern11
+prop lantern11 beh.use=Light the lantern
+prop lantern11 if.use=has|story:taper|1\n!signal|l11
+prop lantern11 on.use=show|glow11\ngive||story:lit*1\nsignal||l11\nsound||event:/crafting/torch
+prop lantern11 else.use=message||It needs the lamplighter's taper - or it is already burning.
+prop lantern12 obj.name=lantern12
+prop lantern12 beh.use=Light the lantern
+prop lantern12 if.use=has|story:taper|1\n!signal|l12
+prop lantern12 on.use=show|glow12\ngive||story:lit*1\nsignal||l12\nsound||event:/crafting/torch
+prop lantern12 else.use=message||It needs the lamplighter's taper - or it is already burning.
+prop glow1 obj.name=glow1
+prop glow1 beh.hidden=1
+prop glow2 obj.name=glow2
+prop glow2 beh.hidden=1
+prop glow3 obj.name=glow3
+prop glow3 beh.hidden=1
+prop glow4 obj.name=glow4
+prop glow4 beh.hidden=1
+prop glow5 obj.name=glow5
+prop glow5 beh.hidden=1
+prop glow6 obj.name=glow6
+prop glow6 beh.hidden=1
+prop glow7 obj.name=glow7
+prop glow7 beh.hidden=1
+prop glow8 obj.name=glow8
+prop glow8 beh.hidden=1
+prop glow9 obj.name=glow9
+prop glow9 beh.hidden=1
+prop glow10 obj.name=glow10
+prop glow10 beh.hidden=1
+prop glow11 obj.name=glow11
+prop glow11 beh.hidden=1
+prop glow12 obj.name=glow12
+prop glow12 beh.hidden=1
+prop rocketrack obj.name=rocketrack
+prop rocketrack beh.use=Light the fuse of the finale
+prop rocketrack if.use=quest|9\n!signal|finale
+prop rocketrack on.use=message||The fuse fizzes along the rack and up the stage's roof - and the sky over Lanternfall breaks open in gold and red and green. Lights run along every string from the stage to the pier. On the rack, where the rockets stood, a paper fan.\nsignal||finale\nshow|fireworks\nshow|festlights\nshow|finaleglow\nshow|finalemusic\nsound||event:/weapons/firework/launch\nwait|2\nsound||event:/weapons/firework/explode\nwait|2\nsound||event:/weapons/firework/explode\ngive||story:fan*1
+prop rocketrack else.use=message||The finale's fuse. The programme says: when all twelve lanterns burn.
+prop fireworks obj.name=fireworks
+prop fireworks beh.hidden=1
+prop festlights obj.name=festlights
+prop festlights beh.hidden=1
+prop finaleglow obj.name=finaleglow
+prop finaleglow beh.hidden=1
+prop finaleglow atmo.fog=#3a2050
+prop finaleglow atmo.fogAmount=0.12
+prop finaleglow atmo.light=#ffc070
+prop finaleglow atmo.lightAmount=0.35
+prop finaleglow atmo.particles=fireflies
+prop finaleglow zone.radius=40
+prop finalemusic obj.name=finalemusic
+prop finalemusic beh.hidden=1
+prop finalemusic sound.event=event:/raft/radio/cassette/cassette03
+prop finalemusic sound.volume=0.5
+prop finalemusic zone.radius=40
+prop dusk atmo.fog=#6a4a6a
+prop dusk atmo.fogAmount=0.15
+prop dusk atmo.light=#ff9a70
+prop dusk atmo.lightAmount=0.3
+prop dusk zone.radius=45
+
+prop pier zone.id=pier
+prop pier zone.radius=7
+prop pier zone.message=The festival pier: paper garlands, a board with the programme, and a box with LAMPLIGHTER painted on it.
+prop stage zone.id=stage
+prop stage zone.radius=5
+prop stage zone.message=The stage on the hill under its pagoda, the rocket rack behind it - and the whole crescent below you in the dusk.
+prop hens creature.count=3
+prop dolphins creature.count=2
+prop turtle creature.count=1
+
+quest title=Twelve Lanterns
+quest intro=A festival island at dusk, every lantern dark. The programme is on the pier.
+step reach|pier|1|Tie up at the festival pier
+step read|Festival programme|1|Read the festival programme
+step open|Lamplighter's box|1|Take the taper from the lamplighter's box
+step open|Sunk festival goods|1|Dive off the end of the pier for the festival goods the storm knocked in
+step open|Fish stall box|1|See what the fish stall in the square left behind when everyone ran
+step collect|story:lit|6|Light the six lanterns along the shore walk
+step catch|Chicken|2|Catch two of the festival hens loose round the stall square
+step collect|story:lit|12|Light the six lanterns up the hill path along the ridge
+step reach|stage|1|Climb to the stage on the hill
+step collect|story:fan|1|Set off the finale from the rocket rack
+step open|The festival prize|1|Open the lamplighter's prize under the pagoda
+quest done=Twelve lanterns burn round the crescent and the last rockets drift down over the bay. The festival happened after all - with an audience of dolphins.
+quest reward=Mango*3;Cooked_Herring*2;Rope*2
+
+save Lanternfall
+

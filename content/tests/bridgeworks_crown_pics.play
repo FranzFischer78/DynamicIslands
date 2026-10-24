@@ -1,0 +1,16 @@
+# Guide pictures of Bridgeworks Crown (CIPlay bridgeworks_crown_pics): Raft's camera, midday, calm; the four roofs and the council house in the storm
+# offset 0 0 is a placeholder: phase 2 sets it from the recipe's save log (PLAY_FORMAT: Coordinates).
+island Bridgeworks Crown
+offset 0 0
+hour 11
+weather Calm
+at -9.3 31.1
+wait 3
+picture sl13_bridgeworks_crown_island 40.7 32 -8.9 -9.3 4 56.1
+storespot
+# the union's forklift and wagon in the yard
+picture sl13_bridgeworks_crown_vehicles -9.3 9 1.1 -10.3 2 23.1
+picture sl13_crown_ridge -20 22 -25 -20 12 -59
+picture sl13_crown_crane 35 10 -30 50 4 -45
+picture sl13_crown_summerhouse -55 9 -25 -68 4 -12
+picture sl13_crown_cables 15 8 -60 25 2 -74

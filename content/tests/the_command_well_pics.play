@@ -1,0 +1,15 @@
+# Guide pictures of The Command Well (CIPlay the_command_well_pics): Raft's camera, midday, calm; the deck from the
+# surface, the shaft, the dome and its rings (elevation -30: the surface at h=30)
+island The Command Well
+offset 0 0
+hour 11
+weather Calm
+at 6 14
+wait 3
+picture sl14_the_command_well_deck 22 34 -4 6 30 14
+picture sl14_the_command_well_shaft 12 16 22 0 10 14
+picture sl14_the_command_well_dome 3 5 4 0 3.5 -4
+picture sl14_the_command_well_ridge 34 18 -10 50 12 8
+picture sl14_the_command_well_cave -46 9 44 -48 6 24
+picture sl14_the_command_well_ruin 50 10 38 40 4 52
+picture sl14_the_command_well_plane -30 10 -48 -44 4 -40

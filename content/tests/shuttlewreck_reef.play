@@ -1,0 +1,26 @@
+# Shuttlewreck Reef (CIPlay shuttlewreck_reef): the buoy, the cabin and its air, the manifest, two puffers, the luggage
+# rack (goo, grass seeds, leather), the commuter's note.
+island Shuttlewreck Reef
+offset 0 0
+expect step 0
+expect title The Night Shuttle
+zone surface_buoy
+zone cabin
+air cabin
+expect step 1
+read Shuttle manifest
+expect step 2
+kill Puffer fish
+expect step 3
+open Luggage rack
+wait 3
+expect item ExplosiveGoo 2
+expect step 4
+zone sw_ridge
+expect step 5
+zone sw_cave
+expect step 6
+read Seat 14's ticket
+expect step 7
+read Commuter's note
+expect done

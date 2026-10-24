@@ -1,0 +1,15 @@
+# Guide pictures of Cablecar Stacks (CIPlay cablecar_stacks_pics): Raft's camera, morning, calm; the wheels turning
+island Cablecar Stacks
+offset 1.1169 -1.1095
+hour 10
+weather Calm
+at 53 -47
+wait 3
+picture cablecar_stacks_island 75 45 -90 -10 25 -15
+picture cablecar_stacks_shore 52 16 -46 37 7 -31
+picture cablecar_stacks_mid 6 38 -60 -8 29 -45
+picture cablecar_stacks_high -24 53 -22 -40 45 -9
+picture cablecar_stacks_summit 12 64 -16 -3 57 -4
+at 18 -36 h=-5
+wait 2
+picture cablecar_stacks_wreck 20 -5 -33 15 -6.5 -38

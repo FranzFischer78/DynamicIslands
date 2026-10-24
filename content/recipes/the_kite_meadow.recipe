@@ -1,0 +1,213 @@
+# The Kite Meadow - an island of the library's plan The Rainmakers (Nimbus Works' third station, large)
+# A high meadow over sea cliffs where Nimbus Works flew its seeding kites: twelve winch masts of antenna poles along the
+# ridge, the torn kites - Caravan Town's great banners - slack between them; the path up from the beach overgrown with
+# vines; the kite crew's hut half-way up; on top the launch shed (a roof on posts) with its winch engine and its bell.
+# Quest "Kites Over the Ridge" (11 steps): the cliff path, the crew roster, the crew hut chest (the machete), the upper
+# meadow behind the vines, the warthogs dug in under the masts, the logs of winches 2, 7 and 11 (a digit each), the
+# shed's keypad, the winch engine (the kites lift), the fuel store, the biofuel press, the shed bell (Rouhi, the crew's
+# youngest flyer, joins you as a character).
+#
+# Built by the recipe player (CIRecipe the_kite_meadow) through the editor's own operations.
+include lib_sea
+include lib_features
+new
+# (nature: tropical slopes Like Raft's own: Trees 0.28, Bushes 0.28, Rocks 0.43, Harvest 0.24; the meadow on top cleared)
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=9501 Radius=78 Height=26 Roughness=0.35 Peaks=1 Shape=0 Style=0 PeakShape=0.25 Cliffs=0.6 BeachWidth=0.4
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.3 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the meadow on top (20 m), the cliff path up from the south beach in steps, the crew hut's ledge --------
+brush flatten from -30 14 to 30 14 r=16 s=20 frames=160 h=20
+brush flatten from 0 -24 to 0 30 r=14 s=20 frames=120 h=20
+brush flatten at 0 -60 r=6 s=20 frames=40 h=3
+brush flatten at 0 -52 r=5 s=20 frames=40 h=7
+brush flatten at 0 -44 r=5 s=20 frames=40 h=11
+brush flatten at 0 -36 r=5 s=20 frames=40 h=15
+brush flatten at 0 -29 r=5 s=20 frames=40 h=18
+brush flatten at 9 -50 r=5 s=20 frames=40 h=8
+brush smooth from 0 -64 to 0 -24 r=6 s=6 frames=30
+brush grass from -34 14 to 34 14 r=16 s=8 frames=60
+brush grass from 0 -24 to 0 30 r=14 s=8 frames=40
+origin
+clear from -34 14 to 34 14 r=17
+clear from 0 -24 to 0 32 r=15
+clear from 0 -64 to 0 -24 r=4
+clear at 9 -50 r=5
+
+# --- The winch masts along the ridge (z 16): twelve antenna poles 4.6 m apart, the slack kites between them ---------
+for m -25.3 25.3 4.6
+place Antenna_pole masts at $m 16 ground sit scale=1.5
+next
+for k -23 23 4.6
+place Banner_01 kitesdown at $k 16 ground y=2.2 yaw=0
+place Banner_01 kitesup at $k 16 ground y=6.8 yaw=0 tilt=-25
+next
+prop kitesdown obj.name=kitesdown
+prop kitesup obj.name=kitesup
+prop kitesup beh.hidden=1
+# the winch logs at the feet of masts 2, 7 and 11 (from the west)
+place Note_Paper winch2 at -20.7 14.8 ground sit yaw=20
+place Note_Paper winch7 at 2.3 14.8 ground sit yaw=-15
+place Note_Paper winch11 at 20.7 14.8 ground sit yaw=40
+place "Box Big" - at -21.6 14.6 ground yaw=15
+place "Box Big" - at 21.8 14.4 ground yaw=-20
+
+# --- The kite crew's hut on its ledge half-way up: wooden walls, a hip roof; the roster on the table ----------------
+push at 7 -52 h=8
+for fx 0.75 2.25 1.5
+for fz 0.75 2.25 1.5
+place Block_Floor_Wood - at $fx $fz y=0.05
+next
+next
+place Block_Wall_Wood - at 0.75 3 y=0.2
+place Block_Wall_Window_Wood - at 2.25 3 y=0.2
+place Block_Wall_Wood - at 0 0.75 y=0.2 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.2 yaw=90
+place Block_Wall_Wood - at 3 0.75 y=0.2 yaw=90
+place Block_Wall_Wood - at 3 2.25 y=0.2 yaw=90
+place Block_Wall_Wood - at 2.25 0 y=0.2
+place Block_Pillar_Wood - at 0 0 y=0.2
+place Block_Pillar_Wood - at 3 0 y=0.2
+place Block_Pillar_Wood - at 0 3 y=0.2
+place Block_Pillar_Wood - at 3 3 y=0.2
+roof 2 2 at 0 0 y=0.2 wood
+place Loot_Chest crewchest at 2.3 2.3 y=0.25 yaw=180
+place "Table Office" crewtable at 0.9 1.9 y=0.54 yaw=90
+place Note_Paper roster at 0.9 1.9 y=2 sit drop yaw=10
+pop
+
+# --- The vines over the path between the hut's ledge and the meadow ---------------------------------------------------
+place ChoppableVines kitevines1 at -2.6 -38 ground yaw=0
+place ChoppableVines kitevines2 at 0 -38 ground yaw=0
+place ChoppableVines kitevines3 at 2.6 -38 ground yaw=0
+place Zone_Trigger cliffpath at 0 -58 ground y=1
+place Zone_Trigger uppermeadow at 0 -18 ground y=1
+
+# --- The launch shed on top: a wooden floor, a roof on its four posts, the winch engine, the keypad and its gate, the
+# bell on its post ------------------------------------------------------------------------------------------------------
+push at -4.5 24 h=20
+for fx 0.75 8.25 1.5
+for fz 0.75 3.75 1.5
+place Block_Floor_Wood - at $fx $fz y=0.05
+next
+next
+place Block_Pillar_Wood - at 0 0 y=0.2
+place Block_Pillar_Wood - at 9 0 y=0.2
+place Block_Pillar_Wood - at 0 4.5 y=0.2
+place Block_Pillar_Wood - at 9 4.5 y=0.2
+place Block_Pillar_Wood - at 4.5 4.5 y=0.2
+place Block_Pillar_Wood - at 4.5 0 y=0.2
+roof 6 3 at 0 0 y=0.2 wood
+place Block_Wall_Wood - at 0.75 4.5 y=0.2
+place Block_Wall_Wood - at 2.25 4.5 y=0.2
+place Block_Wall_Wood - at 3.75 4.5 y=0.2
+place Block_Wall_Wood - at 5.25 4.5 y=0.2
+place Block_Wall_Wood - at 6.75 4.5 y=0.2
+place Block_Wall_Wood - at 8.25 4.5 y=0.2
+place Block_Wall_Fence_Tier3 shedgate at 3.75 0 y=0.2
+place Block_Wall_Fence_Tier3 shedgate2 at 5.25 0 y=0.2
+place "VG_DecorationPrefabBase_Engine Variant" winchengine at 4.5 3 y=0.25 sit yaw=180
+place Loot_ChestLarge fuelstore at 1.5 3.2 y=0.25 yaw=180
+place Loot_Chest biopress at 7.5 3.2 y=0.25 yaw=180
+pop
+place Block_Pillar_Wood - at -6 23 ground
+place RT_PowerBox shedkeypad at -6 22.75 ground sit yaw=180
+place Block_Pillar_Wood - at 6 22 ground sy=1.4
+place TangaroaBucket shedbell at 6 22 ground y=3.95 rot=180,0,0 scale=1.4
+place Loot_Chest fuelcan at -10 26 ground sit yaw=120
+
+# --- The warthogs dug in under the masts; birds' nests? none - a meadow of kites -----------------------------------
+place Creature_Boar hogs at 6 8 ground
+prop hogs creature.count=5
+prop hogs creature.respawn=0
+
+# --- Things to gather -------------------------------------------------------------------------------------------------
+scatter "Pickup_Landmark_Tree_Mango" 2 at 0 -10 r=50 seed=9511 free=5
+scatter "Pickup_Landmark_PineappleLandmark" 3 at 0 -10 r=50 seed=9512 free=3
+scatter "Pickup_Landmark_Flower_Red" 3 at 0 10 r=30 seed=9513 free=3
+call dirt x=18 z=-20 r=12 n=3 seed=9514
+call shallows r=108 deep=6 n=2
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=The Kite Meadow
+info author=Custom Islands
+info description=Nimbus Works' third station: a high meadow over sea cliffs, twelve winch masts along the ridge with their torn seeding kites slack between them, the path up grown over with vines, and the launch shed with its winch engine on top. The third island of The Rainmakers.
+island on.arrive=message||Cliffs, a green top - and along the ridge a row of masts with great torn kites hanging slack between them.
+
+story shedopen|Launch shed open|Placeable_Lantern_Metal|The keypad of the kite crew's launch shed took the winch code.
+story kitesup|Kites up|Banner_01|The winch engine runs and the seeding kites are up over the ridge again - for the last time.
+story bellrung|The shed bell rung|Placeable_Lantern_Metal|You rang the launch shed's bell: the crew's call to the kites.
+
+note roster Kite crew roster | NIMBUS WORKS - KITE MEADOW - CREW ROSTER\n\nWinch 1-4: Halvard, Ilse. Winch 5-8: Bram, Odile. Winch 9-12: Kasimir.\nLaunch: Rouhi (youngest flyer on the coast - do not let him near winch 7 unsupervised).\n\nNote from the foreman: the vines are over the path again. The machete is in the crew chest. Each winch keeper writes his digit of the shed code in his log, as ever.
+note crewchest Crew hut chest | The kite crew's chest: a machete for the vines on the path, the company's plans for it, rope.
+loot crewchest Machete*1;Blueprint_Machete*1;Rope*3
+prop crewchest loot.refill=0
+note winch2 Winch 2 log | WINCH 2 - Halvard\n\nLine snapped twice today. The kites pull like they want to go home.\n\nMy digit of the shed code: the first one, FOUR.
+note winch7 Winch 7 log | WINCH 7 - Odile\n\nRouhi climbed my mast again. I told him: one day the kites will lift you right off this island.\n\nMy digit of the shed code: the second one, ONE.
+note winch11 Winch 11 log | WINCH 11 - Kasimir\n\nThe pigs are digging under the masts again. The masts lean.\n\nMy digit, the last one: NINE.
+note fuelcan Winch fuel can | A dented can of the winch engine's fuel, under a tarp.
+loot fuelcan story:raft-Vasagatan_GasTank*1;Plastic*2
+prop fuelcan loot.refill=0
+note fuelstore Fuel store | The launch shed's fuel store: Nimbus Works' plans for a fuel tank and the pipes that feed an engine from it.
+loot fuelstore Blueprint_Fueltank*1;Blueprint_Pipe_Fuel*1;MetalIngot*2;Bolt*2
+prop fuelstore loot.refill=0
+prop fuelstore if.open=signal|engine
+prop fuelstore else.open=message||The fuel store's lid is chained to the winch engine's drive. Start the engine.
+note biopress Biofuel press | The crew's biofuel press, cold: the plans for an extractor that makes winch fuel out of leaves and fish.
+loot biopress Blueprint_BiofuelExtractor*1;Plank*4;Scrap*3
+prop biopress loot.refill=0
+prop biopress if.open=signal|engine
+prop biopress else.open=message||The biofuel press is bolted to the engine's drive shaft. Start the engine.
+
+prop kitevines1 obj.name=kitevines
+prop kitevines2 obj.name=kitevines
+prop kitevines3 obj.name=kitevines
+prop kitevines1 on.use=hide|kitevines\nmessage||The machete bites through the vines. The path to the meadow is open.
+prop kitevines2 on.use=hide|kitevines\nmessage||The machete bites through the vines. The path to the meadow is open.
+prop kitevines3 on.use=hide|kitevines\nmessage||The machete bites through the vines. The path to the meadow is open.
+
+prop shedkeypad obj.name=shedkeypad
+prop shedkeypad beh.use=Type the winch code
+prop shedkeypad lock.code=419
+prop shedkeypad on.use=sound||event:/exploring/obstacles/keypad/keypad_correct\nmessage||The keypad beeps four-one-nine and the shed's gate swings aside.\nhide|shedgate\nhide|shedgate2\ngive||story:shedopen*1
+prop shedgate obj.name=shedgate
+prop shedgate2 obj.name=shedgate2
+
+prop winchengine obj.name=winchengine
+prop winchengine on.use=message||The winch engine coughs, catches and roars. Along the ridge the winches haul - and the great torn kites rise off the grass and stand in the wind again.\nsignal||engine\nhide|kitesdown\nshow|kitesup\ngive||story:kitesup*1
+
+prop shedbell obj.name=shedbell
+prop shedbell beh.use=Ring the bell
+prop shedbell if.use=signal|engine
+prop shedbell on.use=sound||event:/raft/radar/lever\nmessage||The bell clangs over the meadow - the crew's call to the kites. From under the shed's floor a boy crawls out, grinning: Rouhi, the youngest flyer on the coast. He has been waiting for someone to ring it. Next station: the Fogworks, on 1000.\ncharacter||Rouhi\ngive||story:bellrung*1
+prop shedbell else.use=message||The bell hangs still. Nobody rings it while the kites are down.
+
+prop cliffpath zone.id=cliff_path
+prop cliffpath zone.radius=5
+prop cliffpath zone.message=The cliff path: steps cut up to the kite crew's hut, and higher, a row of masts against the sky.
+prop uppermeadow zone.id=upper_meadow
+prop uppermeadow zone.radius=6
+prop uppermeadow zone.message=The upper meadow: twelve winch masts in a row, and something grunting under them.
+
+quest title=Kites Over the Ridge
+quest intro=A row of winch masts on a high meadow, kites slack between them. Climb the cliff path.
+step reach|cliff_path|1|Climb the cliff path from the beach
+step read|Kite crew roster|1|Read the crew roster in the hut on the ledge
+step open|Crew hut chest|1|Open the crew hut chest
+step blueprint|Blueprint_Machete|1|Take the machete plans from the crew hut chest
+step reach|upper_meadow|1|Cut through the vines to the upper meadow
+step kill|Warthog|5|Drive off the five warthogs dug in under the masts
+step pages||4|Read the logs at the feet of winches 2, 7 and 11 (the roster is the first page)
+step collect|story:shedopen|1|Open the launch shed with the winch code
+step collect|story:kitesup|1|Start the winch engine (its fuel is under a tarp by the shed)
+step open|Fuel store|1|Open the fuel store in the shed
+step blueprint|Blueprint_Fueltank|1|Take the fuel tank plans from the fuel store
+step blueprint|Blueprint_Pipe_Fuel|1|Take the fuel pipe plans from the fuel store
+step open|Biofuel press|1|Open the biofuel press in the shed
+step blueprint|Blueprint_BiofuelExtractor|1|Take the biofuel extractor plans from the biofuel press
+step collect|story:bellrung|1|Ring the shed bell
+quest done=The kites are up and Rouhi is coming with you. The Fogworks answers on 1000.
+quest reward=MetalIngot*4;Rope*3;Plank*6
+
+save The Kite Meadow

@@ -1,0 +1,143 @@
+# Frontier Beacon - an island of the library's plan Raft 2: The Drowned Frontier (station One of the Frontier Corps)
+# A black volcanic spike with the Corps' first beacon on a terrace cut into its north side, the keeper's hut and landing
+# on the west flats, the supply boat sunk off the landing with the beacon's spare cell. Quest "The First Signal" (7
+# steps): the landing, the keeper's log, his hens loose on the flats, the cell from the sunken boat, the ramp up to the
+# beacon terrace, its stone birds, the beacon lit, the keeper's locker (the Receiver's and the antenna's blueprints -
+# the plan's first step on the Receiver).
+#
+# Built by the recipe player (CIRecipe frontier_beacon) through the editor's own operations.
+include lib_sea
+include lib_rt
+new
+# (nature: volcanic: Like Raft's desert, with little scrub on the ash - Raft's islands as the generator's Like Raft has them, CIGenLikeRaft)
+gen Trees=0.3 Bushes=0.3 Rocks=0.5 Harvest=0.3 BeachThings=0.3
+gen Seed=8101 Radius=45 Height=38 Roughness=0.6 Peaks=1 Shape=0 Style=4 PeakShape=0.85 Cliffs=0.7 BeachWidth=0.3
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.4 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the landing and the keeper's hut on the west flats (3.5 m), the beacon terrace on the spike's north side
+# (16 m) and the Corps' ramp of fill up to it ----------------------------------------------------------------------
+brush flatten from -42 -2 to -22 -2 r=6 s=20 frames=60 h=3.5
+brush flatten from -28 -2 to -22 -2 r=6.5 s=20 frames=40 h=3.4
+brush flatten at -2 8 r=7.5 s=20 frames=160 h=16
+for i 0 17 1
+brush flatten at {-34+$i*1.53} {20-$i*0.588} r=4.5 s=20 frames=30 h={3.6+$i*0.729}
+next
+brush smooth from -34 20 to -8 10 r=5 s=10 frames=20
+origin
+clear from -42 -2 to -22 -2 r=8
+clear at -2 8 r=8
+clear from -34 20 to -8 10 r=6
+
+# --- The landing: a jetty of the radio tower's floor plates off the west beach --------------------------------------
+place RT_Floor jetty at -44 1.5 h=1.6
+place Zone_Trigger landing at -40 -2 h=4.6
+
+# --- The keeper's hut on the west flats: one of the radio tower's rooms, his log on the table outside ----------------
+push at -22 -0.5 h=3.5
+call rt_storey l2=RT_WallDoor1 f1=RT_WallWindow1 b2=RT_WallWindow2
+place RT_Floor - at 0 4.5 y=3.05
+place "Box Big" - at -5.3 3.6 sit yaw=10
+place "Chair Office" - at -3 3.2 sit yaw=170
+place Loot_ChestSmall keepersstrongbox at -1 -3.5 sit yaw=0
+pop
+place "Table Office" keepertable at -31 1.5 ground yaw=90
+place Note_Paper keeperslog at -31 1.5 h=6 sit drop yaw=80
+place Placeable_Lantern_Metal - at -31 0.6 h=6 sit drop
+
+# --- The beacon terrace (16 m): the beacon's mast with its lamp, its control box, the keeper's locker, a railing -------
+place RT_PillarThick beaconmast at -2 6 h=16
+# (Raft's radio tower floodlight, not Varuna Point's spotlight: that one shoots any player it sees, 2026-10-04)
+place RT_Floodlight beaconspot at -2 6 h=22.05 sit scale=2.2 yaw=0
+place RT_RoofLamp beaconlamp at -2 5.55 h=21.4
+place Placeable_Flag_03 - at 3.5 5.5 ground
+place Crate_Big_02 - at -6.5 11 ground yaw=20
+# (on the terrace: at -5 12.8 it stood on its north edge, set down at the bank's foot and buried 2.75 m, CIGroundIslands)
+place "Box Small" - at -4 11.3 ground yaw=-15
+place RT_PowerBox beaconbox at -2 5.62 h=17.4 yaw=0
+place Locker keeperslocker at 1 9.5 ground yaw=-90
+place Zone_Trigger terrace at -2 9 h=17.2
+place Creature_StoneBird birds at 1 10 h=17
+place Creature_StoneBird sentinel at -3 10 h=17.5
+
+# --- The supply boat, sunk off the landing: the beacon's spare cell in its crate ----------------------------------
+place "Box Small" supplycrate at -54 -12 ground yaw=30
+
+# --- Friendly animals (placed: the generator's Friendly and SeaLife are whole numbers - the 0.2 and 0.3 above gave none;
+# the user, 2026-10-03: "add some friendly animals to some of the islands"): hens by the keeper's hut, dolphins out west -
+place Creature_Chicken hens at -30 -6
+prop hens creature.count=2
+place Creature_Dolphin dolphins at -75 -25 h=-3
+prop dolphins creature.count=2
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): mangoes, pineapples, flowers ----------
+scatter "Pickup_Landmark_Tree_Mango" 3 at 0 0 r=31.5 seed=4483 free=5
+scatter "Pickup_Landmark_PineappleLandmark" 3 at 0 0 r=31.5 seed=4493 free=3
+scatter "Pickup_Landmark_Flower_Black" 2 at 0 0 r=31.5 seed=4503 free=3
+scatter "Pickup_Landmark_Flower_Red" 2 at 0 0 r=31.5 seed=4504 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=65 deep=5 n=2
+
+info title=Frontier Beacon
+info author=Custom Islands
+info description=Station One of the Frontier Corps: a black volcanic spike, the keeper's hut on the flats, the beacon on a terrace cut into the spike - dark since its cell died. The first island of Raft 2: The Drowned Frontier.
+island on.arrive=message||A black spike of rock, a hut, a ramp climbing to a dark mast. Three short, three long - the light that called you here has stopped.
+
+story beaconcell|Beacon cell|quest:Temperance_ElectricalCable|The beacon's spare power cell, from the Corps' supply boat sunk off the landing.
+
+note keeperslog Keeper's log | FRONTIER CORPS - STATION ONE - BEACON LOG\n\nThe beacon's cell is spent. The spares came on the supply boat - and the boat went down off the landing in the last blow, crates and all.\n\nThe birds have taken the terrace. They nest on the mast and go for anyone on the ramp.\n\nWhen the light is on, the Corps' Receiver plans are in my locker up there: whoever lights it can follow us. Station Two is down the marsh.
+note supplycrate Supply crate | The Corps' supply crate from the sunken boat: a spare beacon cell, sealed in wax.
+loot supplycrate story:beaconcell*1;Battery*1;Rope*2
+prop supplycrate loot.refill=0
+note keeperslocker Keeper's locker | The keeper's locker on the beacon terrace: the Corps' plans for a Receiver and its antenna - and the next station's frequency, scratched inside the door.
+loot keeperslocker Blueprint_Reciever*1;Blueprint_Antenna*1;Battery*1;Scrap*4
+prop keeperslocker loot.refill=0
+# the keeper's Corps keycard (T-4c2): it opens the Corps strongroom at the winter camp (Whiteout Reach, rule 8)
+prop keepersstrongbox obj.name=keepersstrongbox
+note keepersstrongbox Keeper's strongbox | The keeper's strongbox under the window: his Corps keycard on a lanyard, tagged STATION KEYCARD - OPENS EVERY CORPS STRONGROOM ON THE LINE. Under it, a slip in his hand: "Winter camp strongroom - stocked for the crossing. Take the card."
+loot keepersstrongbox story:raft-Tangaroa_KeyCard*1;Rope*2;Nail*6
+prop keepersstrongbox loot.refill=0
+prop keeperslocker if.open=signal|beacon
+prop keeperslocker else.open=message||The locker's lock is wired to the beacon - it stays shut while the light is dark.
+
+prop beaconbox obj.name=beaconbox
+prop beaconbox beh.use=Fit the cell and light the beacon
+prop beaconbox if.use=take|story:beaconcell|1
+prop beaconbox on.use=message||The cell clicks home. Up on the mast the lamp blinks - three short, three long - out over the sea again.\nsignal||beacon\nshow|beaconlight
+prop beaconbox else.use=message||The beacon's box is dead: its cell is spent. The keeper's log said the spares went down with the supply boat.
+prop beaconlamp obj.name=beaconlight
+prop beaconlamp beh.hidden=1
+
+prop landing zone.id=landing
+prop landing zone.radius=7
+prop landing zone.message=Station One's landing: a jetty, the keeper's hut - and a ramp climbing the black spike to a dark mast.
+prop terrace zone.id=terrace
+prop terrace zone.radius=6
+prop terrace zone.message=The beacon terrace - and the stone birds rising off the mast!
+prop birds creature.count=2
+prop birds creature.respawn=0
+prop birds creature.zone=terrace
+prop sentinel creature.count=1
+prop sentinel creature.size=1.6
+prop sentinel creature.health=3
+prop sentinel creature.respawn=0
+prop sentinel creature.zone=terrace
+prop sentinel tint.color=#2a2a2a
+prop sentinel tint.amount=0.6
+
+quest title=The First Signal
+quest intro=A black spike of rock and a dark beacon: Station One of the Frontier Corps. Start at its landing.
+step reach|landing|1|Land at Station One's jetty
+step read|Keeper's log|1|Read the keeper's log by his hut
+step catch|Chicken|2|Round up the keeper's two hens, loose on the flats by his hut
+step collect|story:beaconcell|1|Dive to the sunken supply boat off the landing for a beacon cell
+step reach|terrace|1|Climb the ramp to the beacon terrace
+step kill|Screecher|3|Drive the stone birds off the terrace
+step open|Keeper's locker|1|Light the beacon and open the keeper's locker
+step blueprint|Blueprint_Reciever|1|Take the Receiver plans from the keeper's locker
+step blueprint|Blueprint_Antenna|1|Take the antenna plans from the keeper's locker
+quest done=The beacon blinks over the sea again - and inside the locker door, the next frequency: Station Two, down the marsh.
+quest reward=Plank*6;Rope*3;Scrap*4
+
+save Frontier Beacon

@@ -1,0 +1,70 @@
+# Play test of the plan 'Relic of the Seventh Tide' (CIPlay plan_relic_seventh_tide, in a test world 'CI ...' set to day 5
+# first with CISetDay 5, for Rope Bridge Gorge's day:5): Raft's
+# story from its start with Raft's own notes read as the game does; Kett's islands come on the Receiver after their
+# story islands (Sunstaff Mesa in Balboa's place), each played to its end with its own test, and lead on to the next -
+# and the two side islands, sailed to. Colossus uses its body test: the gears are already in hand from the islands before.
+plan Relic of the Seventh Tide
+note RadioTower
+expect chain RadioTower unlocked
+expect chain museum locked
+
+# The museum needs the Radio Tower done and 3 km sailed
+sail 3
+note Vasagatan
+expect chain museum unlocked
+tune museum
+include marrow_key_museum.play
+expect chain museum done
+expect chain Vasagatan unlocked
+
+# Sunstaff Mesa in Balboa's place: its chests hold Balboa's four blueprints
+note Balboa
+expect chain mesa unlocked
+tune mesa
+include sunstaff_mesa.play
+expect chain mesa done
+
+# Caravan Town done and the mesa reached: the necropolis
+note Tangaroa
+expect chain necro unlocked
+tune necro
+include sandsunk_necropolis.play
+expect chain necro done
+
+# Tangaroa's note: the mooring mast (done when its strongbox is open - step 5)
+note VarunaPoint
+expect chain mast unlocked
+tune mast
+include skyhook_mast.play
+expect chain mast done
+
+# Varuna Point's note: the Hollow Fang
+note Temperance
+expect chain fang unlocked
+tune fang
+include the_hollow_fang.play
+expect chain fang done
+
+# Temperance's note: the Colossus, then the Tide Engine, then Utopia - the end of Raft's story
+note Utopia
+expect chain colossus unlocked
+tune colossus
+include colossus_of_the_strait_body.play
+expect chain colossus done
+expect chain engine unlocked
+tune engine
+include the_tide_engine.play
+expect chain engine done
+expect chain Utopia unlocked
+
+# The side islands: the dredging camp at 8 km (on the Receiver's sailing band), the gorge ahead (day 5)
+sail 5
+# (past 8 km the rule fires; by chance while sailing = 0.3 to 1.8 km further on)
+sail 2
+sail 2
+arrive dredgers
+include dredgers_bank.play
+arrive gorge
+include rope_bridge_gorge.play
+expect blueprints
+plan end

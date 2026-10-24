@@ -1,0 +1,9 @@
+# Guide pictures of Twin Horns (CIPlay twin_horns_pics): Raft's camera, morning, calm
+island Twin Horns
+offset 0 0
+hour 9
+weather Calm
+at -10 -11
+wait 3
+picture ni_twin_horns_island 32 16 -38 0 8 0
+picture ni_twin_horns_bridge 0 15 -14 0 11 0

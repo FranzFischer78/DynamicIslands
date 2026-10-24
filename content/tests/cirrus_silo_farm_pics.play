@@ -1,0 +1,13 @@
+# Guide pictures of Cirrus Silo Farm (CIPlay cirrus_silo_farm_pics): Raft's camera, midday, calm
+island Cirrus Silo Farm
+offset 0 0
+hour 11
+weather Calm
+at 0 -22
+wait 3
+picture cirrus_silo_farm_island 50 38 -80 0 6 5
+picture cirrus_silo_farm_silos 24 16 0 0 8 16
+picture cirrus_silo_farm_farmhouse -12 7 -30 -22 4 -15
+picture cirrus_silo_farm_pen 6 7 -24 18 3 -10
+picture cirrus_silo_farm_cage 18 5 4 10 3 12
+picture cirrus_silo_farm_underwater 0 -3 -58 0 -4 -40

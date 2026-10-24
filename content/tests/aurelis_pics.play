@@ -1,0 +1,15 @@
+# Guide pictures of Aurelis (CIPlay aurelis_pics): Raft's camera, midday, calm. Points as in its recipe ("offset").
+island Aurelis
+offset 0 0
+hour 11
+weather Calm
+at -57 22 h=7
+wait 3
+picture aurelis_caldera -40 45 -60 0 -5 15
+picture aurelis_temple 12 25 -66 0 21 -78
+picture aurelis_camp -46 10 30 -57 7 22
+at -12 26 h=-12
+wait 6
+picture aurelis_agora -2 -12 36 -12 -17 26
+picture aurelis_tower 10 -14 -2 0 -16 12
+picture aurelis_throne 0 -18.5 6 0 -20 -3

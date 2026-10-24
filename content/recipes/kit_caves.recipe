@@ -1,0 +1,19 @@
+# Kit check (not content): cave pieces for a cave system - Temperance's underwater tunnels and surface staircase
+# (tinted to rock), Balboa's vine cave and dead-end cave, Utopia's boss room
+new
+gen Seed=1 Radius=150 Height=4 Shape=4 Roughness=0.1 ObjectDensity=0 Trees=0 Bushes=0 Rocks=0 BeachThings=0 Harvest=0
+gen Hostiles=0 Friendly=0 SeaLife=0 Water=0 SeaRocks=0 SeaFinds=0 Sunken=0
+generate
+brush flatten at 0 0 r=80 s=20 frames=80
+brush flatten at 80 0 r=80 s=20 frames=80
+brush flatten at -70 0 r=60 s=20 frames=80
+place TP_UnderwaterCaveTunnel_Straight t1 at 0 0 y=0.5
+place TP_UnderwaterCaveTunnel_Straight t2 at 0 -26 y=0.5
+place TP_UnderwaterCaveTunnel_CornerLong t3 at 30 0 y=0.5
+place TP_CaveTunnel_SurfaceStaircase stair at 60 0 y=0.5
+place BalboaCave_Vines vines at -60 0 y=4.7
+place UT_Set_BossRoom boss at 0 60 centred
+prop t1 tint.color=#5a4a3c
+prop t1 tint.amount=0.8
+prop stair tint.color=#5a4a3c
+prop stair tint.amount=0.8

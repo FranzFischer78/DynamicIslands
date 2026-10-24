@@ -1,0 +1,195 @@
+# The Floelane - the second island of the library's plan The Frozen Horizon (storyline SL12, chapter 2: The White Sea)
+# Five ice floes on a shoal of the white sea, open leads of black water between them, and a sealing boat crushed between
+# the two northern floes. Her crew are locked in the sealers' own cages on the floes (the master locked them in against
+# the bears, then went for help and never came back); the cage keys are in the sealer's locker on the west floe. The lead
+# between the first floe and the hull floe opens and closes: a winch lever on the first floe hauls the loose ice into the
+# lead for 40 seconds. Quest "The White Sea" (7 steps): the first floe, the distress card, across the lead to the hull,
+# the motor wheel's plans (engine room), the three cages and the hull bell (signal "rescued", the plan's done-when), the
+# steering wheel's plans (wheelhouse), the survivors' thanks.
+#
+# Built by the recipe player (CIRecipe the_floelane) through the editor's own operations. Points (metres over the sea):
+# the shoal at -3.5 everywhere; floes at 0.5: the first floe (r 8) round 0 -24, the west floe round -20 -6, the east floe
+# round 20 -4, the hull floe round 0 6, the north floe round 0 30; the boat between the hull floe and the north floe at
+# 0 18 (bow east), her deck about 5.5 m up; the lead's ford (h -0.6) from 0 -16 to 0 -2.
+include lib_features
+include lib_sea
+include lib_frozen
+# RESIZE 10-24: Radius 40 -> 85 (Height 2 -> 2), the island grows round the old content, which stays where it was.
+new
+gen Trees=0 Bushes=0 Rocks=0.15 Harvest=0.05 BeachThings=0.2
+gen Seed=12201 Radius=85 Height=2 Roughness=0.3 Peaks=3 Shape=2 Style=1 BeachWidth=0.4 Cliffs=0.1 PeakShape=0.3
+gen Water=0.6 SeaRocks=0.2 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0.4
+generate
+
+# --- Terrain: the shoal, five floes, small floes between them, the lead's ford, the boat's hole ---------------------
+brush flatten at 0 2 r=38 s=20 frames=300 h=-3.5
+brush flatten at 0 -24 r=8 s=20 frames=200 h=0.5
+brush flatten at -20 -6 r=6 s=20 frames=200 h=0.5
+brush flatten at 20 -4 r=6 s=20 frames=200 h=0.5
+brush flatten at 0 6 r=8 s=20 frames=200 h=0.5
+brush flatten at 0 30 r=8 s=20 frames=200 h=0.5
+brush flatten from 0 -16 to 0 -2 r=2.2 s=20 frames=120 h=-0.6
+brush flatten at 38.3 7.4 r=5 s=8 frames=40
+origin
+clear at 38.3 7.4 r=6
+clear at 0 -24 r=8
+clear at -20 -6 r=6
+clear at 20 -4 r=6
+clear at 0 6 r=8
+clear at 0 30 r=8
+clear from -12 18 to 12 18 r=5
+call floe x=-8 z=-18
+call floe x=-14 z=-12
+call floe x=8 z=-18
+call floe x=14 z=-11
+call floe x=-12 z=8
+call floe x=12 z=10
+
+# --- The first floe: the distress card on a sealer's sledge, the winch lever that hauls the loose ice into the lead ---
+place Zone_Trigger firstzone at 0 -24 ground y=1
+place TP_Moontown_TarpCrate01_Clean - at -3 -27 ground sit yaw=30
+place Note_Paper distresscard at -2.6 -26.4 ground y=1.1 drop yaw=15
+place TP_SnowDrift02 - at 4 -28 ground sit yaw=70
+place Reef_Barrel2 - at -4.5 -22 ground sit
+place RT_Pillar - at 2.5 -18.5 ground sy=0.4
+place TP_LaserControlPanel_lever winch at 2.5 -18.5 ground y=1.25 scale=3 yaw=180
+place Note_Sign leadsign at -2.5 -18 ground sit yaw=180
+# (the loose ice: four slabs over the ford, hidden till the winch hauls them in)
+place TP_SnowDrift01 icebridge at 0 -14 h=-0.3 sit sy=0.5 yaw=10
+place TP_SnowDrift01 icebridge at 0.3 -10.5 h=-0.3 sit sy=0.5 yaw=80
+place TP_SnowDrift01 icebridge at -0.3 -7 h=-0.3 sit sy=0.5 yaw=150
+place TP_SnowDrift01 icebridge at 0 -3.5 h=-0.3 sit sy=0.5 yaw=220
+prop icebridge beh.hidden=1
+
+# --- The west floe: the sealer's locker with the cage keys -----------------------------------------------------------
+place Loot_Chest sealerslocker at -21 -7 ground sit yaw=90
+place TP_Moontown_SealedCrate01 - at -22.5 -4 ground sit yaw=20
+place TP_SnowDrift03 - at -17 -9 ground sit yaw=60
+
+# --- The hull floe and the crushed sealing boat: the ladder up her side, the engine room, the wheelhouse, the bell ----
+place Zone_Trigger hullzone at 0 9 ground y=1
+place BoatStranded sealer at 0 18 h=1.5 yaw=90 roll=-8
+place LandmarkLadder_6m sealer at -2.5 12.8 ground yaw=0
+place LandmarkLadder_6m sealer at 2.5 23.2 ground yaw=180
+place Loot_ChestLarge engineroom at -4.5 18 h=9 drop yaw=90
+place Placeable_SteeringWheel - at 4.5 18 h=9 drop yaw=90
+place Loot_Chest wheelhouse at 3 19 h=9 drop yaw=270
+place TangaroaBucket hullbell at 0 18.5 h=9 drop rot=180,0,0 scale=1.5
+place Note_Paper thanks at 0.8 17.5 h=9 drop yaw=40
+prop thanks beh.hidden=1
+
+# --- The three cages: one on the hull floe, one on the east floe, one on the north floe ------------------------------
+# RESIZE 10-24 retest: cage1 at a fixed height - on the bigger island `ground` sank it 3 m under the hull floe;
+# its icicles left out (the ground check sees through the cage's roof bars: they hung 1.6 m over the floe)
+place Survivor_Cage cage1 at -4 4 h=0.5 yaw=40
+place Survivor_Cage cage2 at 21 -2 ground yaw=270
+place Survivor_Cage cage3 at 3 32 ground yaw=180
+place TP_SnowDrift02 - at -6 30 ground sit yaw=10
+place TP_SnowDrift03 - at 5 5 ground sit yaw=300
+
+# --- The leads: puffers, reefs under the floes, snow ------------------------------------------------------------------
+place Creature_PufferFish puffers at 10 -8 h=-2
+scatter Pickup_Landmark_GiantClam 3 at 0 -2 r=30 wet seed=12215
+scatter Pickup_Landmark_SilverAlgae 3 at 0 -2 r=30 wet seed=12216
+scatter VP_CoralDigitate01 4 at -29.75 42.5 r=4 seed=12211 wet free=1
+scatter VP_CoralBulb04 3 at -29.75 42.5 r=4 seed=12212 wet free=1
+scatter SeaVine3_klump 4 at 34 38.25 r=5 seed=12213 wet free=1
+scatter VP_CoralDigitate01 3 at 34 38.25 r=4 seed=12214 wet free=1
+call shallows x=0 z=0 r=81 deep=4 n=1 seed=12220
+call snowfall x=0 z=2 r=45 al=snow
+
+# --- DISCOVERIES 10-24 (optional, no quest needs them): camp + note; TP_SnowVehicle01 + chest; hatch with a chest; dirt to dig (the detector comes later); viewpoint ---
+place campfire_1 - at 38.3 7.4 ground sit
+place Balboa_DecorationPrefabBase_SimpleTent - at 41.3 9.4 ground sit yaw=357
+place "Box Small" - at 36.3 9.9 ground sit
+place Note_Paper dnote at 36.3 9.9 ground y=0.7 drop yaw=20
+note dnote Sledger's note | CAMP ON THE SHELF\n\nDogs fed, two left. Ice groaning all night.\nThe Whale's horn sounded from the north again - no ship has a horn like that any more.\nWe go on at first light.
+place TP_SnowVehicle01 dvan at -38.3 -7.4 ground yaw=117
+prop dvan tint.color=#8a9aa6
+prop dvan tint.amount=0.5
+place Loot_ChestSmall dwreckchest at -42.3 -4.4 ground sit yaw=57
+note dwreckchest Frozen chest | A chest frozen to the runner: wool, rope and a tin of nails.
+loot dwreckchest Wool*3;Rope*2;Nail*8
+prop dwreckchest loot.refill=0
+call hatchcache x=-34.1 z=18.9 r=15 seed=12291 alias=dhatch chest=dhatchchest items=MetalIngot*2;Wool*3;Bolt*2
+call dirt x=34.1 z=-18.9 r=15 n=3 seed=12292
+place Zone_Trigger dview at -33.4 -20.1 ground
+prop dview zone.id=the_floelane_view
+prop dview zone.radius=7
+prop dview zone.repeat=never
+prop dview zone.message=The floes lie on the black water like broken plates, and the crushed sealing boat between them.
+
+# --- Settings, story items, notes, behaviours, quest -----------------------------------------------------------------
+info title=The Floelane
+info author=Custom Islands
+info description=Five ice floes in the white sea, black leads between them, a sealing boat crushed between the floes - and her crew locked in cages on the ice. A winch hauls loose ice into the lead. The second island of The Frozen Horizon.
+island on.arrive=message||Floes as far as the eye goes - and on them, three cages. Somebody waves from one of them.
+
+story sealkey|Cage key|Placeable_Lantern_Metal|One of the sealers' three cage keys, from the locker on the west floe.
+story rescued|The sealers freed|Placeable_Lantern_Metal|The three sealers are out of their cages, and the hull bell has called them home.
+
+note distresscard Sealer's distress card | MV KITTIWAKE - SEALER - DISTRESS\n\nIced in and crushed on the Floelane. Three crew aboard.\nBears on the floes at night: I locked the crew in the sealing cages for safety and took the dinghy for help.\nCage keys in my locker on the west floe.\nThe lead to the hull opens and shuts with the ice - the winch hauls the loose floes in. Be quick.\n\n- Master Halvorsen
+note leadsign Winch | HAUL ICE INTO LEAD\nIt holds less than a minute.
+note sealerslocker Sealer's locker | Master Halvorsen's locker: three cage keys on a ring, a flask (empty), dry socks.
+note engineroom Engine room | The Kittiwake's engine room, half under the ice: the motor's spare wheel - and its plans, oiled and wrapped.
+note wheelhouse Wheelhouse locker | The wheelhouse locker: the steering gear's plans and a chart of the white sea with a circle round "steam harbour".
+note thanks Survivors' thanks | (pinned to the bell rope)\n\nYou came for us. Thank you.\nThe master never came back - the dinghy's gone under, we think.\nWe're going to the steam harbour. It's warm there, and they'll have heard of the Whale.\nGo there. 800 on the set.\n\n- Sigrid, Ansel and Bo
+loot sealerslocker story:sealkey*3;Rope*2;Wool*1
+prop sealerslocker loot.refill=0
+loot engineroom Blueprint_MotorWheel*1;Scrap*4;Bolt*2
+prop engineroom loot.refill=0
+loot wheelhouse Blueprint_SteeringWheel*1;Plank*6;Nail*10
+prop wheelhouse loot.refill=0
+
+prop firstzone zone.id=first_floe
+prop firstzone zone.radius=7
+prop firstzone zone.message=The first floe. The ice groans under your feet.
+prop hullzone zone.id=hull
+prop hullzone zone.radius=6
+prop hullzone zone.message=The hull floe. The Kittiwake lies crushed in front of you, her ladder still hanging down.
+
+prop winch obj.name=winch
+prop winch beh.use=Haul the loose ice into the lead
+prop winch on.use=message||The winch clanks - loose floes grind into the lead. Quick: it won't hold long.\nshow|icebridge\nwait|40\nhide|icebridge\nmessage||The ice drifts apart again. The lead is open water.
+
+prop cage1 obj.name=cage1
+prop cage1 survivor.name=Sigrid
+prop cage1 survivor.id=frozen_sigrid
+prop cage1 survivor.key=sealkey
+prop cage1 survivor.signal=cage1
+prop cage1 survivor.line=At last! The bears circled us all night. Ring the hull bell when the others are out - that's our signal.
+prop cage2 obj.name=cage2
+prop cage2 survivor.name=Ansel
+prop cage2 survivor.id=frozen_ansel
+prop cage2 survivor.key=sealkey
+prop cage2 survivor.signal=cage2
+prop cage2 survivor.line=My hands - I can't feel my hands. Thank you. Is Sigrid out? And Bo?
+prop cage3 obj.name=cage3
+prop cage3 survivor.name=Bo
+prop cage3 survivor.id=frozen_bo
+prop cage3 survivor.key=sealkey
+prop cage3 survivor.signal=cage3
+prop cage3 survivor.line=Out! Out! Ring the bell, ring it - the steam harbour will hear it, they always said so.
+
+prop hullbell obj.name=hullbell
+prop hullbell beh.use=Ring the hull bell
+prop hullbell if.use=signal|cage1\nsignal|cage2\nsignal|cage3\n!signal|rescued
+prop hullbell on.use=message||The bell's voice rolls out over the floes. Three sealers, free, wave from the ice.\nsignal||rescued\ngive||story:rescued*1\nshow|thanks
+prop hullbell else.use=message||Not yet - the bell is the crew's signal, and some of them are still in their cages.
+prop thanks obj.name=thanks
+prop puffers creature.count=3
+
+quest title=The White Sea
+quest intro=Floes, leads, a crushed boat - and three cages on the ice. Land on the first floe.
+step reach|first_floe|1|Land on the first floe
+step read|Sealer's distress card|1|Read the sealer's distress card
+step reach|hull|1|Cross the lead to the hull floe (the winch hauls the ice in)
+step blueprint|Blueprint_MotorWheel|1|Take the motor wheel's plans from the boat's engine room
+step collect|story:rescued|1|Free the three sealers (keys in the locker on the west floe) and ring the hull bell
+step blueprint|Blueprint_SteeringWheel|1|Take the steering wheel's plans from the wheelhouse locker
+step read|Survivors' thanks|1|Read the survivors' thanks on the bell rope
+quest done=The sealers are going to the steam harbour. It is warm there, they say - band 800.
+quest reward=MetalIngot*2;Rope*3;Leather*1
+
+prop icebridge obj.name=icebridge
+save The Floelane

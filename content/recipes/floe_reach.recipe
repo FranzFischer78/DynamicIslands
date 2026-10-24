@@ -1,0 +1,248 @@
+# Floe Reach - a new island of the library, four times the size (x4)
+# A snowy archipelago of low islets, and by the west islet's shore the icebreaker Nordlys frozen fast in the pack ice,
+# her crew's camp on the islet: they drilled three holes at her bow and left the charges in the magazine on the north-east
+# islet - then the bears came and they abandoned ship on a passing whaler.
+# Quest "Breaking the Ice" (11 steps): across the floes to her bridge, the magazine key, the bears, three charges set,
+# the plunger on the middle islet's ridge - the pack breaks and the Nordlys slides free into open water.
+#
+# Built by the recipe player (CIRecipe floe_reach) through the editor's own operations.
+include lib_rt
+include lib_huts
+include lib_sea
+new
+# (nature: snowy, Like Raft's Temperance - a few pines on the west islet, drifts; the sea all round)
+gen Trees=0.05 Bushes=0.15 Rocks=0.15 Harvest=0.05 BeachThings=0.3
+gen Seed=9220 Radius=90 Height=9 Roughness=0.45 Peaks=4 Shape=2 Style=1 BeachWidth=0.3 Cliffs=0.4 PeakShape=0.35
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the channel by the west islet's east shore dug 8 m deep where the Nordlys lies and all the way east to the
+# open water she slides out to; the camp levelled on the west islet; the magazine's spot on the north-east islet ---------
+brush flatten from -12 -40 to 36 -40 r=9 s=20 frames=300 h=-8
+brush flatten at -40 -30 r=7 s=20 frames=100 h=3
+brush flatten at 48 58 r=4 s=20 frames=100 h=5
+clear at -40 -30 r=9
+clear at 48 58 r=6
+clear from -16 -40 to 36 -40 r=12
+
+# --- The camp on the west islet: three tents, the cook stove, two snowmobiles, crates, the captain's order on its board, a
+# supply box; the command tent's table with the captain's thanks (hidden till she is free) and the crew's pay chest; goats
+# that came with the ship; pines --------------------------------------------------------------------------------------------
+place Balboa_DecorationPrefabBase_SimpleTent - at -44 -26 ground sit yaw=20
+place Balboa_DecorationPrefabBase_SimpleTent - at -36 -25 ground sit yaw=-20
+place Balboa_DecorationPrefabBase_SimpleTent command at -42 -35 ground sit yaw=180
+place Placeable_CookingStand_Food_One - at -40 -29 ground sit
+place TP_SnowVehicle01 - at -47 -31 ground sit yaw=80
+place TP_SnowVehicle01 - at -47 -35 ground sit yaw=95
+place TP_Moontown_SealedCrate01 - at -34 -30 ground sit yaw=10
+place TP_Moontown_SealedCrate01 - at -34 -31.2 ground sit yaw=-5
+place Note_Board order at -37 -32 ground yaw=90
+place "Box Small" campbox at -38 -27 ground sit yaw=30
+place Placeable_Table_Basic - at -40 -36 ground sit
+place Note_Paper thanks at -40 -36 h=4.2 drop yaw=15
+place Loot_ChestLarge strongroom at -43.5 -37 ground sit yaw=0
+place Zone_Trigger camp at -40 -30 y=1.5
+place Creature_Goat goats at -48 -40 ground
+scatter Pickup_Landmark_Tree_Pine 1 at -52 -40 r=6 seed=2001
+
+# --- The Nordlys in the channel, bow east: her hull, the deckhouse on her deck (a radio tower room: the wheel, the radar,
+# the captain's desk with its drawer), the funnel, a ladder up her side from the ice - all one ship, so she moves as one --
+place BoatStranded shiphull at -4 -40 h=1.5 yaw=90
+push at -1 -36 h=5.5
+call rt_storey a=shiphull f1=RT_WallDoor1 f2=RT_WallWindow1 b1=RT_WallWindow1 b2=RT_WallWindow1 l2=RT_WallWindow1 r2=RT_WallWindow1
+place RT_Floor shiphull at 0 4.5 y=3
+place Placeable_SteeringWheel shiphull at -3 3 y=0 sit yaw=180
+place RT_RadarScreen shiphull at -1.4 3.6 y=0 sit yaw=180
+place "Table Office" shiphull at -4.8 -1 y=0 sit yaw=90
+place Loot_ChestSmall captaindesk at -4.8 0.4 y=0 sit yaw=90
+place Zone_Trigger bridge at -3 0 y=1.5
+pop
+place VP_ConcretePipe02 shiphull at -10 -40 h=12 drop scale=0.8
+place LandmarkLadder_6m shiphull at -2.5 -45.2 ground yaw=0
+place LandmarkLadder_6m shiphull at -2.5 -45.2 h=-2.6 yaw=0
+place LandmarkLadder_6m shiphull at -2.5 -45.2 h=0.2 yaw=0
+place Zone_Trigger shipfree at 31 -40 h=7
+
+# --- The pack ice round her (floes of packed snow on shoals, that the blast breaks up), the floes along the shore that
+# stay; the three drill holes ahead of her bow on either side of her way out, each by a red flag on its floe, their
+# charges (hidden till set); the ice's groan -------------------------------------------------------------------------------
+macro floe x z a
+brush flatten at $x $z r=2.6 s=20 frames=200 h=-0.3
+place TP_SnowDrift01 $a at $x $z h=-0.3 sit sy=0.5 yaw={37*$x}
+end
+call floe -20 -35 -
+call floe -20 -41 -
+call floe -20 -47 -
+call floe -14 -30 packice
+call floe -6 -30 packice
+call floe 2 -30 packice
+call floe 9 -30.5 packice
+call floe -14 -50 packice
+call floe -6 -50 packice
+call floe 2 -50 packice
+call floe 9 -49.5 packice
+call floe 14 -30 packice
+call floe 14 -50 packice
+call floe 19 -29 packice
+place Placeable_Flag_02 hole1 at 14 -30 h=1 drop
+place Placeable_Flag_02 hole2 at 14 -50 h=1 drop
+place Placeable_Flag_02 hole3 at 19 -29 h=1 drop
+place TP_Moontown_Barrel04 charge1 at 13 -30.6 h=1.2 drop scale=0.5
+place TP_Moontown_Barrel04 charge2 at 13 -49.4 h=1.2 drop scale=0.5
+place TP_Moontown_Barrel04 charge3 at 18 -29.6 h=1.2 drop scale=0.5
+place Zone_Sound icegroan at 0 -40 h=2
+place Zone_Atmosphere blastcloud at 13 -40 h=3
+
+# --- The plunger on the middle islet's south-west ridge, in view of the bow: a detonator box on a crate --------------------
+place TP_Moontown_SealedCrate01 - at 6 -10 ground sit
+place "Balboa_DecorationPrefabBase_Electrical Box 1" plunger at 6 -10 y=1.5 drop
+place Zone_Trigger plungerridge at 6 -10 y=1.5
+
+# --- The blasting magazine on the north-east islet: a hut on low stilts, a danger sign, the padlocked chest; the bears ------
+push at 45.75 55.75 h=5
+call stilt_hut y=0.6
+place Loot_Chest magazine at 2.25 3.6 y=0.6 sit yaw=180
+pop
+place Sign_03 - at 47 53 ground sit
+place Zone_Trigger magazinehut at 48 58 h=6.5
+place Creature_PolarBear bears at 54 63 ground
+
+# --- A whale and dolphins in the open water, the snow, a sledge sunk off the camp ----------------------------------------
+place Creature_Whale whale at 20 -95 h=-8
+place Creature_Dolphin dolphins at 40 -60 h=-3
+place Zone_Atmosphere snow at -30 -30 y=10
+place Zone_Atmosphere snow at 30 20 y=10
+place Loot_SunkenBarrel sunksledge at -24 -54 h=-2 drop
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): flowers, berries ----------
+scatter "Pickup_Landmark_Flower_White" 4 at 0 0 r=63.0 seed=4110 free=3
+scatter "Pickup_Landmark_Flower_Blue" 4 at 0 0 r=63.0 seed=4111 free=3
+scatter "Pickup_Landmark_BerryBush" 6 at 0 0 r=63.0 seed=4120 free=3
+
+# --- Raft's finds in the shallows round the islets (lib_sea) ---------------------------------------------------------------
+call shallows r=110 deep=5 n=1
+
+# ===== Settings, story items, notes, behaviours, quest (11 steps) =========================================================
+info title=Floe Reach
+info author=Custom Islands
+info description=Snowy islets round a channel choked with pack ice, and in it an icebreaker frozen fast, her crew's camp ashore. They drilled the holes for the charges and never set them. Set them, run the fuses back, push the plunger - and watch her break free.
+island on.arrive=message||Low white islets, and between them a channel white with ice - and in the ice, a red ship, leaning a little, very still.
+
+story magazinekey|Magazine key|quest:Varuna_MotherlodeKey|The blasting magazine's key, from the captain's desk drawer.
+story charge|Blasting charge|quest:Vasagatan_Bomb|A charge for the ice, its fuse coiled on top.
+story fuse|Fuse end|quest:Temperance_ElectricalCable|The end of a fuse wire, run back from a charge at the ship's bow.
+
+note order Captain's order | ICEBREAKER NORDLYS - CAPTAIN'S ORDER\n\nShe's frozen in. Plan: three holes drilled in the ice at the bow (done - the flags), a charge in each, fuses back to the plunger on the middle islet's ridge. Push it and the pack breaks; she'll slide out to the open water east of us with the current.\n\nThe charges are in the magazine on the north-east islet. Magazine key in my desk drawer on the bridge.\n\n(added, shaky:) Bears at the magazine. We're leaving on the whaler. God help whoever finishes this.\n- Capt. A. Halvorsen
+note captaindesk Captain's desk drawer | The captain's drawer: his pipe, a frozen apple, the ship's papers - and the magazine's key on a red cord.
+loot captaindesk story:magazinekey*1;Rope*1
+prop captaindesk loot.refill=0
+note magazine Blasting magazine | The blasting magazine's chest: three charges for the ice, packed in straw, and a coil of fuse wire.
+loot magazine story:charge*3;Rope*2
+prop magazine loot.refill=0
+prop magazine if.open=has|story:magazinekey|1
+prop magazine else.open=message||The magazine's chest is padlocked. DANGER - EXPLOSIVES. The key is with the captain.
+note thanks The captain's thanks | (on the command tent's table, weighed down with a mug - it wasn't there before)\n\nIf the Nordlys is floating, you did it. She's yours to keep, if you can sail her - or at least the crew's pay chest here is. Nobody ever collected it.\n\nThank you.\n- A. Halvorsen
+note strongroom Crew's pay chest | The Nordlys's pay chest, carried ashore: the crew's unpaid wages, the plans for the miners' head lamps they wore in the engine room, wool, metal ingots and a few cooked meals.
+loot strongroom TradeToken*12;Blueprint_HeadLight*1;Wool*4;MetalIngot*3;Cooked_GenericMeat*3
+prop strongroom loot.refill=0
+prop strongroom if.open=signal|free
+prop strongroom else.open=message||The crew's pay chest, chained to the tent pole. A tag: FOR WHOEVER FREES HER.
+note campbox Camp supply box | The camp's supply box: tins, a primus, rope.
+loot campbox Cooked_GenericMeat*2;Rope*3;BioFuel*1
+prop campbox loot.refill=0
+note sunksledge Sunk sledge | A sledge that went through the ice by the camp: its load of ore, scrap and nails.
+loot sunksledge MetalOre*2;Scrap*3;Nail*6
+prop sunksledge loot.refill=0
+
+prop hole1 obj.name=hole1
+prop hole1 beh.use=Set a charge in the hole and run the fuse back
+prop hole1 if.use=take|story:charge|1\n!signal|h1
+prop hole1 on.use=message||You lower the charge into the black water of the hole and pay out the fuse behind you towards the ridge.\nshow|charge1\nsignal||h1\ngive||story:fuse*1\nsound||event:/weapons/dynamite/land
+prop hole1 else.use=message||A drilled hole by a red flag. It wants a charge - from the magazine on the north-east islet.
+prop hole2 obj.name=hole2
+prop hole2 beh.use=Set a charge in the hole and run the fuse back
+prop hole2 if.use=take|story:charge|1\n!signal|h2
+prop hole2 on.use=message||Second charge set. Another fuse back towards the ridge.\nshow|charge2\nsignal||h2\ngive||story:fuse*1\nsound||event:/weapons/dynamite/land
+prop hole2 else.use=message||A drilled hole by a red flag. It wants a charge - from the magazine on the north-east islet.
+prop hole3 obj.name=hole3
+prop hole3 beh.use=Set a charge in the hole and run the fuse back
+prop hole3 if.use=take|story:charge|1\n!signal|h3
+prop hole3 on.use=message||Third charge set. That's all three.\nshow|charge3\nsignal||h3\ngive||story:fuse*1\nsound||event:/weapons/dynamite/land
+prop hole3 else.use=message||A drilled hole by a red flag. It wants a charge - from the magazine on the north-east islet.
+prop charge1 obj.name=charge1
+prop charge1 beh.hidden=1
+prop charge2 obj.name=charge2
+prop charge2 beh.hidden=1
+prop charge3 obj.name=charge3
+prop charge3 beh.hidden=1
+prop plunger obj.name=plunger
+prop plunger beh.use=Push the plunger
+prop plunger if.use=quest|8\ntake|story:fuse|3
+prop plunger on.use=message||You twist the three fuse ends onto the terminals and lean on the plunger -\nsound||event:/weapons/dynamite/explode\nshow|blastcloud\nhide|charge1\nhide|charge2\nhide|charge3\nwait|1\nsound||event:/weapons/dynamite/explode\nhide|packice\nhide|icegroan\nhide|hole1\nhide|hole2\nhide|hole3\nmessage||- and the ice round the bow goes up in three white fountains. The pack splits with a sound like thunder. The Nordlys rolls, rights herself - and begins to slide east with the current.\nopen|ship\nsound||event:/exploring/temperence/ravine_collapse\nwait|16\nsignal||free\nshow|shipfree\nshow|thanks\nhide|blastcloud\nmessage||The Nordlys floats free in open water. Swim out and climb aboard!
+prop plunger else.use=message||The plunger. Three bare terminals for the fuses - set the charges first.
+prop packice obj.name=packice
+prop blastcloud obj.name=blastcloud
+prop blastcloud beh.hidden=1
+prop blastcloud atmo.fog=#e8eef2
+prop blastcloud atmo.fogAmount=0.5
+prop blastcloud atmo.particles=snow
+prop blastcloud zone.radius=20
+prop icegroan obj.name=icegroan
+prop icegroan sound.event=event:/amb/cave_ice
+prop icegroan sound.volume=0.4
+prop icegroan zone.radius=30
+prop shiphull obj.name=ship
+prop shiphull beh.move=35,0,0
+prop shiphull beh.moveTime=15
+prop shiphull beh.moveMode=switch
+prop captaindesk obj.name=ship
+prop captaindesk beh.move=35,0,0
+prop captaindesk beh.moveTime=15
+prop captaindesk beh.moveMode=switch
+prop thanks obj.name=thanks
+prop thanks beh.hidden=1
+
+prop camp zone.id=camp
+prop camp zone.radius=8
+prop camp zone.message=The crew's camp: tents, snowmobiles, a cold stove - and an order pinned to a board.
+prop bridge zone.id=bridge
+prop bridge zone.radius=4
+prop bridge zone.message=The Nordlys's bridge: frost on the windows, the wheel lashed, the captain's desk.
+prop magazinehut zone.id=magazinehut
+prop magazinehut zone.radius=9
+prop magazinehut zone.repeat=never
+prop magazinehut zone.message=The magazine hut - and the bears the captain wrote about. Two of them!
+prop bears creature.count=2
+prop bears creature.respawn=0
+prop bears creature.zone=magazinehut
+prop plungerridge zone.id=plungerridge
+prop plungerridge zone.radius=5
+prop plungerridge zone.message=The middle islet's ridge: a detonator box on a crate, and a clear view of the Nordlys's bow and its three red flags.
+prop shipfree obj.name=shipfree
+prop shipfree beh.hidden=1
+prop shipfree zone.id=shipfree
+prop shipfree zone.radius=6
+prop shipfree zone.message=On the Nordlys's deck, rocking gently in open water. She's free.
+prop snow atmo.particles=snow
+prop snow zone.radius=45
+prop goats creature.count=2
+prop whale creature.count=1
+prop dolphins creature.count=2
+
+quest title=Breaking the Ice
+quest intro=An icebreaker frozen fast in a channel of pack ice, her crew's camp abandoned ashore. The captain's order is on the camp's board.
+step reach|camp|1|Land at the crew's camp on the west islet
+step read|Captain's order|1|Read the captain's order
+step reach|bridge|1|Cross the floes to the Nordlys and climb to her bridge
+step collect|story:magazinekey|1|Take the magazine key from the captain's desk drawer
+step kill|Polar bear|2|Deal with the bears at the magazine on the north-east islet
+step open|Blasting magazine|1|Open the blasting magazine for the charges
+step collect|story:fuse|3|Set the three charges at the flagged holes and run the fuses back
+step reach|plungerridge|1|Climb to the plunger on the middle islet's ridge
+step reach|shipfree|1|Push the plunger - and board the Nordlys in open water
+step read|The captain's thanks|1|Back at the camp, read the captain's thanks in the command tent
+step open|Crew's pay chest|1|Open the crew's pay chest
+quest done=The Nordlys rides free in open water, her bow scarred by your three charges. The captain will hear about it, one day, on some other coast.
+quest reward=Wool*3;MetalIngot*3;Rope*3
+
+save Floe Reach

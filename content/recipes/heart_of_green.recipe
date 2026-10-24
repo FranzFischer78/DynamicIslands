@@ -1,0 +1,288 @@
+# The Heart of Green - the ninth island of the library's plan The Last Green World (SL11, Verdance), finale part 1
+# The central tree of Verdance: Raft's giant fir grown half as big again on a green plateau 4 m up, pollen drifting in
+# its light. Round its roots the Seedkeepers built their Heart: a lab at the trunk's foot, three balconies (decks on
+# posts) linked by ziplines, a crown terrace where two valves wait - BURN and SPREAD - and in the west roots the gate
+# down to the Rootcore. Blighted boars root among the trunks. Quest "The Heart" (23 steps, three areas): the Roots (the
+# trunk door, the lab notice, three boars, the root store, the generator, organism file 1, the first balcony), the
+# Balconies (the second balcony, three spore cartridges, the spore press, organism file 2, the third balcony, the
+# purpose, the crown keypad, the crown), the Choice (the two valves, one valve turned, the verdict, the lab, the lab
+# safe, the Seedkeeper's last letter, the root gate, its lever - it brings The Rootcore). Buried here: titanium.
+#
+# Built by the recipe player (CIRecipe heart_of_green) through the editor's own operations. Points (metres over the
+# sea): the plateau 4 m round 0 0 (r 42), the tree 0 0, the trunk door -0 -12, the generator 6 -14, the store 16 -8;
+# balcony 1 x -16..-11.5, z -8..-3.5; balcony 2 x -14..-9.5, z 12..16.5; balcony 3 x 8..12.5, z 14..18.5; the crown
+# terrace x -2..2.5, z 24..28.5 with its valves at -3 21 and 4 21; the lab x 14..18.5, z 2..5; the root gate -24 0.
+include lib_sea
+include lib_features
+include lib_huts
+include lib_gravity
+include lib_verdance
+new
+gen Trees=0.2 Bushes=0.3 Rocks=0.15 Harvest=0.3 BeachThings=0.25
+gen Seed=11101 Radius=90 Height=10 Roughness=0.25 Peaks=1 Shape=0 Style=0 PeakShape=0.3 Cliffs=0.2 BeachWidth=0.6
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.4 Sunken=0.2 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the plateau round the tree, the landing beach ----------------------------------------------------------
+brush flatten at 0 0 r=42 s=20 frames=400 h=4
+brush grass at 0 0 r=40 s=6 frames=30
+brush flatten at 0 -70 r=8 s=20 frames=200 h=1.2
+brush sand at 0 -70 r=10 s=10 frames=30
+origin
+clear at 0 0 r=32
+clear at 0 -70 r=7
+
+# --- The tree and its pollen ---------------------------------------------------------------------------------------
+place FirTree_Big1_LodGroup hearttree at 0 0 ground yaw=40 scale=1.5
+call pollen x=0 z=0 r=40 al=heartair
+
+# --- Area A, the Roots: the trunk door, the lab notice, the root store, the generator, organism file 1, the boars ----
+place Zone_Trigger trunkdoor at 0 -12 ground
+place Note_Sign labnotice at 3 -13 ground sit yaw=180
+place Loot_Chest rootstore at -6 -13 ground sit yaw=180
+place "VG_DecorationPrefabBase_EmergencyGenerator Variant" generator at 6 -15 ground sit yaw=180
+push at 8.5 -12 h=4
+place "Box Small" - at 0 0 y=0 sit
+place Note_Paper organism1 at 0 0 y=0.7 drop yaw=20
+pop
+place Creature_Boar blightboars at -12 -24 ground
+prop blightboars creature.count=3
+prop blightboars creature.respawn=0
+store heartshop at 16 -8 ground
+
+# --- Area B, the Balconies: three decks on posts, ziplines between them; the spore cartridges, the spore press ------
+push at -16 -8 h=4
+call stilt_hut y=2.6
+pop
+place Zone_Trigger balcony1 at -13.75 -10 ground
+# (zip deck behind balcony 1: the zipline's own floor piece on it)
+push at -14.5 -1.5 h=4
+call zipdeck y=2.6
+pop
+place ZiplinePath_Landmark zip12 at -8.03 -1.72 h=8.07
+zipto zip12 -16 10
+push at -14 12 h=4
+call stilt_hut y=2.6
+place "Box Small" - at 3.6 3.6 y=2.7 sit
+place Note_Paper organism2 at 3.6 3.6 y=3.4 drop yaw=10
+pop
+place Zone_Trigger balcony2 at -11.75 10 ground
+place "Box Small" spore1 at -20 16 ground sit yaw=20
+place "Box Small" spore2 at -18 20 ground sit yaw=80
+place "Box Small" spore3 at -8 20 ground sit yaw=150
+call crank x=-5 z=12 yaw=90 alias=sporepress
+# (zip deck beside balcony 2)
+push at -8.5 13 h=4
+call zipdeck y=2.6
+pop
+place ZiplinePath_Landmark zip23 at -2.03 12.78 h=8.07
+zipto zip23 8 12
+push at 8 14 h=4
+call stilt_hut y=2.6
+place Note_Sign purpose at 2.25 3.9 y=2.7 sit
+pop
+place Zone_Trigger balcony3 at 10.25 12 ground
+place RT_Pillar - at 15 20 ground sy=0.4
+place RT_PowerBox crownpad at 15 20 ground y=1.25 yaw=180
+
+# --- Area C, the Choice: the crown terrace, the two valves, the two verdicts, the burn and spread signs ------------
+push at -2 24 h=4
+call stilt_hut y=2.6
+pop
+place Zone_Trigger crownzone at 0.25 22 ground
+place Note_Sign twovalves at 1 19.5 ground sit yaw=180
+call crank x=-3 z=21 yaw=180 alias=burnvalve
+call crank x=4 z=21 yaw=180 alias=spreadvalve
+place Note_Sign verdictburn at -6 19 ground sit yaw=200
+place Note_Sign verdictspread at 7 19 ground sit yaw=160
+place campfire_1 burnfires at -10 -2 ground sit
+place campfire_1 burnfires at 10 -3 ground sit
+place campfire_1 burnfires at -2 9 ground sit
+call blight x=-11 z=3 al=sporebloom
+call blight x=9 z=8 al=sporebloom
+
+# --- The lab at the trunk's foot (the safe, the last letter); the root gate and its lever ------------------------------
+push at 14 2 h=4
+call hut w=3 d=2 y=0.1
+place Loot_ChestLarge labsafe at 3.6 2.3 y=0.1 sit yaw=180
+place "Box Small" - at 0.8 2.3 y=0.1 sit
+place Note_Paper lastletter at 0.8 2.3 y=0.8 drop yaw=10
+pop
+place Zone_Trigger labzone at 14.75 0 ground
+place Zone_Trigger rootgate at -24 0 ground
+place RT_Pillar - at -24 3 ground sy=0.4
+place TP_LaserControlPanel_lever gatelever at -24 3 ground y=1.25 scale=3 yaw=90
+
+# --- Flowers, mango, titanium buried by the lab; the shallows ----------------------------------------------------
+scatter Pickup_Landmark_Flower_Yellow 8 at 0 0 r=38 seed=11102 free=2
+scatter Pickup_Landmark_Tree_Mango 3 at -30 -30 r=10 seed=11103 free=3
+scatter "Pickup_Landmark_Tree_Palm 1" 2 at 20 -60 r=10 seed=11104 free=3
+call treasure x=18 z=10 r=14 n=1 seed=11053
+prop treasure11053 treasure.loot=TitaniumOre*3
+# REDO 10-24 TREASURE2: a second buried treasure on the far side for the detector + shovel
+call treasure x=-14.4 z=-8.0 r=12 n=1 seed=11103
+prop treasure11103 treasure.loot=TitaniumOre*1;MetalOre*2;TradeToken*2
+call shallows x=0 z=0 r=102 deep=5 n=2 seed=11105
+
+# --- REDO 10-24 (optional): the dark root store under a hatch (headlight), a vine-hidden cache (machete), the river
+#     people's beach camp with a wrecked canoe-raft
+clear at -30 -22 r=2.5
+place TangaroaHatchRoom_Hatch rsthatch at -30 -22 ground
+beside Loot_ChestSmall rstchest rsthatch d=0.01
+call vinecache x=34 z=-30 r=10 seed=11211 chest=dvinechest vines=dvines items=Rope*3;TitaniumOre*1;Leather*2
+place Balboa_DecorationPrefabBase_SimpleTent - at -12 -58 ground sit yaw=10
+place campfire_1 - at -9 -56 ground sit
+place RT_PlasticBoat - at 8 -64 ground sit yaw=300
+
+# --- FILL 10-24 (RESIZE rework): the bigger island's whole area at Raft-like density - trees, bushes, rocks; free= keeps them
+#     off the quest's objects and paths
+scatter "Pickup_Landmark_Tree_Palm 1" 10 at 0 0 r=80 seed=11212 free=5
+scatter "Pickup_Landmark_Tree_Palm 2" 10 at 0 0 r=80 seed=11213 free=5
+scatter "Pickup_Landmark_Tree_Palm 4" 6 at 0 0 r=80 seed=11214 free=5
+scatter "Pickup_Landmark_Tree_Mango" 6 at 0 0 r=80 seed=11215 free=5
+scatter "Balboa_Bush_01 Variant" 30 at 0 0 r=80 seed=11216 free=2.5
+scatter "Balboa_Bush_03 Variant" 30 at 0 0 r=80 seed=11217 free=2.5
+scatter CaravanIsland_SmallRock_1 14 at 0 0 r=80 seed=11218 free=3 ground y=-0.6
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=80 seed=11219 free=3
+scatter "Pickup_Landmark_Flower_Red" 8 at 0 0 r=80 seed=11220 free=2
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=The Heart of Green
+info author=Custom Islands
+info description=The central tree of Verdance: a lab at its foot, three balconies, a crown terrace with two valves - BURN and SPREAD - and a gate in the roots. The finale of The Last Green World, part 1.
+island on.arrive=message||The biggest tree in the world. Pollen falls off it like snow. At its foot, a door - and the smell of the marsh, faint, from the roots.
+
+story power|Heart powered|Note_Paper|The Heart's generator, running.
+story spore|Spore cartridge|Placeable_Lantern_Metal|A glass cartridge of green spores, labelled HEART - BATCH 7.
+story pressed|Spores pressed|Note_Paper|The spore press, loaded and wound.
+story crown|Crown unlocked|Note_Paper|The crown terrace's keypad, unlocked.
+story choice|The choice|Note_Paper|One valve turned. The Heart will BURN or SPREAD.
+story burnway|The Heart set to BURN|Note_Paper|The BURN valve turned on the crown terrace. The core must burn too.
+story spreadway|The Heart set to SPREAD|Note_Paper|The SPREAD valve turned on the crown terrace. The core must open too.
+story gate|Root gate open|Note_Paper|The root gate, open. The way down to the Rootcore.
+
+prop blightboars tint.color=#8a3ac0
+prop blightboars tint.amount=0.45
+prop sporebloom tint.color=#60d060
+prop sporebloom tint.amount=0.7
+prop sporebloom beh.hidden=1
+prop burnfires beh.hidden=1
+prop verdictburn beh.hidden=1
+prop verdictspread beh.hidden=1
+
+prop generator obj.name=generator
+prop generator beh.use=Start the generator
+prop generator if.use=!signal|power
+prop generator on.use=signal||power\ngive||story:power*1\nmessage||The generator coughs, catches and roars. Lights come on all round the tree.
+prop generator else.use=message||The generator is running.
+prop spore1 obj.name=spore1
+prop spore1 beh.use=Take the spore cartridge
+prop spore1 on.use=give||story:spore*1\nhide|\nmessage||A glass cartridge, green dust inside. It is warm.
+prop spore2 obj.name=spore2
+prop spore2 beh.use=Take the spore cartridge
+prop spore2 on.use=give||story:spore*1\nhide|\nmessage||A glass cartridge, green dust inside. It is warm.
+prop spore3 obj.name=spore3
+prop spore3 beh.use=Take the spore cartridge
+prop spore3 on.use=give||story:spore*1\nhide|\nmessage||A glass cartridge, green dust inside. It is warm.
+prop sporepress beh.use=Load the cartridges and wind the press
+prop sporepress if.use=has|story:spore|3\n!signal|pressed
+prop sporepress on.use=signal||pressed\ngive||story:pressed*1\nmessage||The press takes the three cartridges and grinds them. A green puff goes up the trunk, toward the crown.
+prop sporepress else.use=message||The press wants three spore cartridges - or it has already run.
+prop crownpad obj.name=crownpad
+prop crownpad beh.use=Type the crown code
+prop crownpad lock.code=2611
+prop crownpad on.use=give||story:crown*1\nsignal||crown\nmessage||The keypad chirps. Up on the crown terrace a bolt slides back.\nsound||event:/exploring/obstacles/keypad/keypad_correct
+prop burnvalve beh.use=Turn the BURN valve
+prop burnvalve if.use=signal|crown\n!signal|chosen
+prop burnvalve on.use=signal||burn\nsignal||chosen\ngive||story:choice*1\ngive||story:burnway*1\nshow|burnfires\nshow|verdictburn\nmessage||BURN. Fire pots flare at every root. The tree shudders - and the purple at its roots begins to blacken.
+prop burnvalve else.use=message||The valves are locked - or the choice is made.
+prop spreadvalve beh.use=Turn the SPREAD valve
+prop spreadvalve if.use=signal|crown\n!signal|chosen
+prop spreadvalve on.use=signal||spread\nsignal||chosen\ngive||story:choice*1\ngive||story:spreadway*1\nshow|sporebloom\nshow|verdictspread\nmessage||SPREAD. The vents open and green spore clouds roll down the trunk. Everywhere the roots touch, something begins to grow.
+prop spreadvalve else.use=message||The valves are locked - or the choice is made.
+prop gatelever obj.name=gatelever
+prop gatelever beh.use=Pull the root gate lever
+prop gatelever if.use=signal|chosen\n!signal|below
+prop gatelever on.use=signal||below\ngive||story:gate*1\nmessage||Deep in the roots a gate grinds open. Warm air rushes up. Below the Heart is the Rootcore.
+prop gatelever else.use=message||The gate stays shut until a valve is turned - or it is already open.
+
+note labnotice Heart lab notice | HEART LAB - SEEDKEEPERS ONLY\n\nGenerator by the door. Power first.\nBalconies by zipline: 1 - 2 - 3. Crown by code.\nThe roots below are CLOSED.
+note organism1 Organism file 1 | ORGANISM FILE 1\n\nSeeded into the oldest root, day 1. It spreads through the root network and feeds every tree it touches.\n\nGrowth +40% in a month. The whole land is greening.\n\nIt does not stop at the shore.
+note organism2 Organism file 2 | ORGANISM FILE 2\n\nIt feeds on the roots now, not the other way. The marsh is lost. The grove next.\n\nCrown valves fitted: BURN (fire through the root network) and SPREAD (release it on the wind).\nCrown door code: the day the sea reached the lab - 26/11. 2611.
+note purpose The purpose | THE PURPOSE\n\nIt was meant to feed the network, then green the world.\n\nThe flood took everything. Verdance was going to give it back - every coast, every rock, green again.\n\nIt still could. If it does not eat everything first.
+note twovalves Two valves | TWO VALVES\n\nBURN: fire down every root. The growth dies. So does Verdance's network - the grove, the canopy, the Heart.\nSPREAD: the vents open. It goes out on the wind, to every coast. It may green the world. It may eat it.\n\nOne turn. Then the gate opens.
+note verdictburn The verdict | THE VERDICT - BURN\n\nThe fires run down the roots. Verdance will be a smaller green, and a safe one.\nThe core below must be burnt too.
+note verdictspread The verdict | THE VERDICT - SPREAD\n\nThe spores are on the wind. What they make of the world is not ours to say any more.\nThe core below must be opened too.
+note labsafe Lab safe | The lab safe: the Seedkeepers' seed bank, and Marit's last letter beside it.
+note lastletter Seedkeeper's last letter | Marit's last letter -\n\nWe could not choose. You have.\n\nWhatever you turned, the core under the tree must follow, or it will grow back from the oldest root. The gate lever is in the west roots.\n\nThe Ringwave is cut on that root. We did not cut it. It was there before us.
+note rootstore Root store | The root store's chest: lamp oil, rope and a coil of wire.
+loot rootstore Rope*3;CopperIngot*2;Battery*1
+prop rsthatch obj.name=rsthatch
+prop rsthatch on.use=hide|\nshow|rstchest\nmessage||The hatch opens on the old root store. Pitch black - a lamp would help.
+note rstchest Dark root store | The Seedkeepers' first root store, sealed when the blight came: seeds and a titanium bar.
+loot rstchest TitaniumIngot*1;Seed_Flower_Blue*2;Seed_Watermelon*2;Bolt*3
+prop rstchest loot.refill=0
+prop rstchest obj.name=rstchest
+prop rstchest beh.hidden=1
+prop rstchest if.open=wears|HeadLight*
+prop rstchest else.open=message||Pitch black down there. You can hear seeds rattle in jars, but you can't see a thing - wear a headlight.
+prop rootstore loot.refill=0
+loot labsafe Seed_Mango*2;Seed_Pineapple*2;Seed_Watermelon*2;TitaniumOre*1
+prop labsafe loot.refill=0
+
+prop trunkdoor zone.id=trunk_door
+prop trunkdoor zone.radius=4
+prop trunkdoor zone.message=The trunk door. A lab notice, a generator, and the marsh smell from the roots.
+prop balcony1 zone.id=balcony_1
+prop balcony1 zone.radius=3
+prop balcony1 zone.message=Balcony 1. A zipline runs on to balcony 2.
+prop balcony2 zone.id=balcony_2
+prop balcony2 zone.radius=3
+prop balcony2 zone.message=Balcony 2. Spore cartridges dropped round the press.
+prop balcony3 zone.id=balcony_3
+prop balcony3 zone.radius=3
+prop balcony3 zone.message=Balcony 3. A keypad on a post for the crown.
+prop crownzone zone.id=crown
+prop crownzone zone.radius=3
+prop crownzone zone.message=The crown terrace. Two valves: BURN and SPREAD.
+prop labzone zone.id=lab
+prop labzone zone.radius=3
+prop labzone zone.message=The Heart lab.
+prop rootgate zone.id=root_gate
+prop rootgate zone.radius=4
+prop rootgate zone.message=The root gate. A lever on a post, warm air rising through the bars.
+
+quest title=The Heart
+quest intro=The Heart of Green, at the centre of Verdance. Find the trunk door.
+step reach|trunk_door|1|Go to the trunk door
+step read|Heart lab notice|1|Read the Heart lab notice
+step kill|Warthog|3|Drive off the three blighted boars
+step open|Root store|1|Open the root store
+step collect|story:power|1|Start the generator
+step read|Organism file 1|1|Read organism file 1
+step reach|balcony_1|1|Go to the first balcony
+step reach|balcony_2|1|Ride the zipline to the second balcony
+step collect|story:spore|3|Gather the three spore cartridges
+step collect|story:pressed|1|Wind the spore press
+step read|Organism file 2|1|Read organism file 2 on the second balcony
+step reach|balcony_3|1|Ride the zipline to the third balcony
+step read|The purpose|1|Read the purpose
+step collect|story:crown|1|Open the crown keypad
+step reach|crown|1|Go up to the crown terrace
+step read|Two valves|1|Read about the two valves
+step collect|story:choice|1|Turn one valve: BURN or SPREAD
+step read|The verdict|1|Read the verdict
+step reach|lab|1|Go to the Heart lab
+step open|Lab safe|1|Open the lab safe
+step read|Seedkeeper's last letter|1|Read the Seedkeeper's last letter
+step reach|root_gate|1|Go to the root gate in the west roots
+step collect|story:gate|1|Pull the root gate lever
+quest done=The gate is open. Below the Heart: the Rootcore - band 400.
+quest reward=Seed_Flower_Yellow*2;TitaniumOre*1
+
+# names for the show/hide actions (actions find objects by obj.name)
+prop burnfires obj.name=burnfires
+prop sporebloom obj.name=sporebloom
+prop verdictburn obj.name=verdictburn
+prop verdictspread obj.name=verdictspread
+save The Heart of Green

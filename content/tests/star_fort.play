@@ -1,0 +1,114 @@
+# Play test of Star Fort (CIPlay star_fort, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The plateau at 28 m; the fort round 5 0 (banks 32 m): the gate at 23 -18, the parade inside it, the bastions' zones at
+# 5 39 / 44 0 / 5 -39 / -34 0 (32 m); the keep 2..8 x -4.5..4.5 (its study 31 m, the roof 37 m); the magazine in its pit
+# -8..-2 x -4.5..4.5 (24.5 m), its lock at -1.5 -5.6; the sea-cave store 2..8 x -87..-81 (5 m down); the guardhouse
+# 86..92 x -46.5..-37.5 (2 m), the ramp's foot at 82 -47.
+island Star Fort
+offset 0 0
+expect step 0
+expect title Hold the Fort
+wait 5
+expect animals Llama 3
+at 82 -47 h=3.5
+zone ramp
+expect step 1
+at 28.5 -21 h=30
+read The governor's last order
+expect step 2
+use gatelock
+expect message where the key is
+at 89 -40 h=3.5
+open Guardhouse chest
+expect story gatekey 1
+expect step 3
+at 28.5 -21 h=30
+use gatelock
+wait 7
+at 15 -10 h=29.5
+zone parade
+expect step 4
+kill Hyena
+at 5 39 h=33.5
+zone northbastion
+expect step 6
+open North commander's locker
+expect story bastionkey 1
+expect step 7
+at 44 0 h=33.5
+zone eastbastion
+expect step 8
+kill Warthog
+expect step 9
+open East commander's locker
+expect step 10
+at -34 0 h=33.5
+zone westbastion
+expect step 11
+kill Screecher
+expect step 12
+open West commander's locker
+expect step 13
+at 5 -39 h=33.5
+zone southbastion
+expect step 14
+kill Roach
+expect step 15
+open South commander's locker
+expect story bastionkey 4
+expect step 16
+at -3.2 -7.4 h=26
+use magazinelock
+expect story bastionkey 0
+wait 3
+at -5 0 h=26
+zone magazine
+expect step 17
+read The master gunner's chart
+expect step 18
+use keg1
+use keg2
+use shotpile
+expect story powder 2
+at 5 -84 h=-2
+use keg3
+expect story powder 3
+expect step 20
+at 5 0 h=38.5
+zone keeptop
+expect step 21
+use greatgun
+expect shown gatefight
+expect shown leader
+at 19 -14 h=29.5
+zone gatefight
+expect step 22
+kill Mama bear
+expect step 23
+expect shown journal
+at 4.5 2.6 h=32.5
+read The governor's journal
+expect step 24
+open The governor's chest
+expect done
+open Barracks box
+open Cook house barrel
+open Sunk powder barrel
+open Outwork box
+# Raft's story machinery: the quartermaster's keycard door refuses without the card; his satchel on the glacis gives
+# it; the door goes and shows the strongroom chest. The hatch on the parade ground and the stores under it
+use qmdoor
+expect message keycard
+expect hidden qmvault
+open Quartermaster's satchel
+expect story raft-Tangaroa_KeyCard 1
+use qmdoor
+expect hidden qmdoor
+expect shown qmvault
+open Strongroom chest
+expect item TradeToken 6
+expect hidden storehatchchest
+use storehatch
+expect hidden storehatch
+expect shown storehatchchest
+open Under the hatch
+expect item PlasticBottle_Water 2

@@ -1,0 +1,22 @@
+# Guide pictures of Pollenreach Spit (CIPlay pollenreach_spit_pics): Raft's camera, midday, calm
+island Pollenreach Spit
+# AREAS 10-24: points in the island's own frame (the skiff south, the sample station west, the castaway raft east,
+# the dune cave north-east)
+offset 0 0
+hour 11
+weather Calm
+at 0 -60
+wait 3
+picture sl11_pollenreach_spit_island 60 +40 -95 0 5 5
+picture sl11_pollenreach_spit_skiff -14 +5 -55 2 +1 -70
+at -40 20
+wait 2
+picture sl11_pollenreach_spit_station -42 +5 20 -52 +1.5 30
+at 55 -10
+wait 2
+picture sl11_pollenreach_spit_raft 56 +4 -14 64 +1 -6
+at 30 20
+wait 2
+picture sl11_pollenreach_spit_cave 31 +3 20 34 5 38
+snap sl11_pollenreach_spit_jar pollen2 200 6 3
+storespot 0 0

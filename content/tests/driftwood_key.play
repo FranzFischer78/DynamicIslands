@@ -1,0 +1,10 @@
+# Play test of Driftwood Key (CIPlay driftwood_key, in a test world 'CI ...'). No quest: the fisherman's cabin, his box.
+# Points as in its recipe.
+island Driftwood Key
+offset 0 0
+expect animals Stingray 2
+wait 3
+# In at the cabin's door
+walk -2.25 -6 to -2.25 -4 to -2.25 -1.5 h=2.3 below=3
+expect stand -2.25 -1.5 h=2.3 below=3
+open Fisherman's box

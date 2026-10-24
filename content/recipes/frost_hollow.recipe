@@ -1,0 +1,162 @@
+# Frost Hollow - a small/medium island of the library (inspired by Raft's Temperance)
+# A snowy islet with two Moontown igloo houses, a snowmobile shed, a telescope on the hill and a small research lab
+# of Selene's rooms whose power is dead. Quest "Power for Frost Hollow" (6 steps): the village, the researcher's log,
+# the cables by the two igloo doors, the polar bear in front of the snowmobile shed, the third cable in its shed crate,
+# the power box - the lab's doors slide open - and the lab locker.
+#
+# Built by the recipe player (CIRecipe frost_hollow) through the editor's own operations (macros from lib_selene).
+include lib_sea
+include lib_selene
+new
+# (nature: snowy: a few pines and snow drifts over Raft's near-bare Temperance - Raft's islands as the generator's Like Raft has them, CIGenLikeRaft)
+gen Trees=0.08 Bushes=0.15 Rocks=0.25 Harvest=0.05 BeachThings=0.3
+gen Seed=907 Radius=30 Height=12 Roughness=0.4 Peaks=2 Shape=0 Style=1 BeachWidth=0.4 Cliffs=0.3 PeakShape=0.3
+gen SeaFloor=1 Seabed=1
+# (sea: Raft's finds and corals as dense as around Raft's islands - Like Raft 0.5 - the review, 2026-10-03)
+gen Water=0.3 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.2 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# --- Terrain: the village's pad (east), the lab's plateau (south-west), the shed's ledge (north) levelled ----------
+brush flatten from 16 0 to 16 10 r=9 s=20 frames=16
+brush flatten from 16 0 to 16 -10 r=9 s=20 frames=16
+brush flatten from -19 -2 to -13 -7 r=8 s=20 frames=24
+brush flatten from -19 -2 to -22 -8 r=6 s=20 frames=16
+brush flatten from -4 18 to 2 18 r=6 s=20 frames=12
+clear at 16 0 r=15
+clear at -16 -9 r=10
+clear at -2 18 r=8
+
+# --- The village: two Moontown igloo houses ---------------------------------------------------------------------
+place TP_Igloo_Small_1 igloo1 at 17 9 yaw=180
+place TP_Igloo_Small_2 igloo2 at 17 -9 yaw=0
+place TP_Moontown_SealedCrate02_Clean - at 23 1.5 sit yaw=20
+place Note_Papers researchlog at 23 1.5 y=1.6 sit drop yaw=20
+place TP_Moontown_TarpCrate02_Clean - at 23.5 -2 sit yaw=-10
+place TP_Moontown_Barrel02 - at 21.5 2.3 sit
+place TP_SnowVehicle01 - at 11 2 sit yaw=70
+place TP_SnowShovel02 - at 12.4 -3.2 sit yaw=40 tilt=10
+place TP_IcePillar04_Snow - at 24 6 sit
+place Zone_Trigger village at 17 0 y=1.5
+# (by each igloo's entrance a supply crate with one of the three cables)
+place Loot_Crate cable1 at 19.6 -3.4 sit yaw=30
+place Loot_Crate cable2 at 14.4 3.4 sit yaw=200
+
+# --- The snowmobile shed on the north ledge (its barred door shut): a polar bear sleeps in front, by the third cable
+place SnowmobileShedMesh shed at -2 18 yaw=0
+place Loot_Crate cable3 at 1.5 13 sit yaw=10
+place TP_SnowVehicle02 - at -5 12.6 sit yaw=170
+place Zone_Trigger shedzone at -1 9.5 y=1.5
+place Creature_PolarBear bear at -1.5 12.5 y=0.5
+
+# --- The research lab on the south-west plateau: two of Selene's rooms, sliding doors, the power box -------------
+push at -22 -4 h=4.62
+call selene_cell 0 0 n=TP_Selene_Int_Room_Entrance e=none
+call selene_cell 6 0 w=none
+# (both leaves pivot on the doorway's middle: the left one reaches east, the right one west)
+place TP_Selene_Int_DoorLargeL doorL at 3 0 yaw=90 sy=1.051
+place TP_Selene_Int_DoorLargeR doorR at 3 0 yaw=90 sy=1.051
+place RT_PowerBox powerbox at 6.3 0.25 y=1.4 yaw=180
+place TP_Selene_ComputerRoom_Server01 - at 10.6 -2 sit yaw=270
+place TP_Selene_ComputerRoom_Server02 - at 10.6 -4 sit yaw=270
+place TP_LaboratoryMachine_Large01 - at 8 -5.2 sit
+place TP_FoldingTable_Large - at 3 -4.8 sit
+place TP_Laptop01 - at 2.5 -4.8 y=0.93 sit yaw=10
+place TP_CabinetCharts01 - at 0.6 -2 sit yaw=90
+place Loot_ChestLarge lablocker at 11 -5.3 sit yaw=270
+place TP_DeskLamp - at 2 -5 y=0.93 sit
+place Zone_Atmosphere labair at 6 -3 y=2
+# (Selene's rooms are made to be seen from inside: an outer skin of tower walls, stretched to their height, a roof)
+for wx 3 12 3
+place RT_Wall1 - at $wx -6.15 sy=1.58
+next
+place RT_Wall1 - at 7.5 0.15 sy=1.58
+place RT_Wall1 - at 10.5 0.15 sy=1.58
+place RT_Wall1 - at 12 0.15 sy=1.58
+place RT_Wall1 - at -0.15 -6 sy=1.58 yaw=90
+place RT_Wall1 - at -0.15 -3 sy=1.58 yaw=90
+place RT_Wall1 - at 12.15 -6 sy=1.58 yaw=90
+place RT_Wall1 - at 12.15 -3 sy=1.58 yaw=90
+place RT_Floor - at 6.04 0.2 y=4.76
+place RT_Floor - at 12.1 0.2 y=4.76
+pop
+place TP_TelephoneAntenna antenna at -12 -16 sit yaw=30
+
+# --- The telescope on the summit, rocks and snowy pines ---------------------------------------------------------
+place TP_Telescope - at 1 1 sit yaw=120
+scatter TP_PineTreeSnowy 4 at -10 10 r=8 seed=51
+scatter TP_SmallRock03 2 at 8 16 r=6 seed=52
+scatter TP_SnowDrift01 5 at 6 -6 r=14 seed=53
+
+# --- Settings, story item, notes, behaviours, quest -----------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): pines, berries, flowers ----------
+scatter "Pickup_Landmark_Tree_Pine" 3 at 0 0 r=21.0 seed=4473 free=5
+scatter "Pickup_Landmark_BerryBush" 3 at 0 0 r=21.0 seed=4483 free=3
+scatter "Pickup_Landmark_Flower_White" 2 at 0 0 r=21.0 seed=4493 free=3
+scatter "Pickup_Landmark_Flower_Blue" 2 at 0 0 r=21.0 seed=4494 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=50 deep=5 n=1
+
+info title=Frost Hollow
+info author=Custom Islands
+info description=A snowy islet with two Moontown igloo houses, a snowmobile shed, a telescope on the hill - and a small research lab whose power is dead. Three cables, a power box and a polar bear. Inspired by Raft's Temperance.
+island on.arrive=message||Snow, two glowing domes, a dark lab on the hill. The wind smells of ice.
+
+story cable|Electrical cable|quest:Temperance_ElectricalCable|A heavy coil of insulated cable - the lab's power box needs three.
+
+note researchlog Research log | Frost Hollow research station - log of Dr. I. Lindqvist\n\nThe storm cut every cable between the generator and the lab. I pulled what was left: one coil in the supply crate by each igloo's door, the third in front of the snowmobile shed.\n\nThe polar bear has moved into the shed. It does not like visitors.\n\nWith three cables the power box by the lab door will take the load and the doors will open again. My samples - and my good thermos - are in the lab locker.
+note cable1 Supply crate | A coil of electrical cable, a tin of coffee and a pair of frozen socks.
+loot cable1 story:cable*1;Raw_Beet*2
+note cable2 Supply crate | A coil of electrical cable wrapped around a thermometer.
+loot cable2 story:cable*1;Wool*3
+note cable3 Shed crate | A coil of electrical cable under a bear's worth of fur.
+loot cable3 story:cable*1;Leather*2
+prop cable1 loot.refill=0
+prop cable2 loot.refill=0
+prop cable3 loot.refill=0
+note lablocker Lab locker | Dr. Lindqvist's samples, a thermos (still warm - impossible) and her notes on the lights she saw over the ice.
+loot lablocker Placeable_Temperance_Painting_1*1;Battery_Advanced*1;HealingSalve_Good*2
+prop lablocker loot.refill=0
+
+prop powerbox obj.name=powerbox
+prop powerbox beh.use=Connect the three cables
+prop powerbox if.use=take|story:cable|3
+prop powerbox on.use=message||The power box hums. Lights flicker on inside the lab and the doors slide apart.\nopen|labdoor\nsound||event:/raft/door/door_selene_open
+prop powerbox else.use=message||The power box is dead. Three cables are missing from it.
+prop doorL obj.name=labdoor
+prop doorL beh.move=2.3,0,0
+prop doorL beh.moveTime=1.5
+prop doorL beh.moveMode=switch
+prop doorR obj.name=labdoor
+prop doorR beh.move=-2.3,0,0
+prop doorR beh.moveTime=1.5
+prop doorR beh.moveMode=switch
+prop labair atmo.light=#b8d4ff
+prop labair atmo.lightAmount=0.35
+prop labair zone.radius=7
+
+prop village zone.id=village
+prop village zone.radius=7
+prop village zone.message=Frost Hollow. Two igloo houses, their lights still on, and nobody home.
+prop shedzone zone.id=shedzone
+prop shedzone zone.radius=4
+prop shedzone zone.message=A polar bear rears up in front of the shed!
+prop bear creature.count=1
+prop bear creature.zone=shedzone
+prop bear creature.respawn=0
+
+quest title=Power for Frost Hollow
+quest intro=An igloo village with its lights on and nobody home, and a research lab on the hill, dark and shut.
+step reach|village|1|Find the igloo village
+step read|Research log|1|Read the research log
+step collect|story:cable|2|Take the cables from the supply crates by both igloo doors
+step kill|Polar bear|1|Deal with the polar bear sleeping in front of the snowmobile shed
+step collect|story:cable|3|Dig the third cable out of the shed crate, from under the fur
+step open|Lab locker|1|Power the lab and open its locker
+quest done=The lab's lights are on again. Whatever Dr. Lindqvist saw over the ice, her notes are yours.
+quest reward=Glass*2;CopperIngot*3
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=22 n=1 seed=8845
+prop treasure8845 treasure.loot=TitaniumOre*2
+
+save Frost Hollow

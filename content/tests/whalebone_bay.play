@@ -1,0 +1,106 @@
+# Play test of Whalebone Bay (CIPlay whalebone_bay, in a test world 'CI ...'). Points as in its recipe: the station's
+# shelf along the bay's south shore at 2.3 m (x -13..51, z -10..7) and up the west shore (x -22..-6, z 6..30); the quay out
+# north from z 4.5 to 19.5 (its plank rows at x 6.75, 8.25, 9.75, deck 2.45 m); the crane at 1 0, its ladders at -1.35
+# -2.44, its platform 6.7 m; the boiler house x -11..-3.5, z -3.5..2.5, its doorway at -7.25 2.5; the coal store x -15.5..-12.5, z
+# 3..6; the workshop x 12..16.5, z -3.5..-0.5; the flensing plan x 18.3..34, z -3..7.5 (2.45 m), the cannon at 22 6.5; the
+# old catcher on the beach at 42 14, her ladders at 42 10.3; the barracks x -20..-9.5, z 10.5..21 (veranda x -13..-9.5,
+# door at -13 15.7); the church x -20.25..-15.75, z 41.5..52 (6 m), its doorway at -18 41.5, the stove room in the annex
+# x -15.75..-12.75, z 49..52, its doorway from the nave at z 50.5..52; the trail from the church's terrace up to the
+# manager's house (x -41.7..-29.1, z 27.5..36.5, floor 10.31 m, its door at -32 30.3); the point at the east horn (60 8,
+# 5 m); the Skua 7 m down at the quay's end
+island Whalebone Bay
+offset 0.5516 0.197
+expect step 0
+expect title The Last Whale
+expect animals Chicken 3
+expect animals Goat 2
+expect animals Dolphin 2
+expect hidden whale
+wait 5
+
+# The quay: out along its middle plank row; the notice board at its root; the barrel under it
+walk 8.25 1 to 8.25 5 to 8.25 13 h=2.45
+zone quay
+expect step 1
+read Station notice board
+expect step 2
+open Barrel under the quay
+
+# Along the shelf to the west shore, up the trail to the church's terrace, up the next to the manager's house
+walk 8 5 to -1 6.5 to -7.5 7.5 to -7.5 24 to -10 30 h=2.3
+walk -10 30 to -12 33 to -14 36.5 to -16 40 h=6
+walk -18 39 to -24 38.5 to -25.6 39.5 to -26.8 37.5 to -28 34.5 to -28 30.3 h=10
+walk -28 30.3 to -34 30.3 h=10.31 below=13
+zone villa
+expect step 3
+read Manager's diary
+expect step 4
+open Manager's strongbox
+expect message spike the cannon
+
+# The boiler house: the bears; the boiler is cold
+walk -7.25 6 to -7.25 0.5 h=2.4 below=4
+zone boilerhouse
+kill Polar bear
+expect step 5
+use boiler
+expect message three sacks
+
+# Three sacks of coal: the coal store; the old catcher's bunker up her ladders; the church's stove room
+open Coal store sack
+walk 38 8 to 42 9 h=0.3
+climb 42 10.3 h=0.3
+climb 42 10.3 h=1.3
+open Old catcher's bunker
+walk -18 39 to -18 43 to -18 48.2 to -16.4 48.4 to -16.4 51.3 to -14.5 51.3 h=6.1 below=8
+open Church stove room sack
+expect story coal 3
+expect step 6
+
+# The boiler takes the coal; up the crane's ladders to its cab; the lever: nothing on the cable yet
+use boiler
+expect story coal 0
+climb -1.35 -2.44 h=2.3
+climb -1.35 -2.44 h=4.72
+expect stand 0.2 -1.4 h=6.7 below=8
+zone cranecab
+expect step 7
+use cranelever
+expect message hooked
+
+# Dive to the Skua at the quay's end; hook her strongbox to the crane's cable; up the crane again and haul it in
+zone catcher
+expect step 8
+use sunkbox
+use cranelever
+expect shown liftedbox
+expect hidden sunkbox
+open Skua's strongbox
+expect story payroll 1
+expect step 9
+
+# The church: the pastor's register on its lectern; the box under the altar - the firing pin
+read Pastor's register
+expect step 10
+open Box under the altar
+expect story firingpin 1
+expect step 11
+
+# Out onto the flensing plan; the cannon spiked: the whales come into the bay; to the point to watch them
+walk 20 -2 to 22 2 to 24 4.5 h=2.45
+zone flensing
+expect step 12
+use cannon
+expect shown whale
+expect shown whalewatch
+walk 48 1 to 52.5 4.5 to 57 7 to 59.5 8 h=5
+zone whalewatch
+expect step 13
+open Manager's strongbox
+expect item Blueprint_DetailPlank 1
+expect done
+
+# The other boxes
+open Barracks locker
+open Mess box
+open Workshop box

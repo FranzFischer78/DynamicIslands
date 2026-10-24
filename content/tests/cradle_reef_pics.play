@@ -1,0 +1,14 @@
+# Guide pictures of Cradle Reef (CIPlay cradle_reef_pics): the buoy on the water, the drowned dormitory with its cribs,
+# the chapel in the kelp
+island Cradle Reef
+offset 0 0
+hour 12
+weather Calm
+at 14 -24
+wait 3
+picture sl1_cradle_buoy 22 4 -30 14 1 -14
+at -10.5 -8
+wait 2
+picture sl1_cradle_dormitory -10.5 13 -10 -10.5 6 -1
+picture sl1_cradle_chapel 0 12 -12 5.5 7 -1
+picture sl1_cradle_reef -24 18 -26 -2 6 0

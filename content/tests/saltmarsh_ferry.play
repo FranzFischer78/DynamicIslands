@@ -1,0 +1,54 @@
+# Play test of Saltmarsh Ferry (CIPlay saltmarsh_ferry, in a test world 'CI ...'). Points as in its recipe: the bank at the
+# channel's end (1.4 m) by the ferry's stern, the Corps' office and its notice post, the reed cutter's camp (2.2 m) out in the marsh.
+# Quest "Down the Marsh", 10 steps: ferry, notice, two hens, reed cutter's chest, the pump handle, the marsh
+# goats, the hold, the rats, the locker, the safe.
+island Saltmarsh Ferry
+expect step 0
+expect title Down the Marsh
+
+# The bank at the channel's end: the ferry
+walk 2 9 to 2 15 h=1.4
+zone ferry
+expect step 1
+
+# The Corps' office: the captain's notice on its post, two of its hens
+walk 1 15.5 to -6 15.5 to -9.4 14.6 h=2.2
+read Captain's notice
+expect step 2
+catch Chicken 2
+expect step 3
+
+# The reed cutter's camp out in the marsh: the pump handle in his chest; the marsh goats
+walk -10 13 to -20 2 to -30 -12 to -34 -17.4 h=3
+reach Reed cutter's chest
+open Reed cutter's chest
+expect story pumphandle 1
+expect step 5
+catch Goat 2
+expect step 6
+
+# Back at the ferry: the bilge pump, then the rats boiling out of the hold
+walk -30 -10 to -20 2 to -6 13 to 2 15 to 5 18 h=1.4
+use bilgepump
+expect message gushes
+expect story pumphandle 0
+zone hold
+expect step 7
+kill Rat
+expect step 8
+
+# The engineer's locker, clear of the mud now
+walk 2 15 to -1 17 h=1.4
+reach Engineer's locker
+open Engineer's locker
+wait 2
+expect item Blueprint_MotorWheel 1
+expect step 10
+
+# The captain's safe on the bank by the ferry
+walk 2 15 to 0.5 20 to 0.2 23 h=1.4
+reach Captain's safe
+open Captain's safe
+wait 2
+expect item Blueprint_SteeringWheel 1
+expect done

@@ -1,0 +1,11 @@
+# Guide pictures of The Tide Engine (CIPlay the_tide_engine_pics): Raft's camera, midday, calm
+island The Tide Engine
+offset 0 0
+hour 11
+weather Calm
+at 0 -44
+wait 3
+picture the_tide_engine_island 0 40 -95 0 5 0
+picture the_tide_engine_wheels 28.5 7 -6 28.5 6 3
+picture the_tide_engine_arms 6 9 18 0 8 32
+picture the_tide_engine_heart 10 8 -14 0 4 0

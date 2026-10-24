@@ -1,0 +1,26 @@
+# Guide pictures of Geiger Isle (CIPlay geiger_isle_pics): Raft's camera, morning, calm
+island Geiger Isle
+offset 0 0
+hour 9
+weather Calm
+at 0 -30
+wait 3
+picture ni7b_geiger_isle_island 50 24 -62 0 4 -2
+picture ni7b_geiger_isle_yard 0 9 -30 0 3 -8
+picture ni7b_geiger_isle_bunker -1 6 4 -1 4 20
+picture ni7b_geiger_isle_jetty 12 5 -52 0 1.5 -48
+# Close side pictures at the ground of every structure (post feet in view)
+picture ni7b_geiger_isle_s_hut_se -4.5 +1.3 -21 -8.75 +0.6 -15.5
+picture ni7b_geiger_isle_s_hut_w -15.5 +1.3 -14 -8.75 +0.6 -15.5
+picture ni7b_geiger_isle_s_fence_gate 0 +1.4 -26 0 +0.6 -20
+picture ni7b_geiger_isle_s_fence_e 18 +1.4 -12 13 +0.6 -7
+picture ni7b_geiger_isle_s_fence_w -18 +1.4 -2 -13 +0.6 -7
+picture ni7b_geiger_isle_s_fence_n 9 +1.4 12 7 +0.6 7
+picture ni7b_geiger_isle_s_tent 11.5 +1.3 -10.5 7 +0.6 -15
+picture ni7b_geiger_isle_s_barrels -1 +1.3 -9 6 +0.4 -6
+picture ni7b_geiger_isle_s_mast -10 +1.4 -1.5 -10 4 3
+picture ni7b_geiger_isle_s_mast2 -6 +1.4 3 -10 4 3
+picture ni7b_geiger_isle_s_bunkerposts -1 +1.4 3 -1 +1 9.4
+picture ni7b_geiger_isle_s_bunkerin -1 +1.4 14 -1 +0.5 24
+picture ni7b_geiger_isle_s_jetty 7 0.8 -49 0 0.8 -50
+picture ni7b_geiger_isle_s_jettyhead -6 0.8 -60 0 1 -56

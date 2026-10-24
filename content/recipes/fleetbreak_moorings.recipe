@@ -1,0 +1,285 @@
+# Fleetbreak Moorings - the third island of the library's plan The City That Never Sank (SL13, Highwater, chapter 3)
+# The Free Fleet's harbour: a drowned office block whose roof went wild into a jungle garden, and round it a ring of
+# ship hulks moored as a harbour wall, plank gangways between them. The Fleet's chart room stands on the biggest hulk's
+# deck; Balboa-like vines close the stair up to the roof garden, where escaped boars root among mango and banana trees.
+# Puffers drift in the moorings. Quest "The Free Fleet" (15 steps): the chart room, the Fleet's articles, the machete's
+# plans, the vines and the roof garden, three boars, the fuel tank's and the fuel pipe's plans, Teo's log, the biofuel
+# press, the Fleet's strongbox (goo, leather and a forged Authority pass), the contract offer. Contract "Filters Past
+# the Boom" (5): the boom, three filter crates off the hulks, the Rookery's drop, the receipt, the reward (fleetfriend).
+#
+# Points: the roof garden 0 0 (a plateau about 7 m up, r about 18); the stair up its south face at 0 -19; the chart
+# room x -3..3, z -41.5..-32.5 (deck 1 m); hulks round the ring at about r 44; the boom along z 46 from x -12 to 12;
+# the Rookery's drop (a raft of foundations with a flag) at 40 -10.
+include lib_sea
+include lib_rt
+include lib_huts
+include lib_highwater
+include lib_areas
+include lib_features
+# RESIZE 10-24b: Radius 36 -> 85 (Height 8 -> 8), the old content moved 0 -49 as one frame (push) so its sea side stays at
+# the coast; the island grows behind it. The ring of hulks, the boom and the Rookery's drop were moved out to the new coast as an arc of moorings (hulks south-east and south-west, the boom off the north shore, the drop in the north-east).
+new
+gen Trees=0.3 Bushes=0.3 Rocks=0.43 Harvest=0.3 BeachThings=0.25
+gen Seed=13301 Radius=85 Height=8 Roughness=0.3 Peaks=1 Shape=0 Style=0 PeakShape=0.2 Cliffs=0.6 BeachWidth=0.3
+gen Water=0.5 SeaRocks=0.2 SeaFinds=0.4 Sunken=0.3 Hostiles=0 Friendly=0.2 SeaLife=0.4
+generate
+push at 0 -49
+
+# --- Terrain: the roof garden a plateau; a level for the stair's foot ----------------------------------------------
+brush flatten at 0 0 r=16 s=20 frames=300 h=7
+brush flatten at 0 -24 r=5 s=20 frames=200 h=1.2
+brush flatten from 0 -25 to 0 -31 r=2.5 s=8 frames=60 h=0.4
+pop
+origin
+push at 0 -49
+clear at 0 -21 r=5
+clear from 0 -24 to 0 -44 r=6
+
+# --- The stair up the roof garden's south face, Balboa-like vines across its head --------------------------------------
+ramp Block_Floor_Wood from 0 -24 1.2 to 0 -16.5 7 len=1.5 top=0
+ramp Block_Wall_Fence_Rope from -0.75 -24 1.2 to -0.75 -16.5 7 len=1.5 top=-0.1
+ramp Block_Wall_Fence_Rope from 0.75 -24 1.2 to 0.75 -16.5 7 len=1.5 top=-0.1
+place ChoppableVines gardenvines at 0 -15.5 ground yaw=0
+place ChoppableVines gardenvines2 at -1.6 -15.3 ground yaw=10
+place ChoppableVines gardenvines3 at 1.6 -15.3 ground yaw=-10
+place RT_Wall1 - at -4 -15 ground yaw=0
+place RT_Wall1 - at 4 -15 ground yaw=0
+place Zone_Trigger gardenzone at 0 -6 ground y=1
+
+# --- The roof garden: the biofuel press, boars, fruit --------------------------------------------------------------
+place Loot_Chest presschest at 6 -4 ground sit yaw=200
+place "VG_DecorationPrefabBase_Engine Variant" press at 7.6 -5.6 ground sit yaw=200
+place Placeable_Cropplot_Large - at -6 -6 ground sit
+place Placeable_Cropplot_Large - at -6 -2 ground sit
+place Pickup_Landmark_Tree_Mango - at -8 6 ground sit
+place Pickup_Landmark_MangoTree - at 4 9 ground sit
+place Pickup_Landmark_Tree_Banana - at 10 4 ground sit
+place Pickup_Landmark_Tree_Banana - at -10 -9 ground sit
+place Pickup_Landmark_Tree_Banana - at 0 12 ground sit
+scatter Pickup_Landmark_BerryBush 3 at 0 0 r=14 seed=13302 free=2
+place Creature_Boar boars at -2 4 ground
+
+# --- The chart room on the biggest hulk's deck ---------------------------------------------------------------------------
+place BoatStranded hulkbig at 0 -49 ground sit y=-1.2 yaw=90
+push at 3 -37 h=1
+call hw_penthouse d=10 a=hull f1=RT_WallWindow1 f2=RT_Wall1 b1=RT_WallWindow1 b2=RT_WallDoor1 l2=RT_WallDoor1 r2=RT_WallWindow1
+# (the chart table's mesh lies 12.6 m from its pivot: centred)
+place MapTable - at -3 0 y=0.1 sit centred scale=0.6
+place Note_Board articles at -5.9 -3 y=1.2 yaw=90
+place Loot_Chest bosunlocker at -5.2 3.4 y=0.1 sit yaw=180
+place Loot_ChestLarge strongbox at -4.8 -3.4 y=0.1 sit
+place Note_Paper teoslog at -3 0 y=1 drop
+place Note_Paper contract at -3.4 -3.4 y=0.1 drop
+place Zone_Trigger chartzone at -3 -1 y=0.1
+place Placeable_Flag_02 - at -5.5 -4 y=3.05 sit
+pop
+line Block_Floor_Wood from 1.5 -31.75 to 1.5 -24.25 step=1.5 h=1
+
+# --- The ring of hulks, gangways between them, the fuel store -----------------------------------------------------------
+place BoatStranded hulk2 at 61 -24 ground sit y=-1.2 yaw=40
+place BoatStranded hulk3 at 84 4 ground sit y=-1.2 yaw=100
+place BoatStranded hulk4 at 94.5 39 ground sit y=-1.2 yaw=150
+place BoatStranded hulk5 at -94.5 39 ground sit y=-1.2 yaw=210
+place BoatStranded hulk6 at -84 4 ground sit y=-1.2 yaw=260
+place BoatStranded hulk7 at -61 -24 ground sit y=-1.2 yaw=310
+push at 28 -34 h=1
+call hw_roof d=10 a=hull lm=none
+place Loot_Chest fueltankchest at -3 0 y=0.05 sit yaw=270
+place Reef_Barrel2 - at -5 2.5 y=0.05 sit
+place Reef_Barrel2 - at -4.2 3.2 y=0.05 sit
+place Loot_ChestSmall crate1 at -1 3 y=0.05 sit
+pop
+push at -26 -36 h=1
+call hw_roof d=10 a=hull rm=none
+place Loot_Chest fuelstore at -3 0 y=0.05 sit yaw=90
+place Reef_Barrel4 - at -1.2 -3 y=0.05 sit
+pop
+line Block_Foundation from 90.5 19.5 to 93.5 19.5 step=1.5 h=0.35
+line Block_Foundation from 90.5 21 to 93.5 21 step=1.5 h=0.35
+line Block_Foundation from 90.5 22.5 to 93.5 22.5 step=1.5 h=0.35
+line Block_Foundation from -93.5 19.5 to -90.5 19.5 step=1.5 h=0.35
+line Block_Foundation from -93.5 21 to -90.5 21 step=1.5 h=0.35
+line Block_Foundation from -93.5 22.5 to -90.5 22.5 step=1.5 h=0.35
+# (the filter crates' rafts, unrolled 10-24b)
+
+
+place Loot_ChestSmall crate2 at 92 21 h=1.05 sit
+place Loot_ChestSmall crate3 at -92 21 h=1.05 sit
+line Block_Floor_Wood from 3.75 -37 to 21.25 -37 step=1.5 h=1
+line Block_Floor_Wood from -3.75 -37 to -25.25 -37 step=1.5 h=1
+
+# --- The boom across the north channel; the Rookery's drop -----------------------------------------------------------
+line Block_Foundation from -12 146 to 12 146 step=1.5 h=0.35
+place RT_Pillar - at -13.5 146 ground sy=0.8
+place RT_Pillar - at 13.5 146 ground sy=0.8
+place Zone_Trigger boomzone at 0 146 h=1.5
+line Block_Foundation from 84.7 89.35 to 90.7 89.35 step=1.5 h=0.35
+line Block_Foundation from 84.7 90.85 to 90.7 90.85 step=1.5 h=0.35
+line Block_Foundation from 84.7 92.35 to 90.7 92.35 step=1.5 h=0.35
+place Placeable_Flag_01 - at 90.2 89.35 h=1 sit
+place Zone_Trigger dropzone at 87.7 90.85 h=1.5
+place Note_Paper receipt at 86.7 92.35 h=1.05 drop
+place Loot_Chest fleetreward at 89.2 92.35 h=1.05 sit yaw=180
+
+# --- Puffers in the moorings; the sea's finds; two reefs ------------------------------------------------------------
+place Creature_PufferFish puffers at 0 -46 h=-3
+call shallows x=0 z=49 r=127.5 deep=6 n=2 seed=13303
+call hw_reef x=40 z=-43 r=4 seed=13304
+call hw_reef x=-40 z=-43 r=4 seed=13308
+
+pop
+
+# --- Areas (10-24: every story island has places all over it and its quest crosses it): Gull Ridge in the north-west, the
+# Fleet's crashed seaplane in the north-east, the harbourmaster's empty house in the west, the bosun's cave in the east
+# (the hulk's gas tanks start the roof garden's old engine; the machete opens a vine cache on the ridge)
+call ar_ridge x1=-46 z1=38 x2=-8 z2=62 h=12 top=6 r=9
+call ar_plants_tropical x=-27 z=50 r=30 seed=13311
+call hw_zone x=-27 z=50 al=gullridge id=gull_ridge r=7 msg="Gull Ridge. Below, the Fleet's hulks lie in a ring round the moorings, bows to the sea - a wall made of ships."
+call vinecache x=-27 z=50 r=14 seed=13321 chest=ridgevinechest vines=ridgevines items=Rope*3;Feather*4;Seed_Flower_Red*1
+call ar_plane x=42 z=46 h=8 yaw=200 al=seaplane crate=seaplanecrate
+call hw_note x=36 z=40 yaw=150 al=seaplanelog
+call ar_ruin x=-58 z=-4 h=6 yaw=90 al=harbourhouse
+call hw_note x=-53.5 z=-6.5 yaw=60 al=harbourledger
+call ar_cave x=58 z=-2 h=6 yaw=0 al=bosuncave chest=bosuncavechest
+call hw_zone x=58 z=12 al=bosuncavezone id=bosuns_cave r=4 msg="The bosun's cave: where the Fleet keeps what it would rather the Authority didn't count."
+call ar_plants_tropical x=60 z=30 r=12 seed=13331
+call ar_plants_tropical x=-50 z=20 r=12 seed=13341
+beside Loot_ChestLarge pressvault press d=2.8 yaw=90
+
+# --- Settings, story items, notes, behaviours, quests -----------------------------------------------------------------
+info title=Fleetbreak Moorings
+info author=Custom Islands
+info description=The Free Fleet's harbour: a ring of moored hulks round a drowned office block, its roof gone wild into a jungle garden. Machete, fuel, a forged pass - and a contract to run filters past the Authority's boom. The third island of The City That Never Sank.
+island on.arrive=message||A ring of rusted hulks, moored bow to stern, makes a harbour wall. In the middle an office block's roof has turned into a jungle. A gull flag flies over the biggest hulk.
+
+story authpass|Authority pass|Note_Paper|A Harbor Authority pass - forged by the Fleet, good enough for a guard who doesn't look twice.
+story filtercrate|Filter crate|Placeable_Storage_Small|A crate of water filters off a Fleet hulk, for the Rookery's poor roofs.
+
+prop hull tint.color=#5a4a40
+prop hull tint.amount=0.4
+prop boars creature.count=3
+prop boars creature.respawn=0
+prop puffers creature.count=3
+
+prop gardenzone obj.name=gardenzone
+prop gardenzone beh.hidden=1
+prop gardenvines obj.name=gardenvines
+prop gardenvines on.use=hide|gardenvines\nhide|gardenvines2\nhide|gardenvines3\nshow|gardenzone\nmessage||The machete bites through the vines. The stair to the roof garden is open - and something grunts among the trees.
+prop gardenvines2 obj.name=gardenvines2
+prop gardenvines2 on.use=hide|gardenvines\nhide|gardenvines2\nhide|gardenvines3\nshow|gardenzone\nmessage||The machete bites through the vines. The stair to the roof garden is open.
+prop gardenvines3 obj.name=gardenvines3
+prop gardenvines3 on.use=hide|gardenvines\nhide|gardenvines2\nhide|gardenvines3\nshow|gardenzone\nmessage||The machete bites through the vines. The stair to the roof garden is open.
+
+prop contract obj.name=contract
+prop contract beh.hidden=1
+prop strongbox on.open=show|contract\nmessage||Goo, leather - and a pass with the Harbor Authority's seal, the ink still fresh. Under it a folded offer.
+prop crate1 obj.name=crate1
+prop crate1 beh.hidden=1
+prop crate2 obj.name=crate2
+prop crate2 beh.hidden=1
+prop crate3 obj.name=crate3
+prop crate3 beh.hidden=1
+prop contract on.read=show|crate1\nshow|crate2\nshow|crate3\nshow|dropzone
+prop dropzone obj.name=dropzone
+prop dropzone beh.hidden=1
+prop receipt obj.name=receipt
+prop receipt beh.hidden=1
+prop fleetreward obj.name=fleetreward
+prop fleetreward beh.hidden=1
+prop dropzone on.enter=show|receipt\nshow|fleetreward
+prop dropzone if.enter=has|story:filtercrate|3
+prop dropzone else.enter=message||The Rookery's drop. The Fleet wants three crates here, not fewer.
+prop fleetreward on.open=signal||fleetfriend\nmessage||The Fleet's thanks. Word goes round the moorings: the Fleet owes you one.
+
+note articles Free Fleet articles | ARTICLES OF THE FREE FLEET\n\nThe sea is nobody's.\nWhat floats is shared.\nNo boom, no toll, no permit.\nA captain is chosen and can be unchosen.\n\nSigned, for the Fleet: Teo Varga, captain.
+note teoslog Teo's log | Teo Varga's log -\n\nRan forty filters past the boom last night. The Authority's lamp swept twice and missed us twice.\n\nThe bazaar says filters are short. They aren't short. Somebody holds them back.\n\nThe Rookery drinks rain. We'll keep running them.
+note contract Fleet contract offer | FROM THE FLEET - A JOB\n\nThree crates of filters wait on our outer hulks.\nTake them past the boom to the Rookery's drop, the raft with our flag east of the ring.\n\nDo it and the Fleet owes you. - T.V.
+note receipt Fleet receipt | RECEIVED AT THE DROP: three crates of filters.\nThe Rookery drinks clean tonight.\n\nThe Fleet won't forget. - T.V.
+note bosunlocker Bosun's locker | The bosun's locker: the machete's plans, the bosun's own old machete on a whetstone, a rope.
+note fueltankchest Fuel tank crate | A crate on the hulk's deck: the fuel tank's plans, drums half full.
+note fuelstore Fuel store | The hulk's fuel store: the fuel pipe's plans, a coil of pipe, a leaking can - and two full gas tanks. Old engines all over the city still run on them.
+note presschest Biofuel press | The roof garden's press box: the biofuel extractor's plans, sticky with pulp.
+note strongbox Fleet strongbox | The Fleet's strongbox.
+note crate1 Filter crate | Fleet filters, crated for a run.
+note crate2 Filter crate | Fleet filters, crated for a run.
+note crate3 Filter crate | Fleet filters, crated for a run.
+note fleetreward Fleet reward | The Fleet's thanks, under the gull flag.
+loot bosunlocker Blueprint_Machete*1;Machete*1;Rope*2;Nail*8
+prop bosunlocker loot.refill=0
+loot fueltankchest Blueprint_Fueltank*1;MetalIngot*2
+prop fueltankchest loot.refill=0
+loot fuelstore Blueprint_Pipe_Fuel*1;Plastic*3;story:raft-Vasagatan_GasTank*2
+prop fuelstore loot.refill=0
+loot presschest Blueprint_BiofuelExtractor*1;Mango*2;Banana*2
+prop presschest loot.refill=0
+loot strongbox ExplosiveGoo*2;Leather*2;story:authpass*1
+prop strongbox loot.refill=0
+loot crate1 story:filtercrate*1
+prop crate1 loot.refill=0
+loot crate2 story:filtercrate*1
+prop crate2 loot.refill=0
+loot crate3 story:filtercrate*1
+prop crate3 loot.refill=0
+loot fleetreward ExplosiveGoo*2;Leather*3;TradeToken*2
+prop fleetreward loot.refill=0
+
+prop chartzone zone.id=chart_room
+prop chartzone zone.radius=3
+prop chartzone zone.message=The Fleet's chart room. Charts of the drowned streets, pinned over charts of the open sea.
+prop gardenzone zone.id=roof_garden
+prop gardenzone zone.radius=6
+prop gardenzone zone.message=The roof garden. Once an office block's terrace; now a jungle with boars in it.
+prop boomzone zone.id=boom
+prop boomzone zone.radius=5
+prop boomzone zone.message=The boom. The Authority's lamp sweeps it from Pumpcrown - but not often.
+prop dropzone zone.id=rookery_drop
+prop dropzone zone.radius=3
+prop dropzone zone.repeat=1
+prop dropzone zone.message=The Rookery's drop. You stack the crates under the gull flag.
+
+prop press beh.use=Start the press's old engine
+prop press on.use=message||The old engine coughs on the gas, then roars. The press shakes - and the rusted locker beside it springs open.\nsignal||engine\nshow|pressvault
+prop pressvault obj.name=pressvault
+prop pressvault beh.hidden=1
+note pressvault Press engine locker | The engine's locker, rusted shut for years: the mechanic's spares.
+loot pressvault MetalIngot*3;Bolt*4;CopperIngot*2
+prop pressvault loot.refill=0
+prop ridgevinechest note.title=Gull nest cache
+note seaplanelog Seaplane log | FREE FLEET SEAPLANE 'GULL' - last entry\n\nFlew the Fleet's mail to the far moorings. Authority guns at Pumpcrown fired on us.\nNo engine, no radio - glided in onto the north shore.\nThe filters are still in the crate. Somebody take them where they're needed.
+note seaplanecrate Seaplane's crate | The seaplane's cargo crate: water filters and the Fleet's mail, never delivered.
+loot seaplanecrate Plastic*3;Rope*2;Leather*2
+note harbourledger Harbourmaster's ledger | HARBOURMASTER'S LEDGER\n\nThe Fleet's hulks: forty-one boats, all scuttled in a ring to break the storms.\nThe Authority wants a mooring fee for each. The Fleet says a wreck pays no fee.\nI resigned. Someone has to count the boats nobody owns.
+note bosuncavechest Bosun's cache | The bosun's cache, under a tarpaulin: goo, rope and a spare compass.
+loot bosuncavechest ExplosiveGoo*1;Rope*3;Scrap*4
+prop bosuncavechest loot.refill=0
+quest title=The Free Fleet
+quest intro=The Free Fleet finds things, the bazaar said. Their chart room is on the biggest hulk.
+step reach|chart_room|1|Go into the Fleet's chart room on the biggest hulk
+step read|Free Fleet articles|1|Read the Free Fleet's articles
+step blueprint|Blueprint_Machete|1|Take the machete's plans from the bosun's locker
+step reach|roof_garden|1|Cut the vines on the stair and climb to the roof garden
+step kill|Warthog|3|Drive the three boars out of the roof garden
+step blueprint|Blueprint_Fueltank|1|Take the fuel tank's plans from the east hulk's deck
+step blueprint|Blueprint_Pipe_Fuel|1|Take the fuel pipe's plans from the west hulk's fuel store
+step read|Teo's log|1|Read Teo's log in the chart room
+step blueprint|Blueprint_BiofuelExtractor|1|Take the biofuel extractor's plans from the press in the roof garden
+step open|Fleet strongbox|1|Open the Fleet's strongbox
+step reach|gull_ridge|1|Climb Gull Ridge in the north-west
+step read|Harbourmaster's ledger|1|Read the harbourmaster's ledger in his house on the west shore
+step open|Seaplane's crate|1|Open the crate in the Fleet's crashed seaplane on the north-east shore
+step reach|bosuns_cave|1|Find the bosun's cave in the east
+step read|Fleet contract offer|1|Read the Fleet's offer
+quest done=The pass is forged and the Fleet trusts you. The Salvagers' Union works the cranes at Hookline Stack - band 800.
+quest reward=Mango*2;Banana*2;Leather*2
+
+quest2 title=Filters Past the Boom
+quest2 intro=Three crates of filters for the Rookery's poor roofs, past the Authority's boom.
+step2 reach|boom|1|Go to the boom across the north channel
+step2 collect|story:filtercrate|3|Take the three filter crates off the outer hulks
+step2 reach|rookery_drop|1|Bring the crates to the Rookery's drop under the gull flag
+step2 read|Fleet receipt|1|Read the Fleet's receipt
+step2 open|Fleet reward|1|Open the Fleet's reward
+quest2 done=The Fleet owes you. When the city breaks, it will remember.
+quest2 reward=ExplosiveGoo*1;Rope*3
+
+save Fleetbreak Moorings

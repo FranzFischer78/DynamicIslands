@@ -1,0 +1,141 @@
+# Whitecap Depot - a new medium island of the library (ROADMAP 3e VI2), a vehicle island with a quest
+# A snowfield island where a supply company kept its sled depot: the snowmobile shed with three sleds out in the yard,
+# a van snowed in to its wheels, a bunk caravan, the power hut, the shed locker on a winch lever. A driver took the fourth
+# sled out to the old igloo in a whiteout and never came back; a polar bear sleeps by her sled. A lookout over the yard,
+# a cave in the north snow.
+#
+# Built by the recipe player (CIRecipe vi_whitecap_depot) through the editor's own operations. Points: the depot yard
+# (5 m, r 18 round 0 -4); the shed at -8 6 (door south), the winch lever at -1 9, the locker at -3 8.5; the sleds round 6 -2;
+# the van at 13 6; the log board at 0 -15; the igloo camp round 23 -21 (Maren's sled at 19 -16, her box at 21 -18); the lookout
+# x -20..-17 z -18..-15 (5 m), its ladder at -19.25 -18.2; the cave rock at 8 26, floor 2.45 m, mouth north.
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+include lib_ni8
+include lib_vi
+new
+# (nature: a snowfield - snowy pines, drifts, ice)
+gen Trees=0.35 Bushes=0.3 Rocks=0.6 Harvest=0.4 BeachThings=0.5
+gen Seed=8623 Radius=50 Height=11 Roughness=0.3 Peaks=1 Shape=0 Style=1 BeachWidth=0.4 Cliffs=0.3 PeakShape=0.4
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0.1 SeaLife=0.2
+generate
+
+# ===== Terrain: the depot yard, the igloo camp, the lookout pad, the cave in the north snow =============================
+brush flatten at 0 -4 r=18 s=20 frames=140 h=5
+brush flatten at 23 -21 r=6 s=20 frames=80 h=4
+brush smooth from 10 -10 to 20 -18 r=3 s=10 frames=60
+brush flatten at -18.5 -16.5 r=4.5 s=20 frames=80 h=5
+call ni8cave x=8 z=26 h=2 yaw=0 al=snowcave
+clear at 0 -4 r=19
+clear at 23 -21 r=7
+clear at -18.5 -16.5 r=5
+
+# ===== The sled shed, its winch lever and the locker, three sleds in the yard =============================================
+place SnowmobileShedMesh sledshed at -8 6 ground sit yaw=180
+place "VG_DecorationPrefabBase_Engine Variant" - at -2 4 ground sit yaw=90
+place RT_Pillar - at -1 9 ground sy=0.4
+place TP_LaserControlPanel_lever shedlever at -1 9 ground y=1.25 scale=3 yaw=180
+place Loot_ChestLarge shedlocker at -3 8.5 ground sit yaw=180
+place TP_SnowVehicle01 - at 5 1 ground sit yaw=30
+place TP_SnowVehicle01 - at 9 -3 ground sit yaw=40
+place TP_SnowVehicle02 - at 4 -8 ground sit yaw=200
+place TP_SnowShovel02 - at -4.5 0.5 ground sit yaw=70
+place TP_Moontown_Barrel01 - at -1.5 7 ground sit
+place TP_Moontown_Barrel03 - at -0.5 8 ground sit yaw=40
+
+# ===== The rest of the depot: the snowed-in van, the bunk caravan, the power hut, the log board ============================
+place Van3 - at 13 6 ground y=-0.4 sit yaw=100
+place TP_SnowDrift02 - at 14.5 4 ground sit yaw=10
+place Caravan_Green_02 - at -14 1 ground sit yaw=90
+place TP_ElectricalBuilding - at 8 9 ground sit yaw=180
+place TP_CablePoint - at 4 10 ground sit
+place TP_FoldingTable_Large - at 2 -12 ground sit yaw=10
+place TP_FoldingStool - at 3.2 -13 ground sit
+place Note_Board depotlog at 0 -15 ground sit yaw=180
+place TP_Moontown_SealedCrate01 - at -5 -12 ground sit yaw=20
+place TP_Moontown_TarpCrate02 - at -7 -13 ground sit yaw=70
+place Placeable_Lantern_FireBasket - at 2 -2 ground sit
+place Zone_Trigger depotyard at 0 -4 ground y=1
+
+# ===== The igloo camp: Maren's sled and her box, her note, the bear ======================================================================
+place TP_Igloo_Small_1 - at 25 -23 ground sit yaw=220
+place TP_SnowVehicle02 marensled at 19 -16 ground sit yaw=130
+place Loot_Chest marenbox at 21 -18 ground sit yaw=300
+place Note_Paper marennote at 24 -19 ground sit yaw=40
+place Zone_Trigger igloocamp at 23 -21 ground y=1
+place TP_Moontown_Barrel04 - at 20 -20 ground sit
+place TP_SnowDrift03 - at 27 -18 ground sit yaw=60
+place Creature_PolarBear polarbear at 23 -26 ground
+prop polarbear creature.count=1
+prop polarbear creature.respawn=0
+
+# ===== The lookout over the yard, the cave in the north snow =================================================================
+call lookout x=-20 z=-18 h=5 al=lookoutchest
+call cavein x=8 z=26 h=2 yaw=0 al=snowcavechest
+
+# ===== Snowy pines, drifts and ice; things to gather; Raft's finds in the shallows =========================================
+scatter TP_PineTreeSnowy 4 at -10 10 r=36 seed=8641 free=8
+scatter TP_SnowDrift01 3 at 0 0 r=36 seed=8642 free=6
+scatter TP_SmallRock02 4 at 0 0 r=40 seed=8643 free=3 scale=0.5-0.6 ground y=-1
+place TP_IcePillar01 - at 30 20 ground sit yaw=30
+place TP_IcePillar02 - at -32 18 ground sit yaw=120
+scatter "Pickup_Landmark_Tree_Pine" 3 at -10 10 r=34 seed=8644 free=6
+scatter "Pickup_Landmark_BerryBush" 2 at -20 10 r=16 seed=8645 free=3
+clear at -26 -2 r=2
+place Treasure_Buried treasure8623 at -26 -2 ground
+prop treasure8623 treasure.kind=0
+call shallows r=74 deep=5 n=2 seed=864
+
+info title=Whitecap Depot
+info author=Custom Islands
+info description=A snowfield island with a sled depot on it: the snowmobile shed and four sleds in the yard, a van snowed in to its wheels, a bunk caravan, a power hut. Out by an old igloo the fourth sled stands where its driver left it in a whiteout, and a polar bear sleeps beside it.
+
+story shedkey|The shed winch key|quest:Varuna_CraneKey|Maren's key to the sled shed winch, from the box on her sled.
+story shedopen|The shed locker down|Placeable_Lantern_Metal|You turned the winch key and the shed locker came down off its hooks.
+
+note depotlog Depot log | WHITECAP DEPOT - SLED LOG\n\nSleds 1-3 in. Sled 4 out with Maren to check the fuel at the old igloo. Whiteout came down at noon.\n\nMaren not back. Sled 4 not back. She has the winch key, so the locker stays up on its hooks with the winter pay in it.\n\nSomeone go out to the igloo when it clears. Mind the bear.
+note marennote Maren's note | Pinned under a stone by the igloo: Whiteout. Sled's dead - the cold took the battery. Walking the coast back to the depot, keeping to the shore. Key's in my box on the sled. Don't wait. - M.
+note marenbox Maren's sled box | The box on the back of sled 4: a thermos, flares gone damp, and the shed winch key on a red cord.
+loot marenbox story:shedkey*1;Rope*2;Wool*2
+prop marenbox loot.refill=0
+note shedlocker Sled shed locker | The depot's winter pay and the spare parts for the sleds, under a frozen tarp.
+loot shedlocker MetalIngot*3;CopperIngot*2;Bolt*3;Leather*3;Wool*2
+prop shedlocker loot.refill=0
+prop shedlocker obj.name=shedlocker
+prop shedlocker beh.hidden=1
+note lookoutchest Chest on the lookout | The yard watch's box: a pair of goggles, a flask, a rope.
+loot lookoutchest Rope*3;Feather*2;Plank*4
+prop lookoutchest loot.refill=0
+note snowcavechest Chest in the north cave | A trapper's chest, his name scratched off the lid.
+loot snowcavechest Leather*3;Wool*3;MetalIngot*1;Scrap*3
+prop snowcavechest loot.refill=0
+
+prop shedlever obj.name=shedlever
+prop shedlever beh.use=Turn the winch key
+prop shedlever if.use=take|story:shedkey|1
+prop shedlever on.use=sound||event:/raft/radar/lever\nmessage||The key turns, the winch rattles, and the shed locker comes down off its hooks onto the snow.\nshow|shedlocker\ngive||story:shedopen*1
+prop shedlever else.use=message||The winch is locked. Its key went out with Maren on sled 4.
+
+prop depotyard zone.id=depot_yard
+prop depotyard zone.radius=9
+prop depotyard zone.message=Whitecap Depot: three sleds in the snow and a gap in the row where the fourth should be.
+prop igloocamp zone.id=igloo_camp
+prop igloocamp zone.radius=6
+prop igloocamp zone.message=The old igloo: sled 4 half buried, and tracks in the snow going nowhere.
+
+quest title=The Fourth Sled
+quest intro=A sled depot in the snow with one sled missing from its row. Walk into the depot yard.
+step reach|depot_yard|1|Walk into the depot yard
+step read|Depot log|1|Read the depot log on the board
+step reach|igloo_camp|1|Go out to the old igloo
+step kill|Polar bear|1|Drive the polar bear away from the sled
+step read|Maren's note|1|Read the note by the igloo
+step open|Maren's sled box|1|Open the box on Maren's sled
+step collect|story:shedopen|1|Turn the winch key by the sled shed
+step open|Sled shed locker|1|Open the sled shed locker
+quest done=The winter pay is out of the locker and the depot knows where Maren went. Whitecap's sleds wait for whoever comes next.
+quest reward=MetalIngot*3;Leather*2;Rope*3
+
+save Whitecap Depot

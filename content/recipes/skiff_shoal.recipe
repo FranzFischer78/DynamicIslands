@@ -1,0 +1,56 @@
+# Skiff Shoal - a new small island of the library (ROADMAP 3d NI3), no quest - a sunken one
+# A shoal that never reaches the surface: from the raft it is only lighter water. Dive, and a fishing boat lies wrecked
+# on its back, rolled on her side in the sand, her cargo barrels and scrap strewn round her, coral grown over the rocks.
+# Pufferfish guard it. Things to bring up: the boat's chest, sunken barrels, sea finds, kelp.
+#
+# Built by the recipe player (CIRecipe skiff_shoal) through the editor's own operations. Points (metres over the
+# island's own water line; in the world it all lies 14 m lower, under the sea): the shoal's back at 4 m (r 9 round 1 -1);
+# the wreck at 1 -1 (her bow north); her chest in the sand at 5.5 3.5; the coral heads round -8 6, 9 -8 and -7 -9.
+include lib_sea
+include lib_features
+include lib_ni34
+new
+# (nature: a sunken shoal - no land plants, Raft's sea finds instead)
+gen Trees=0 Bushes=0 Rocks=0.35 Harvest=0 BeachThings=0
+gen Seed=7405 Radius=26 Height=6 Roughness=0.35 Peaks=1 Shape=0 Style=0 BeachWidth=0.1 Cliffs=0.3 PeakShape=0.3
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.4 Sunken=0.5 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+elevation -14
+
+# ===== The shoal's back, the sand round the wreck ========================================================================
+brush flatten at 1 -1 r=9 s=20 frames=60 h=4
+brush seabed at 1 -1 r=12 s=20 frames=30
+clear at 1 -1 r=10
+
+# ===== The wreck: the fishing boat on her side, her cargo round her, her chest in the sand ===============================
+call wreck x=1 z=-1 yaw=10 roll=14 tilt=4 sink=2.8 al=skiff seed=7415 where=any
+place Loot_ChestSmall wreckchest at 5.5 3.5 ground sit yaw=35 roll=8
+place Loot_SunkenBarrel - at -3 -6 ground sit
+place Loot_SunkenBarrel - at 6 -5.5 ground sit
+
+# ===== Coral heads and kelp on the rocks; pufferfish round the wreck =====================================================
+macro reefhead x z seed
+scatter CauliCoral 2 at $x $z r=3 seed=$seed free=1
+scatter TableCoral_1 1 at $x $z r=3 seed={$seed+1} free=1
+scatter SpineCoral_2 2 at $x $z r=3 seed={$seed+2} free=1
+scatter LeafCoral_1 2 at $x $z r=3 seed={$seed+3} free=1
+end
+call reefhead -8 6 7425
+call reefhead 9 -8 7435
+call reefhead -7 -9 7445
+scatter SeaVine3 18 at 0 0 r=20 seed=7455 free=2
+scatter SeaVine3_klump 6 at 0 0 r=20 seed=7465 free=3
+place Creature_PufferFish puffers at 2 -2 h=6
+prop puffers creature.count=2
+call shallows x=0 z=0 r=36 deep=8 n=1 seed=745
+
+info title=Skiff Shoal
+info author=Custom Islands
+info description=A shoal that never breaks the surface - dive, and a fishing boat lies wrecked on her side in the sand, her barrels and scrap strewn round her, coral on the rocks and pufferfish on guard. No quest - an island to explore.
+
+note wreckchest The skiff's chest | Her skipper's chest, thrown clear when she went over. Still shut.
+loot wreckchest MetalIngot*2;Scrap*4;Rope*2;Battery*1;Glass*2
+prop wreckchest loot.refill=0
+
+save Skiff Shoal

@@ -1,0 +1,43 @@
+# Gannet Cliff's quest "The Quiet Choir" on its own, without the hymn sheet read first: gannet_cliff.play reads it on
+# Effigy Shoals and then runs this; the plan's play runs this after Effigy Shoals' own play (the sheet already held).
+island Gannet Cliff
+offset 0 0
+expect step 0
+expect title The Quiet Choir
+wait 3
+expect hidden pitladder
+walk -18 -54 to -18 -49 h=1
+zone cliff_foot
+expect step 1
+read Choir notice board
+expect step 2
+walk -18 -44 to -18 -30 h=5.5
+walk -18 -30 to -18 -16 h=10
+walk -18 -16 to -18 -6 to -8 -4 h=13
+zone tents
+expect step 3
+read Sister Ro
+read Brother Ansel
+read The Listener
+expect story diary 3
+expect step 4
+use campbell
+expect message nobody would come
+use pitgate
+expect shown pitladder
+expect story pitopen 1
+expect step 5
+zone pit_floor
+expect step 6
+kill Hyena
+expect step 7
+use sermonradio
+expect story sermon 1
+expect step 8
+open Listener's strongbox
+expect story quarrychart 1
+expect step 10
+use campbell
+expect story rung 1
+expect done
+storespot 11 -3

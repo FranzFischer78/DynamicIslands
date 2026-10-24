@@ -1,0 +1,35 @@
+# The Returning Islet (CIPlay the_returning_islet): The Lullaby Frequency's side island, quest "Supper for Four". The
+# hut's pad at 2.5 m round 0 0; the stilt hut spans -2.25..2.25 (deck 2.6 m over the pad), its ladder on the south;
+# the table at 0 0.45; the hatch at 1.35 -1.35 on the deck, the box under it on the sand. Each plate's note shows the
+# next one 20 s after it is read (the design's 600 s, cut short for tests).
+island The Returning Islet
+offset 0 0
+expect step 0
+expect title Supper for Four
+wait 3
+expect shown plate1
+expect hidden plate2
+expect hidden plate4
+expect hidden hatchbox
+walk 0 -16 to 0 -6 to 0 -3 h=2.5
+use floorhatch
+expect message nailed down
+read Plate 1
+expect step 1
+expect hidden plate2
+wait 22
+expect shown plate2
+read Plate 2
+expect step 2
+wait 22
+read Plate 3
+expect step 3
+wait 22
+read Plate 4
+expect step 4
+use floorhatch
+expect shown hatchbox
+expect message tin box
+open Floor hatch
+expect story crystal 1
+expect done

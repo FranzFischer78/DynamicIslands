@@ -1,0 +1,14 @@
+# Guide pictures of Viaduct Lagoon (CIPlay viaduct_lagoon_pics): Raft's camera, midday, calm. Points as in its recipe ("offset").
+island Viaduct Lagoon
+offset 0 0
+hour 11
+weather Calm
+at -46 9 h=7.5
+wait 3
+picture viaduct_lagoon_atoll 30 40 -60 0 2 4
+picture viaduct_lagoon_station -34 10 20 -46 7 8
+picture viaduct_lagoon_viaduct -24 12 -14 -2 6 4
+picture viaduct_lagoon_cabin 36 10 -6 50 7 7
+at -9 4 h=-7
+wait 6
+picture viaduct_lagoon_cars -14 -6 -6 0 -10 4

@@ -1,0 +1,216 @@
+# Outer Breakwater - the fifth island of The End of the Ocean (SL14, the Concord Engine's outer wall)
+# An iron wall right across the island, two storeys high, with a gate house in the middle. South of it the storm the wall
+# was built against never stops: grey fog, rain, the sea thrown at the iron. North of it, out of the wind, the wall
+# keeper's garden: flowers of every colour, planters, a goat called Burr, and a stair up to the inner terrace. On the wall
+# walk an old token machine still works. Quest "The Wall" (11 steps): the gate house, the rain cistern's tank plans, the
+# pipe store, the gate crank, the keeper's purifier plans, the wall store, the inner stair.
+#
+# Built by the recipe player (CIRecipe outer_breakwater) through the editor's own operations. Points (metres over the
+# sea): the ground at 2 m north and south of the wall, the wall along z -6 from x -21 to 21 (6 m high, the gate x -3..3),
+# its walk at 6 m (z -5), the walk's stair at 13 -1, the vending machine at 4 -2, the keeper's hut x -12..-9, z 2..5, the
+# inner terrace at 6 m round 0 16 (its stair from 0 9), the storm outside south of z -8.
+include lib_sea
+include lib_features
+include lib_huts
+include lib_gravity
+include lib_concord
+include lib_areas
+new
+# (nature 10-24: hills and Raft-like trees over the whole island - the coordinator's check after the resize)
+gen Trees=0.4 Bushes=0.4 Rocks=0.55 Harvest=0.35 BeachThings=0.3
+gen Seed=14101 Radius=90 Height=15 Roughness=0.3 Peaks=2 Shape=0 Style=0 PeakShape=0.5 Cliffs=0.6 BeachWidth=0.6
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: a flat band either side of the wall, the inner terrace behind ---------------------------------------------
+brush flatten from -48 -11.74 to 48 -11.74 r=8 s=20 frames=300 h=2
+brush flatten from -23.48 7.19 to 15.2 -0.28 r=6 s=20 frames=200 h=2
+brush flatten at -1.63 25.9 r=7 s=20 frames=200 h=6
+origin
+clear from -48 -11.74 to 48 -11.74 r=9
+clear from -23.48 7.19 to 15.2 -0.28 r=6
+clear at -1.63 25.9 r=7
+
+# --- The wall: iron walls two high from x -45 to 45, the gate (two pieces) in the middle, the lintel over it ------------
+# (an RT_Wall1 runs 3 m along x back from its point: the piece at x spans x-3..x, as in lib_rt)
+for wx -41.8 0.2 3
+place RT_Wall1 wall at $wx -10.28 ground sit
+place RT_Wall1 wall at $wx -10.28 ground y=3
+next
+for wx 9.2 45.2 3
+place RT_Wall1 wall at $wx -10.28 ground sit
+place RT_Wall1 wall at $wx -10.28 ground y=3
+next
+place RT_PillarThick wall at 0.2 -10.28 ground
+place RT_PillarThick wall at 6.2 -10.28 ground
+place RT_Wall1 wall at 3.2 -10.28 ground y=3
+place RT_Wall1 wall at 6.2 -10.28 ground y=3
+place RT_Wall1 gate at 3.2 -10.28 ground sit
+place RT_Wall1 gate at 6.2 -10.28 ground sit
+prop wall tint.color=#4e5358
+prop wall tint.amount=0.6
+prop gate tint.color=#6b4a32
+prop gate tint.amount=0.6
+prop gate obj.name=gate
+
+# --- The wall walk on top, its stair, its tokens and the nest the gulls left -----------------------------------------
+for ux -41.8 42.2 6
+place RT_Floor walk at $ux -9.18 ground y=6 sz=0.25
+next
+place RT_Stair walkstair at 16.2 -5.28 ground sit yaw=180 sy=1.36
+prop walk tint.color=#4e5358
+prop walk tint.amount=0.6
+place QuestItemPickup_Tangaroa_Token - at -11.8 -9.88 ground y=7 drop
+place QuestItemPickup_Tangaroa_Token - at -4.8 -9.88 ground y=7 drop
+place QuestItemPickup_Tangaroa_Token - at 11.2 -9.88 ground y=7 drop
+place QuestItemPickup_Tangaroa_Token - at 18.2 -9.88 ground y=7 drop
+place Bird_Nest - at -6.8 -9.18 ground y=6.1
+vending wallvend at 7.2 -6.28 ground yaw=0
+
+# --- Outside: the gate house's zone and book, the rain cistern, the pipe store, the gate crank; the storm ----------------
+call tzone x=3.2 z=-14.28 al=gatezone id=gate_house r=5 msg="The gate house. Iron, salt-eaten, shut - and the storm at your back throwing the sea at it."
+call notebox x=-1.8 z=-13.78 yaw=10 al=keeperbook
+place VP_ConcretePipe01 - at -6.8 -15.28 ground sit scale=0.6 yaw=90
+place Loot_Chest cistern at -4.8 -14.28 ground sit yaw=180
+place Loot_Chest pipestore at 12.2 -14.28 ground sit yaw=180
+place "Box Big" - at 13.7 -15.28 ground sit yaw=15
+# (the wall builders' forklift and a rail wagon of plate, left outside in the storm)
+place VP_Forklift - at 15.2 -13.28 ground sit yaw=200
+place VP_Wagon02 - at -11.8 -13.78 ground sit yaw=90
+call wheel x=7.7 z=-12.78 yaw=180 al=gatecrank
+call weather x=0 z=-58.7 al=storm r=26 fog=#2b3036 fa=0.6 light=#6e7884 la=0.5 parts=mist h=3
+call loopsound x=0 z=-43.04 al=stormsound ev=event:/amb/rain_ocean r=24 vol=0.6 h=2
+
+# --- Inside: the keeper's garden, his hut and planters, the wall store, Burr the goat, the inner stair -----------------
+call weather x=-1.63 z=17.9 al=garden r=16 fog=#c8d4c0 fa=0.1 light=#fff2d8 la=0.35 parts=fireflies h=3
+push at -23.48 5.19 h=2
+call hut w=2 d=2 y=0.1
+place Loot_Chest keeperchest at 2.2 2.4 y=0.1 sit yaw=180
+place Placeable_Bed_Basic - at 1.2 1.2 y=0.1 sit yaw=90
+pop
+place Placeable_Cropplot_Medium - at -6.63 15.9 ground sit
+place Placeable_Cropplot_Medium - at -4.63 15.9 ground sit
+place Placeable_Cropplot_Medium - at -2.63 15.9 ground sit
+place Loot_ChestLarge wallstore at 14.2 -1.28 ground sit yaw=270
+place Creature_Goat burr at 9.2 1.72 ground
+prop burr creature.count=1
+scatter Pickup_Landmark_Flower_Red 2 at -2.8 -4.28 r=5 seed=14102 free=1
+scatter Pickup_Landmark_Flower_Yellow 2 at 9.2 -3.28 r=5 seed=14103 free=1
+scatter Pickup_Landmark_Flower_White 2 at -9.63 18.9 r=4 seed=14104 free=1
+scatter Pickup_Landmark_Flower_Blue 2 at 11.2 4.72 r=4 seed=14105 free=1
+scatter Pickup_Landmark_Flower_Black 1 at -1.63 21.9 r=3 seed=14106 free=1
+place RT_Stair innerstair at -1.63 19.4 ground sit yaw=0
+call tzone x=-1.63 z=24.9 al=innerzone id=inner_stair r=4 h=0 msg="The inner terrace, up out of the garden. From here, south over the wall: the storm. North: a canal of locks."
+scatter "Pickup_Landmark_Tree_Palm 2" 3 at -31.3 27.39 r=6 seed=14107 free=2
+call reef x=-62.61 z=43.04 r=5 seed=14108
+call shallows x=3.2 z=-4.28 r=109.57 deep=5 n=1 seed=14112
+
+# --- Discoveries: things to find off the quest path (not needed for the quest) ---------------------------------
+call tzone x=35.9 z=16 al=wallview id=wallview r=4 msg="A high point inland of the wall. On one side the surf hits the stone; on the other the water is as smooth as a pond."
+place Loot_Chest masonchest at -44.4 -56.2 ground sit yaw=39
+prop masonchest loot.refill=0
+call notebox x=-39 z=56.3 yaw=326 al=masonnotice
+call camp x=48.2 z=-52.7 yaw=137 fire=campfire_1
+call treasure x=-68.9 z=0.4 r=5 n=1 seed=14113
+
+# --- Areas (10-24: every story island has places all over it and its quest crosses it): the east ridge with its lookout and a
+# buried treasure, the smugglers' cave in the west shore, the masons' ruined lodge in the north, the plane in the storm
+call ar_ridge x1=56 z1=-24 x2=60 z2=28 h=9 top=7 r=9
+call ar_plants_tropical x=58 z=2 r=28 seed=14301
+call tzone x=58 z=2 al=eastridge id=eastridge r=7 msg="The top of the east ridge. The wall runs round below you - and to the south, the storm sits on the same spot and never moves."
+call treasure x=58 z=2 r=12 n=1 seed=14311
+call ar_cave x=-56 z=-24 h=3 yaw=180 al=wallcave chest=wallcavechest
+call tzone x=-56 z=-29 al=wallcavezone id=wallcave r=4 msg="A smugglers' cave in the west shore. Tokens, hundreds of them, pressed into the wet sand in rows."
+call ar_ruin x=12 z=64 h=3 yaw=0 al=masonlodge
+call notebox x=14.5 z=59.5 yaw=20 al=masonplan
+call ar_plane x=-8 z=-70 h=3 yaw=80 al=stormplane crate=stormcrate
+call notebox x=-12.5 z=-74.5 yaw=150 al=stormlog
+# vine cache placed by hand (scatter found no spot in run25): the chest behind Raft's choppable vines, machete
+place Loot_Chest vinechest14341 at -56 44 ground sit yaw=0
+prop vinechest14341 obj.name=vinechest14341
+prop vinechest14341 note.title=Behind the vines
+prop vinechest14341 beh.hidden=1
+loot vinechest14341 Rope*3;Nail*8;MetalIngot*2
+beside ChoppableVines vinewall14341 vinechest14341 d=1.6
+prop vinewall14341 on.use=hide|
+show|vinechest14341
+message||The machete bites through the vines. Something was hidden behind them.
+call ar_plants_tropical x=-56 z=44 r=14 seed=14321
+call ar_plants_tropical x=-24 z=64 r=14 seed=14331
+
+# --- Tools in use (10-24: a tool given earlier in the storyline is used again here, for optional finds): the
+# machete from Triangulation Rocks cuts the vines over a hidden chest, and a zipline from the ridge top is the quick way back down
+clear from 61 4 to 76 4 r=2.5
+place ZiplinePath_Landmark ridgezip at 57 4 ground
+zipto ridgezip 76 4
+
+# --- Unique layer (10-24): outer_breakwater device - see SL14_progress.md UNIQUE ISLANDS
+call lever x=-61 z=-18 yaw=0 al=smuglever
+prop smuglever if.use=signal|smugvines\n!signal|smugbolt
+prop smuglever else.use=message||A lever behind a curtain of vines - or already pulled.
+prop smuglever on.use=message||The lever drags a rusted rod out of the rock: the smugglers' bolt, its end shaped like a key.\nsignal||smugbolt\ngive||story:smugbolt*1
+place ChoppableVines smugvines at -61 -16.2 ground sit yaw=0 scale=1.2
+prop smugvines obj.name=smugvines
+prop smugvines on.use=hide|\nsignal||smugvines\nmessage||The machete cuts the vines down. Behind them, a lever set in the rock.
+place Loot_Chest smugbox at 7.5 60 ground sit yaw=0
+prop smugbox obj.name=smugbox
+prop smugbox if.open=has|story:smugbolt|1
+prop smugbox else.open=message||A strongbox with a long, odd keyhole - shaped like the end of a bolt.
+story smugbolt|Smugglers' bolt|MetalIngot|A rusted rod with a key-shaped end, drawn out of the rock in the smugglers' cave.
+note smugbox Smugglers' strongbox | The smugglers' strongbox. A ledger on top: every crate that went south to the Engine, and who paid.
+loot smugbox TitaniumOre*3;Battery*1;Bolt*4;Rope*2
+prop smugbox loot.refill=0
+prop wallcavechest if.open=has|story:raft-Tangaroa_KeyCard|1
+prop wallcavechest else.open=message||The smugglers' chest has a card slot stamped CONCORD. A keycard would open it.
+loot wallcavechest Scrap*4;Nail*10;Rope*2;Copper*1;TitaniumOre*2
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Outer Breakwater
+info author=Custom Islands
+info description=An iron wall right across the island with a gate house in the middle: the storm on one side, the wall keeper's quiet garden on the other - flowers, planters, a goat called Burr, and a token machine on the wall walk.
+island on.arrive=message||An iron wall, two storeys high, right across the island. The storm breaks on it. Over the top, very faintly, a goat.
+
+story gate|Wall gate open|Hinge|You wound open the gate in the Outer Breakwater.
+
+note keeperbook Wall keeper's book | WALL KEEPER'S BOOK\n\nDay 1 of my watch: storm.\nDay 40: storm.\nDay 400: storm. The wall holds. Burr eats the flowers.\n\nThe wall keeps the storm out of the engine's waters. Behind it the canal of locks goes on south. A woman came by with a radio - she asked for water and the way through. I opened the gate. Her name was Hedda. She left a crate of seeds for the next one.
+note cistern Rain cistern | The rain cistern's chest, dripping: a water tank's plans in a jar.
+note pipestore Pipe store | The pipe store: a water pipe's plans and a length of the real thing.
+note keeperchest Keeper's chest | The wall keeper's chest: an electric purifier's plans, and seeds from Hedda's crate.
+note wallstore Wall store | The wall's big store: a large storage's plans and the keeper's spare everything.
+loot cistern Blueprint_WaterTank*1;Plastic*4;Scrap*2
+prop cistern loot.refill=0
+loot pipestore Blueprint_Pipe_Water*1;Scrap*3;Bolt*2
+prop pipestore loot.refill=0
+loot keeperchest Blueprint_ElectricPurifier*1;Seed_Strawberry*2;Seed_Watermelon*2;Raw_Beet*2;Raw_Potato*2
+prop keeperchest loot.refill=0
+loot wallstore Blueprint_Storage_Large*1;Plank*20;Nail*20;Rope*4
+prop wallstore loot.refill=0
+
+prop gatecrank beh.use=Wind the gate crank
+prop gatecrank if.use=!signal|gate
+prop gatecrank on.use=signal||gate\ngive||story:gate*1\nhide|gate\nmessage||Chains groan inside the wall. The gate slides up into the iron - and through it, the quiet: a garden, out of the wind.\nsound||event:/raft/engine/waterwheel
+prop gatecrank else.use=message||The gate is open.
+
+note masonchest Mason's chest | A mason's chest, heavy: stone, clay and iron for mending the wall.
+loot masonchest Stone*6;Clay*4;MetalIngot*2;Nail*6
+note masonnotice Mason's notice | NOTICE - nailed to a post\n\nWall gangs: the sea gets through at the third bend again.\nMend it before the storm months. The wall holds the sea back from what is inside.\nDo not ask what is inside. - The Overseer
+note wallcavechest Smugglers' chest | The smugglers' chest: a bag of wall tokens and the tools to fake more.
+prop wallcavechest loot.refill=0
+note masonplan Masons' plan | MASONS' PLAN - a sheet held flat with four stones\n\nThe wall is a circle because the sea inside it must be still.\nWho ordered it: the Concord. What it keeps still: they did not say.\nWe built the lodge from the leftover blocks. The storm took the roof the week we finished.\n\nThe smugglers bolted their strongbox in our lodge and hid the bolt's lever in their cave, behind the vines.
+note stormlog Storm plane log | STORM PLANE LOG\n\nThe storm south of the wall never drifts. Flew into it to see why.\nIn the middle the rain fell upward for a second and every instrument read zero.\nCame down on the south shore with one wing. The wall's lights were the last thing I saw.
+quest title=The Wall
+quest intro=An iron wall, a storm and a gate house. Go up to the gate.
+step reach|gate_house|1|Go up to the gate house
+step blueprint|Blueprint_WaterTank|1|Take the water tank plans from the rain cistern
+step blueprint|Blueprint_Pipe_Water|1|Take the water pipe plans from the pipe store
+step collect|story:gate|1|Wind the gate crank
+step blueprint|Blueprint_ElectricPurifier|1|Take the purifier plans from the keeper's chest in his hut
+step blueprint|Blueprint_Storage_Large|1|Take the large storage plans from the wall store
+step reach|eastridge|1|Climb the east ridge above the wall
+step collect|story:smugbolt|1|Cut the vines in the smugglers' cave in the west and pull the lever behind them
+step open|Smugglers' strongbox|1|Open the smugglers' strongbox at the ruined lodge in the north
+step read|Storm plane log|1|Read the log at the plane wreck in the southern storm
+step reach|inner_stair|1|Climb the stair to the inner terrace
+quest done=Through the wall and out of the storm. South of the terrace a canal runs on through three locks.
+quest reward=Seed_Pineapple*2;Plank*10;Rope*4
+
+save Outer Breakwater

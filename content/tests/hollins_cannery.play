@@ -1,0 +1,38 @@
+# Hollins Cannery (CIPlay hollins_cannery): The Lullaby Frequency's first island, quest "The Night Shift". The yard (3 m)
+# round x -14..10; the hall x -12..-3 z -3..3 (door x -9..-7.5 on z -3); the cold store x 0..4.5 z -3..1.5 (its door
+# panel x 1.5..3, the keypad on a post at -0.8 -3.6); the slipway down x -8 from z -11 to -34.
+island Hollins Cannery
+offset 0 0
+expect step 0
+expect title The Night Shift
+wait 3
+expect shown hallhum
+expect hidden colddark
+walk -8 -30 to -8 -26 to -8 -18
+zone slipway
+expect step 1
+expect message shift bell
+walk -8 -12 to -8.25 -5 to -8.25 -1 h=3.2
+read Shift log - night of the 14th
+expect step 2
+code coldkeypad 111 wrong
+expect shown colddoor
+code coldkeypad 312
+expect hidden colddoor
+expect shown colddark
+expect step 3
+walk 2.25 -5 to 2.25 -2 to 2.25 -0.5 h=3.2
+zone coldstore
+wait 2
+kill Rat
+expect step 4
+open Foreman's desk
+expect story cagekey 1
+expect step 5
+use pimcage
+expect survivor lullaby_pim
+open Pim's tin box
+expect hidden hallhum
+expect message She sings at 3:12
+expect done
+storespot 0 -6

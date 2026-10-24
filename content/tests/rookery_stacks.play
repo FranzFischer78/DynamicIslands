@@ -1,0 +1,46 @@
+# Rookery Stacks (CIPlay rookery_stacks): the soup kitchen, the petition, the rats, the smithy (titanium tools), the
+# tollgate, the screechers, the packer's hut (advanced backpack), three water tokens in the barrels (one on the key, two
+# on the roofs), the elders' plan, their chest (electric zipline tool), the storm warning; the treasure.
+# offset 0 0 is a placeholder: phase 2 sets it from the recipe's save log (PLAY_FORMAT: Coordinates).
+island Rookery Stacks
+offset 0 0
+expect step 0
+expect title The Lowest Roofs
+zone soup_kitchen
+expect step 1
+read Rookery petition
+expect step 2
+kill Rat
+expect animals Rat 0
+expect step 3
+open Rookery smithy
+wait 3
+expect step 4
+zone tollgate
+expect step 5
+kill Screecher
+expect animals Screecher 0
+expect step 6
+open Packer's hut
+wait 3
+expect step 7
+openat 1.65 -14.6
+openat -20.6 -49.1
+openat -4.8 -55.5
+expect story watertoken 3
+expect step 8
+read Rookery elders' plan
+expect step 9
+open Elders' hut
+wait 3
+expect step 10
+zone gull_stacks
+expect step 11
+read Bathhouse slate
+expect step 12
+open Family van's crate
+wait 3
+expect step 13
+read Storm warning
+expect done
+dig

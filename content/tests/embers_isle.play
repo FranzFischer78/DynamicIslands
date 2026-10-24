@@ -1,0 +1,49 @@
+# Play test of Embers Isle (CIPlay embers_isle, in a test world 'CI ...'). Points as in its recipe: the landing beach at
+# 12 8.5 (0.6 m), the trail up to the village terrace (3.5 m, x 15-32, z -2..8) round the fire at 23.5 3; the fire-keeper's
+# hut at the terrace's north-east (ladder at 27.38 5.75, deck 6.1 m); the shore path from the terrace's east end round the
+# headland's north side (43 9) to the shelf at the cliff's foot (x 49.5) and the sea cave's mouth (48 -10.6), its passage
+# through the cliff at 0 m with the boat and the sea chest on a rock (40.6 -12.4)
+island Embers Isle
+offset 1.8103 -0.3116
+expect step 0
+expect title Before They Come Back
+wait 5
+
+# The landing: the box under the rocks; up the trail into the village
+walk 12.5 9.5 to 11 9.3 h=0.6
+open Box under the rocks
+walk 12 8 to 14.6 7.2 to 18.5 6.6 to 20.5 5 h=3.5
+zone village
+expect step 1
+
+# The journal in the open cage by the fire; the hunters' store
+read Botanist's journal
+expect step 2
+open Hunters' store
+
+# Up the fire-keeper's ladder; his chest - the key, and the horn: the hunters come
+walk 20.5 5 to 22 4.5 to 26.2 5.75 h=3.5
+climb 27.38 5.75 h=3.5
+expect stand 29.7 5.6 h=6.1 below=8
+open Fire-keeper's chest
+expect story chainkey 1
+expect step 3
+expect message hunters are back
+expect shown hunters
+expect shown chase
+
+# Run: the shore path round the headland, the satchel by the way, along the shelf to the sea cave
+walk 26.5 6.5 to 31 7 to 34 7.7 to 36.5 8.3 h=3
+open Botanist's satchel
+expect step 4
+walk 36.5 8.3 to 40 8.9 to 43 9 to 47 8 to 49.5 6 h=0.3
+walk 49.5 6 to 49.5 -3 to 49.5 -8 to 48.5 -10.9 to 45 -11.7 to 42.2 -12.0 h=0
+reach Botanist's sea chest
+zone seacave
+open Botanist's sea chest
+wait 2
+expect item Blueprint_Cropplot_Medium_Tier3 1
+expect done
+
+# The Bountiful's barrel by her wreck in the bay
+open The Bountiful's barrel

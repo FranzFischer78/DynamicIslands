@@ -1,0 +1,79 @@
+# Play test of Cablecar Stacks (CIPlay cablecar_stacks, in a test world 'CI ...'). Points as in its recipe: the landing
+# beach at 53 -47 and the ramp up to the shore station's stack (top 6 m at 36 -30); the supply car's hole at 15 -38 (7 m
+# down); the mid station at -8 -45 (28 m), the high station at -40 -9 (44 m); the summit at -4 -4 (55 m), the mast at
+# 1.5 -3 (its ladder on the north side, its platform 73 m), the express car at -9.2 -5.5; the landing stage at 55 -50
+island Cablecar Stacks
+offset 1.1169 -1.1095
+expect step 0
+expect title The Skyline
+expect animals Goat 3
+expect animals Chicken 2
+expect animals Dolphin 2
+expect hidden wheel1spin
+expect hidden landing
+wait 5
+
+# The shore station: the log, the box; car one has no power; the dive to the supply car for the fuse
+walk 54 -47.5 to 53 -47 to 44.5 -39 to 42 -36 h=6
+zone shorestation
+expect step 1
+read Operator's log
+expect step 2
+open Ticket booth box
+use car1
+expect message No power
+zone wreck
+open Supply car's spares box
+expect story fuse 1
+expect step 3
+
+# The fuse fitted: the wheel spins; car one to the mid station - the screechers; car two to the high station
+use fusebox
+expect shown wheel1spin
+use car1
+wait 8
+expect step 4
+kill Screecher
+expect step 5
+expect shown wheel2spin
+open Mid station box
+use car2
+wait 8
+expect step 6
+
+# The high station: the lineman's note; the brakes - red first is refused; blue, green, red; car three to the summit
+read Lineman's note
+expect step 7
+open High station box
+use brakered
+expect message Wrong order
+use brakeblue
+use brakegreen
+use brakered
+expect shown wheel3spin
+use car3
+wait 9
+expect step 8
+
+# The summit: the bear; the keeper's diary; up the mast for the key; the vault; the express car down to the beach
+kill Bear
+expect step 9
+read Summit keeper's diary
+expect step 10
+climb 1.5 -2.6 h=55
+climb 1.5 -2.6 h=61
+climb 1.5 -2.6 h=67
+expect stand 2.25 -3.65 h=73 below=75
+zone mast
+expect step 11
+open Mast's key box
+expect story vaultkey 1
+expect step 12
+use express
+expect message lamp is dark
+open Summit vault
+expect step 13
+expect shown landing
+use express
+wait 10
+expect done

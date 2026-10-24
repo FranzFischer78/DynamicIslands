@@ -1,0 +1,63 @@
+# Play test of The Abyss (CIPlay the_abyss, in a test world 'CI ...'). Points as in its recipe: the expedition's raft
+# over the trench's east edge (its deck 0.13 m above the sea, x 14-23, z -8.75 to -1.25), the air line's valve at its
+# west edge; the air pockets down the trench - the container on the shelf (12 m down), the gas tank on the ledge
+# (18 m), the shack on the floor (42 m) - and the lair on the floor. The quest has 20 steps: the raft, the dive, the
+# lair, the way back up; its pages steps are the journal's pages (the log, the chests' tags, the valve, the angler).
+island The Abyss
+expect step 0
+expect title The Bottom of the Abyss
+
+# Onto the expedition's raft: the leader's log on the table
+walk 22 -5 to 18 -5 to 16 -6.5 h=0.2
+zone camp
+expect step 1
+read Expedition leader's log
+wait 1
+expect step 3
+
+# The air line's valve is rusted fast without the wrench; the air pockets are empty
+use airvalve
+expect message rusted fast
+expect hidden airpockets
+
+# The wrench from the camp chest turns it: the pockets fill
+open Camp chest
+expect story abysswrench 1
+wait 1
+expect step 6
+use airvalve
+expect message wrench bites
+expect story abysswrench 0
+expect shown airpockets
+wait 1
+expect step 7
+
+# The dive: breath at each pocket on the way down - the container on the shelf, the gas tank on the ledge, the shack
+# on the floor
+air pocket1
+expect step 8
+air pocket2
+expect step 9
+air pocket3
+
+# The lair: the Abyssal Angler (its journal page) and its brood, the hoard
+zone lair
+expect step 11
+expect message not a fish's
+kill Angler fish
+wait 1
+expect step 13
+open Lair hoard
+wait 3
+expect item Blueprint_HeadLight_Advanced 1
+wait 1
+
+# The way back up through the pockets to the raft (one step since R1b) - and the leader's log once more. (The raft may
+# be counted already from boarding it twice at the start, so no exact step before it.)
+zone pocket3
+zone pocket2
+zone pocket1
+zone camp
+expect step 18
+read Expedition leader's log
+expect done

@@ -1,0 +1,304 @@
+# Saltpan Delta - a new island of the library, twice the size (x2)
+# A salt works on a low desert delta (Shape 5, Style 2): three square pans of brine in a row north to south on the
+# levelled works, a feed channel from the north coast, sluice boards between the pans, the pump house by the channel, the
+# salt store by the south pan, a wagon line south from the pans to a jetty and the shipping office at its root. The
+# company went bust overnight and the crew left the last harvest in the pans; the foreman's notice promises the pay
+# chest to whoever brings three sacks of salt down to the jetty. Quest "The Last Harvest" (10 steps, restart a works):
+# the pump house, the notice, the crank, three pans drained in turn (north to south) and raked, the rats in the store,
+# the wagon loaded, the ride down the line, the pay chest (the recycler blueprint).
+#
+# Built by the recipe player (CIRecipe saltpan_delta) through the editor's own operations. Points: the works levelled at
+# 1.5 m over x -44..-10, z -12..44; the pans x -31..-19 dug to -0.4 m (brine = the sea's water): the north pan z 26..36,
+# the middle z 13..23, the south z 0..10; the sluices across notches at x -25 in the banks south of each pan (z 24.5,
+# 11.5, -1.5), the crank posts beside them at x -22; the feed channel x -25 from the north pan to the sea; the pump house (a
+# relay house, its frame's north-east corner at -31 52, its veranda east) by the channel; the salt store x -41..-38,
+# z 2..5; the rails x -25.5 / -24.5 from z -8 to -57, the wagon at -25 -9, the buffer at -25 -58.5; the jetty x
+# -27..-23, z -50..-62 (deck 1.5 m); the shipping office x -33..-30, z -51..-48.
+include lib_relay
+include lib_sea
+new
+# (nature: desert, Like Raft - acacias, scrub and dry grass on the banks; the pans and the line cleared)
+gen Trees=0.38 Bushes=0.5 Rocks=0.55 Harvest=0.25 BeachThings=0.3
+gen Seed=9202 Radius=63 Height=5 Roughness=0.35 Peaks=1 Shape=5 Style=2 BeachWidth=0.7 Cliffs=0 PeakShape=0.2
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== The works: levelled at 1.5 m; the pans dug under the sea's level, the notches of their sluices, the feed channel;
+# the rail bed south to the shore, the shipping office's pad ===============================================================
+for wz -12 44 1.95
+brush flatten from -44 $wz to -10 $wz r=1.9 s=20 frames=40 h=1.5
+next
+brush sand from -44 16 to -10 16 r=30 s=20 frames=30
+macro pan z
+for px -31 -19 1.95
+brush flatten from $px {$z-3} to $px {$z+3} r=1.9 s=20 frames=60 h=-0.4
+next
+brush flatten from -25 {$z-4.5} to -25 {$z-8.4} r=1.2 s=20 frames=40 h=-0.4
+end
+call pan 31
+call pan 18
+call pan 5
+brush flatten from -25 35 to -25 62 r=1.6 s=20 frames=60 h=-0.6
+brush flatten from -25 -8 to -25 -50 r=3 s=20 frames=150 h=1.3
+brush flatten at -31.5 -49.5 r=3.5 s=20 frames=40 h=1.5
+brush flatten at -39.5 3.5 r=3.2 s=20 frames=120 h=1.5
+clear from -44 -12 to -10 -12 r=4
+clear from -44 16 to -10 16 r=30
+clear from -25 -12 to -25 -62 r=4
+clear at -31.5 -49.5 r=5
+
+# ----- The sluices: a board across the notch in each pan's south bank (it lifts out), a crank wheel on a post beside it;
+# the salt heaps on the pans' floors (hidden until they drain); rakes and spades on the banks
+macro sluice board wheel salt z
+place RT_Wall1 $board at -25 {$z-6.5} h=-1.2 sx=0.9
+place RT_Pillar - at -22 {$z-6.5} ground sy=0.6
+place TP_Selene_DoorCrankWheel $wheel at -21.91 {$z-6.5} ground y=1.2 rot=0,0,0 yaw=-90
+place TP_SnowDrift02 $salt at -27 {$z+0.5} h=-0.4 yaw=30
+place TP_SnowDrift02 $salt at -24.6 {$z-0.8} h=-0.4 scale=0.8 yaw=200
+place TangaroaHandSpade - at -20 {$z-6.2} ground tilt=20 yaw=80 scale=4
+end
+call sluice sluice1 crank1 salt1 31
+call sluice sluice2 crank2 salt2 18
+call sluice sluice3 crank3 salt3 5
+
+# ===== The pump house by the feed channel: Balboa's relay house, its veranda east; the pump outside on the channel,
+# pipes to it; the house on posts; inside the foreman's locker (its box in front), the workbench; the notice by the door ===================
+push at -31 52 h=1.5
+call relay_house
+# (its deck stands 1 m over the sand and the channel's edge: posts under its corners and middles, down into the ground)
+for px -0.1 -10.367 -5.1335
+for pz -0.1 -10.367 -5.1335
+place RT_Pillar - at $px $pz y=-3 sy=0.9
+next
+next
+place Locker - at -9.4 -6 y=0 sit yaw=90
+place Loot_Chest locker at -8.6 -6 y=0 sit yaw=90
+place Workbench - at -6 -1.2 y=0 sit yaw=180
+place Crate_Big_01 - at -9 -9.5 y=0 sit
+place Note_Board notice at -3.2 -1.9 y=0 sit yaw=90
+pop
+place UT_WaterPump - at -28 47.5 h=1.5 yaw=90 scale=0.45
+line WaterPipe_Long_2 from -28 45 to -25.6 45 step=1.5 h=1.7
+place Zone_Trigger pumphouse at -29 45 h=2.5
+place Creature_Chicken hens at -36 38 ground
+
+# ===== The salt store west of the south pan: a shed of Raft's wooden walls, its doorway east; sacks, crates, a box; the
+# rats ======================================================================================================================
+push at -41 2 h=1.5
+place Block_Floor_Wood - at 0.75 0.75 y=0.1
+place Block_Floor_Wood - at 2.25 0.75 y=0.1
+place Block_Floor_Wood - at 0.75 2.25 y=0.1
+place Block_Floor_Wood - at 2.25 2.25 y=0.1
+place Block_Wall_Wood - at 0.75 0 y=0.15
+place Block_Wall_Wood - at 2.25 0 y=0.15
+place Block_Wall_Wood - at 0.75 3 y=0.15
+place Block_Wall_Wood - at 2.25 3 y=0.15
+place Block_Wall_Wood - at 0 0.75 y=0.15 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.15 yaw=90
+place Block_Wall_Wood - at 3 0.75 y=0.15 yaw=90
+place Block_Roof_Straight_Wood - at 0.75 0 y=2.55 yaw=180
+place Block_Roof_Straight_Wood - at 2.25 0 y=2.55 yaw=180
+place Block_Roof_Straight_Wood - at 0.75 3 y=2.55
+place Block_Roof_Straight_Wood - at 2.25 3 y=2.55
+place Crate_Big_01 - at 1 2.4 y=0.2 sit
+place "Box Small" storebox at 0.7 0.7 y=0.2 sit yaw=20
+pop
+place Zone_Trigger saltstore at -37.5 3.5 h=2.5
+place Creature_Rat rats at -39.5 3.5 h=2
+
+# ===== The wagon line: two rails on ties from the pans' south end down to the jetty; the salt wagon at its head with the
+# brake lever on a post; two old wagons on a siding; the buffer at the jetty's end =====================================
+line RT_Beam from -25.5 -6 to -25.5 -60 step=6 h=1.6
+line RT_Beam from -24.5 -6 to -24.5 -60 step=6 h=1.6
+for tz -7 -59 -1.2
+place test_debris_plank - at -25 $tz h=1.48 scale=0.45 yaw=0
+next
+place VP_Wagon02 wagon at -25 -9 h=1.8 scale=1.4
+place RT_Pillar - at -22.8 -9 h=1.5 sy=0.4
+place TP_LaserControlPanel_lever brake at -22.8 -9 h=2.75 scale=3 yaw=270
+place VP_Wagon01 - at -20 -6 h=1.5 yaw=10
+place VP_Wagon01 - at -20 -8.4 h=1.5 yaw=-5
+place Pillar_04 - at -25 -58.8 h=1.5
+
+# ===== The jetty: a deck of planks on posts out into the south sea; the shipping office at its root (the pay chest, the
+# ledger); a barrel on the deck, a boat tied up ============================================================================
+for jx -26.25 -23.25 1.5
+for jz -50.75 -61.3 -1.5
+place Block_Floor_Wood - at $jx $jz h=1.45
+next
+next
+for jz -52 -62 -3.3
+place Block_Pillar_Wood - at -26.9 $jz h=-3 sy=1.8
+place Block_Pillar_Wood - at -22.6 $jz h=-3 sy=1.8
+next
+place Zone_Trigger jetty at -23.6 -56 h=3
+place Loot_Barrel jettybarrel at -23.4 -59.5 h=1.55 sit
+place RT_PlasticBoat - at -20.5 -59 h=-0.2 yaw=10
+push at -33 -51 h=1.5
+place Block_Floor_Wood - at 0.75 0.75 y=0.1
+place Block_Floor_Wood - at 2.25 0.75 y=0.1
+place Block_Floor_Wood - at 0.75 2.25 y=0.1
+place Block_Floor_Wood - at 2.25 2.25 y=0.1
+place Block_Wall_Wood - at 0.75 0 y=0.15
+place Block_Wall_Wood - at 2.25 0 y=0.15
+place Block_Wall_Wood - at 0.75 3 y=0.15
+place Block_Wall_Wood - at 2.25 3 y=0.15
+place Block_Wall_Wood - at 0 0.75 y=0.15 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.15 yaw=90
+place Block_Wall_Wood - at 3 2.25 y=0.15 yaw=90
+place Block_Roof_Straight_Wood - at 0.75 0 y=2.55 yaw=180
+place Block_Roof_Straight_Wood - at 2.25 0 y=2.55 yaw=180
+place Block_Roof_Straight_Wood - at 0.75 3 y=2.55
+place Block_Roof_Straight_Wood - at 2.25 3 y=2.55
+place Loot_ChestLarge paychest at 0.8 2.2 y=0.2 sit yaw=90
+place Note_Book ledger at 2.2 2.4 y=0.2 sit yaw=30
+pop
+
+# ===== The banks: palms along the line, the goats on the north banks, dolphins off the jetty, the glare over the pans;
+# a barrel sunk in the feed channel; Raft's finds in the shallows ==========================================================
+for pz -16 -46 -6
+place "Pickup_Landmark_Tree_Palm 2" - at -29.5 $pz ground yaw={$pz*7}
+next
+place Creature_Goat goats at 0 40 ground
+place Creature_Dolphin dolphins at -10 -75 h=-3
+place Zone_Atmosphere glare at -25 18 h=6
+place Loot_SunkenBarrel channelbarrel at -25 50 ground
+call shallows r=83 deep=5 n=1
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): melons, pineapples, flowers ----------
+scatter "Pickup_Landmark_WatermelonLandmark" 6 at 0 0 r=44.1 seed=4118 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=44.1 seed=4128 free=3
+scatter "Pickup_Landmark_Flower_Yellow" 4 at 0 0 r=44.1 seed=4138 free=3
+scatter "Pickup_Landmark_Flower_Red" 4 at 0 0 r=44.1 seed=4139 free=3
+
+# ===== Settings, story items, notes, behaviours, quest (10 steps) =========================================================
+info title=Saltpan Delta
+info author=Custom Islands
+info description=A salt works on a desert river delta, stopped in the middle of the season with the last harvest still in its pans. Drain the pans in turn, rake the salt, load the wagon and ride it down the line - the foreman left the pay for whoever does.
+island on.arrive=message||Flat sand, shining channels, and in the middle three square pools of brine with a pump house standing over them. Gulls and the smell of salt.
+
+story crank|Sluice crank|quest:Varuna_CraneKey|A cranked iron handle that fits the sluice posts.
+story saltsack|Sack of salt|quest:Caravan_BatteryChargerPart|A sack of coarse white salt, raked from a pan.
+story waybill|Waybill|quest:Tangaroa_Tape|The wagon's waybill: THREE SACKS - SALT - FOR THE JETTY.
+
+note notice Foreman's notice | SALTPAN DELTA WORKS - NOTICE\n\nThe company has gone under. Wages stop today. Sorry, lads.\n\nThe last harvest is still in the pans. The brine runs north to south: open the north sluice first, then the middle, then the south - open them out of order and you flood the pan below. The crank is in my locker.\n\nThree sacks on the wagon and down to the jetty, and the pay chest in the office is for whoever does it. Mind the store. The rats have had it since Tuesday.\n- Gus, foreman
+note locker Foreman's locker | Gus's locker: his spare shirt, his pipe, and the sluice crank on a hook.
+loot locker story:crank*1;Rope*2;Leather*1
+prop locker loot.refill=0
+note ledger Shipping ledger | SHIPPING LEDGER - SALTPAN DELTA\n\nWeek 31: 40 sacks. Week 32: 38 sacks. Week 33: 3 sacks (last harvest - for whoever brings them).\n\nPay chest: the key is the waybill. Bring it in with the salt.
+note paychest Works pay chest | The works' pay chest: the season's last wages in coin, the plans for the company's recycler, a drum of good salt meat.
+loot paychest TradeToken*10;Blueprint_Recycler*1;Cooked_GenericMeat*3;Stone*4
+prop paychest loot.refill=0
+prop paychest if.open=has|story:waybill|1
+prop paychest else.open=message||The pay chest is locked. A brass plate on it: PAY ON PRESENTATION OF THE WAYBILL.
+note storebox Salt store box | A box in the store: twine, sacking, a lantern.
+loot storebox Rope*3;Plank*4;Scrap*2
+prop storebox loot.refill=0
+note jettybarrel Jetty barrel | A barrel on the jetty: nails and planks for the deck.
+loot jettybarrel Plank*6;Nail*10
+prop jettybarrel loot.refill=0
+note channelbarrel Sunk barrel | A barrel sunk in the feed channel, crusted with salt.
+loot channelbarrel MetalOre*2;Scrap*3;Clay*2
+prop channelbarrel loot.refill=0
+
+prop crank1 obj.name=crank1
+prop crank1 beh.use=Crank the north pan's sluice open
+prop crank1 if.use=has|story:crank|1
+prop crank1 on.use=message||The board grinds up out of its notch and the brine runs off south, gurgling. Give it a moment.\nopen|sluice1\nsound||event:/exploring/temperence/selene/handle_spin\nwait|8\nshow|salt1\nmessage||The north pan has drained: a white heap of salt glitters on its floor.
+prop crank1 else.use=message||A crank post with no crank on it. The foreman's notice says where the crank is.
+prop crank2 obj.name=crank2
+prop crank2 beh.use=Crank the middle pan's sluice open
+prop crank2 if.use=has|story:crank|1\nstate|sluice1|open
+prop crank2 on.use=message||The middle sluice lifts and the brine runs on south.\nopen|sluice2\nsound||event:/exploring/temperence/selene/handle_spin\nwait|8\nshow|salt2\nmessage||The middle pan has drained: salt on its floor.
+prop crank2 else.use=message||The middle pan is still brimming from the north one. North sluice first - the brine runs north to south.
+prop crank3 obj.name=crank3
+prop crank3 beh.use=Crank the south pan's sluice open
+prop crank3 if.use=has|story:crank|1\nstate|sluice2|open
+prop crank3 on.use=message||The south sluice opens on the channel and the last brine runs out to sea.\nopen|sluice3\nsound||event:/exploring/temperence/selene/handle_spin\nwait|8\nshow|salt3\nmessage||The south pan has drained.
+prop crank3 else.use=message||The south pan is fed by the middle one. Middle sluice first.
+prop sluice1 obj.name=sluice1
+prop sluice1 beh.move=0,1.4,0
+prop sluice1 beh.moveTime=3
+prop sluice1 beh.moveMode=switch
+prop sluice2 obj.name=sluice2
+prop sluice2 beh.move=0,1.4,0
+prop sluice2 beh.moveTime=3
+prop sluice2 beh.moveMode=switch
+prop sluice3 obj.name=sluice3
+prop sluice3 beh.move=0,1.4,0
+prop sluice3 beh.moveTime=3
+prop sluice3 beh.moveMode=switch
+prop salt1 obj.name=salt1
+prop salt1 beh.hidden=1
+prop salt1 beh.use=Rake the salt into a sack
+prop salt1 if.use=!signal|raked1
+prop salt1 on.use=message||You rake the heap into a sack and tie it off. Heavy.\ngive||story:saltsack*1\nsignal||raked1\nsound||event:/crafting/shovel_dig
+prop salt1 else.use=message||You've raked this pan.
+prop salt2 obj.name=salt2
+prop salt2 beh.hidden=1
+prop salt2 beh.use=Rake the salt into a sack
+prop salt2 if.use=!signal|raked2
+prop salt2 on.use=message||A second sack of salt.\ngive||story:saltsack*1\nsignal||raked2\nsound||event:/crafting/shovel_dig
+prop salt2 else.use=message||You've raked this pan.
+prop salt3 obj.name=salt3
+prop salt3 beh.hidden=1
+prop salt3 beh.use=Rake the salt into a sack
+prop salt3 if.use=!signal|raked3
+prop salt3 on.use=message||The third sack. That's the last harvest.\ngive||story:saltsack*1\nsignal||raked3\nsound||event:/crafting/shovel_dig
+prop salt3 else.use=message||You've raked this pan.
+prop wagon obj.name=wagon
+prop wagon beh.move=0,0,-48
+prop wagon beh.moveTime=10
+prop wagon beh.moveMode=switch
+prop wagon beh.use=Load the three sacks onto the wagon
+prop wagon if.use=quest|7\ntake|story:saltsack|3
+prop wagon on.use=message||Three sacks in the wagon, roped down. A waybill is clipped to the side: sign it and it's yours.\ngive||story:waybill*1\nsignal||loaded\nsound||event:/exploring/utopia/wood_putdown
+prop wagon else.use=message||The salt wagon. Three sacks of salt, the notice says - and the rats out of the store first.
+prop brake obj.name=brake
+prop brake beh.use=Release the brake and ride the wagon down the line
+prop brake if.use=signal|loaded
+prop brake on.use=message||You kick the brake off and jump on. The wagon rolls, clacking, faster - along the bank, past the palms -\nopen|wagon\nsound||event:/exploring/utopia/lift_pull\nwait|10\nteleport|jetty\nmessage||- and bangs into the buffer at the jetty. You're there.\nsound||event:/exploring/obstacles/varuna/towercrane/tc_impact
+prop brake else.use=message||The wagon's brake. Load it first - three sacks.
+
+prop pumphouse zone.id=pumphouse
+prop pumphouse zone.radius=8
+prop pumphouse zone.message=The pump house: a silent pump, pipes out to the channel, a notice by the door.
+prop saltstore zone.id=saltstore
+prop saltstore zone.radius=5
+prop saltstore zone.repeat=never
+prop saltstore zone.message=The salt store - and it's moving. Rats, fat ones, pouring out of the sacks!
+prop rats creature.count=4
+prop rats creature.respawn=0
+prop rats creature.zone=saltstore
+prop jetty obj.name=jetty
+prop jetty zone.id=jetty
+prop jetty zone.radius=6
+prop jetty zone.message=The jetty and the shipping office. The salt has arrived.
+prop glare atmo.fog=#f0e8d8
+prop glare atmo.fogAmount=0.1
+prop glare atmo.light=#fff0d0
+prop glare atmo.lightAmount=0.2
+prop glare zone.radius=30
+prop hens creature.count=3
+prop goats creature.count=2
+prop dolphins creature.count=2
+
+quest title=The Last Harvest
+quest intro=A salt works on a desert delta, its pans still full. The foreman left a notice at the pump house.
+step reach|pumphouse|1|Walk up to the pump house by the feed channel
+step read|Foreman's notice|1|Read the foreman's notice
+step collect|story:crank|1|Take the sluice crank from the foreman's locker
+step collect|story:saltsack|1|Drain the north pan and rake its salt
+step collect|story:saltsack|2|Drain the middle pan and rake its salt
+step kill|Rat|4|Clear the rats out of the salt store by the south pan
+step collect|story:saltsack|3|Drain the south pan and rake its salt
+step collect|story:waybill|1|Load the three sacks onto the salt wagon
+step reach|jetty|1|Release the brake and ride the wagon down to the jetty
+step open|Works pay chest|1|Open the pay chest in the shipping office
+quest done=Three sacks of salt on the jetty and the last wages in your pocket. Somewhere, Gus the foreman would be pleased.
+quest reward=Stone*4;Cooked_GenericMeat*3;Rope*3
+
+# --- A Raft store by the salt works: the company shop (Raft's goods, and plans the crew missed) --
+store saltshop at -38 28 ground
+
+save Saltpan Delta

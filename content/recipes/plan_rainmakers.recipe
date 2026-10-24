@@ -1,0 +1,25 @@
+# The Rainmakers - a world plan of the library: the stations of Nimbus Works, the company that made it rain
+# A main story in place of Raft's (Raft's own story off, random islands on): nine islands down the line of Nimbus Works'
+# weather stations, each one's frequency on the Receiver given when the one before is done - the weir, the silos, the
+# kite meadow, the fog works, the reservoir, the lightning array, the salt kilns, the cloud-watchers' club - and at the
+# end the Rain Engine on its mountain, which has made it rain for eleven years. Dagny Holm, the chief engineer who built
+# it, rides on the raft's story from station to station. The blueprints of Raft's own story are in the stations' chests.
+#
+# Built by the recipe player (CIRecipe plan_rainmakers) in the editor's World plans window. Its play test:
+# content\tests\plan_rainmakers.play.
+plan new The Rainmakers
+plan description The stations of Nimbus Works, the company that made it rain: nine islands down its weather line - a weir, silos, a kite meadow, a fog works, a reservoir, a lightning array, salt kilns and a cloud-watchers' club - and at the end the Rain Engine on its mountain. Raft's own story is off; its blueprints are in the stations' chests. Its main islands are about 70% the size of Raft's own big islands.
+plan random on
+plan story off
+plan rule weir | island:Hailstone Weir | start | receiver:500 | The Receiver crackles: an automatic weather report, then a woman's voice - "Nimbus Works, Hailstone Weir. Is anybody out there?" | Hailstone Weir | first | quest
+plan rule silos | island:Cirrus Silo Farm | start | receiver:800 | The weir's log gives the next station on the line: Cirrus Silo Farm, its band still open. | Cirrus Silo Farm | after:weir | quest
+plan rule kites | island:The Kite Meadow | start | receiver:900 | From the silos the Receiver catches the kite crew's call sign, looping over a meadow on a ridge. | The Kite Meadow | after:silos | quest
+plan rule fogworks | island:The Fogworks | start | receiver:1000 | The kite winch's radio picks up a foghorn's beat on the next band: the Fogworks. | The Fogworks | after:kites | quest
+plan rule reservoir | island:Vaporhold Reservoir | start | receiver:1000 | The fog lines' hub gives the reservoir's band: Vaporhold, a ring of grass round a lake. | Vaporhold Reservoir | after:fogworks | quest
+plan rule array | island:Thunderhead Array | start | receiver:1100 | Static and thunder on 1100: the lightning array under its own storm. | Thunderhead Array | after:reservoir | quest
+plan rule kilns | island:The Sleet Kilns | start | receiver:1100 | The array's beacon points north, to the salt kilns where the seeding salt was baked. | The Sleet Kilns | after:array | quest
+plan rule club | island:The Isobar Club | start | receiver:1200 | Dance music on 1200, and under it a weather report: the cloud-watchers' club, still open. | The Isobar Club | after:kilns | quest
+plan rule engine | island:The Rain Engine | start | receiver:1400 | Dagny's last broadcast, on a loop: "The arms, the drums, then the switch." The Rain Engine, at the end of the line. | The Rain Engine | after:club | quest
+plan credits The Rainmakers | Custom Islands
+plan ending The rain stops for the first time in eleven years. On the raft, Dagny Holm looks up and laughs.\n\nThe end of The Rainmakers.
+plan save

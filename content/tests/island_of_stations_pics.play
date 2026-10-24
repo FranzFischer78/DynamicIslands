@@ -1,0 +1,20 @@
+# Guide pictures of The Island of Stations (CIPlay island_of_stations_pics): Raft's camera, mid-morning, calm. The pictures
+# above the water first (a player under water makes Raft draw every picture as seen under water), Station Kelp last
+island The Island of Stations
+offset -1.2361 0.2186
+hour 10
+weather Calm
+at 12 -80
+wait 3
+picture island_of_stations_crash 24 9 -92 -20 3 -60
+picture island_of_stations_gull 98 12 -30 73 6 9
+picture island_of_stations_pike 52 10 -52 32 3 -38
+picture island_of_stations_village -58 14 -12 -58 4 22
+picture island_of_stations_lantern 14 22 40 -8 16 60
+picture island_of_stations_hatch 10 15 -10 0 9 5
+at 0 0 h=4
+wait 2
+picture island_of_stations_terminal 2.4 4.9 2.4 0.6 3.9 -2.6
+at 106 -14 h=-6
+wait 2
+picture island_of_stations_kelp 110 -6 -10 100 -8.5 -16

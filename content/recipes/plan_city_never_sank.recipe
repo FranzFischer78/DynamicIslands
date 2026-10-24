@@ -1,0 +1,26 @@
+# plan_city_never_sank - the library's plan "The City That Never Sank" (storyline SL13, Highwater): a rumour on the
+# Receiver leads to a city living on the upper floors of a drowned metropolis - its customs breakwater, a bazaar of
+# lashed rafts, the Free Fleet's moorings, the Salvagers' crane stack, the Authority's pump towers, the drowned streets
+# below them, the cistern hall, the rooftop slums - and a storm finale on the Bridgeworks Crown and the Foundation Piles.
+# Three factions, five ways the city can go; the FREE choice brings an epilogue shoal. No Raft story, no random islands.
+# Every one of Raft's story blueprints is a quest step on the way, in Raft's order.
+#
+# Run it with CIRecipe plan_city_never_sank (it writes the plan file); the islands are built by their own recipes.
+plan new The City That Never Sank
+plan description Sailors talk about a city that never sank. On 500, through the static, a customs officer reads out the rules for entering Highwater. Trade in its bazaar of lashed rafts, take jobs from the Authority, the Free Fleet and the Salvagers' Union, dive its drowned streets for a lost expedition - and find out who has been cutting the water to the poorest roofs. Then the storm comes, and the city's choice is yours. Its quest islands are as big as Raft's own big islands.
+plan random off
+plan story off
+plan rule customs | island:Breakwater Customs | start | receiver:500 | On 500, a bored voice on a loop: "Harbor Authority, Highwater. All craft stop at the customs breakwater. Cargo weighed, permits stamped." A city? Out here? | Breakwater Customs | first | quest
+plan rule bazaar | island:Raft Row Bazaar | quest:customs | receiver:600 | On 600, a market crier between bursts of music: "Raft Row! Prices without rules!" Behind the voice, the creak of rafts lashed together. | Raft Row Bazaar | after:customs | step:5
+plan rule fleet | island:Fleetbreak Moorings | step:bazaar:5 | receiver:700 | On 700, a gull's cry, then a voice: "Free Fleet calling. The moorings are open to anyone who isn't Authority." | Fleetbreak Moorings | after:bazaar | quest
+plan rule hookline | island:Hookline Stack | quest:fleet | receiver:800 | On 800, the clank of cranes and a foreman's whistle: "Union hands to the hall. Salvage share at the tally." | Hookline Stack | after:fleet | quest
+plan rule pumps | island:Pumpcrown Works | rule:hookline | receiver:900:needs=engine | On 900, the thud of great pumps, steady as a heart - the Authority's waterworks, against the wind. Bring an engine. | Pumpcrown Works | after:hookline | zone:outfall
+plan rule lowstreet | island:Lowstreet | zone:pumps:outfall | receiver:250 | Through the outfall's grating, east and twenty metres down: a street. Shop signs, a tram, a cinema - all under water. On the Receiver, a tram bell rings under the static. | Lowstreet | after:pumps | quest
+plan rule cistern | island:Cistern Hall | quest:lowstreet | receiver:700 | On 700, water running in stone, and an Authority clerk reading figures: "Intake full. Southern district: supply cut, by order." | Cistern Hall | after:lowstreet | signal:evidence
+plan rule rookery | island:Rookery Stacks | signal:cistern:evidence | receiver:800 | On 800, a child counting barrels - "empty, empty, empty" - and a crowd singing to drown out the hunger. | Rookery Stacks | after:cistern | quest
+plan rule crown | island:Bridgeworks Crown | quest:rookery | receiver:1000 | On 1000, thunder, and three voices shouting each other down: the council meets on the Crown tonight, in the storm. | Bridgeworks Crown | after:rookery | signal:chosen
+plan rule piles | island:The Foundation Piles | signal:crown:storm | receiver:400 | On 400, low under the storm: a groan of stone, again and again. The piles under the city are cracking. | The Foundation Piles | after:crown | quest
+plan rule freehold | island:Freehold Shoal | signal:crown:free | ahead:700 | Ahead, smoke from new cookfires on a sandy shoal - and the Rookery's boats pulled up on the beach. | Freehold Shoal
+plan credits The City That Never Sank | Custom Islands
+plan ending The storm blows itself out over Highwater. The piles hold. The Authority, the Fleet and the Union are still arguing on the four roofs - but the city has heard what was done to its water, and whatever you chose there, it will have to live with it.\n\nThe city never sank. It only learned what it stands on.\n\nThe end of The City That Never Sank.
+plan save

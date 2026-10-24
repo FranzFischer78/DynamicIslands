@@ -1,0 +1,81 @@
+# Skyhollow - a new medium island of the library (ROADMAP 3d NI7b), no quest - a floating one
+# An island torn out of the sea and hung 60 m over it. Up on its meadow stand a hermit's cabin, his fire and woodpile,
+# a mango and berry bushes, a wild hive - and in a hollow on its east side lies a whole boat, lifted from the sea with
+# the rock and stuck there ever since. On the north rim the seabirds nest. Peaceful:
+# no monsters up here, only the wind. Build your way up from the raft.
+#
+# Built by the recipe player (CIRecipe skyhollow) through the editor's own operations. Points (metres over the island's
+# own water line; in the world it all hangs 60 m higher): the meadow (7 m, r 10 round 0 0); the hermit's cabin x
+# -6..-1.5, z -1..2 (its door south at -3.75 -1), his chest at -5 1.4; the boat's hollow round 12 4 (5 m); the nesting
+# rim round 0 13 (7 m) with the nest chest at -0.1 11.9; the lookout rocks at -10 -9.
+include lib_huts
+include lib_features
+include lib_ni34
+include lib_ni7b
+new
+# (nature: a floating isle - grass and rocks, no beach, no sea round it)
+gen Trees=0.12 Bushes=0.3 Rocks=0.4 Harvest=0.2 BeachThings=0
+gen Seed=7715 Radius=30 Height=12 Roughness=0.4 Peaks=1 Shape=0 Style=0 BeachWidth=0.1 Cliffs=0.6 PeakShape=0.5
+gen Water=0 SeaRocks=0 SeaFinds=0 Sunken=0 Hostiles=0 Friendly=0 SeaLife=0
+generate
+elevation 60
+
+# ===== Terrain: the meadow; the boat's hollow; the nesting rim to the north; grass and rock =======================
+brush flatten at 0 0 r=10 s=20 frames=100 h=7
+brush flatten at 12 4 r=5 s=20 frames=80 h=5
+brush smooth from 6 2 to 12 4 r=4 s=10 frames=30
+brush flatten at 0 13 r=4.5 s=20 frames=150 h=7
+brush grass at 0 0 r=12 s=20 frames=30
+brush rock at -10 -9 r=4 s=20 frames=20
+clear at 0 0 r=11
+clear at 12 4 r=6
+clear at 0 13 r=4.5
+
+# ===== The hermit's cabin, his fire and woodpile ===========================================================================
+push at -6 -1 h=7
+call cabin w=3 d=2 al=hermitwall
+place Bed_Simple - at 3.0 2.0 y=0.1 sit yaw=90
+place Loot_ChestSmall hermitchest at 1 2.4 y=0.1 sit yaw=180
+pop
+place campfire_1 - at -3.5 -4.5 ground sit
+for fw 0 3 1
+place Firewood_1 - at {-7+0.6*$fw} -3.6 ground sit yaw={25*$fw}
+next
+place Bench_01 - at -1 -4.5 ground sit yaw=270
+
+# ===== The boat in the hollow, lifted with the rock; its crate ===========================================================
+place BoatStranded skyboat at 12 4 ground yaw=110 roll=8
+place Loot_Crate boatcrate at 9.8 6.6 ground sit yaw=30
+
+# ===== The lookout rocks over the south rim ================================================================================
+place BigBoulder4_Low - at -10 -9 ground scale=0.35 yaw=40
+place SmallBoulder2 - at -7.5 -10.5 ground sit scale=0.6
+
+# ===== The nesting rim to the north; nests and a chest on it ==============================================================
+place Bird_Nest - at -1.4 13.2 ground sit
+place Bird_Nest - at 1.4 12.4 ground sit yaw=120
+place Loot_ChestSmall nestchest at -0.1 11.9 ground sit yaw=200
+
+# ===== Fruit, flowers, a hive; dirt to dig ================================================================================
+place "Pickup_Landmark_Tree_Mango" - at 5 -4 ground yaw=40
+place "Pickup_Landmark_Tree_Mango" - at -2 6 ground yaw=200
+scatter "Pickup_Landmark_BerryBush" 3 at 0 0 r=9 seed=7751 free=3
+scatter "Pickup_Landmark_Flower_White" 3 at 0 0 r=9 seed=7752 free=2
+call hives x=0 z=0 r=9 n=1 seed=7753
+call dirt x=0 z=0 r=9 n=2 seed=7754
+
+info title=Skyhollow
+info author=Custom Islands
+info description=An island hanging 60 m over the sea - a hermit's cabin on its meadow, a whole boat lifted with the rock and stuck in a hollow on its side, a rim where the seabirds nest. Peaceful, no monsters. Build your way up from the raft. No quest - an island to explore.
+
+note hermitchest The hermit's chest | He never said how he got up here. Or why he stayed.
+loot hermitchest Rope*3;Plank*6;Seed_Mango*2;Feather*3
+prop hermitchest loot.refill=0
+note boatcrate Crate in the boat | Still dry. The sea never got it back.
+loot boatcrate MetalIngot*2;Nail*8;Hinge*2;Glass*2
+prop boatcrate loot.refill=0
+note nestchest Chest by the nests | Wedged in the rock among the nests, out of the wind.
+loot nestchest CopperIngot*2;Battery*1;Bolt*3;Feather*4
+prop nestchest loot.refill=0
+
+save Skyhollow

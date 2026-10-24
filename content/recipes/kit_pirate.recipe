@@ -1,0 +1,45 @@
+# Kit check (not content): the seven flags (which reads as a pirate's black flag), the plastic boat and the flat stone
+# set straight, for Gilded Skull Cove
+new
+gen Seed=1 Radius=40 Height=4 Shape=4 Roughness=0.1 ObjectDensity=0 Trees=0 Bushes=0 Rocks=0 BeachThings=0 Harvest=0
+gen Hostiles=0 Friendly=0 SeaLife=0 Water=0 SeaRocks=0 SeaFinds=0 Sunken=0
+generate
+brush flatten at 0 0 r=35 s=20 frames=60
+place Placeable_Flag_01 f1 at -12 0
+place Placeable_Flag_02 f2 at -8 0
+place Placeable_Flag_03 f3 at -4 0
+place Placeable_Flag_04 f4 at 0 0
+place Placeable_Flag_05 f5 at 4 0
+place Placeable_Flag_06 f6 at 8 0
+place Placeable_Flag_07 f7 at 12 0
+place RT_PlasticBoat boat at -6 -8 rot=0,0,0
+place SmallRock_02 flatstone at 6 -8 rot=0,0,0 yaw=90
+# standing stones for the saddle: the generator's upright boulders (rot 0,0,0 as the generator sets them), scaled
+place BigBoulder1_Low bb1a at -10 10 rot=0,0,0 scale=0.35
+place BigBoulder1_Low bb1b at -4 10 rot=0,0,0 scale=0.5
+place BigBoulder4_Low bb4a at 3 10 rot=0,0,0 scale=0.5
+place BigBoulder4_Low bb4b at 10 10 rot=0,0,0 scale=0.7
+place SmallBoulder4 sb4 at 16 10 rot=0,0,0
+# a black flag: Raft's paintable flag tinted
+prop f4 tint.color=#141210
+prop f4 tint.amount=0.9
+prop f5 tint.color=#141210
+prop f5 tint.amount=0.6
+# the captain's letter and the camp's barrels: which turn lies flat / stands up
+place Note_Paper np0 at -12 -14
+place Note_Paper np1 at -10 -14 rot=0,0,0
+place Note_Paper np2 at -8 -14 rot=90,0,0
+place Note_Paper np3 at -6 -14 rot=270,0,0
+place Reef_Barrel1 rb0 at -2 -14
+place Reef_Barrel1 rb1 at 0 -14 rot=0,0,0
+place Reef_Barrel1 rb2 at 2 -14 rot=270,0,0
+place Loot_SunkenBarrel sb0 at 5 -14
+place Loot_SunkenBarrel sb1 at 7 -14 rot=0,0,0
+# flags of Raft's landmarks: the boat landmark's flag, an abandoned raft's cloth, Caravan Town's banner
+place BoatLandmark_Flag bflag at -14 -26 centred
+place FL_Cloth fcloth at 0 -26
+place Banner_01 banner at 8 -26
+# the seven flags in a row along z, their cloths facing +x (looked at from the east)
+for k 1 7 1
+place Placeable_Flag_0{$k} - at 24 {-30+$k*3.2}
+next

@@ -1,0 +1,59 @@
+# The Rootcore (CIPlay the_rootcore): the core valves refused before the Blightmother falls; then BURN (alone, with
+# no Heart choice held, either valve works); the second valve refused after.
+island The Rootcore
+# RESIZE 10-24: the recipe moved this island's old content by 0 22; the points below are in the old frame
+offset 0 -22
+expect step 0
+expect title The Core
+zone mouth
+expect step 1
+read Expedition sign
+expect step 2
+zone dome
+expect step 3
+use coreburn
+expect story core 0
+kill Warthog
+expect step 4
+use firebasket1
+use firebasket2
+kill Mama bear
+zone old_root
+expect step 6
+read The Ringwave root
+expect step 7
+# REDO 10-24: the valves wait for the three heart shards set into the oldest root
+use coreburn
+expect story core 0
+use oldroot
+expect story rootlit 0
+open Mushroom ring
+open Overgrown chest
+use dvines
+expect shown dvinechest
+open Behind the vines
+wait 2
+expect story shard 3
+expect step 8
+use oldroot
+expect story shard 0
+expect story rootlit 1
+expect step 9
+use coreburn
+expect story core 1
+expect shown embers
+expect shown heartseed
+use coreopen
+expect hidden glowgrowth
+expect step 10
+read The core
+expect step 11
+use heartseed
+expect story heartseed 1
+use rangerlock
+expect hidden rangercache
+expect step 12
+zone oda_camp
+expect step 13
+read Oda Fenn's farewell
+expect done

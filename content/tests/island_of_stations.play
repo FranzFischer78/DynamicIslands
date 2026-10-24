@@ -1,0 +1,126 @@
+# Play test of The Island of Stations (CIPlay island_of_stations, in a test world 'CI ...'). Points as in its recipe: the
+# survivors' camp on the south beach (12 -80, 2.4 m), the plane behind it (-22 -60); Station Gull on the east rise
+# (relay house x 69.5..80, z 3.5..14, floor 5.1 m, in from the veranda's south end and through its door at x 76.5);
+# Station Kelp 10 m down in the bay (x 97..103, z -24.5..-6.5); Station Pike's yard (36 -40, 3.4 m) and the keeper's office
+# (x 44..50, z -36.5..-27.5, door at 45.5 -36.5); the village green (-58 9, 3.3 m), the council hall (floor 4.51 m, its
+# porch and door on the south, the door at -59.7 31); Station Lantern on the north hill (x -11..-5, z 55.5..64.5, floor
+# 14.05 m, roof 17.05 m, door at -9.5 55.5, the ladder at -7 55.35); the hatch under its slab on the middle rise (slab 9 m,
+# the shaft at 0 5.9, the rooms' floor 3 m: the terminal room x -3..3, z -3..3, the vault east of it through the sliding
+# leaves at x 3)
+island The Island of Stations
+offset -1.2361 0.2186
+expect step 0
+expect title The Sequence
+expect animals Chicken 4
+expect animals Goat 3
+expect animals Turtle 2
+expect animals Dolphin 3
+wait 5
+
+# Chapter 1 - up the south beach to the survivors' camp; the journal, the camp box; the trunk by the plane (a step)
+walk 12 -94 to 12 -86 to 12 -80 h=2.4
+zone crashcamp
+expect step 1
+read Survivors' journal
+expect step 2
+open Survivors' camp box
+walk 10 -77 to 0 -71 to -9 -65 h=2.5
+open Passenger's trunk
+expect step 3
+
+# Station Gull: up the rise, onto the veranda from the south and in through the door
+walk 78.2 -1 to 78.2 5 to 78.2 8.7 h=5.1
+walk 78.2 8.7 to 75 8.7 to 72.5 6.5 h=5.1 below=8
+zone stationgull
+expect step 4
+read Orientation notes
+expect step 5
+open Gull's card drawer
+expect story seqcard 1
+expect step 6
+open Gull's locker
+
+# Station Kelp on the bay's floor: its door zone, the air under its ceiling, the lab cupboard, the barrel in the bay
+zone stationkelp
+expect step 7
+air kelpair
+open Kelp's lab cupboard
+expect story seqcard 2
+expect step 8
+open Barrel in the bay
+
+# Station Pike: its sign by the fence; the yard - the bear comes out; the keeper's office through its door
+read Station Pike
+expect step 9
+walk 30 -30 to 34 -36 to 36 -40 h=3.4
+zone pike
+kill Polar bear
+expect step 10
+walk 45.5 -41 to 45.5 -36 to 46.5 -31 h=3.45 below=6
+open Pike keeper's locker
+expect story seqcard 3
+expect step 11
+open Pike's feed store
+
+# The village: in from the east trail onto the green; a house's fridge (a step) (in through its veranda's door); the council hall's
+# cupboard (in from its porch)
+walk -38 8 to -48 7 to -55 5 h=3.3
+zone village
+expect step 12
+walk -67.7 -6 to -67.7 1.7 to -73 1.7 h=3.4 below=6
+open Village fridge
+expect step 13
+walk -59.7 24 to -59.7 29.5 to -59.7 33.5 to -58 34.5 h=4.51 below=7
+open Council hall cupboard
+expect story seqcard 4
+expect step 14
+
+# The boars rooting in the woods under the north hill
+kill Warthog
+expect step 15
+
+# Station Lantern on the north hill: up the hill, in through its door; the ladder up the front to the roof and the
+# telescope; the file box, the crate
+walk -14 46 to -10 51 to -9.5 53.5 h=14.05
+walk -9.5 53.5 to -9.5 57 to -8 59.5 h=14.05 below=16
+climb -7 55.35 h=14.05
+walk -7.5 56.5 to -7.5 58 h=17.05 below=19
+zone stationlantern
+expect step 16
+open Lantern's file box
+expect story seqcard 5
+expect step 17
+open Observatory crate
+
+# Chapter 3 - the hatch: across the slab to the collar, down the ladder; the manual, the rations
+walk 0 22 to 0 14 to 0 9 h=9
+climb 0 7.1 h=7.6
+climb 0 7.1 h=1.6
+walk 0 5.4 to 0 2 to 0 -1 h=3 below=8
+zone hatch
+expect step 18
+read Hatch manual
+expect step 19
+open Hatch rations
+walk -1 0 to -6 0 h=3 below=8
+# (the vault's door shut: the way east is blocked)
+walk 0 0 to 6 0 h=3 below=8 blocked
+
+# The Sequence at the terminal: the access card, the vault door open; through it before the counter runs out
+use terminal
+expect story accesscard 1
+expect step 20
+walk 0 0 to 2.5 0 to 6 0 h=3 below=8
+zone vaultroom
+expect step 21
+open Initiative's vault
+wait 3
+expect item Blueprint_BatteryCharger 1
+expect done
+
+# The counter reaches zero: the door shuts with the player inside; the emergency release opens it again
+wait 62
+walk 6 0 to 0 0 h=3 below=8 blocked
+use releaselever
+wait 3
+walk 6 0 to 2 0 to 0 0 h=3 below=8

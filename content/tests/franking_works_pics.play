@@ -1,0 +1,10 @@
+# Guide pictures of The Franking Works (CIPlay franking_works_pics): Raft's camera, midday, calm
+island The Franking Works
+offset 0 0
+hour 11
+weather Calm
+at 0 -16
+wait 3
+picture franking_works_island 40 30 -60 0 5 0
+picture franking_works_yard 0 8 -24 0 4 -6
+picture franking_works_hall -3 5.5 -6 -1 4.5 3

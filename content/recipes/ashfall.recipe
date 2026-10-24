@@ -1,0 +1,365 @@
+# Ashfall - a new island of the library, twice the size (x2)
+# A village on a volcanic table-land 22 m up, buried to its eaves in grey ash one night: the town hall, the bakery, the
+# tool shed, the school and the chapel's spire sticking out of the drifts round a little bell house. Everyone got out -
+# down a goat path to the old lava tube by the sea, the safe house nobody had used in a hundred years. The mayor's diary,
+# torn into five pages, tells how; ring the bell three times as she did, and the shelter's gate opens.
+# Quest "Under the Ash" (12 steps): a pages hunt through dug-out houses, rats, a shovel, a buried door, beetles in a
+# crypt, a bell, and a shelter.
+#
+# Built by the recipe player (CIRecipe ashfall) through the editor's own operations.
+include lib_relay
+include lib_huts
+include lib_sea
+new
+# (nature: volcanic, Like Raft - few trees, scrub on the ash; a little green at the cliff foot by the sea)
+gen Trees=0.2 Bushes=0.3 Rocks=0.5 Harvest=0.2 BeachThings=0.3
+gen Seed=9209 Radius=63 Height=22 Roughness=0.4 Peaks=1 Shape=4 Style=4 BeachWidth=0.3 Cliffs=0.8 PeakShape=0.3
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the road up from the landing on the south shore - two legs cut into the cliff (to 12 m, then to the top);
+# the goat path down the north-east cliff to the shelter's ledge by the sea (2 m); the chapel crypt's pit (4 m down) and
+# the stair dug down into it; the spots of the bell house, the bakery and the tool shed levelled ---------------------------
+for i 0 52 1
+brush flatten at {30-$i} {-50+4*$i/52} r=3.2 s=20 frames=150 h={1.6+10.4*$i/52}
+next
+brush flatten at -23 -44.5 r=4 s=20 frames=150 h=12
+for i 0 28 1
+brush flatten at {-24+28*$i/28} {-42+8*$i/28} r=3.2 s=20 frames=150 h={12+9.8*$i/28}
+next
+brush smooth from 30 -50 to -22 -46 r=3 s=10 frames=8
+brush smooth from -24 -42 to 4 -34 r=3 s=10 frames=8
+brush flatten from 4 -34 to 4 -28 r=2.5 s=20 frames=60 h=21.8
+for i 0 20 1
+brush flatten at {18+14*$i/20} {28+14*$i/20} r=2 s=20 frames=150 h={21.5-9.5*$i/20}
+next
+for i 0 20 1
+brush flatten at {32-16*$i/20} {42+11*$i/20} r=2 s=20 frames=150 h={12-9.8*$i/20}
+next
+brush smooth from 18 28 to 32 42 r=2 s=10 frames=8
+brush smooth from 32 42 to 16 53 r=2 s=10 frames=8
+brush flatten at 2 54 r=5 s=20 frames=120 h=2
+brush flatten from 2 54 to 16 53 r=2.5 s=20 frames=60 h=2
+brush flatten from 1 52 to 1 38 r=4.5 s=20 frames=150 h=2
+# (ash banked round the crypt's slab - west, south and north, where the ash lay up to 2 m under its edges and the sky
+# showed under them: its edges tucked into the ash; the pit and the stair are cut out of the banks after - X7)
+brush flatten from -31.3 -0.7 to -31.3 17.5 r=2.5 s=20 frames=80 h=22.1
+brush flatten from -31.3 -0.7 to -17.5 -0.7 r=2.5 s=20 frames=80 h=22.1
+brush flatten from -31.3 17.5 to -18 17.5 r=2.5 s=20 frames=80 h=22.1
+for pz 3 13 2.5
+brush flatten from -27 $pz to -21 $pz r=2.5 s=20 frames=150 h=17.8
+next
+for i 0 11 1
+brush flatten at {-10-$i} 8 r=2 s=20 frames=80 h={21.8-4*$i/11}
+next
+# (the ash right under the slab's edges raised over it, the stair's gap left open: cut after the banks, the pit left the
+# ash lower under the edges than the slab, and the sky showed in thin slits under them - X7)
+brush flatten from -30.3 0.3 to -30.3 16.5 r=1.2 s=20 frames=80 h=22.2
+brush flatten from -30.3 0.3 to -18.5 0.3 r=1.2 s=20 frames=80 h=22.2
+brush flatten from -30.3 16.5 to -18.5 16.5 r=1.2 s=20 frames=80 h=22.2
+brush flatten from -18.5 0.3 to -18.5 5 r=1.2 s=20 frames=80 h=22.2
+brush flatten from -18.5 11 to -18.5 16.5 r=1.2 s=20 frames=80 h=22.2
+brush flatten at 0 -16 r=4 s=20 frames=80 h=21.8
+brush flatten at 14 -10 r=4 s=20 frames=80 h=21.8
+brush flatten at 22 4 r=3 s=20 frames=80 h=21.8
+brush flatten from -20.5 -9 to -10 -9 r=6 s=20 frames=80 h=21.8
+brush flatten from 9.5 15 to 20 15 r=6 s=20 frames=80 h=21.8
+# (the ash: banks of it against the houses' blind walls, the village floor painted the island's grey volcanic sand)
+brush flatten from -23.1 -14 to -23.1 -4.5 r=1.6 s=20 frames=80 h=24
+brush flatten from -20 -1.4 to -14 -1.4 r=1.6 s=20 frames=80 h=23.8
+brush flatten from -20 -17.1 to -14 -17.1 r=1.6 s=20 frames=80 h=23.8
+brush flatten from 6.9 10 to 6.9 19.5 r=1.6 s=20 frames=80 h=24
+brush flatten from 10 22.6 to 16 22.6 r=1.6 s=20 frames=80 h=23.8
+brush flatten from 10 6.9 to 16 6.9 r=1.6 s=20 frames=80 h=23.8
+brush flatten from 9.2 -12 to 9.2 -8 r=1.4 s=20 frames=80 h=23.4
+brush flatten from 18.8 -12 to 18.8 -8 r=1.4 s=20 frames=80 h=23.4
+brush flatten from 12 -14.8 to 16 -14.8 r=1.4 s=20 frames=80 h=23.4
+brush flatten from 19.6 3 to 19.6 5.5 r=1.2 s=20 frames=80 h=23.2
+brush flatten from 24.4 3 to 24.4 5.5 r=1.2 s=20 frames=80 h=23.2
+brush flatten from 21 6.8 to 23 6.8 r=1.2 s=20 frames=80 h=23.2
+brush flatten at -14 16 r=1.3 s=20 frames=80 h=23
+brush sand from -28 -20 to 26 -20 r=10 s=20 frames=20
+brush sand from -28 0 to 26 0 r=10 s=20 frames=20
+brush sand from -28 20 to 26 20 r=10 s=20 frames=20
+clear from 30 -50 to -22 -46 r=3
+clear from -24 -42 to 4 -34 r=4
+clear at -23 -44.5 r=4
+clear from 4 -34 to 4 -28 r=3
+clear from 18 28 to 32 42 r=3
+clear from 32 42 to 16 53 r=4.5
+clear from 18 28 to 32 42 r=4.5
+clear at 2 50 r=10
+clear at -24 8 r=9
+clear from -10 8 to -21 8 r=3
+clear at 0 -18 r=6
+clear at 0 -2 r=30 only=Rock|Boulder
+clear at -16 -9 r=9
+clear at 14 -10 r=5
+clear at 22 4 r=4
+clear at 14 15 r=9
+clear at -14 16 r=3
+
+# --- The bell house on the village square: four posts three high, a deck of two by two boards, four more posts and a
+# pyramid roof over it, the bell (a bucket hung upside down) under the roof, the last page on the deck; the ladder up its
+# south side; the proclamation at its foot -------------------------------------------------------------------------------
+for lv 0 2 1
+place Block_Pillar_Wood - at -1.4 -17.4 h={21.8+2.37*$lv}
+place Block_Pillar_Wood - at 1.4 -17.4 h={21.8+2.37*$lv}
+place Block_Pillar_Wood - at -1.4 -14.6 h={21.8+2.37*$lv}
+place Block_Pillar_Wood - at 1.4 -14.6 h={21.8+2.37*$lv}
+next
+place Block_Floor_Wood - at -0.75 -16.75 h=28.92
+place Block_Floor_Wood - at 0.75 -16.75 h=28.92
+place Block_Floor_Wood - at -0.75 -15.25 h=28.92
+place Block_Floor_Wood - at 0.75 -15.25 h=28.92
+place Block_Pillar_Wood - at -1.4 -17.4 h=28.92
+place Block_Pillar_Wood - at 1.4 -17.4 h=28.92
+place Block_Pillar_Wood - at -1.4 -14.6 h=28.92
+place Block_Pillar_Wood - at 1.4 -14.6 h=28.92
+place Block_Roof_Wood_Pyramid - at 0 -16 h=31.3 sx=2 sz=2 sy=1.4
+place TangaroaBucket bell at 0 -16 h=31.4 rot=180,0,0 scale=2
+place Note_Paper page5 at 0.5 -16.6 h=29.4 drop yaw=30
+for ld 0 2 1
+place Block_Ladder - at 1 -17.62 h={21.8+2.42*$ld}
+next
+place Note_Board proclamation at 3 -19.5 ground yaw=0
+place Zone_Trigger rooftops at 2 -24 h=23.3
+
+# --- The town hall (a relay-station house, its door east), ash to the eaves round its other walls: the mayor's desk with
+# page one, the records cabinet with a box; the rats inside --------------------------------------------------------------
+push at -10 -4 h=21.9
+call relay_house
+place Balboa_DecorationPrefabBase_Desk - at -8 -8.5 y=0 sit yaw=90
+place Note_Paper page1 at -8.2 -8.5 y=1.2 drop yaw=15
+place TP_CabinetCharts02 - at -9.9 -2 y=0 sit yaw=90
+place "Box Small" hallbox at -9.6 -3.6 y=0 sit yaw=20
+place Zone_Trigger townhall at -7 -5 y=1.5
+place Creature_Rat rats at -7 -6 y=0.3
+pop
+
+# --- The bakery (walls and boards of wood, a pyramid roof), its north wall broken in: the oven, the counter with page two,
+# flour sacks, a box -------------------------------------------------------------------------------------------------------
+for f -1 1 1
+place Block_Floor_Wood - at {14+1.5*$f} -11.5 h=21.85
+place Block_Floor_Wood - at {14+1.5*$f} -10 h=21.85
+place Block_Floor_Wood - at {14+1.5*$f} -8.5 h=21.85
+place Block_Wall_Wood - at {14+1.5*$f} -12.25 h=21.85
+place Block_Wall_Wood - at 11.75 {-10+1.5*$f} h=21.85 yaw=90
+place Block_Wall_Wood - at 16.25 {-10+1.5*$f} h=21.85 yaw=90
+next
+place Block_Wall_Window_Wood - at 12.5 -7.75 h=21.85
+place Block_Wall_Window_Wood - at 15.5 -7.75 h=21.85
+place Block_Roof_Wood_Pyramid - at 14 -10 h=24.25 sx=3.1 sz=3.1 sy=2
+place "Balboa_DecorationPrefabBase_Old Stove" - at 12.7 -11.3 h=21.85 sit
+place Placeable_Table_Basic bakerycounter at 15.3 -11.2 h=21.85 sit
+place Note_Paper page2 at 15.3 -11.2 h=23 drop yaw=-20
+place "VG_DecorationPrefabBase_WoodenBoxes_ShortRect Variant" - at 12.7 -9 h=21.85 sit
+place "Box Small" bakerybox at 15.4 -8.7 h=21.85 sit yaw=15
+
+# --- The tool shed: only its roof out of the ash - a pyramid on four posts, drifts round three sides, its south open; the
+# tool box under it (the shovel) -----------------------------------------------------------------------------------------
+place Block_Pillar_Wood - at 20.8 2.8 ground
+place Block_Pillar_Wood - at 23.2 2.8 ground
+place Block_Pillar_Wood - at 20.8 5.2 ground
+place Block_Pillar_Wood - at 23.2 5.2 ground
+place Block_Roof_Wood_Pyramid - at 22 4 h=24.15 sx=2 sz=2 sy=1.2
+place Loot_Chest toolbox at 22 4.3 ground sit yaw=180
+
+# --- The school (a relay-station house with plain walls), its door buried by a drift of packed ash that sinks when dug;
+# inside the little desks, the teacher's desk with page three, the blackboard ------------------------------------------------
+push at 20 20 h=21.9
+call relay_house n1=Relay_Wall s2=Relay_Wall w1=Relay_Wall w3=Relay_Wall e1=Relay_Wall e3=Relay_Wall
+place VP_RubblePile_Small02 schooldoor at -2.4 -5.23 y=0 sit sx=0.5 sy=2.8 sz=1.25 yaw=0
+place Balboa_DecorationPrefabBase_Desk - at -6 -8.6 y=0 sit
+place Balboa_DecorationPrefabBase_Desk - at -6 -1.8 y=0 sit
+place Balboa_DecorationPrefabBase_Desk teacherdesk at -9 -5.23 y=0 sit yaw=90
+place Note_Paper page3 at -9.1 -5.23 y=1.2 drop yaw=10
+place VP_Whiteboard - at -10.1 -5.23 y=0 sit yaw=90
+place Placeable_Lantern_Metal - at -6 -8.6 y=1.2 drop
+place Zone_Trigger school at -8 -5.23 y=1.5
+pop
+
+# --- The chapel: its spire out of the ash (four posts three high, a pyramid cap, a cross of planks); the crypt - a pit
+# under a slab of boards, reached by the stair dug down from the east: rubble along its walls, the altar with page four and
+# candles, the dark; the ash beetles wait in it ------------------------------------------------------------------------------
+for lv 0 2 1
+place Block_Pillar_Wood - at -14.7 15.3 h={21.8+2.37*$lv}
+place Block_Pillar_Wood - at -13.3 15.3 h={21.8+2.37*$lv}
+place Block_Pillar_Wood - at -14.7 16.7 h={21.8+2.37*$lv}
+place Block_Pillar_Wood - at -13.3 16.7 h={21.8+2.37*$lv}
+next
+place Block_Roof_Wood_Pyramid - at -14 16 h=28.9 sx=1.2 sz=1.2 sy=3
+place FL_Plank1 - at -14 16 h=31 rot=0,0,90 scale=0.5
+place FL_Plank1 - at -14 16 h=31.2 rot=0,90,0 scale=0.3
+# (the slab reaches past the pit's rim on every side but the stair's: smaller, the sky showed round its edges - X7)
+place RT_Floor cryptslab at -18.5 16.5 h=21.85 sx=1.954 sz=1.8
+place VP_Rubble_Cement03 - at -27 5 h=17.8 sit yaw=90
+place VP_Rubble_Cement05 - at -27 11 h=17.8 sit yaw=80
+place VP_Rubble_Cement03 - at -23 13.5 h=17.8 sit yaw=10
+place UT_EndRoom_Table altar at -26 8 h=17.8 sit yaw=90 scale=0.5
+place Note_Paper page4 at -26 8.3 h=19 drop yaw=80
+place "VG_DecorationPrefabBase_CandleBig Variant" - at -26 6.8 h=19 drop
+place "VG_DecorationPrefabBase_CandleBig Variant" - at -26 9.4 h=19 drop
+place Zone_Trigger chapel at -24 8 h=19.3
+place Zone_Atmosphere cryptdark at -24 8 h=19.3
+place Creature_Roach beetles at -24 9 h=18
+
+# --- The ash: dead trees standing out of it, ash in the air
+place DeadTree1 - at -28 -6 ground sit yaw=40
+place DeadTree2 - at 28 -4 ground sit yaw=160
+place DeadTree3 - at -6 27 ground sit yaw=270
+place DeadTree2 - at -20 26 ground sit yaw=10
+place Zone_Atmosphere ashair at -12 0 h=28
+place Zone_Atmosphere ashair at 12 0 h=28
+
+# --- The shelter: the old lava tube at the north cliff's foot (Balboa's bear cave, its mouth north to the sea, floor 2 m),
+# Utopia's great gate across its mouth (it sinks when the bell rings); inside the roll of names, mattresses, lanterns, water
+# barrels, the village chest; the hens that came down with the village ------------------------------------------------------
+place BalboaCave_Bear shelterrock at 2 36 h=6.55
+place UT_MainEntranceDoor sheltergate at 0.9 54 y=-4.7 sit
+place Zone_Trigger shelter at 1 45 h=3.5
+place Note_Board roll at -2.6 43 h=2.05 sit yaw=90
+for m 0 4 1
+place "VG_DecorationPrefabBase_Mattress_Regular Variant" - at {-2+1.5*$m} 40 h=2.05 sit
+next
+place Placeable_Lantern_Metal - at -2.5 46 h=2.05 sit
+place Placeable_Lantern_Metal - at 4.4 46 h=2.05 sit
+place Placeable_Lantern_Metal - at 1 41.5 h=2.05 sit
+place TP_Moontown_Barrel02 - at 4.5 42 h=2.05 sit
+place TP_Moontown_Barrel02 - at 4.5 43 h=2.05 sit
+place Loot_ChestLarge villagechest at 1 38.8 h=2.05 sit yaw=0
+place Creature_Chicken hens at 8 54 ground
+
+# --- The landing on the south shore: a jetty, a boat left behind, a barrel, a sunk crate; palms at the cliff foot; dolphins
+push at 29.25 -52 h=-3 yaw=90
+call boardwalk n=8 wide=1 y=4.6
+pop
+place RT_PlasticBoat - at 34 -60 h=0.3 yaw=10
+place Loot_Barrel jettybarrel at 27 -50 ground sit
+place Loot_SunkenBarrel sunkcrate at 26 -60 h=-1 drop
+scatter "Pickup_Landmark_Tree_Palm 3" 1 at -30 -44 r=4 seed=902
+scatter "Pickup_Landmark_Tree_Palm 3" 1 at 36 34 r=4 seed=903
+place Creature_Dolphin dolphins at 0 80 h=-3
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): pineapples, flowers, mangoes ----------
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=44.1 seed=4304 free=3
+scatter "Pickup_Landmark_Flower_Black" 4 at 0 0 r=44.1 seed=4314 free=3
+scatter "Pickup_Landmark_Flower_Red" 4 at 0 0 r=44.1 seed=4315 free=3
+scatter "Pickup_Landmark_Tree_Mango" 6 at 0 0 r=44.1 seed=4324 free=5
+
+# --- Raft's finds in the shallows round the cliffs (lib_sea) ----------------------------------------------------------------
+call shallows r=83 deep=5 n=1
+
+# ===== Settings, story items, notes, behaviours, quest (12 steps) =========================================================
+info title=Ashfall
+info author=Custom Islands
+info description=A village on a volcanic table-land, buried to its eaves in grey ash - roofs, a bell house and a chapel spire sticking out of the drifts. The mayor's diary is scattered in five pages through the dug-out houses. Follow it to where the village went.
+island on.arrive=message||A flat grey island, grey as a winter sky. Rooftops stick out of it in rows, and a little bell house, and a chapel's spire. No smoke from any chimney.
+
+story ashshovel|Ash shovel|quest:Balboa_BrunosTool_Saw|A broad shovel from the tool shed, its blade worn bright.
+
+note proclamation The last proclamation | (on the board at the bell house's foot)\n\nBY ORDER OF THE MAYOR\n\nThe ash is falling faster. Tonight, when the bell rings three times, everyone leaves for the safe house by the sea. Bring water and blankets. Leave the animals' doors open.\n\nDo not be afraid. We have done this before - a hundred years ago - and we came back.\n- Ilse Varga, Mayor
+note page1 Mayor's diary, page one | Day 1. The mountain across the strait is coughing. Ash on the windowsills like flour. The children think it's snow.\nDay 3. It doesn't stop. The rats have come in from the fields into the town hall - they know something.
+note page2 Mayor's diary, page two | Day 4. The baker kept baking. "People need bread," she said. The ash is up to the bakery's windows.\nDay 5. I found the old records: a hundred years ago they sheltered in the lava tube under the north cliff. There is a gate on it. The bell opened it then - three rings.
+note toolbox Tool shed box | The tool shed's box, dug out from under the eaves: rope, nails - and a broad ash shovel, its blade worn bright. Somebody kept the school's path clear with it until the very end.
+loot toolbox story:ashshovel*1;Rope*2;Nail*6
+prop toolbox loot.refill=0
+note page3 Mayor's diary, page three | Day 6. The school's door is buried. We dug the children out through the window, laughing as if it were a game. Mr. Brandt stayed to save the register.\nDay 7. Nobody will stay in the houses now.
+note page4 Mayor's diary, page four | Day 8. Prayers in the chapel crypt. Beetles came out of the ash in the dark, big ones, and Father Okon chased them with a candlestick.\nDay 9. Tonight. I'll ring the bell myself.
+note page5 Mayor's diary, page five | Day 9, night. Three rings. Everyone is going down the goat path to the sea with lanterns, a long line of lights. I'm the last. I'll leave this under the bell for whoever comes after.\n\nRing it three times. We'll be in the shelter, or long gone from it - either way, the gate will open for you.
+note roll The shelter's roll | (chalked on a board inside the lava tube)\n\nTHE ROLL OF ASHFALL - ALL PRESENT\n\nVarga, Ilse (mayor). Brandt, Otto (teacher) and the register. Okon, Father. Kessler, Ana (baker) and bread. Thirty-one more names, every one ticked.\n\n(below, later:) The boat came on the fourteenth day. We have gone to the mainland. When the grass grows back, so will we.
+note villagechest The village chest | The village chest, left in the shelter for whoever came: seeds to make the ash green, the plans for the terraced beds they'll need, salt meat, and the town's spare coin.
+loot villagechest Blueprint_Cropplot_Large_Tier3*1;Seed_Grass*4;Seed_Pine*3;Cooked_GenericMeat*3;TradeToken*8
+prop villagechest loot.refill=0
+loot hallbox Plank*4;Rope*2;Plastic*2
+prop hallbox loot.refill=0
+loot bakerybox Cooked_GenericMeat*2;Raw_Potato*3
+prop bakerybox loot.refill=0
+loot jettybarrel Plank*5;Nail*6;Scrap*2
+prop jettybarrel loot.refill=0
+loot sunkcrate MetalOre*2;Scrap*2;Clay*2
+prop sunkcrate loot.refill=0
+
+prop schooldoor obj.name=schooldoor
+prop schooldoor beh.use=Dig out the school's door
+prop schooldoor beh.move=0,-3.2,0
+prop schooldoor beh.moveTime=3
+prop schooldoor beh.moveMode=switch
+prop schooldoor if.use=has|story:ashshovel|1\nstate|schooldoor|closed
+prop schooldoor on.use=message||You dig. The ash is packed hard as clay, then gives all at once - the school's door, open behind it.\nopen|schooldoor\nsound||event:/crafting/shovel_dig
+prop schooldoor else.use=message||Ash packed solid in the doorway, up to the lintel. You'd need a shovel.
+prop bell obj.name=bell
+prop bell beh.use=Ring the bell three times
+prop bell if.use=quest|9\n!signal|rung
+prop bell on.use=message||One. Two. Three. The bell's voice goes out over the grey roofs - and far below, by the sea, something heavy grinds.\nsignal||rung\nopen|sheltergate\nshow|shelter\nsound||event:/exploring/obstacles/bicyclebell\nwait|1\nsound||event:/exploring/obstacles/bicyclebell\nwait|1\nsound||event:/exploring/obstacles/bicyclebell
+prop bell else.use=message||The village bell. The mayor rang it three times - read her pages first.
+prop sheltergate obj.name=sheltergate
+prop sheltergate beh.move=0,-12.8,0
+prop sheltergate beh.moveTime=5
+prop sheltergate beh.moveMode=switch
+# (Utopia's entrance door as a ready piece wants Raft's entrance key and goes when used: this gate only sinks when the bell is rung - the ready piece's settings taken off)
+prop sheltergate beh.use=
+prop sheltergate if.use=
+prop sheltergate else.use=
+prop sheltergate on.use=
+
+prop rooftops zone.id=rooftops
+prop rooftops zone.radius=10
+prop rooftops zone.message=The village square - or its roofs: grey drifts to the eaves, a bell house standing out of them, a board at its foot.
+prop townhall zone.id=townhall
+prop townhall zone.radius=3.5
+prop townhall zone.repeat=never
+prop townhall zone.message=The town hall, dim and grey inside - and full of rats.
+prop rats creature.count=4
+prop rats creature.respawn=0
+prop rats creature.zone=townhall
+prop school zone.id=school
+prop school zone.radius=3
+prop school zone.message=The schoolroom: little desks, a blackboard still chalked with sums, ash on everything.
+prop chapel zone.id=chapel
+prop chapel zone.radius=4
+prop chapel zone.repeat=never
+prop chapel zone.message=The chapel crypt - and something clicking in the dark. Beetles, the size of dogs!
+prop beetles creature.count=3
+prop beetles creature.size=1.3
+prop beetles creature.respawn=0
+prop beetles creature.zone=chapel
+prop beetles tint.color=#4a4a48
+prop beetles tint.amount=0.5
+prop shelter obj.name=shelter
+prop shelter beh.hidden=1
+prop shelter zone.id=shelter
+prop shelter zone.radius=4
+prop shelter zone.message=The safe house: mattresses in rows, lanterns, water barrels, and a board covered in chalked names.
+prop ashair atmo.fog=#6a6662
+prop ashair atmo.fogAmount=0.25
+prop ashair atmo.light=#b8b0a8
+prop ashair atmo.lightAmount=0.2
+prop ashair atmo.particles=mist
+prop ashair zone.radius=40
+prop cryptdark atmo.fog=#0a0806
+prop cryptdark atmo.fogAmount=0.7
+prop cryptdark atmo.light=#2a2218
+prop cryptdark atmo.lightAmount=0.8
+prop cryptdark zone.radius=7
+prop hens creature.count=3
+prop dolphins creature.count=2
+
+quest title=Under the Ash
+quest intro=A village buried in ash, and not a soul in it. A proclamation hangs at the foot of the bell house.
+step reach|rooftops|1|Climb the road to the buried village
+step read|The last proclamation|1|Read the mayor's last proclamation
+step kill|Rat|4|Clear the rats out of the town hall
+step pages||3|Find the mayor's first diary pages in the town hall and the bakery
+step collect|story:ashshovel|1|Dig into the tool shed for a shovel
+step reach|school|1|Dig out the school's door
+step pages||6|Find the diary pages in the school and the chapel crypt
+step kill|Roach|3|Fight off the ash beetles in the chapel crypt
+step pages||7|Climb the bell house for the last page under the bell
+step reach|shelter|1|Ring the bell three times and find the shelter by the sea
+step read|The shelter's roll|1|Read the roll of names in the shelter
+step open|The village chest|1|Open the village chest
+quest done=Every name ticked. Ashfall got out - all of it - and left the door open for you. One day the grass will grow back, and so will they.
+quest reward=Seed_Grass*4;Cooked_GenericMeat*2;Rope*3
+
+save Ashfall

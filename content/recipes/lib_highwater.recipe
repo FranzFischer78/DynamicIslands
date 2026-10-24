@@ -1,0 +1,128 @@
+# lib_highwater - shared pieces of the plan The City That Never Sank (SL13, Highwater): the drowned towers' roofs the
+# city lives on, the plank bridges between them, the market stalls and the laundry lines. A recipe that calls these
+# includes lib_rt (rt_storey, rt_railing, rt_legs) and lib_huts (floors, corners) first.
+#
+# hw_roof: a drowned tower's flat roof, one RT_Floor (6 x 9 m, x -6..0, z -4.5..4.5 of the frame) at the frame's floor,
+# on Raft's thick radio-tower pillars down d m (to the seabed), a railing round it (bm / fm / lm / rm = none opens the
+# middle of that side for a bridge or a stair). a: an alias for the slab, to tint the city's concrete.
+macro hw_roof d=12 a=- bm=RT_Fence fm=RT_Fence lm=RT_Fence rm=RT_Fence
+place RT_Floor $a at 0 4.5
+call rt_legs d=$d
+call rt_railing y=0 bm=$bm fm=$fm lm=$lm rm=$rm
+end
+#
+# hw_penthouse: a drowned tower's top storey standing out of the sea: thick legs down d m, one storey (rt_storey, its
+# wall slots as there), its roof slab 3 m up with a railing (the roof terrace). a: alias for the walls (tint).
+macro hw_penthouse d=12 a=- b1=RT_Wall1 b2=RT_Wall1 f1=RT_Wall1 f2=RT_WallDoor1 l1=RT_Wall1 l2=RT_WallWindow1 l3=RT_Wall1 r1=RT_Wall1 r2=RT_WallWindow1 r3=RT_Wall1
+call rt_legs d=$d
+call rt_storey a=$a b1=$b1 b2=$b2 f1=$f1 f2=$f2 l1=$l1 l2=$l2 l3=$l3 r1=$r1 r2=$r2 r3=$r3
+place RT_Floor $a at 0 4.5 y=3
+call rt_railing y=3
+end
+#
+# hw_bridge: a plank bridge n blocks long along the frame's +x at deck height y (the frame's floor + y), Raft's wooden
+# floor blocks with Raft's rope fence along both sides (x 0..n*1.5, z -0.75..0.75). The save stands posts under it to
+# the seabed (StandPosts), so it never hangs on nothing.
+macro hw_bridge n=6 y=0
+for bx 0.75 {$n*1.5-0.75} 1.5
+place Block_Floor_Wood - at $bx 0 y=$y
+place Block_Wall_Fence_Rope - at $bx -0.75 y=$y
+place Block_Wall_Fence_Rope - at $bx 0.75 y=$y
+next
+end
+#
+# hw_stall: a market stall of w x d cells (1.5 m) from the frame's corner: Raft's wooden floor at y, pillars at its
+# corners and a hipped wooden roof standing on them, a counter (a half wall) along its front (z 0) - open
+# on the other sides.
+macro hw_stall w=2 d=2 y=0.1
+call floors w=$w d=$d y=$y
+call corners w=$w d=$d y=$y
+for sx 0.75 {$w*1.5-0.75} 1.5
+place Block_HalfWall_Wood - at $sx 0 y=$y
+next
+roof $w $d at 0 0 y=$y wood
+end
+#
+# hw_laundry: a laundry line between two Raft wooden pillars n m apart along the frame's +x (pillars standing on the
+# frame's floor at y) and Raft's string lights strung between their tops.
+macro hw_laundry n=4 y=0.1
+place Block_Pillar_Wood - at 0 0 y=$y
+place Block_Pillar_Wood - at $n 0 y=$y
+line Placeable_StringLight_Horizontal from 0 0 to $n 0 step=2 y={$y+2.2}
+end
+#
+# hw_airpocket: lib_gravity's air pocket (Raft's own air pocket on the ground at x z, its zone with air and bubbles);
+# h: the frame floor of a shop or a pile cap when it is not the ground (ground otherwise)
+macro hw_airpocket x=0 z=0 id=air al=air bub=airbub r=2.5 msg="An air pocket - breathe."
+place AirPocket_1 - at $x $z ground y=0.05 scale=0.6
+place Zone_Trigger $al at $x $z ground y=1.6
+place Zone_Atmosphere $bub at $x $z ground y=1.2
+prop $al obj.name=$al
+prop $al zone.id=$id
+prop $al zone.radius=$r
+prop $al zone.repeat=1
+prop $al zone.air=1
+prop $al zone.message=$msg
+prop $bub atmo.particles=bubbles
+prop $bub zone.radius=3
+end
+#
+# hw_skyline: Highwater on the horizon - three of Utopia's towers far off on the island's edge, standing on the seabed
+# with their tops 25-40 m out of the sea (centred: the tower's middle at h). Look pieces only.
+macro hw_skyline x=0 z=0 a=skyline
+place UT_Set_Tower01 $a at $x $z h=-190 centred yaw=20
+place UT_Set_Tower02 $a at {$x+30} {$z+18} h=-196 centred yaw=70
+place UT_Set_Tower03 $a at {$x-26} {$z+24} h=-200 centred yaw=140
+end
+#
+# hw_reef: a small reef on the sea floor within r of x z (as lib_concord's reef): Raft's corals and a silver algae
+macro hw_reef x=0 z=0 r=4 seed=1
+scatter VP_CoralDigitate02 4 at $x $z r=$r seed=$seed wet free=1
+scatter VP_CoralBulb04 3 at $x $z r=$r seed={$seed+1} wet free=1
+scatter LeafCoral_1 3 at $x $z r=$r seed={$seed+2} wet free=1
+scatter "Pickup_Landmark_SilverAlgae" 1 at $x $z r=$r seed={$seed+3} wet
+end
+#
+# --- 10-24b: the islands' extra areas (the SL13 upgrade; lib_areas does the ridges, caves, ruins and planes) ---------
+# hw_zone: a trigger zone at x z with id, radius and message (alias al), h over the ground (lib_concord's tzone, which
+# the Highwater recipes don't include)
+macro hw_zone x=0 z=0 al=zone id=zone r=4 msg="" h=0
+place Zone_Trigger $al at $x $z ground y=$h
+prop $al zone.id=$id
+prop $al zone.radius=$r
+prop $al zone.message=$msg
+end
+#
+# hw_note: a note lying on a small box at x z (alias al)
+macro hw_note x=0 z=0 yaw=0 al=note
+place "Box Small" - at $x $z ground sit yaw=$yaw
+place Note_Paper $al at $x $z ground y=0.7 drop yaw={$yaw+15}
+end
+#
+# hw_wreck: one of Raft's vehicles (VEHICLES.md) wrecked on its own pad h m over the sea at x z, turned yaw, tinted
+# rust-grey, the plants under it cleared, a crate (alias crate) 5 m to its side
+macro hw_wreck x=0 z=0 h=3 yaw=0 obj=Van_4 al=wreck crate=wreckcrate r=9
+set s {sin($yaw)}
+set c {cos($yaw)}
+brush flatten at $x $z r=$r s=20 frames=300 h=$h
+clear at $x $z r={$r+1}
+place "$obj" $al at $x $z ground sit yaw=$yaw
+prop $al tint.color=#5a5048
+prop $al tint.amount=0.45
+place Loot_Crate $crate at {$x+5*$c} {$z-5*$s} ground sit yaw={$yaw+15}
+prop $crate loot.refill=0
+end
+#
+# hw_hazard: a hazard zone (GUIDE 5.4, 10-24 gap features) r m round x z, h over the ground: kind acid / shock / miasma /
+# spikes / cold / dark / deep, dmg per second (dark: 0), safe = what protects (suit, wears|HeadLight*,
+# wears|OxygenBottle*, none...), msg = why it hurts. Named al, so a lever's hide|al switches it off.
+macro hw_hazard x=0 z=0 al=hazard kind=dark r=5 dmg=0 safe=none msg="" h=1
+place Zone_Trigger $al at $x $z ground y=$h
+prop $al obj.name=$al
+prop $al zone.id=$al
+prop $al zone.radius=$r
+prop $al zone.hazard=$kind
+prop $al zone.damage=$dmg
+prop $al zone.safe=$safe
+prop $al zone.hazardMsg=$msg
+end

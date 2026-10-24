@@ -1,0 +1,168 @@
+# Tidefall Reach - a new island of the library (ROADMAP 3d NI8), large, with no quest - half of it under the sea
+# A big volcanic island whose whole south half has sunk. The north half still stands: the smoking cone of the volcano,
+# a tribe's camp of thatched huts on its east flank with an idol, a fire and a ring of stakes, and on the west shore hot
+# springs - three steaming pools in the black rock. Off the south shore an old street runs down into the sea, and 8 m
+# under the water lies the drowned town: the walls of its houses, a temple of marble columns round a statue with its
+# offerings still under the roof, fallen columns, coral and kelp, and two boats wrecked on the sunken streets. Monsters:
+# screechers round the cone, warthogs by the camp, stingrays in the drowned town.
+#
+# Built by the recipe player (CIRecipe tidefall_reach) through the editor's own operations. Points: the sunken half -
+# everything south of about z -22 - at 8 m down; the drowned town round 0 -50; its temple at 0 -50 (floor -8 m); the
+# houses at -20 -42, 20 -42, -18 -64, 18 -64 (8 m squares, doors facing the temple); the drowned street from 0 -18
+# (1 m) down to 0 -34 (-8 m); the wrecks at -45 -62 and 46 -66; the camp at 40 25 (4 m, r 16), its huts along z 30..33
+# from x 31 to 48, the fire at 40 22; the hot springs at -62 16 (pad 1.5 m, the pools at -0.5 m).
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+include lib_ni8
+new
+# (nature: volcanic - fewer trees, more rock; the sunken half nothing but the sea's)
+gen Trees=0.2 Bushes=0.3 Rocks=0.5 Harvest=0.25 BeachThings=0.3
+gen Seed=7805 Radius=90 Height=16 Roughness=0.45 Peaks=1 Shape=0 Style=4 BeachWidth=0.4 Cliffs=0.35 PeakShape=0.45
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.35 Sunken=0.5 Hostiles=0 Friendly=0 SeaLife=0.2
+generate
+
+# ===== The ground: the south half sunk 8 m, the drowned street down into it, the camp, the hot springs ==================
+brush flatten from -62 -52 to 62 -52 r=30 s=20 frames=260 h=-8
+brush flatten at 0 -50 r=24 s=20 frames=120 h=-8
+for i 0 16 1
+brush flatten at 0 {-18-$i} r=3 s=20 frames=30 h={1-$i*9/16}
+next
+brush sand at 0 -50 r=24 s=10 frames=20
+brush rock from 0 -18 to 0 -34 r=3 s=20 frames=20
+brush flatten at 40 25 r=16 s=20 frames=160 h=4
+brush grass at 40 25 r=14 s=10 frames=20
+brush sand at 40 22 r=4 s=20 frames=20
+brush flatten at -62 16 r=13 s=20 frames=120 h=1.5
+brush flatten at -64 12 r=3.5 s=20 frames=100 h=-0.5
+brush flatten at -58 19 r=3 s=20 frames=100 h=-0.5
+brush flatten at -67 20 r=3 s=20 frames=100 h=-0.5
+brush rock at -62 16 r=12 s=20 frames=30
+clear at 0 -50 r=26
+clear from 0 -16 to 0 -34 r=4
+clear at 40 25 r=16
+clear at -62 16 r=13
+
+# ===== The drowned town: four houses' walls, doors facing the temple ===================================================
+set hz -42
+for hx -20 20 40
+call ni8wall x1={$hx-4} z1={$hz+4} x2={$hx+4} z2={$hz+4} hgt=3 th=0.8 al=cityhouse
+call ni8wall x1={$hx-4} z1={$hz-4} x2={$hx-1} z2={$hz-4} hgt=2.6 th=0.8 al=cityhouse
+call ni8wall x1={$hx+1} z1={$hz-4} x2={$hx+4} z2={$hz-4} hgt=2.2 th=0.8 al=cityhouse
+call ni8wall x1={$hx-4} z1={$hz-4} x2={$hx-4} z2={$hz+4} hgt=2.8 th=0.8 al=cityhouse
+call ni8wall x1={$hx+4} z1={$hz-4} x2={$hx+4} z2={$hz+4} hgt=1.8 th=0.8 al=cityhouse
+next
+for hx -18 18 36
+call ni8wall x1={$hx-4} z1=-68 x2={$hx+4} z2=-68 hgt=2.4 th=0.8 al=cityhouse
+call ni8wall x1={$hx-4} z1=-60 x2={$hx-1} z2=-60 hgt=3 th=0.8 al=cityhouse
+call ni8wall x1={$hx+1} z1=-60 x2={$hx+4} z2=-60 hgt=1.6 th=0.8 al=cityhouse
+call ni8wall x1={$hx-4} z1=-68 x2={$hx-4} z2=-60 hgt=2.2 th=0.8 al=cityhouse
+call ni8wall x1={$hx+4} z1=-68 x2={$hx+4} z2=-60 hgt=3 th=0.8 al=cityhouse
+next
+prop cityhouse tint.color=#c8c0b0
+place Loot_SunkenBarrel housebarrel at -21 -41 ground
+place Reef_Container - at 22 -64 ground sit yaw=30
+place VP_RubblePile_Small01 - at -12 -55 ground
+place VP_RubblePile_Small03 - at 10 -40 ground
+place VP_RubblePile_Medium01 - at 14 -58 ground
+
+# ===== The drowned temple: the column ring round the statue, the offering chest under its roof, fallen columns ==========
+call ni8temple x=0 z=-50 h=-8 al=templecolumns roofal=templeroof
+prop templecolumns tint.color=#e8e2d4
+prop templeroof tint.color=#e8e2d4
+place TangaroaFounderStatue statue at 0 -50 h=-8 sit scale=0.55 yaw=0
+place Loot_Chest offeringchest at 1.6 -52.4 h=-8 sit yaw=0
+place UT_EndRoom_Pot02 - at -2 -48 h=-8 sit
+place Pillar_01 - at 9 -47 ground rot=0,20,88
+place Pillar_01 - at -8 -57 ground rot=0,-35,90
+place UT_LightBottle01 - at -3 -53 h=-8 sit
+place UT_LightBottle03 - at 3 -47 h=-8 sit
+call ni8air x=0 z=-50 h=-5 al=townwater fog=#1a3a4a fa=0.15 light=#60c0ff la=0.3 parts=bubbles r=26
+place Zone_Sound townsound at 0 -50 h=-5
+prop townsound sound.event=event:/amb/underwater
+prop townsound sound.volume=0.3
+prop townsound zone.radius=24
+
+# ===== The sea over the town: coral and kelp on the streets, the two wrecks, a boat tied at the street's head ===========
+scatter TableCoral_1 5 at 0 -50 r=26 seed=7870 wet free=3
+scatter CauliCoral 5 at 0 -52 r=26 seed=7871 wet free=3
+scatter SpineCoral_2 4 at 0 -55 r=24 seed=7872 wet free=3
+scatter SeaVine3 6 at 0 -50 r=28 seed=7873 wet free=3
+scatter Pickup_Landmark_GiantClam 2 at 0 -55 r=20 seed=7874 wet free=4
+call wreck x=-45 z=-62 yaw=60 roll=14 tilt=4 sink=2.8 seed=7875 al=wreckwest
+call wreck x=46 z=-66 yaw=200 roll=-14 tilt=4 sink=2.8 seed=7878 al=wreckeast
+place Loot_SunkenBarrel wreckbarrel at 40 -62 ground
+place RT_PlasticBoat - at 5 -21 h=0.15 yaw=10
+place Note_Sign streetsign at -3 -16 ground yaw=180
+call shallows r=105 deep=5 n=1 seed=7881
+
+# ===== The tribe's camp on the east flank: three thatched huts, the idol, the fire, tiki poles, a ring of stakes ========
+for hx 31 44 6.5
+push at $hx 30 h=4
+call ni8hut w=3 d=2 al=huts
+pop
+next
+place Loot_Chest tribechest at 34.7 32.2 h=4.1 sit yaw=180
+place campfire_1 - at 40 22 ground
+place Balboa_DecorationPrefabBase_Doll_R idol at 40 16 ground sit scale=2.4 yaw=0
+place Placeable_Lantern_FireBasket - at 38.4 16 ground sit
+place Placeable_Lantern_FireBasket - at 41.6 16 ground sit
+place Placeable_TikiPole_Complete - at 30 20 ground sit yaw=20
+place Placeable_TikiPole_Complete - at 50 20 ground sit yaw=340
+for a 200 340 20
+place "Balboa_DecorationPrefabBase_Wooden Spikes" - at {40+14*cos($a)} {25+14*sin($a)} ground sit scale=0.22 yaw={90-$a}
+next
+place Loot_Barrel tribebarrel at 52 28 ground
+
+# ===== The hot springs on the west shore: three pools in the black rock, steam over them ================================
+call ni8air x=-62 z=16 h=1.5 al=springsteam fog=#d8d0c8 fa=0.2 light=#ffe8c8 la=0.15 parts=mist r=12
+place Note_Sign springsign at -54 10 ground yaw=120
+place Loot_Barrel bathbarrel at -55 22 ground
+
+# ===== The volcano's cone: smoke and embers over the crater ============================================================
+call ni8air x=0 z=0 h=20 al=conesmoke fog=#3a2a20 fa=0.25 light=#ff8040 la=0.2 parts=embers r=20
+
+# ===== Monsters: screechers round the cone, warthogs by the camp, stingrays in the drowned town =========================
+place Creature_StoneBird screechers at 0 0 h=32
+place Creature_Boar hogs at 55 5 ground
+place Creature_Stingray rays at -10 -45 h=-6
+place Creature_Dolphin dolphins at -70 -85 h=-3
+
+# ===== Raft's features: wild bees, dirt, a buried tin, a chest under vines ==============================================
+call hives x=-30 z=40 r=20 n=2 seed=7882
+call dirt x=-40 z=30 r=20 n=4 seed=7883
+call treasure x=60 z=-10 r=12 n=1 seed=7884
+call vinecache x=-30 z=55 r=14 seed=7885 items=Rope*3;Nail*10;CopperOre*2
+
+# ===== Settings, notes, loot (no quest) ===================================================================================
+info title=Tidefall Reach
+info author=Custom Islands
+info description=A big volcanic island whose south half has sunk: a drowned town 8 m down with house walls, a temple of marble columns round a statue and two wrecked boats. On the land a tribe's camp, hot springs and the smoking cone. Screechers, warthogs and stingrays. No quest.
+
+note streetsign Stone at the street's head | TIDEFALL\nThe street went on to the market and the temple.\nIt still does.
+note offeringchest Temple offerings | The offerings under the drowned temple's roof: copper, silver algae, titanium, glass.
+loot offeringchest CopperIngot*3;SilverAlgae*2;TitaniumIngot*1;Glass*3
+prop offeringchest loot.refill=0
+note housebarrel Barrel in a drowned house | A barrel in a house of the drowned town, still sealed: nails, hinges, clay.
+loot housebarrel Nail*10;Hinge*2;Clay*3
+prop housebarrel loot.refill=0
+note wreckbarrel Barrel by the east wreck | A barrel from the boat wrecked on the east street: rope, metal, bolts.
+loot wreckbarrel Rope*3;MetalIngot*2;Bolt*2
+prop wreckbarrel loot.refill=0
+note tribechest Tribe's chest | The tribe's chest: feathers, leather, bait, rope.
+loot tribechest Feather*4;Leather*2;FishingBait_Simple*3;Rope*2
+prop tribechest loot.refill=0
+note tribebarrel Barrel in the camp | A barrel at the camp's edge: planks, rope, plastic.
+loot tribebarrel Plank*4;Rope*2;Plastic*3
+prop tribebarrel loot.refill=0
+note springsign Sign at the springs | THE WARM POOLS\nThe mountain heats them. Bathe, rest, go on.\nDo not drink.
+note bathbarrel Barrel by the springs | A barrel by the pools: sand, stone, a little copper ore.
+loot bathbarrel Sand*3;Stone*4;CopperOre*2
+prop bathbarrel loot.refill=0
+prop screechers creature.count=2
+prop hogs creature.count=2
+prop rays creature.count=2
+prop dolphins creature.count=2
+
+save Tidefall Reach

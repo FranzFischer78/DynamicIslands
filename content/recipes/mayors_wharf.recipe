@@ -1,0 +1,174 @@
+# Mayor's Wharf - a small/medium island of the library (inspired by Raft's Tangaroa)
+# A sandy islet beside a drowned city block: City Hall stands in the sea, its two lower floors flooded, the mayor's
+# office just above the waterline with a wooden wharf at its door; next to it the burger bar with a cafe on its roof.
+# Quest "The Mayor's Safe" (5 steps): the wharf, the rats in the office, the mayor's memo, the spare keycard from the
+# security locker on the flooded floor, the vault's shutter and the safe.
+#
+# Built by the recipe player (CIRecipe mayors_wharf) through the editor's own operations (macros from lib_rt).
+include lib_sea
+include lib_rt
+new
+# (nature: a sandy islet: fewer trees and rocks than Raft's, more driftwood - Raft's islands as the generator's Like Raft has them, CIGenLikeRaft)
+gen Trees=0.2 Bushes=0.28 Rocks=0.2 Harvest=0.24 BeachThings=0.5
+gen Seed=733 Radius=14 Height=2.5 Roughness=0.3 Peaks=1 Shape=0 Style=0 BeachWidth=1 Cliffs=0 PeakShape=0
+gen SeaFloor=1 Shelf=0.9 Seabed=0
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.5 Sunken=0.5 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# --- The drowned block east of the islet: the seabed lowered to about 9 m -------------------------------------------
+brush lower at 26 4 r=16 s=10 frames=12
+brush lower at 22 18 r=10 s=10 frames=8
+brush smooth at 24 6 r=18 s=6 frames=10
+clear at 24 6 r=14
+
+# --- City Hall: three storeys of Raft's tower pieces from the vault (5.5 m down) to the office (0.5 m up), a roof ---
+push at 27 0 h=-5.5
+call rt_legs d=6
+call rt_storey f1=RT_WallWindowBroken r2=RT_WallWindow1
+place RT_Wall1 - at -3 0
+place Block_Wall_Tier3 shutter1 at -2.2 0 yaw=0
+place Block_Wall_Tier3 shutter2 at -0.7 0 yaw=0
+place RT_PowerBox reader at -0.5 -0.25 y=1.4 yaw=180
+place VG_Safe safe at -1.5 3 sit yaw=180
+place "Balboa_DecorationPrefabBase_ElectronicCloset 1" - at -5.5 3.5 sit yaw=90
+place Zone_Atmosphere vaultgloom at -3 0 y=1.5
+pop
+push at 27 0 h=-2.5
+call rt_storey floor=RT_Floor l2=RT_WallWindowBroken f1=RT_WallWindow1 r3=RT_WallWindowBroken
+place "Balboa_DecorationPrefabBase_SmallLocker" locker at -5.5 -3.5 sit yaw=90
+place "Balboa_DecorationPrefabBase_Desk" - at -2.5 2.8 sit
+place "Balboa_DecorationPrefabBase_Desk_Chair" - at -2.5 1.6 sit yaw=180
+place "Balboa_DecorationPrefabBase_CRTScreen" - at -2.5 3.2 y=0.9 sit
+place Creature_PufferFish puffers at -3 0 y=1.2
+pop
+push at 27 0 h=0.5
+call rt_storey f2=none l2=RT_WallWindow2 b1=RT_WallWindow1 r2=RT_WallWindow2
+place "VG_DecorationPrefabBase_BigOfficeDesk Variant" desk at -3 3 sit yaw=180
+place "VG_DecorationPrefabBase_OfficeChair Variant" - at -3 4 sit
+place Note_Paper memo at -3.3 2.7 y=0.92 sit
+# (in from the left wall: at x -5.6 their ends went 35 cm through it, off the floor's edge, CIGroundIslands)
+place "VG_DecorationPrefabBase_Bookshelf Filled 1 Variant" - at -5.2 -1.5 sit yaw=90
+place "VG_DecorationPrefabBase_Bookshelf Filled 2 Variant" - at -5.2 0.2 sit yaw=90
+place Placeable_Painting_Tangaroa_1 - at -0.15 2.5 y=1.5 yaw=270
+place "VG_DecorationPrefabBase_Carpet_Rectangle Variant" - at -3 0 y=0.01
+place "VG_DecorationPrefabBase_FloorLamp Variant" - at -0.7 4 sit
+place Zone_Trigger office at -1.5 -6 y=1
+place Creature_Rat_Tangaroa rats at -3 0 y=0.3
+place RT_Floor roof at 0 4.5 y=3
+call rt_railing y=3 bm=none fm=none
+# (a ladder of Raft's blocks from the wharf up the front wall to the roof)
+place Block_Ladder - at -3.8 -4.62
+place Block_Ladder_Half - at -3.8 -4.62 y=2.42
+place RT_Floodlight - at -0.2 -4.3 y=4.3 yaw=135
+pop
+
+# --- The wharf: a pier of Raft planks from the islet's beach to the office door ------------------------------------
+line Block_Floor_Wood from 8.5 -5.25 to 27 -5.25 step=1.5 h=0.5
+line Block_Floor_Wood from 8.5 -6.75 to 27 -6.75 step=1.5 h=0.5
+for px 12 26 3.5
+place Relay_support_beam_wood - at $px -7.6 h=-7 rot=0,0,-90 sx=0.8
+next
+place Block_Wall_Fence_Rope - at 19 -7.8 h=0.5
+place Block_Wall_Fence_Rope - at 22 -7.8 h=0.5
+place Zone_Trigger wharf at 22 -6.3 h=1.5
+place Placeable_Lantern_Basic - at 25.6 -7.4 h=0.5 sit
+
+# --- Chis Burgers: one storey above the water, a cafe on its roof, joined to City Hall's roof ------------------------
+push at 27 12 h=0.5
+call rt_legs d=12
+call rt_storey l2=RT_WallWindow1 l3=RT_WallWindow1 b1=RT_WallWindow2 b2=RT_WallWindow2
+place TangaroaKitchen_Bench4 - at -5.4 0 sit yaw=90
+# (in the corner, inside the walls: at -1 3.9 its back went 30 cm through the back wall, off the floor, CIGroundIslands)
+place "VG_DecorationPrefabBase_Refrigerator Variant" - at -1.1 3.5 sit yaw=180
+place Table_Common_01 - at -2.5 -1 sit
+place RT_Floor caferoof at 0 4.5 y=3
+call rt_railing y=3 fm=none
+place TangaroaStoreSign_ChisBurgers - at 0.15 0 y=1.6 yaw=90
+place RestaSunshadeGround - at -4 2 y=3 sit
+place RestaSunshadeGround - at -2 -2.5 y=3 sit
+place Tangaroa_OutdoorFurnitureSilver_Table - at -4 2 y=3 sit
+place Tangaroa_OutdoorFurnitureSilver_Chair - at -4.8 2.6 y=3 sit yaw=60
+place Tangaroa_OutdoorFurnitureSilver_Chair - at -3.2 1.4 y=3 sit yaw=240
+place Tangaroa_OutdoorFurnitureSilver_Table - at -2 -2.5 y=3 sit
+place Tangaroa_OutdoorFurnitureSilver_Chair - at -2.8 -1.9 y=3 sit yaw=60
+place Flowerpot_03 - at -5.6 -4.1 y=3 sit
+place Flowerpot_02 - at -0.4 4.1 y=3 sit
+pop
+ramp Scaffolding_6x4m from 24 4.6 3.5 to 24 7.4 3.5
+
+# --- On the drowned street: a fallen shop sign, plants in their pots, crates ---------------------------------------
+place TangaroaStoreSign_FloatingFashion - at 16 14 sit tilt=80 yaw=30
+place TangaroaStoreSign_SeasideBarber - at 31 -9 sit tilt=70 yaw=200
+place Placeable_TangaroaPlant_3 - at 18 9 sit
+place Placeable_TangaroaPlant_5 - at 30 8 sit tilt=30
+place "Box Small" - at 19 2 sit tilt=15
+place Shelves - at 31 -2 sit tilt=60 yaw=90
+place Loot_SunkenBarrel barrel at 17 -2 sit tilt=40
+
+# --- Settings, story item, notes, behaviours, quest -----------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): melons, pineapples ----------
+scatter "Pickup_Landmark_WatermelonLandmark" 3 at 0 0 r=9.8 seed=4145 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 3 at 0 0 r=9.8 seed=4222 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=34 deep=5 n=1
+
+info title=Mayor's Wharf
+info author=Custom Islands
+info description=A sandy islet beside a drowned city block: City Hall's lower floors are flooded, the mayor's office stands just above the waterline at its wooden wharf, and the burger bar next door keeps a cafe on its roof. Rats, a keycard and the mayor's vault. Inspired by Raft's Tangaroa.
+island on.arrive=message||A city block, drowned to its third floor. A wooden wharf leads to City Hall's door.
+
+story wharf-keycard|Vault keycard|quest:Tangaroa_KeyCard|City Hall's spare vault keycard. Level 0 - authorised staff only.
+
+note memo Mayor's memo | MEMO - from the desk of Mayor A. Osei\n\nTo Security: the vault stays locked during the evacuation. The spare keycard is in the security locker on level 1 - NOT in your pocket, Darnell.\n\nIf the water keeps rising, swim it out through the windows. The founders' charter is in the safe and goes with the last boat.\n\n- O.
+note locker Security locker | Locker 7 - D. Kim, Security. A spare vault keycard on a lanyard, two ration bars and a photo of a very fat dog.
+loot locker story:wharf-keycard*1;Cooked_GenericMeat*2
+prop locker loot.refill=0
+note safe Mayor's safe | The founders' charter, sealed in plastic: "Tangaroa will float when the old world sinks." Under it, a hand-drawn chart of the sea routes between the floating towns, a painting of the sea-god, two bars of titanium and two circuit boards.
+loot safe Placeable_Painting_Tangaroa_2*1;TitaniumIngot*2;CircuitBoard*2
+prop safe loot.refill=0
+loot barrel Plastic*6;Glass*2;Scrap*3
+
+prop reader obj.name=reader
+prop reader beh.use=Swipe the vault keycard
+prop reader if.use=take|story:wharf-keycard|1
+prop reader on.use=message||The reader beeps green. The vault shutter rattles up.\nopen|shutter\nsound||event:/raft/door/door_unlock_keycard
+prop reader else.use=message||The card reader blinks red: KEYCARD REQUIRED.
+prop shutter1 obj.name=shutter
+prop shutter1 beh.move=0,2.6,0
+prop shutter1 beh.moveTime=2
+prop shutter1 beh.moveMode=switch
+prop shutter2 obj.name=shutter
+prop shutter2 beh.move=0,2.6,0
+prop shutter2 beh.moveTime=2
+prop shutter2 beh.moveMode=switch
+
+prop vaultgloom atmo.fog=#06131f
+prop vaultgloom atmo.fogAmount=0.55
+prop vaultgloom atmo.light=#1c3348
+prop vaultgloom atmo.lightAmount=0.55
+prop vaultgloom zone.radius=6
+prop wharf zone.id=wharf
+prop wharf zone.radius=4
+prop wharf zone.message=The mayor's wharf. Something scratches behind City Hall's door.
+prop office zone.id=office
+prop office zone.radius=3
+prop office zone.message=Rats! The mayor's office is full of them.
+prop rats creature.count=3
+prop rats creature.zone=office
+prop puffers creature.count=2
+
+quest title=The Mayor's Safe
+quest intro=City Hall stands in the sea up to its third floor. Somewhere below the waterline is the mayor's vault.
+step reach|wharf|1|Tie up at the mayor's wharf
+step kill|Tangaroa rat|3|Clear the rats out of the mayor's office
+step read|Mayor's memo|1|Read the memo on the mayor's desk
+step collect|story:wharf-keycard|1|Swim down to level 1 and take the spare keycard from Darnell's locker
+step open|Mayor's safe|1|Open the mayor's safe in the vault
+quest done=The founders' charter is safe with you. The floating towns are out there somewhere.
+quest reward=Rope*4;Hinge*2
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=9 n=1 seed=8849
+prop treasure8849 treasure.loot=TitaniumOre*2
+
+save Mayor's Wharf

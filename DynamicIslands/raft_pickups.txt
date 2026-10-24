@@ -1,0 +1,64 @@
+# CustomIslands pickups per object raft=1.1.01
+# Raft's objects that bring pickups (trees, rocks, items): name, how many. An object a Raft update removes keeps
+# that many numbers in a world, so the pickups after it keep their saved state (ROADMAP R2b). Made by CIMeasurePickups.
+Pickup_Landmark_Beehive	1
+Pickup_Landmark_BerryBush	1
+Pickup_Landmark_Clay 1	1
+Pickup_Landmark_Clay 2	1
+Pickup_Landmark_Clay 3	1
+Pickup_Landmark_Copper 1	1
+Pickup_Landmark_Copper 2	1
+Pickup_Landmark_DirtPickup	1
+Pickup_Landmark_Flower_Black	1
+Pickup_Landmark_Flower_Blue	1
+Pickup_Landmark_Flower_Red	1
+Pickup_Landmark_Flower_White	1
+Pickup_Landmark_Flower_Yellow	1
+Pickup_Landmark_GiantClam	1
+Pickup_Landmark_Iron 1	1
+Pickup_Landmark_Iron 2	1
+Pickup_Landmark_Iron 3	1
+Pickup_Landmark_LandmarkCrateRaft	1
+Pickup_Landmark_MangoTree	1
+Pickup_Landmark_Mushroom 1	1
+Pickup_Landmark_Mushroom 2	1
+Pickup_Landmark_Mushroom 3	1
+Pickup_Landmark_Palmtree 1	1
+Pickup_Landmark_Palmtree 2	1
+Pickup_Landmark_Palmtree 3	1
+Pickup_Landmark_Palmtree 4	1
+Pickup_Landmark_PineappleLandmark	1
+Pickup_Landmark_Plank_Land	1
+Pickup_Landmark_Plastic3_Land	1
+Pickup_Landmark_Plastic6_Land	1
+Pickup_Landmark_Rock 1	1
+Pickup_Landmark_Rock 2	1
+Pickup_Landmark_Rock 3	1
+Pickup_Landmark_Rock_2_Land	1
+Pickup_Landmark_Sand	1
+Pickup_Landmark_Sand_Caravan	1
+Pickup_Landmark_Scrap 1_Land	1
+Pickup_Landmark_Scrap 1_OceanBottom	1
+Pickup_Landmark_Scrap 2_Land	1
+Pickup_Landmark_Scrap 2_OceanBottom	1
+Pickup_Landmark_Scrap 3_Land	1
+Pickup_Landmark_Scrap 3_OceanBottom	1
+Pickup_Landmark_Scrap 4_Land	1
+Pickup_Landmark_Scrap 4_OceanBottom	1
+Pickup_Landmark_SilverAlgae	1
+Pickup_Landmark_Strawberry	1
+Pickup_Landmark_Titanium_Land	1
+Pickup_Landmark_Tree_AcaciaTree_Big 1	1
+Pickup_Landmark_Tree_AcaciaTree_Big 3	1
+Pickup_Landmark_Tree_Banana	1
+Pickup_Landmark_Tree_Birch	1
+Pickup_Landmark_Tree_Mango	1
+Pickup_Landmark_Tree_Palm 1	1
+Pickup_Landmark_Tree_Palm 2	1
+Pickup_Landmark_Tree_Palm 3	1
+Pickup_Landmark_Tree_Palm 4	1
+Pickup_Landmark_Tree_Pine	1
+Pickup_Landmark_Tree_PineSnowy	1
+Pickup_Landmark_Tree_Tangaroa_1	1
+Pickup_Landmark_WatermelonLandmark	1
+SeaVine3_klump	1

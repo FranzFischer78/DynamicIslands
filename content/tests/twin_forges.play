@@ -1,0 +1,69 @@
+# Play test of Twin Forges (CIPlay twin_forges, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The saddle at 30 m along the line from -12.4 -17.4 to 17.4 0.4, the bridge over the chasm at 2.5 -8.5 (ladders down from
+# its middle); the chasm (floor 22 m) from 10.7 -22.2 to -5.7 5.2; the vault's door at -1.4 -2.1; the Anvil round 14.2 -1.5
+# and the Bellows round -9.2 -15.6 (at the saddle's ends); the adit's mouth at 29 40 (floor 4 m); the clamps round -11 -50.
+island Twin Forges
+offset 0 0
+expect step 0
+expect title The Master-Smith
+wait 5
+expect animals Chicken 3
+expect animals Goat 2
+expect animals Dolphin 2
+at 2.5 -8.5 h=31.5
+zone saddle
+expect step 1
+read The contest's rules
+expect step 2
+walk 2.5 -8.5 to 12 -3 h=30.05
+at 13.5 -2.2 h=30.6
+zone anvil
+expect step 3
+read Brann's chalkboard
+expect step 4
+use anvilforge
+expect message furnace, cold
+at 29 43 h=5
+walk 29 43 to 29 37 h=4
+use ore1
+use ore2
+use ore3
+expect story ore 3
+expect step 5
+use anvilforge
+expect story northblade 1
+expect step 6
+zone clamps
+expect message boars
+kill Warthog
+expect step 7
+use coal1
+use coal2
+use coal3
+expect story charcoal 3
+expect step 8
+at -5 -13.5 h=31
+walk -5 -13.5 to -9.2 -15.6 h=30.05
+zone bellows
+use bellowsforge
+expect story southblade 1
+expect step 9
+at 2.5 -8.5 h=31.5
+use judgingstone
+expect shown verdict
+read The verdict
+expect step 10
+wait 7
+expect shown warden
+kill Mama bear
+expect step 11
+at 2.5 -8.5 h=23
+walk 2.5 -8.5 to -1.4 -2.1 to -3.7 1.8 h=22.05
+zone vault
+expect step 12
+open The contest prize
+expect done
+open Anvil bench box
+open Bellows barrel
+open Jetty box
+open Sunk ingot crate

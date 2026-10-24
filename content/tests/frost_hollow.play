@@ -1,0 +1,43 @@
+# Play test of Frost Hollow (CIPlay frost_hollow, in a test world 'CI ...'). Points as in its recipe.
+island Frost Hollow
+expect step 0
+expect title Power for Frost Hollow
+
+# The village between the igloos: the research log on a crate
+walk 28 0 to 17 0 h=3.9
+zone village
+expect step 1
+read Research log
+expect step 2
+
+# The cables: one by each igloo's door, one in the polar bear's shed
+walk 17 0 to 19 -2.5 h=3.9
+openat 19.6 -3.4
+expect story cable 1
+walk 19 -2.5 to 15.8 1.4 h=3.9
+openat 14.4 3.4
+expect story cable 2
+expect step 3
+zone shedzone
+expect message polar bear rears up
+kill Polar bear
+expect step 4
+walk -1 7 to 0.5 11.8 h=8.2
+openat 1.5 13
+expect story cable 3
+expect step 5
+
+# The lab: shut, then powered - its doors slide open; the locker inside
+walk -19 3 to -19 -2 h=5.5
+walk -19 -2 to -19 -7 blocked
+walk -20.4 -2 to -20.4 -7 blocked
+walk -17.6 -2 to -17.6 -7 blocked
+use powerbox
+expect message doors slide apart
+expect story cable 0
+wait 2
+walk -17.6 -2 to -17.6 -7 h=5.5
+walk -19 -2 to -19 -7 to -12 -8 h=5.5
+open Lab locker
+expect item Battery_Advanced 1
+expect done

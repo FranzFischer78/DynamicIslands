@@ -1,0 +1,102 @@
+# Play test of the plan 'Silver Screen Seas' (CIPlay plan_silver_screen, in a test world 'CI ...'): Raft's story from its
+# start with Raft's own notes read as the game does; after each story island the plan's themed island must come on the
+# Receiver, be played to its end with its own test, and lead on to the next - and the side trips, sailed to.
+plan Silver Screen Seas
+note RadioTower
+expect chain RadioTower unlocked
+expect chain blackwater locked
+
+# RadioTower's note leads to the plan's island first, its quest to Vasagatan
+note Vasagatan
+expect chain blackwater unlocked
+tune blackwater
+include camp_blackwater.play
+expect chain blackwater done
+expect chain Vasagatan unlocked
+
+# Vasagatan's note leads to the plan's island first, its quest to Balboa
+note Balboa
+expect chain liner unlocked
+tune liner
+include sunken_liner.play
+expect chain liner done
+expect chain Balboa unlocked
+
+# Balboa's note leads to the plan's island first, its quest to CaravanTown
+note CaravanTown
+expect chain pyramid unlocked
+tune pyramid
+include step_pyramid.play
+expect chain pyramid done
+expect chain CaravanTown unlocked
+
+# CaravanTown's note leads to the plan's island first, its quest to Tangaroa
+note Tangaroa
+expect chain arena unlocked
+tune arena
+include the_arena.play
+expect chain arena done
+expect chain Tangaroa unlocked
+
+# Tangaroa's note leads to the plan's island first, its quest to VarunaPoint
+note VarunaPoint
+expect chain airfield unlocked
+tune airfield
+include albatross_field.play
+expect chain airfield done
+expect chain VarunaPoint unlocked
+
+# VarunaPoint's note leads to the plan's island first, its quest to Temperance
+note Temperance
+expect chain stations unlocked
+tune stations
+include island_of_stations.play
+expect chain stations done
+expect chain Temperance unlocked
+
+# Temperance's note: Primeval Park, then Sundown Canyons, then Utopia - the end of Raft's story
+note Utopia
+expect chain park unlocked
+tune park
+include primeval_park.play
+expect chain park done
+expect chain sundown unlocked
+tune sundown
+include sundown_canyons.play
+expect chain sundown done
+expect chain Utopia unlocked
+
+# The side trips: the normal-size themed islands come ahead of the raft while it sails (at 2 to 32 km), each played to
+# its end
+sail 2
+arrive tiki
+include tiki_lagoon.play
+sail 2
+arrive gilded
+include gilded_skull_cove.play
+sail 3
+arrive labyrinth
+include drowned_labyrinth.play
+sail 3
+arrive keeper
+include keepers_light.play
+sail 3
+arrive embers
+include embers_isle.play
+sail 3
+arrive saferoom
+include the_safe_room.play
+sail 4
+arrive sunatoll
+include sun_atoll.play
+sail 4
+arrive rockpen
+include the_rock_pen.play
+sail 4
+arrive highmoor
+include highmoor_lodge.play
+sail 4
+arrive crater
+include crater_lair.play
+expect blueprints
+plan end

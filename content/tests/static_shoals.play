@@ -1,0 +1,42 @@
+# Static Shoals (CIPlay static_shoals): the main bar at 1.5 m round -10 -4; Teo's note, the Fleet chest (with the
+# zipline handle), the screechers, mast 4's hut on the east bar, the flare locker, the workshop.
+island Static Shoals
+offset 0 0
+expect step 0
+expect title Static
+zone barge
+read Teo's note
+expect step 1
+open Fleet chest
+wait 3
+expect step 2
+kill Screecher
+expect animals Screecher 0
+expect step 3
+zone mast_4
+expect step 4
+open Mast 4 hut
+wait 3
+expect step 5
+open Flare locker
+wait 3
+expect step 6
+read Net house book
+use netradio
+expect message radio is dead
+expect step 7
+open Mechanic's toolbox
+wait 3
+expect story raft-Tangaroa_GeneratorPart 1
+expect step 8
+use netgen
+expect message The power is on
+use netradio
+expect shown netdrop
+expect step 9
+open Supply drop
+wait 3
+expect step 10
+open Mast workshop
+wait 3
+expect done

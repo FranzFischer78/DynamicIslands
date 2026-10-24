@@ -1,0 +1,182 @@
+# The Lockkeeper's Isle - a new island of the library, small, a tropical one
+# A low green island with one flat top (3 m): the keeper's hut, his strongbox shed with a keypad code lock, a goat pen
+# and a lookout with his sea chest. The keeper, Aldo, is gone to the mainland; his brother Tomas keeps the light on
+# Lantern Spire, which the main quest brings (questbring: in the north, 400 m off, when the main quest is done).
+# Quests: "The Keeper's Strongbox" (5 steps: land, read the keeper's note, read his mother's letter - its date is the
+# keypad code, 2704 - open the strongbox (the lookout key), open the sea chest at the lookout); "Strays" (catch the two
+# goats with the net launcher from the tack chest); "The Keeper's Log" (read his three pages).
+#
+# Built by the recipe player (CIRecipe lockkeepers_isle) through the editor's own operations. Points: the landing beach
+# at 0 -33 (0.8 m) and its path up to the top (3 m, r 20 round 0 0); the keeper's hut (Balboa's shack) at -10 6; the
+# strongbox shed x 5..8, z 2..5, its door at 7.25 2; the goat pen x 9..18, z -15..-6; the lookout at 0 15.
+include lib_huts
+include lib_sea
+new
+gen Trees=0.12 Bushes=0.3 Rocks=0.25 Harvest=0.1 BeachThings=0.3
+gen Seed=9171 Radius=38 Height=7 Roughness=0.25 Peaks=1 Shape=0 Style=3 BeachWidth=0.45 Cliffs=0.1 PeakShape=0.3
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== Terrain: the flat top at 3 m, the landing beach in the south and the path up ===================================
+for sx -16 16 8
+for sz -16 16 8
+brush flatten at $sx $sz r=7 s=20 frames=60 h=3
+next
+next
+brush flatten at 0 -33 r=4 s=20 frames=40 h=0.8
+for i 0 8
+brush flatten at 0 {-32+$i*1.6} r=2.6 s=20 frames=25 h={0.8+$i*0.275}
+next
+brush grass at 0 0 r=19 s=20 frames=20
+brush sand from 0 -31 to 0 -19 r=1.4 s=20 frames=20
+clear at 0 0 r=21
+clear from 0 -33 to 0 -19 r=3
+
+# ===== The landing: mooring post, the first log page, the welcome sign ================================================
+place ReefHuts_Pillar1 - at -2.5 -34 ground
+place Note_Papers log1 at -2.5 -33 h=1 drop yaw=10
+place Note_Sign welcome at 2.5 -31 ground sit yaw=180
+place RT_PlasticBoat - at 3.5 -35.5 h=0.3 yaw=75
+place Loot_Barrel landingbarrel at -3.6 -31.6 ground sit
+place Crate_Big_01 - at -4.4 -30.2 ground sit yaw=20
+place Zone_Trigger landing at 0 -33 h=1.8
+
+# ===== The keeper's hut: his note on the board by the door, a table with the second log page ==========================
+place Balboa_Shack keepershut at -10 6 h=2.65
+place Note_Sign keepersnote at -5 1 ground sit yaw=180
+place Placeable_Table_Basic - at -4 9 ground sit yaw=90
+place Note_Paper letter at -4 9 h=4.1 drop yaw=25
+place Placeable_Lantern_Metal - at -4 9.6 h=4.1 drop
+place campfire_1 - at -6 -2.5 ground
+place Firewood_1 - at -7.6 -3.4 ground sit yaw=80
+place Bench_01 - at -6 -0.6 ground sit yaw=0
+place Crate_Big_01 - at -14.6 3 ground sit yaw=10
+place Loot_Barrel hutbarrel at -14.4 8.4 ground sit
+
+# ===== The strongbox shed: four walls with a door, the keypad by the door inside, the strongbox (shown by the code) ====
+push at 5 2 h=3
+call floors w=2 d=2 y=0.1
+place Block_Wall_Wood - at 0.75 0 y=0.1
+place Block_Wall_Wood - at 0.75 3 y=0.1
+place Block_Wall_Wood - at 2.25 3 y=0.1
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 3 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 3 2.25 y=0.1 yaw=90
+call corners w=2 d=2
+roof 2 2 at 0 0 y=0.1 wood
+place RT_PowerBox keypad at 2.6 0.6 y=0.1 sit yaw=270
+place Loot_Chest strongbox at 1.2 2.4 y=0.1 sit yaw=180
+pop
+place Loot_Barrel shedbarrel at 9.2 3.4 ground sit
+place SmallBoulder3 - at 11 7 ground scale=0.35 yaw=30
+
+# ===== The goat pen (quest 2): fences, the tack chest with the net launcher, two goats loose on the top ================
+line Balboa_DecorationPrefabBase_Fence_Mid from 9 -15 to 18 -15 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from 9 -6 to 13 -6 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from 9 -15 to 9 -6 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from 18 -15 to 18 -6 step=2.98
+place Loot_Chest tackchest at 6 -9 ground sit yaw=90
+place "Box Small" feedbin at 16.5 -13.5 ground sit
+place Note_Papers log2 at 16.5 -13.5 h=3.9 drop yaw=15
+place Note_Sign pensign at 6 -12.5 ground sit yaw=180
+place Creature_Goat goats at -10 -12 ground
+
+# ===== The lookout (island rules, the island it brings): a bench, the third log page, the signs =======================
+place Bench_01 - at 0 15 ground sit
+place Note_Papers log3 at 0.6 15 h=3.6 drop yaw=-20
+place Loot_ChestSmall seachest at -1.6 16.4 ground sit yaw=160
+place Placeable_Flag_03 - at 2.4 16.6 ground sit yaw=200
+place SmallBoulder1 - at 4.5 17.5 ground scale=0.3 yaw=80
+place Zone_Trigger lookout at 0 15 h=4
+
+# ===== Friendly animals, Raft's finds in the shallows ==================================================================
+place Creature_Dolphin dolphins at 34 -34 h=-2
+call shallows r=44 deep=5 n=1
+prop goats creature.count=2
+prop dolphins creature.count=2
+
+# --- Things to gather: palms and flowers on the slopes, berries by the hut ------------------------------------------------
+scatter "Pickup_Landmark_Tree_Palm 3" 7 at 0 0 r=30 seed=7101 free=5
+scatter "Pickup_Landmark_Flower_White" 2 at 0 0 r=24 seed=7102 free=3
+scatter "Pickup_Landmark_Flower_Blue" 2 at 0 0 r=24 seed=7103 free=3
+scatter "Pickup_Landmark_BerryBush" 3 at -10 -6 r=8 seed=7104 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 3 at -8 18 r=10 seed=7105 free=3
+scatter "Pickup_Landmark_BerryBush" 2 at 10 14 r=8 seed=7106 free=3
+
+# ===== Settings, island rules, notes, behaviours, three quests, the island it brings =================================
+info title=The Lockkeeper's Isle
+info author=Custom Islands
+info description=A low green island and its absent keeper: a tidy hut, a shed with a keypad-locked strongbox, two runaway goats and a lookout over the sea. Work out the keeper's code from what he left behind, round up his goats, piece his log together - and see what lights up in the north.
+island on.arrive=message||A low green island: a tidy hut, a shed, a goat pen - and nobody home.
+island rules.regrow=3
+island rules.notbefore=8
+island rules.levels=on
+
+note welcome Lockkeeper's Isle | (a board at the landing, freshly painted)\n\nLockkeeper's Isle. Visitors welcome - goats are not to be let out.\n- Aldo, lockkeeper
+note keepersnote Keeper's note | (pinned by the hut door)\n\nGone to the mainland for the winter. The strongbox is in the shed - the code is Mum's birthday, day and month, four digits. Her letter is on my table out back, because I will forget.\n\nThe goats are loose again. The net launcher is in the tack chest by the pen.\n- Aldo, lockkeeper
+note letter Mother's letter | My dear Aldo,\n\nCome home for my birthday this year - the 27th of April, as always, and no excuses about goats. Bring some of their cheese.\n\nAnd write to your brother. Tomas sits up on that rock of his with his lantern and talks to nobody but birds.\n- Mum
+note pensign Goat pen | KEEP THE GATE SHUT.\n\n(under it, smaller:) The net launcher is in the tack chest. Again.
+note log1 Keeper's log, page 1 | Day 1. The new strongbox arrived. A keypad on it, four digits. I picked Mum's birthday, because I will forget anything else.
+note log2 Keeper's log, page 2 | Day 40. The goats have learnt to open the pen. I have not learnt to close it.
+note log3 Keeper's log, page 3 | Day 90. From the lookout I saw a light in the sky to the north, high over the water, where nothing should be. Some nights it is there and some nights not. Tomas, is that you?
+note strongbox Keeper's strongbox | The keeper's strongbox: his savings, his tools - and a key on a string, a tag on it: LOOKOUT.
+loot strongbox story:lookoutkey*1;Nail*12;Scrap*6;MetalIngot*3;TradeToken*6
+prop strongbox loot.refill=0
+note seachest Keeper's sea chest | The keeper's sea chest at the lookout: his spyglass, a lantern - and a letter to his brother he never sent.
+loot seachest Binoculars*1;Placeable_Lantern_Basic*1;CopperIngot*3;Bolt*4;Hinge*2;TradeToken*8
+prop seachest loot.refill=0
+prop seachest if.open=has|story:lookoutkey|1
+prop seachest else.open=message||The sea chest is locked. The keeper would keep its key somewhere safe.
+note tackchest Tack chest | Rope, a feed sack - and the net launcher.
+loot tackchest NetGun*1;NetCanister*4;Rope*2
+note landingbarrel Barrel | A barrel by the landing.
+loot landingbarrel Plank*3;Plastic*2;Rope*1
+note hutbarrel Rain barrel | The keeper's rain barrel - and his spare fruit.
+loot hutbarrel Pineapple*1;Seed_Pineapple*1;Plank*2
+note shedbarrel Barrel | Odds and ends from the shed.
+loot shedbarrel Scrap*3;Nail*4;Plastic*2
+
+story lookoutkey|Lookout key|quest:Caravan_KeyMayor|The key from the keeper's strongbox, a tag on it: LOOKOUT.
+
+prop keypad obj.name=keypad
+prop keypad beh.use=Type the code
+prop keypad lock.code=2704
+prop keypad on.use=sound||event:/exploring/obstacles/keypad/keypad_correct\nmessage||The keypad beeps twice and the lid of a strongbox clicks open behind it.\nshow|strongbox
+prop strongbox obj.name=strongbox
+prop strongbox beh.hidden=1
+
+prop landing zone.id=landing
+prop landing zone.radius=4
+prop landing zone.message=The landing. A mooring post - with a page tied to it - and the keeper's board.
+prop lookout zone.id=lookout
+prop lookout zone.radius=4
+prop lookout zone.message=The lookout: a bench, the keeper's sea chest, and the whole island below you. To the north, only sea.
+
+quest title=The Keeper's Strongbox
+quest intro=A tidy island and nobody home. The keeper left a note by his hut door.
+step reach|landing|1|Land on the Lockkeeper's Isle
+step read|Keeper's note|1|Read the keeper's note by his hut
+step read|Mother's letter|1|Find his mother's letter on his table by the hut
+step open|Keeper's strongbox|1|Open the strongbox in the shed - the keypad wants her birthday
+step open|Keeper's sea chest|1|Open the keeper's sea chest at the lookout
+quest done=In the sea chest, a letter: "Tomas - I see your light. I'll come in spring. - Aldo". To the north, high over the water, a light burns.
+quest reward=Nail*6;Plank*6;Rope*2
+
+quest2 title=Strays
+quest2 intro=The keeper's two goats are loose on the island.
+step2 catch|Goat|2|Catch the two goats with the net launcher from the tack chest
+quest2 done=Both goats are back in the pen - for now.
+quest2 reward=Wool*2;Rope*2
+
+quest3 title=The Keeper's Log
+quest3 intro=The keeper's log is scattered over the island, one page at a time.
+step3 read|Keeper's log, page 1|1|Read the first log page, at the landing
+step3 read|Keeper's log, page 2|1|Read the second log page, at the goat pen
+step3 read|Keeper's log, page 3|1|Read the third log page, at the lookout
+quest3 done=You know the keeper a little now - and his brother's light in the north.
+quest3 reward=Cooked_GenericMeat*2
+
+questbring quest-done | island:Lantern Spire | quest:self | near:self:400:north | High over the water to the north, a light burns on an island that floats in the air. | Lantern Spire
+
+save The Lockkeeper's Isle

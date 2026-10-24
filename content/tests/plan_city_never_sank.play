@@ -1,0 +1,33 @@
+# Play test of the plan 'The City That Never Sank' (CIPlay plan_city_never_sank, in a test world 'CI ...'): no Raft
+# story, no random islands; each stop is tuned to on the Receiver (or arrives by itself) and played to its end with its
+# own test; the Crown's alarm bell brings the Piles, its FREE lever brings Freehold Shoal ahead.
+plan The City That Never Sank
+tune customs
+include breakwater_customs.play
+expect chain bazaar unlocked
+tune bazaar
+include raft_row_bazaar.play
+expect chain fleet unlocked
+tune fleet
+include fleetbreak_moorings.play
+tune hookline
+include hookline_stack.play
+tune pumps
+include pumpcrown_works.play
+expect chain lowstreet unlocked
+tune lowstreet
+include lowstreet.play
+tune cistern
+include cistern_hall.play
+expect chain rookery unlocked
+tune rookery
+include rookery_stacks.play
+expect blueprints
+tune crown
+include bridgeworks_crown.play
+expect chain piles unlocked
+tune piles
+include foundation_piles.play
+arrive freehold
+include freehold_shoal.play
+plan end

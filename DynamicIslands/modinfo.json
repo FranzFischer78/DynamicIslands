@@ -1,8 +1,8 @@
 {
   "name": "Custom Islands",
-  "author": "FranzFischer78 + MegaMatrixs",
-  "description": "Allows you to spawn your own custom islands ingame!",
-  "version": "2.0",
+  "author": "SwedenJohansson, FranzFischer78 + MegaMatrixs",
+  "description": "Build your own islands in an in-game editor and find them while sailing! Sculpt terrain or generate a whole island from a seed (sizes, coasts, reefs and plants measured from Raft's own islands, or a variation of one of them), pick a style (tropical, snowy, desert, forest, volcanic) and place any of Raft's 1,900 objects - even build your own abandoned rafts. See it at any time of day, and try it in a world with one click (Test). Give islands life: Raft's animals with your own toughness and colour, notes, chests with loot, trigger zones and ambushes, fog and sounds, doors and levers, quests, story items and a journal, and islands that bring new islands. World plans decide which islands a world gets - random islands, a story from island to island, or your islands in Raft's own Receiver story (leave out or replace story islands). Share islands and plans as packs or through the island library. Optional world settings: monster difficulty, build cost, a world randomizer, scrambled blueprints, the story islands in a new order, ghost rafts, private storages and a level up system - chosen for a new world and changed any time with Esc > Custom Islands. Multiplayer for up to 8 players: everyone gets the host's islands and settings, and any player can host a saved world later. Illustrated guide: https://github.com/SwedenJohansson/DynamicIslands/blob/master/docs/GUIDE.md",
+  "version": "3.0",
   "license": "GNU AGPLv3",
   "icon": "icon.png",
   "banner": "banner.jpg",

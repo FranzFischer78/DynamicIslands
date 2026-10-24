@@ -1,0 +1,240 @@
+# Cistern Hall - the seventh island of the library's plan The City That Never Sank (SL13, Highwater, chapter 7)
+# The Authority's main tower: its roof is the island's top (planters, a sand bed, something buried in it); at its foot
+# the old cistern lies open to the sea - a basin six metres deep, walkways on stone legs over the water, the pump house
+# with the oldest pump in the city, the smelter workshop on its own platform, the councillor's office, and down in the
+# water the flooded valve gallery with two pockets of air. Quest "The Evidence" (13 steps): the intake, the cistern
+# ledger, the electric smelter's plans, the valve gallery, the valve log (the evidence), the advanced biofuel
+# extractor's plans, the old pump (the camera on its plate), the builder's plate, the advanced anchor's plans, the
+# councillor's drawer.
+#
+# Points: the tower roof 0 12 (levelled at 6, r 12); the cistern basin 0 -28 (levelled at -6, r 16); the intake 0 -14;
+# the walkway slab x -3..3, z -26.5..-17.5 (deck 1); the pump house x -3..3, z -35.5..-26.5 (floor 1, door north);
+# the smelter platform x 9..15 and the councillor's office x -15..-9 (z -26.5..-17.5), bridges at z -22; the valve
+# gallery on the basin's floor under the walkway (air at -1 -22 and 0 -31).
+include lib_sea
+include lib_rt
+include lib_huts
+include lib_features
+include lib_verdance
+include lib_highwater
+include lib_areas
+# RESIZE 10-24: Radius 40 -> 85 (Height 7 -> 7), the old content moved 4.9 -24.3 as one frame (push) so its sea side stays at the coast; the island grows behind it.
+new
+gen Trees=0.1 Bushes=0.2 Rocks=0.4 Harvest=0.2 BeachThings=0.25
+gen Seed=13701 Radius=85 Height=7 Roughness=0.25 Peaks=1 Shape=0 Style=0 PeakShape=0.4 Cliffs=0.3 BeachWidth=0.5
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0.2
+generate
+push at 4.9 -24.3
+
+# --- Terrain: the tower's roof on top, the cistern's basin at its foot ---------------------------------------------
+brush flatten at 0 12 r=12 s=20 frames=300 h=6
+brush flatten at 0 -28 r=16 s=20 frames=400 h=-6
+# (the smelter workshop's roof at 15 -22 stood under 2 m of the slope: a shelf cut for it - X7, 2026-10-24)
+brush flatten at 13 -20 r=10 s=20 frames=400 h=0.4
+pop
+brush flatten at -34 11.7 r=5 s=8 frames=40
+origin
+clear at -34 11.7 r=6
+push at 4.9 -24.3
+clear at 0 12 r=11
+clear at 0 -28 r=17
+clear from 0 -10 to 0 -16 r=4
+
+# --- The intake: a causeway down off the shore, the reef at its mouth -------------------------------------------------
+line Block_Foundation from 0 -11.75 to 0 -16.75 step=1.5 h=0.35
+place Note_Board ledger at -1.4 -13 h=1.05 yaw=270
+place Zone_Trigger intakezone at 0 -14 h=1.5
+call hw_reef x=7 z=-14 r=3 seed=13702
+
+# --- The walkway over the water, bridges to the workshop and the office ------------------------------------------------
+push at 3 -22 h=1
+call hw_roof d=8 a=stone bm=none fm=none lm=none rm=none
+call hw_bridge n=4 y=0
+place Placeable_Lantern_Metal - at -3 0 y=0.05 drop
+pop
+push at -9 -22 h=1
+# (a wide doorstep under the office door - the door's sill is wider than the bridge - then the plank bridge)
+place Block_Floor_Wood - at 0.75 0 y=0 sz=1.4
+for bx 2.25 5.25 1.5
+place Block_Floor_Wood - at $bx 0 y=0
+place Block_Wall_Fence_Rope - at $bx -0.75 y=0
+place Block_Wall_Fence_Rope - at $bx 0.75 y=0
+next
+pop
+
+# --- The smelter workshop on its own platform -------------------------------------------------------------------
+push at 15 -22 h=1
+call hw_roof d=8 a=stone lm=none
+place Placeable_CookingStand_Smelter_Electric - at -4.35 2.5 y=0.05 sit yaw=180
+place Placeable_CookingStand_Smelter - at -4.5 -2.5 y=0.05 sit
+place Loot_Chest smelterbench at -1.4 3.4 y=0.05 sit yaw=180
+place "Box Small" - at -1.4 -3.6 y=0.05 sit
+pop
+
+# --- The councillor's office: a storey on legs, its door on the walkway's side ---------------------------------------
+push at -9 -22 h=1
+call hw_penthouse d=8 a=stone r2=RT_WallDoor1 l2=RT_WallWindow1 f2=RT_Wall1 b1=RT_WallWindow1
+place "Table Office" - at -4.5 3 y=0.1 sit yaw=180
+place Loot_ChestSmall drawer at -3 3.4 y=0.1 sit yaw=180
+place RT_Clipboard - at -4.5 3 y=0.9 drop
+place Placeable_Lantern_Metal - at -3 0 y=0.1 drop
+pop
+
+# --- The pump house: the oldest pump, its builder's plate, the camera on it ------------------------------------------
+push at 3 -31 h=1
+call hw_penthouse d=8 a=stone b2=RT_WallDoor1 f2=RT_Wall1 l2=RT_Wall1 r2=RT_Wall1
+place "VG_DecorationPrefabBase_Engine Variant" oldpump at -3 -1 y=0.1 sit
+prop oldpump obj.name=oldpump
+place Note_Sign plate at -3 -2.6 y=0.1 sit yaw=180
+place Loot_Chest anchorlocker at -5.2 3.4 y=0.1 sit yaw=180
+place Zone_Trigger pumpzone at -3 1.5 y=0.1
+place Placeable_Lantern_Metal pumpcam at -0.8 3.6 y=0.1 drop
+pop
+
+# --- The valve gallery: the basin's floor under the walkway, flooded, two pockets of air -------------------------------
+call hw_airpocket x=-1 z=-22 id=valve_gallery al=valveair bub=valvebub msg="The valve gallery. Three great wheels on the pillars - and air, trapped under the walkway."
+call hw_airpocket x=0 z=-31 id=gallery_air2 al=valveair2 bub=valvebub2
+call crank x=2 z=-20 yaw=0 alias=valve1
+call crank x=-3 z=-20 yaw=0 alias=valve2
+call crank x=2 z=-24.5 yaw=180 alias=valve3
+place Note_Paper valvelog at 0 -22.5 ground drop
+place Loot_Chest gallerychest at -2.5 -25 ground sit yaw=90
+place "Pickup_Landmark_Mushroom 1" - at -12 -36 ground sit
+place "Pickup_Landmark_Mushroom 2" - at -11 -37.5 ground sit
+place "Pickup_Landmark_Mushroom 3" - at -13 -38 ground sit
+place "Pickup_Landmark_Mushroom 1" - at -9.5 -38.5 ground sit
+place "Pickup_Landmark_Copper 1" - at 12 -34 ground sit
+place "Pickup_Landmark_Copper 2" - at 14 -31 ground sit
+place "Pickup_Landmark_Copper 1" - at -14 -28 ground sit
+place Creature_PufferFish puffers at 6 -36 ground y=2
+
+# --- The tower's roof: planters, the sand bed, something buried --------------------------------------------------------
+place Placeable_Cropplot_Medium - at -13.5 16.5 ground sit
+place Placeable_Cropplot_Medium - at -13.5 20.5 ground sit
+place Loot_ChestSmall seedbox at -9 19 ground sit yaw=90
+place "Pickup_Landmark_Sand" - at 4 8 ground sit
+place "Pickup_Landmark_Sand" - at 6 10 ground sit
+place "Pickup_Landmark_Sand" - at 3 12 ground sit
+place Antenna_pole - at 8 18 ground sit
+place RT_Spotlight - at 9 15 ground sit yaw=200
+call treasure x=0 z=10 r=8 n=1 seed=13051
+prop treasure13051 treasure.loot=TitaniumOre*3
+scatter "Pickup_Landmark_Tree_Palm 1" 2 at -14 6 r=10 seed=13703 free=3
+call shallows x=-4.9 z=24.3 r=119 deep=5 n=2 seed=13704
+call hw_skyline x=-60 z=120 a=skyline
+pop
+
+# --- DISCOVERIES 10-24 (optional, no quest needs them): camp + note; Van_4 + chest; hatch with a chest; buried treasure; viewpoint ---
+place campfire_1 - at -34 11.7 ground sit
+place Balboa_DecorationPrefabBase_SimpleTent - at -31 13.7 ground sit yaw=57
+place "Box Small" - at -36 14.2 ground sit
+place Note_Paper dnote at -36 14.2 ground y=0.7 drop yaw=20
+note dnote Fleet runner's note | Waiting for the Free Fleet's boat. Three days now.\nI hid my share where the Authority won't look. You won't either, unless you dig.
+place Van_4 dvan at 36.9 -12.7 ground yaw=177
+prop dvan tint.color=#6b4a32
+prop dvan tint.amount=0.5
+place Loot_ChestSmall dwreckchest at 32.9 -9.7 ground sit yaw=117
+note dwreckchest Salvage chest | A salvager's chest: copper, bolts and a coil of rope.
+loot dwreckchest CopperIngot*2;Bolt*2;Rope*2
+prop dwreckchest loot.refill=0
+call hatchcache x=12.7 z=36.9 r=4 seed=13791 alias=dhatch chest=dhatchchest items=MetalIngot*2;CopperIngot*2;Bolt*3
+call treasure x=-18.9 z=-34.1 r=6 n=1 seed=13792
+prop treasure13792 treasure.loot=CopperOre*3;TitaniumOre*1
+place Zone_Trigger dview at -1.7 8.8 ground
+prop dview zone.id=cistern_hall_view
+prop dview zone.radius=7
+prop dview zone.repeat=never
+prop dview zone.message=The Authority's tower stands over the water, planters on its roof - and the city's roofs all round it under the sea.
+
+# --- Areas (10-24: every story island has places all over it and its quest crosses it): aqueduct hill in the north-west (buried salvage),
+# the records van and its wagon in the east, the waterman's lodge in the north-east, the drowned-lamp cave in the west
+# (dark: a headlight), the oldest pump's engine (the second gas tank opens its locker)
+call ar_ridge x1=-45 z1=45 x2=-5 z2=62 h=11 top=6 r=9
+call ar_plants_tropical x=-25 z=53 r=26 seed=13711
+call hw_zone x=-25 z=53 al=aqueducthill id=aqueduct_hill r=7 msg="Aqueduct hill: the old water line ran over here on arches. Two arches still stand; the rest lies in the grass."
+call treasure x=-25 z=53 r=12 n=2 seed=13761
+prop treasure13761 treasure.loot=CopperOre*2;MetalOre*2
+call hw_wreck x=50 z=30 h=5 yaw=200 obj=Van_1 al=recordsvan crate=recordscrate r=9
+place VP_Wagon01 recordswagon at 44 40 ground sit yaw=110
+call ar_ruin x=40 z=58 h=5 yaw=0 al=watermanlodge
+call hw_note x=42.5 z=53.5 yaw=-20 al=watermandiary
+call ar_cave x=-60 z=8 h=4 yaw=0 al=lampcave chest=drownedlampchest
+call hw_hazard x=-60 z=18 al=lampcavedark kind=dark r=4 dmg=0 safe=wears|HeadLight* msg="The lamps in here drowned years ago. A headlight would show the way in."
+call hw_zone x=-60 z=30 al=lampcavemouth id=lamp_cave r=4 msg="A cave under the aqueduct: the cistern's lamp men kept their stores here."
+beside Loot_ChestLarge pumpvault oldpump d=1.8 yaw=90
+prop oldpump beh.use=Start the oldest pump's engine
+prop oldpump on.use=message||The old engine drinks the gas, coughs twice and turns over. The pump groans - and its rusted locker drops open.\nsignal||engine\nshow|pumpvault
+prop pumpvault obj.name=pumpvault
+prop pumpvault beh.hidden=1
+call ar_plants_tropical x=55 z=-30 r=14 seed=13721
+place Creature_Chicken hens at 30 48 ground
+
+# --- Settings, story items, notes, behaviours, quest ------------------------------------------------------------------
+info title=Cistern Hall
+info author=Custom Islands
+info description=The Authority's main tower and the old cistern at its foot: walkways over dark water, a smelter workshop, the councillor's office, the oldest pump in the city - and a flooded valve gallery that holds the evidence. The seventh island of The City That Never Sank.
+island on.arrive=message||The Authority's tower stands over an open cistern. Walkways cross the black water on stone legs. Somewhere below, a wheel creaks.
+
+prop stone tint.color=#8a8270
+prop stone tint.amount=0.35
+prop skyline tint.color=#7a8088
+prop skyline tint.amount=0.4
+prop puffers creature.count=2
+prop pumpcam obj.name=pumpcam
+prop pumpzone on.enter=camera|pumpcam|oldpump|5|8
+prop valvelog on.read=signal||evidence
+
+note ledger Cistern ledger | CISTERN HALL - LEDGER\n\nIntake: full. Southern district (Lowstreet): supply cut, by order.\nValves 1-3: closed for repairs.\n\nThe order is signed. The page with the name on it has been torn out.
+note valvelog Valve log | VALVE LOG - THE NIGHT LOWSTREET DROWNED\n\nValves 1, 2 and 3 opened by hand. The sea let into the southern district. Eleven thousand moved to the roofs.\n\nOrdered: Councillor Aldous Crane, Harbor Authority.\nCountersigned: for the Free Fleet - T. Varga.\nCountersigned: for the Salvagers' Union - the foreman.\n\nAll three. Every faction knew.
+note plate Builder's plate | A brass plate on the oldest pump, green with age. A ring of waves round a tower:\n\nCONCORD WORKS.\nStation 7 of the southern network.
+note smelterbench Smelter workshop | The workshop's chest: the electric smelter's plans, a pair of tongs.
+note gallerychest Valve gallery chest | A diver's chest chained to a pillar: the advanced biofuel extractor's plans.
+note anchorlocker Pump house locker | The pump house locker: the advanced anchor's plans - the pump's own mooring.
+note drawer Councillor's drawer | Councillor Crane's drawer. A letter, a seal, and a list of who was paid to sign.
+note seedbox Planter box | The roof garden's seeds.
+loot smelterbench Blueprint_SmelterElectric*1;CopperIngot*2;MetalIngot*2
+prop smelterbench loot.refill=0
+loot gallerychest Blueprint_BiofuelExtractorAdvanced*1;Plastic*2
+prop gallerychest loot.refill=0
+loot anchorlocker Blueprint_AnchorStationaryAdvanced*1;MetalIngot*3
+prop anchorlocker loot.refill=0
+loot drawer TradeToken*6;Glass*2
+prop drawer loot.refill=0
+loot seedbox Raw_Beet*2;Raw_Potato*2
+prop seedbox loot.refill=0
+
+prop intakezone zone.id=intake
+prop intakezone zone.radius=3
+prop intakezone zone.message=The intake. The sea comes in here - and the city's water goes out.
+prop pumpzone zone.id=old_pump
+prop pumpzone zone.radius=3
+prop pumpzone zone.message=The oldest pump in Highwater. On its side, a brass plate with a ring of waves.
+
+note recordscrate Records van's crate | The Authority's records van, run aground with the flood. The crate holds what they did not want read.
+loot recordscrate Plastic*3;Rope*2;CircuitBoard*1
+note watermandiary Waterman's diary | The waterman's diary.\n\nDay 3: Crane wants the pumps run backwards. He says it lowers the sea gates' strain.\nDay 4: It raises the water in Lowstreet instead. I told him. He paid me to stop telling him.
+note drownedlampchest Lamp men's chest | Lamp oil, wicks and the lamp men's tools, dry at the back of the cave.
+loot drownedlampchest Battery*1;Glass*2;MetalIngot*2
+prop drownedlampchest loot.refill=0
+note pumpvault Pump engine locker | The pump house's spare parts, behind a locker that only opened when the engine ran.
+loot pumpvault MetalIngot*3;Bolt*3;CopperIngot*2
+prop pumpvault loot.refill=0
+quest title=The Evidence
+quest intro=The valves under Lowstreet were turned by hand. The records are in the cistern under the Authority's tower.
+step reach|intake|1|Go down to the cistern's intake
+step read|Cistern ledger|1|Read the cistern ledger at the intake
+step blueprint|Blueprint_SmelterElectric|1|Take the electric smelter's plans from the workshop
+step reach|valve_gallery|1|Dive down to the flooded valve gallery
+step read|Valve log|1|Read the valve log in the gallery
+step blueprint|Blueprint_BiofuelExtractorAdvanced|1|Take the advanced biofuel extractor's plans from the gallery's chest
+step reach|old_pump|1|Go into the pump house and look at the oldest pump
+step read|Builder's plate|1|Read the builder's plate on the pump
+step blueprint|Blueprint_AnchorStationaryAdvanced|1|Take the advanced anchor's plans from the pump house locker
+step reach|aqueduct_hill|1|Climb aqueduct hill in the north-west
+step read|Waterman's diary|1|Read the waterman's diary in his lodge in the north-east
+step open|Records van's crate|1|Open the crate in the Authority's records van on the east shore
+step open|Councillor's drawer|1|Open the councillor's drawer in his office
+quest done=Every faction signed. The Rookery - the people who live on the city's lowest roofs - should hear it first. Band 800.
+quest reward=CopperOre*3;CaveMushroom*2
+
+save Cistern Hall

@@ -1,0 +1,335 @@
+# Shelter Atoll - a small/medium island of the library (a new theme: a shelter under the ground)
+# An atoll of palms around a shallow lagoon. On the islet in the middle: a concrete slab with vents, an antenna and a
+# hatch - Civil Defence Shelter No. 7, buried in the islet. Down the hatch's ladder: seven of Selene's rooms (the hatch
+# hall, the main hall, the dormitory, the radio room, the generator room, the gate hall and the commander's room), dark
+# but for two red emergency lights - until the generator runs again, which lights the rooms and opens the commander's
+# door and the blast gate onto the lagoon. Quest "Shelter No. 7" (7 steps): the notice at the hatch, down the
+# ladder, the radio log, the rats in the dormitory, the last can of fuel, the generator and the commander's orders, and
+# his safe.
+#
+# Built by the recipe player (CIRecipe shelter_atoll) through the editor's own operations (macros from lib_selene).
+# The shelter sits in a pit under a roof slab at ground level: the ground can't lie over rooms, so the islet's top is
+# lowered where the rooms are and the slab is the ground there.
+include lib_sea
+include lib_selene
+new
+# (nature: the atoll's palms are the recipe's own; little else - Raft's islands as the generator's Like Raft has them, CIGenLikeRaft)
+gen Trees=0 Bushes=0.25 Rocks=0.3 Harvest=0.15 BeachThings=0.5
+gen Seed=707 Radius=50 Height=3 Roughness=0.35 Peaks=0 Shape=1 Style=0 BeachWidth=0.6 Cliffs=0 PeakShape=0.3
+gen SeaFloor=0 Shelf=0.4 Seabed=1
+# (sea: Raft's finds and corals as dense as around Raft's islands - Like Raft 0.5 - the review, 2026-10-03)
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.5 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+
+# --- The islet: a hill raised from the lagoon floor, its top levelled; it falls away east to the ring ----------------
+clear at 0 0 r=30
+brush raise at 0 0 r=30 s=20 frames=11
+brush flatten at 0 0 r=22 s=20 frames=60
+brush raise at 22 0 r=10 s=20 frames=5
+brush raise at 29 0 r=8 s=20 frames=2
+brush smooth from 14 0 to 36 0 r=8 s=20 frames=30
+
+# --- The atoll: palms around the ring, bushes on the islet's slopes -----------------------------------------------
+scatter "Pickup_Landmark_Tree_Palm 1" 3 at 37 0 r=6 seed=101
+scatter "Pickup_Landmark_Tree_Palm 2" 3 at 26 26 r=6 seed=102
+scatter "Pickup_Landmark_Tree_Palm 3" 3 at 0 37 r=6 seed=103
+scatter "Pickup_Landmark_Tree_Palm 4" 3 at -26 26 r=6 seed=104
+scatter "Pickup_Landmark_Tree_Palm 1" 3 at -37 0 r=6 seed=105
+scatter "Pickup_Landmark_Tree_Palm 2" 3 at -26 -26 r=6 seed=106
+scatter "Pickup_Landmark_Tree_Palm 3" 3 at 0 -37 r=6 seed=107
+scatter "Pickup_Landmark_Tree_Palm 4" 3 at 26 -26 r=6 seed=108
+scatter Bush 5 at 30 20 r=10 seed=109
+scatter Bush2 5 at -30 -20 r=10 seed=110
+scatter Monstera_1 3 at -20 30 r=8 seed=111
+
+# --- The shelter: its floor 6 m under the islet's top. The pit for its rooms, the lagoon let in at its gate ----------
+push at 0 0 y=-6
+macro pitrow z
+for px -9 9 3
+brush lower at $px $z r=4 s=20 frames=10
+next
+end
+call pitrow 9
+call pitrow 6
+call pitrow 3
+call pitrow 0
+call pitrow -3
+call pitrow -6
+call pitrow -9
+brush lower from -10 -15 to 10 -15 r=6 s=20 frames=30
+brush lower from -8 -21 to 8 -21 r=6 s=20 frames=20
+
+# The rooms (cells of 6 m; cell x z spans x..x+6, z-6..z): the hatch hall (Selene's ladder room) opens south into the
+# main hall; the dormitory west of it, the radio room east; south of the main hall the gate hall, with the generator
+# room west and the commander's room east (its doorway shut by sliding leaves)
+place TP_Selene_Int_Tunnel_Ladder_Bot - at -3 9
+call selene_cell -3 3 n=TP_Selene_Int_Room_Entrance s=none w=TP_Selene_Int_Room_Entrance e=TP_Selene_Int_Room_Entrance
+call selene_cell -9 3 e=TP_Selene_Int_Room_Entrance
+call selene_cell 3 3 w=TP_Selene_Int_Room_Entrance
+call selene_cell -3 -3 n=none s=none w=TP_Selene_Int_Room_Entrance e=TP_Selene_Int_Room_Entrance
+call selene_cell -9 -3 e=TP_Selene_Int_Room_Entrance
+call selene_cell 3 -3 w=TP_Selene_Int_Room_Entrance
+# (both leaves pivot on the doorway's middle: the left one reaches +z, the right one -z)
+place TP_Selene_Int_DoorLargeL cmddoorL at 3 -6 sy=1.051
+place TP_Selene_Int_DoorLargeR cmddoorR at 3 -6 sy=1.051
+
+# The blast gate (Selene's entrance gate) at the gate hall's open end, behind a facade of the tower's concrete walls;
+# a strip of floor across to the landing
+place TP_SeleneEntranceGate gate at 0 -9.5
+place RT_Floor - at 3 -9 y=-0.07 sx=0.993 sz=0.111
+# (each course 1.5 cm thicker than the one on it: of the same thickness, the ground check's rays down the upper course's
+# faces grazed the lower one's edge and read the pit's floor through it - CIGroundIslands)
+for wx -6 -3 3
+place RT_Wall1 - at $wx -10 sz=1.1
+next
+for wx -9 -3 3
+place RT_Wall1 - at $wx -10 y=3
+next
+for wx 6 9 3
+place RT_Wall1 - at $wx -10 sz=1.1
+next
+for wx 6 12 3
+place RT_Wall1 - at $wx -10 y=3
+next
+place RT_Wall1 - at 0 -10 y=4.5 sy=0.5
+place RT_Wall1 - at 3 -10 y=4.5 sy=0.5
+for wx -9 12 3
+place RT_Wall1 - at $wx -10 y=6 sy=0.1
+next
+# (the facade's end walls stand over the pit's sloping edge: a tall piece from y -3 to 3 and a course under it, down into
+# the slope. The tall piece is the old first course and the one under it in one, 30% thicker than the course on it: that
+# first course's base hung up to 3.2 m over the slope at its inner end, and the course on it, at x 12, 2.9 m - the ground
+# check, IG2, 2026-10-12)
+for wx -9 12 21
+place RT_Wall1 - at $wx -10 y=-3 sy=2 sz=1.3
+place RT_Wall1 - at $wx -10 y=-6 sz=1.3
+next
+
+# The landing in front of the gate: tower floor on thick pillars in the lagoon, two crates left on it
+place RT_Floor - at 9 -10 y=-0.07 sx=0.993 sz=0.778
+place RT_Floor - at 3 -10 y=-0.07 sx=0.993 sz=0.778
+place RT_Floor - at -3 -10 y=-0.07 sx=0.993 sz=0.778
+for lx -8.7 8.7 5.8
+place RT_PillarThick - at $lx -16.7 y=-6
+next
+place "Box Small" - at -7.6 -11.3 sit yaw=15
+place "Box Small" - at -6.4 -11.1 sit yaw=-10
+place Zone_Trigger outside at 0 -13 y=1.5
+
+# The roof: a slab of the tower's floor at ground level, a hole over the hatch hall's ladder shaft with a concrete collar
+macro slab x1 x2 z1 z2
+place RT_Floor - at $x2 $z2 y=6 sx={($x2-$x1)/6.04} sz={($z2-$z1)/9}
+end
+call slab -14 -6.9 4.5 14
+call slab -14 -6.9 -5 4.5
+call slab -14 -6.9 -10 -5
+call slab -6.9 -1.3 4.5 14
+call slab -6.9 -1.3 -5 4.5
+call slab -6.9 -1.3 -10 -5
+call slab 1.3 6.9 4.5 14
+call slab 1.3 6.9 -5 4.5
+call slab 1.3 6.9 -10 -5
+call slab 6.9 14 4.5 14
+call slab 6.9 14 -5 4.5
+call slab 6.9 14 -10 -5
+call slab -1.3 1.3 7.2 14
+call slab -1.3 1.3 -1.6 4.6
+call slab -1.3 1.3 -10 -1.6
+place VP_ConcretePipe02 collar at 0 5.9 y=6.25 rot=90,0,0 scale=1.5 sz=0.1
+
+# On the roof: the notice by the hatch, vents, a radio mast, toxic barrels, sand and rubble blown over the edges
+place Note_Sign notice at 2.6 7.8 y=6 yaw=200
+place Zone_Trigger roof at 0 8.5 y=7.5
+place "VG_DecorationPrefabBase_Ventilation_Box Variant" - at -8 7 y=6 sit yaw=90
+place "VG_DecorationPrefabBase_Ventilation_Box Variant" - at 8 -4 y=6 sit yaw=180
+place RT_DuctTop - at -6 -6 y=6 sit yaw=30
+place Antenna_pole - at 10 10 y=6 sit
+place Antenna_dish - at 10 10 y=12.1 sit yaw=140
+place Antenna_support01 - at 10.6 10 y=6 sit
+place Balboa_DecorationPrefabBase_ToxicBarrel - at 11 2 y=6 sit
+place Balboa_DecorationPrefabBase_ToxicBarrel - at 11.8 2.9 y=6 sit
+place Balboa_DecorationPrefabBase_ToxicBarrel - at 10.9 3.7 y=6 sit tilt=80 yaw=40
+place "Box Small" - at -11 -7 y=6 sit yaw=20
+place "Box Small" - at -11.6 -8.2 y=6 sit yaw=-15
+place VP_RubblePile_Small01 - at -12 11.5 y=6 sit yaw=30
+place VP_RubblePile_Small02 - at 12 -8 y=6 sit yaw=200
+place VP_RubblePile_Small03 - at -12.5 -2 y=6 sit yaw=100
+place Bush - at -15 6 ground
+place Bush2 - at -15 -6 ground
+place Bush - at 15 7 ground
+place Bush2 - at 15.2 -5 ground
+place Bush - at -6 15.5 ground
+place Bush2 - at 7 15.5 ground
+place "Pickup_Landmark_Tree_Palm 1" - at -17 13 ground
+place "Pickup_Landmark_Tree_Palm 3" - at 17 14 ground yaw=120
+place "Pickup_Landmark_Tree_Palm 2" - at -18 -9 ground yaw=60
+
+# --- Inside. The hatch hall: an extinguisher; the main hall: a table, chairs and a red emergency light --------------
+place "Fire Estinguisher" - at -2.1 3.5 sit
+place Zone_Trigger hatchhall at 0 4.5 y=1.5
+place "Table Office" - at 0 0.2 sit
+place "Chair Office" - at -0.6 -0.6 sit yaw=180
+place "Chair Office" - at 0.7 1.1 sit yaw=20
+place TP_RotatingRedLight redlight at 0.2 0.4 y=2 drop
+
+# The dormitory: bunk beds, the radio operator's locker with the fuel, a footlocker - and rats
+place "VG_DecorationPrefabBase_BunkBed Variant" - at -7.6 1.8 sit
+place "VG_DecorationPrefabBase_BunkBed Variant" - at -7.6 -1.8 sit
+place Balboa_DecorationPrefabBase_SmallLocker bunklocker at -4.3 2.4 sit yaw=180
+place Loot_Chest footlocker at -5.4 -2.3 sit
+place Creature_Rat rats at -6.5 0 y=0.5
+place Zone_Trigger dorm at -6 0 y=1.5
+
+# The radio room: the operator's table with the radios and the log, the radar screen, a computer
+place "Table Office" - at 7.6 0 sit yaw=90
+place RT_CommRadio opradio at 7.8 0.6 y=0.8 sit yaw=90
+prop opradio obj.name=opradio
+place Model_Radio - at 7.8 -0.6 y=0.8 sit yaw=90
+place Note_Book radiolog at 7.3 0 y=0.81 yaw=90
+place "Chair Office" - at 6.5 0 sit yaw=270
+place Balboa_DecorationPrefabBase_Microphone - at 6.7 1.9 sit yaw=200
+place RT_RadarScreen - at 6 2.4 sit yaw=180
+place TP_Selene_ComputerGeneric_01 - at 6 -2.4 sit
+
+# The gate hall: crates of supplies, the second emergency light
+place Loot_Crate supply at 2.1 -8.2 sit yaw=10
+place "Box Small" - at -2 -8.2 sit yaw=5
+place "Box Small" - at -2.1 -7.1 sit yaw=-20
+place TP_RotatingRedLight redlight at -2.4 -3.6 y=2 drop
+
+# The generator room: the dry generator, barrels and a cable roll
+place Balboa_DecorationPrefabBase_Generator generator at -6.5 -8 sit
+place Balboa_DecorationPrefabBase_ToxicBarrel - at -8.2 -8 sit
+place Balboa_DecorationPrefabBase_ToxicBarrel - at -8.2 -7 sit
+place VP_Cable_Roll01 - at -8 -4 sit
+place Zone_Sound hum at -6 -6 y=1.5
+
+# The commander's room: the map table with his orders, the safe, a server cabinet
+place MapTable - at 5.9 -5.6 sit centred yaw=90 scale=0.8
+place Note_Paper orders at 5.9 -5.2 y=1.3 drop yaw=90
+place Loot_ChestLarge safe at 8.3 -8.2 sit yaw=270
+place TP_Selene_ComputerRoom_Server01 - at 8.2 -3.9 sit yaw=270
+
+# Lamps (dark until the generator runs) and the dark air in every room
+place Stairwell_CeilingLamp lamps at 0 4.3 y=4.4
+place Stairwell_CeilingLamp lamps at 0 0 y=4.6
+place Stairwell_CeilingLamp lamps at -6 0 y=4.6
+place Stairwell_CeilingLamp lamps at 6 0 y=4.6
+place Stairwell_CeilingLamp lamps at 0 -6 y=4.6
+place Stairwell_CeilingLamp lamps at -6 -6 y=4.6
+place Stairwell_CeilingLamp lamps at 6 -6 y=4.6
+place Zone_Atmosphere dark at 0 5.5 y=1
+place Zone_Atmosphere dark at 0 0 y=1
+place Zone_Atmosphere dark at -6 0 y=1
+place Zone_Atmosphere dark at 6 0 y=1
+place Zone_Atmosphere dark at 0 -6 y=1
+place Zone_Atmosphere dark at -6 -6 y=1
+place Zone_Atmosphere dark at 6 -6 y=1
+place Zone_Sound drips at 0 -1 y=2
+pop
+
+# --- Settings, notes, behaviours, quest ---------------------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): mangoes, bananas, pineapples ----------
+scatter "Pickup_Landmark_Tree_Mango" 3 at 0 0 r=35.0 seed=4380 free=5
+scatter "Banana_Bush_2" 3 at 0 0 r=35.0 seed=4390 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 3 at 0 0 r=35.0 seed=4400 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=70 deep=5 n=2
+
+info title=Shelter Atoll
+info author=Custom Islands
+info description=An atoll of palms around a shallow lagoon - and on the islet in the middle, a concrete slab with a hatch. Civil Defence Shelter No. 7 lies buried underneath: seven dark rooms, rats in the bunks and a dry generator. Bring a light.
+island on.arrive=message||An atoll with an islet in its lagoon. On the islet: a concrete slab, a radio mast - and a hatch.
+
+story fuel|Can of fuel|BioFuel|The shelter's last can of generator fuel, from the radio operator's bunk locker.
+note notice Shelter notice | CIVIL DEFENCE SHELTER No. 7\n\nEMERGENCY HATCH - climb down slowly, one at a time.\n\nThe blast gate on the lagoon side opens from inside only, and only with the generator running.\n\nCapacity: 24. Keep this hatch clear.
+note radiolog Radio log | RADIO LOG - SHELTER 7\n\nDay 12: No answer from the mainland. The water is still rising.\nDay 31: Rats in the dormitory. Big ones - they came up the vent shaft.\nDay 46: The generator is dry. I put the LAST can of fuel in my bunk locker, so nobody burns it on the heaters.\nDay 47: The commander has sealed himself in with his charts. I'm going up the hatch to look for a boat.\n\nIf you read this: the can is in the dormitory. Fill the generator and the doors will open. - Radio operator Makela
+note orders Commander's orders | FINAL ORDERS\n\nHold the shelter until relieved.\n\nNobody came. The charts show land to the east - a big island with a tower on it. Whoever gets the power back: take the charts, the blueprint and the spare parts in my safe, and go.
+note bunklocker Bunk locker | A dented locker with MAKELA stencilled on the door. Inside, wrapped in a blanket: a can of fuel.
+loot bunklocker story:fuel*1;Wool*6;Egg*4
+prop bunklocker loot.refill=0
+note footlocker Footlocker | A footlocker under the bunks: a sewing kit, rope and a torn jacket.
+loot footlocker Rope*3;Leather*2;Nail*8
+prop footlocker loot.refill=0
+note supply Supply crate | Shelter supplies: nails, bolts and spare parts.
+loot supply Nail*10;Bolt*4;Hinge*2;Scrap*4
+prop supply loot.refill=0
+note safe Commander's safe | The commander's safe: his charts of the islands to the east, a blueprint, metal ingots and good healing salve.
+loot safe Blueprint_Fueltank*1;MetalIngot*4;CopperIngot*3;HealingSalve_Good*2
+prop safe loot.refill=0
+prop safe tint.color=#3a4048
+prop safe tint.amount=0.6
+
+prop roof zone.id=roof
+prop roof zone.radius=6
+prop roof zone.message=A concrete slab, rusty vents - and a hatch with a ladder going down into the dark.
+prop hatchhall zone.id=hatchhall
+prop hatchhall zone.radius=2.5
+prop hatchhall zone.message=Cold, still air. Somewhere ahead a red light turns slowly.
+prop dorm zone.id=dorm
+prop dorm zone.radius=3.5
+prop dorm zone.message=Squeaking in the bunks - rats, big ones!
+prop outside zone.id=outside
+prop outside zone.radius=4
+prop outside zone.message=Daylight! The blast gate stands open onto the lagoon.
+prop rats creature.count=3
+prop rats creature.size=1.4
+prop rats creature.respawn=0
+prop rats creature.zone=dorm
+prop rats tint.color=#3a3430
+prop rats tint.amount=0.4
+
+prop generator obj.name=generator
+prop generator beh.use=Start the generator
+prop generator if.use=take|story:fuel|1
+prop generator on.use=message||You pour in the fuel. The generator coughs, sputters - and runs. Lights flicker on through the shelter, and somewhere heavy doors slide open.\nhide|dark\nshow|lamps\nshow|hum\nopen|cmddoor\nopen|gate\nsound||event:/exploring/obstacles/tangaroa/generator_placepart\nsound||event:/exploring/obstacles/varuna/garagedoor_open\nsignal||power
+prop generator else.use=message||The generator is bone dry. It needs fuel.
+prop gate obj.name=gate
+prop gate beh.move=-7.2,0,0
+prop gate beh.moveTime=6
+prop gate beh.moveMode=switch
+prop cmddoorL obj.name=cmddoor
+prop cmddoorL beh.move=0,0,1.3
+prop cmddoorL beh.moveTime=1.5
+prop cmddoorL beh.moveMode=switch
+prop cmddoorR obj.name=cmddoor
+prop cmddoorR beh.move=0,0,-1.3
+prop cmddoorR beh.moveTime=1.5
+prop cmddoorR beh.moveMode=switch
+prop lamps obj.name=lamps
+prop lamps beh.hidden=1
+prop dark obj.name=dark
+prop dark atmo.fog=#060606
+prop dark atmo.fogAmount=0.85
+prop dark atmo.light=#1c1616
+prop dark atmo.lightAmount=0.9
+prop dark atmo.particles=mist
+prop dark zone.radius=5
+prop hum obj.name=hum
+prop hum beh.hidden=1
+prop hum sound.event=event:/exploring/temperence/generator
+prop hum sound.volume=0.6
+prop hum zone.radius=9
+prop drips sound.event=event:/amb/cave
+prop drips sound.volume=0.5
+prop drips zone.radius=10
+prop redlight beh.spin=90
+
+quest title=Shelter No. 7
+quest intro=A concrete slab on the islet in the lagoon, with vents, a radio mast and a hatch. Something was built under this atoll - and nobody has come out in a long time.
+step read|Shelter notice|1|Find the hatch on the islet and read the notice beside it
+step reach|hatchhall|1|Climb down the ladder into the shelter
+step read|Radio log|1|Read the radio log
+step kill|Rat|3|Clear the rats out of the dormitory
+step collect|story:fuel|1|Find the last can of fuel
+step read|Commander's orders|1|Start the generator and read the commander's final orders behind his door
+step open|Commander's safe|1|Open the commander's safe and take his charts
+step blueprint|Blueprint_Fueltank|1|Take the fuel tank plans from the commander's safe
+quest done=The lights are on, the blast gate stands open onto the lagoon, and the commander's charts are yours.
+quest reward=Battery*2;CircuitBoard*2;Scrap*6
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=42 n=1 seed=8854
+prop treasure8854 treasure.loot=TitaniumOre*2
+
+save Shelter Atoll

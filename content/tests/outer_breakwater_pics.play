@@ -1,0 +1,15 @@
+# Guide pictures of Outer Breakwater (CIPlay outer_breakwater_pics): Raft's camera, midday, calm; the vending machine
+island Outer Breakwater
+offset 0 0
+hour 11
+weather Calm
+at 3.2 -14.3
+wait 3
+picture sl14_outer_breakwater_island 58.7 48 -156.5 0 4 0
+picture sl14_outer_breakwater_gate 7.2 5 -22.3 3.2 3 -10.3
+picture sl14_outer_breakwater_garden -11.6 9 7.9 0.4 2 17.9
+storespot 4 -2
+picture sl14_outer_breakwater_ridge 36 16 -8 58 14 2
+picture sl14_outer_breakwater_cave -54 9 -52 -56 6 -24
+picture sl14_outer_breakwater_ruin 22 9 52 12 4 64
+picture sl14_outer_breakwater_plane 8 10 -60 -8 4 -70

@@ -1,0 +1,11 @@
+# Kit check (not content): Temperance's domes, electrical building and cave pieces for Whiteout Reach
+new
+gen Seed=1 Radius=60 Height=4 Shape=4 Roughness=0.1 ObjectDensity=0 Trees=0 Bushes=0 Rocks=0 BeachThings=0 Harvest=0
+gen Hostiles=0 Friendly=0 SeaLife=0 Water=0 SeaRocks=0 SeaFinds=0 Sunken=0
+generate
+brush flatten at 0 0 r=50 s=20 frames=80
+place TP_Igloo_Small dome1 at -30 -20 ground
+place TP_Igloo_Medium_1 dome2 at -5 -25 ground
+place TP_ElectricalBuilding boilerhouse at 18 -24 ground
+place TP_CaveTunnel_SurfaceStaircase stair at -20 20 ground
+place TP_CaveTunnel_Room_WeatherStationLadder caveroom at 15 22 ground

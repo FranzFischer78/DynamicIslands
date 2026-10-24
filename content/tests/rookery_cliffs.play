@@ -1,0 +1,72 @@
+# Play test of Rookery Cliffs (CIPlay rookery_cliffs, in a test world 'CI ...'). No quest: the walk round the cabin, the
+# winch and the bird cliff. Points as in its recipe: the beach at -55 0; the cabin's pad at -24 0 (2.9 m), its deck
+# 3.9 m, its ladder at -24 -2.4; the winch's foot at -19 -12.5 (4.2 m), its ledge at 20.3 m; the ladders' foot at -7.5 41
+# (8.5 m), the ladders at x -7.5 (z 39.7, 36.1, 32.1), the ledges at 12.5 m (z 37.5), 18 m (z 33.5), 23.5 m (z 29.5)
+island Rookery Cliffs
+expect animals Goat 3
+expect animals Dolphin 2
+wait 5
+
+# The beach: the dinghy's box, the barrel; up to the cabin: the log, the chest, the tally
+walk -50 0 to -40 -2 to -29 -4 h=2.8
+open Box under the dinghy
+open Barrel in the shallows
+zone saddle
+climb -24 -2.4 h=2.9
+expect stand -24 0 h=3.9 below=6
+read The egg collector's log
+open Collector's chest
+read Tally of the seasons
+
+# The winch: the top lever while the basket is down is refused; up in the basket to the ledge; the box; down again
+walk -22 -9 to -20.5 -12 h=4.2
+open Winch box
+use winchdown
+expect message basket is down
+use winchup
+wait 10
+expect stand -10.4 -12.5 h=20.3 below=23
+use winchdown
+wait 10
+
+# The bird cliff: the warning sign, the ladders from ledge to ledge, the nests; the top ledge: the screechers, the basket
+read Warning sign
+walk -7.5 46 to -7.5 42 h=8.5
+climb -7.5 39.7 h=8.5
+climb -7.5 39.7 h=10.92
+expect stand -7.5 37.4 h=12.5 below=14
+use nest1
+use nest2
+expect item Egg 4
+use nest1
+expect message taken this nest's eggs
+climb -7.5 36.1 h=13.3
+climb -7.5 36.1 h=15.72
+expect stand -7.5 33.4 h=18 below=20
+use nest3
+use nest4
+climb -7.5 32.1 h=18.7
+climb -7.5 32.1 h=21.12
+expect stand -7.5 29.4 h=23.5 below=25
+zone highledge
+use nest5
+open Eskil's lost basket
+kill Screecher
+# Raft's story machinery: Eskil's egg hoist (Varuna Point's scissor lift) in the saddle carries the player standing on it
+# 4.7 m up the south crag's north face and stands there extended, beside the lookout ledge (10.6 m) with the hoist chest;
+# used again it carries them down
+at -4 0.1 h=7.5
+use egghoist stay
+wait 7
+expect height 11.8
+expect hidden egghoist
+expect shown egghoistup
+
+open Eskil's hoist chest
+expect item Rope 2
+at -4 0.1 h=12.5
+use egghoistup stay
+wait 7
+expect shown egghoist
+expect hidden egghoistup
+expect height 7.1

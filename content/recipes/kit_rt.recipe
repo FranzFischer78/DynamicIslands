@@ -1,0 +1,24 @@
+# Kit check (not library content): how Raft's radio tower pieces and building blocks face, for the recipes' macros
+new
+gen Seed=1 Radius=45 Height=4 Shape=4 Roughness=0.1 ObjectDensity=0 Trees=0 Bushes=0 Rocks=0 BeachThings=0 Harvest=0
+gen Hostiles=0 Friendly=0 SeaLife=0 Water=0 SeaRocks=0 SeaFinds=0 Sunken=0
+generate
+brush flatten at 0 0 r=40 s=20 frames=80
+place RT_Floor f1 at 0 0 y=0.5
+place RT_Wall1 w0 at 10 0
+place RT_Wall1 w90 at 14 0 yaw=90
+place RT_WallDoor1 wd at 18 0
+place RT_Stair st at 0 6
+place RT_Stair_Broken st2 at 0 10
+place RT_Fence fe at 10 -4
+place RT_FenceCorner fc at 12 -4
+place Block_Stair bs at 12 10
+place Block_Ladder bl at 16 10
+place Block_Wall_Wood bw at 20 10
+place RT_Crossbeam cb at 6 -10
+place RT_PillarThick pt at 6 -14
+place RT_Beam bm at 12 -14 y=2
+place RT_GroundPillar gp at -10 -10 y=3
+place RT_WindMill wm at -10 8
+place Placeable_SpiralStair ss at 22 -6
+place Placeable_DrawBridgeShort db at 22 4

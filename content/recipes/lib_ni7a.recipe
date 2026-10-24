@@ -1,0 +1,105 @@
+# lib_ni7a - macros for the library's medium no-quest islands of ROADMAP 3d NI7 (part a): a crumbled stone wall of
+# Raft's own rock, a thatched hut for a tribe's village, an idol with fire baskets, a submarine wrecked on the sea floor,
+# an air bell under the sea, a long plank bridge out over the water. "include lib_ni7a" (lib_huts first for floors and
+# corners).
+#
+# stonewall: a stretch of crumbled wall of Raft's rock (a boulder cut to a slab) from x1 z1 to x2 z2 on the ground, about
+# hgt m high where it stands, th m thick, its foot sunk 1.2 m into the ground
+macro stonewall x1=0 z1=0 x2=8 z2=0 hgt=3.5 th=2
+set dx {$x2-$x1}
+set dz {$z2-$z1}
+set dl {sqrt($dx*$dx+$dz*$dz)}
+place SmallBoulder2 - at {($x1+$x2)/2} {($z1+$z2)/2} y=-1.2 sit yaw={atan2($dx,$dz)} sx={$th/3.966} sy={($hgt+1.2)/6.086} sz={$dl/10.383}
+end
+
+# ringwall: a ring of crumbled wall round x z at radius r - n stretches of len m each, centred on the angles from a0 in
+# steps of da (degrees; x = cos, z = sin), the stretches' heights varied; leaves gaps where the steps miss (a gate)
+macro ringwall x=0 z=0 r=10 a0=0 da=45 n=7 len=7 hgt=3.5
+for wi 0 {$n-1} 1
+set wa {$a0+$da*$wi}
+set wx {$x+$r*cos($wa)}
+set wz {$z+$r*sin($wa)}
+set tx {0-sin($wa)*$len/2}
+set tz {cos($wa)*$len/2}
+call stonewall x1={$wx-$tx} z1={$wz-$tz} x2={$wx+$tx} z2={$wz+$tz} hgt={$hgt*(0.7+0.3*abs(sin($wa*3)))}
+next
+end
+
+# thatchhut: a tribe's hut of Raft's thatch blocks in a frame (push at its -x -z corner with h= its pad): a wooden floor w
+# x d cells (tops at 0.1 m), thatch walls all round - the front (z 0) with its door in the middle cell, a window in each
+# side - wooden pillars at the corners and a thatched hip roof resting on walls and pillars. w odd, 3 or more.
+macro thatchhut w=3 d=2 al=-
+call floors w=$w d=$d y=0.1
+for fx 0.75 {$w*1.5-0.75} 1.5
+place Block_Wall_Thatch $al at $fx {$d*1.5} y=0.1
+next
+set mid {floor($w/2)*1.5+0.75}
+for fx 0.75 {$mid-1.5} 1.5
+place Block_Wall_Thatch $al at $fx 0 y=0.1
+next
+place Block_Wall_Door_Thatch $al at $mid 0 y=0.1
+for fx {$mid+1.5} {$w*1.5-0.75} 1.5
+place Block_Wall_Thatch $al at $fx 0 y=0.1
+next
+place Block_Wall_Window_Thatch $al at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Window_Thatch $al at {$w*1.5} 0.75 y=0.1 yaw=90
+for fz 2.25 {$d*1.5-0.75} 1.5
+place Block_Wall_Thatch $al at 0 $fz y=0.1 yaw=90
+place Block_Wall_Thatch $al at {$w*1.5} $fz y=0.1 yaw=90
+next
+call corners w=$w d=$d y=0.1
+roof $w $d at 0 0 y=0.1
+end
+
+# idol: a tall wooden idol (Balboa's doll, grown big) on the ground at x z facing yaw, a fire basket either side of it
+macro idol x=0 z=0 yaw=0 size=2.4 al=idols
+place Balboa_DecorationPrefabBase_Doll_R $al at $x $z ground sit scale=$size yaw=$yaw
+place Placeable_Lantern_FireBasket - at {$x+1.6*cos($yaw)} {$z-1.6*sin($yaw)} ground sit
+place Placeable_Lantern_FireBasket - at {$x-1.6*cos($yaw)} {$z+1.6*sin($yaw)} ground sit
+end
+
+# subwreck: a small submarine wrecked on the sea floor at x z (yaw: her heading; her bow at +x of that frame), her hull
+# bedded sink m in the sand and pitched pitch degrees: the hull a radio-tower pipe grown to a boat (about 18 m long, 3.4 m
+# round), her conning tower a standing pipe with a periscope; her loot scattered round her (where: wet, or any on a
+# sunken island)
+macro subwreck x=0 z=0 yaw=0 pitch=4 sink=1 al=sub seed=1 where=wet
+push at $x $z yaw=$yaw ground
+place RT_Pipe $al at 0 0 y={1.7-$sink-23.2} centred roll=$pitch sx=4.5 sy=9 sz=9
+place RT_PipeDownStraight $al at 1.5 0 y={3.2-$sink} centred sx=6 sy=1.2 sz=6
+place RT_PipeDownStraight $al at 1.1 0 y={5.2-$sink} centred sx=0.6 sy=0.6 sz=0.6
+pop
+scatter Reef_Barrel2 2 at $x $z r=10 seed=$seed $where free=2
+scatter "Pickup_Landmark_Scrap 2_OceanBottom" 2 at $x $z r=11 seed={$seed+1} $where free=1
+scatter "Pickup_Landmark_Scrap 1_OceanBottom" 2 at $x $z r=11 seed={$seed+2} $where free=1
+scatter SeaVine3_klump 3 at $x $z r=12 seed={$seed+3} $where free=3
+end
+
+# airbell: an air pocket on the ground at x z (Raft's air bubble dome, small) with a zone that gives breath (zone.air) and
+# bubbles rising from it; id: the zone's id, msg its message
+macro airbell x=0 z=0 id=airbell al=airbell bub=airbellbub r=2.5 msg="An air pocket - breathe."
+place AirPocket_1 - at $x $z ground y=0.05 scale=0.6
+place Zone_Trigger $al at $x $z ground y=1.6
+place Zone_Atmosphere $bub at $x $z ground y=1.2
+prop $al obj.name=$al
+prop $al zone.id=$id
+prop $al zone.radius=$r
+prop $al zone.repeat=1
+prop $al zone.air=1
+prop $al zone.message=$msg
+prop $bub atmo.particles=bubbles
+prop $bub zone.radius=3
+end
+
+# longbridge: a plank bridge two blocks wide out over the water from x1 z1 to x2 z2 at deck height h (above the sea),
+# rope rails both sides; save stands posts under it into the sea floor (StandPosts)
+macro longbridge x1=0 z1=0 x2=20 z2=0 h=2
+set dx {$x2-$x1}
+set dz {$z2-$z1}
+set dl {sqrt($dx*$dx+$dz*$dz)}
+set nx {0-$dz/$dl*0.75}
+set nz {$dx/$dl*0.75}
+line Block_Floor_Wood from {$x1+$nx} {$z1+$nz} to {$x2+$nx} {$z2+$nz} step=1.5 h=$h
+line Block_Floor_Wood from {$x1-$nx} {$z1-$nz} to {$x2-$nx} {$z2-$nz} step=1.5 h=$h
+line Block_Wall_Fence_Rope from {$x1+$nx*2} {$z1+$nz*2} to {$x2+$nx*2} {$z2+$nz*2} step=1.5 h=$h
+line Block_Wall_Fence_Rope from {$x1-$nx*2} {$z1-$nz*2} to {$x2-$nx*2} {$z2-$nz*2} step=1.5 h=$h
+end

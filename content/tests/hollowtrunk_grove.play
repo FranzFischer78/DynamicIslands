@@ -1,0 +1,43 @@
+# Hollowtrunk Grove (CIPlay hollowtrunk_grove): the greenhouse round 0 -40, the water tower -16 -46, the zipline from
+# trunk 2 to trunk 4 (-20 28), trunk 4's deck -22 30, the seed store 6 14, the root hole -6 2.
+island Hollowtrunk Grove
+# RESIZE 10-24: the recipe moved this island's old content by 0 -8.8; the points below are in the old frame
+offset 0 8.8
+expect step 0
+expect title The Hollow Trees
+zone greenhouse
+expect step 1
+read Seedkeeper's watering rota
+expect step 2
+open Water tower tank
+wait 3
+expect step 3
+zone trunk_4
+expect step 4
+open Trunk store
+wait 3
+expect step 5
+open Crown box
+wait 3
+expect step 6
+open Beekeepers' box
+use trunk5vines
+expect shown trunk5chest
+open Trunk 5 chest
+wait 2
+expect step 7
+expect hidden seedstore
+use towerpump
+expect story pumppart 0
+expect shown seedstore
+expect step 8
+open Seed store
+wait 3
+expect step 9
+open Seed drawers
+wait 2
+expect step 10
+read Ranger log 6
+expect step 11
+zone roots
+expect done

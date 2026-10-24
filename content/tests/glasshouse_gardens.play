@@ -1,0 +1,80 @@
+# Play test of Glasshouse Gardens (CIPlay glasshouse_gardens, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The plateau's top at 23.6 m: the gate at 4 -44 (the road's top; it slants up the cliff from -30 -61 to 8 -45), the cottage
+# x 9..15, z -35.5..-26.5 (door south at x 9..12); the potting shed x 41.5..50.5, z 4.5..10.5 (door west); the Orchid house
+# x -6..6, z 30..39 (door south at x -6..-3); the Palm house x -31.5..-22.5, z -1..5 (door east, the gantry at 28.15 m along
+# its west wall, ladders at -29.55 0.5); the Lily house x 26.5..35.5, z 28.5..34.5 (door west at z 31.5..34.5); the Great
+# House x -6..6, z -9..9 (door south at x -6..-3).
+island Glasshouse Gardens
+offset 0 0
+expect step 0
+expect title The Titan Blooms
+wait 5
+expect animals Chicken 3
+expect animals Goat 2
+expect animals Dolphin 2
+at -32 -63 h=3
+walk -30 -61 to -11 -53 h=14.6
+walk -11 -53 to 8 -45 h=23.6
+walk 8 -45 to 4 -42 h=23.6
+zone gardengate
+expect step 1
+walk 4 -42 to 10.5 -38 to 10.5 -33 h=23.65
+read Professor Lind's journal
+expect step 2
+open Lind's legacy
+expect message FOR WHOEVER SEES IT BLOOM
+at 38 9 h=24.6
+walk 38 9 to 44 9 h=23.65
+zone pottingshed
+expect message Beetles
+kill Roach
+expect step 3
+open Potting shed chest
+expect story brush 1
+expect step 4
+use orchid
+expect message opens only in mist
+use mistvalve
+expect shown mist
+use orchid
+expect story pollen 1
+expect step 5
+at -20 0.5 h=24.6
+walk -20 0.5 to -28 0.5 h=23.65
+at -29 0.5 h=29.2
+zone gantry
+use palmspike
+expect story pollen 2
+expect step 6
+at 24 33 h=24.6
+walk 24 33 to 29 33 h=23.65
+use nightlily
+expect message opens only in the dark
+use blindlever
+expect shown lilydark
+use nightlily
+expect story pollen 3
+expect step 7
+at -4.5 -12 h=24.6
+walk -4.5 -12 to -4.5 -6 to 0 -1 h=23.65
+zone greathouse
+expect step 8
+use titanbud
+expect shown titanbloom
+expect story titanseed 1
+expect step 9
+open Lind's legacy
+expect done
+open Barrow box
+open Cove barrel
+open Sunk crate of pots
+# Raft's story machinery: Lind's seed chest stays sun-locked until both mirrors are turned
+open Lind's seed chest
+expect message wants the light of both mirrors
+use sunmirror1
+expect message quarter turn
+open Lind's seed chest
+expect message wants the light of both mirrors
+use sunmirror2
+open Lind's seed chest
+expect item Seed_Flower_Red 3

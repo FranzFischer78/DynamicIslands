@@ -1,0 +1,15 @@
+# Guide pictures of Signal Rock (CIPlay signal_rock_pics): Raft's camera and water at midday, and at night
+island Signal Rock
+hour 11
+weather Calm
+at -8.88 -13.12
+wait 2
+picture signal_rock_cove -32 7 -32 -11 6 -11
+picture signal_rock_deck -4 5 -17 -11 4 -10
+picture signal_rock_mast -20 4 -2 -11 14 -8
+picture signal_rock_ridge 4 30 10 -11 4 -11
+hour 21.5
+wait 2
+picture signal_rock_night -30 8 -30 -11 8 -11
+hour 11
+weather Calm

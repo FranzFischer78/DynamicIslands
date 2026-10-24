@@ -1,0 +1,13 @@
+# Guide pictures of Tidefall Reach (CIPlay tidefall_reach_pics): Raft's camera, morning, calm
+island Tidefall Reach
+offset 0.6696 20.9889
+hour 9
+weather Calm
+at 0 -18
+wait 3
+picture ni8_tidefall_reach_island 0 70 -170 0 5 0
+picture ni8_tidefall_reach_town 0 -3 -30 0 -7 -50
+picture ni8_tidefall_reach_temple 8 -5 -58 0 -6.5 -50
+picture ni8_tidefall_reach_wreck 36 -5 -58 46 -7 -66
+picture ni8_tidefall_reach_camp 40 12 2 40 5 28
+picture ni8_tidefall_reach_springs -48 6 4 -62 0 16

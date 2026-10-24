@@ -1,0 +1,14 @@
+# Guide pictures of Blightmire (CIPlay blightmire_pics): Raft's camera, midday, calm
+island Blightmire
+# RESIZE 10-24: the recipe moved this island's old content by 0 -8.8; the points below are in the old frame
+offset 0 8.8
+hour 11
+weather Calm
+# (RESIZE 10-24 rework: the content spread out by 1.55; the root shots by snap)
+at 0 -49.6
+wait 3
+picture sl11_blightmire_island 36 24 -72 0 4 -10
+snap sl11_blightmire_root root1 120 8 3
+snap sl11_blightmire_marsh root2 200 12 5
+picture sl11_blightmire_marshland -36 14 34 0 5 0
+storespot 0 -49.6

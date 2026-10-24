@@ -1,0 +1,7 @@
+# The Franking Works on its own (CIPlay franking_works_solo): Ada's dead letter taken at The Dead Letter Office first,
+# then the island's test
+island The Dead Letter Office
+offset 0 0
+read Dead letter: Postmistress
+expect story dl_ada 1
+include franking_works.play

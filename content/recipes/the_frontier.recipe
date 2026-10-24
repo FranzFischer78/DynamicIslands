@@ -1,0 +1,809 @@
+# The Frontier - an island of the library's plan Raft 2: The Drowned Frontier (station Ten of the Frontier Corps)
+# The last high ground beyond the storm belt: the Frontier Corps' town on a 35 m mesa - the harbour and the lower town on
+# the north shelf (2.5 m), the road up the north face through the farm terraces (12.5 m, 23.6 m), the upper town on the
+# mesa: the reservoir, the growers' and builders' quarters, the archive, the signal horn's tower and the Corps' hall on
+# the east rim, its lift down the cliff to the flooded vault in the east cove. Quest "Almost Home" (the finale).
+#
+# Built by the recipe player (CIRecipe the_frontier) through the editor's own operations.
+include lib_sea
+include lib_rt
+include lib_huts
+include lib_features
+new
+# (nature: forest: Like Raft's Balboa - Raft's islands as the generator's Like Raft has them, CIGenLikeRaft; thicker than
+# that in the wild west and south of the mesa, where the town and the terraces were cleared out of it - CIIslandDensity)
+gen Trees=0.28 Bushes=0.6 Rocks=0.5 Harvest=0.05 BeachThings=0.3
+gen Seed=8110 Radius=110 Height=35 Roughness=0.35 Shape=4 Style=3 Cliffs=0.6
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.4 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the harbour basin dredged in front of the lower town (2.5 m down, where the quay's posts stand); the farm
+# terraces cut across the north face (the lower 12.5 m, the middle 23.6 m) and the road up them in three ramps (about
+# 1:3, wide strokes every 1.5 m, then smoothed); the east cove dug to the cliff's foot for the vault, the cliff made
+# sheer where the Corps' lift goes down it -------------------------------------------------------------------------------
+brush flatten from -10 100 to -10 128 r=7 s=20 frames=150 h=-2.5
+brush flatten from 0 100 to 0 128 r=7 s=20 frames=150 h=-2.5
+brush flatten from 10 100 to 10 128 r=7 s=20 frames=150 h=-2.5
+# (a hole off the quay's end, 6 m down, where the net store went in; the square's pad at the terraces' foot)
+brush flatten at 7 137 r=5 s=20 frames=60 h=-6
+brush flatten at 30 88 r=5 s=20 frames=50 h=2.45
+brush flatten from -36 72 to 34 72 r=8 s=20 frames=160 h=12.5
+brush flatten from -36 67 to 34 67 r=8 s=20 frames=160 h=12.5
+brush flatten from -38 58 to 34 58 r=8 s=20 frames=160 h=23.6
+brush flatten from -38 53 to 34 53 r=8 s=20 frames=160 h=23.6
+# (the ramps, wide (the walker slid off ramps of narrow strokes): the first up from the east shelf onto the lower terrace's
+# east end, the second along the lower terrace's back up to the middle terrace's west end, the third along the middle
+# terrace's back up to the mesa - 30-36 m each; a level landing where each one meets the ground above it)
+for i 0 24 1
+brush flatten at {74-$i*1.5} 75 r=5 s=20 frames=20 h={2.5+$i*0.417}
+next
+for i 0 20 1
+brush flatten at {-2-$i*1.5} 66.4 r=4.5 s=20 frames=20 h={12.5+$i*0.555}
+next
+for i 0 23 1
+brush flatten at {2+$i*1.5} 51.4 r=4.5 s=20 frames=20 h={23.6+$i*0.483}
+next
+brush smooth from 74 75 to 38 75 r=3.5 s=10 frames=12
+# (the first ramp's foot eased into the shelf and the beach east of it: its edge stood as a step)
+brush smooth from 74 75 to 82 74 r=4.5 s=10 frames=20
+brush smooth from -2 66.4 to -32 66.4 r=3.5 s=10 frames=12
+brush smooth from 2 51.4 to 36 51.4 r=3.5 s=10 frames=12
+brush flatten from 39 74 to 35 73 r=4 s=20 frames=60 h=12.5
+brush flatten from -33 66 to -32 59 r=4 s=20 frames=60 h=23.6
+brush flatten from 36 50.5 to 39 45 r=4 s=20 frames=80 h=34.7
+# (pads on the mesa for the upper town: the fields, the reservoir, the farm store, the grower's house, the builders' tower,
+# the archive, the horn tower, the hall and the lift's platform)
+brush flatten from 8 37 to 28 37 r=5 s=20 frames=60 h=34.7
+brush flatten from -19 38 to -5 38 r=5.5 s=20 frames=60 h=34.7
+brush flatten at -3.75 23.25 r=4.5 s=20 frames=50 h=34.7
+brush flatten at -37.75 29.25 r=4.5 s=20 frames=50 h=34.7
+brush flatten at 17.5 17.5 r=4 s=20 frames=50 h=34.7
+brush flatten at 32.25 16.25 r=4.5 s=20 frames=50 h=34.7
+brush flatten at 41.5 17.5 r=4 s=20 frames=50 h=34.7
+brush flatten from 51 7 to 61 7 r=6 s=20 frames=80 h=34.7
+# (the lift's notch cut into the east cliff behind the hall, down to the shelf; the cove dug from the sea to it, 5 m deep)
+brush flatten at 61.5 7.5 r=3 s=20 frames=60 h=34.7
+brush flatten from 67 5.5 to 74 5.5 r=3.5 s=20 frames=200 h=2.5
+brush flatten from 67 9.5 to 74 9.5 r=3.5 s=20 frames=200 h=2.5
+brush flatten from 112 7.5 to 80 7.5 r=7 s=20 frames=100 h=-5
+brush flatten from 83 5.5 to 90 5.5 r=6.5 s=20 frames=80 h=-5.2
+brush flatten from 83 9.5 to 90 9.5 r=6.5 s=20 frames=80 h=-5.2
+# (the cut and filled ground textured again by height and slope: the terraces' faces rock, their tops grass)
+brush auto from -44 62 to 54 62 r=24 s=20 frames=60
+brush auto from 60 7.5 to 90 7.5 r=12 s=20 frames=40
+origin
+clear from -40 70 to 52 70 r=11
+clear from -40 54 to 40 54 r=11
+clear from 76 75 to 36 75 r=6
+# (the lower town's lane from the landing to the yards: a generator rock stood on it at x 61, 2026-10-12)
+clear from 28 86 to 50 86 r=2.5
+clear from 50 86 to 72 84 r=2.5
+clear at 30 88 r=7
+clear at -19 86 r=6
+clear at 0 92 r=4
+clear at 66 60 r=15
+clear from -30 98 to -16 98 r=5
+clear from 6 37 to 30 37 r=7
+clear from -24 38 to -2 38 r=7
+clear at -3.75 23.25 r=6
+clear at -37.75 29.25 r=6
+clear at -36 15 r=10
+clear at 17.5 17.5 r=6
+clear at 32.25 16.25 r=6
+clear at 41.5 17.5 r=5
+clear from 48 7 to 62 7 r=8
+clear from 30 22 to 48 12 r=4
+clear from 38 44 to 30 26 r=3
+# (the upper town opened out of the mesa's forest: its lanes and yards; the cove clear of the sea rocks)
+clear from -46 30 to 62 30 r=13
+clear from -46 12 to 62 12 r=9
+clear from 66 7.5 to 112 7.5 r=9
+# (the generator's boulders left on the mesa's cliffs and the terraces' faces, 4-33 m up: on faces this steep they looked
+# as if they hung in the air in the pictures)
+clear at 0 0 r=140 only=Rock|Boulder above=4 below=33
+
+# --- The quay: three blocks wide from the shelf out over the basin (its deck 2.6 m), the netmaker's hut on its west side,
+# the smokehouse on its east side (both on stilts in the basin, their open fronts onto the quay); the welcome board
+# at its land end ----------------------------------------------------------------------------------------------------------
+push at 2.25 94 h=-2.5 yaw=270
+call boardwalk n=7 wide=3 y=5.1
+pop
+push at 2.25 104.5 h=-2.5 yaw=270
+call boardwalk n=4 wide=3 y=5.1 rs=none rn=none
+pop
+push at 2.25 110.5 h=-2.5 yaw=270
+call boardwalk n=10 wide=3 y=5.1
+pop
+push at -2.25 105.25 h=-2.5 yaw=270
+call stilt_hut y=5.1 ladder=none w1=ReefHuts_PlasticWall4
+place Table_Common_01 - at 2.25 3.6 y=5.1 sit
+place Note_Paper fishernote at 2.25 3.6 y=5.9 drop yaw=20
+place FishingNets_02 - at 0.8 3.7 y=5.1 sit yaw=80
+place FishingNets_02 - at 3.8 1 y=5.1 sit yaw=10
+place Placeable_Lantern_Metal - at 3.9 3.8 y=5.1 sit
+place Pickup_Landmark_Plastic3_Land - at 1.4 1.5 y=5.4 drop yaw=77
+pop
+push at 2.25 109.75 h=-2.5 yaw=90
+call stilt_hut y=5.1 ladder=none w2=ReefHuts_PlasticWall1 w5=ReefHuts_PlasticWall4
+place Reef_Barrel2 - at 0.9 3.6 y=5.1 sit
+place Reef_Barrel4 - at 1.9 3.7 y=5.1 sit yaw=40
+place "Box Small" smokebox at 3.6 3.5 y=5.1 sit yaw=-10
+place Firewood_1 - at 2.4 2 y=5.1 sit
+place "Pickup_Landmark_Scrap 2_Land" - at 1.2 1.3 y=5.4 drop yaw=200
+pop
+place Note_Board welcomeboard at 6.5 92.5 h=2.5 yaw=180
+place Crate_Big_01 - at -4.2 92.6 h=2.5 sit yaw=12
+place Crate_Big_02 - at -5.4 91.9 h=2.5 sit yaw=78
+place Placeable_Lantern_FireBasket - at 3.2 93.2 h=2.5 sit
+place Placeable_Lantern_FireBasket - at -3.2 93.2 h=2.5 sit
+place Zone_Trigger harbour at 0 108 h=3.5
+
+# --- The net store, gone into the basin off the quay's end in the last blow: its walls on the bottom, its crate with the
+# smiths' key, nets and barrels ----------------------------------------------------------------------------------------------
+place ReefHuts_Wall1 - at 5.5 136 h=-6 sit yaw=30
+place ReefHuts_Wall5 - at 9 138.5 h=-6 sit yaw=110
+place "Box Big" netstore at 7 137.2 h=-6 sit yaw=25
+place FishingNets_02 - at 8.6 135.6 h=-6 sit yaw=60
+place Loot_SunkenBarrel - at 4.8 138.6 h=-6 sit
+place ReefHuts_Pillar3 - at 10 135.8 h=-6 sit yaw=80 tilt=88
+
+# --- The harbour office on the shelf west of the quay: Raft's wooden walls, its door to the quay, a wooden hip roof on
+# the walls and its corner pillars; the locker with the town map, the desk ---------------------------------------------------
+push at -22 84 h=2.5
+call floors w=4 d=3
+place Block_Wall_Wood - at 0.75 0 y=0.1
+place Block_Wall_Window_Wood - at 2.25 0 y=0.1
+place Block_Wall_Window_Wood - at 3.75 0 y=0.1
+place Block_Wall_Wood - at 5.25 0 y=0.1
+place Block_Wall_Wood - at 0.75 4.5 y=0.1
+place Block_Wall_Window_Wood - at 2.25 4.5 y=0.1
+place Block_Wall_Wood - at 3.75 4.5 y=0.1
+place Block_Wall_Window_Wood - at 5.25 4.5 y=0.1
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Window_Wood - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 3.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 6 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 6 3.75 y=0.1 yaw=90
+call corners w=4 d=3
+roof 4 3 at 0 0 y=0.1 wood
+place Locker harbouroffice at 0.5 3.8 y=0.1 sit yaw=90
+place "Table Office" - at 3 3.7 y=0.1 sit yaw=180
+place "Chair Office" - at 3 3 y=0.1 sit
+place Placeable_Lantern_Metal - at 3.4 3.7 y=0.9 sit drop
+place RT_CommRadio officeradio at 2.5 3.7 y=1 sit drop yaw=180
+place Loot_Chest officecache at 4.8 0.6 y=0.1 sit yaw=0
+place Crate_Big_02 - at 1 0.9 y=0.1 sit yaw=8
+place Pickup_Landmark_Plank_Land - at 2.0 2.0 y=0.4 drop yaw=29
+pop
+place Placeable_Flag_03 - at -15 83.6 h=2.5
+
+# --- The square at the terraces' foot: the monument to the rafts that made it, benches, fire baskets, market stalls ------
+place RaftMonument - at 30 88.5 h=2.45 yaw=180
+place Bench_01 - at 26 85.5 h=2.45 sit yaw=60
+place Bench_01 - at 34 85.5 h=2.45 sit yaw=-60
+place BenchTable_01 - at 24.5 91 h=2.45 sit yaw=90
+place Crate_Big_01 - at 23.6 92.6 h=2.45 sit yaw=5
+place Reef_Barrel3 - at 25.6 92.8 h=2.45 sit
+place BenchTable_01 - at 35.5 91 h=2.45 sit yaw=90
+place Crate_Small_02 - at 36.9 90.3 sit yaw=40
+place Placeable_Lantern_FireBasket - at 26.5 84 h=2.45 sit
+place Placeable_Lantern_FireBasket - at 33.5 84 h=2.45 sit
+place Zone_Trigger square at 30 88 h=3.6
+
+# --- The smiths' quarter on the east shelf: the forge (Raft's wooden walls, its wide front to the square, a door to the
+# yard behind), the smelter, the workbench, the forge chest; the yard fenced in, the dogs in it -------------------------------
+push at 58 58 h=2.5
+call floors w=4 d=4
+place Block_Wall_Wood - at 0.75 0 y=0.1
+place Block_Wall_Wood - at 2.25 0 y=0.1
+place Block_Wall_Window_Wood - at 3.75 0 y=0.1
+place Block_Wall_Wood - at 5.25 0 y=0.1
+place Block_Wall_Wood - at 0.75 6 y=0.1
+place Block_Wall_Wood - at 5.25 6 y=0.1
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Window_Wood - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Window_Wood - at 0 3.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 5.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 6 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 6 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 6 5.25 y=0.1 yaw=90
+call corners w=4 d=4
+roof 4 4 at 0 0 y=0.1 wood
+place Placeable_CookingStand_Smelter - at 1.2 1.1 y=0.1 sit yaw=45
+place Workbench - at 3.3 0.6 y=0.1 sit
+place CaravanWorkbench_Tools - at 3.3 0.6 y=1.2 drop
+place "Box Big" forgechest at 5.3 1 y=0.1 sit yaw=-90
+place Note_Paper smithnote at 3.6 0.5 y=1.2 drop yaw=15
+place Reef_Barrel1 - at 0.7 5.2 y=0.1 sit
+place MetalSheet_2 - at 1.6 5.4 y=0.1 sit yaw=10
+place Placeable_Lantern_Metal - at 2.6 0.6 y=1.2 drop
+place "Pickup_Landmark_Scrap 1_Land" - at 2.4 2.8 y=0.4 drop yaw=118
+place "Pickup_Landmark_Scrap 4_Land" - at 4.4 2.4 y=0.4 drop yaw=301
+pop
+line Relay_Fence_wood from 66 52 to 66 57.5 step=1.825
+line Relay_Fence_wood from 66 64.5 to 66 66 step=1.825
+line Relay_Fence_wood from 66 66 to 80 66 step=1.825
+# (the east side's two rails by the corner 10 cm up: on the slope there, set on the ground at their low end, their
+# middle was under it, CIGroundIslands - the same places as one line)
+line Relay_Fence_wood from 80 66 to 80 62.35 step=1.825 y=0.1
+line Relay_Fence_wood from 80 62.35 to 80 52 step=1.825
+line Relay_Fence_wood from 80 52 to 66 52 step=1.825
+place Firewood_1 - at 70 63.5 sit
+place Pallet - at 76 55 sit yaw=20
+place Crate_Big_01 - at 78.4 64.3 sit yaw=30
+place Zone_Trigger forgeyard at 73 59 h=3.7
+place Creature_Hyena dogs at 74 58 h=2.5
+
+
+# --- The upper fields on the mesa's rim by the top of the road: crop beds in rows, melons, a scarecrow, the upper
+# terrace's tool crate ---------------------------------------------------------------------------------------------------------
+for cx 9 27 4.5
+place Placeable_Cropplot_Medium - at $cx 35 h=34.7 sit
+place Placeable_Cropplot_Medium - at $cx 37.5 h=34.7 sit
+next
+for cx 10 26 4
+place Pickup_Landmark_WatermelonLandmark - at $cx 40.5 h=34.7 sit yaw={rnd(0,360)}
+next
+place Placeable_Scarecrow - at 18 39 h=34.7 sit yaw=180
+place Loot_Crate terrace3 at 29.5 40.6 h=34.7 sit yaw=-15
+place Reef_Wheelbarrow - at 7 40.4 h=34.7 sit yaw=70
+
+# --- The reservoir above the terraces: the Corps' big tank and its pump, two of Raft's water tanks, the sluice box (its
+# three valve wheels gone - they come back when it is used), the keeper's table with the note, the pipe down the terraces --
+place UT_WaterTank reservoirtank at -13 38.5 h=34.7 sit
+place Placeable_WaterTank - at -21.5 36 h=34.7 sit yaw=90
+place Placeable_WaterTank - at -21.5 39.6 h=34.7 sit yaw=90
+place UT_WaterPump - at -4.5 37.5 h=34.7 sit yaw=90
+# (the sluice box against the big tank, where the pipe down to the terraces starts: two of Raft's half floors; the valve
+# wheels go on its front, to the rim)
+place Block_HalfFloor_Wood sluice at -14.75 41.65 h=34.7 sit
+place Block_HalfFloor_Wood - at -13.25 41.65 h=34.7 sit
+place TP_Selene_DoorCrankWheel wheels at -14.9 42.42 h=35.32 yaw=180
+place TP_Selene_DoorCrankWheel wheels at -14 42.42 h=35.32 yaw=180
+place TP_Selene_DoorCrankWheel wheels at -13.1 42.42 h=35.32 yaw=180
+place Table_Common_01 - at -11 33.6 h=34.7 sit
+place Note_Paper reservoirnote at -11 33.6 h=35.6 drop yaw=-20
+place Zone_Trigger reservoir at -10 36 h=36
+place Creature_Bear bear at -16 33 h=34.7
+line WaterPipe_Long_2 from -14 42.6 to -14 49.6 follow y=0.12
+place Placeable_WaterTank - at -14 50.9 h=23.6 sit
+
+# --- The farm store by the reservoir: Raft's wooden walls, its door to the reservoir, a thatch roof; the store's chest ---
+push at -6 21 h=34.7
+call floors w=3 d=3
+place Block_Wall_Wood - at 0.75 0 y=0.1
+place Block_Wall_Window_Wood - at 2.25 0 y=0.1
+place Block_Wall_Wood - at 3.75 0 y=0.1
+place Block_Wall_Wood - at 0.75 4.5 y=0.1
+place Block_Wall_Wood - at 3.75 4.5 y=0.1
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 3.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 4.5 0.75 y=0.1 yaw=90
+place Block_Wall_Window_Wood - at 4.5 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 4.5 3.75 y=0.1 yaw=90
+call corners w=3 d=3
+roof 3 3 at 0 0 y=0.1
+place "Box Big" farmstore at 2.25 0.8 y=0.1 sit yaw=180
+place Crate_Big_01 - at 0.9 0.9 y=0.1 sit yaw=10
+place Crate_Small_02 - at 3.7 0.8 y=0.1 sit yaw=-20
+place Reef_Barrel5 - at 3.8 3.6 y=0.1 sit
+place Pickup_Landmark_Plank_Land - at 1.2 2.7 y=0.4 drop yaw=145
+pop
+
+# --- The growers' quarter: the grower's house (Raft's wooden walls, its door to the pen, a thatch roof) with the chest
+# and the note; the goat pen fenced in, its gate to the house, the net box by the gate; the goats --------------------------
+push at -40 27 h=34.7
+call floors w=3 d=3
+place Block_Wall_Wood - at 0.75 0 y=0.1
+place Block_Wall_Wood - at 3.75 0 y=0.1
+place Block_Wall_Wood - at 0.75 4.5 y=0.1
+place Block_Wall_Window_Wood - at 2.25 4.5 y=0.1
+place Block_Wall_Wood - at 3.75 4.5 y=0.1
+place Block_Wall_Window_Wood - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 3.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 4.5 0.75 y=0.1 yaw=90
+place Block_Wall_Window_Wood - at 4.5 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 4.5 3.75 y=0.1 yaw=90
+call corners w=3 d=3
+roof 3 3 at 0 0 y=0.1
+place MayorsChest growerchest at 3.7 3.8 y=0.1 sit yaw=180
+place Table_Common_01 - at 1.2 3.4 y=0.1 sit yaw=90
+place Note_Paper growernote at 1.2 3.4 y=0.9 drop yaw=30
+place Placeable_Chair_Stool - at 1.9 2.5 y=0.1 sit
+place Placeable_Lantern_Metal - at 0.9 3.9 y=0.9 drop
+place Pickup_Landmark_Plastic3_Land - at 3.1 2.2 y=0.4 drop yaw=12
+pop
+line Relay_Fence_wood from -44 8 to -28 8 step=1.825
+line Relay_Fence_wood from -28 8 to -28 22 step=1.825
+line Relay_Fence_wood from -28 22 to -35 22 step=1.825
+line Relay_Fence_wood from -38.5 22 to -44 22 step=1.825
+line Relay_Fence_wood from -44 22 to -44 8 step=1.825
+place "Box Small" growernet at -33.6 23.3 h=34.7 sit yaw=10
+place Placeable_Cropplot_Grass - at -31 11 h=34.7 sit
+place Balboa_DecorationPrefabBase_SimpleTent - at -40 12 h=34.7 sit yaw=90
+place Zone_Trigger goatpen at -36 15 h=36
+place Creature_Goat goats at -36 14 h=34.7
+
+# --- The builders' quarter: the builders' tower (four decks of Raft's floors on its pillars, ladders up through a hole in
+# each deck, rope rails and a wooden roof on its posts at the top), the builder's board, timber and the workbench ------------
+push at 16 16 h=34.7
+call floors w=2 d=2
+for lv 0 4 1
+place Block_Pillar_Wood - at 0 0 y={0.1+$lv*2.42}
+place Block_Pillar_Wood - at 3 0 y={0.1+$lv*2.42}
+place Block_Pillar_Wood - at 0 3 y={0.1+$lv*2.42}
+place Block_Pillar_Wood - at 3 3 y={0.1+$lv*2.42}
+next
+# (deck 1: the hole south-west; deck 2: north-east; deck 3: south-east; the top deck: north-west)
+place Block_Floor_Wood - at 2.25 0.75 y=2.52
+place Block_Floor_Wood - at 0.75 2.25 y=2.52
+place Block_Floor_Wood - at 2.25 2.25 y=2.52
+place Block_Floor_Wood - at 0.75 0.75 y=4.94
+place Block_Floor_Wood - at 2.25 0.75 y=4.94
+place Block_Floor_Wood - at 0.75 2.25 y=4.94
+place Block_Floor_Wood - at 0.75 0.75 y=7.36
+place Block_Floor_Wood - at 0.75 2.25 y=7.36
+place Block_Floor_Wood - at 2.25 2.25 y=7.36
+place Block_Floor_Wood - at 0.75 0.75 y=9.78
+place Block_Floor_Wood - at 2.25 0.75 y=9.78
+place Block_Floor_Wood - at 2.25 2.25 y=9.78
+place Block_Ladder - at 0.75 1.38 y=0.1
+place Block_Ladder - at 2.25 1.62 y=2.52 yaw=180
+place Block_Ladder - at 2.25 1.38 y=4.94
+place Block_Ladder - at 0.75 1.62 y=7.36 yaw=180
+place Block_Wall_Fence_Rope - at 0.75 0 y=9.78
+place Block_Wall_Fence_Rope - at 2.25 0 y=9.78
+place Block_Wall_Fence_Rope - at 0.75 3 y=9.78
+place Block_Wall_Fence_Rope - at 2.25 3 y=9.78
+place Block_Wall_Fence_Rope - at 0 0.75 y=9.78 yaw=90
+place Block_Wall_Fence_Rope - at 0 2.25 y=9.78 yaw=90
+place Block_Wall_Fence_Rope - at 3 0.75 y=9.78 yaw=90
+place Block_Wall_Fence_Rope - at 3 2.25 y=9.78 yaw=90
+roof 2 2 at 0 0 y=9.78 wood
+place Loot_Crate toptower at 2.3 2.3 y=9.78 sit yaw=20
+place Zone_Trigger buildertop at 2.25 1.5 y=10.8
+pop
+place Note_Board buildernote at 13.5 17.5 h=34.7 yaw=90
+place Pallet - at 21.5 21 h=34.7 sit yaw=10
+place Workbench - at 21.5 13 h=34.7 sit
+place Crate_Big_02 - at 24 12.4 h=34.7 sit yaw=30
+
+# --- The archive by the hall: Raft's wooden walls, its door to the town, a wooden roof; shelves, the seal press on its
+# desk -----------------------------------------------------------------------------------------------------------------------
+push at 30 14 h=34.7
+call floors w=3 d=3
+place Block_Wall_Wood - at 0.75 0 y=0.1
+place Block_Wall_Window_Wood - at 2.25 0 y=0.1
+place Block_Wall_Wood - at 3.75 0 y=0.1
+place Block_Wall_Wood - at 0.75 4.5 y=0.1
+place Block_Wall_Window_Wood - at 2.25 4.5 y=0.1
+place Block_Wall_Wood - at 3.75 4.5 y=0.1
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 3.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 4.5 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 4.5 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 4.5 3.75 y=0.1 yaw=90
+call corners w=3 d=3
+roof 3 3 at 0 0 y=0.1 wood
+place "VG_DecorationPrefabBase_BigOfficeDesk Variant" archivepress at 2.9 2.25 y=0.1 sit yaw=90
+place "VG_DecorationPrefabBase_Bookshelf Filled 1 Variant" - at 1.1 3.6 y=0.1 sit yaw=180
+place "VG_DecorationPrefabBase_Bookshelf Filled 2 Variant" - at 2.6 3.6 y=0.1 sit yaw=180
+place "VG_DecorationPrefabBase_Bookshelf Filled 3 Variant" - at 2.6 0.3 y=0.1 sit
+place Placeable_Lantern_Metal - at 3.4 1.6 y=1 drop
+place Zone_Trigger archive at 2.25 2.25 y=1.2
+pop
+
+# --- The signal horn's tower by the hall: two decks of Raft's floors on its pillars, ladders, rope rails and a wooden
+# roof on its posts; the horn on the top deck (its reed gone to the forge) ---------------------------------------------------
+push at 40 16 h=34.7
+call floors w=2 d=2
+for lv 0 2 1
+place Block_Pillar_Wood - at 0 0 y={0.1+$lv*2.42}
+place Block_Pillar_Wood - at 3 0 y={0.1+$lv*2.42}
+place Block_Pillar_Wood - at 0 3 y={0.1+$lv*2.42}
+place Block_Pillar_Wood - at 3 3 y={0.1+$lv*2.42}
+next
+place Block_Floor_Wood - at 2.25 0.75 y=2.52
+place Block_Floor_Wood - at 0.75 2.25 y=2.52
+place Block_Floor_Wood - at 2.25 2.25 y=2.52
+place Block_Floor_Wood - at 0.75 0.75 y=4.94
+place Block_Floor_Wood - at 2.25 0.75 y=4.94
+place Block_Floor_Wood - at 0.75 2.25 y=4.94
+place Block_Ladder - at 0.75 1.38 y=0.1
+place Block_Ladder - at 2.25 1.62 y=2.52 yaw=180
+place Block_Wall_Fence_Rope - at 0.75 0 y=4.94
+place Block_Wall_Fence_Rope - at 2.25 0 y=4.94
+place Block_Wall_Fence_Rope - at 0.75 3 y=4.94
+place Block_Wall_Fence_Rope - at 2.25 3 y=4.94
+place Block_Wall_Fence_Rope - at 0 0.75 y=4.94 yaw=90
+place Block_Wall_Fence_Rope - at 0 2.25 y=4.94 yaw=90
+place Block_Wall_Fence_Rope - at 3 0.75 y=4.94 yaw=90
+place Block_Wall_Fence_Rope - at 3 2.25 y=4.94 yaw=90
+roof 2 2 at 0 0 y=4.94 wood
+place Placeable_HonkHorn_3 horn at 0.8 0.8 y=4.94 sit yaw=225
+place Zone_Trigger horntop at 1.5 1.5 y=6
+pop
+
+# --- The Corps' hall on the east rim: Raft's wooden walls two high, windows above, a wide doorway to the town closed by
+# two sliding doors (they slide aside when the three seals are set), a back door to the lift; a wooden hip roof on the
+# walls and its corner pillars; the long table, the commander's last order, the Corps' flags ----------------------------------
+push at 50 4 h=34.7
+call floors w=6 d=4
+for wx 0.75 8.25 1.5
+place Block_Wall_Wood - at $wx 0 y=0.1
+place Block_Wall_Window_Wood - at $wx 0 y=2.52
+place Block_Wall_Wood - at $wx 6 y=0.1
+place Block_Wall_Window_Wood - at $wx 6 y=2.52
+next
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 5.25 y=0.1 yaw=90
+place Block_Wall_Window_Wood - at 0 0.75 y=2.52 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=2.52 yaw=90
+place Block_Wall_Wood - at 0 3.75 y=2.52 yaw=90
+place Block_Wall_Window_Wood - at 0 5.25 y=2.52 yaw=90
+place Block_Wall_Wood - at 9 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 9 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 9 5.25 y=0.1 yaw=90
+for wz 0.75 5.25 1.5
+place Block_Wall_Wood - at 9 $wz y=2.52 yaw=90
+next
+call corners w=6 d=4
+call corners w=6 d=4 y=2.52
+roof 6 4 at 0 0 y=2.52 wood
+place Block_Wall_Wood halldoora at -0.12 2.25 y=0.1 yaw=90
+place Block_Wall_Wood halldoorb at -0.12 3.75 y=0.1 yaw=90
+place "VG_DecorationPrefabBase_DinnerTable Variant" - at 4.5 3 y=0.1 sit yaw=90
+place Note_Paper commandersorder at 4.5 3 y=0.9 drop yaw=10
+place Placeable_Flag_01 - at 8.3 0.7 y=0.1
+place Placeable_Flag_01 - at 8.3 5.3 y=0.1
+place Placeable_Lantern_Basic - at 0.7 0.7 y=0.1 sit
+place Placeable_Lantern_Basic - at 0.7 5.3 y=0.1 sit
+place Zone_Trigger hallinside at 4.5 3 y=1.4
+place Pickup_Landmark_Plastic3_Land - at 2.5 1.5 y=0.4 drop yaw=226
+pop
+place Note_Sign hallplaque at 49.2 9.4 h=34.7 yaw=270
+place Zone_Trigger hall at 46 7 h=36
+
+# --- The Corps' lift: its platform behind the hall on the rim, the control box; the shaft down the cliff's notch to the
+# shelf by the cove, its control box at the foot -------------------------------------------------------------------------------
+push at 59 6.25 h=34.7
+call floors w=3 d=2
+place Block_Wall_Fence_Rope - at 0.75 0 y=0.1
+place Block_Wall_Fence_Rope - at 2.25 0 y=0.1
+place Block_Wall_Fence_Rope - at 3.75 0 y=0.1
+place Block_Wall_Fence_Rope - at 0.75 3 y=0.1
+place Block_Wall_Fence_Rope - at 2.25 3 y=0.1
+place Block_Wall_Fence_Rope - at 3.75 3 y=0.1
+place EmergencyGenerator liftdown at 3.9 0.45 y=0.1 sit yaw=0
+place Zone_Trigger lifttop at 1.6 1.5 y=0.2
+pop
+place VP_ElevatorShaft liftshaft at 63.6 11.1 h=2.5 ground sy=1.47
+place EmergencyGenerator liftup at 71.6 9.8 h=2.5 sit yaw=270
+place Zone_Trigger liftbottom at 72 7.5 h=2.6
+
+# --- The Corps' vault, sunk in the cove at the lift's foot: Raft's steel walls and roof, its door to the lift; the vault
+# chest; the giant stingray in the cove --------------------------------------------------------------------------------------------
+push at 82 4.5 h=-5.2
+for fx 0.75 5.25 1.5
+for fz 0.75 5.25 1.5
+place Block_Floor_Tier3 - at $fx $fz y=0.1
+place Block_Floor_Tier3 - at $fx $fz y=2.52
+next
+next
+for wx 0.75 5.25 1.5
+place Block_Wall_Tier3 - at $wx 0 y=0.1
+place Block_Wall_Tier3 - at $wx 6 y=0.1
+place Block_Wall_Tier3 - at 6 $wx y=0.1 yaw=90
+next
+place Block_Wall_Tier3 - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Tier3 - at 0 5.25 y=0.1 yaw=90
+place Block_Pillar_Tier3 - at 0 0 y=0.1
+place Block_Pillar_Tier3 - at 6 0 y=0.1
+place Block_Pillar_Tier3 - at 0 6 y=0.1
+place Block_Pillar_Tier3 - at 6 6 y=0.1
+place VG_Safe corpsvault at 5.2 3 y=0.1 sit yaw=270
+place Zone_Trigger vault at 3 3 y=1.2
+pop
+place Creature_Stingray ray at 92 7.5 h=-4.6
+
+# --- The lower terrace (12.5 m): crop beds east of the road's top and along the bank, melon rows west of it in front of
+# the ramp, its cistern, a scarecrow, the tool crate; fences along its front (a gap where the road comes up) -----------------------------------------
+for cx 18 32 2.8
+place Placeable_Cropplot_Medium - at $cx 69 h=12.5 sit
+place Placeable_Cropplot_Medium - at $cx 71.2 h=12.5 sit
+next
+for cx -30 -8 3
+place Pickup_Landmark_WatermelonLandmark - at $cx 73 h=12.5 sit yaw={rnd(0,360)}
+place Pickup_Landmark_PineappleLandmark - at {$cx+1.5} 75 h=12.5 sit yaw={rnd(0,360)}
+next
+for cx 6 12 3
+place Placeable_Cropplot_Medium - at $cx 68.6 h=12.5 sit
+next
+place Placeable_WaterTank - at -33 73.6 h=12.5 sit yaw=90
+place Placeable_Scarecrow - at 15.5 70.2 h=12.5 sit yaw=0
+place Loot_Crate terrace1 at 35.5 68.8 h=12.5 sit yaw=80
+place Reef_Wheelbarrow - at -4 73.5 h=12.5 sit yaw=-30
+line Relay_Fence_wood from -34 76.4 to 34 76.4 step=1.825
+
+# --- The middle terrace (23.6 m): crop beds and pineapple rows north of the path, a berry bush, the cistern the pipe from
+# the reservoir fills, a scarecrow, the tool crate; fences along its front (a gap where the ramp from the lower terrace comes up) ------------------
+for cx -24 -6 2.6
+place Placeable_Cropplot_Medium - at $cx 58 h=23.6 sit
+place Placeable_Cropplot_Medium - at $cx 60.2 h=23.6 sit
+next
+for cx 6 30 3
+place Pickup_Landmark_PineappleLandmark - at $cx 57.5 h=23.6 sit yaw={rnd(0,360)}
+place Pickup_Landmark_WatermelonLandmark - at {$cx+1.5} 60.3 h=23.6 sit yaw={rnd(0,360)}
+next
+place Pickup_Landmark_BerryBush - at -30 52 h=23.6 sit yaw=40
+place Placeable_Scarecrow - at -2 59 h=23.6 sit yaw=0
+place Loot_Crate terrace2 at -27.5 61.2 h=23.6 sit yaw=-10
+line Relay_Fence_wood from -28 62.6 to 34 62.6 step=1.825
+
+# --- Sound and the lights at the end: the forge's fire, the lower town's bustle, the upper town's wind in the grass; the
+# hall's lamps, dark until the vault is opened -------------------------------------------------------------------------------
+place Zone_Sound forgefire at 59.5 59.5 h=3.5
+place Zone_Sound townsound at 14 88 h=4
+place Zone_Sound uppersound at 10 26 h=36
+place RT_Floodlight halllights at 49.6 5.1 h=37.2 yaw=270
+place RT_Floodlight halllights at 49.6 8.9 h=37.2 yaw=270
+
+# --- Friendly animals (placed, not the generator's: its sea life has stingrays, and a stingray is the cove's boss): hens in
+# the lower town and by the grower's house, goats grazing west of the upper town, turtles in the harbour basin, dolphins
+# off the north shore ------------------------------------------------------------------------------------------------------
+place Creature_Chicken townhens at 18 85 h=2.5
+place Creature_Chicken growerhens at -32 31 h=34.7
+place Creature_Goat pasture at -52 6 h=34.7
+place Creature_Turtle turtles at -9 116 h=-1.6
+place Creature_Dolphin dolphins at 24 156 h=-3
+
+# --- Settings, story items, notes, behaviours, quest (Almost Home: 32 steps in six chapters - the finale) -------------------
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=130 deep=5 n=3
+
+info title=The Frontier
+info author=Custom Islands
+info description=The last high ground beyond the storm belt: the Frontier Corps' town on a great mesa - a harbour and a lower town on the shelf, farm terraces climbing the north face, the upper town with its reservoir, builders' tower and archive, and the Corps' hall on the east rim with its lift down to a flooded vault. Six chapters, thirty-two steps: the end of Raft 2: The Drowned Frontier.
+island on.arrive=message||High ground at last: a harbour, a town under a great mesa, farm terraces climbing its face, a hall on the rim. "If you can hear this, you are almost home."
+
+story wardenkey|Smiths' key|quest:Caravan_KeyMayor|The key to the forge's chest, from the netmaker's sunken net store.
+story hornreed|Horn reed|quest:Vasagatan_MechanicalPart|The signal horn's brass reed, from the forge's chest.
+story valvewheel|Valve wheel|quest:Tangaroa_GeneratorPart|One of the reservoir sluice box's three valve wheels.
+story waterpass|Water pass|quest:Tangaroa_KeyCard|The farm store's pass, from the sluice box.
+story sealtool|Seal press|quest:Balboa_BrunosTool_Hammer|The archive's seal press, from the builders' tower.
+story seal|Hall seal|quest:Tangaroa_Token|One of the three seals the Corps' hall opens to.
+
+# chapter 1 - arrival
+note welcomeboard Welcome board | FRONTIER CORPS - THE FRONTIER\n\nIf you are reading this, you crossed the storm belt and followed the stations. Welcome home.\n\nThe town is yours - but we left it locked against the storms: the forge's chest, the farms' water, the hall's three seals. The harbour office has the map. Everything you need is in the town; everything we hoped for is in the hall on the rim.
+note harbouroffice Harbour office locker | The harbour office's locker: the town map - the harbour and the lower town, the farm terraces up the mesa's face, the reservoir on the rim, the upper town, the Corps' hall on the east rim - and a ration tin.
+loot harbouroffice Plank*6;Rope*3;Nail*10;Cooked_Mackerel*2
+prop harbouroffice loot.refill=0
+# the harbour office radio (T-4c2): Raft's own check (no "power" signal on this island, so the battery charger part from
+# the Drowned Gate's pump room, rule 9; kept) - it shows the Corps' last crate; nothing in the quest needs it
+prop officeradio obj.name=officeradio
+prop officeradio else.use=message||The harbour office's radio is dead - its battery charger has burnt out. A tag on the set: "Spare charger part ordered from the Drowned Gate's pump room."
+prop officeradio on.use=message||The charger part clicks home and the set warms up. A recorded voice, on a loop: "Harbour office - the Corps' last crate is under the boards by the door. For whoever gets here."\nsignal||officeradio\nshow|officecache
+prop officecache obj.name=officecache
+prop officecache note.title=The Corps' last crate
+prop officecache beh.hidden=1
+loot officecache TitaniumIngot*3;MetalIngot*4;CopperIngot*4;Battery_Advanced*1;Cooked_Salmon*3
+prop officecache loot.refill=0
+# chapter 2 - the lower town
+note smithnote Smith's note | THE SMITHS' QUARTER\nThe forge's chest has the signal horn's reed - the horn on its tower by the hall won't sound without it. The chest's key went to the netmaker on the quay: she keeps everything.\nThe dogs got into the yard after we left. Mind them.
+note fishernote Netmaker's note | THE FISHERS' QUARTER\nThe smiths' key was in our net store at the quay's end - and the net store went into the harbour in the last blow. Dive off the quay's end: the crate is down there with the nets.
+note netstore Net store crate | The sunken net store's crate: nets, floats - and the smiths' key on a ring.
+loot netstore story:wardenkey*1;Rope*2
+prop netstore loot.refill=0
+note smokebox Smokehouse box | Smoked fish, wrapped in leaves - the fishers' last catch.
+loot smokebox Cooked_Herring*2;Cooked_Salmon*1
+prop smokebox loot.refill=0
+note forgechest Forge chest | The forge's chest: the signal horn's brass reed, wrapped in an oiled rag.
+loot forgechest story:hornreed*1;MetalIngot*3;Nail*10
+prop forgechest loot.refill=0
+prop forgechest if.open=quest|8\ntake|story:wardenkey|1
+prop forgechest else.open=message||The forge chest is locked. The smith's note said its key went to the netmaker on the quay.
+# chapter 3 - the farms' water
+note reservoirnote Reservoir keeper's note | THE RESERVOIR\nThe sluice box has three valve wheels - we took them off so the storms couldn't open it and flood the terraces. One went into each terrace's tool crate: the lower, the middle, the upper by the rim. Put them back and the farms drink again - and the farm store's pass is in the box.
+note terrace1 Lower terrace crate | A valve wheel, greased, in the lower terrace's tool crate.
+loot terrace1 story:valvewheel*1;Seed_Watermelon*2
+prop terrace1 loot.refill=0
+note terrace2 Middle terrace crate | A valve wheel in the middle terrace's crate, under the pruning shears.
+loot terrace2 story:valvewheel*1;Seed_Pineapple*2
+prop terrace2 loot.refill=0
+note terrace3 Upper terrace crate | A valve wheel in the upper terrace's crate, under a sack of seed.
+loot terrace3 story:valvewheel*1;Seed_Strawberry*2
+prop terrace3 loot.refill=0
+note farmstore Farm store | The farm store: seeds for every crop the Corps grew here, tools - and the harvest's seal for the hall, kept with the last harvest.
+loot farmstore story:seal*1;Seed_Watermelon*3;Seed_Pineapple*3;Seed_Strawberry*3;Placeable_Sprinkler*1
+prop farmstore loot.refill=0
+prop farmstore if.open=quest|14\ntake|story:waterpass|1
+prop farmstore else.open=message||The farm store is locked. It opens to the water pass from the reservoir's sluice box.
+# chapter 4 - the upper town
+note growernote Grower's note | THE GROWERS' QUARTER\nThe goats broke the pen's gate in the storm. Bring two of them back - the net launcher is in the box by the gate - and the chest in my house is yours.
+note growernet Net box | The box by the pen's gate: the grower's net launcher and its canisters.
+loot growernet NetGun*1;NetCanister*4
+prop growernet loot.refill=0
+note growerchest Grower's chest | The grower's chest: food for the road, and a note - "Thank you. Plant something."
+loot growerchest Watermelon*2;Pineapple*2;Strawberry*3;Seed_Mango*2
+prop growerchest loot.refill=0
+note buildernote Builder's note | THE BUILDERS' QUARTER\nThe archive's seal press is on our tower's top deck, in the crate under the roof - we were mending the archive's desk when the storm came. The ladders are sound. Mostly.
+note toptower Builders' tower crate | The crate on the builders' tower's top deck: the archive's seal press - and a view over the whole Frontier.
+loot toptower story:sealtool*1;Nail*8;Plank*6
+prop toptower loot.refill=0
+# chapter 5 - the hall
+note hallplaque Hall door plaque | THE CORPS' HALL\nThree seals open these doors: the harvest's (kept in the farm store), the archive's (pressed at the archive's desk), the horn's (sound the signal horn on its tower).
+note commandersorder Commander's last order | TO WHOEVER OPENS THESE DOORS\n\nWe are out on the fleet - every boat we have - searching the storm belt for the ones still adrift. We built the Frontier for them. For you.\n\nThe vault in the cove below has everything we saved from the drowned world: take the lift behind the hall. Something has moved into the cove - go armed.\n\nLight the hall's lamps when you leave, so we can find our way home.\n\n- Commander Ilse Varg, the Frontier Corps
+# chapter 6 - the end
+note corpsvault Corps' vault | The Corps' vault: what they saved from the drowned world - and a logbook of every raft that made it through the storm belt. The last line is blank, waiting for your name.
+loot corpsvault TitaniumIngot*8;Battery_Advanced*4;MetalIngot*8;CopperIngot*6;Cooked_Salmon*4;Cooked_Mackerel*4
+prop corpsvault loot.refill=0
+prop corpsvault if.open=signal|hall
+prop corpsvault else.open=message||The vault's wheel won't turn. It is locked from the hall above.
+prop corpsvault on.open=message||Far out on the dark sea, one by one, lights turn towards the island: the hall's lamps are lit.\nshow|halllights\nsound||event:/music/music_final
+
+prop archivepress obj.name=archivepress
+prop archivepress beh.use=Press the archive's seal
+prop archivepress if.use=quest|21\ntake|story:sealtool|1
+prop archivepress on.use=message||The press comes down on hot wax: the archive's seal, stamped with the Corps' anchor.\ngive||story:seal*1\nsound||event:/crafting/hammer_impact
+prop archivepress else.use=message||The archive desk's seal press is missing. The builder's note said it is on their tower.
+prop horn obj.name=horn
+prop horn beh.use=Fit the reed and sound the signal horn
+prop horn if.use=take|story:hornreed|1
+prop horn on.use=message||The horn's call rolls out over the town and the sea - long, long, short. In its bell, wedged where the reed was, a seal.\ngive||story:seal*1\nsound||event:/crafting/horns/viking\nsignal||horn
+prop horn else.use=message||The signal horn has no reed. The smith's note said it is in the forge's chest.
+prop sluice obj.name=sluice
+prop sluice beh.use=Fit the three valve wheels and open the sluice
+prop sluice if.use=quest|13\ntake|story:valvewheel|3
+prop sluice on.use=message||Wheel by wheel the sluice opens - the pump hums, water thunders down the pipe to the terraces, and the box's lid springs open: the farm store's pass.\ngive||story:waterpass*1\nshow|wheels\nsound||event:/exploring/obstacles/waterpump\nsignal||water
+prop sluice else.use=message||The sluice box is missing its three valve wheels. The reservoir keeper's note said where they are.
+prop wheels obj.name=wheels
+prop wheels beh.hidden=1
+# (Selene's crank wheel as a ready piece is turned by players: these are the fitted valve wheels the sluice shows - the ready piece's settings taken off)
+prop wheels beh.use=
+prop wheels if.use=
+prop wheels else.use=
+prop wheels on.use=
+prop halldoora obj.name=halldoor
+prop halldoora beh.move=0,0,-1.5
+prop halldoorb obj.name=halldoor
+prop halldoorb beh.move=0,0,1.5
+prop halldoora beh.use=Set the three seals in the hall's doors
+prop halldoora beh.moveTime=2
+prop halldoora beh.moveMode=switch
+prop halldoora if.use=quest|26\ntake|story:seal|3
+prop halldoora on.use=message||The three seals sink into the doors - harvest, archive, horn - and the Corps' hall slides open.\nopen|halldoor\nsound||event:/exploring/utopia/door_warehouse_open\nsignal||hall
+prop halldoora else.use=message||The hall's doors have three seal sockets. The plaque beside them says which seals.
+prop halldoorb beh.moveTime=2
+prop halldoorb beh.moveMode=switch
+prop liftdown obj.name=liftdown
+prop liftdown beh.use=Ride the Corps' lift down to the cove
+prop liftdown on.use=message||The cage rattles down the shaft - thirty metres of cliff - and stops at the cove.\nteleport|liftbottom\nsound||event:/exploring/elevator/elevator_changefloor
+# (the emergency generator as a ready piece wants Raft's generator part before it runs: as the lift's controls it locked the Corps' lift for good. The ready piece's lock taken off)
+prop liftdown if.use=
+prop liftdown else.use=
+prop liftup obj.name=liftup
+prop liftup beh.use=Ride the Corps' lift up to the hall
+prop liftup on.use=message||The cage climbs the shaft and stops behind the hall.\nteleport|lifttop\nsound||event:/exploring/elevator/elevator_changefloor
+# (the emergency generator as a ready piece wants Raft's generator part before it runs: as the lift's controls it locked the Corps' lift for good. The ready piece's lock taken off)
+prop liftup if.use=
+prop liftup else.use=
+prop lifttop obj.name=lifttop
+prop liftbottom obj.name=liftbottom
+prop halllights obj.name=halllights
+prop halllights beh.hidden=1
+
+prop harbour zone.id=harbour
+prop harbour zone.radius=8
+prop harbour zone.message=The Frontier's harbour: a quay, the fishers' huts on it, a town under a great mesa.
+prop square zone.id=square
+prop square zone.radius=6
+prop square zone.message=The town square at the terraces' foot: a monument to the rafts that made it.
+prop forgeyard zone.id=forgeyard
+prop forgeyard zone.radius=8
+prop forgeyard zone.message=The forge yard - and the dogs in it, coming fast.
+prop reservoir zone.id=reservoir
+prop reservoir zone.radius=7
+prop reservoir zone.message=The reservoir on the rim: the Corps' tank and pump, the sluice box - and a bear drinking from the overflow.
+prop goatpen zone.id=goatpen
+prop goatpen zone.radius=8
+prop buildertop zone.id=buildertop
+prop buildertop zone.radius=2.5
+prop buildertop zone.message=The builders' tower's top deck: the whole Frontier below - the harbour, the terraces, the hall on the rim.
+prop archive zone.id=archive
+prop archive zone.radius=3
+prop archive zone.message=The archive: the Corps' logs, shelf after shelf, and a desk with an empty press.
+prop hall zone.id=hall
+prop hall zone.radius=6
+prop hall zone.message=The Corps' hall: its doors shut, three empty seal sockets.
+prop hallinside zone.id=hallinside
+prop hallinside zone.radius=3
+prop liftbottom zone.id=liftbottom
+prop liftbottom zone.radius=3
+prop liftbottom zone.message=The lift's foot: the cove - and something big moving in the green water.
+prop vault zone.id=vault
+prop vault zone.radius=7
+prop vault atmo.fog=#3a6a5e
+prop vault atmo.fogAmount=0.3
+prop vault atmo.particles=bubbles
+prop forgefire sound.event=event:/crafting/fire
+prop forgefire sound.volume=0.5
+prop forgefire zone.radius=7
+prop townsound sound.event=event:/amb/caravan
+prop townsound sound.volume=0.5
+prop townsound zone.radius=30
+prop uppersound sound.event=event:/amb/grass
+prop uppersound sound.volume=0.5
+prop uppersound zone.radius=30
+
+prop dogs creature.count=3
+prop dogs creature.respawn=0
+prop dogs creature.zone=forgeyard
+prop bear creature.count=1
+prop bear creature.respawn=0
+prop bear creature.zone=reservoir
+prop goats creature.count=3
+prop townhens creature.count=3
+prop growerhens creature.count=2
+prop pasture creature.count=2
+prop turtles creature.count=2
+prop dolphins creature.count=2
+prop ray creature.count=1
+prop ray creature.respawn=0
+prop ray creature.size=2.2
+prop ray creature.health=3
+prop ray creature.zone=vault
+
+quest title=Almost Home
+quest intro=The last high ground: the Frontier Corps' town, locked against the storms. The end of the voyage begins at the harbour.
+# chapter 1: arrival (4)
+step reach|harbour|1|Tie up at the Frontier's harbour
+step read|Welcome board|1|Read the Corps' welcome board at the quay
+step open|Harbour office locker|1|Take the town map from the harbour office
+step reach|square|1|Walk to the town square at the terraces' foot
+# chapter 2: the lower town (5)
+step read|Smith's note|1|The smiths' quarter: read the smith's note in the forge
+step kill|Hyena|3|Drive the dogs out of the forge yard
+step read|Netmaker's note|1|The fishers' quarter: read the netmaker's note on the quay
+step collect|story:wardenkey|1|Dive off the quay's end for the sunken net store and the smiths' key
+step open|Forge chest|1|Open the forge's chest with the smiths' key
+# chapter 3: the farms' water (6)
+step reach|reservoir|1|Climb the terraces to the reservoir on the rim
+step kill|Bear|1|Drive off the bear at the reservoir
+step read|Reservoir keeper's note|1|Read the reservoir keeper's note
+step collect|story:valvewheel|3|Find the sluice box's three valve wheels on the terraces
+step collect|story:waterpass|1|Fit the wheels and open the sluice
+step open|Farm store|1|Open the farm store with the water pass
+# chapter 4: the upper town (8)
+step read|Grower's note|1|The growers' quarter: read the grower's note
+step catch|Goat|2|Catch two of the growers' goats
+step open|Grower's chest|1|Open the grower's chest
+step read|Builder's note|1|The builders' quarter: read the builder's board
+step reach|buildertop|1|Climb the builders' tower to its top deck
+step collect|story:sealtool|1|Take the archive's seal press from the top deck's crate
+step reach|archive|1|Carry the seal press to the archive by the hall
+step collect|story:seal|2|Press the archive's seal at its desk (the farm store's was the first)
+# chapter 5: the hall (5)
+step reach|hall|1|Go to the Corps' hall on the east rim
+step read|Hall door plaque|1|Read the plaque by the hall's doors
+step collect|story:seal|3|Fit the reed and sound the signal horn on its tower for the third seal
+step reach|hallinside|1|Set the three seals in the hall's doors and go in
+step read|Commander's last order|1|Read the commander's last order
+# chapter 6: the end (4)
+step reach|liftbottom|1|Ride the Corps' lift down to the cove
+step reach|vault|1|Dive to the Corps' vault in the cove
+step kill|Stingray|1|Face the giant stingray that has moved into the cove
+step open|Corps' vault|1|Open the Corps' vault
+quest done=The vault's logbook has a blank line at the bottom, waiting for your name. Up on the rim the hall's lamps are lit - and far out on the dark sea, one by one, the lights of the Corps' fleet turn towards them. You made it to the Frontier. You are home.
+quest reward=TitaniumIngot*4;Battery_Advanced*2;Plank*20;Rope*10
+# Buried treasure (one of the story line's last islands): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=55 n=1 seed=8803
+prop treasure8803 treasure.loot=TitaniumOre*3
+
+# --- Raft's vehicles (VI4, 2026-10-23): parked on open ground, clear of paths and quest objects ---
+place VP_Forklift - at 45 89 ground sit yaw=90
+# the generator's rocks that floated over the slope (VI4 ground check, 2026-10-24)
+clear at 57.92 -27.76 r=1.5 only=SmallRock_03
+
+save The Frontier

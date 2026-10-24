@@ -1,0 +1,231 @@
+# Spirecrest Roofs - an island of the library's plan The Sunken Kingdom (sea level; chapter 1, the rooftops)
+# Five drowned skyscraper tops stand out of the clear sea, the city's streets 7 m below them. Fallen antenna masts are
+# laid as footbridges from the middle tower (the beacon tower, the Network's surface beacon still blinking on its roof)
+# to the four others: a roof garden (birch and flowers in planter boxes) to the north, a hen coop under a roof on posts
+# to the south. Coral grows up the tower walls from the seabed. Quest "The Rooftops" (10 steps): the beacon roof, the
+# distress card, the screechers, the Receiver plans in the beacon hut, the antenna plans on the bridge mast, the
+# caretaker's diary.
+#
+# Points (metres over the sea): the seabed at -7 (r 28 round 0 0); every tower 4 storeys from the seabed, its roof at
+# 5 m. Towers (6 x 9 m): beacon x -3..3, z -4.5..4.5; east x 12..18; west x -18..-12 (both z -4.5..4.5); garden (north)
+# x -3..3, z 11.5..20.5; coop (south) z -20.5..-11.5. Bridges on the middle line of each side.
+include lib_features
+include lib_huts
+include lib_gravity
+include lib_rt
+include lib_sunken
+new
+gen Trees=0.22 Bushes=0.28 Rocks=0.35 Harvest=0.1 BeachThings=0.2
+# RESIZE 10-24: Radius 30 -> 85 (an atoll: the city's rubble ring round a drowned lagoon; the tower complex in the middle
+# stays as it was - its mast bridges span at most 12 m - and the lagoon floor grows round it)
+gen Seed=10101 Radius=85 Height=12 Roughness=0.3 Peaks=3 Shape=1 Style=0 BeachWidth=0.1 Cliffs=0.2 PeakShape=0.5
+gen Water=0.6 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+elevation 0
+
+# --- Terrain: the drowned street level at -7 ---------------------------------------------------------------------------
+brush flatten at 0 0 r=46 s=20 frames=400 h=-7
+# discoveries: a level spot for the camp on the ring
+brush flatten at 4 63 r=5 s=8 frames=40
+origin
+clear at 0 0 r=44
+clear at 4 63 r=6
+
+# --- The five tower tops (railing round each roof, open where a bridge or a ladder arrives) -------------------------
+call tower x=3 z=0 h=-7 n=4 a=towers
+call tower x=18 z=0 h=-7 n=4 a=towers
+call tower x=-12 z=0 h=-7 n=4 a=towers
+call tower x=3 z=16 h=-7 n=4 a=towers
+call tower x=3 z=-16 h=-7 n=4 a=towers
+prop towers tint.color=#7d8a8c
+prop towers tint.amount=0.35
+push at 3 0 h=5
+call rt_railing y=0 bm=none fm=none lm=none rm=none
+pop
+push at 18 0 h=5
+call rt_railing y=0 lm=none
+pop
+push at -12 0 h=5
+call rt_railing y=0 lm=none rm=none
+pop
+push at 3 16 h=5
+call rt_railing y=0 fm=none
+pop
+push at 3 -16 h=5
+call rt_railing y=0 bm=none fm=none
+pop
+
+# --- Fallen masts as footbridges from the beacon tower to the four others ------------------------------------------
+call mastbridge x1=3 x2=12 z=0 h=5
+call mastbridge x1=-12 x2=-3 z=0 h=5
+call mastbridgez z1=4.5 z2=11.5 x=0 h=5
+call mastbridgez z1=-11.5 z2=-4.5 x=0 h=5
+
+# --- Ladders up from the water: the coop tower's south face, the west tower's west face -------------------------------
+place LandmarkLadder_6m - at 0 -20.7 h=-1.2 yaw=0
+place LandmarkLadder_6m - at -18.2 0 h=-1.2 yaw=90
+
+# --- The beacon roof: the beacon hut (distress card, the Receiver plans), the beacon mast and its light ---------------
+push at -2.5 0.5 h=5
+call hut w=2 d=2 y=0.05
+place "Box Small" - at 0.8 2.3 y=0.05 sit
+place Note_Paper distresscard at 0.8 2.3 y=0.75 drop yaw=15
+place Loot_Chest beaconchest at 2.2 2.2 y=0.05 sit yaw=270
+pop
+place Antenna_pole - at 2.2 -3.6 h=5 sy=1
+place Antenna_pole - at 2.2 -3.6 h=11.3 sy=0.6
+place TP_RotatingRedLight beaconlight at 2.2 -3.6 h=15.2 drop
+place Zone_Trigger beaconzone at 0 -2 h=6
+place Creature_StoneBird screechers at 0 0 h=14
+
+# --- The mast toolbox in the middle of the east bridge (the antenna plans) --------------------------------------------
+place Loot_ChestSmall masttoolbox at 7.5 0 h=5 sit yaw=0
+
+# --- The roof garden (north tower): planter boxes with birch and flowers, the caretaker's diary ----------------------
+place Block_Foundation - at -1.5 13.5 h=5.68
+place Block_Foundation - at 1.5 13.5 h=5.68
+place Block_Foundation - at -1.5 18.5 h=5.68
+place Block_Foundation - at 1.5 18.5 h=5.68
+place Block_Foundation - at -1.5 16 h=5.68
+place Pickup_Landmark_Tree_Birch - at -1.5 18.5 h=5.68 sit
+place Pickup_Landmark_Tree_Birch - at 1.5 18.5 h=5.68 sit
+place Pickup_Landmark_Flower_Red - at -1.5 13.5 h=5.68 sit
+place Pickup_Landmark_Flower_Yellow - at 1.5 13.5 h=5.68 sit
+place Pickup_Landmark_Flower_Red - at -1.5 16 h=5.68 sit
+place Pickup_Landmark_BerryBush - at 1.8 16.2 h=5.05 sit
+place "Box Small" - at 2.2 19.8 h=5.05 sit
+place Note_Paper diary at 2.2 19.8 h=5.75 drop yaw=40
+
+# --- The hen coop (south tower): a roof on four posts, hens ---------------------------------------------------------
+push at -2.5 -15.5 h=5
+call corners w=2 d=2 y=0.05
+roof 2 2 at 0 0 y=0.05 wood
+place Placeable_Lantern_Metal - at 1.5 1.5 y=0.05 sit
+pop
+place Creature_Chicken hens at 1.5 -18.5 h=5.3
+
+# --- Coral up the tower walls, two reefs at the tower feet, kelp -----------------------------------------------------
+call coralwall x=18.4 z=2.8 n=4 yaw=90 seed=10102
+call coralwall x=-18.4 z=-2.8 n=4 yaw=270 seed=10103
+call coralwall x=-2.2 z=20.9 n=3 yaw=0 seed=10104
+call coralwall x=2.4 z=-20.9 n=3 yaw=180 seed=10105
+scatter VP_CoralDigitate01 5 at 11 11 r=3 seed=10106 free=1
+scatter VP_CoralBulb04 4 at 11 11 r=3 seed=10107 free=1
+scatter VP_CoralFoliose03 5 at -11 -11 r=3 seed=10108 free=1
+scatter TinyCoral 6 at -11 -11 r=3 seed=10109 free=1
+scatter SeaVine3 44 at 0 0 r=44 seed=10110 free=2
+scatter SeaVine3_klump 14 at 0 0 r=44 seed=10111 free=2
+
+# --- DISCOVERIES 10-24 (optional, no quest needs them): an outlying drowned tower with a chest on its roof, a sunken
+# boat in the lagoon, a castaway camp on the rubble ring (a note), a van on the ring, a viewpoint over the city ---------
+call tower x=-24 z=26 h=-7 n=3 a=towers2
+prop towers2 tint.color=#7d8a8c
+prop towers2 tint.amount=0.35
+place LandmarkLadder_6m - at -27 21.3 h=-4.2 yaw=0
+place Loot_Chest annexchest at -27.5 27.5 h=2.05 sit yaw=90
+place BoatStranded - at 26 -28 ground yaw=35
+place Loot_ChestSmall wreckchest at 22 -24 ground sit yaw=200
+scatter "Pickup_Landmark_Scrap 1_OceanBottom" 3 at 26 -28 r=6 seed=10112 free=1
+place campfire_1 - at 4 63 ground sit
+place Balboa_DecorationPrefabBase_SimpleTent - at 7 65 ground sit yaw=200
+place "Box Small" - at 2 65.5 ground sit
+place Note_Paper campnote at 2 65.5 ground y=0.7 drop yaw=20
+place Van_5 ringvan at -56 -34 ground yaw=60
+prop ringvan tint.color=#6b4a32
+prop ringvan tint.amount=0.55
+place Zone_Trigger viewzone at 48 44 ground
+note annexchest Annex roof chest | A maintenance chest on the roof of the low annex tower, nearly awash: whoever left it meant to come back.
+loot annexchest MetalIngot*2;CopperIngot*2;Rope*3;Glass*2
+prop annexchest loot.refill=0
+note wreckchest Wreck's chest | A small chest from the sunken boat, its lid swollen shut by the salt.
+loot wreckchest Scrap*4;Plastic*6;Nail*8
+prop wreckchest loot.refill=0
+note campnote Ring camp note | THE RING - CAMP 2\n\nWe walked the old ring road round the city. Every street goes down into the water.\nFrom the high rubble you can see the beacon blink. We stopped counting the towers at forty.\nThe rest went under before we came.
+prop viewzone zone.id=spirecrest_view
+prop viewzone zone.radius=6
+prop viewzone zone.repeat=never
+prop viewzone zone.message=From the rubble ring the whole drowned city lies below you: five tower tops, the beacon's red blink - and streets running down into the blue.
+
+# --- Areas (10-24: every story island has places all over it and its quest crosses it): the rubble ridge in the east, a rock cave in the west, the pump-man's
+# ruin in the south and a courier plane in the north-west - and on each a few old signal masts (the blink code)
+call sk_ridge x1=58 z1=-30 x2=72 z2=24 h=5 top=8 r=10
+call sk_plants x=65 z=-3 r=16 seed=10161
+call sk_zone x=65 z=-3 al=sc_ridge id=sc_ridge r=7 msg="The rubble ridge. Under the water the drowned rooftops lie in a grid - streets, once. Two masts still stand up here."
+call sk_cave x=-46 z=-4 h=3 yaw=0 al=sc_caverock chest=sc_cavechest
+call sk_zone x=-46 z=1 al=sc_cave id=sc_cave r=4 msg="A cave in the western rock. Somebody slept here and kept a mast by the door."
+call sk_ruin x=-8 z=-66 h=3 al=sc_ruin
+call sk_notebox x=-5.5 z=-70.5 yaw=10 al=sc_ruinnote
+call sk_plane x=-46 z=58 h=3 yaw=60 al=sc_plane crate=sc_wreckcrate
+call sk_notebox x=-51 z=63.5 yaw=70 al=sc_wrecknote
+
+# --- Unique layer (10-24): the blink code: the masts left standing at the four areas (2, 1, 3, 1) are the code of the
+# pump-man's strongbox keypad on his ruin's wall
+place Antenna_pole - at 64 9 ground sy=0.5
+place Antenna_pole - at 68 1 ground sy=0.5
+place Antenna_pole - at -52 -2 ground sy=0.5
+place Antenna_pole - at -14 -62 ground sy=0.5
+place Antenna_pole - at -3 -61 ground sy=0.5
+place Antenna_pole - at -15 -70 ground sy=0.5
+place Antenna_pole - at -38 66 ground sy=0.5
+place RT_PowerBox mastpad at -5.55 -66.75 h=4.4 yaw=90
+place Loot_Chest mastbox at -10.5 -70.5 ground sit yaw=180
+
+# --- Settings, notes, behaviours, quest ------------------------------------------------------------------------------
+info title=Spirecrest Roofs
+info author=Custom Islands
+info description=Five drowned skyscraper tops in a clear sea, linked by fallen antenna masts: a beacon still blinking, a roof garden, a hen coop. The first island of The Sunken Kingdom.
+island on.arrive=message||Roofs. Five of them, standing out of the sea - and through the clear water, the streets below.
+
+note distresscard Pelagic Network distress card | PELAGIC NETWORK - AUTOMATED NOTICE\n\nCommons sealed. Do not answer.\nCommons sealed. Do not answer.\nCommons sealed. Do not answer the deep.\n\n(The card is a printout of the beacon's loop. Someone wrote under it: "then why is it still calling?")
+note beaconchest Beacon hut chest | The beacon keeper's chest: the plans of the receiver the beacon talks to, and a spare cable.
+note masttoolbox Mast toolbox | A rigger's toolbox wedged in the fallen mast: antenna plans, "to hear the Commons further down the chain".
+note diary Rooftop caretaker's diary | ROOF CARETAKER - SPIRECREST\n\nDay 31 of the water. The hens lay on the coop roof, the birches don't care.\nThe beacon keeps calling the Commons. Nobody calls back.\nThe old highway still leads to the labs - you can see it going down into the blue, east of here.\nI'm taking the boat along it. If you find this: follow the road.
+loot beaconchest Blueprint_Reciever*1;Rope*2;Scrap*2
+prop beaconchest loot.refill=0
+loot masttoolbox Blueprint_Antenna*1;Bolt*2
+prop masttoolbox loot.refill=0
+
+prop beaconlight obj.name=beaconlight
+prop beaconzone zone.id=beacon
+prop beaconzone zone.radius=6
+prop beaconzone zone.repeat=never
+prop beaconzone zone.message=The beacon roof. The light on the mast still turns - and screechers nest round it!
+prop screechers creature.count=3
+prop screechers creature.respawn=0
+prop screechers creature.zone=beacon
+prop hens creature.count=3
+
+note sc_cavechest Signalman's chest | A signalman's chest: spare wire, a battery, a coil of rope.
+loot sc_cavechest Copper*2;Battery*1;Rope*3;CircuitBoard*1
+prop sc_cavechest loot.refill=0
+note sc_ruinnote Pump-man's slate | PUMP-MAN'S SLATE\n\nThe pumps on the roofs ran until the sea came over the parapets.\nI kept the spare parts in the strongbox by my wall. Its lock is the masts: count the poles still standing - east ridge, west cave, my house, the courier plane - and key them in that order.
+note sc_wrecknote Courier's logbook | COURIER'S LOGBOOK\n\nLast run to the Spirecrest roofs: mail, two oxygen tanks, a crate of fuses.\nThe beacon was lit but nobody answered the lamp. I put down on the rocks and waited.\nThe tanks went to the caretaker. He said the drowned road goes deeper than any of us thought.
+note sc_wreckcrate Courier's crate | The courier's crate: mail sacks gone to pulp, and under them what kept dry.
+loot sc_wreckcrate Plank*4;Nail*8;Rope*2;Scrap*3
+prop sc_wreckcrate loot.refill=0
+prop mastpad obj.name=mastpad
+prop mastpad beh.use=Key in the code
+prop mastpad lock.code=2131
+prop mastpad on.use=sound||event:/exploring/obstacles/keypad/keypad_correct\nsignal||mastcode\nmessage||The keypad blinks green. The strongbox by the wall clicks open.
+prop mastpad else.use=message||Four digits. The pump-man counted something.
+note mastbox Pump-man's strongbox | The pump-man's strongbox: pump spares, kept dry.
+loot mastbox Bolt*4;Hinge*2;MetalIngot*2;Battery*1
+prop mastbox loot.refill=0
+prop mastbox if.open=signal|mastcode
+prop mastbox else.open=message||Locked - wired to the keypad on the wall.
+quest title=The Rooftops
+quest intro=A distress call from a drowned city: "Commons sealed. Do not answer." Climb onto the beacon roof.
+step reach|beacon|1|Climb onto the beacon roof in the middle
+step read|Pelagic Network distress card|1|Read the distress card in the beacon hut
+step kill|Screecher|3|Drive the screechers off the beacon
+step blueprint|Blueprint_Reciever|1|Take the receiver plans from the beacon hut's chest
+step blueprint|Blueprint_Antenna|1|Take the antenna plans from the toolbox on the east bridge
+step reach|sc_ridge|1|Climb the rubble ridge in the east
+step reach|sc_cave|1|Find the rock cave in the west
+step read|Pump-man's slate|1|Read the slate in the pump-man's ruin in the south
+step read|Courier's logbook|1|Read the logbook at the courier plane in the north-west
+step read|Rooftop caretaker's diary|1|Read the caretaker's diary in the roof garden
+quest done=The caretaker followed the drowned highway to the labs. The Receiver finds a toll booth's radio on band 700.
+quest reward=Plank*8;Rope*3;OxygenBottle*1;Flipper*1
+
+save Spirecrest Roofs

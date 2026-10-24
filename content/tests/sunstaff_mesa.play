@@ -1,0 +1,69 @@
+# Sunstaff Mesa (CIPlay sunstaff_mesa): the plan Relic of the Seventh Tide's second island (in Balboa's place), quest
+# "The Map Room". The slot canyon up x 0 from z -80 (1.6 m), the camp 7..12 -68..-63, the vines across z -50, the
+# oasis round 0 -24 (2 m, the well 0 -28), the stair z -16..5 up to 12 m; the map room x -9..9 z 15..33 on top (the
+# lens -7.4 17.5, mirrors -6.6 21.5 / -0.6 21.5 / -0.6 26.3, the mark panel 7.4 26.3, the stand -4.5 31.6).
+island Sunstaff Mesa
+offset 0 0
+expect step 0
+expect title The Map Room
+wait 3
+zone canyon_mouth
+expect step 1
+read Kett's camp diary
+expect step 2
+open Kett's camp trunk
+wait 2
+expect item Blueprint_Machete 1
+expect item Machete 1
+expect step 4
+expect hidden stairzone
+use canyonvines
+expect hidden canyonvines
+expect shown stairzone
+walk 0 -58 to 0 -50 to 0 -42 h=1.6
+zone canyon_stair
+expect step 5
+expect animals Warthog 4
+kill Warthog
+expect step 6
+walk 0 -18 to 0 -10 to 0 -2 to 0 6 to 0 12 h=12
+zone map_room
+expect step 7
+use mirror1
+use mirror1
+use mirror1
+use mirror1
+expect story beamset 0
+use journalstand
+expect story sunangle 1
+expect step 8
+beam sunlens
+use mirror1
+wait 1
+beam sunlens
+use mirror2
+wait 1
+beam sunlens
+use mirror3
+wait 2
+beam sunlens
+expect story beamset 1
+expect shown burnedmark
+expect step 9
+read Burned mark
+expect step 10
+open Map room cache
+wait 2
+expect item Blueprint_Fueltank 1
+expect item Blueprint_Pipe_Fuel 1
+expect step 13
+walk 0 2 to 0 -10 to 0 -20 to 1 -26 h=2
+zone oasis_well
+expect step 14
+expect hidden workshop
+use windlass
+expect shown workshop
+open Workshop locker
+wait 2
+expect item Blueprint_BiofuelExtractor 1
+expect done

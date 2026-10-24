@@ -1,0 +1,30 @@
+# The Frozen Horizon - a world plan of the library (storyline SL12): a sea gone white in the north
+# A main story in place of Raft's (Raft's own story off, random islands off): a signal mast on a stack of rock, sealers
+# caged on the floes, a harbour warmed by a vent, a sledge camp whose keeper went north, the Iron Whale - an icebreaker
+# split in two by the ice, its bow on a pressure ridge and its engine decks sunk 15 m - the floating city of Saga Drift,
+# the glacier's mouth with the Ringwave cut into its face, the Coldhold seed vault under the glacier with its three
+# switches, and under it the flooded Seed Ark. Raft's blueprints are quest steps along the way, in Raft's order. A
+# storm-bound ice shelf with a stranded tent drifts back every nine days.
+#
+# Built by the recipe player (CIRecipe plan_frozen_horizon) in the editor's World plans window. Its play test:
+# content\tests\plan_frozen_horizon.play (run it on day 9 or later: CISetDay 9).
+# (Adapted: Orrin's Sledge Camp ends by its quest, not by "note:4" - its notes are the island's own notes, not one of
+# Raft's numbered notes. The ending is neutral: the Seed Ark cannot read which switch was pulled on the Coldhold (NF3).)
+plan new The Frozen Horizon
+plan description A sea gone white in the north: a signal mast, sealers on the floes, a harbour warmed by a vent, a sledge camp, the Iron Whale split by the ice, the floating city of Saga Drift, a glacier with a sign cut in its face - and under it, a vault of seeds with three switches. Raft's own story is off; its blueprints are in the islands' quests. Its quest islands are as big as Raft's own big islands.
+plan random off
+plan story off
+plan rule stack | island:Signalstack Rock | start | receiver:500 | The Receiver's first signal: a dead man's beacon, a mast on a stack of rock - and the cold coming down from the north. | Signalstack Rock | first | quest
+plan rule leads | island:The Floelane | quest:stack | receiver:700 | On 700, a sealer's horn across the floes: "Caged in - the bears - anyone?" | The Floelane | after:stack | signal:rescued
+plan rule vent | island:Steamvent Harbour | signal:leads:rescued | receiver:800 | The hull bell's answer comes on 800: a harbour where the sea steams. | Steamvent Harbour | after:leads | quest
+plan rule sledge | island:Orrin's Sledge Camp | quest:vent | receiver:900 | The harbour's radio passes you on: 900, a sledge camp on the shelf ice, its keeper gone north. | Orrin's Sledge Camp | after:vent | quest
+plan rule bow | island:The Iron Whale - Bow | rule:sledge | receiver:1100:needs=engine | On 1100, far and faint: an icebreaker's call sign. The Iron Whale - aground on the ridge. Bring an engine. | The Iron Whale - Bow | after:sledge | zone:hatch
+plan rule decks | island:The Iron Whale - Engine Decks | zone:bow:hatch | receiver:300 | Through the hatch, the Whale's own radio still hums: her stern half, drifted off on the pack - tune in and follow it. | The Iron Whale - Engine Decks | after:bow | step:10
+plan rule saga | island:Saga Drift | step:decks:10 | receiver:900 | Hedda's charts give the band: 900, the floating city of Saga Drift. Nine hulls, lashed together. | Saga Drift | after:decks | quest
+plan rule mouth | island:Glacier Mouth | quest:saga | receiver:1000 | The council's minutes name it: the glacier's mouth, on 1000. An expedition depot - silent. | Glacier Mouth | after:saga | quest
+plan rule coldhold | island:The Coldhold Vault | visit:mouth | receiver:700 | Under the ice, on 700: a keeper's recorded voice. "Coldhold. Keep." | The Coldhold Vault | after:mouth | step:24
+plan rule ark | island:The Seed Ark | signal:coldhold:flooddoor | receiver:400 | From under the flood door, on 400: the Ark's pumps, still ticking, thirty metres down. | The Seed Ark | after:coldhold | quest
+plan rule squall | island:Squall Shelf | day:9:again | ahead:600 | Ahead in the snow, a scrap of ice shelf with one tent on it. A lantern swings. | Squall Shelf
+plan credits The Frozen Horizon | Custom Islands
+plan ending The Ark's valve turns, and down every drowned hall the racks' lights come on. Whatever you chose up there - to keep the seeds, to carry them, or to tell the world - the vault has done its part.\n\nUp through the ice, the sea is still white. But somewhere south the Ringwave is still running, and now someone remembers.\n\nThe end of The Frozen Horizon.
+plan save

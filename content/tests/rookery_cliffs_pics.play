@@ -1,0 +1,12 @@
+# Guide pictures of Rookery Cliffs (CIPlay rookery_cliffs_pics): Raft's camera, morning, calm
+island Rookery Cliffs
+hour 10
+weather Calm
+at -40 -2
+wait 3
+picture rookery_cliffs_island -75 30 -10 0 15 5
+picture rookery_cliffs_cabin -30 5 -9 -24 4 0
+picture rookery_cliffs_winch -27 7 -18 -16 12 -12.5
+picture rookery_cliffs_cliff -6 12 52 -7.5 18 33
+picture rookery_cliffs_ledge -3 26 31 -9 23.5 29
+picture rookery_cliffs_hoist -20 9 3 -4 8 -1

@@ -1,0 +1,29 @@
+# Play test of Ringstone Hill (CIPlay ringstone_hill, in a test world 'CI ...'). No quest: the jetty and its crate, the
+# keeper's cabin and box, up to the ring of stones, into the bear's cave under the hill and its chest, the treasure.
+# Points as in its recipe.
+island Ringstone Hill
+offset 0 0
+expect animals Bear 1
+expect animals Goat 2
+expect animals Turtle 2
+wait 3
+kill Bear
+kill Screecher
+# Along the jetty to its head, the crate
+walk -43 2 to -50 2 to -55 2 h=1.5 below=4
+open Crate on the jetty
+# The keeper's cabin
+walk -24.75 -6 to -24.75 -4 to -24.75 -1 h=4.1 below=5
+expect stand -24.75 -1 h=4.1 below=5
+open Keeper's box
+# The hilltop and its stones
+at 0 2
+expect height 14
+# The bear's cave: in from the south beach to its chest
+walk 8 -47 to 8 -40 to 8 -34 to 9.5 -31 h=2.1 below=3
+expect stand 8 -34 h=2.1 below=3
+open Chest in the cave
+# The keeper's sea chest by the wreck
+at -52 21.5
+open The keeper's sea chest
+dig

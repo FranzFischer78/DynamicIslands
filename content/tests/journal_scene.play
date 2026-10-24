@@ -1,0 +1,8 @@
+# A calm place for pictures of the journal (CIPlay journal_scene, in a test world 'CI ...', then CIJournalTour): the
+# player in The Frontier's town square at midday - not in the sea, where a shark bites through the pictures.
+island The Frontier keep
+hour 11
+weather Calm
+wait 5
+at 31 85
+wait 2

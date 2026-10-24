@@ -1,0 +1,161 @@
+# Crane Yard - a small/medium island of the library (inspired by Raft's Varuna Point)
+# A construction islet under a giant tower crane: scaffolding, machines, the site office - and a pier whose end
+# collapsed into the sea, taking the spotlight's parts down with it. Quest "Lights On" (4 steps): the foreman's
+# whiteboard, the angler fish under the flooded deck, its three stencilled spotlight crates, the spotlight on its
+# scaffold tower - its beam finds the buoy over the foreman's lockbox.
+#
+# Built by the recipe player (CIRecipe crane_yard) through the editor's own operations (macros from lib_rt).
+include lib_sea
+include lib_rt
+new
+# (nature: Like Raft - Raft's islands as the generator's Like Raft has them, CIGenLikeRaft)
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=829 Radius=24 Height=6 Roughness=0.25 Peaks=1 Shape=4 Style=0 BeachWidth=0.6 Cliffs=0.3 PeakShape=0.3
+gen SeaFloor=0 Shelf=0.3 DropOff=0.6 Seabed=1
+# (sea: Raft's finds and corals as dense as around Raft's islands - Like Raft 0.5 - the review, 2026-10-03)
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.5 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# --- The site: the mesa's top levelled, the yard cleared --------------------------------------------------------
+brush flatten from 0 0 to 8 8 r=10 s=20 frames=20
+brush flatten from 0 0 to -8 -8 r=10 s=20 frames=20
+clear at 0 0 r=14
+clear at 20 0 r=8
+
+# --- The tower crane on the north-west corner, its jib over the sea ----------------------------------------------
+place VP_ApexCrane crane at -8 8 yaw=0
+
+# --- The site office on its posts, machines, crates, pipes, beams, a portable toilet --------------------------------
+place "Varuna BreakRoomBuilding" office at -6 -6 yaw=0
+place VP_Excavator - at 4 8 sit yaw=200
+place VP_Forklift - at -1 1 sit yaw=60
+place VP_Dumpster01 - at 9 4 sit yaw=90
+place VP_MetalCrate01 - at 10 -10 sit yaw=10
+place VP_MetalCrate02 - at 10 -7.6 sit yaw=-5
+place VP_MetalCrate03 - at 7.7 -10.4 sit yaw=30
+place VP_StorageCrate02 - at -10 0 sit yaw=90
+place VP_ConcretePipe01 - at 2 -11 sit yaw=90
+place VP_ConcretePipe02 - at 4.5 -11 sit yaw=90
+place VP_SteelBeam02 - at -2 10 sit yaw=10
+place VP_SteelBeam02 - at -2 10.8 y=0.6 sit yaw=14
+place VP_BrickStack01 - at 1 4 sit yaw=40
+place VP_PortableToilet - at -11 -11.5 sit yaw=45
+place VP_Cable_Roll01 - at 3 1 sit
+place VP_RubblePile_Small01 - at 8 11 sit
+place VP_Whiteboard board at 1.5 -2.5 sit yaw=200
+# (a whiteboard is drawn from the front only: standing free in the yard its back was see-through - a second one back to back)
+place VP_Whiteboard board at 1.5 -2.5 sit yaw=20
+place Zone_Trigger yard at 0 0 y=1.5
+
+# --- The spotlight tower: two open scaffold sections, a platform on top (6 m up) with the spotlight, a ladder ---------
+place VP_Scaffolding_M_Open tower1 at 6 -5
+place VP_Scaffolding_M_Open tower2 at 6 -5 y=3
+place Scaffolding_6x4m towertop at 6 -5 y=5
+# (Raft's radio tower floodlight, not Varuna Point's spotlight: that one shoots any player it sees - the builder's find
+# in Crater Lair, 2026-10-04)
+place RT_Floodlight spotlight at 6 -4.6 y=6 sit scale=2.2 yaw=60
+place RT_Floodlight beam at 6 -4.6 y=7.6
+place LandmarkLadder_6m towerladder at 6 -7.15 rot=0,0,0
+line RT_Fence from 3 -3.05 to 9 -3.05 step=1.5 ends yaw=180 y=6
+# (the side rails three pieces each, the last one set back to end at the platform's north edge: as a line of 1.5 m
+# pieces from -7 their third reached past it to -2.5, half a metre over the yard 6 m down)
+for fz -7 -5.5 1.5
+place RT_Fence - at 3.05 $fz y=6 yaw=90
+place RT_Fence - at 8.95 $fz y=6 yaw=90
+next
+place RT_Fence - at 3.05 -4.5 y=6 yaw=90
+place RT_Fence - at 8.95 -4.5 y=6 yaw=90
+place RT_Fence - at 4.5 -6.95 y=6
+place RT_Fence - at 9 -6.95 y=6
+
+# --- The pier east over the beach; its end slab collapsed into the sea ------------------------------------------
+push at 21 -3 h=5.6
+place RT_Floor pier at 0 0 yaw=90
+for lx -8 0 4
+place RT_PillarThick - at $lx 0.2 y=-6
+place RT_PillarThick - at $lx 5.8 y=-6
+next
+line RT_Fence from -9 0.05 to 0 0.05 step=1.5 ends yaw=180
+line RT_Fence from -9 5.95 to 0 5.95 step=1.5 ends yaw=180
+pop
+place RT_Floor collapsed at 27.4 -3 h=-0.76 yaw=90 tilt=45
+place LandmarkLadder_6m pierladder at 19 -3.15 h=-1.2 rot=0,0,0 yaw=180
+
+# --- The flooded lower deck: three crates with the spotlight's parts, steel and rubble, angler fish ------------------
+place Loot_Crate partA at 26 -7 sit tilt=15 yaw=30
+place Loot_Crate partB at 30.5 4.5 sit tilt=-20 yaw=80
+place Loot_Crate partC at 33 -1.5 sit tilt=10 yaw=140
+place VP_SteelBeam02 - at 28 -3 sit tilt=20 yaw=70
+place VP_SteelBeam01 - at 31 1 sit tilt=-30 yaw=10
+place VP_RubblePile_Medium01 - at 29 -1 sit
+place VP_MetalCrate04 - at 24.7 3.6 y=0.2 sit tilt=25
+place Reef_Container - at 34 8 sit tilt=10 yaw=60
+place Creature_AnglerFish anglers at 29 0 h=-3
+
+# --- The foreman's lockbox out east under its buoy: both hidden until the spotlight finds them ------------------
+place VP_AirPocket_Buoy buoy at 34 12 h=-0.5
+place Loot_ChestSmall lockbox at 34 12 sit
+
+# --- Settings, story item, notes, behaviours, quest -----------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): pineapples ----------
+scatter "Pickup_Landmark_PineappleLandmark" 3 at 0 0 r=16.8 seed=4197 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=44 deep=5 n=1
+
+info title=Crane Yard
+info author=Custom Islands
+info description=A construction islet under a giant tower crane. The pier's end has collapsed into the sea with the spotlight's parts - angler fish nest in the wreckage. Fix the light on the scaffold tower and its beam will find what else went down. Inspired by Raft's Varuna Point.
+island on.arrive=message||A tower crane looms over a half-built yard. The end of its pier lies in the sea.
+
+story part|Spotlight part|quest:Varuna_SpotlightPart|A lens, a lamp or a bracket of the yard's big spotlight.
+
+note board Foreman's whiteboard | CRANE YARD - SITE NOTES\n\n- Lower deck CLOSED. It went into the sea on Tuesday with the spotlight crates (three of them).\n- The spotlight on the scaffold tower is useless without its parts.\n- The wages lockbox went in too - out east, by the marker buoy. Nobody can find the buoy in the dark. FIX THE LIGHT.\n- Angler fish under the deck. Do NOT dive at night.\n\n- Foreman B.
+note partA Spotlight crate | Stencilled VP-SPOT 1/3 - the big lens, wrapped in foam.
+loot partA story:part*1;Bolt*2
+note partB Spotlight crate | Stencilled VP-SPOT 2/3 - the lamp, miraculously unbroken.
+loot partB story:part*1;Glass*1
+note partC Spotlight crate | Stencilled VP-SPOT 3/3 - the swivel bracket and its bolts.
+loot partC story:part*1;Bolt*2
+prop partA loot.refill=0
+prop partB loot.refill=0
+prop partC loot.refill=0
+note lockbox Foreman's lockbox | The crew's wages in a waterproof pouch, a rhino shark trophy someone won at cards, and a note: "Bonus if the crane is done by Friday." It wasn't.
+loot lockbox Placeable_RhinoSharkTrophy*1;TitaniumIngot*2;MetalIngot*4
+prop lockbox loot.refill=0
+prop lockbox obj.name=lockbox
+prop lockbox beh.hidden=1
+prop buoy obj.name=buoy
+prop buoy beh.hidden=1
+prop buoy beh.bob=0.25
+prop buoy beh.bobTime=3
+
+prop spotlight obj.name=spotlight
+prop spotlight beh.use=Fit the spotlight's parts
+prop spotlight if.use=take|story:part|3
+prop spotlight on.use=message||The spotlight blazes on. Its beam sweeps the sea - and catches a marker buoy bobbing out east.\nshow|beam\nshow|buoy\nshow|lockbox\nsound||event:/raft/radar/lever
+prop spotlight else.use=message||The spotlight is missing its lens, lamp and bracket - three parts in all.
+prop beam obj.name=beam
+prop beam beh.hidden=1
+prop beam beh.spin=25
+
+prop yard zone.id=yard
+prop yard zone.radius=8
+prop yard zone.message=Crane Yard. Machines left where they stopped, a whiteboard by the forklift.
+prop anglers creature.count=2
+prop anglers creature.size=1.3
+prop anglers creature.health=1.5
+
+quest title=Lights On
+quest intro=A construction yard under a tower crane, abandoned mid-shift. The foreman left notes.
+step read|Foreman's whiteboard|1|Read the foreman's whiteboard in the yard
+step kill|Angler fish|2|Clear the angler fish from the collapsed deck
+step open|Spotlight crate|3|Dive to the three stencilled spotlight crates - VP-SPOT 1/3, 2/3, 3/3
+step open|Foreman's lockbox|1|Fix the spotlight on the scaffold tower and follow its beam
+quest done=The light is on, the wages are found, and nobody finished the crane.
+quest reward=Bolt*6;Hinge*4
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=18 n=1 seed=8840
+prop treasure8840 treasure.loot=TitaniumOre*2
+
+save Crane Yard

@@ -1,0 +1,138 @@
+# Hermit's Table - a new island of the library, normal size
+# A flat-topped mesa of snowy rock standing 33 m out of the sea with sheer cliffs all round; up its north cliff the
+# hermit's ladder scaffold (five ladders on a tower of thick pillars, a ledge halfway) and on the snowy table top his hut,
+# a bench and a post with three levers. His riddles say which lever to pull; the other two call his birds.
+# Quest "Three Levers" (5 steps): a climb and a riddle - the climber's note at the foot, the box on the ledge where he
+# gave up, the hermit's riddles on top, the right lever, the hermit's chest.
+#
+# Built by the recipe player (CIRecipe hermits_table) through the editor's own operations.
+include lib_huts
+include lib_sea
+new
+gen Trees=0.2 Bushes=0.3 Rocks=0.2 Harvest=0.2 BeachThings=0.3
+gen Seed=9103 Radius=45 Height=34 Roughness=0.3 Peaks=1 Shape=4 Style=1 BeachWidth=0.3 Cliffs=0.8 PeakShape=0.7
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the landing at the north cliff's foot (2.6 m), the hut's spot on the table top ------------------------------
+brush flatten at 3 34 r=4 s=20 frames=80 h=2.6
+brush flatten at 3 14 r=6 s=20 frames=80 h=33.2
+clear at 3 33 r=6
+clear at 3 14 r=8
+
+# --- The foot of the cliff: the post with the climber's note, the climbers' box -----------------------------------------
+place ReefHuts_Pillar3 - at 6 35 ground
+place Note_Sign climbnote at 6 34.6 ground sit yaw=180
+place "Box Small" footbox at 0.5 35.5 ground sit yaw=20
+place RT_PlasticBoat - at 1 41 h=0.3 yaw=80
+place Zone_Trigger foot at 3 34 y=1.5
+
+# --- The hermit's scaffold against the north cliff: four legs of five thick pillars each, five ladders up its north face,
+# a ledge deck halfway with a box on it, the top deck at the table's edge ------------------------------------------------
+for lv 0 4 1
+place RT_PillarThick - at 1.5 29.5 h={2.6+6*$lv}
+place RT_PillarThick - at 4.5 29.5 h={2.6+6*$lv}
+place RT_PillarThick - at 1.5 32.5 h={2.6+6*$lv}
+place RT_PillarThick - at 4.5 32.5 h={2.6+6*$lv}
+next
+for ld 0 4 1
+place LandmarkLadder_6m - at 3 32.8 h={2.6+6.6*$ld} yaw=180
+next
+place RT_Floor - at 7.5 32.6 h=16.6 sx=0.5 sz=0.35
+place RT_PillarThick - at 7.3 29.5 h=2.6 sy=2.33
+place RT_PillarThick - at 7.3 32.4 h=2.6 sy=2.33
+place "Box Small" ledgebox at 6.4 31 h=16.65 sit yaw=30
+place Zone_Trigger ledge at 6 31 h=17.5
+place RT_Floor - at 4.7 32.7 h=32.6 sx=0.53 sz=0.6
+place RT_Fence - at 1.5 32.7 h=32.65 yaw=90
+place RT_Fence - at 1.5 31.2 h=32.65 yaw=90
+place RT_Fence - at 4.7 31.2 h=32.65 yaw=90
+
+# --- The table top: the hermit's hut, his bench, the post with three levers, his chest; his birds -------------------------
+push at 0.75 11.75 h=33.2
+call stilt_hut y=0.4 ladder=none
+place Note_Book riddles at 2.25 3.6 y=0.45 sit yaw=15
+place Loot_ChestLarge hermitchest at 3.6 2.2 y=0.4 sit yaw=270
+pop
+place Bench_01 - at 3 20 ground yaw=180
+place UT_JumpPuzzle_LiftMechanism_Lever leverstones at 8 18 ground sit yaw=90
+place UT_JumpPuzzle_LiftMechanism_Lever leverfootsteps at 8 20 ground sit yaw=90
+place UT_JumpPuzzle_LiftMechanism_Lever levertides at 8 22 ground sit yaw=90
+place Creature_StoneBird birds at 14 6 h=40
+place Zone_Trigger top at 3 18 h=34.5
+place Zone_Sound wind at 3 14 h=36
+
+# --- Goats on the table top, dolphins below; Raft's finds in the shallows (lib_sea) ----------------------------------------
+place Creature_Goat goats at -8 -6 ground
+prop goats creature.count=2
+place Creature_Dolphin dolphins at 30 50 h=-3
+prop dolphins creature.count=2
+call shallows r=58 deep=5 n=1
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): pines, berries, flowers ----------
+scatter "Pickup_Landmark_Tree_Pine" 3 at 0 0 r=31.5 seed=4368 free=5
+scatter "Pickup_Landmark_BerryBush" 3 at 0 0 r=31.5 seed=4378 free=3
+scatter "Pickup_Landmark_Flower_White" 2 at 0 0 r=31.5 seed=4388 free=3
+scatter "Pickup_Landmark_Flower_Blue" 2 at 0 0 r=31.5 seed=4389 free=3
+
+# ===== Settings, story items, notes, behaviours, quest (5 steps) ==========================================================
+info title=Hermit's Table
+info author=Custom Islands
+info description=A table of snowy rock standing out of the sea on sheer cliffs, a ladder scaffold up its north face - and on top, a hermit's hut with three riddles and three levers. Pull the right one.
+island on.arrive=message||A table of rock, straight up out of the sea, snow on its top - and a thin scaffold of ladders up its north cliff to a hut on the very top.
+
+story hermitkey|Hermit's key|quest:Caravan_KeyMayor|A key on a leather thong, from the lever's box.
+
+note climbnote Climber's note | (nailed to the post at the foot of the cliff)\n\nThe hermit's scaffold: five ladders, one ledge. Don't look down after the ledge.\n\nHe doesn't come down any more. He says whoever climbs up and answers his riddles can have what's in his chest. I got two out of three. The birds came.\n- a climber who won't try again
+note riddles The hermit's riddles | Three riddles, three levers. The answer to all three is the same.\n\nI. The more of me you take, the more you leave behind.\nII. I have a bed but never sleep, a mouth but never speak.\nIII. ...no, that one is about the sea too. They all are.\n\nThe levers: STONES - FOOTSTEPS - TIDES.\nPull the one that answers the first riddle. (The others call my birds.)
+note hermitchest Hermit's chest | The hermit's chest: a leather jerkin he never wears, a carpenter's plan for detail planks, a few stones from his path, his savings.
+loot hermitchest Equipment_LeatherChest*1;Blueprint_DetailPlank*1;TradeToken*8;Stone*4
+prop hermitchest loot.refill=0
+prop hermitchest if.open=has|story:hermitkey|1
+prop hermitchest else.open=message||The hermit's chest is locked. The key is in one of the levers' boxes.
+note footbox Climbers' box | A box at the cliff's foot: planks, rope, two flasks of water.
+loot footbox Rope*3;PlasticBottle_Water*2;Plank*3
+prop footbox loot.refill=0
+note ledgebox Ledge box | A box wedged on the ledge: someone gave up here.
+loot ledgebox Cooked_GenericMeat*2;HealingSalve*1
+prop ledgebox loot.refill=0
+
+prop leverstones obj.name=leverstones
+prop leverstones beh.use=Pull the lever marked STONES
+prop leverstones on.use=message||A bell rings somewhere below - and the hermit's birds come up off the ledges, screaming.\nshow|birds\nsound||event:/raft/radar/lever
+prop levertides obj.name=levertides
+prop levertides beh.use=Pull the lever marked TIDES
+prop levertides on.use=message||A bell rings somewhere below - and the hermit's birds come up off the ledges, screaming.\nshow|birds\nsound||event:/raft/radar/lever
+prop leverfootsteps obj.name=leverfootsteps
+prop leverfootsteps beh.use=Pull the lever marked FOOTSTEPS
+prop leverfootsteps if.use=!signal|answered
+prop leverfootsteps on.use=message||FOOTSTEPS. The lever drops, a little drawer slides out of the post - a key on a leather thong.\ngive||story:hermitkey*1\nsignal||answered\nsound||event:/raft/radar/lever
+prop leverfootsteps else.use=message||The drawer is empty now.
+prop birds obj.name=birds
+prop birds beh.hidden=1
+prop birds creature.count=2
+prop birds creature.respawn=0
+prop foot zone.id=foot
+prop foot zone.radius=6
+prop foot zone.message=The foot of the cliff: a landing, a post with a note nailed to it, and the first ladder going up.
+prop ledge zone.id=ledge
+prop ledge zone.radius=3
+prop ledge zone.message=The ledge, halfway up. The sea is a long way down already.
+prop top zone.id=top
+prop top zone.radius=5
+prop top zone.message=The top of the table: a hut, a bench, three levers on a post - and the whole sea, all the way round.
+prop wind sound.event=event:/amb/temperance
+prop wind sound.volume=0.5
+prop wind zone.radius=20
+
+quest title=Three Levers
+quest intro=A table of rock with a hermit's hut on top and a ladder scaffold up its north cliff. Start at its foot.
+step read|Climber's note|1|Land at the foot of the north cliff and read the note nailed to the post
+step open|Ledge box|1|Climb the scaffold to the ledge and open the box wedged there - someone gave up here
+step read|The hermit's riddles|1|Don't look down: climb on to the hermit's hut and read his riddles
+step collect|story:hermitkey|1|Pull the lever that answers the first riddle
+step open|Hermit's chest|1|Open the hermit's chest
+quest done=Footsteps: the more you take, the more you leave behind. You leave a few more on the way down.
+quest reward=Rope*3;Stone*4;Cooked_Salmon*2
+
+save Hermit's Table

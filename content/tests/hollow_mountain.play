@@ -1,0 +1,110 @@
+# Play test of Hollow Mountain (CIPlay hollow_mountain, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The forecourt at 4 m round -37 -84 (the gate at z -75, the sockets at -41/-37/-33 -80.5); the entry hall -46..-34 x
+# -75..-63 (4 m: the ledger at -43 -72, the workshop's chest at -41.5 -66, lift one at -37 -66); the mid hall 8..14 x
+# -13.5..13.5 (25 m: the granary south, the bin at 9.5 -12, lift two at 11 10.5); the high hall -21..-9 x -12..-6 (50 m:
+# lift three at -11 -8); the lake hall's shore at -62 0 (0.8 m), the sunken gate -75 0 (10 m down), the treasury's chest
+# at -81 0, the islet at -92 0 (the throne hall's doors at x -88, the lock at -87 2.6). The shrines: the ice ledge at
+# -100 50 (20 m), the frozen falls' cave at -20 96, the herder's hut at 60 25.
+island Hollow Mountain
+offset 1.0471 -0.0008
+expect step 0
+expect title The Delvers' Hoard
+wait 5
+expect animals Goat 3
+at -37 -90 h=5.5
+zone gatehall
+expect step 1
+read The gate rune
+expect step 2
+kill Polar bear
+expect step 3
+at -37 -82 h=5.5
+use socket1
+expect message A socket shaped
+at -99.75 50.25 h=22
+use keystone1
+expect story keystone 1
+at -20 98 h=3
+use keystone2
+expect story keystone 2
+at 62.25 27 h=5.5
+open Herder's chest
+expect story keystone 3
+expect step 4
+at -37 -82 h=5.5
+use socket2
+expect message first socket first
+use socket1
+use socket2
+use socket3
+expect story keystone 0
+wait 7
+at -37 -70 h=5.5
+zone entryhall
+expect step 5
+read The steward's ledger
+expect step 6
+at -42 -66 h=5.5
+use lift1
+expect message needs a crank
+open Workshop chest
+expect story crank 1
+expect step 7
+at -37 -66 h=5.5
+use lift1
+wait 8
+zone midhall
+expect step 8
+at 11 -9 h=26.5
+zone granary
+kill Rat
+expect step 9
+open Granary bin
+expect story cog 1
+expect step 10
+at 11 10 h=26.5
+use lift2
+wait 9
+zone highhall
+expect step 11
+read The king's decree
+expect step 12
+at -12 -9 h=51.5
+use lift3
+wait 11
+zone lakeshore
+expect step 13
+read The ferryman's slate
+expect step 14
+at -67 2 h=-7.5
+zone bell1
+at -76 0 h=-8
+zone sunkgate
+expect step 15
+at -81 0 h=-8.5
+open The drowned treasury
+expect story thronekey 1
+expect step 16
+at -86.8 0 h=2.5
+zone islet
+expect step 17
+use thronelock
+expect shown guardianmusic
+wait 3
+at -91.5 0 h=2.5
+zone thronehall
+expect step 18
+kill Bear
+expect step 19
+read King Orm's last words
+expect step 20
+use throne
+expect story crown 1
+expect step 21
+wait 4
+open The Delvers' hoard
+expect done
+open Gate niche box
+open High hall box
+open Jetty barrel
+open Sunk sledge

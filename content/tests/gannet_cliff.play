@@ -1,0 +1,10 @@
+# Gannet Cliff (CIPlay gannet_cliff): The Lullaby Frequency's seventh island, quest "The Quiet Choir" (the library's own
+# Gannet Rock is another island: this one is named Gannet Cliff). The pit gate asks for the Choir's hymn sheet, a story
+# item of Effigy Shoals: the play reads it there first. The beach at -18 -50 (1 m), the cliff path up x -18 from z -44
+# to -6 (13 m); the plateau at 13 m round 0 8; the pit 6 x 6 m round 0 12 (floor 8.16 m), its gate on the south rim at
+# 0.75 8.25, the ladder under it; the bell at 6 -4; the store at 11 -3.
+island Effigy Shoals
+offset 0 0
+read Choir hymn sheet
+expect story hymn 1
+include gannet_cliff_quest.play

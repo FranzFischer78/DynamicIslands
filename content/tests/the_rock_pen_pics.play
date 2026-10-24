@@ -1,0 +1,11 @@
+# Guide pictures of The Rock Pen (CIPlay the_rock_pen_pics): Raft's camera, midday, calm. Points as in its recipe ("offset").
+island The Rock Pen
+offset -0.2404 0.5463
+hour 11
+weather Calm
+at 3 -6
+wait 3
+picture the_rock_pen_rock -52 24 -30 0 12 2
+picture the_rock_pen_yard 14 24 -20 -2 18 4
+picture the_rock_pen_cells -4 19.3 2 2.5 18.6 12
+picture the_rock_pen_drain 9 6 44 5 3.5 32

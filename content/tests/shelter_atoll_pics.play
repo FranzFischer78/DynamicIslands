@@ -1,0 +1,22 @@
+# Guide pictures of Shelter Atoll (CIPlay shelter_atoll_pics): Raft's camera and water at midday; inside the shelter
+# dark, then with the generator running
+island Shelter Atoll
+hour 11
+weather Calm
+at 24 2
+wait 2
+picture shelter_atoll_island 40 24 -46 0 5 0
+picture shelter_atoll_gate 0 4.5 -27 0 4.5 -9
+picture shelter_atoll_roof -9 10.5 13 0 7.6 5
+at 0 1.5 h=1.9
+zone dorm
+wait 3
+picture shelter_atoll_dark 0.3 3.4 3.4 0 3 -5
+picture shelter_atoll_dorm -3.6 3.5 1.5 -8 2.4 -0.5
+open Bunk locker
+use generator
+wait 7
+picture shelter_atoll_lit 0.3 3.4 3.4 0 3 -5
+at 0 -12.5 h=1.9
+wait 2
+picture shelter_atoll_open 0 4 -22 0 3.5 -9

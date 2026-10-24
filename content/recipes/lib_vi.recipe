@@ -1,0 +1,53 @@
+# lib_vi: shared macros of the vehicle islands (ROADMAP 3e VI2 + VI3). Include it after lib_huts and lib_ni34.
+#
+# lookout: a deck of planks 2x2 floor blocks (3 m) on four reef hut legs, 2.52 m over a flat pad at h (x..x+3, z..z+3),
+# rope rails on three sides and the west half of the south side, a plank roof on corner posts, its ladder at the
+# south-east (x+0.75, z-0.2), a small chest on the deck (al). The same build as Crowncrag Ruin's lookout.
+macro lookout x=0 z=0 h=4 al=lookoutchest
+push at $x $z h=$h
+place ReefHuts_Pillar3 - at 0.15 0.15 y=-0.6 sy={(2.42+0.6)/4.815}
+place ReefHuts_Pillar3 - at 2.85 0.15 y=-0.6 sy={(2.42+0.6)/4.815}
+place ReefHuts_Pillar3 - at 0.15 2.85 y=-0.6 sy={(2.42+0.6)/4.815}
+place ReefHuts_Pillar3 - at 2.85 2.85 y=-0.6 sy={(2.42+0.6)/4.815}
+call floors w=2 d=2 y=2.52
+call corners w=2 d=2 y=2.52
+place Block_Wall_Fence_Rope - at 0.75 3 y=2.52
+place Block_Wall_Fence_Rope - at 2.25 3 y=2.52
+place Block_Wall_Fence_Rope - at 0 0.75 y=2.52 yaw=90
+place Block_Wall_Fence_Rope - at 0 2.25 y=2.52 yaw=90
+place Block_Wall_Fence_Rope - at 3 0.75 y=2.52 yaw=90
+place Block_Wall_Fence_Rope - at 3 2.25 y=2.52 yaw=90
+place Block_Wall_Fence_Rope - at 2.25 0 y=2.52
+roof 2 2 at 0 0 y=2.52 wood
+place Loot_ChestSmall $al at 2 2.1 y=2.52 sit yaw=180
+pop
+call ladders x={$x+0.75} z={$z-0.2} h=$h n=1 yaw=180
+end
+#
+# sleepersx / sleepersz: a track bed for wagons - planks laid across the line every 1.2 m on the ground, from x1 to x2
+# at z (sleepersx) or from z1 to z2 at x (sleepersz)
+macro sleepersx x1=0 x2=10 z=0
+line FL_Plank1 from $x1 $z to $x2 $z step=1.2 yaw=90 sit
+end
+macro sleepersz z1=0 z2=10 x=0
+line FL_Plank1 from $x $z1 to $x $z2 step=1.2 yaw=90 sit
+end
+#
+# cavein: the chest and lamp inside a cave of ni8cave (x z h yaw 0 or 180, as given to ni8cave): the chest 2.5 m to the
+# side and 5 m in from the rock's centre, on the cave floor (h+0.45), the lamp opposite
+macro cavein x=0 z=0 h=1.6 yaw=0 al=cavechest
+set cc {cos($yaw)}
+place Loot_ChestSmall $al at {$x-2.5*$cc} {$z+5*$cc} h={$h+0.45} sit yaw={60+$yaw}
+place Placeable_Lantern_Metal - at {$x+2.6*$cc} {$z+4*$cc} h={$h+0.45} sit
+end
+#
+# gantry: a raised walk of Raft's wooden floor blocks n long (along +x) and wide across, 2.52 m over a flat pad at h
+# (x..x+n*1.5, z..z+wide*1.5), on reef hut posts down both long sides (lib_huts boardwalk), rope rails on both long
+# sides, its ladder off the east end (x+n*1.5+0.2), a small chest at the west end (al)
+macro gantry x=0 z=0 h=3 n=4 wide=1 al=gantrychest
+push at $x $z h=$h
+call boardwalk n=$n wide=$wide y=2.52
+place Loot_ChestSmall $al at 0.6 {$wide*0.75} y=2.52 sit yaw=90
+pop
+call ladders x={$x+$n*1.5+0.2} z={$z+$wide*0.75} h=$h n=1 yaw=90
+end

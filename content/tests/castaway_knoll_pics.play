@@ -1,0 +1,9 @@
+# Guide pictures of Castaway Knoll (CIPlay castaway_knoll_pics): Raft's camera, morning, calm
+island Castaway Knoll
+offset 0 0
+hour 9
+weather Calm
+at -2 -6 h=6
+wait 3
+picture ni_castaway_knoll_raft -2 9 -9 -1.5 5 2
+picture ni_castaway_knoll_kelp 12 8 -10 0 5 0

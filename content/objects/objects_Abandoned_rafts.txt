@@ -1,0 +1,16 @@
+# Raft's objects the randomizer builds with (CIMeasureProps, raft=1.1.01)
+# prop	<name>	<scene>	<size x,y,z>	<centre x,y,z>	<bottom below the pivot>	<solid colliders>   (at the scale the object spawns with)
+# cave	<name>	<axis of the passage 0=x 2=z>	<floor above the pivot>	<headroom>	<width>	<open at +axis>	<open at -axis>	<a point in the passage, from the pivot>	<room from it towards +axis>	<and towards -axis> (99 = open)
+prop	Bed_Simple	15#Landmark_Raft#Floating raft	1.373,0.294,2.248	-0.022,0.144,-0.007	-0.003	0
+prop	Bird_Nest	18#Landmark_Raft#Floating raft	1.089,0.239,1.056	0.014,0.111,0.043	-0.008	0
+prop	buoy	15#Landmark_Raft#Floating raft	0.247,0.262,0.313	0.053,-0.126,0.153	-0.257	0
+prop	campfire_1	17#Landmark_Raft#Floating raft	0.759,0.752,0.735	-0.047,0.362,0	-0.014	0
+prop	cropplot_floor_dps	18#Landmark_Raft#Floating raft	1.098,0.359,0.87	-0.003,0.164,-0.034	-0.015	0
+prop	FL_Cloth	15#Landmark_Raft#Floating raft	0,2.291,1.24	0,-0.171,0.364	-1.317	0
+prop	FL_Foundation1	15#Landmark_Raft#Floating raft	1.503,0.512,2.98	-0.004,-0.26,-0.729	-0.516	1
+prop	FL_Foundation2	15#Landmark_Raft#Floating raft	1.503,0.512,1.508	-0.004,-0.26,0.008	-0.516	1
+prop	FL_Foundation3	15#Landmark_Raft#Floating raft	1.503,0.512,1.529	-0.004,-0.26,0.024	-0.516	1
+prop	FL_Roof1	15#Landmark_Raft#Floating raft	1.503,0.173,1.508	-0.004,-0.091,0.008	-0.177	1
+prop	FL_Roof2	15#Landmark_Raft#Floating raft	1.503,0.173,1.529	-0.004,-0.091,0.024	-0.177	1
+prop	Scarecrow	17#Landmark_Raft#Floating raft	0.449,1.79,1.541	-0.001,0.898,0.047	0.003	0
+prop	Table_Floor	16#Landmark_Raft#Floating raft	2,0.738,1.268	0,0.367,-0.003	-0.002	0

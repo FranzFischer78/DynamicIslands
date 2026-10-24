@@ -1,0 +1,78 @@
+# Play test of Scrapyard Haven (CIPlay scrapyard_haven, in a test world 'CI ...'). Points as in its recipe: the pier in
+# the bay (2.6 m), the town on its terrace (5 m) inside the caravan ring, the gate at its south-west, the scrap pit below
+# the ridge (5.5 m), the fortress's deck on the west ridge (18.7 m). The quest's 21 steps: the harbour, its notice, the
+# wreck, the fisherman's tally, the lockbox and the gate key; the square, the market and its barrel, the tithe pile, the
+# trader's van, the watchtower; the gate, the pit's edge, the pit, the hyenas, the scrapper's note, the pit's sign; the
+# stilts, the fortress, the hoard.
+island Scrapyard Haven
+expect step 0
+expect title King of the Scrapyard
+
+# Up the quay's ladder from the sea, along it into the harbour: the notice, the wreck and the dinghy, the harbour
+# master's lockbox (the gate key counted at once)
+climb 43.1 25 h=-1
+walk 40 25 to 27 25 to 23 24 h=5
+zone harbour
+expect step 1
+read Harbour notice
+expect step 2
+zone wreck
+expect step 3
+read Fisherman's tally
+expect step 4
+open Harbour master's lockbox
+expect story gatekey 1
+expect step 6
+
+# Round the town inside the wall: the square, the market and its barrel, the tithe pile, the trader's van, the tower
+zone square
+expect step 7
+zone market
+expect step 8
+open Market barrel
+expect step 9
+read King's tithe pile
+expect step 10
+read Trader's price list
+expect step 11
+zone lookout
+expect step 12
+
+# The gate: shut until the winch hoists it
+walk 9.5 21 to 3.8 19.8 to -1 14 h=4.5 blocked
+use winch
+expect message rises on its chains
+wait 5
+expect stand -1 14 h=3.6
+expect stand 1.4 16.9 h=4.4
+walk 9.5 21 to 3.8 19.8 to -1 14 h=3.6
+zone gate
+expect step 13
+
+# Down the shore to the scrap pit: the hyena pack and its alpha
+walk -1 14 to -4 9 to -8 -5 to -10 -20 to -9 -31 h=5.5
+zone pitedge
+expect step 14
+zone pit
+expect step 15
+expect message collar of bolts
+kill Hyena
+expect step 16
+expect animals Hyena 0
+read Scrapper's note
+expect step 17
+read King's pit sign
+expect step 18
+
+# Up the ladders to the scrap king's fortress: the hoard on its deck
+zone stilts
+expect step 19
+climb -14.6 -10 h=9.1
+climb -14.6 -10 h=13
+expect stand -18.5 -10 h=18.7
+zone fortress
+expect step 20
+open Scrap king's hoard
+wait 3
+expect item Blueprint_ZiplineBase 1
+expect done

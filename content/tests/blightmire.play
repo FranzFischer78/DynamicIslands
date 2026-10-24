@@ -1,0 +1,48 @@
+# Blightmire (CIPlay blightmire): the hummock round 0 -49.6, the roots west -46.5 0, north 12.4 34.1, east 52.7 -9.3
+# (burnt in that order: the east one first is refused), the marsh station 18.6 40.3, the root cache by the east root.
+island Blightmire
+# RESIZE 10-24: the recipe moved this island's old content by 0 -8.8; the points below are in the old frame
+offset 0 8.8
+expect step 0
+expect title The Poisoned Marsh
+zone hummock
+expect step 1
+read Blight map
+expect step 2
+open Smelter camp chest
+wait 3
+expect step 3
+kill Hyena
+expect animals Hyena 0
+expect step 4
+use root3
+expect story burnt 0
+use suitlocker
+expect shown fume1
+use root1
+expect story burnt 1
+expect hidden root1
+expect shown fire1
+expect hidden fume1
+expect step 5
+use root2
+expect story burnt 2
+expect step 6
+expect hidden marshstation
+use stationvines
+expect shown marshstation
+open Marsh station locker
+wait 3
+expect step 7
+kill Warthog
+expect animals Warthog 0
+expect step 8
+use root3
+expect story burnt 3
+expect shown rootcache
+expect step 9
+open Root cache
+wait 3
+expect step 10
+read Seedkeeper's confession
+expect done

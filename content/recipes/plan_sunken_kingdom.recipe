@@ -1,0 +1,27 @@
+# The Sunken Kingdom - a world plan of the library (storyline SL10): the Pelagic Network, a drowned kingdom of stations
+# A main story in place of Raft's (Raft's own story off, random islands on between chapters): flooded rooftops with a
+# signal mast, a broken overpass, the Brinelab tower and its three drives, the glass dome of Biome Seven 18 m down, the
+# Thalassa surface station and its diving bell, the glowing Lumen Shelf, the Caisson Yard past the shelf edge (bring an
+# engine), the trench city of Hadal Commons 45 m down with a caged diver and great doors under the Ringwave, then the
+# finale in two parts: the Sealkeeper Spire (RESTORE or SEAL) and the Stalker's Hollow under the trench lip. Raft's
+# blueprints are quest steps along the way, in Raft's order. A Network shuttle wreck lies off the route at km 4.
+#
+# Phase 1: written, untested (see _ProjectDocs\plans\storylines10\SL10_progress.md).
+plan new The Sunken Kingdom
+plan description A drowned kingdom of stations under one Network: rooftops and a broken overpass, a tower of drives, a glass dome 18 m down, a diving bell, a glowing shelf, a caisson yard, a city in the trench - and at its heart a spire with two levers, RESTORE and SEAL, and the Hollow beneath. Ten islands, five of them under water, and a shuttle wreck off the route. Its quest islands are as big as Raft's own big islands.
+plan random on
+plan story off
+plan rule spire | island:Spirecrest Roofs | start | receiver:500 | The Receiver's first signal: a mast on drowned rooftops, still sending. | Spirecrest Roofs | first | quest
+plan rule overpass | island:Overpass Shoal | quest:spire | receiver:700 | The mast's log points on: 700, a broken overpass standing out of the sea. | Overpass Shoal | after:spire | quest
+plan rule brinelab | island:Brinelab Tower | quest:overpass | receiver:800 | On 800, a lab's automatic call: BRINELAB - ALL DRIVES INTACT. | Brinelab Tower | after:overpass | step:13
+plan rule biome | island:Biome Seven | signal:brinelab:drives | receiver:600 | The third drive names a station on 600: Biome Seven, a glass dome 18 m down. | Biome Seven | after:brinelab | quest
+plan rule thalassa | island:Thalassa Mooring | quest:biome | receiver:900 | The dome's rota ends with a band: 900, the Thalassa surface station. | Thalassa Mooring | after:biome | quest
+plan rule shelf | island:Lumen Shelf | zone:thalassa:bell | receiver:600 | At the bell's foot the Receiver hums: 600 again, and lights along a shelf edge. | Lumen Shelf | after:thalassa | quest
+plan rule caisson | island:Caisson Yard | quest:shelf | receiver:1000:needs=engine | On 1000, past the shelf edge: the Caisson Yard's crane horn. A long sail - bring an engine. | Caisson Yard | after:shelf | quest
+plan rule hadal | island:Hadal Commons | rule:caisson | receiver:800 | The trench chart gives it: 800, Hadal Commons, 45 m down. A few warm windows. | Hadal Commons | after:caisson | zone:doors
+plan rule sealkeeper | island:Sealkeeper Spire | quest:hadal | receiver:1200 | On 1200, through a storm: the Sealkeeper Spire, the Network's switchboard. | Sealkeeper Spire | after:hadal | step:28
+plan rule hollow | island:The Stalker's Hollow | signal:sealkeeper:descend | receiver:500 | The descend lever answers on 500: under the trench lip, the Hollow lights up. | The Stalker's Hollow | after:sealkeeper | quest
+plan rule shuttle | island:Shuttlewreck Reef | km:4 | ahead:450 | Ahead, a buoy over a reef - and under it the long shape of a shuttle with windows down its sides. | Shuttlewreck Reef
+plan credits The Sunken Kingdom | Custom Islands
+plan ending The Hollow is quiet. Up the cable, the Spire's lights tell the rest - lit, if you restored the Network; dark, if you sealed it. Either way, the Sunken Kingdom is decided, and the Receiver goes quiet on every band but one.
+plan save

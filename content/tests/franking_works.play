@@ -1,0 +1,35 @@
+# The Franking Works (CIPlay franking_works_solo; in the plan after Telegraph Narrows): quest "Rare Stamps"
+# (it needs Ada's dead letter from The Dead Letter Office: franking_works_solo.play reads it first)
+island The Franking Works
+offset 0 0
+expect step 0
+expect title Rare Stamps
+expect hidden adamap
+zone yard
+expect step 1
+read Franking master's ledger
+expect step 2
+use stampalbum
+expect message three empty frames
+open Vault
+expect message bolted
+use stamp1
+use stamp2
+use stamp3
+expect story raft-Tangaroa_Token 3
+expect step 3
+use stampalbum
+expect story albumfull 1
+expect step 4
+open Vault
+wait 3
+expect item Blueprint_SmelterElectric 1
+expect item Blueprint_BiofuelExtractorAdvanced 1
+expect item Blueprint_AnchorStationaryAdvanced 1
+expect step 8
+use adahole
+expect story adadelivered 1
+expect shown adamap
+expect step 9
+read Ada's route map
+expect done

@@ -1,0 +1,502 @@
+# Hollow Mountain - a new island of the library, seven times the size (x7)
+# One great snowy mountain hollowed out long ago by the Delvers: a gate in the valley at its south foot, halls on three
+# levels joined by lifts (the entry hall behind the gate, the mid hall in the east face with a balcony over the sea, the
+# high hall near the summit), and a sunken lake hall in its west foot with a throne hall on an islet in the lake. The
+# Delvers left in one night, sealing their gate with three keystones; their last king, Orm, stayed on his throne with his
+# guardian - a bear of stone - beside him.
+# Quest "The Delvers' Hoard" (22 steps in 4 chapters): the gate (the rune, the bears, three keystones from the ice ledge,
+# the frozen falls and the herder, the sockets in order), the lifts (the crank, the granary's rats and its cog, the
+# decree), the lake (the long lift down, a dive past two air bells to the drowned treasury, the islet), the throne hall
+# (the guardian, Orm's words, the crown laid down, the hoard).
+#
+# Built by the recipe player (CIRecipe hollow_mountain) through the editor's own operations.
+include lib_rt
+include lib_selene
+include lib_huts
+include lib_sea
+new
+# (nature: snowy, Like Raft's Temperance - pines on the foothills, drifts and bare rock above)
+gen Trees=0.08 Bushes=0.15 Rocks=0.25 Harvest=0.05 BeachThings=0.3
+gen Seed=9221 Radius=119 Height=72 Roughness=0.45 Peaks=1 Shape=0 Style=1 BeachWidth=0.35 Cliffs=0.5 PeakShape=0.7 Valleys=0.25
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== THE LAND ===========================================================================================================
+# The mountain (the map, seed 9221): its summit 70 m at -15 5, the high ground spreading west to the west coast (10-25 m),
+# a low plain on the east (0.5-3 m) to the beach, a valley opening south at -40 -90. The gate in the valley's head (its
+# forecourt at 4 m, -40 -85), the entry hall in a notch behind it (-46..-34 x -75..-63, 4 m); the mid hall in the east face
+# (8..14 x -13.5..13.5, 25 m) with its balcony east; the high hall near the summit (-21..-9 x -12..-6, 50 m); the lake hall
+# in the west foot under a roof of slabs (x -104..-56, z -13..13, the roof 14 m): its shore ledge east at -62 0, the sunken
+# gate at -75 0 (10 m down), the islet with the throne hall at -92 0. The landing on the east beach at 112 35.
+
+# --- Terrain: the forecourt and the entry hall's notch; the mid hall's shelf in the east face; the high hall's notch; the
+# lake hall's sinkhole (4 m deep, 10 m in its east part), its shore ledge and the islet; the keystone shrines' pads; the
+# herder's yard -------------------------------------------------------------------------------------------------------------
+brush flatten from -40 -92 to -40 -80 r=9 s=20 frames=300 h=4
+brush flatten from -40 -74 to -40 -62 r=9 s=20 frames=400 h=4
+brush flatten from 10 -12 to 10 12 r=8 s=20 frames=400 h=25
+brush flatten from 15 -4 to 15 4 r=4 s=20 frames=300 h=25
+brush flatten from -19 -9 to -11 -9 r=6 s=20 frames=400 h=50
+brush flatten from -92 0 to -72 0 r=11 s=20 frames=400 h=-4
+brush flatten from -80 0 to -70 0 r=7 s=20 frames=400 h=-10
+brush flatten at -62 0 r=4 s=20 frames=300 h=0.8
+brush flatten at -92 0 r=5 s=20 frames=300 h=1
+brush flatten at -100 50 r=6.5 s=20 frames=300 h=20
+brush flatten at -100 39 r=3 s=20 frames=300 h=12
+brush flatten at 62 27 r=6 s=20 frames=200 h=2
+clear from -40 -92 to -40 -62 r=14
+clear from 10 -12 to 10 12 r=12
+clear at -10 25 r=12
+clear from -19 -9 to -11 -9 r=16
+clear at -38 5 r=9
+clear at -13 8.5 r=5
+clear from -104 0 to -58 0 r=14
+clear at -100 50 r=5
+clear at 62 27 r=7
+
+# ===== CHAPTER 1 - THE GATE ===============================================================================================
+# --- The forecourt: the great gate (Selene's, it sinks) in the valley's head between carved pillars, the rune, the three
+# keystone sockets with their stones (hidden till set), the bears asleep in the drifts, a box in a niche -----------------
+place TP_SeleneEntranceGate greatgate at -37 -75 h=4 scale=1.4
+place RT_PillarThick - at -42.5 -76.5 h=4
+place RT_PillarThick - at -44.5 -76.5 h=4
+place RT_PillarThick - at -31.5 -76.5 h=4
+place RT_PillarThick - at -29.5 -76.5 h=4
+# (the rocks flank the gate clear of the entry hall behind it: larger or nearer, they stood in the hall - X7)
+place TP_BigRock02 - at -55 -76 ground sit scale=0.5 yaw=30
+place TP_BigRock04 - at -18 -76 ground sit scale=0.4 yaw=200
+place Note_Sign rune at -34.5 -78 h=4 drop yaw=180
+place Pillar_04 socket1 at -41 -80.5 h=4 drop
+place Pillar_04 socket2 at -37 -81 h=4 drop
+place Pillar_04 socket3 at -33 -80.5 h=4 drop
+place SmallBoulder1 key1set at -41 -80.5 h=5.5 drop scale=0.25
+place SmallBoulder1 key2set at -37 -81 h=5.5 drop scale=0.25
+place SmallBoulder1 key3set at -33 -80.5 h=5.5 drop scale=0.25
+place Zone_Trigger gatehall at -37 -84 h=5.5
+place Creature_PolarBear gatebears at -37 -88 h=4.2
+place "Box Small" niche at -45.5 -78 h=4 drop yaw=20
+
+# --- The keystone shrines: the ice ledge on the west high ground (a pad 12 m up, ladders to the ledge at 20 m), behind the
+# frozen falls on the north foothill (a little cave in a gully of ice), the herder's hut on the east plain with his goats --
+push at -102 48 h=20
+call stilt_hut y=0.3 ladder=none
+place UT_EndRoom_Table - at 2.25 3 y=0.35 sit scale=0.6
+place SmallBoulder1 keystone1 at 2.25 3 y=1.5 drop scale=0.25
+pop
+place RT_GroundPillar - at -100 44.65 h=21
+place Block_Ladder - at -100 43.4 h=12
+place Block_Ladder - at -100 43.4 h=14.42
+place Block_Ladder - at -100 43.4 h=16.84
+place Block_Ladder - at -100 43.4 h=19.26
+place TP_IcePillar01 - at -25 99 ground sit
+place TP_IcePillar02 - at -22 101 ground sit
+place TP_IcePillar01 - at -17 100 ground sit yaw=60
+place TP_Icicles04 - at -20 102 ground sit
+place SmallBoulder1 keystone2 at -20 96 ground sit scale=0.25
+push at 60 25 h=2
+call stilt_hut
+place Loot_Chest herderchest at 3.6 3 y=2.6 drop yaw=270
+pop
+place Creature_Goat goats at 66 30 ground
+
+# --- The entry hall behind the gate (four of Selene's cells: the hall's two, the lift's corner, the lower workshop), dark
+# inside, lamps, the steward's desk and ledger, benches; the workshop's chest; the first lift's cage ------------------------
+# (the floor 0.1 m over the forecourt's ground, or the snow showed through it - X7)
+push at -46 -63 h=4.1
+call selene_cell 0 0 s=TP_Selene_Int_Room_Entrance
+call selene_cell 6 0 s=none
+call selene_cell 0 -6 n=none e=none
+call selene_cell 6 -6 w=none n=none s=none
+place UT_EndRoom_Table - at 3 -9 sit
+place Note_Book ledger at 3 -9 y=1 drop
+place TangaroaBench - at 2 -11 sit
+place TangaroaBench - at 9.5 -11 sit
+place Placeable_Lantern_Metal - at 1 -1 sit
+place Placeable_Lantern_Metal - at 11 -1 sit
+place Placeable_Lantern_Metal - at 1 -11 sit
+place Placeable_Lantern_Metal - at 11 -11 sit
+place "VG_DecorationPrefabBase_Vice Variant" - at 1.5 -3 sit yaw=90
+place "VG_DecorationPrefabBase_WorkshopStorage_2 Variant" - at 3 -0.6 sit yaw=180
+place Loot_Chest workshopchest at 4.5 -3 sit yaw=270
+place UT_HookRoom_Lift lift1 at 9 -3 sit
+place Zone_Trigger entryhall at 9 -9 y=1.5
+place Zone_Atmosphere entrydark at 6 -6 y=2
+pop
+
+# ===== CHAPTER 2 - THE LIFTS ==============================================================================================
+# --- The mid hall on its shelf in the east face: three radio tower rooms in a row (the granary south, the hall in the middle
+# with its balcony east over the sea, the second lift's room north), the rats, the bin -------------------------------------
+push at 14 -9 h=25
+call rt_storey b1=none b2=none
+place RT_Floor - at 0 4.5 y=3
+place TP_Moontown_Barrel01 - at -5 -3.5 sit
+place TP_Moontown_Barrel01 - at -4.2 -3.6 sit yaw=40
+place TP_Moontown_SealedCrate02 - at -1 -3.5 sit
+place UT_MarketBasket02 - at -5.2 -1 sit
+place Loot_Crate granarybin at -4.5 -3 sit yaw=90
+place Creature_Rat rats at -3 -1 y=0.2
+place Zone_Trigger granary at -3 0 y=1.5
+pop
+push at 14 0 h=25
+call rt_storey f1=RT_WallDoor1 r2=none b1=RT_WallDoor1
+place RT_Floor - at 0 4.5 y=3
+place Zone_Trigger midhall at -3 0 y=1.5
+place Zone_Atmosphere middark at -3 0 y=2
+pop
+push at 14 9 h=25
+call rt_storey f1=none f2=none
+place RT_Floor - at 0 4.5 y=3
+place UT_HookRoom_Lift lift2 at -3 1.5 sit
+pop
+place RT_Fence - at 17 -3 h=25 yaw=90
+place RT_Fence - at 17 0 h=25 yaw=90
+# (behind the rooms, clear of their back walls at x 8: larger or nearer, they stood in the granary and the hall - X7)
+place TP_BigRock02 - at -1 -6 ground sit scale=0.6 yaw=80
+place TP_BigRock04 - at -5 8 ground sit scale=0.4 yaw=10
+
+# --- The high hall near the summit: two of Selene's cells, the long window south (radio tower window walls), the decree,
+# a box, the long lift, the wind --------------------------------------------------------------------------------------------
+push at -21 -6 h=50
+call selene_cell 0 0 e=none s=none
+call selene_cell 6 0 w=none s=none
+place RT_WallWindow2 - at 3 -6
+place RT_WallWindow2 - at 6 -6
+place RT_WallWindow2 - at 9 -6
+place RT_WallWindow2 - at 12 -6
+# (a wall over the windows up to the ceiling: they are 3 m high, the cells 4.7 m - the sky showed over them, X7)
+for w 1 4 1
+place RT_Wall1 - at {3*$w} -6 y=3 sy=0.6
+next
+place Note_Board decree at 6 -0.6 sit yaw=180
+place "Box Small" highbox at 1 -1 sit yaw=30
+place UT_HookRoom_Lift lift3 at 10 -2 sit
+place Zone_Trigger highhall at 5 -3 y=1.5
+place Zone_Sound highwind at 6 -5 y=2
+pop
+
+# ===== CHAPTER 3 - THE LAKE ===============================================================================================
+# --- The lake hall: a roof of slabs on columns standing in the water, rocks along its edges; the shore ledge (the long
+# lift's landing), the slate, a moored boat, the dark; the sunken gate, the two air bells on the way, the drowned treasury
+# (out to x -106 in the west: to -104, the sky showed past its edge from the islet - X7)
+place RT_Floor - at -56 13 h=14 sx=8.3 sz=2.89
+for c 0 3 1
+place RT_PillarThick - at -74 -6 h={-10+6*$c}
+place RT_PillarThick - at -74 6 h={-10+6*$c}
+place RT_PillarThick - at -86 -7 h={-10+6*$c}
+place RT_PillarThick - at -86 7 h={-10+6*$c}
+next
+place BigRock_2 - at -104 14 ground sit scale=0.6 yaw=40
+place BigRock_2 - at -56 14 ground sit scale=0.6 yaw=200
+place TP_BigRock02 - at -80 15 ground sit scale=0.8
+place TP_BigRock04 - at -80 -15 ground sit scale=0.8 yaw=120
+place Zone_Trigger lakeshore at -61.5 0 h=2.3
+place Note_Sign slate at -63 2.5 h=0.8 drop yaw=270
+place RT_PlasticBoat - at -65 -3 h=0 yaw=10
+place Zone_Atmosphere lakedark at -78 0 h=4
+place RT_PillarThick - at -75 -2.5 h=-10
+place RT_PillarThick - at -75 2.5 h=-10
+place RT_Beam - at -75 -3 h=-7 yaw=90
+place Zone_Trigger sunkgate at -76 0 h=-8
+place Zone_Trigger bell1 at -67 2 h=-7.5
+place Zone_Atmosphere bell1bubbles at -67 2 h=-7.5
+place Zone_Trigger bell2 at -71 -2 h=-8
+place Zone_Atmosphere bell2bubbles at -71 -2 h=-8
+push at -84 3 h=-10
+call selene_cell 0 0 e=none
+place Loot_ChestLarge drowned at 3 -3 sit yaw=270
+pop
+
+# --- The islet and the throne hall: a floor of slabs on it, columns, the doors (Selene's sliding leaves) with the crown
+# lock, the throne with the crown on it and Orm's plaque, the guardian, braziers, the grate and the hoard behind the throne
+place RT_Floor - at -88 4.5 h=1.05
+# (the throne-room door frame stood over a dip in the floor: floor under its whole width, 2026-10-23)
+place RT_Floor - at -88 1.5 h=1.05
+place RT_Floor - at -88 -1.5 h=1.05
+place RT_Floor - at -88 -4.5 h=1.05
+place RT_PillarThick - at -93.5 -4 h=1.1
+place RT_PillarThick - at -93.5 4 h=1.1
+place RT_PillarThick - at -91 -4 h=1.1
+place RT_PillarThick - at -91 4 h=1.1
+place RT_PillarThick - at -88.6 -4 h=1.1
+place RT_PillarThick - at -88.6 4 h=1.1
+place TP_Selene_Int_DoorFrame - at -88 0 h=1.1 yaw=90
+place TP_Selene_Int_DoorLargeL thronedoorL at -88 0 h=1.1 yaw=90
+place TP_Selene_Int_DoorLargeR thronedoorR at -88 0 h=1.1 yaw=90
+place TP_SeleneEntranceKeyPanel_Base thronelock at -87 2.6 h=1 drop yaw=270
+place Zone_Trigger islet at -86.8 0 h=2.5
+place Zone_Trigger thronehall at -91.5 0 h=2.5
+place UT_EndRoom_Chair throne at -93.3 0 h=1.1 drop scale=2 yaw=90
+place Placeable_ToyRobot_Golden - at -93.3 0 h=2.3 drop scale=0.5 yaw=90
+place Note_Sign orm at -92.3 -1.6 h=1.1 drop yaw=90
+place Creature_Bear guardian at -90.5 0 h=1.3
+place Zone_Sound guardianmusic at -91 0 h=3
+place RT_Wall1 hoardgrate at -91.5 2.4 h=1.1
+place Loot_ChestLarge hoard at -93 3.5 h=1.1 drop
+place Placeable_Lantern_FireBasket - at -93.8 -3 h=1.1 drop
+place Placeable_Lantern_FireBasket - at -88.6 -3 h=1.1 drop
+place campfire_1 - at -89.5 -2.2 h=1.1 drop scale=0.6
+
+# ===== OUTSIDE =============================================================================================================
+# --- The landing jetty on the east beach and its barrel, a sunk sledge off it; pines on the foothills; a whale and
+# dolphins offshore; snow over the mountain ------------------------------------------------------------------------------------
+for j 0 3 1
+place Block_Floor_Wood - at {112.75+1.5*$j} 35 h=0.85
+next
+place Loot_Barrel jettybarrel at 112.8 36.1 h=0.95 drop
+place Loot_SunkenBarrel sunksledge at 120 28 h=-2 drop
+scatter Pickup_Landmark_Tree_Pine 5 at 40 45 r=14 seed=2901
+scatter Pickup_Landmark_Tree_Pine 5 at 40 -40 r=14 seed=2902
+scatter TP_PineTreeSnowy 4 at 20 75 r=10 seed=2903
+scatter TP_PineTreeSnowy 4 at -60 90 r=8 seed=2904
+place Creature_Whale whale at 150 -20 h=-6
+place Creature_Dolphin dolphins at 120 -60 h=-2
+place Zone_Atmosphere snow at -20 0 y=20
+place Zone_Atmosphere snow at -60 60 y=10
+place Zone_Atmosphere snow at -40 -60 y=10
+place Zone_Atmosphere snow at 40 20 y=8
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): berries, flowers ----------
+scatter "Pickup_Landmark_BerryBush" 6 at 0 0 r=83.3 seed=4228 free=3
+scatter "Pickup_Landmark_Flower_White" 4 at 0 0 r=83.3 seed=4238 free=3
+scatter "Pickup_Landmark_Flower_Blue" 4 at 0 0 r=83.3 seed=4239 free=3
+
+# --- Raft's finds in the shallows round the mountain (lib_sea; keep this after the terrain and building lines) ----------
+call shallows r=139 deep=5 n=2
+
+# ===== Settings, story items, notes, behaviours, quest (22 steps, 4 chapters) =============================================
+info title=Hollow Mountain
+info author=Custom Islands
+info description=One great snowy mountain the Delvers hollowed out over three hundred years: a sealed gate, halls on three levels joined by lifts, a sunken lake hall in its roots and a throne on an islet in the lake. Open the gate, mend the lifts, dive for the throne key - and face the king's stone guardian.
+island on.arrive=message||One mountain, alone in the sea, white to its top. In its south face at the foot, a gate of iron as tall as a house - and high up on the east face, a balcony cut into the rock.
+
+story keystone|Keystone|quest:Utopia_KeyEntrance|A wedge of blue stone carved with a Delver rune.
+story crank|Lift crank|quest:Varuna_CraneKey|An iron crank for the Delvers' lifts.
+story cog|Lift cog|quest:Tangaroa_GeneratorPart|A bronze cog wheel the size of a plate.
+story thronekey|Throne key|quest:Temperance_SeleneGateKey|A key of black iron with a crown for a bow.
+story crown|King Orm's crown|Hat_Mayor|A plain gold circlet, heavier than it looks - the last Delver king's crown, laid down.
+
+note rune The gate rune | (carved over the great gate)\n\nTHE MOUNTAIN IS SHUT.\nThree stones shut it: one on the ice, one behind the falling water that does not fall, one with the herder.\nSet the three in their sockets and the mountain will open for you, as it opened for us.
+note herderchest Herder's chest | The goat-herder's chest: a cheese wrapped in cloth, a wool blanket - and a wedge of blue stone he kept as a doorstop.
+loot herderchest story:keystone*1;Wool*2;Cooked_GenericMeat*1
+prop herderchest loot.refill=0
+note ledger The steward's ledger | THE STEWARD'S LEDGER - THE LAST NIGHT\n\nThe king will not leave. The rest of us go.\nThe lifts' cranks: one in the workshop by this hall. The cogs: in the granary bin (the rats will have it, they have everything).\nThe throne key: down in the treasury past the sunken gate. Orm says whoever wants it must swim for it.\nThe lake hall is reached by the third lift only.
+note workshopchest Workshop chest | The lower workshop's chest: chisels, a lamp - and an iron lift crank.
+loot workshopchest story:crank*1;Rope*2;Nail*6
+prop workshopchest loot.refill=0
+note granarybin Granary bin | The granary bin, gnawed through: old grain, and under it a bronze lift cog.
+loot granarybin story:cog*1;Seed_Grass*2
+prop granarybin loot.refill=0
+note decree The king's decree | BY ORM, KING UNDER THE MOUNTAIN\n\nI stay. My guardian stays with me. Whoever comes after: you may have the hoard, if you can sit where I sat - but my guardian will want a word.\n\nThe throne key is in the drowned treasury. Breathe at the bells.
+note slate The ferryman's slate | (chalked on a slate by the lake's shore)\n\nSunken gate: straight out from here, nine fathoms of rope. Two bells on the way - air under each.\nThe islet: west, past the gate. Mind the step, it's slippery.
+note drowned The drowned treasury | The drowned treasury's chest: gold gone green, a crown's worth of gems - and a key of black iron with a crown for a bow.
+loot drowned story:thronekey*1;TradeToken*4;CopperIngot*2
+prop drowned loot.refill=0
+note orm King Orm's last words | (on a plaque on the throne)\n\nHERE SAT ORM, LAST KING UNDER THE MOUNTAIN.\nWhoever lays his crown down on the stone may take what is behind the throne.\nMy guardian kept me company. Be kind to him if he lets you.
+note hoard The Delvers' hoard | The Delvers' hoard: titanium in bars, the plans for the ropeways that once ran from the mountain's top to the sea, a king's ransom in coin, and a lamp that never goes out.
+loot hoard TitaniumIngot*5;Blueprint_ZiplineTool*1;TradeToken*15;HeadLight*1;MetalIngot*4
+prop hoard loot.refill=0
+note niche Gate niche box | A box in a niche by the gate: offerings left by travellers who couldn't get in.
+loot niche Rope*2;Stone*3;Cooked_GenericMeat*1
+prop niche loot.refill=0
+note highbox High hall box | A box in the high hall: a spyglass case, rope, candles.
+loot highbox Rope*3;Glass*2;Plastic*1
+prop highbox loot.refill=0
+note jettybarrel Jetty barrel | A barrel on the jetty: planks and nails.
+loot jettybarrel Plank*6;Nail*8
+prop jettybarrel loot.refill=0
+note sunksledge Sunk sledge | A sledge that went through the ice off the beach: ore and scrap.
+loot sunksledge MetalOre*3;Scrap*3;CopperOre*1
+prop sunksledge loot.refill=0
+
+prop keystone1 obj.name=keystone1
+prop keystone1 beh.use=Take the keystone
+prop keystone1 if.use=!signal|ks1
+prop keystone1 on.use=message||A wedge of blue stone, heavier than it looks.\nhide|keystone1\ngive||story:keystone*1\nsignal||ks1\nsound||event:/exploring/utopia/metal_pickup
+prop keystone2 obj.name=keystone2
+prop keystone2 beh.use=Take the keystone
+prop keystone2 if.use=!signal|ks2
+prop keystone2 on.use=message||Behind the frozen fall, in the dark: the second keystone.\nhide|keystone2\ngive||story:keystone*1\nsignal||ks2\nsound||event:/exploring/utopia/metal_pickup
+prop socket1 obj.name=socket1
+prop socket1 beh.use=Set a keystone in the socket
+prop socket1 if.use=quest|4\ntake|story:keystone|1\n!signal|s1
+prop socket1 on.use=message||The keystone sinks into its socket with a click.\nshow|key1set\nsignal||s1\nsound||event:/exploring/temperence/selene/gate_keys
+prop socket1 else.use=message||A socket shaped for a wedge of stone.
+prop socket2 obj.name=socket2
+prop socket2 beh.use=Set a keystone in the socket
+prop socket2 if.use=quest|4\ntake|story:keystone|1\n!signal|s2\nsignal|s1
+prop socket2 on.use=message||The second keystone clicks home.\nshow|key2set\nsignal||s2\nsound||event:/exploring/temperence/selene/gate_keys
+prop socket2 else.use=message||A socket shaped for a wedge of stone. (The first socket first.)
+prop socket3 obj.name=socket3
+prop socket3 beh.use=Set a keystone in the socket
+prop socket3 if.use=quest|4\ntake|story:keystone|1\n!signal|s3\nsignal|s2
+prop socket3 on.use=message||The third keystone - and the mountain answers. The great gate shudders and sinks into the rock.\nshow|key3set\nsignal||s3\nopen|greatgate\nsound||event:/exploring/temperence/selene/gate_open
+prop socket3 else.use=message||A socket shaped for a wedge of stone. (The first two sockets first.)
+prop key1set obj.name=key1set
+prop key1set beh.hidden=1
+prop key2set obj.name=key2set
+prop key2set beh.hidden=1
+prop key3set obj.name=key3set
+prop key3set beh.hidden=1
+prop greatgate obj.name=greatgate
+prop greatgate beh.move=0,-8,0
+prop greatgate beh.moveTime=6
+prop greatgate beh.moveMode=switch
+prop lift1 obj.name=lift1
+prop lift1 beh.use=Fit the crank and ride the lift up
+prop lift1 if.use=has|story:crank|1
+prop lift1 on.use=message||The crank fits. You wind, the counterweight drops, and the cage rises up the dark shaft -\nsound||event:/exploring/utopia/lift_loop\nwait|6\nteleport|midhall\nmessage||- into the mid hall.
+prop lift1 else.use=message||A lift cage in a shaft. Its winding square is empty - it needs a crank.
+prop lift2 obj.name=lift2
+prop lift2 beh.use=Fit the cog and ride the lift up
+prop lift2 if.use=has|story:cog|1\nhas|story:crank|1
+prop lift2 on.use=message||The cog meshes, the crank turns, and up you go again, a long way -\nsound||event:/exploring/utopia/lift_loop\nwait|7\nteleport|highhall\nmessage||- to the high hall. Wind whistles through a window in the rock.
+prop lift2 else.use=message||The second lift's gear is missing a cog. The granary, the ledger said.
+prop lift3 obj.name=lift3
+prop lift3 beh.use=Ride the long lift down to the lake hall
+prop lift3 if.use=quest|12
+prop lift3 on.use=message||Down, and down, and down - past the gate's level, past the sea's level, into the cold -\nsound||event:/exploring/utopia/lift_loop\nwait|9\nteleport|lakeshore\nmessage||- a ledge on the shore of a black lake under the mountain.
+prop lift3 else.use=message||The long lift, all the way down. Read the king's decree first.
+prop thronelock obj.name=thronelock
+prop thronelock beh.use=Unlock the throne hall
+prop thronelock if.use=has|story:thronekey|1\n!signal|throneopen
+prop thronelock on.use=message||The black key turns. The doors of the throne hall slide apart - and something huge stands up beside the throne.\nsignal||throneopen\nopen|thronedoor\nshow|guardianmusic\nsound||event:/exploring/temperence/selene/gate_open
+prop thronelock else.use=message||A lock shaped like a crown. The throne key is in the drowned treasury.
+prop thronedoorL obj.name=thronedoor
+prop thronedoorL beh.move=0,0,1.3
+prop thronedoorL beh.moveTime=2
+prop thronedoorL beh.moveMode=switch
+prop thronedoorR obj.name=thronedoor
+prop thronedoorR beh.move=0,0,-1.3
+prop thronedoorR beh.moveTime=2
+prop thronedoorR beh.moveMode=switch
+prop guardian creature.count=1
+prop guardian creature.size=2.2
+prop guardian creature.health=4
+prop guardian creature.damage=2.5
+prop guardian creature.respawn=0
+prop guardian creature.zone=thronehall
+prop guardian tint.color=#6a6a6a
+prop guardian tint.amount=0.6
+prop guardian on.defeat=hide|guardianmusic\nmessage||The stone guardian kneels, slowly, and is still - a statue again, beside its king's empty throne.
+prop guardianmusic obj.name=guardianmusic
+prop guardianmusic beh.hidden=1
+prop guardianmusic sound.event=event:/music/music_boss
+prop guardianmusic sound.volume=0.6
+prop guardianmusic zone.radius=30
+prop throne obj.name=throne
+prop throne beh.use=Lay King Orm's crown down on the stone
+prop throne if.use=quest|20\n!signal|crownlaid
+prop throne on.use=message||You lift the crown off the throne and lay it on the stone at its foot - and as you let go, you understand it is yours to carry now. Behind the throne, the grate sinks into the floor.\nsignal||crownlaid\ngive||story:crown*1\nopen|hoardgrate\nsound||event:/exploring/temperence/selene/gate_keys
+prop throne else.use=message||King Orm's throne, his crown on its seat. Read the plaque.
+prop hoardgrate obj.name=hoardgrate
+prop hoardgrate beh.move=0,-3.2,0
+prop hoardgrate beh.moveTime=3
+prop hoardgrate beh.moveMode=switch
+
+prop gatehall zone.id=gatehall
+prop gatehall zone.radius=10
+prop gatehall zone.repeat=never
+prop gatehall zone.message=The Delvers' gate: iron, as tall as a house, a rune carved over it, three empty sockets - and two white bears asleep in the forecourt's drifts. Were asleep.
+prop gatebears creature.count=2
+prop gatebears creature.respawn=0
+prop gatebears creature.zone=gatehall
+prop entryhall zone.id=entryhall
+prop entryhall zone.radius=6
+prop entryhall zone.message=The entry hall: stone benches, a desk with a ledger, a lift cage in the corner - and the cold breath of the mountain's inside.
+prop midhall obj.name=midhall
+prop midhall zone.id=midhall
+prop midhall zone.radius=6
+prop midhall zone.message=The mid hall: a balcony cut through the mountain's face, the sea far below.
+prop granary zone.id=granary
+prop granary zone.radius=6
+prop granary zone.repeat=never
+prop granary zone.message=The granary - and it squeaks. Rats, everywhere, fat on three hundred years of grain!
+prop rats creature.count=4
+prop rats creature.respawn=0
+prop rats creature.zone=granary
+prop highhall obj.name=highhall
+prop highhall zone.id=highhall
+prop highhall zone.radius=6
+prop highhall zone.message=The high hall, near the top of the world: a long window in the rock, the king's decree on the wall.
+prop lakeshore obj.name=lakeshore
+prop lakeshore zone.id=lakeshore
+prop lakeshore zone.radius=5
+prop lakeshore zone.message=The lake hall: black water under a roof of stone, columns standing in it, and far out to the west, lights on an islet.
+prop sunkgate zone.id=sunkgate
+prop sunkgate zone.radius=5
+prop sunkgate zone.message=The sunken gate: a stone arch on the lake floor, and beyond it a room with a chest.
+prop bell1 zone.id=bell1
+prop bell1 zone.radius=2.5
+prop bell1 zone.repeat=1
+prop bell1 zone.air=1
+prop bell2 zone.id=bell2
+prop bell2 zone.radius=2.5
+prop bell2 zone.repeat=1
+prop bell2 zone.air=1
+prop bell1bubbles atmo.particles=bubbles
+prop bell1bubbles zone.radius=3
+prop bell2bubbles atmo.particles=bubbles
+prop bell2bubbles zone.radius=3
+prop islet zone.id=islet
+prop islet zone.radius=2.5
+prop islet zone.message=The islet in the lake: a stair up to two great doors, a lock shaped like a crown.
+prop thronehall zone.id=thronehall
+prop thronehall zone.radius=3
+prop thronehall zone.repeat=never
+prop thronehall zone.message=The throne hall - and the guardian of stone comes down off its plinth!
+prop entrydark atmo.fog=#0a0c10
+prop entrydark atmo.fogAmount=0.6
+prop entrydark atmo.light=#2a3040
+prop entrydark atmo.lightAmount=0.7
+prop entrydark zone.radius=14
+prop middark atmo.fog=#0a0c10
+prop middark atmo.fogAmount=0.5
+prop middark atmo.light=#2a3040
+prop middark atmo.lightAmount=0.6
+prop middark zone.radius=14
+prop lakedark atmo.fog=#04080e
+prop lakedark atmo.fogAmount=0.6
+prop lakedark atmo.light=#1a3048
+prop lakedark atmo.lightAmount=0.75
+prop lakedark zone.radius=30
+prop highwind sound.event=event:/amb/temperance
+prop highwind sound.volume=0.6
+prop highwind zone.radius=12
+prop snow atmo.particles=snow
+prop snow zone.radius=50
+prop goats creature.count=3
+prop whale creature.count=1
+prop dolphins creature.count=2
+
+quest title=The Delvers' Hoard
+quest intro=A mountain the Delvers hollowed out and sealed behind them. The rune over the great gate says how to open it.
+# Chapter 1 - the gate
+step reach|gatehall|1|Walk up to the great gate in the south face
+step read|The gate rune|1|Read the rune carved over the gate
+step kill|Polar bear|2|Drive off the bears sleeping in the forecourt
+step collect|story:keystone|3|Bring the three keystones: from the ice ledge, behind the frozen falls, from the herder
+step reach|entryhall|1|Set the three keystones in their sockets and enter the mountain
+step read|The steward's ledger|1|Read the steward's ledger in the entry hall
+# Chapter 2 - the lifts
+step collect|story:crank|1|Take the lift crank from the lower workshop
+step reach|midhall|1|Ride the first lift up to the mid hall
+step kill|Rat|4|Clear the rats out of the granary
+step collect|story:cog|1|Take the bronze cog from the granary bin
+step reach|highhall|1|Ride the second lift up to the high hall
+step read|The king's decree|1|Read King Orm's decree
+# Chapter 3 - the lake
+step reach|lakeshore|1|Ride the long lift down to the lake hall
+step read|The ferryman's slate|1|Read the ferryman's slate on the shore
+step reach|sunkgate|1|Dive to the sunken gate (breathe at the bells)
+step collect|story:thronekey|1|Take the throne key from the drowned treasury
+step reach|islet|1|Swim to the islet in the lake
+# Chapter 4 - the throne hall
+step reach|thronehall|1|Unlock the throne hall's doors and go in
+step kill|Bear|1|Face King Orm's stone guardian
+step read|King Orm's last words|1|Read the plaque on the throne
+step collect|story:crown|1|Lay King Orm's crown down on the stone - the grate behind the throne sinks
+step open|The Delvers' hoard|1|Open the Delvers' hoard
+quest done=The mountain is open, its lifts running, its king's crown laid down and his guardian at rest. The Delvers' hoard is yours - and so, if you want it, is a mountain.
+quest reward=TitaniumIngot*2;MetalIngot*4;Wool*3
+
+save Hollow Mountain

@@ -1,0 +1,11 @@
+# Guide pictures of Bramblehive Knoll (CIPlay bramblehive_knoll_pics): Raft's camera, late afternoon, calm
+island Bramblehive Knoll
+hour 17
+weather Calm
+at 6.3 26
+wait 3
+picture bramblehive_knoll_island 48 26 -42 0 6 0
+picture bramblehive_knoll_terraces -22 12 -26 0 7 0
+picture bramblehive_knoll_shed 16 7 22 4 4 34
+picture bramblehive_knoll_hives 6 9 -27 0 5.5 -21
+picture bramblehive_knoll_summit -10 15 8 0 12.5 0

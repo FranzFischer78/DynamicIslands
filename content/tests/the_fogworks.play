@@ -1,0 +1,65 @@
+# The Fogworks (CIPlay the_fogworks): the plan The Rainmakers' fourth island, quest "The Fog Shift"
+# The bay (floor -2.5 m) on the south side: the street boardwalk x -36..36 z -46.5..-43.5 (deck 2 m), the dock x -1.5..1.5
+# z -72..-46.5, a path north to the yard cut through the bank; halls on the yard at z -14..-9.5: the pump hall x -32..-26, the control
+# room -12..-7.5, the condenser 6..12, the boiler house 24..30; the towers at x -30 / 30, z -62, the watch mast -30 -55.5.
+island The Fogworks
+offset -0.0582 13.6067
+expect step 0
+expect title The Fog Shift
+wait 5
+expect hidden controlsafe
+zone town_dock
+expect step 1
+read Fogworks bulletin
+expect step 2
+zone pump_hall
+expect step 3
+use fogwire
+expect message not set as the bulletin says
+use valveA
+use valveB
+use fogwire
+expect message not set as the bulletin says
+use valveB
+use valveC
+use fogwire
+expect story foglines 1
+expect step 4
+read Shift chief's notes
+expect step 5
+zone condenser
+wait 2
+kill Rat
+expect step 6
+code safekeypad 1111 wrong
+code safekeypad 3157
+expect shown controlsafe
+open Control room safe
+wait 3
+expect item Blueprint_EngineControls 1
+expect step 8
+zone tower_top
+expect step 9
+open Tower cabin chest
+wait 3
+expect item Blueprint_MetalDetector 1
+expect step 11
+open Founders' Day crate
+expect message NOT TO BE OPENED
+use fogradio
+expect story confession 1
+expect step 12
+open Founders' Day crate
+wait 3
+expect item Blueprint_Firework 1
+expect item Blueprint_ZiplineBase 1
+expect story boilerkey 1
+expect step 15
+open Boilerman's locker
+expect message padlocked
+use mattiscage
+expect survivor rainmakers_mattis
+expect story boilerkey 0
+open Boilerman's locker
+expect item MetalIngot 4
+expect done

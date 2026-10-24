@@ -1,0 +1,38 @@
+# Vaporhold Reservoir (CIPlay vaporhold_reservoir): the plan The Rainmakers' fifth island, quest "The Valve Tower"
+# The lake (floor -7 m, r~19) in the embankment ring; the valve tower at 0 0 (platform 4 m), the glass bridge from the
+# south bank (0 -21); the pump hall x 7..13 z -3..1.5 on the lake floor; the crest walk at z -29 (4.5 m).
+island Vaporhold Reservoir
+offset 0 0
+expect step 0
+expect title The Valve Tower
+wait 5
+expect hidden valvewheelobj
+expect shown floodgate
+zone embankment
+expect step 1
+read Surveyors' note
+open Surveyors' toolbox
+expect item MetalDetector 1
+expect item Shovel 1
+dig 0
+expect story valvewheel 1
+expect step 2
+zone valve_tower
+expect step 3
+open Pump hall store
+expect message flood gate is shut
+use valvepost
+expect story valvewheel 0
+expect story valveopen 1
+expect shown valvewheelobj
+expect hidden floodgate
+expect step 4
+zone pump_hall
+expect step 5
+open Pump hall store
+wait 3
+expect item Blueprint_WaterTank 1
+expect item Blueprint_Storage_Large 1
+expect step 10
+read Dagny's letter to the town
+expect done

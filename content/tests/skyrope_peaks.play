@@ -1,0 +1,18 @@
+# Play test of Skyrope Peaks (CIPlay skyrope_peaks, in a test world 'CI ...'): a flying island (58 m up; heights count
+# from the island's own water line). No quest: the meadow, up the ladders to the east peak, over the rope bridge to the
+# west peak's cabin and back, the two chests, the screecher. Points as in its recipe.
+island Skyrope Peaks
+offset 0 0
+expect animals Screecher 1
+wait 3
+kill Screecher
+at 0 -10
+expect height 6.7
+climb 13 -7.15 h=6.7
+expect stand 13 -5 h=14 below=15.5
+at 15 1 h=14
+open Chest on the east peak
+# Over the bridge to the west peak
+walk 9 0 to 4 0 to -4 0 to -9.5 0 h=16 below=18
+at -15 0 h=16
+open Chest in the peak cabin

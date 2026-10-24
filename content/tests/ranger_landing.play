@@ -1,0 +1,34 @@
+# Ranger Landing (CIPlay ranger_landing): the station on stilts at -12 -26 (deck 4 m), the trail's three marks, the
+# boat shed at -5 18 (4 m).
+island Ranger Landing
+# RESIZE 10-24: the recipe moved this island's old content by 0 -21.5; the points below are in the old frame
+offset 0 21.5
+expect step 0
+expect title The Forgotten Shore
+expect hidden track2
+zone station
+expect step 1
+read Oda's job board
+expect step 2
+zone track_1
+expect shown track2
+zone track_2
+zone track_3
+expect step 3
+expect hidden boatshed
+open Ranger's stash
+open Pilot's locker
+open Ruin crate
+wait 2
+expect step 4
+use winch
+expect story winchpart 0
+expect shown boatshed
+expect step 5
+open Ranger boat shed
+wait 3
+expect step 7
+expect story rangerkey 1
+read Ranger log 3
+expect done
+expect animals Chicken 3

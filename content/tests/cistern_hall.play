@@ -1,0 +1,44 @@
+# Cistern Hall (CIPlay cistern_hall): the intake, the ledger, the smelter workshop (electric smelter), the valve
+# gallery's air, the valve log (the evidence: the plan's rookery rule and this island's end), the gallery chest
+# (advanced biofuel extractor), the old pump and its camera, its plate, the pump house locker (advanced anchor), the
+# drawer; the treasure.
+# offset 0 0 is a placeholder: phase 2 sets it from the recipe's save log (PLAY_FORMAT: Coordinates).
+island Cistern Hall
+offset 0 0
+expect step 0
+expect title The Evidence
+zone intake
+expect step 1
+read Cistern ledger
+expect step 2
+open Smelter workshop
+wait 3
+expect step 3
+zone valve_gallery
+air valve_gallery
+air gallery_air2
+expect step 4
+read Valve log
+expect step 5
+open Valve gallery chest
+wait 3
+expect step 6
+zone old_pump
+wait 6
+expect step 7
+read Builder's plate
+expect step 8
+open Pump house locker
+wait 3
+expect step 9
+zone aqueduct_hill
+expect step 10
+read Waterman's diary
+expect step 11
+open Records van's crate
+wait 3
+expect step 12
+open Councillor's drawer
+wait 3
+expect done
+dig

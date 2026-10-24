@@ -1,0 +1,76 @@
+# Play test of Glacier Station (CIPlay glacier_station, in a test world 'CI ...'). Points as in its recipe: the village on
+# the east shore (3.4 m), the observatory on the peak (32 m), the crevasse in the west plateau, the reactor basin north.
+# Quest "The Long Night" (20 steps): village, log, tool crate, fuse 1, the domes, the mast, reactor basin, the dead
+# controls (3 pages), observatory, its sign, locker, fuse 2, the crevasse's head, its end, the Queen, frozen crate,
+# fuse 3, the reactor restarted (7 pages), its vault, the chimneys. (The basin is reached as the player is put by its
+# controls.)
+island Glacier Station
+expect step 0
+expect title The Long Night
+
+# The station village: the log, the tool crate's fuse
+walk 88 -12 to 74 -12 h=3.4
+zone village
+expect step 1
+read Station log
+expect step 2
+open Tool crate
+expect story fuse 1
+wait 1
+expect step 4
+
+# Among the domes, up to the radio mast
+zone domes
+expect step 5
+zone mast
+expect step 6
+
+# The reactor basin north of the village: dead without three fuses, its vault sealed
+use controls
+expect message fuse sockets stand empty
+wait 1
+expect step 8
+open Reactor vault
+expect message sealed
+expect story fuse 1
+
+# Up to the observatory along the trail and the peak's eased south flank
+walk 72 -20 to 60 -30 to 40 -30 to 20 -30 to 10 -30 to 0 -40 to -10 -40 to -10 -30 to -10 -20 to -10 -17 h=29.3
+zone observatory
+expect step 9
+read Observatory
+expect step 10
+open Observatory locker
+expect story fuse 2
+wait 1
+expect step 12
+
+# Down to the crevasse: the Polar Bear Queen in her den, Petrov's frozen crate
+walk -10 -30 to -25 -24 to -40 -20 to -60 0 to -70 8 h=8.3
+zone crevassehead
+expect step 13
+walk -70 8 to -78 -6 to -86 -20 to -91 -30 h=4.5
+zone ravine
+expect message the Queen
+expect step 14
+kill Polar bear
+expect animals Polar bear 0
+expect step 15
+open Frozen crate
+expect story fuse 3
+wait 1
+expect step 17
+
+# Back to the basin: the reactor restarted, its pool glows, the vault opens
+use controls
+expect message Three fuses click home
+expect story fuse 0
+expect shown reactorglow
+wait 1
+expect step 18
+open Reactor vault
+wait 2
+expect item Blueprint_ElectricPurifier 1
+expect step 20
+zone chimneys
+expect done

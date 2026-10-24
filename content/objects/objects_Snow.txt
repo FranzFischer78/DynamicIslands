@@ -1,0 +1,29 @@
+# Raft's objects the randomizer builds with (CIMeasureProps, raft=1.1.01)
+# prop	<name>	<scene>	<size x,y,z>	<centre x,y,z>	<bottom below the pivot>	<solid colliders>   (at the scale the object spawns with)
+# cave	<name>	<axis of the passage 0=x 2=z>	<floor above the pivot>	<headroom>	<width>	<open at +axis>	<open at -axis>	<a point in the passage, from the pivot>	<room from it towards +axis>	<and towards -axis> (99 = open)
+prop	TP_Moontown_Barrel01		0.699,1.135,0.699	0,0.567,0	-0.001	1
+prop	TP_Moontown_Barrel03		0.699,1.135,0.699	0,0.567,0	-0.001	1
+prop	TP_Moontown_Barrel04		0.707,1.12,0.707	0,0.562,-0.004	0.002	1
+prop	TP_BigRock02		21.462,20.289,19.41	1.736,2.541,1.532	-7.603	1
+prop	TP_BigRock03		14.823,19.841,11.626	-0.726,0.814,-0.492	-9.107	1
+prop	TP_BigRock04		41.991,37.087,35.914	-0.164,4.176,-0.813	-14.367	1
+prop	TP_IceShore_Small1		582.597,50.56,470.899	-10.19,-23.654,-25.977	-48.934	1
+prop	TP_Icicles01		0.482,0.551,0.123	0,-0.192,0	-0.468	1
+prop	TP_Icicles02		0.632,0.758,0.123	0,-0.296,0	-0.675	1
+prop	TP_Icicles04		1.146,1.112,0.214	0,-0.464,0	-1.02	1
+prop	TP_Icicles06		0.736,0.558,0.08	0,-0.24,0	-0.519	1
+prop	TP_PineTreeSnowy		12.748,24.014,13.169	0.031,11.351,0.051	-0.656	1
+prop	TP_Moontown_SealedCrate01		0.978,0.761,0.892	0,0.379,0.008	-0.001	1
+prop	TP_Moontown_SealedCrate02		1.593,0.916,1.059	0,0.458,0.009	0	1
+prop	TP_Moontown_SealedCrate03		2.057,1.095,1.183	0,0.547,0.008	-0.001	1
+prop	TP_SmallRock01		17.865,13.391,20.823	1.518,2.893,-0.61	-3.803	1
+prop	TP_SmallRock03		9.467,13.563,11.046	0.13,0.379,-0.174	-6.403	1
+prop	TP_SnowDrift01		5.661,1.548,6.561	0.346,0.772,-0.097	-0.002	1
+prop	TP_SnowDrift02		2.483,1.247,2.715	-0.129,0.623,-0.048	0	1
+prop	TP_SnowDrift03		1.294,0.265,1.447	-0.09,0.132,0.046	-0.001	1
+prop	TP_SnowDrift04		0.932,0.179,1.06	0.003,0.089,-0.04	0	1
+prop	TP_StalagmiteCluster01_Snow		6.047,3.984,4.689	-0.245,1.992,0.109	0	1
+prop	TP_StalagmiteCluster03_Snow		7.584,7.681,6.674	-0.338,3.84,-0.045	0	1
+prop	TP_Moontown_TarpCrate01		1.743,1.314,1.407	-0.001,0.642,-0.001	-0.015	1
+prop	TP_Moontown_TarpCrate02		2.736,1.985,2.023	0.001,0.991,0.001	-0.002	1
+prop	TP_Moontown_TarpCrate03		4.122,2.52,2.552	0.002,1.258,0	-0.002	1

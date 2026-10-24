@@ -1,0 +1,277 @@
+# Colossus of the Strait - an island of the library's plan Relic of the Seventh Tide (the giant across the water)
+# Two forested headlands with a strait between them, and across the strait a stone giant: its legs Varuna Point's
+# motherlode pillars, one on each headland, its body a sandstone chamber laid from leg to leg over the water, a collar
+# of Tangaroa's dome base on its shoulders and Tangaroa's founder statue, made huge, as its head. A heel room at the
+# foot of the west leg, its keycard door and Tangaroa's lift inside; the Syndicate's camp on the west headland. Quest
+# "The Giant's Heart" (14 steps): the headland, the camp orders, the dogs, the strongbox and its keycard, the heel door,
+# the lift, the chest chamber, the builders' inscription, the guardian, the gear wheel with the three gears, the head
+# and its eyes, the crown vault and Kett's note.
+#
+# Built by the recipe player (CIRecipe colossus_of_the_strait) through the editor's own operations.
+include lib_sea
+include lib_features
+new
+# (nature: two forest headlands at Raft's density - trees, bushes, a few rocks; three reefs)
+gen Trees=0.35 Bushes=0.75 Rocks=0.6 Harvest=0.3 BeachThings=0.3
+gen Seed=9601 Radius=90 Height=9 Roughness=0.35 Peaks=2 Shape=0 Style=3 PeakShape=0.4 Cliffs=0.5 BeachWidth=0.6
+gen Water=0.5 SeaRocks=0.7 SeaFinds=0.2 Sunken=0.6 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the two headland tops at 5 m, the strait cut through the middle (north to south), the landing path on the
+# west beach -----------------------------------------------------------------------------------------------------------
+brush flatten at -36 0 r=26 s=20 frames=260 h=5
+brush flatten at 36 0 r=26 s=20 frames=260 h=5
+brush flatten from 0 -96 to 0 96 r=5 s=20 frames=400 h=-4
+brush flatten from -84 0 to -66 0 r=4 s=20 frames=100 h=1.2
+brush smooth from -68 0 to -58 0 r=4 s=6 frames=30
+origin
+posts off
+clear from -84 0 to -14 0 r=4
+clear at -36 -9 r=9
+clear at -14 0 r=10
+clear at 14 0 r=8
+clear at 34 -14 r=6
+
+# --- The Syndicate's camp on the west headland: two tents, the orders on a crate, their strongbox, their dogs ---------
+place Zone_Trigger westhead at -52 0 h=5
+place Balboa_DecorationPrefabBase_SimpleTent - at -40 -12 ground sit yaw=20
+place Balboa_DecorationPrefabBase_SimpleTent - at -32 -13 ground sit yaw=-15
+place "Box Big" ordersdesk at -38 -5 ground sit yaw=10
+place Note_Paper orders at -38 -5 h=6.4 sit drop yaw=15
+place Loot_Chest synbox at -30 -7 ground sit yaw=200
+place "Box Small" - at -29 -9 ground sit
+place Placeable_Lantern_Metal - at -29 -9 h=6.2 sit drop
+place Zone_Trigger camp at -36 -6 h=5
+place Creature_Hyena dogs at -34 -14 ground
+
+# --- The colossus's legs: a motherlode pillar on each headland, sandstone-tinted, its top at 17.8 ---------------------
+place VP_MotherlodePillar1_Stage1 legs at -12 0 h=5 sit scale=0.6
+place VP_MotherlodePillar1_Stage1 legs at 12 0 h=5 sit scale=0.6 yaw=180
+prop legs tint.color=#c9a77a
+prop legs tint.amount=0.6
+
+# --- The heel room against the west leg: tier 3 sandstone, the keycard door in its west wall, Tangaroa's lift inside --
+push at -25.5 -2.25 h=5.1
+for fx 0.75 8.25 1.5
+for fz 0.75 3.75 1.5
+place Block_Floor_Tier3 heelfloor at $fx $fz y=0.05
+place Block_Floor_Tier3 heelroof at $fx $fz y=4.05
+next
+next
+for fx 0.75 8.25 1.5
+place Block_Wall_Tier3 heelwalls at $fx 0 y=0.2 sy=1.5
+place Block_Wall_Tier3 heelwalls at $fx 4.5 y=0.2 sy=1.5
+next
+place Block_Wall_Tier3 heelwalls at 0 0.75 y=0.2 yaw=90 sy=1.5
+place Block_Wall_Tier3 heelwalls at 0 3.75 y=0.2 yaw=90 sy=1.5
+for fz 0.75 3.75 1.5
+place Block_Wall_Tier3 heelwalls at 9 $fz y=0.2 yaw=90 sy=1.5
+next
+for px 0 9 3
+place Block_Pillar_Tier3 heelpillars at $px 0 y=0.2 sy=1.5
+place Block_Pillar_Tier3 heelpillars at $px 4.5 y=0.2 sy=1.5
+next
+place Block_Wall_Door_Tier3 heelwalls at 0 2.25 y=0.2 yaw=90 sy=1.5
+place PlantationDoor heeldoor at 0 2.25 y=1.32 yaw=90
+place Elevator lift at 5.6 2.25 y=0.05 sit yaw=0
+place Placeable_Lantern_Metal - at 1 0.8 y=0.05 sit
+pop
+place Zone_Trigger heelzone at -28 0 h=5
+prop heelwalls tint.color=#c9a77a
+prop heelpillars tint.color=#e6d3b0
+prop heelroof tint.color=#a8875e
+prop heelfloor tint.color=#b8a58a
+
+# --- The body: the chest chamber laid from leg to leg over the strait (24 x 9 m, floor at 18), a hole in its roof at
+# the back for the ladder up to the head ------------------------------------------------------------------------------
+push at -12 -4.5 h=18
+for fx 0.75 23.25 1.5
+for fz 0.75 8.25 1.5
+place Block_Floor_Tier3 chestfloor at $fx $fz y=0.05
+next
+for fz 0.75 6.75 1.5
+place Block_Floor_Tier3 chestroof at $fx $fz y=4.05
+next
+next
+for fx 0.75 18.75 1.5
+place Block_Floor_Tier3 chestroof at $fx 8.25 y=4.05
+next
+for fx 21.75 23.25 1.5
+place Block_Floor_Tier3 chestroof at $fx 8.25 y=4.05
+next
+for fx 0.75 23.25 1.5
+place Block_Wall_Tier3 chestwalls at $fx 0 y=0.2 sy=1.5
+place Block_Wall_Tier3 chestwalls at $fx 9 y=0.2 sy=1.5
+next
+for fz 0.75 8.25 1.5
+place Block_Wall_Tier3 chestwalls at 0 $fz y=0.2 yaw=90 sy=1.5
+place Block_Wall_Tier3 chestwalls at 24 $fz y=0.2 yaw=90 sy=1.5
+next
+for px 0 24 3
+place Block_Pillar_Tier3 chestpillars at $px 0 y=0.2 sy=1.5
+place Block_Pillar_Tier3 chestpillars at $px 9 y=0.2 sy=1.5
+next
+# stone ribs across the body every 3 m: under the floor (it spans 24 m from leg to leg) and under the roof inside
+for bx 1.5 22.5 3
+for fz 0.75 8.25 1.5
+place Block_Wall_Tier3 chestribs at $bx $fz y=-0.885 yaw=90 sy=0.3
+next
+place Block_Wall_Tier3 chestribs at $bx 0.9 y=3.115 yaw=90 sy=0.3 sx=0.8
+for fz 2.25 6.75 1.5
+place Block_Wall_Tier3 chestribs at $bx $fz y=3.115 yaw=90 sy=0.3
+next
+place Block_Wall_Tier3 chestribs at $bx 8.1 y=3.115 yaw=90 sy=0.3 sx=0.8
+next
+# inside: the lift's top car, the inscription, the gear wheel on the back wall, lanterns; the ladder through the hole
+place Elevator liftdown at 3 4.2 y=0.05 sit yaw=90
+place Note_Sign inscription at 9 8.5 y=0.05 sit yaw=180
+place "Box Big" - at 15 8.2 y=0.05 sit
+place TP_Selene_DoorCrankWheel gearwheel at 15 8.75 y=1.73 sit yaw=180
+place Placeable_Lantern_Metal - at 12 0.6 y=0.05 sit
+place Placeable_Lantern_Metal - at 23.4 4.5 y=0.05 sit
+place LandmarkLadder_6m headladder at 20.25 8.7 y=0.05 sit yaw=180
+# the roof: the collar (the dome base), the head (the founder statue), the eyes (two floodlights, dark till the gears
+# turn), the crown vault and Kett's note
+place Dome_Base_1 collar at 12 4.5 y=4.05 sit sx=0.62 sz=0.26
+place TangaroaFounderStatue head at 12 4.5 y=4.1 sit scale=1.8
+place RT_Floodlight eyes at 10.5 0.5 y=4.1 sit yaw=180
+place RT_Floodlight eyes at 13.5 0.5 y=4.1 sit yaw=180
+place Loot_Chest crownvault at 4 2.5 y=4.1 sit yaw=90
+place "Box Small" - at 4 5 y=4.1 sit
+place Note_Paper kettnote at 4 5 y=5.4 sit drop yaw=20
+place Placeable_Lantern_Metal headcam at 21.5 1 y=4.1 sit
+pop
+place Zone_Trigger liftarrive at -6 0 h=18.3
+place Zone_Trigger chestzone at 1 0 h=18.3
+place Zone_Trigger headtop at 8.25 3.8 h=22.4
+place Zone_Trigger headzone at 4 -1 h=22.4
+prop chestwalls tint.color=#c9a77a
+prop chestpillars tint.color=#e6d3b0
+prop chestribs tint.color=#c9a77a
+prop chestroof tint.color=#a8875e
+prop chestfloor tint.color=#b8a58a
+prop collar tint.color=#a8874e
+prop head tint.color=#c9a77a
+prop head tint.amount=0.6
+place Creature_MamaBear guardian at 3 0 h=18.4
+
+# --- The east headland: the trading post (a store), things to gather; reefs in the strait ---------------------------
+store tradepost at 34 -14 ground
+scatter "Pickup_Landmark_PineappleLandmark" 2 at 40 18 r=10 seed=9611 free=3
+scatter "Pickup_Landmark_Flower_Blue" 2 at -50 22 r=10 seed=9612 free=3
+call dirt x=44 z=-30 r=8 n=3 seed=9613
+call shallows x=0 z=-56 r=9 deep=3 n=1 seed=9621
+call shallows x=0 z=50 r=9 deep=3 n=1 seed=9622
+call shallows x=0 z=-84 r=8 deep=3 n=1 seed=9623
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Colossus of the Strait
+info author=Custom Islands
+info description=Two forested headlands and a stone giant standing across the strait between them - legs of Varuna's motherlode pillars, a sandstone chest chamber over the water, Tangaroa's founder statue as its head. The sixth island of Relic of the Seventh Tide.
+island on.arrive=message||A giant of stone stands across the strait, one foot on each headland. Smoke rises from tents on the west side.
+
+story heelopen|Heel door opened|Placeable_Lantern_Metal|The keycard opened the door in the colossus's heel.
+story heelride|Lift ride|Placeable_Lantern_Metal|You rode the lift up the colossus's leg.
+story eyeslit|The colossus's eyes|Placeable_Lantern_Metal|The three gears turned and the giant's eyes lit.
+story kettshat|Kett's hat|Placeable_PaperBundle|Professor Kett's battered field hat. She left it for you on purpose.
+
+note orders Syndicate camp orders | SYNDICATE - FIELD ORDERS, COLOSSUS SITE\n\nThe woman Kett got into the heel. She has the gears; we have the door's keycard - it stays in the strongbox. Dogs stay loose round the camp.\n\nWhen she comes out, take the gears. The boss wants the Engine running by the seventh tide.
+note synbox Syndicate strongbox | The Syndicate's strongbox: the heel door's keycard, some trade tokens and scrap.
+loot synbox story:raft-Tangaroa_KeyCard*1;TradeToken*3;Scrap*3
+prop synbox loot.refill=0
+note inscription Builders' inscription | WE, THE BUILDERS OF THE STRAIT, SET THE GIANT TO WATCH THE ENGINE.\n\nHis heart turns on three gears, the gears of the tides. Set them in his wheel and he will open his eyes and look where the Engine sleeps.\n\nA guardian keeps his chest. It does not sleep.
+note crownvault Crown vault | The crown vault: the builders' titanium, and on top, a battered field hat with a note pinned to it.
+loot crownvault story:kettshat*1;TitaniumIngot*3;TradeToken*6;MetalIngot*3
+prop crownvault loot.refill=0
+prop crownvault if.open=signal|eyes
+prop crownvault else.open=message||The vault's lid will not move. It is locked to the giant's heart.
+note kettnote Kett's note | Whoever you are - you have been one island behind me since the museum. Thank you for the gears.\n\nThe giant looks where the Engine sleeps. I went on alone. Follow the light.\n\n- I. K.
+
+prop heeldoor obj.name=heeldoor
+prop heeldoor on.use=hide|\ngive||story:heelopen*1\nmessage||The reader blinks green and the heel door swings away. Inside: a lift in the giant's foot.
+prop lift obj.name=lift
+prop lift beh.use=Ride the lift up the leg
+prop lift on.use=message||The lift shudders and climbs through the giant's leg.\nsound||event:/exploring/utopia/lift_pull\nwait|4\nteleport|liftarrive\ngive||story:heelride*1
+prop liftdown obj.name=liftdown
+prop liftdown beh.use=Ride the lift down
+prop liftdown on.use=message||Down through the leg.\nsound||event:/exploring/utopia/lift_pull\nwait|4\nteleport|heelzone
+prop liftarrive obj.name=liftarrive
+prop liftarrive zone.id=lift_arrive
+prop liftarrive zone.radius=2
+prop heelzone obj.name=heelzone
+prop heelzone zone.id=heel_door
+prop heelzone zone.radius=4
+prop heelzone zone.message=A door in the giant's heel - a Tangaroa keycard door, its light red.
+
+prop westhead zone.id=west_headland
+prop westhead zone.radius=6
+prop westhead zone.message=The west headland. Across the strait the giant stands with a foot on each side - and there are tents below it.
+prop camp zone.id=syndicate_camp
+prop camp zone.radius=8
+prop camp zone.repeat=never
+prop camp zone.message=Syndicate dogs! They come out from between the tents.
+prop dogs creature.count=4
+prop dogs creature.respawn=0
+prop dogs creature.zone=syndicate_camp
+prop dogs tint.color=#c8a46a
+prop dogs tint.amount=0.5
+
+prop chestzone zone.id=chest_chamber
+prop chestzone zone.radius=7
+prop chestzone zone.repeat=never
+prop chestzone zone.message=The chest chamber. Something big and grey rises off the floor - a bear of stone!
+prop guardian creature.count=1
+prop guardian creature.respawn=0
+prop guardian creature.zone=chest_chamber
+prop guardian creature.health=8
+prop guardian creature.damage=1.5
+prop guardian boss.phase=0.4
+prop guardian boss.summon=3
+prop guardian boss.summonKind=Creature_Bear
+prop guardian tint.color=#8a8478
+prop guardian tint.amount=0.7
+prop guardian on.defeat=signal||guardian\nmessage||The stone bear crumbles. The chamber is quiet - and on the back wall, a wheel with three empty hubs.
+
+prop gearwheel obj.name=gearwheel
+prop gearwheel beh.use=Set the three gears in the wheel
+prop gearwheel if.use=signal|guardian\ntake|story:gear1|1\ntake|story:gear2|1\ntake|story:gear3|1
+prop gearwheel else.use=message||A wheel with three empty hubs, teeth cut like waves. The guardian - and the three gears of the tides - first.
+prop gearwheel on.use=signal||eyes\nshow|eyes\nshow|headladder\ngive||story:eyeslit*1\nsound||event:/exploring/obstacles/keypad/keypad_correct\nmessage||The three gears bite and the wheel turns. Far above, the giant's eyes light - and a ladder drops through the hole in the roof.
+prop eyes obj.name=eyes
+prop eyes beh.hidden=1
+prop headladder obj.name=headladder
+prop headladder beh.hidden=1
+prop headladder beh.use=Climb to the giant's head
+prop headladder on.use=teleport|headtop
+prop headtop obj.name=headtop
+prop headzone zone.id=head
+prop headzone zone.radius=4
+prop headzone zone.repeat=never
+prop headzone zone.message=The giant's eyes blaze out over the sea - at a ring of rock on the horizon. The Engine.
+prop headzone on.enter=camera|headcam||6|40
+prop headcam obj.name=headcam
+
+quest title=The Giant's Heart
+quest intro=A stone giant across a strait, and a camp at its feet. Go up onto the west headland.
+step reach|west_headland|1|Go up onto the west headland
+step read|Syndicate camp orders|1|Read the Syndicate's camp orders
+step kill|Hyena|4|Deal with the Syndicate's dogs
+step open|Syndicate strongbox|1|Open the Syndicate strongbox
+step reach|heel_door|1|Go to the door in the giant's heel
+step collect|story:heelopen|1|Open the heel door with the keycard
+step collect|story:heelride|1|Ride the lift up the giant's leg
+step reach|chest_chamber|1|Enter the giant's chest chamber
+step read|Builders' inscription|1|Read the builders' inscription
+step kill|Mama bear|1|Defeat the stone guardian
+step collect|story:eyeslit|1|Set the three gears in the wheel
+step reach|head|1|Climb up to the giant's head
+step open|Crown vault|1|Open the crown vault
+step read|Kett's note|1|Read Kett's note
+quest done=The giant looks out to sea, at the Engine. Kett went on alone - and the Engine's call is on the Receiver, 1300.
+quest reward=TitaniumIngot*2;TradeToken*6;Rope*4
+
+# Buried treasure (one of the story line's last islands): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=45 n=1 seed=8808
+prop treasure8808 treasure.loot=TitaniumOre*3
+
+save Colossus of the Strait

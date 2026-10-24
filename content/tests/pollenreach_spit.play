@@ -1,0 +1,27 @@
+# Pollenreach Spit (CIPlay pollenreach_spit): the skiff beach at 1.2 m round 0 -46.8, the shelter at -16.2 -48.6, the
+# mast locker at 13.5 -42.3, three pollen jars on the dunes, the leaflet board on the dune top at 3.6 25.2.
+island Pollenreach Spit
+# RESIZE 10-24: the recipe moved this island's old content by 0 -21.5; the points below are in the old frame
+offset 0 21.5
+expect step 0
+expect title The Pollen Trail
+zone skiff
+expect step 1
+read Skiff log: following the pollen
+expect step 2
+open Skiff cabin
+wait 3
+expect step 3
+use pollen1
+use pollen2
+use pollen3
+expect story pollen 3
+expect step 4
+use samplecase
+expect story pollen 0
+expect step 5
+open Mast locker
+wait 3
+expect step 6
+read Seedkeepers' leaflet
+expect done

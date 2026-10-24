@@ -16,17 +16,28 @@ namespace Redcode.Awaiting.Engine
         protected Action _continuation;
 
         /// <summary>
-        /// Represent completion state. Always return false value, this means that
-        /// await will not execute continuation immediatly (in the same thread).
+        /// True if the awaited work already finished before anyone awaited it (e.g. a coroutine that ends
+        /// without yielding: StartCoroutine runs it at once). Custom Islands fix: the original always returned
+        /// false and then called a continuation that was never set (NullReferenceException).
         /// </summary>
-        public bool IsCompleted => false;
+        private bool _finishedEarly;
+
+        /// <summary>
+        /// Represent completion state. False until the work has finished, so await normally
+        /// does not execute the continuation immediately (in the same thread).
+        /// </summary>
+        public bool IsCompleted => _finishedEarly;
 
         /// <summary>
         /// This method invoked when you await ManualAwaiter object.
         /// Continuation will be stored and will be used later (when you give command).
         /// </summary>
         /// <param name="continuation">Continuation method which will be stored.</param>
-        public void OnCompleted(Action continuation) => _continuation = continuation;
+        public void OnCompleted(Action continuation)
+        {
+            if (_finishedEarly) continuation();
+            else _continuation = continuation;
+        }
 
         /// <summary>
         /// Indicates whether await can expect the result (ManualAwaiter not support result after awaiting).
@@ -36,7 +47,13 @@ namespace Redcode.Awaiting.Engine
         /// <summary>
         /// Run your continuation in the calling thread.
         /// </summary>
-        public void RunContinuation() => _continuation();
+        public void RunContinuation()
+        {
+            Action continuation = _continuation;
+            _continuation = null;
+            if (continuation != null) continuation();
+            else _finishedEarly = true; // nobody is waiting yet: let the await continue straight away
+        }
     }
 
     /// <summary>

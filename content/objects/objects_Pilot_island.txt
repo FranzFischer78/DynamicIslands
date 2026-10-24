@@ -1,0 +1,11 @@
+# Raft's objects the randomizer builds with (CIMeasureProps, raft=1.1.01)
+# prop	<name>	<scene>	<size x,y,z>	<centre x,y,z>	<bottom below the pivot>	<solid colliders>   (at the scale the object spawns with)
+# cave	<name>	<axis of the passage 0=x 2=z>	<floor above the pivot>	<headroom>	<width>	<open at +axis>	<open at -axis>	<a point in the passage, from the pivot>	<room from it towards +axis>	<and towards -axis> (99 = open)
+prop	Airplane	31#Landmark_Pilot#	7.789,3.491,8.299	1.54,-0.235,0.031	-1.981	10
+prop	BackWingBroken	31#Landmark_Pilot#	1.061,0.061,0.803	0.531,0,0.042	-0.031	1
+prop	Banana_Bush_1(Clone	31#Landmark_Pilot#	4.249,6.131,3.615	0.183,3.065,-0.11	0	0
+prop	Coral3	31#Landmark_Pilot#	1.201,0.495,1.086	-0.007,0.243,0.006	-0.004	0
+prop	Door_Left	31#Landmark_Pilot#	0.371,1.314,1.113	0.17,0.276,-0.55	-0.38	1
+prop	Door_Right	31#Landmark_Pilot#	0.371,1.314,1.113	-0.17,0.276,-0.55	-0.38	1
+prop	PropellerBlade	31#Landmark_Pilot#	0.168,1.061,0.16	0.002,-0.022,0.001	-0.553	1
+prop	WingBroken	31#Landmark_Pilot#	3.479,0.209,1.492	-1.74,-0.052,-0.146	-0.157	1

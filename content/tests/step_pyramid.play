@@ -1,0 +1,78 @@
+# Play test of The Step Pyramid (CIPlay step_pyramid, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The plateau's top at 23.8 m: the pyramid in its middle (four tiers 2.42 m, the top at 33.5 m, the stairway up its north
+# face along x 0), the Sun shrine at -28 0 (its doorway east), the Rain shrine at 30.5 0 beyond the moat's stepping stones
+# (x 24-27), the well at -6 -26 (its gorge to the sea south); the causeway up the west face from the base camp (-24 46).
+island The Step Pyramid
+offset 0 0
+expect step 0
+expect title The Rain Kings
+wait 5
+expect animals Chicken 3
+expect animals Turtle 2
+
+# The base camp: the field notes
+walk -21 53 to -23 49 to -24 47 h=3
+zone basecamp
+expect step 1
+read Dr. Quintero's field notes
+expect step 2
+
+# Up the causeway: two legs along the west face
+walk -26 44 to -28 42 to -34.5 32 to -41 22 to -40.2 6.8 to -39.4 -8.4 to -39 -16 to -35 -16 h=23.8
+zone causeway
+expect step 3
+
+# The terraces: the warthogs
+walk -35 -16 to -24 -18 to -18 0 to -18 20 to 10 22 h=23.8
+zone terraces
+kill Warthog
+expect step 4
+
+# The Sun shrine: its doorway staked; the jaguar's-paw lever at the west rim; the tablet - the stepping stones appear
+walk 10 22 to -18 20 to -25 6 to -33.5 7.5 h=23.8
+use sunlever
+expect message grind down into the floor
+wait 3
+walk -33.5 7.5 to -24 3 to -24 0 to -25.6 0 h=23.85 below=26
+open Sun shrine's tablet chest
+expect story jade 1
+expect step 5
+expect shown rainstones
+
+# The sacred well: to its rim, then down into its water; the guardian; the offering box; out through the gorge
+walk -24 0 to -18 -10 to -6 -18.6 h=23.8
+zone cenote
+expect step 6
+at -6 -26 h=-3
+kill Angler fish
+expect step 7
+open Well's offering box
+expect story jade 2
+expect step 8
+at -6 -38 h=-1
+at -6 -48 h=0.5
+
+# Back up on the plateau: across the stepping stones over the moat to the Rain shrine
+at 18 0 h=24
+walk 18 0 to 20.8 0 to 22.3 0 to 23.9 0 to 25.5 0 to 27.1 0 to 29.6 0 h=23.85 below=26
+open Rain shrine's tablet chest
+expect story jade 3
+expect step 9
+
+# Up the pyramid's stairway to the summit: the carvings, the altar, the Kings' chest
+walk 18 0 to 18 18 to 0 21.5 to 0 18.8 to 0 14.9 to 0 11.3 to 0 7.7 to 0 4.2 to 0 3 h=33.5
+zone summit
+expect step 10
+read The Rain Kings' carvings
+expect step 11
+use altar
+expect message settle into their hollows
+open Rain Kings' offering chest
+wait 2
+expect done
+
+# The other boxes: the camp box, the storehouse, the offering pot, the barrel off the beach
+open Base camp box
+open Collapsed storehouse
+open Offering pot
+open Barrel off the beach

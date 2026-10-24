@@ -1,0 +1,288 @@
+# Redstack Maze - a new island of the library, twice the size (x2)
+# A field of red rock stacks standing out of the sea so close together that the channels between them make a maze -
+# six cells by six, 3.5 m channels, walls of red rock 7 m over the water - and in its north-east corner a heron shrine on
+# a stack behind a water gate. Old Tamsin the tide-keeper's hut stands on stilts by the maze's mouth; her chart gives the
+# way in words, and her lever at the mouth opens the shrine's gate for seventy-five seconds.
+# Quest "Before the Tide Turns" (10 steps): the hut and its box, a dead end, the puffers, a maze by water against the
+# clock, a climb, a bell's ride home, Tamsin's strongbox and her hens.
+#
+# Built by the recipe player (CIRecipe redstack_maze) through the editor's own operations.
+include lib_huts
+include lib_sea
+new
+# (nature: volcanic - scrub and a few hardy trees on the bigger stacks' tops; dark rock everywhere else)
+gen Trees=0.2 Bushes=0.3 Rocks=0.5 Harvest=0.25 BeachThings=0.3
+gen Seed=9210 Radius=63 Height=16 Roughness=0.55 Peaks=3 Shape=3 Style=4 BeachWidth=0.2 Cliffs=0.9 PeakShape=0.5
+gen Water=0.5 SeaRocks=0.6 SeaFinds=0.3 Sunken=0.4 Hostiles=0
+generate
+
+# basx / basz: a 7 m wall of the maze - a sharp red rock stretched thin, from 7.6 m under the water to 7.6 m over it -
+# centred on (x, z), along x / along z
+macro basx x z
+place BigSharpRock_5 redrock at $x $z h=0 yaw=90 sx=0.205 sy=2.2 sz=0.34
+end
+macro basz x z
+place BigSharpRock_5 redrock at $x $z h=0 sx=0.205 sy=2.2 sz=0.34
+end
+
+# --- Terrain: the maze's channels 3.5 m deep (cells of 6 m: x 10..46, z -42..-6), the shrine's cell in the north-east
+# corner too (its shrine stands on a deck on posts: the ground won't rise that far out in the sea); a sand bank 2 m down
+# for the tide-keeper's stilts by the mouth --------------------------------------------------------------------------------
+brush flatten at 13 -33 r=3 s=20 frames=100 h=-3.5
+brush flatten at 13 -27 r=3 s=20 frames=100 h=-3.5
+brush flatten at 13 -21 r=3 s=20 frames=100 h=-3.5
+brush flatten at 13 -15 r=3 s=20 frames=100 h=-3.5
+brush flatten at 13 -9 r=3 s=20 frames=100 h=-3.5
+brush flatten at 19 -39 r=3 s=20 frames=100 h=-3.5
+brush flatten at 19 -33 r=3 s=20 frames=100 h=-3.5
+brush flatten at 19 -21 r=3 s=20 frames=100 h=-3.5
+brush flatten at 19 -9 r=3 s=20 frames=100 h=-3.5
+brush flatten at 25 -33 r=3 s=20 frames=100 h=-3.5
+brush flatten at 25 -27 r=3 s=20 frames=100 h=-3.5
+brush flatten at 25 -21 r=3 s=20 frames=100 h=-3.5
+brush flatten at 31 -39 r=3 s=20 frames=100 h=-3.5
+brush flatten at 31 -33 r=3 s=20 frames=100 h=-3.5
+brush flatten at 31 -21 r=3 s=20 frames=100 h=-3.5
+brush flatten at 31 -15 r=3 s=20 frames=100 h=-3.5
+brush flatten at 37 -21 r=3 s=20 frames=100 h=-3.5
+brush flatten at 37 -15 r=3 s=20 frames=100 h=-3.5
+brush flatten at 37 -9 r=3 s=20 frames=100 h=-3.5
+brush flatten at 43 -33 r=3 s=20 frames=100 h=-3.5
+brush flatten at 43 -27 r=3 s=20 frames=100 h=-3.5
+brush flatten at 43 -21 r=3 s=20 frames=100 h=-3.5
+brush flatten at 43 -9 r=3 s=20 frames=100 h=-3.5
+brush flatten at 2.25 -43.75 r=4 s=20 frames=100 h=-2
+clear from 10 -42 to 46 -6 r=4
+clear from 10 -6 to 46 -42 r=4
+clear at 28 -24 r=20
+clear at 2.25 -43.75 r=6
+
+# --- The maze: the walls round every channel (the mouth on the south at 19 -42 open, the gate's edge at 37 -12), a red
+# rock column in every cell the channels don't use -------------------------------------------------------------------------------
+call basz 10 -33
+call basz 10 -27
+call basz 10 -21
+call basz 10 -15
+call basz 10 -9
+call basx 13 -36
+call basx 13 -6
+call basz 16 -39
+call basz 16 -27
+call basz 16 -15
+call basx 19 -30
+call basx 19 -24
+call basx 19 -18
+call basx 19 -12
+call basx 19 -6
+call basz 22 -39
+call basz 22 -27
+call basz 22 -9
+call basx 25 -36
+call basx 25 -30
+call basx 25 -18
+call basz 28 -39
+call basz 28 -27
+call basz 28 -15
+call basx 31 -42
+call basx 31 -30
+call basx 31 -24
+call basx 31 -12
+call basz 34 -39
+call basz 34 -33
+call basz 34 -15
+call basz 34 -9
+call basx 37 -24
+call basx 37 -6
+call basz 40 -33
+call basz 40 -27
+call basz 40 -15
+call basx 43 -36
+call basx 43 -18
+call basx 43 -12
+call basx 43 -6
+call basz 46 -33
+call basz 46 -27
+call basz 46 -21
+call basz 46 -9
+place BigSharpRock_3 redrock at 13 -39 h=0 sx=0.36 sz=0.36 sy=0.7 yaw=0
+place BigSharpRock_3 redrock at 19 -27 h=0 sx=0.36 sz=0.36 sy=0.7 yaw=67
+place BigSharpRock_3 redrock at 19 -15 h=0 sx=0.36 sz=0.36 sy=0.7 yaw=134
+place BigSharpRock_3 redrock at 25 -39 h=0 sx=0.36 sz=0.36 sy=0.7 yaw=201
+place BigSharpRock_3 redrock at 25 -15 h=0 sx=0.36 sz=0.36 sy=0.7 yaw=268
+place BigSharpRock_3 redrock at 25 -9 h=0 sx=0.36 sz=0.36 sy=0.7 yaw=335
+place BigSharpRock_3 redrock at 31 -27 h=0 sx=0.36 sz=0.36 sy=0.7 yaw=42
+place BigSharpRock_3 redrock at 31 -9 h=0 sx=0.36 sz=0.36 sy=0.7 yaw=109
+place BigSharpRock_3 redrock at 37 -39 h=0 sx=0.36 sz=0.36 sy=0.7 yaw=176
+place BigSharpRock_3 redrock at 37 -33 h=0 sx=0.36 sz=0.36 sy=0.7 yaw=243
+place BigSharpRock_3 redrock at 37 -27 h=0 sx=0.36 sz=0.36 sy=0.7 yaw=310
+place BigSharpRock_3 redrock at 43 -39 h=0 sx=0.36 sz=0.36 sy=0.7 yaw=17
+place BigSharpRock_3 redrock at 43 -15 h=0 sx=0.36 sz=0.36 sy=0.7 yaw=84
+
+# --- The chart's landmarks: the stack with the dead tree (ahead at the first turn), the broken column (at the second), the
+# white stone (at the last) ---------------------------------------------------------------------------------------------------
+place DeadTree2 - at 19 -27 h=14 drop yaw=40
+place Pillar_01 - at 14.6 -19.6 h=-3.5 sy=1.5
+place Pillar_01 - at 11.6 -20.4 h=-1 rot=0,20,80
+place BigBoulder2_Low whitestone at 39.4 -23.4 h=-1.2 scale=0.25 yaw=30
+
+# --- The dead ends: puffers in two, a sunk barrel at the end of the third ----------------------------------------------------
+place Creature_PufferFish puffers1 at 31 -39 h=-2
+place Creature_PufferFish puffers2 at 19 -9 h=-2
+place Loot_SunkenBarrel deadendbarrel at 43 -33 h=-2 drop
+
+# --- The shrine's water gate across the last channel (it sinks into the channel's floor), the shrine's pool behind it ---------
+place TP_SeleneEntranceGate shrinegate at 37 -12 h=-3.5
+place Zone_Trigger shrine at 37 -8.5 h=0.5
+
+# --- The shrine: a deck of boards 8.5 m up on posts over the north-east cell, two ladders up from the pool; four posts
+# and a thatch roof, the heron on her plinth, her nest, the bell hung under the roof, offerings; a mist ---------------------
+place RT_PillarThick - at 40.4 -9.6 h=-3.5
+place RT_PillarThick - at 40.4 -9.6 h=2.5
+place RT_PillarThick - at 40.4 -8.4 h=-3.5
+place RT_PillarThick - at 40.4 -8.4 h=2.5
+place LandmarkLadder_6m - at 40.1 -9 h=-1 yaw=90
+place LandmarkLadder_6m - at 40.1 -9 h=1.8 yaw=90
+place RT_PillarThick - at 40.9 -11.6 h=-3.5
+place RT_PillarThick - at 40.9 -11.6 h=2.5
+place RT_PillarThick - at 45.8 -11.6 h=-3.5
+place RT_PillarThick - at 45.8 -11.6 h=2.5
+place RT_PillarThick - at 40.9 -6.4 h=-3.5
+place RT_PillarThick - at 40.9 -6.4 h=2.5
+place RT_PillarThick - at 45.8 -6.4 h=-3.5
+place RT_PillarThick - at 45.8 -6.4 h=2.5
+place RT_Floor shrinedeck at 46.1 -6.1 h=8.5 sx=0.95 sz=0.64
+place Pillar_01 - at 43.3 -9.9 h=8.5 sit
+place Pillar_01 - at 45.1 -9.9 h=8.5 sit
+place Pillar_01 - at 43.3 -8.1 h=8.5 sit
+place Pillar_01 - at 45.1 -8.1 h=8.5 sit
+place Block_Roof_Thatch_Pyramid - at 44.2 -9 h=11.52 sx=1.4 sz=1.4
+place Placeable_Figurine_Chicken heron at 44.2 -8.9 h=8.5 sit scale=3 yaw=270
+place Placeable_BirdsNest heronnest at 43.7 -8.6 h=8.65 sit
+place TangaroaBucket shrinebell at 44.2 -9 h=11.44 rot=180,0,0 scale=1.5
+place UT_EndRoom_Pot01 - at 42.6 -10.4 h=8.5 sit scale=0.25
+place UT_EndRoom_Pot01 - at 45.8 -7.6 h=8.5 sit scale=0.25
+place Zone_Atmosphere shrinemist at 44 -9 h=10
+
+# --- The tide-keeper's hut on stilts by the mouth (its east side open onto the pier): her table with the chart, her
+# strongbox; the pier to the mouth with the tide lever on a post at its end and a box; the tide gauge in the water ----------
+push at 0 -46 h=-2
+call stilt_hut y=3.6 w5=none w6=none
+place Placeable_Table_Basic - at 1.2 3.4 y=3.6 sit
+place Note_Paper chart at 1.2 3.4 y=4.6 drop yaw=15
+place Loot_ChestLarge strongbox at 3.3 3.5 y=3.6 sit yaw=180
+pop
+place Zone_Trigger tidehouse at 2.25 -43.75 h=2.6
+push at 4.5 -44.5 h=-2
+call boardwalk n=8 wide=1 y=3.6
+pop
+place RT_Pillar - at 16.2 -43.2 h=1.6 sy=0.4
+place TP_LaserControlPanel_lever tidelever at 16.2 -43.35 h=2.6
+place "Box Small" hutbox at 0.8 -45.2 h=1.6 sit yaw=20
+place Zone_Trigger mazemouth at 15.5 -43.75 h=2.6
+place RT_Pillar - at 6 -47 h=-2.5 sy=1.6
+place TangaroaNumberSign1 - at 6 -47.1 h=0.5
+place TangaroaNumberSign2 - at 6 -47.1 h=1.5
+place TangaroaNumberSign3 - at 6 -47.1 h=2.5
+
+# --- Hens and palms on the outer stacks, turtles in the channels, dolphins outside; the sea's sound between the stacks ----
+place Creature_Chicken hens at 0 -30 ground
+scatter "Pickup_Landmark_Tree_Palm 4" 1 at 0 -30 r=3 seed=1001
+scatter "Pickup_Landmark_Tree_Palm 4" 1 at -36 -8 r=3 seed=1002
+place Creature_Turtle turtles at 13 -27 h=-2
+place Creature_Dolphin dolphins at 0 -70 h=-3
+place Zone_Sound channelsound at 28 -24 h=2
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): flowers, mangoes, pineapples ----------
+scatter "Pickup_Landmark_Flower_Black" 4 at 0 0 r=44.1 seed=4483 free=3
+scatter "Pickup_Landmark_Flower_Red" 4 at 0 0 r=44.1 seed=4484 free=3
+scatter "Pickup_Landmark_Tree_Mango" 6 at 0 0 r=44.1 seed=4493 free=5
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=44.1 seed=4503 free=3
+
+# --- Raft's finds in the shallows round the stacks (lib_sea) ----------------------------------------------------------------
+call shallows r=83 deep=5 n=1
+
+# ===== Settings, story items, notes, behaviours, quest (10 steps) ==========================================================
+info title=Redstack Maze
+info author=Custom Islands
+info description=A field of red rock stacks so close together that the channels between them make a maze, and at its heart a heron shrine behind a water gate. The tide-keeper's lever opens the gate for seventy-five seconds. Her chart knows the way.
+island on.arrive=message||Red columns standing out of the sea like a stone forest, the water between them green and quiet. On the tallest, far inside, a little thatched roof - and a grey bird, standing on one leg.
+
+story heronpearl|The heron's pearl|Placeable_Utopia_LightBottleWhite|A grey pearl the size of a thumb, from the heron shrine's nest.
+
+note chart The tide-keeper's chart | (a chart of the stacks, the channels inked in, the way in pencil)\n\nTHE WAY TO THE HERON\n\nIn at the mouth. LEFT at the stack with the dead tree. RIGHT at the broken column. STRAIGHT past two forks, whatever they look like. LEFT at the white stone. Then the gate.\n\nThe lever at the mouth opens the gate for as long as a heron stands on one leg - seventy-five of my heartbeats, near enough. If it shuts on you, swim back and pull it again.\n\nThe heron's pearl pays for the trip. Ring her bell and the tide brings you home.\n- Old Tamsin, tide-keeper
+note strongbox Tide-keeper's strongbox | Tamsin's strongbox: the plans for the lamp she wore on night tides, her tide tables, a jar of coins, dried fish.
+loot strongbox Blueprint_HeadLight*1;TradeToken*6;Cooked_Herring*3;Rope*2
+prop strongbox loot.refill=0
+prop strongbox if.open=has|story:heronpearl|1
+prop strongbox else.open=message||A strongbox with a pearl-shaped hollow in its lid instead of a keyhole.
+prop heronnest obj.name=heronnest
+prop heronnest beh.use=Take the pearl from the heron's nest
+prop heronnest if.use=!signal|pearl
+prop heronnest on.use=message||Under the heron's watchful eye, a grey pearl the size of a thumb, warm from the sun. She doesn't stop you.\nsignal||pearl\ngive||story:heronpearl*1\ngive||Feather*3
+prop heronnest else.use=message||The nest is empty now - the heron has gone back to standing on one leg.
+note hutbox Tide-keeper's box | A box in the corner of the tide-keeper's hut: rope, tar, a fishing line.
+loot hutbox Rope*3;FishingBait_Simple*2;Plank*3
+prop hutbox loot.refill=0
+note deadendbarrel Barrel in the dead end | A barrel wedged at the end of a channel that goes nowhere: someone else got lost here.
+loot deadendbarrel MetalOre*2;Scrap*3;Stone*2
+prop deadendbarrel loot.refill=0
+
+prop tidelever obj.name=tidelever
+prop tidelever beh.use=Pull the tide lever (the shrine's gate opens for 75 seconds)
+prop tidelever if.use=state|shrinegate|closed
+prop tidelever on.use=message||The lever drops; deep in the maze something grinds. The shrine's gate is opening - seventy-five seconds!\nopen|shrinegate\nsound||event:/exploring/temperence/selene/gate_open\nwait|75\nclose|shrinegate\nmessage||Far off, the shrine's gate rumbles shut.
+prop tidelever else.use=message||The gate is still open - go!
+prop shrinegate obj.name=shrinegate
+prop shrinegate beh.move=0,-6,0
+prop shrinegate beh.moveTime=3
+prop shrinegate beh.moveMode=switch
+prop shrinebell obj.name=shrinebell
+prop shrinebell beh.use=Ring the heron's bell (the tide takes you home)
+prop shrinebell if.use=has|story:heronpearl|1
+prop shrinebell on.use=message||The bell's note goes out over the stacks. The water under the shrine heaves - a long swell lifts you off the rock, through the channels, out past the mouth -\nsound||event:/exploring/obstacles/bicyclebell\nwait|2\nteleport|tidehouse\nmessage||- and sets you down on the tide-keeper's landing, dripping.
+prop shrinebell else.use=message||The heron's bell. Tamsin wrote: the pearl pays for the trip.
+prop tidehouse obj.name=tidehouse
+prop tidehouse zone.id=tidehouse
+prop tidehouse zone.radius=6
+prop tidehouse zone.message=The tide-keeper's hut on the outer stack: a tide gauge, a strongbox with a strange lid, a chart on the wall.
+prop mazemouth zone.id=mazemouth
+prop mazemouth zone.radius=4
+prop mazemouth zone.message=The maze's mouth: a lever on a post, and a dark channel leading in between the columns.
+prop shrine zone.id=shrine
+prop shrine zone.radius=2.5
+prop shrine zone.message=Through the gate: the shrine's pool, steps up the tallest stack, and the heron watching you from the top.
+prop puffers1 creature.count=1
+prop puffers2 creature.count=1
+prop shrinemist atmo.fog=#c8d0d0
+prop shrinemist atmo.fogAmount=0.2
+prop shrinemist atmo.particles=mist
+prop shrinemist zone.radius=12
+prop channelsound sound.event=event:/amb/ocean
+prop channelsound sound.volume=0.4
+prop channelsound zone.radius=30
+prop hens creature.count=2
+prop turtles creature.count=2
+prop dolphins creature.count=2
+prop whitestone tint.color=#e8e8e0
+prop whitestone tint.amount=0.6
+prop heron tint.color=#a8b0b8
+prop heron tint.amount=0.7
+prop shrinebell tint.color=#8a6a3a
+prop shrinebell tint.amount=0.6
+
+quest title=Before the Tide Turns
+quest intro=A maze of red stacks with a heron shrine at its heart. The tide-keeper's hut is on the outer stack.
+step reach|tidehouse|1|Climb up to the tide-keeper's hut on the outer stack
+step read|The tide-keeper's chart|1|Read the tide-keeper's chart
+step open|Tide-keeper's box|1|Take the rope and bait from the box in the corner of Tamsin's hut
+step reach|mazemouth|1|Find the lever at the maze's mouth
+step open|Barrel in the dead end|1|Learn the channels first - find the barrel wedged in a dead end
+step kill|Puffer fish|2|Clear the two puffers out of the dead ends before you race the gate
+step reach|shrine|1|Pull the lever and get through the maze before the shrine's gate closes
+step collect|story:heronpearl|1|Climb the shrine stack and take the pearl from the heron's nest
+step open|Tide-keeper's strongbox|1|Ring the heron's bell to ride the tide home - and open the strongbox
+step catch|Chicken|2|Catch Tamsin's two hens on the outer stack - they'll do better on a raft
+quest done=Left, right, straight, straight, left - and home on the tide. Tamsin would have been impressed.
+quest reward=Cooked_Herring*3;Rope*2;Stone*4
+
+save Redstack Maze

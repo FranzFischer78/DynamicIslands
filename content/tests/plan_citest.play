@@ -1,0 +1,20 @@
+# Play test of the test plan 'CI Plan Recipe' (CIPlay plan_citest, in a test world 'CI ...'): the story from its start,
+# each plan island tuned to on the Receiver and played with its own test, the next step unlocked by its quest.
+plan CI Plan Recipe
+note RadioTower
+expect chain RadioTower unlocked
+expect chain rock locked
+# (the Radio Tower's note - Raft's way on - leads to Signal Rock first)
+note Vasagatan
+expect chain RadioTower done
+expect chain rock unlocked
+tune rock
+include signal_rock.play
+expect chain rock done
+expect chain gull unlocked
+tune gull
+include stranded_gull.play
+expect chain gull done
+expect chain CaravanTown unlocked
+expect chain Balboa locked
+plan end

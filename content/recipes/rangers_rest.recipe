@@ -1,0 +1,172 @@
+# Ranger's Rest - a small/medium island of the library (inspired by Raft's Balboa)
+# A jungle hill: the ranger's log cabin on a terrace, a wooden watchtower, trails, warthogs in the undergrowth - and
+# at the foot of the hill the den of Old Scar, the bear that dragged the ranger's supply crate into his cave.
+# Quest "Old Scar" (5 steps): the ranger's diary, his two goats by the campfire, the tower (spot the den), the bear, the
+# stash.
+#
+# Built by the recipe player (CIRecipe rangers_rest) through the editor's own operations.
+
+include lib_sea
+new
+# (nature: a jungle hill: twice Raft's trees and bushes - Raft's islands as the generator's Like Raft has them, CIGenLikeRaft)
+gen Trees=0.4 Bushes=0.38 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=517 Radius=36 Height=24 Roughness=0.45 Peaks=2 Shape=0 Style=0 BeachWidth=0.4 Cliffs=0.2 PeakShape=0.25
+gen SeaFloor=0 Shelf=0.35 DropOff=0.5 Seabed=0
+# (sea: Raft's finds and corals as dense as around Raft's islands - Like Raft 0.5 - the review, 2026-10-03)
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.5 Sunken=0.2 Hostiles=2 HostileKinds=Boar Friendly=0 SeaLife=0
+generate
+
+# --- Terrain: a terrace for the ranger station and its watchtower (east, ~10 m up), the den's beach levelled at the
+# foot of the hill (south); the trail from the north beach up to the station painted sand, cleared and smoothed ------
+brush flatten from 24 -2 to 18 -2 r=9 s=20 frames=24
+brush flatten from 24 -2 to 22 4 r=6 s=20 frames=12
+brush flatten from 24 -2 to 24 -10 r=6 s=20 frames=12
+brush smooth at 22 -2 r=12 s=4 frames=6
+brush flatten from 22 -8 to 18 -12 r=4.5 s=20 frames=16
+brush flatten from 0 -27 to -18 -27 r=8 s=20 frames=30
+brush flatten from 0 -27 to -16 -21 r=7 s=20 frames=24
+brush flatten from 0 -27 to -16 -33 r=7 s=20 frames=24
+brush smooth at -8 -24 r=14 s=3 frames=6
+# (half a metre lower under the cave, so its own floor is what players walk on)
+brush lower from -20 -27 to 6 -27 r=6 s=4 frames=12
+clear at 22 -2 r=11
+clear at 19 -12 r=6
+clear at -8 -27 r=17
+# (the trails: from the south beach up to the station, on up to the tower, and along the shore to the den)
+clear from 10 26 to 12 14 r=2.5
+clear from 12 14 to 14 8 r=2.5
+clear from 14 8 to 18 3 r=2.5
+clear from 12 -26 to 6 -27 r=2
+brush smooth from 10 26 to 17 3 r=3 s=6 frames=30
+# (the terrace's north bank eased into a slope the trail can climb)
+brush smooth from 12 11 to 18 4 r=4 s=20 frames=40
+brush smooth from 12 11 to 18 4 r=4 s=20 frames=40
+# (what the smoothing buried or lifted along it: a boulder ended 2.2 m under the ground)
+clear from 12 11 to 18 4 r=4.5
+brush sand from 10 26 to 12 14 r=1.5 s=8 frames=24
+brush sand from 12 14 to 14 8 r=1.5 s=8 frames=20
+brush sand from 14 8 to 18 3 r=1.5 s=8 frames=18
+brush sand from 12 -26 to 6 -27 r=1.4 s=8 frames=18
+
+# --- The hill's crown: a few big jungle trees and banana bushes, so it reads from the sea as the jungle hill it is ---
+place "Pickup_Landmark_Tree_Mango" - at -8 -2 yaw=30
+place "Pickup_Landmark_Tree_Mango" - at -11 2.5 yaw=200
+place BigPalm2 - at -4.5 -6 yaw=110
+place BigPalm3 - at -12.5 -5.5 yaw=300
+place Banana_Bush_1 - at -9.5 0.5 yaw=60
+place Banana_Bush_3 - at -6 -3 yaw=150
+place Banana_Bush_2 - at -13 0 yaw=250
+
+# --- The ranger station: Balboa's log cabin on the terrace, its porch facing the sea --------------------------------
+place Balboa_Shack cabin at 22 -2
+place Zone_Trigger station at 29 -2 y=1
+
+# --- The watchtower beside the station: four posts, a deck 6.5 m up, a ladder, plank railings, an aerial ------------
+push at 19 -12 y=0
+for px -2.4 2.4 4.8
+for pz -2.4 2.4 4.8
+place Relay_support_beam_wood - at $px $pz y=-1 rot=0,0,-90
+next
+next
+place Relay_Floor_deck towerdeck at 2.617 2.617 y=6.5
+place LandmarkLadder_6m towerladder at 0 -2.75
+for fx -1.5 1.5 1.5
+place Block_Wall_Fence_Plank - at $fx 2.5 y=6.65
+place Block_Wall_Fence_Plank - at -2.5 $fx y=6.65 yaw=90
+place Block_Wall_Fence_Plank - at 2.5 $fx y=6.65 yaw=90
+next
+place Block_Wall_Fence_Plank - at -1.6 -2.5 y=6.65
+place Block_Wall_Fence_Plank - at 1.6 -2.5 y=6.65
+place Antenna_pole - at 2.2 2.2 y=6.65 sit
+place Balboa_DecorationPrefabBase_Lantern - at -2.1 2.1 y=6.65 sit
+place Zone_Trigger tower at 0 0.5 y=7.6
+pop
+
+# --- Old Scar's den: Balboa's bear cave on the levelled beach, its mouth to the east --------------------------------
+place BalboaCave_Bear - at -8 -27 h=7.45 yaw=90
+
+# --- The ranger's things: the diary on his table, signs on the trails, the generator, a tent -----------------------
+place Note_Book diary at 22.3 -4.0 h=11.4 drop yaw=80
+place Balboa_DirectionSign - at 16 -8 sit yaw=60
+place BearSign1 - at 13.5 -17 sit yaw=30
+place "BearSign3 Variant" - at 10 -23.5 sit yaw=80
+place Balboa_DecorationPrefabBase_Generator - at 21.5 5.4 sit yaw=10
+place Balboa_DecorationPrefabBase_ToxicBarrel - at 23.4 5.5 sit
+place "Balboa_DecorationPrefabBase_Trash Bag 2" - at 16.5 -6 sit
+place Balboa_DecorationPrefabBase_SimpleTent - at 26.5 7.6 sit yaw=200
+place campfire_1 - at 21 7.6 sit
+# (on the camp's flat: at 22.1 8 it lay on the bank's edge, set down at its low side and its middle under the slope,
+# CIGroundIslands)
+place Firewood_1 - at 22.4 7.2 sit
+place Creature_Goat goats at 18 6
+
+# --- Inside the den: Old Scar, his bait pile, the stolen supply crate at the back, the cave's gloom and drips -------
+place Creature_Bear scar at -11 -27 h=3.4
+place BearBait - at -13.5 -25.5 h=3.0 sit
+place BearBait_Berries - at -9 -28.5 h=3.0 sit
+place Loot_ChestLarge stash at -19 -27 h=3.0 sit yaw=90
+place "Balboa_DecorationPrefabBase_Trash Bag 1" - at -17.5 -25 h=3.0 sit
+place "Balboa_DecorationPrefabBase_Trash Bag 3" - at -18 -29 h=3.0 sit
+place Obstacle_PoisonLake_WoodBox - at -16 -29.3 h=2.6 sit tilt=12 yaw=30
+place Zone_Trigger den at 5 -27 h=4.5
+place Zone_Atmosphere gloom at -8 -27 h=5
+place Zone_Sound drips at -8 -27 h=5
+
+# --- Settings, notes, behaviours, quest -----------------------------------------------------------------------
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=56 deep=5 n=1
+
+info title=Ranger's Rest
+info author=Custom Islands
+info description=A jungle hill with a ranger's log cabin and a watchtower - and on the south shore the den of Old Scar, the bear that stole the ranger's supplies. Inspired by Raft's Balboa.
+island on.arrive=message||A watchtower on a jungle hill. Below it a log cabin with its door open.
+
+note diary Ranger's diary | Ranger station Rest-3 - diary of P. Kowalski\n\nWeek 1. Quiet posting. Warthogs in the bamboo, coconuts on the beach, a good tower on the hill. I could live here.\n\nWeek 3. An old male bear has taken the cave on the south shore. Torn left ear - I call him Old Scar. The flares don't scare him any more.\n\nWeek 4. Scar raided the supply shed while I was up the tower and dragged the whole crate into his den: my medicine, my machete, everything.\n\nWeek 5. A rescue boat passed twice and never stopped. I'm going up the tower tonight with my last flare. If you read this and I'm not here: the crate is at the back of the den. Watch the bear. Watch the warthogs too.
+note stash Ranger's stash | A supply crate stencilled REST-3, its lid clawed open. Inside, under bear-chewed tins, the ranger's own things.
+loot stash Machete*1;HealingSalve_Good*2;Rope*4;Nail*8
+prop stash loot.refill=0
+
+prop station zone.id=station
+prop station zone.radius=6
+prop station zone.message=Ranger station Rest-3. The door is open and the stove is cold.
+prop tower zone.id=tower
+prop tower zone.radius=2.5
+prop tower zone.message=From up here you can see the whole island - and a dark cave mouth on the south shore, with bones on the sand in front of it.
+prop den zone.id=den
+prop den zone.radius=4
+prop den zone.message=The cave reeks of bear. Something big stirs in the dark.
+prop gloom atmo.fog=#1a140c
+prop gloom atmo.fogAmount=0.45
+prop gloom atmo.light=#6a5a40
+prop gloom atmo.lightAmount=0.5
+prop gloom zone.radius=13
+prop drips sound.event=event:/amb/cave
+prop drips sound.volume=0.6
+prop drips zone.radius=12
+
+prop scar creature.count=1
+prop scar creature.size=1.45
+prop scar creature.health=3
+prop scar creature.damage=1.4
+prop scar creature.speed=1.1
+prop scar creature.respawn=0
+prop scar creature.zone=den
+prop scar tint.color=#3a2a1e
+prop scar tint.amount=0.45
+prop goats creature.count=2
+
+quest title=Old Scar
+quest intro=A ranger station on a jungle hill - its door open, nobody home. Find out what happened to the ranger.
+step read|Ranger's diary|1|Find the ranger station on the hill and read the ranger's diary
+step catch|Goat|2|Pen the ranger's two goats - loose by the campfire since he went up the tower
+step reach|tower|1|Climb the watchtower and look for the den
+step kill|Bear|1|Drive off Old Scar
+step open|Ranger's stash|1|Take back the ranger's supply crate
+quest done=Old Scar is gone, and the ranger's machete is yours. The hill is quiet again.
+quest reward=Bow*1;Arrow_Stone*10
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=28 n=1 seed=8852
+prop treasure8852 treasure.loot=TitaniumOre*2
+
+save Ranger's Rest

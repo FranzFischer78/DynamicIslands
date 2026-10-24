@@ -1,0 +1,92 @@
+# Play test of Four Seasons (CIPlay four_seasons, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The weather-house's deck x -6..6, z -1..11 (2 m) in the lagoon, its jetty south to z -7; winter on the north islet (the
+# shrine at 1 80, the ice spire at -20 94 with its tower and ladders at -12.3 94, the deck at the top 12 m over the
+# ground); spring on the east (the cottage round 80 7, the pen x 84..92, z 2..14); summer on the south (the diver's hut round
+# -40 -80, the reef at -25 -50, 7 m down); autumn on the west (the barn round -86 0, the bells at z -16, the orchard round
+# -82 22).
+island Four Seasons
+offset 0 0
+expect step 0
+expect title The Year's Wheel
+wait 5
+expect animals Goat 3
+expect animals Chicken 3
+expect animals Turtle 3
+expect animals Dolphin 2
+at 0 -6 h=3
+walk 0 -6 to 0 -2 h=2.05
+zone weatherhouse
+expect step 1
+read Maren's almanac
+expect step 2
+open Weather-keeper's locker
+expect step 3
+at 1 75 h=10
+zone winter
+expect step 4
+read The frost shrine's verse
+expect step 5
+zone den
+expect message white bear
+kill Polar bear
+expect step 6
+at -14 94 h=22
+zone icecrown
+expect step 7
+open Winter's token
+expect story token 1
+expect step 8
+at 80 0 h=8
+zone spring
+expect step 9
+read The shepherdess's note
+expect step 10
+catch Goat 3
+expect step 11
+open Spring's token
+expect story token 2
+expect step 12
+at -40 -74 h=6
+zone summer
+expect step 13
+read The diver's log
+expect step 14
+at -25 -50 h=-4
+zone reef
+expect step 15
+open Summer's token
+expect story token 3
+expect step 16
+at -86 -9 h=7
+zone autumn
+expect step 17
+read The harvest rhyme
+expect step 18
+zone orchard
+kill Warthog
+expect step 19
+use bellsow
+expect message sour note
+use bellplough
+use bellsow
+use bellreap
+use bellstore
+expect shown autumntoken
+open Autumn's token
+expect story token 4
+expect step 20
+at 0 9.8 h=3
+zone wheelroom
+wait 2
+expect step 21
+use wheel
+expect shown wheelturning
+expect story yearseed 1
+expect step 22
+read Maren's last page
+expect step 23
+open Weather-keeper's chest
+expect done
+open Diver's box
+open Sunk crate
+open Winter landing box

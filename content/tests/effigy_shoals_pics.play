@@ -1,0 +1,14 @@
+# Guide pictures of Effigy Shoals (CIPlay effigy_shoals_pics): Raft's camera, dusk, calm; the second picture after the
+# circle has turned them
+island Effigy Shoals
+offset 0 0
+hour 18
+weather Calm
+at 2.6 -34
+wait 3
+picture sl1_effigy_island 0 30 -75 0 2 0
+picture sl1_effigy_inward 2.6 3 -36 0 2 -10
+zone circle
+wait 1
+picture sl1_effigy_facing 2.6 3 -36 0 2 -10
+picture sl1_effigy_middle -6 4 -8 0 2 6

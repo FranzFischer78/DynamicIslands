@@ -1,0 +1,74 @@
+# Play test of Halcyon Cove (CIPlay halcyon_cove, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The town on the north plain (3.2 m): the square at 0 50, houses along the street (z 40-64), the cafe at 15.5 45, the
+# barber's at -32..-26 55..64, the jetty from 71 north along x -1.5..-3 (deck 1.6 m); the weather tower at 0 30 (deck
+# 22 m) and the weather man's hut at 3..7.5 23.5..28 (9.6 m); the moon on the hilltop at -4 2 (12.5 m); the sky wall at
+# x 108 (z -15..15), its landing at 98.5..101.5 0..3 (-0.2 m), the door at course 3.8 m, the ledge behind at 108.5..111.
+island Halcyon Cove
+offset 0 0
+expect step 0
+expect title The Door in the Sky
+wait 5
+expect animals Chicken 4
+expect animals Dolphin 2
+expect animals Turtle 2
+
+# Off the jetty into the square (in the rain); the welcome board; the neighbour's script
+walk -2.25 80 to -2.25 72 h=1.6
+walk -2 66 to -2 54 h=3.2
+zone square
+expect step 1
+expect shown rain
+read Welcome board
+expect step 2
+read Neighbour's script
+expect step 3
+
+# The four hidden cameras' tapes (one camera twice: its tape is gone)
+use cam1
+use cam2
+use cam3
+use cam4
+expect story tape 4
+expect step 4
+use cam1
+expect message Its tape is gone
+
+# The weather tower, the log at its foot, the rain switched off
+at 0 30 h=23
+zone weathertower
+expect step 5
+at 5 21.5 h=10
+read Weather log
+expect step 6
+at 0 30 h=23
+use rainswitch
+expect story boothkey 1
+expect step 7
+expect hidden rain
+
+# The moon: the booth door, the journal, the console
+at -4 2.5 h=13.2
+zone moon
+expect step 8
+read Director's journal
+expect step 9
+use console
+expect story exitkey 1
+expect step 10
+
+# The sky wall: the landing, the stair, the door in the sky, the last crate
+at 97 1.5 h=0.5
+zone skywall
+expect step 11
+at 106.5 1.5 h=4.3
+use skydoor
+wait 3
+walk 106.8 1.5 to 109.2 1.5 h=3.8
+open The last prop crate
+expect done
+
+# The other boxes
+open Town house cupboard
+open Barber's box
+open Burger bar fridge
+open Sunk prop barrel

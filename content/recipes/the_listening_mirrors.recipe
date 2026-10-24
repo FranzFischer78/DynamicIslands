@@ -1,0 +1,389 @@
+# The Listening Mirrors - the finale of the library's plan The Lullaby Frequency (SL1, horror)
+# A grey quarry island: terraces of cut rock up from the south landing, a rim at 10 m round a flooded pit (9 m of water),
+# a road cut down into the pit from the south (closed by a sluice grate), a spoil heap in the north (the quarry's top).
+# On the rim five huge "listening mirrors": Raft's antenna dish, scaled up, on concrete plinths, turned out to sea. Quarry
+# plant: Varuna's crane by the pit, a forklift, a crane cab on a pillar tower. The Choir's chapel on the east rim (grey
+# walls, wooden roof on its corner pillars), its bell outside, Sister Wren in a cage. Four areas, 31 steps, quest "The
+# Last Frequency": the rim (mirror 1's receiver, the control hut's keypad, the fuse), the Choir chapel (the sermon, six
+# black dogs, Wren, the reliquary, the bell), the crane (the hook, the cab, the claw lifts the sluice grate, the lure),
+# the pit (the tooth on the altar wakes the Lantern-Mother - an angler x3 with a boss phase; the last hymn on the pit
+# floor; mirror 1 silences the song; the Choir's treasury, Pim's drawing; the quarry's top).
+#
+# Built by the recipe player (CIRecipe the_listening_mirrors) through the editor's own operations. Points: landing
+# 0 -62 (1.5 m), terraces 0 -54 (4 m) and 0 -46 (7 m), the rim 10 m round 0 4 (r 34); the pit round 0 16 (r 10, floor
+# -9); the road down x 0 from z -14 (10 m) to z 10 (-2 m); mirrors M1 -26 -4, M2 -27 14, M3 -14 32, M4 14 32, M5 27 14;
+# the control hut -16..-11.5 x -22..-17.5; the chapel 16..23.5 x -12..-6; the crane cab tower 20..24.5 x 2..5.
+include lib_sea
+include lib_features
+include lib_sl1
+new
+# (nature: a bare grey quarry - trees 0.1, rocks 0.5)
+gen Trees=0.1 Bushes=0.12 Rocks=0.5 Harvest=0.1 BeachThings=0.3
+gen Seed=1209 Radius=72 Height=13 Roughness=0.3 Peaks=1 Shape=0 Style=0 PeakShape=0.2 Cliffs=0.5 BeachWidth=0.4
+gen Water=0.5 SeaRocks=0.45 SeaFinds=0.4 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+
+# --- Terrain: the rim, the terraces up from the landing, the flooded pit, the road down into it, the spoil heap -----
+brush flatten at 0 4 r=34 s=20 frames=160 h=10
+brush flatten at 0 -46 r=6 s=20 frames=60 h=7
+brush flatten at 0 -54 r=6 s=20 frames=60 h=4
+brush flatten at 0 -62 r=6 s=20 frames=60 h=1.5
+brush smooth from 0 -64 to 0 -32 r=4 s=6 frames=30
+brush flatten at 0 16 r=10 s=20 frames=160 h=-9
+for k 0 12
+brush flatten at 0 {-14+2*$k} r=2.6 s=20 frames=30 h={10-$k}
+next
+brush smooth from 0 -16 to 0 10 r=3 s=6 frames=30
+brush flatten at 0 46 r=5 s=20 frames=60 h=15
+brush smooth from 0 36 to 0 46 r=4 s=6 frames=30
+# (pad: the control hut on the rim; the altar stands on the road down, at its side)
+brush flatten from -15.5 -21.5 to -12 -18 r=3.5 s=20 frames=80 h=10
+# (and a level pad at 10 m under each mirror's plinth: the rim's edge fell away under them and the plinth legs hung)
+brush flatten at -26 -4 r=3.5 s=20 frames=60 h=10
+brush flatten at -27 14 r=3.5 s=20 frames=60 h=10
+brush flatten at -14 32 r=3.5 s=20 frames=60 h=10
+brush flatten at 14 32 r=3.5 s=20 frames=60 h=10
+brush flatten at 27 14 r=3.5 s=20 frames=60 h=10
+origin
+clear at 0 4 r=35
+clear from 0 -66 to 0 -32 r=5
+clear at 0 46 r=6
+
+# --- Area A, the rim: five listening mirrors, the foreman's board, the generator, the control hut --------------------
+# mirror: a concrete plinth (four grey pillars and a 3 m plate on them) on the rim, a dish 6 m across sat on it and
+# turned out to sea (away from the island's middle 0 4)
+macro mirror x=0 z=0 alias=- yaw=0
+place Block_Pillar_Tier3 - at {$x-1.2} {$z-1.2} h=10
+place Block_Pillar_Tier3 - at {$x+1.2} {$z-1.2} h=10
+place Block_Pillar_Tier3 - at {$x-1.2} {$z+1.2} h=10
+place Block_Pillar_Tier3 - at {$x+1.2} {$z+1.2} h=10
+place Block_Floor_Tier3 - at $x $z h=12.42 sx=2 sz=2
+# (the dish on a short thick mast on the plate: Balboa's dish ends in one stub at the bottom of its frame, 1.75 m in
+# front of its pivot at this size, that slides into its pole - sat on the plate on that stub tip it looked to float, 2026-10-19)
+push at $x $z h=12.5 yaw=$yaw
+place Block_Pillar_Tier3 - at 0 1.75 y=0 sx=4 sz=4
+place Antenna_dish $alias at 0 0 y=5.27 scale=7
+pop
+end
+call mirror x=-26 z=-4 yaw=-107.1 alias=mirror1
+call mirror x=-27 z=14 yaw=-69.7
+call mirror x=-14 z=32 yaw=-26.6
+call mirror x=14 z=32 yaw=26.6
+call mirror x=27 z=14 yaw=69.7
+
+place Zone_Trigger rim_landing at 0 -62 ground y=1
+place Note_Board foremanboard at 3.2 -60 ground sit yaw=200
+place Note_Sign mirror1log at -23 -6.6 ground sit yaw=250
+place Placeable_Radio mirror1rx at -23.4 -4 ground sit yaw=270
+place Placeable_Radio mirror1rx2 at -23.4 -4 ground sit yaw=270
+place Note_Sign mirror2log at -24 11.4 ground sit yaw=290
+place Generator generator at -21 -12 ground yaw=90
+
+push at -16 -22 h=10
+call shed w=3 d=3 door=1
+place Block_Wall_Tier3 hutdoor at 2.25 0 y=0.2
+place RT_PowerBox hutkeypad at 3.6 -0.2 y=1.3 yaw=180
+place "Table Office" - at 2.25 3.5 y=0.2 sit yaw=0
+place Placeable_Brick_Wet fuse at 2.25 3.5 y=1.2 sit drop scale=0.5
+pop
+store mirrorstore at -6 -25 ground
+place VP_Forklift - at 8 -24 ground sit yaw=60
+
+# --- Area B, the Choir chapel on the east rim: the sermon, the reliquary, the cage key; the bell outside; Wren's cage --
+push at 16 -12 h=10
+call shed w=5 d=4 door=2
+place "Table Office" lectern at 3.75 5 y=0.2 sit yaw=0
+place Note_Book listenersermon at 3.75 5 y=1.2 sit drop yaw=180
+place Loot_Chest reliquary at 6.5 4.8 y=0.2 sit yaw=180
+place Placeable_Lantern_Metal cagekey at 1 4.8 y=0.2 sit
+place Zone_Trigger chapel at 3.75 1.5 y=1.5
+place Zone_Atmosphere chapeldark at 3.75 3 y=1.5
+place Zone_Trigger chapelcam at 3.75 -3 y=3
+pop
+place Zone_Trigger pitlook at 0 16 h=-2
+place Block_Pillar_Wood - at 25.5 -10 ground sy=1.4
+place TangaroaBucket chapelbell at 25.5 -10 ground y=3.95 rot=180,0,0 scale=1.4
+place Survivor_Cage wrencage at 11 -10 ground yaw=90
+place Loot_Chest wrenbundle at 11.4 -13.2 ground sit yaw=0
+place Note_Paper wrenwarning at 13.2 -7 ground sit drop yaw=30
+place Creature_Hyena choirdogs at 22 -20 ground y=0.5
+place TP_SeleneReactorChimney - at 27 -16 ground sit scale=0.5
+
+# --- Area C, the crane: Varuna's crane by the pit, its lever and hook; the cab on a pillar tower, its ladder ----------
+place VP_ApexCrane crane at 18 22 ground yaw=270
+place Zone_Trigger crane_base at 15 17 ground y=1
+place UT_JumpPuzzle_LiftMechanism_Lever cranelever at 13.6 14 ground sit yaw=90
+place UT_HookRoom_Weight02 hookup at 16.5 12.5 ground sit
+place UT_HookRoom_Weight02 hookdown at 2.4 -10.5 ground sit yaw=40
+push at 20 2 h=10
+place Block_Pillar_Tier3 - at 0 0 y=0
+place Block_Pillar_Tier3 - at 0 0 y=2.55
+place Block_Pillar_Tier3 - at 4.5 0 y=0
+place Block_Pillar_Tier3 - at 4.5 0 y=2.55
+place Block_Pillar_Tier3 - at 0 3 y=0
+place Block_Pillar_Tier3 - at 0 3 y=2.55
+place Block_Pillar_Tier3 - at 4.5 3 y=0
+place Block_Pillar_Tier3 - at 4.5 3 y=2.55
+call shed w=3 d=2 door=1 y=5.04
+place LandmarkLadder_6m cabladder at 2.25 -0.4 y=0 sit yaw=0
+place Note_Paper operatornote at 0.9 2.3 y=5.1 sit drop yaw=80
+place TP_LaserControlPanel_lever claw at 3.5 2.2 y=5.04 sit drop scale=1.5 yaw=270
+place Zone_Trigger crane_cab at 2.25 1.5 y=6.5
+pop
+
+# --- Area D, the pit: the sluice grate across the road, the lure under it, the altar at the water's edge, the boss, the
+# air pocket on the pit floor, the last hymn; the treasury and Pim's drawing at mirror 1; the quarry's top --------------
+place Block_Wall_Tier3 sluicegate at -0.75 -12 ground
+place Block_Wall_Tier3 sluicegate at 0.75 -12 ground
+place Placeable_Lantern_Metal lure at 0.4 -10.4 ground sit
+place Zone_Trigger pit_edge at 0 2 ground y=1
+place Placeable_Brick_Wet pitaltar at 0.7 2 ground y=0.15 sit scale=2.5
+place Candle_02 - at 1.6 2 ground y=0.9 sit drop
+place Zone_Trigger bosszone at 0 2 ground y=1
+place Creature_AnglerFish lanternmother at 0 16 h=-4
+place Zone_Atmosphere redlight at 0 16 h=2
+place Zone_Sound lullabyzone at 0 16 h=3
+place Zone_Trigger pit_floor at 0 16 h=-7.5
+place Note_Paper lasthymn at 1.2 16.6 ground sit drop yaw=140
+place Loot_Chest treasury at -23 -0.6 ground sit yaw=270
+place Note_Paper pimdrawing at -22.4 -2.4 ground sit drop yaw=260
+place Zone_Trigger quarry_top at 0 46 ground y=1
+place Zone_Trigger topcam at 0 44 ground y=4
+place Zone_Trigger sealook at 0 150 y=0
+
+# --- Two tight reefs in the quarry's inflow (east), things to gather ---------------------------------------------
+call shallows x=46 z=24 r=4 deep=3 n=1 seed=1291
+call shallows x=50 z=12 r=4 deep=3 n=1 seed=1292
+scatter "Pickup_Landmark_PineappleLandmark" 2 at 0 -40 r=20 seed=1293 free=5
+call dirt x=-30 z=-30 r=6 n=1 seed=1294
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=The Listening Mirrors
+info author=Custom Islands
+info description=A grey quarry island with five giant listening mirrors on its rim and a flooded pit where something sings. The finale of The Lullaby Frequency.
+island on.arrive=message||Five great grey dishes on a quarry's rim, all turned to the sea. The Receiver in your pack hums the same note they do.
+
+story power|Generator running|Battery|The quarry generator is running: power for mirror 1.
+story hum|Mirror 1 listened|Note_Paper|Mirror 1's receiver, on: the hum of the whole sea, and under it the lullaby.
+story hutopen|Control hut open|Note_Paper|You opened the mirror control hut with the dish bearings.
+story fuse|Mirror fuse|Battery|A heavy ceramic fuse from the mirror control hut. The crane's claw takes the same kind.
+story cagekey|Choir cage key|Placeable_Lantern_Metal|An iron key from the Choir's chapel.
+story bellrope|Choir bell rope|Rope|The bell rope from the Choir's reliquary, knotted thirteen times.
+story bellrung|The Choir's bell rung|Note_Paper|You rang the Choir's bell. Out on the rim, mirror 1 turned a hand's width.
+story hookmoved|Crane hook lowered|Bolt|The crane lever lowered the hook onto the sluice grate.
+story sluiceup|Sluice grate lifted|Bolt|The claw lifted the sluice grate off the road into the pit.
+story lure|Lantern-Mother's lure|Placeable_Lantern_Metal|A light on a stalk of gristle, cold and still glowing. Hers.
+story toothset|Tooth on the altar|Note_Paper|You laid the Lantern-Mother's tooth on the pit's altar.
+story silence|The song stopped|Note_Paper|Mirror 1 sent the song back. The lullaby stopped.
+
+note foremanboard Quarry Foreman's board | GREYSTONE QUARRY - FOREMAN'S BOARD\n\nMirrors 1-5: listening trials. Keep the pit gate shut.\nGenerator by mirror 1 - start it before you put the phones on.\nMirror control hut: code is in mirror 2's log.\nCrane: claw fuse is in the hut.\n\n(Chalked under it in a different hand: SHE HEARS THEM LISTENING)
+note mirror1log Mirror 1 log | MIRROR 1 - LISTENING LOG\n\nNight 1: sea noise.\nNight 4: a hum under the sea noise, 3:12 a.m.\nNight 9: the hum is a tune. Everyone on shift knows it. Nobody learned it.\nNight 12: the Choir came to the gate and asked to listen. We let them.
+note mirror2log Mirror 2 log | MIRROR 2 - DISH BEARINGS, LAST NIGHT\n\nMirror 2: 4\nMirror 3: 3\nMirror 4: 1\nMirror 5: 2\n\n(The control hut's code is the bearings, in order. Change it.)
+note listenersermon The Listener's sermon | THE LISTENER'S SERMON\n\nShe was a mother before she was a light.\nShe lost her children to the shore, so she sings them home.\nEvery child who hears her sleeps. Every sleeper stays.\nWe built the mirrors to hear her better.\nNow we cannot hear anything else.
+note reliquary Reliquary | The Choir's reliquary: a bell rope knotted thirteen times, candles, and a hymn book with every page blank.
+loot reliquary story:bellrope*1;Placeable_GlassCandle*2;Cooked_Mackerel*2
+prop reliquary loot.refill=0
+note wrenbundle Wren's bundle | Sister Wren's bundle: bandages, water, and a whistle she says the dogs hate.
+loot wrenbundle HealingSalve*3;Canteen_Water*2;Arrow_Metal*6
+prop wrenbundle loot.refill=0
+prop wrenbundle if.open=signal|wrenfree
+prop wrenbundle else.open=message||Wren's bundle is in the cage with her. The key first.
+note wrenwarning Wren's warning | Sister Wren, out of the cage, holding your arm too hard:\n\n"Don't let her see your light. She takes the lights - that's the lure, she wears them. Put her tooth on the altar and she'll come for it. When she's gone, turn mirror 1 on her song. Send it back."
+note operatornote Crane operator's note | Hook's down on the sluice grate. Claw's dead till someone brings a fuse from the hut.\n\nSomething took the light off my cab. Left a light of its own on the road down. I'm not going to get it.
+note lasthymn The last hymn | THE LAST HYMN\n\n(scratched on a slate, on the bottom of the pit)\n\nHush now, the mirrors are listening.\nHush now, the sea is asleep.\nSend back the song that she gave you,\nand she will have nothing to keep.
+note treasury Choir treasury | The Choir's treasury: everything the drowned towns gave them - ingots, tokens, a little gilded trophy of a dish.
+loot treasury TitaniumIngot*4;TradeToken*10;MetalIngot*4;CopperIngot*4
+prop treasury loot.refill=0
+prop treasury obj.name=treasury
+prop treasury beh.hidden=1
+prop treasury on.open=show|pimdrawing
+note pimdrawing Pim's drawing | A child's drawing in wax crayon: a raft, a big yellow sun, and a lady made of light, waving goodbye.\n\nOn the back, in big letters: I CAN SLEEP NOW. - PIM
+prop pimdrawing obj.name=pimdrawing
+prop pimdrawing beh.hidden=1
+
+prop rim_landing zone.id=rim_landing
+prop rim_landing zone.radius=5
+prop rim_landing zone.message=A landing at the foot of the quarry's terraces. Up there the dishes are listening.
+
+prop generator obj.name=generator
+prop generator beh.use=Start the quarry generator
+prop generator if.use=!signal|power
+prop generator on.use=signal||power\ngive||story:power*1\nsound||event:/raft/radar/lever\nmessage||The generator coughs and catches. A cable runs from it to mirror 1's receiver.
+prop generator else.use=message||The generator is already running.
+prop mirror1rx obj.name=mirror1rx
+prop mirror1rx beh.use=Put on mirror 1's headphones
+prop mirror1rx if.use=signal|power
+prop mirror1rx on.use=give||story:hum*1\nplaysound||event:/exploring/radar/radar_humm|0.8|once|near\nmessage||A hum the size of the sea. And under it, slow, patient - the lullaby. It knows you are listening.
+prop mirror1rx else.use=message||The receiver is dead. The generator first.
+prop mirror1rx2 obj.name=mirror1rx2
+prop mirror1rx2 beh.hidden=1
+prop mirror1rx2 beh.use=Turn mirror 1 on the song and send it back
+prop mirror1rx2 if.use=signal|bell\nsignal|lmdead
+prop mirror1rx2 on.use=stopsound||all\nhide|lullabyzone\nshow|treasury\ngive||story:silence*1\nmessage||The dish groans round. For a moment the song is everywhere, very loud - then it stops. The sea is only the sea.
+prop mirror1rx2 else.use=message||The song is still too strong. The bell, and her - first.
+
+prop hutdoor obj.name=hutdoor
+prop hutkeypad obj.name=hutkeypad
+prop hutkeypad beh.use=Type the control hut's code
+prop hutkeypad lock.code=4312
+prop hutkeypad on.use=sound||event:/exploring/obstacles/keypad/keypad_correct\nhide|hutdoor\ngive||story:hutopen*1\nmessage||The keypad chirps and the hut's door slides aside.
+prop fuse obj.name=fuse
+prop fuse beh.use=Take the fuse
+prop fuse tint.color=#d8d2c4
+prop fuse on.use=hide|\ngive||story:fuse*1\nmessage||A heavy ceramic fuse, stamped CRANE.
+
+prop chapel zone.id=chapel
+prop chapel zone.radius=2.5
+prop chapel zone.repeat=never
+prop chapel zone.message=Inside the Choir's chapel it is darker than it should be. Through the door, far below, the pit's water is lit from under.
+prop chapel on.enter=camera|chapelcam|pitlook|6|40
+prop chapelcam obj.name=chapelcam
+prop chapelcam zone.radius=1
+prop pitlook obj.name=pitlook
+prop pitlook zone.radius=1
+prop chapeldark atmo.fog=#0a0c10
+prop chapeldark atmo.fogAmount=0.6
+prop chapeldark atmo.light=#1c2028
+prop chapeldark atmo.lightAmount=0.8
+prop chapeldark zone.radius=5
+prop choirdogs creature.count=6
+prop choirdogs creature.respawn=0
+prop choirdogs creature.zone=chapel
+prop choirdogs creature.health=2
+prop choirdogs tint.color=#101010
+prop choirdogs tint.amount=0.9
+prop cagekey obj.name=cagekey
+prop cagekey beh.use=Take the iron key
+prop cagekey tint.color=#3a3a3a
+prop cagekey on.use=hide|\ngive||story:cagekey*1\nmessage||An iron key on a nail. The Choir's cage, by the look of it.
+prop wrencage obj.name=wrencage
+prop wrencage survivor.name=Sister Wren
+prop wrencage survivor.id=lullaby_wren
+prop wrencage survivor.key=cagekey
+prop wrencage survivor.signal=wrenfree
+prop wrencage survivor.line=You came up the terraces? Then she has heard you. I'll wait on your raft - I've had enough of quarries.
+prop chapelbell obj.name=chapelbell
+prop chapelbell beh.use=Tie the rope on and ring the Choir's bell
+prop chapelbell if.use=take|story:bellrope|1
+prop chapelbell on.use=signal||bell\ngive||story:bellrung*1\nhide|mirror1rx\nshow|mirror1rx2\nsound||event:/amb/wreck_creaks\nmessage||The bell rings once, flat and loud. All five mirrors turn a hand's width toward the pit.
+prop chapelbell else.use=message||The bell has no rope. The Choir keeps it in the reliquary.
+
+prop crane_base zone.id=crane_base
+prop crane_base zone.radius=3
+prop crane_base zone.message=Varuna's old crane over the pit. Its hook rests on the rim; a lever stands by its foot.
+prop hookdown obj.name=hookdown
+prop hookdown beh.hidden=1
+prop hookup obj.name=hookup
+prop cranelever obj.name=cranelever
+prop cranelever beh.use=Pull the crane lever
+prop cranelever if.use=!signal|hookmoved
+prop cranelever on.use=signal||hookmoved\nhide|hookup\nshow|hookdown\ngive||story:hookmoved*1\nsound||event:/raft/radar/lever\nmessage||Chains run. The hook swings over and settles on the sluice grate across the road into the pit.
+prop cranelever else.use=message||The hook is already on the sluice grate.
+prop crane_cab zone.id=crane_cab
+prop crane_cab zone.radius=2
+prop crane_cab zone.message=The crane cab. The claw lever is dead without a fuse.
+prop claw obj.name=claw
+prop claw beh.use=Fit the fuse and work the claw
+prop claw if.use=signal|hookmoved\ntake|story:fuse|1
+prop claw on.use=signal||claw\nhide|sluicegate\nhide|hookdown\nshow|hookup\nshow|lure\ngive||story:sluiceup*1\nmessage||The claw bites, the hook lifts - and the sluice grate swings up off the road. Under it, on the stones, something glows.
+prop claw else.use=message||Dead. The hook must be on the grate, and the claw needs a fuse.
+prop sluicegate obj.name=sluicegate
+prop lure obj.name=lure
+prop lure beh.hidden=1
+prop lure beh.use=Pick up the light
+prop lure tint.color=#b8f4ff
+prop lure on.use=hide|\ngive||story:lure*1\nmessage||A light on a stalk, cold as the sea. It is hers. Somewhere below, the singing stops for a breath.
+
+prop pit_edge zone.id=pit_edge
+prop pit_edge zone.radius=3
+prop pit_edge zone.message=The water's edge. A stone altar, and under the water, far down, a light that moves.
+prop pitaltar obj.name=pitaltar
+prop pitaltar beh.use=Lay the Lantern-Mother's tooth on the altar
+prop pitaltar if.use=take|story:tooth|1
+prop pitaltar on.use=show|bosszone\ngive||story:toothset*1\nmessage||The tooth rings on the stone like a bell. The pit's light comes up out of the dark, fast. She has come for it.
+prop pitaltar else.use=message||An altar of cut stone, an empty hollow in it the size of a tooth. Cradle Reef.
+prop bosszone obj.name=bosszone
+prop bosszone beh.hidden=1
+prop bosszone zone.id=lanternmother
+prop bosszone zone.radius=6
+prop bosszone zone.repeat=never
+prop lanternmother creature.count=1
+prop lanternmother creature.respawn=0
+prop lanternmother creature.zone=lanternmother
+prop lanternmother creature.size=3
+prop lanternmother creature.health=12
+prop lanternmother creature.damage=1.5
+prop lanternmother boss.phase=0.5
+prop lanternmother boss.summon=4
+prop lanternmother boss.summonKind=Creature_AnglerFish
+prop lanternmother boss.speed=1.3
+prop lanternmother tint.color=#d9e8ee
+prop lanternmother tint.amount=0.5
+prop lanternmother on.phase=show|redlight\nplaysound||event:/exploring/elevator/elevator_music|1|once|near\nmessage||She sings - loud now, everywhere - and four small lights come up out of the dark to her.
+prop lanternmother on.defeat=signal||lmdead\nhide|redlight\nmessage||The Lantern-Mother sinks into the pit, her light going out. The song goes on without her - in the mirrors.
+prop redlight obj.name=redlight
+prop redlight beh.hidden=1
+prop redlight atmo.fog=#3a0a0a
+prop redlight atmo.fogAmount=0.5
+prop redlight atmo.light=#b03028
+prop redlight atmo.lightAmount=0.6
+prop redlight zone.radius=22
+prop lullabyzone obj.name=lullabyzone
+prop lullabyzone sound.event=event:/exploring/elevator/elevator_music
+prop lullabyzone sound.volume=0.3
+prop lullabyzone zone.radius=30
+prop pit_floor zone.id=pit_floor
+prop pit_floor zone.radius=4
+prop pit_floor zone.repeat=1
+prop pit_floor zone.air=1
+prop pit_floor zone.message=Air, trapped under the pit's overhang. On the bottom, a slate.
+prop quarry_top zone.id=quarry_top
+prop quarry_top zone.radius=4
+prop quarry_top zone.message=The top of the quarry. The sea, all the way round. Silent.
+prop quarry_top on.enter=camera|topcam|sealook|6|40
+prop topcam obj.name=topcam
+prop topcam zone.radius=1
+prop sealook obj.name=sealook
+prop sealook zone.radius=1
+
+quest title=The Last Frequency
+quest intro=The Receiver's last frequency: a quarry, and five mirrors listening to the sea. Go ashore at the landing.
+step reach|rim_landing|1|Go ashore at the quarry's landing
+step read|Quarry Foreman's board|1|Read the foreman's board
+step read|Mirror 1 log|1|Read mirror 1's log on the rim
+step collect|story:power|1|Start the generator by mirror 1
+step collect|story:hum|1|Listen on mirror 1's receiver
+step read|Mirror 2 log|1|Read mirror 2's log
+step collect|story:hutopen|1|Open the mirror control hut (its code is in the bearings)
+step collect|story:fuse|1|Take the mirror fuse
+step reach|chapel|1|Go into the Choir's chapel on the east rim
+step read|The Listener's sermon|1|Read the Listener's sermon
+step kill|Hyena|6|Fight off the Choir's dogs
+step open|Wren's bundle|1|Free Sister Wren (the chapel's key opens her cage) and open her bundle
+step read|Wren's warning|1|Hear Wren's warning
+step open|Reliquary|1|Open the Choir's reliquary
+step collect|story:bellrope|1|Take the bell rope
+step collect|story:bellrung|1|Ring the chapel bell
+step reach|crane_base|1|Go to the crane by the pit
+step collect|story:hookmoved|1|Pull the crane lever
+step reach|crane_cab|1|Climb to the crane cab
+step read|Crane operator's note|1|Read the crane operator's note
+step collect|story:sluiceup|1|Fit the fuse and work the claw
+step collect|story:lure|1|Pick up the light on the road down
+step reach|pit_edge|1|Go down to the pit's edge
+step collect|story:toothset|1|Lay the Lantern-Mother's tooth on the altar
+step kill|Angler fish|1|Defeat the Lantern-Mother
+step reach|pit_floor|1|Dive to the pit's floor
+step read|The last hymn|1|Read the last hymn
+step collect|story:silence|1|Turn mirror 1 on the song
+step open|Choir treasury|1|Open the Choir's treasury
+step read|Pim's drawing|1|Read Pim's drawing
+step reach|quarry_top|1|Climb to the top of the quarry
+quest done=At 3:12 the Receiver is silent. Pim sleeps without humming.
+quest reward=HealingSalve_Good*2;TitaniumIngot*3;TradeToken*12
+
+# Buried treasure (one of the story line's last islands): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=36 n=1 seed=8824
+prop treasure8824 treasure.loot=TitaniumOre*3
+
+save The Listening Mirrors

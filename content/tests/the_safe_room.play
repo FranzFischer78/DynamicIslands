@@ -1,0 +1,71 @@
+# Play test of The Safe Room (CIPlay the_safe_room, in a test world 'CI ...'). Points as in its recipe - its frame is the
+# generated land's middle, so the "offset" below. The bluff's top at 15.9 m: the villa in its middle (the front door on
+# its south side at -4.5 -7.5), the gatehouse at the driveway's head (13 -19), the garden behind the villa (0 17); the
+# driveway up the south face from the shelf at the cliffs' foot (2.6 m, -29 -33.5); the boathouse on the north beach.
+island The Safe Room
+offset 0 0
+expect step 0
+expect title Behind the Bookshelf
+wait 5
+# (the island's friendly animals as it arrives: wild goats at the driveway's foot, dolphins in the north bay)
+expect animals Goat 2
+expect animals Dolphin 2
+
+# Up the driveway from the shelf to the gatehouse
+walk -28 -33.3 to -20 -31.9 to -8 -29.8 to 4 -27.6 to 16 -25.5 to 19 -23.5 h=15.6
+zone driveway
+expect step 0
+
+# The gatehouse: the night guard's log and his locker (a code part)
+walk 19 -23.5 to 15.5 -22 to 13.3 -19.3 h=15.95
+read Security log
+expect step 1
+open Night guard's locker
+expect story codepart 1
+
+# Round the villa's east side to the garden: the dogs wake; deal with them
+walk 14 -17 to 13.5 -8 to 10 4 to 4 13 h=15.9
+zone garden
+kill Hyena
+expect step 2
+
+# Round to the front door; the keypad in the study before the code is whole; the kitchen drawer, Lia's treasure box
+walk 9 4 to 9 -10 to -4.5 -10 to -4.5 -6 to -1 -5.5 to -1.5 -1 to -1.5 3 to -1.1 4.9 h=15.95
+use keypad
+expect message you haven't got all of them
+expect hidden ambushdogs
+walk -1.5 3 to -1.5 -1 to 0.6 -3 to 0.8 0.5 h=15.95 below=18
+open Kitchen drawer
+expect story codepart 2
+walk 0.6 -3 to -1.5 -4 to -7 -3 to -10.5 -3.6 h=15.95 below=18
+open Lia's treasure box
+expect story codepart 3
+expect step 3
+
+# The keypad: the bookshelf rolls aside, the dogs come back; through the door into the safe room, its log
+walk -7 -3 to -5 -3 to -1.5 -1 to -1.5 3 to -1.1 4.9 h=15.95 below=18
+use keypad
+expect message bolts slide back
+expect shown ambushdogs
+wait 4
+kill Hyena
+expect step 4
+walk -1.1 4.9 to -1.3 6 to 1.5 6 to 3.2 8.4 h=15.95 below=18
+read Safe room log
+expect step 5
+
+# Down the escape shaft: the hatch puts the player at the shaft's foot on the shelf behind the boathouse; its safe
+use hatch
+expect message come out at the bottom of the cliff
+walk 1.5 34 to 1.2 36 to 0.6 38.5 h=2.6
+zone boathouse
+open Boathouse safe
+wait 2
+expect done
+
+# Back up the shaft into the safe room; the other boxes: the carport crate, the cooler, the intruders' tool box
+use boathatch
+expect message into the safe room
+open Carport tool crate
+open Lounge cooler
+open Intruders' tool box

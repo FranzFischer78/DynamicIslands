@@ -1,0 +1,14 @@
+# Kit check (not content): where a wall stands on Raft's foundation - its foot at the block's pivot + 0.05 (left) and + 0.22 (right)
+new
+gen Seed=1 Radius=40 Height=4 Shape=4 Roughness=0.1 ObjectDensity=0 Trees=0 Bushes=0 Rocks=0 BeachThings=0 Harvest=0
+gen Hostiles=0 Friendly=0 SeaLife=0 Water=0 SeaRocks=0 SeaFinds=0 Sunken=0
+generate
+brush flatten at 0 0 r=35 s=20 frames=60
+push at 0 0
+place Block_Foundation - at 0 0 y=1
+place Block_Wall_Wood - at 0 -0.75 y=1.05
+place Block_Pillar_Wood - at -0.75 -0.75 y=1.05
+place Block_Foundation - at 4 0 y=1
+place Block_Wall_Wood - at 4 -0.75 y=1.22
+place Block_Pillar_Wood - at 3.25 -0.75 y=1.22
+pop

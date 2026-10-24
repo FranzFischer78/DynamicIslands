@@ -1,0 +1,124 @@
+# Ridgeback Pass - a new large island of the library (ROADMAP 3e VI3), a vehicle island, no quest
+# A high island of rock and snow with two peaks and a pass road over the saddle between them: the road depot at the
+# south shore with its sled shed and van, a convoy of four snow vehicles stopped on the saddle, an excavator digging the
+# road out of a drift, a van stuck nose-down in the snow, and the north camp with its crane and the blue caravan the road
+# crew slept in. A polar bear at the north camp, a roofed
+# avalanche gallery over the road below the saddle.
+#
+# Built by the recipe player (CIRecipe vi_ridgeback_pass) through the editor's own operations. Points: the south depot
+# (4 m, r 12 round -40 -44); the road -40 -44 -> -18 -20 -> 0 0 -> 22 22 -> 40 38; the saddle (12 m, r 14 round 0 0);
+# the drift and excavator at -16 -18; the north camp (6 m, r 12 round 40 38); the avalanche gallery over the road
+# round 22 22 (9 m; 4.5 m across, 6 m along, its corner at 18.3 21.5, yaw 45).
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+include lib_ni8
+include lib_vi
+new
+# (nature: high rock and snow, two peaks, few trees)
+gen Trees=0.25 Bushes=0.2 Rocks=0 Harvest=0.3 BeachThings=0.4
+gen Seed=8633 Radius=85 Height=22 Roughness=0.45 Peaks=2 Shape=0 Style=1 BeachWidth=0.3 Cliffs=0.5 PeakShape=0.6
+gen SeaFloor=0 Shelf=0.5 Seabed=1
+gen Water=0.5 SeaRocks=0.6 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0.1 SeaLife=0.2
+generate
+
+# ===== Terrain: the south depot, the road up to the saddle and down to the north camp ====================================
+brush flatten at -40 -44 r=12 s=20 frames=140 h=4
+brush flatten at -18 -20 r=7 s=20 frames=100 h=8
+brush flatten at 0 0 r=14 s=20 frames=160 h=12
+brush flatten at 22 22 r=7 s=20 frames=100 h=9
+brush flatten at 40 38 r=12 s=20 frames=140 h=6
+brush smooth from -40 -44 to -18 -20 r=4 s=10 frames=120
+brush smooth from -18 -20 to 0 0 r=4 s=10 frames=120
+brush smooth from 0 0 to 22 22 r=4 s=10 frames=120
+brush smooth from 22 22 to 40 38 r=4 s=10 frames=120
+clear at -40 -44 r=13
+clear from -40 -44 to 40 38 r=5
+clear at 0 0 r=15
+clear at 40 38 r=13
+clear at -20 -22 r=8
+
+# ===== The south depot: the sled shed, the van, the fuel barrels, the road sign ===========================================
+place SnowmobileShedMesh depotshed at -44 -40 ground sit yaw=135
+place Van_5 - at -34 -46 ground sit yaw=45
+place TP_Moontown_Barrel01 - at -38 -38 ground sit
+place TP_Moontown_Barrel03 - at -37 -37 ground sit yaw=30
+place TP_Moontown_SealedCrate01 - at -46 -48 ground sit yaw=20
+place Loot_Chest depotchest at -42 -36 ground sit yaw=135
+place Sign_03 - at -32 -38 ground sit yaw=225
+place Placeable_Lantern_FireBasket - at -36 -42 ground sit
+
+# ===== The drift on the road and the excavator digging it out; the van stuck in the snow ==================================
+place TP_SnowDrift02 - at -14 -15 ground sit yaw=45
+place TP_SnowDrift03 - at -12 -17 ground sit yaw=110
+place VP_Excavator plough at -20 -22 ground y=-0.4 sit yaw=45
+place Van_2 - at -24 -16 ground sit yaw=60 tilt=8
+place TP_SnowDrift01 - at -23 -14 ground sit yaw=10
+place TP_SnowShovel02 - at -17 -24 ground sit yaw=70
+
+# ===== The saddle: the convoy of four snow vehicles stopped on the road ===================================================
+place TP_SnowVehicle01 - at -6 -6 ground sit yaw=45
+place TP_SnowVehicle02 - at -1 -1 ground sit yaw=45
+place TP_SnowVehicle01 - at 4 4 ground sit yaw=40
+place TP_SnowVehicle02 - at 9 9 ground sit yaw=50
+place TP_FoldingTable_Large - at -6 4 ground sit yaw=10
+place TP_FoldingStool - at -5 5.2 ground sit
+place Placeable_Lantern_FireBasket - at -4 2 ground sit
+
+# ===== The avalanche gallery over the road below the saddle: posts, a plank roof, the road crew's shelter box ==========
+push at 18.3 21.5 h=9 yaw=45
+call corners w=3 d=4 y=0.05
+place Block_Pillar_Wood - at 0 3 y=0.05
+place Block_Pillar_Wood - at 4.5 3 y=0.05
+roof 3 4 at 0 0 y=0.05 wood
+place Loot_Chest galleryshelter at 0.7 3 ground sit yaw=90
+place Placeable_Lantern_Metal - at 3.8 1 ground sit
+pop
+
+# ===== The north camp: the crane, the bunk caravan, the crates, the polar bear ============================================
+place UT_ElectricityIsland_Crane02 - at 46 42 ground y=-1.7 sit scale=0.5 yaw=225
+place Caravan_Blue_01 bunkhouse at 34 42 ground sit yaw=135
+place Pallet - at 42 32 ground sit
+place TP_Moontown_TarpCrate02 - at 42 32 ground y=0.15 sit yaw=10
+place Pallet - at 44.5 33 ground sit yaw=5
+place VP_StorageCrate01 - at 44.5 33 ground y=0.15 sit
+place Loot_ChestLarge campchest at 36 36 ground sit yaw=315
+place TP_ElectricalBuilding - at 48 34 ground sit yaw=270
+place TP_CablePoint - at 46 37 ground sit
+place Creature_PolarBear polarbear at 52 46 ground
+prop polarbear creature.count=1
+prop polarbear creature.respawn=0
+
+
+# ===== Snowy pines, drifts, ice and stones (sparing); things to gather; Raft's finds in the shallows ======================
+scatter TP_PineTreeSnowy 6 at -20 20 r=50 seed=8751 free=8
+scatter TP_PineTreeSnowy 3 at 30 -30 r=30 seed=8752 free=8
+scatter TP_SnowDrift01 4 at 0 0 r=60 seed=8753 free=6
+scatter TP_SmallRock02 5 at 0 0 r=66 seed=8754 free=3 scale=0.55-0.65 ground y=-1
+# (the big rocks are scattered here, sunk into the slopes; the generator's own (Rocks=0.8) stood up to 1.7 m proud of them)
+scatter TP_BigRock02 7 at 0 0 r=70 seed=8760 free=6 ground y=-2
+scatter TP_BigRock03 4 at 10 0 r=50 seed=8759 free=6 ground y=-2
+place TP_IcePillar01 - at 60 -10 ground sit yaw=30
+place TP_IcePillar02 - at -60 -6 ground sit yaw=120
+place TP_Igloo_Small_1 - at 30 50 ground sit yaw=200
+scatter "Pickup_Landmark_Tree_Pine" 4 at -20 20 r=48 seed=8755 free=6
+scatter "Pickup_Landmark_BerryBush" 2 at -40 -30 r=14 seed=8756 free=3
+call treasure x=0 z=0 r=66 n=2 seed=8633
+call shallows r=110 deep=5 n=2 seed=875
+
+info title=Ridgeback Pass
+info author=Custom Islands
+info description=A high island of rock and snow with a road over the saddle between two peaks: four snow vehicles stopped on the pass, an excavator digging out a drift, a van stuck in the snow, the sled depot on the shore and the crane camp with its bunk caravan on the far side.
+
+note depotchest Depot chest | Chains for the tyres, a tow rope, and a list of who took which sled - the last line never signed back in.
+loot depotchest Rope*3;MetalIngot*2;Bolt*2
+prop depotchest loot.refill=0
+note galleryshelter Shelter box in the gallery | Kept under the gallery roof for anyone caught on the pass: a blanket, a flask, spare chains, rope.
+loot galleryshelter Wool*2;Rope*3;MetalIngot*2;Scrap*2
+prop galleryshelter loot.refill=0
+note campchest Road crew chest | The road crew's kit, packed to go home and never carried down.
+loot campchest MetalIngot*3;CopperIngot*2;Glass*2;Nail*10
+prop campchest loot.refill=0
+
+save Ridgeback Pass

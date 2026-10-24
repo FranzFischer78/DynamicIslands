@@ -1,0 +1,67 @@
+# lib_ni7b - macros for the library's medium no-quest islands of NI7b (ROADMAP 3d): graves, spits over a fire, a ring
+# of standing stones, a fenced square with warning signs, toxic barrel heaps, an air pocket. "include lib_ni7b"
+# (with lib_ni34 for the jetty, cabin, wreck; lib_huts for floors/corners).
+#
+# grave: an upright headstone (Raft's tall boulder, small and stood upright as the standing stones) at x z facing yaw,
+# and a plank laid flat on the grave at its foot
+macro grave x=0 z=0 yaw=0 s=0.11
+place BigBoulder1_Low - at $x $z ground rot=0,0,0 scale=$s yaw=$yaw
+place FL_Plank1 - at {$x+0.9*sin($yaw)} {$z+0.9*cos($yaw)} ground sit yaw=$yaw scale=0.5
+end
+
+# graves: n graves in a row from x z along yaw (gap m apart), each facing yaw+90 (their fronts to the path)
+macro graves x=0 z=0 yaw=0 n=4 gap=2.4
+for g 0 {$n-1} 1
+call grave x={$x+$g*$gap*sin($yaw)} z={$z+$g*$gap*cos($yaw)} yaw={$yaw+90}
+next
+end
+
+# spit: a cooking spit over a fire at x z - Raft's campfire, the simple grill stood over it
+macro spit x=0 z=0 yaw=0
+place campfire_1 - at $x $z ground sit
+place Placeable_CookingStand_Food_One - at {$x+1.1*sin($yaw)} {$z+1.1*cos($yaw)} ground sit yaw=$yaw
+end
+
+# stonering: n standing stones (Raft's tall boulders set upright) in a ring of radius r round x z, their flats to the middle,
+# each a little bigger or smaller and a little off its place
+macro stonering x=0 z=0 r=8 n=10 s=0.38 seed=1
+for k 0 {$n-1} 1
+set a {360*$k/$n+rnd(-6,6)}
+place BigBoulder1_Low - at {$x+$r*sin($a)} {$z+$r*cos($a)} ground rot=0,0,0 scale={$s+rnd(-0.04,0.05)} yaw=$a
+next
+end
+
+# fencesquare: Balboa's wire fence round a w x d rectangle from x z (its -x -z corner), a gap gw m wide in the middle of
+# its south side (z) for the gate (and one ngw m wide in its north side); signs on the posts either side of the south gap
+macro fencesquare x=0 z=0 w=24 d=18 gw=4 ngw=0
+line Balboa_DecorationPrefabBase_Fence_Mid from $x {$z+$d} to {$x+$w/2-$ngw/2} {$z+$d} step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from {$x+$w/2+$ngw/2} {$z+$d} to {$x+$w} {$z+$d} step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from $x $z to $x {$z+$d} step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from {$x+$w} $z to {$x+$w} {$z+$d} step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from $x $z to {$x+$w/2-$gw/2} $z step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from {$x+$w/2+$gw/2} $z to {$x+$w} $z step=2.98
+place Balboa_DecorationPrefabBase_Fence_Sign - at {$x+$w/2-$gw/2-1.5} {$z-0.15} ground sit yaw=180
+place Balboa_DecorationPrefabBase_Fence_Sign - at {$x+$w/2+$gw/2+1.5} {$z-0.15} ground sit yaw=180
+end
+
+# toxicheap: n of Balboa's toxic barrels round x z (r m), some knocked over, and a leaked rusty barrel or two
+macro toxicheap x=0 z=0 n=5 r=2 seed=1
+scatter Balboa_DecorationPrefabBase_ToxicBarrel {$n-1} at $x $z r=$r seed=$seed free=0.4
+place Balboa_DecorationPrefabBase_ToxicBarrel - at {$x+$r} $z ground sit roll=90 yaw={rnd(0,360)}
+place TP_Moontown_Barrel02 - at $x {$z-$r} ground sit
+end
+
+# airpocket: an air pocket on a sunken island (as lib_gravity's): bubbles and a zone that fills the lungs (place
+# Raft's AirPocket_1 yourself, sat on whatever floor is there)
+macro airpocket x=0 z=0 id=air al=air bub=airbub r=2.5 msg="An air pocket - breathe."
+place Zone_Trigger $al at $x $z ground y=1.6
+place Zone_Atmosphere $bub at $x $z ground y=1.2
+prop $al obj.name=$al
+prop $al zone.id=$id
+prop $al zone.radius=$r
+prop $al zone.repeat=1
+prop $al zone.air=1
+prop $al zone.message=$msg
+prop $bub atmo.particles=bubbles
+prop $bub zone.radius=$r
+end

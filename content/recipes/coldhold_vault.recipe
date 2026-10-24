@@ -1,0 +1,392 @@
+# The Coldhold Vault - the ninth island of the library's plan The Frozen Horizon (storyline SL12, finale part 1)
+# A seed bank under the glacier: the entrance hall on a terrace above the landing (the charter, the generator's lever,
+# a Raft store outside), a crevasse across the island crossed by an electric zipline, and on the far side the vault
+# floor ringed by an ice cap on pillars: Oda Fenn (from Verdance) caged behind a collapsed door, the three wings
+# (Seeds, Records, Embryos), the control room behind its keypad door with three switches - KEEP, CARRY, BROADCAST - and
+# at the vault's north end the flood door down to the Ark. Quest "Beneath the Glacier" (24 steps): the entrance, the
+# charter, the power, the zipline to the far side, Oda's pack, Oda's notes, three screechers; the seed wing and its
+# three canisters, the record wing and its two papers, the embryo wing's cooling crank and the keeper's last entry, the
+# control room's code; the control room, the three switches, one pulled, the verdict, the vault's gift, Hedda's radio
+# call, the flood door and its lever (signal "flooddoor": the Seed Ark).
+#
+# Built by the recipe player (CIRecipe coldhold_vault) through the editor's own operations. Points (metres over the
+# sea): the landing slope from 0 -52 up to the terrace at 4 m (r 10 round 0 -27); the entrance hall x -3..3,
+# z -28.5..-19.5; the crevasse along z -15 (water at its floor); the zipline from the terrace's edge at 0 -18.5 to
+# 0 -6; the vault floor at 4 m (r 24 round 0 10); the seed wing x -14..-8, z 1.5..10.5; the record wing x -3..3,
+# z 9.5..18.5; the embryo wing x 8..14, z 1.5..10.5; the control room x -3..3, z 22.5..31.5; the flood door at 0 35.
+# (Adapted: the ice cap is a ring of ice rock on ice-tinted pillars round the vault floor, and the wings are roofed
+# radio tower rooms tinted ice-white - Raft has no pieces for a closed ice roof that size.)
+include lib_sea
+include lib_rt
+include lib_features
+include lib_frozen
+# RESIZE 10-24: Radius 60 -> 100 (Height 12 -> 12), the old content moved 0 -22 as one frame (push) so its sea side stays at the coast; the island grows behind it.
+new
+gen Trees=0 Bushes=0.05 Rocks=0.3 Harvest=0.05 BeachThings=0.15
+gen Seed=12901 Radius=100 Height=12 Roughness=0.4 Peaks=2 Shape=0 Style=1 BeachWidth=0.25 Cliffs=0.6 PeakShape=0.5
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.2 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+push at 0 -22
+
+# --- Terrain: the landing slope, the terrace, the crevasse, the vault floor -----------------------------------------------
+brush flatten from 0 -54 to 0 -44 r=3 s=20 frames=80 h=1
+brush flatten from 0 -44 to 0 -36 r=3 s=20 frames=80 h=2.5
+brush flatten at 0 -27 r=10 s=20 frames=300 h=4
+brush flatten at 0 10 r=24 s=20 frames=400 h=4
+brush flatten from -30 -15 to 30 -15 r=3.5 s=20 frames=300 h=-5
+# RESIZE 10-24 retest: the terrace's edge over the crevasse fell away on the bigger island - built up again under
+# the hall's north side and the zipline's start
+brush flatten from -5 -20.5 to 5 -20.5 r=2 s=20 frames=200 h=4
+# (and under four of the ice cap's rocks at the vault's north end, where the new ground falls away)
+brush flatten at 12.5 31.65 r=3.5 s=20 frames=200 h=4
+brush flatten at -21.65 22.5 r=3.5 s=20 frames=200 h=4
+brush flatten at -12.5 31.65 r=3.5 s=20 frames=200 h=4
+brush flatten at -17.68 27.68 r=3.5 s=20 frames=200 h=4
+brush flatten at -6.47 34.15 r=3.5 s=20 frames=200 h=4
+pop
+brush flatten at -39.4 21.8 r=5 s=8 frames=40
+origin
+clear at -39.4 21.8 r=6
+push at 0 -22
+clear from 0 -54 to 0 -36 r=3
+clear at 0 -27 r=10
+clear at 0 10 r=24
+clear from -30 -15 to 30 -15 r=4
+
+# --- Area A: the entrance hall (the charter, the generator, the keeper's hooks), the store outside ---------------------
+push at 3 -24 h=4
+call rt_storey a=vaultice f1=RT_WallDoor1 b1=none
+place RT_Floor vaultice at 0 4.5 y=3
+place UT_Generator01 - at -3 1.1 y=0.1 sit yaw=90
+place UT_JumpPuzzle_LiftMechanism_Lever powerlever at -5.6 0.6 y=0.1 sit yaw=90
+place Placeable_Table_Basic - at -1.5 -2 y=0.1 sit yaw=90
+place Note_Book charter at -1.5 -2 y=1 drop yaw=20
+place Loot_Chest keepershooks at -0.9 2.5 y=0.1 sit yaw=270
+place Loot_ChestLarge carrychest at -3 3.6 y=0.1 sit yaw=180
+pop
+place Zone_Trigger entrancezone at 0 -31 ground y=1
+store vaultshop at -8 -26 ground
+place ZiplinePath_Landmark vaultzip at 5.72 -20.27 h=5.35
+# (RESIZE 10-24 retest: the start's floor at the hall's door, level with the hall, on a post down into the crevasse's lip)
+place ReefHuts_Pillar3 - at 0 -19.3 h=-0.9
+zipto vaultzip 0 -6
+call treasure x=14 z=-36 r=15 n=1 seed=12053
+
+# --- The far side: Oda's cage behind the collapsed door, her pack and notes; screechers under the cap --------------------
+place Zone_Trigger farzone at 0 -7 ground y=1
+place Survivor_Cage odacage at 9 -6 ground yaw=200
+place DoorMetal - at 11.5 -4.5 ground sit rot=0,30,80
+call icerock x=12 z=-7 s=1.6 yaw=40
+call icerock x=7 z=-8.5 s=1.2 yaw=200
+place Loot_Chest odapack at 7.2 -4.6 ground sit yaw=160
+place Note_Paper odanotes at 8.4 -3.8 ground y=0.1 drop yaw=30
+place Creature_StoneBird screechers at 0 4 h=14
+
+# --- Area B: the seed wing (three canister crates among the shelves) ---------------------------------------------------
+push at -8 6 h=4
+call rt_storey a=vaultice r2=RT_WallDoor1
+place RT_Floor vaultice at 0 4.5 y=3
+place Shelf_Empty_02 - at -3 3.9 y=0.1 sit yaw=180
+place Shelf_Empty_02 - at -5.4 0 y=0.1 sit yaw=90
+place Loot_Chest canister1 at -1.2 3.6 y=0.1 sit yaw=180
+place Loot_Chest canister2 at -5.2 2.8 y=0.1 sit yaw=90
+place Loot_Chest canister3 at -4.8 -3.6 y=0.1 sit yaw=0
+pop
+place Zone_Trigger seedzone at -11 6 h=5
+# --- the record wing: the founders' record, why the comms went off --------------------------------------------------
+push at 3 14 h=4
+call rt_storey a=vaultice f1=RT_WallDoor1
+place RT_Floor vaultice at 0 4.5 y=3
+place "VG_DecorationPrefabBase_Bookshelf Filled 1 Variant" - at -4.5 3.6 y=0.1 sit yaw=180
+place "VG_DecorationPrefabBase_Bookshelf Filled 2 Variant" - at -1.5 3.6 y=0.1 sit yaw=180
+place TP_CabinetCharts01 - at -0.5 0 y=0.1 sit yaw=270
+place Note_Book foundersrecord at -5.2 0 y=0.1 drop yaw=90
+place Note_Paper commsoff at -0.6 -2.6 y=0.1 drop yaw=200
+# REDO 10-24 (optional): the flotilla council's box - Saga Drift's founding year (1909) on its keypad
+place Loot_Chest councilbox at -4.8 -3.2 y=0.1 sit yaw=90
+place RT_PowerBox councilpad at -5.95 -1.8 y=1.2 yaw=90
+pop
+place Zone_Trigger recordzone at 0 14 h=5
+# --- the embryo wing: cold cabinets, the cooling crank, the keeper's last entry --------------------------------------
+push at 14 6 h=4
+call rt_storey a=vaultice l2=RT_WallDoor1
+place RT_Floor vaultice at 0 4.5 y=3
+place Placeable_Fridge - at -4.5 3.65 y=0.1 sit yaw=180
+place Placeable_Fridge - at -3 3.65 y=0.1 sit yaw=180
+place Placeable_Fridge - at -1.5 3.65 y=0.1 sit yaw=180
+place RT_Pillar - at -1 -2 y=0 sy=0.4
+place TP_Selene_DoorCrankWheel coolcrank at -1 -2 y=1.25 yaw=270
+place Note_Paper keepersentry at -4.5 -3.2 y=0.1 drop yaw=60
+pop
+place Zone_Trigger embryozone at 11 6 h=5
+
+# --- Area C: the control room behind its keypad door, the three switches, the verdicts, the gifts, Hedda's call ------------
+push at 3 27 h=4
+call rt_storey a=vaultice f1=none
+place RT_Floor vaultice at 0 4.5 y=3
+place DoorMetal controldoor at -4.5 -4.5 y=0.05 sit yaw=0
+place RT_PowerBox controlpad at -1.5 -4.75 y=1.2 yaw=180
+place UT_JumpPuzzle_LiftMechanism_Lever keeplever at -4.5 3.4 y=0.1 sit yaw=180
+place UT_JumpPuzzle_LiftMechanism_Lever carrylever at -3 3.4 y=0.1 sit yaw=180
+place UT_JumpPuzzle_LiftMechanism_Lever broadcastlever at -1.5 3.4 y=0.1 sit yaw=180
+place Note_Sign switches at -3 2.4 y=0.1 sit yaw=180
+place Note_Paper verdictkeep at -5.2 0 y=0.1 drop yaw=10
+place Note_Paper verdictcarry at -5.2 0.8 y=0.1 drop yaw=40
+place Note_Paper verdictbroadcast at -5.2 -0.8 y=0.1 drop yaw=70
+place Loot_Chest keepchest at -0.9 1 y=0.1 sit yaw=270
+place Loot_Chest broadcastchest at -0.9 -1 y=0.1 sit yaw=270
+place RT_CommRadio - at -3 -2.4 y=0.1 sit yaw=0
+place Note_Paper heddacall at -2.2 -2.4 y=0.1 drop yaw=0
+pop
+place Zone_Trigger controlzone at 0 27 h=5
+prop vaultice tint.color=#dcebf5
+prop vaultice tint.amount=0.6
+
+# --- The flood door at the vault's north end, its lever ------------------------------------------------------------------
+place DoorMetal flooddoor at 0 35 ground sit yaw=0 scale=1.6
+place UT_JumpPuzzle_LiftMechanism_Lever floodlever at 2.6 34.4 ground sit yaw=180
+place Zone_Trigger floodzone at 0 33 ground y=1
+
+# --- The ice cap: ice rock round the vault floor on ice-tinted pillars, frost inside, snow on the slope ------------------
+for ca 0 345 15
+place SmallRock_02 ice at {25*sin($ca)} {10+25*cos($ca)} ground y=-2 scale=3 yaw=$ca
+next
+for pa 0 300 60
+place RT_PillarThick icepillar at {21*sin($pa)} {10+21*cos($pa)} ground
+next
+call icetint al=ice
+prop icepillar tint.color=#dcebf5
+prop icepillar tint.amount=0.7
+place Zone_Atmosphere frost at 0 10 h=7
+prop frost atmo.particles=snow
+prop frost atmo.fog=#e4eef6
+prop frost atmo.fogAmount=0.4
+prop frost atmo.light=#cfe4f2
+prop frost atmo.lightAmount=0.4
+prop frost zone.radius=26
+call snowfall x=0 z=-40 r=22 al=snow
+
+# --- The sea ---------------------------------------------------------------------------------------------------------
+scatter VP_CoralDigitate01 4 at -50 -51.33 r=4 seed=12921 wet free=1
+scatter VP_CoralBulb04 3 at -50 -51.33 r=4 seed=12922 wet free=1
+scatter SeaVine3_klump 3 at 50 -51.33 r=5 seed=12923 wet free=1
+call shallows x=0 z=22 r=100 deep=6 n=1 seed=12930
+pop
+
+# --- DISCOVERIES 10-24 (optional, no quest needs them): camp + note; BoatStranded + chest; hatch with a chest; buried treasure; viewpoint ---
+place campfire_1 - at -39.4 21.8 ground sit
+place Balboa_DecorationPrefabBase_SimpleTent - at -36.4 23.8 ground sit yaw=337
+place "Box Small" - at -41.4 24.3 ground sit
+place Note_Paper dnote at -41.4 24.3 ground y=0.7 drop yaw=20
+note dnote Survey note | ICE SURVEY, SHEET 4\n\nPressure ridge moving 2 m a day, east.\nCrack under the tent this morning. Moved camp.\nThe sea under the ice is warmer than it should be.
+place BoatStranded dvan at 39.4 -21.8 ground yaw=97
+prop dvan tint.color=#5a6670
+prop dvan tint.amount=0.5
+place Loot_ChestSmall dwreckchest at 35.4 -18.8 ground sit yaw=37
+note dwreckchest Driver's box | The driver's box under the seat: bolts, glass and a scrap of leather.
+loot dwreckchest Bolt*2;Glass*2;Leather*2
+prop dwreckchest loot.refill=0
+call hatchcache x=21.8 z=39.4 r=15 seed=12991 alias=dhatch chest=dhatchchest items=MetalIngot*2;Wool*3;Bolt*2
+call vinecache x=39.4 z=-21.8 r=15 seed=12993 chest=dvinechest vines=dvines items=Rope*3;Wool*2;Bolt*3
+call treasure x=-38.6 z=-23.2 r=15 n=1 seed=12992
+prop treasure12992 treasure.loot=TitaniumOre*2;MetalOre*2
+place Zone_Trigger dview at -4 20.6 ground
+prop dview zone.id=coldhold_vault_view
+prop dview zone.radius=7
+prop dview zone.repeat=never
+prop dview zone.message=The Coldhold's entrance hall looks out over the landing, the glacier pressing down behind it.
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------------
+# the generator's rocks that floated over the slope (ground check, 2026-10-23)
+clear at -26.8 -21.26 r=1.5 only=TP_BigRock
+clear at -22.4 -32.87 r=1.5 only=TP_BigRock
+
+info title=The Coldhold Vault
+info author=Custom Islands
+info description=A seed bank under the glacier: an entrance hall, a crevasse crossed by an electric zipline, three wings of seeds, records and embryos under an ice cap - and a control room with three switches: KEEP, CARRY, BROADCAST. The ninth island of The Frozen Horizon.
+island on.arrive=message||A door in the glacier, frost on its frame. Above it, cut small and neat: a ring, a wave through it.
+
+story power|The vault's power|Placeable_Lantern_Metal|The Coldhold's generator, running again.
+story odakey|Oda's cage key|Placeable_Lantern_Metal|The key to the cage on the far side, from the keeper's hooks.
+story canister|Seed canister|Placeable_Lantern_Metal|One of the seed wing's sealed canisters.
+story cooling|The cooling, restarted|Placeable_Lantern_Metal|The embryo wing's cooling, cranked back to life.
+story controlcode|The control room's code|Placeable_Lantern_Metal|You typed the keeper's code into the control room door.
+story choice|The Coldhold's choice|Placeable_Lantern_Metal|One of the three switches, pulled. The vault's way is chosen.
+story flooddoor|The flood door, open|Placeable_Lantern_Metal|The flood door is open. Below it, the Seed Ark.
+
+note charter Coldhold charter | THE COLDHOLD - CHARTER\n\nWhat grew before the water is kept here: seeds, records, the beginnings of animals.\nThe vault keeps them for the day the world is green again. Until that day, it keeps itself.\nThe power is on the lever by the generator. The far side is over the crevasse; the line is electric.
+note keepershooks Keeper's hooks | The keepers' hooks by the door: a ring of keys - one tagged "cage, far side".
+note odanotes Oda's notes | (Oda Fenn's notebook, from Verdance)\n\nI came alone. Somebody had to see where the seeds went.\nThe door came down behind me - the ice moved. I put myself in the keepers' cage: it was the only thing still standing.\nThe vault went silent on purpose. The records will say why.
+note odapack Oda's pack | Oda's pack: her rations, her seed tin - and rope, which she will not need now.
+note canister1 Seed canister crate | A sealed crate in the seed wing: a seed canister, labelled in a neat hand.
+note canister2 Seed canister crate | A sealed crate in the seed wing: a seed canister, frost on its lid.
+note canister3 Seed canister crate | A sealed crate in the seed wing: a seed canister, its seal unbroken.
+note foundersrecord Founders' record | THE FOUNDERS' RECORD\n\nWe cut the vault under the glacier the year the water came.\nWe set the Ringwave over the door - the old sign, the one on the sea doors and the glacier wall.\nWe did not invent it. We only knew it meant: keep.
+note commsoff Why the comms went off | (a keeper's memo)\n\nThe order to every town - Saga Drift, the steam harbour, the Whale: go silent.\nSo the signal from the south would not find us.\nWhatever is in the south, it listens. The founders were sure of that.
+note keepersentry Keeper's last entry | KEEPER'S LOG - LAST ENTRY\n\nThe cooling is failing. I have cranked it by hand for a week.\nIf you are reading this, the choice is yours now. The control room's code is 2240 - the day the water came, by the founders' count.\nKeep it, carry it, or tell everyone. I could not choose.
+note switches Three switches | THREE SWITCHES\n\nKEEP - seal the vault, power on. It waits for a better day.\nCARRY - open the seed store to the sea. Take what grows.\nBROADCAST - send the records on every band. Let the world know.\n\nOne only.
+note verdictkeep The verdict | THE VERDICT - KEEP\n\nThe vault seals. The lights stay on. The seeds wait, and so do the records - for a better day, or for the south.\nThe vault gives you metal for the road.
+note verdictcarry The verdict | THE VERDICT - CARRY\n\nThe seed store opens to the sea. A crate of every seed waits at the entrance hall.\nWhat grows now is up to the ones who plant it.
+note verdictbroadcast The verdict | THE VERDICT - BROADCAST\n\nEvery band at once: the founders' record, the seed lists, the keepers' names. The silence is over.\nThe vault gives you copper for the radios.
+note heddacall Hedda's radio call | (the radio crackles on - the Whale's band)\n\n"This is Hedda Brask, Iron Whale. I heard the vault wake.\nThe glacier shifted when the power came on. The lowest level is flooding - the Ark, they called it.\nOpen the flood door and go down after it. Bring air."
+note keepchest The vault's gift | The vault's gift for KEEP: metal for the road.
+note carrychest The vault's gift | The vault's gift for CARRY: a crate of every seed the vault kept.
+note broadcastchest The vault's gift | The vault's gift for BROADCAST: copper for the radios.
+loot keepershooks story:odakey*1;Rope*2
+prop keepershooks loot.refill=0
+loot odapack Raw_GenericMeat*2;Seed_Strawberry*2;Rope*3
+prop odapack loot.refill=0
+loot canister1 story:canister*1;Seed_Birch*1
+prop canister1 loot.refill=0
+loot canister2 story:canister*1;Seed_Grass*1
+prop canister2 loot.refill=0
+loot canister3 story:canister*1;Seed_Palm*1
+prop canister3 loot.refill=0
+loot keepchest MetalIngot*6
+prop keepchest loot.refill=0
+loot carrychest Seed_Banana*1;Seed_Birch*1;Seed_Flower_Black*1;Seed_Flower_Blue*1;Seed_Flower_Red*1;Seed_Flower_White*1;Seed_Flower_Yellow*1;Seed_Grass*1;Seed_Mango*1;Seed_Palm*1;Seed_Pine*1;Seed_Pineapple*1;Seed_Strawberry*1;Seed_Watermelon*1
+prop carrychest loot.refill=0
+loot broadcastchest CopperIngot*6
+prop broadcastchest loot.refill=0
+prop treasure12053 treasure.loot=TitaniumOre*3
+
+prop entrancezone zone.id=entrance
+prop entrancezone zone.radius=4
+prop entrancezone zone.message=The Coldhold's door. The air from inside is colder than the wind.
+prop farzone zone.id=far_side
+prop farzone zone.radius=4
+prop farzone zone.message=The far side. Under the ice cap, wings branch off into the dark - and somebody calls from a cage.
+prop seedzone zone.id=seed_wing
+prop seedzone zone.radius=3
+prop seedzone zone.message=The seed wing. Shelves, crates, frost.
+prop recordzone zone.id=record_wing
+prop recordzone zone.radius=3
+prop recordzone zone.message=The record wing. Paper keeps, in the cold.
+prop embryozone zone.id=embryo_wing
+prop embryozone zone.radius=3
+prop embryozone zone.message=The embryo wing. The cabinets hum - just.
+prop controlzone zone.id=control
+prop controlzone zone.radius=3
+prop controlzone zone.message=The control room. Three switches on the wall.
+prop floodzone zone.id=flood_door
+prop floodzone zone.radius=3
+prop floodzone zone.message=The flood door. Behind it, water - a long way down.
+prop screechers creature.count=3
+prop screechers creature.respawn=0
+prop screechers creature.zone=far_side
+
+prop powerlever obj.name=powerlever
+prop powerlever beh.use=Pull the generator's lever
+prop powerlever if.use=!signal|power
+prop powerlever on.use=signal||power\ngive||story:power*1\nmessage||The generator coughs and catches. Lights run down the crevasse - and the zipline's cable hums.
+prop odacage obj.name=odacage
+prop odacage survivor.name=Oda
+prop odacage survivor.id=frozen_oda
+prop odacage survivor.key=odakey
+prop odacage survivor.signal=odafree
+prop odacage survivor.line=You! From Verdance - you came all this way too? Thank you. My notes are on the floor; read them. Then the records.
+prop odapack obj.name=odapack
+prop odapack if.open=signal|odafree
+prop odapack else.open=message||Oda's pack is in the cage with her. Free her first - the keepers' hooks by the door have the key.
+prop coolcrank obj.name=coolcrank
+prop coolcrank beh.use=Crank the cooling
+prop coolcrank if.use=!signal|cooling
+prop coolcrank on.use=signal||cooling\ngive||story:cooling*1\nmessage||The crank turns, stiff, then easy. The cabinets' hum steadies.
+prop controlpad obj.name=controlpad
+prop controlpad beh.use=Type the control room's code
+prop controlpad lock.code=2240
+prop controlpad on.use=sound||event:/exploring/obstacles/keypad/keypad_correct\nmessage||The keypad beeps. The control room's door slides away.\nsignal||controlcode\ngive||story:controlcode*1\nhide|controldoor
+prop controlpad else.use=message||The door wants the keeper's code. The keeper's log is in the embryo wing.
+prop verdictkeep beh.hidden=1
+prop verdictcarry beh.hidden=1
+prop verdictbroadcast beh.hidden=1
+prop keepchest beh.hidden=1
+prop carrychest beh.hidden=1
+prop broadcastchest beh.hidden=1
+prop heddacall beh.hidden=1
+prop keeplever obj.name=keeplever
+prop keeplever beh.use=Pull KEEP
+prop keeplever if.use=signal|controlcode\n!signal|chosen
+prop keeplever on.use=signal||keep\nsignal||chosen\ngive||story:choice*1\nshow|verdictkeep\nshow|keepchest\nshow|heddacall\nmessage||KEEP. Bolts slam home all through the vault. The lights steady. The vault will wait.
+prop carrylever obj.name=carrylever
+prop carrylever beh.use=Pull CARRY
+prop carrylever if.use=signal|controlcode\n!signal|chosen
+prop carrylever on.use=signal||carry\nsignal||chosen\ngive||story:choice*1\nshow|verdictcarry\nshow|carrychest\nshow|heddacall\nmessage||CARRY. Far off, the seed store's sea gate grinds open. At the entrance hall, a crate rolls out on its rails.
+prop broadcastlever obj.name=broadcastlever
+prop broadcastlever beh.use=Pull BROADCAST
+prop broadcastlever if.use=signal|controlcode\n!signal|chosen
+prop broadcastlever on.use=signal||broadcast\nsignal||chosen\ngive||story:choice*1\nshow|verdictbroadcast\nshow|broadcastchest\nshow|heddacall\nmessage||BROADCAST. Every radio in the vault comes alive at once, reading the founders' record into every band.
+prop floodlever obj.name=floodlever
+prop floodlever beh.use=Open the flood door
+prop floodlever if.use=signal|chosen\n!signal|flooddoor
+prop floodlever on.use=signal||flooddoor\ngive||story:flooddoor*1\nhide|flooddoor\nmessage||The flood door grinds up. Black water below, and far down, lamps still burning: the Seed Ark.
+prop floodlever else.use=message||Not before the vault's way is chosen.
+
+note councilbox Council box | The Saga Drift council's box, carried here when the city went quiet: their tokens, a titanium bar, the city seal.
+loot councilbox TradeToken*6;TitaniumIngot*1;CopperIngot*2
+prop councilbox loot.refill=0
+prop councilbox obj.name=councilbox
+prop councilbox if.open=signal|councilcode
+prop councilbox else.open=message||The council's box is locked. Its keypad wants four digits - a year, by the look of the scratches.
+story councilcode|The council box's code|Placeable_Lantern_Metal|Saga Drift's founding year opened the council's box.
+prop councilpad obj.name=councilpad
+prop councilpad beh.use=Type the council box's code
+prop councilpad lock.code=1909
+prop councilpad on.use=sound||event:/exploring/obstacles/keypad/keypad_correct\nmessage||The keypad beeps. The council's box opens - the city's own year.\nsignal||councilcode\ngive||story:councilcode*1
+prop councilpad else.use=message||Four digits, scratched round the 1 and the 9. The flotilla city's year?
+prop dhatchchest if.open=wears|HeadLight*
+prop dhatchchest else.open=message||A store cut into the ice under the hatch, pitch black - wear a headlight.
+quest title=Beneath the Glacier
+quest intro=A door in the glacier, frost on its frame. Go to the entrance.
+step reach|entrance|1|Go to the Coldhold's entrance
+step read|Coldhold charter|1|Read the Coldhold charter in the entrance hall
+step collect|story:power|1|Pull the generator's lever
+step reach|far_side|1|Ride the electric zipline across the crevasse to the far side
+step open|Oda's pack|1|Free Oda Fenn from the cage (the keepers' hooks have the key) and open her pack
+step read|Oda's notes|1|Read Oda's notes
+step kill|Screecher|3|Drive off the three screechers under the ice cap
+step reach|seed_wing|1|Go into the seed wing
+step collect|story:canister|3|Collect the three seed canisters
+step reach|record_wing|1|Go into the record wing
+step read|Founders' record|1|Read the founders' record
+step read|Why the comms went off|1|Read why the comms went off
+step reach|embryo_wing|1|Go into the embryo wing
+step collect|story:cooling|1|Crank the embryo wing's cooling
+step read|Keeper's last entry|1|Read the keeper's last entry
+step collect|story:controlcode|1|Open the control room's door with the keeper's code
+step reach|control|1|Go into the control room
+step read|Three switches|1|Read the three switches
+step collect|story:choice|1|Pull one switch: KEEP, CARRY or BROADCAST
+step read|The verdict|1|Read the verdict
+step open|The vault's gift|1|Open the vault's gift
+step read|Hedda's radio call|1|Read Hedda's radio call
+step reach|flood_door|1|Go to the flood door at the vault's north end
+step collect|story:flooddoor|1|Open the flood door
+quest done=The flood door is open. Down there, the Seed Ark - on 400.
+quest reward=MetalIngot*4;CopperIngot*3;TradeToken*6
+
+prop broadcastchest obj.name=broadcastchest
+prop carrychest obj.name=carrychest
+prop controldoor obj.name=controldoor
+prop flooddoor obj.name=flooddoor
+prop heddacall obj.name=heddacall
+prop keepchest obj.name=keepchest
+prop verdictbroadcast obj.name=verdictbroadcast
+prop verdictcarry obj.name=verdictcarry
+prop verdictkeep obj.name=verdictkeep
+# RESIZE 10-24 retest: the bigger island's generator rocks that floated over slopes (ground check)
+clear at -6.58 16.48 r=1.5 only=TP_SmallRock
+clear at -33.55 43.72 r=1.5 only=TP_BigRock
+clear at -56.96 -16.23 r=1.5 only=TP_BigRock
+clear at -50.55 23.13 r=1.5 only=TP_BigRock
+clear at -63.96 1.95 r=1.5 only=TP_BigRock
+clear at -59.54 25.21 r=1.5 only=TP_BigRock
+clear at -52.59 31.78 r=1.5 only=TP_BigRock
+clear at -20.26 57.83 r=1.5 only=TP_BigRock
+clear at -74.42 -4.38 r=1.5 only=TP_BigRock
+clear at -45.96 -21.22 r=1.5 only=TP_BigRock
+clear at 3.62 48.61 r=1.5 only=TP_BigRock
+clear at -16.18 55.00 r=1.5 only=TP_BigRock
+clear at -50.83 -30.93 r=1.5 only=TP_BigRock
+
+save The Coldhold Vault

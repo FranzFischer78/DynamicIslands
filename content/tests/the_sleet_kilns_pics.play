@@ -1,0 +1,14 @@
+# Guide pictures of The Sleet Kilns (CIPlay the_sleet_kilns_pics): Raft's camera, midday, calm
+island The Sleet Kilns
+offset 0 0
+hour 11
+weather Calm
+at 0 -30
+wait 3
+picture the_sleet_kilns_island 0 40 -120 0 5 0
+picture the_sleet_kilns_kilns 0 8 -16 0 7 2
+picture the_sleet_kilns_tramway 4 6 -50 0 3 -20
+picture the_sleet_kilns_smelter 6 7 6 0 4 16
+picture the_sleet_kilns_salt -14 6 10 -22 3 18
+picture the_sleet_kilns_kiln4 14 5 -8 10 4 1
+picture the_sleet_kilns_underwater 0 -2 -76 0 -3 -56

@@ -1,0 +1,204 @@
+# Caravan Town Remade - an island of the library's plan Raft Remade (in place of Raft's Caravan Town)
+# Raft's Caravan Town made anew: its red sandstone stacks remade from its own ground (the generator's Randomize existing,
+# "a variation of it"). The market in the inlet between the west mesa and the mayor's pillar; the town lift - a tower
+# of the radio tower's pillars and decks with ladders - up the west mesa to the upper town of stacked trailers; the
+# mayor's pillar beside it, its top a yard of trailers stacked three high, its bridge pulled in by the mayor; a trailer
+# sunk in the bay, an air pocket beside it. Quest "The Mayor's Toll" (12 steps): the market, the toll notice, the
+# market's ledger, the air pocket by the sunken trailer, the diver's crate and the winch's crank in it, the bridge slid
+# back across, the mayor's hyenas, his roof, the white screecher on it, his key in her nest and his chest (Caravan
+# Town's blueprints: the firework, the engine controls, the metal detector).
+#
+# Built by the recipe player (CIRecipe caravan_town_remade) through the editor's own operations.
+include lib_sea
+new
+# (nature and the life under water as on Raft's island itself - Randomize existing measures them)
+randomize CaravanIsland Seed=7104 Hostiles=0 Friendly=0 SeaLife=0.3 Trees=0.35 Rocks=0.6
+
+# --- Terrain: the market's floor in the inlet (1.6 m), the upper town on the west mesa and the mayor's pillar's top
+# levelled at the lift's top deck (21.9 m), the gap between them 8 m - the bridge's length --------------------------------
+brush flatten at -12.5 -1 r=7 s=20 frames=40 h=1.6
+# (and under the lift's south legs, at the inlet's edge)
+brush flatten from -17.5 -5.5 to -10 -5.5 r=2.5 s=20 frames=40 h=1.6
+brush flatten at -30 14 r=10 s=20 frames=60 h=21.9
+brush flatten from -24 6.5 to -14 6.5 r=3 s=20 frames=40 h=21.9
+# (and the winch's end of the bridge's way again, harder: a hump at the mesa's edge stood a step over it and stopped a
+# player bound for the bridge - SL6 plan run, 2026-10-19)
+brush flatten from -17 6.5 to -13.5 6.5 r=2 s=20 frames=80 h=21.9
+# (and under the bridge's way out over the gap: the mesa's lip past it, a step over the deck, cut down below the bridge)
+brush flatten from -11.5 6.5 to -7.5 6.5 r=1.8 s=20 frames=60 h=12
+brush flatten at 0 3.5 r=7.5 s=20 frames=50 h=21.9
+# (and its west edge, where the bridge lands: a lip of the old pillar stood a metre over it)
+brush flatten from -5 0 to -5 10 r=2.2 s=20 frames=40 h=21.9
+# (the gap between them, 5 m: the pillar's west spike - 33 m high - lowered to 12 m)
+brush flatten from -9 0 to -9 10 r=2.5 s=20 frames=40 h=12
+# (the lift's north legs stood in the rock's foot - the west one in 7 m, the east one in 2 m: notches down to the market floor)
+brush flatten at -16.9 3 r=1.3 s=20 frames=40 h=1.6
+brush flatten at -11.3 3 r=1.3 s=20 frames=40 h=1.6
+# (the bay by the cliff was 2-6 m of slope - the trailer stood on end against it, the crate in it: a sunk hollow out west)
+brush flatten at -21.5 -13 r=4 s=20 frames=40 h=-2.5
+origin
+clear at -12 -1 r=8
+clear at -28 12 r=13
+clear at 1 3 r=9
+# (Raft's ladders the variation carried over stood inside its reshaped stacks, tops 2-5 m in the rock: CIFloatingSweep)
+clear at 4.02 14.15 r=2 only=LandmarkLadder
+clear at 22.12 2.47 r=2 only=LandmarkLadder
+clear at 46.55 -3.03 r=2 only=LandmarkLadder
+clear at -30.44 55.04 r=2 only=LandmarkLadder
+
+# --- The market in the inlet (1.6 m), round the lift's foot: crates, the ledger, the toll notice on a post, the
+# caravan flag ----------------------------------------------------------------------------------
+place Crate_Big_02 - at -9.2 -3.9 ground yaw=-10
+place Crate_Big_01 ledgerbox at -8.4 -2.2 ground yaw=15
+place Note_Paper ledger at -8.4 -2.2 h=4 sit drop yaw=70
+place Candle_01 - at -8.8 -1.9 h=4 sit drop
+place Relay_Fence_pole - at -10.3 -5.6 ground
+place Note_Paper tollnotice at -10.3 -5.6 y=1.1 drop
+place PulauKafilahFlag - at -17.6 -4.6 ground
+place Zone_Trigger market at -11 -1 y=1.2
+# the market's jammed crate (TODO 4c): its lid nailed down - the crowbar from Vasagatan (rule 2; kept) prises it open;
+# nothing in the quest needs it
+place Loot_ChestSmall jammedcrate at -13.2 -3.4 ground yaw=20
+
+# --- The town lift: the radio tower's pillars and decks, ladders up its south face, its top deck at the upper town's
+# edge (21.9 m) ------------------------------------------------------------------------------------------------------------
+push at -11 -1 h=1.6
+for lx -5.9 -0.1 5.8
+for lz -4.4 4.4 8.8
+for ly 0 12 6
+place RT_PillarThick - at $lx $lz y=$ly
+next
+place RT_PillarThick - at $lx $lz y=18 sy=0.383
+next
+next
+place RT_Floor liftdeck1 at 0 4.5 y=6.3
+place RT_Floor liftdeck2 at 0 4.5 y=13.3
+place RT_Floor liftdeck3 at 0 4.5 y=20.3
+# (and from the top deck north over the cliff's edge onto the upper town, a step up to the bridge's end: without it a
+# player stepped off into the gap)
+place RT_Floor liftwalk at 0 13.5 y=20.55
+place LandmarkLadder_6m lift0 at -1.5 -4.62 y=0
+place LandmarkLadder_6m lift1 at -4.5 -4.62 y=6.3
+place LandmarkLadder_6m lift2 at -1.5 -4.62 y=13.3
+pop
+
+# --- The upper town on the west mesa (21.9 m): trailers stacked two high, the winch at its east edge facing the mayor's
+# pillar --------------------------------------------------------------------------------------------------------------
+place Caravan_Blue_01 - at -30 10 ground yaw=10
+place Caravan_Yellow_01 - at -30 10 y=2.75 ground yaw=10
+place Caravan_Blue_01 - at -26 17 ground yaw=95
+place Caravan_Yellow_01 - at -34 17 ground yaw=-20
+# (1.5 m in from the mesa's edge: at -22 it sat on the lip, its low corner over the cliff and the rest sunk in the ground)
+place Crate_Big_02 - at -23.5 13 ground yaw=30
+place UT_DrawBridgeMechanism_Cogwheel01 winch at -15.8 9.2 h=24 sit drop yaw=90
+
+# --- The mayor's pillar (21.9 m): his bridge pulled in on it, his trailers stacked two high with a ladder to the roof
+# (the white screecher's nest), his chest, his hyenas -------------------------------------------------------------------
+# (its planks flush with the ground it slides onto: standing 0.3 m proud, its end stopped a player)
+place CaravanHubBridge3 drawbridge at -0.3 6.5 y=-0.3 ground yaw=90
+place Caravan_Blue_01 mayortrailer at 3 -1 ground yaw=0
+place Caravan_Yellow_01 - at 3 -1 y=2.75 ground yaw=0
+place LandmarkLadder_6m roofladder at 3 -2.55 ground yaw=0
+place "Box Small" nest at 3.3 -0.4 h=27.7 sit
+# (on the pillar's flat top: at 6 4 it stood at the foot of the rock rising east and sank 0.7 m into it)
+place MayorsChest mayorschest at 4.8 4 ground yaw=-90
+place Zone_Trigger mayortower at 1 3 y=1.5
+place Zone_Trigger roof at 3 -1 y=6.5
+place Creature_Hyena hyenas at 0 2 ground
+place Creature_StoneBird_Caravan whitebird at 3 -1 y=6 ground
+
+# --- In the bay south of the market: a trailer sunk on its side, the diver's crate by it, an air pocket ----------------
+place Caravan_Blue_01 sunktrailer at -22.5 -13.5 ground roll=85 yaw=30
+place "Box Small" divecrate at -19.8 -12 ground yaw=40
+place Zone_Trigger airpocket at -21 -13 ground y=1
+
+# --- Settings, story items, notes, behaviours, quest ------------------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): mangoes, melons, flowers ----------
+scatter "Pickup_Landmark_Tree_Mango" 6 at 0 0 r=42.0 seed=4395 free=5
+scatter "Pickup_Landmark_WatermelonLandmark" 6 at 0 0 r=42.0 seed=4405 free=3
+scatter "Pickup_Landmark_Flower_Red" 4 at 0 0 r=42.0 seed=4415 free=3
+scatter "Pickup_Landmark_Flower_Yellow" 4 at 0 0 r=42.0 seed=4416 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=80 deep=5 n=2
+
+info title=Caravan Town Remade
+info author=Custom Islands
+info description=Raft's Caravan Town made anew: red sandstone stacks, a market in the inlet between them, a lift of ladders up to the upper town of trailers - and the mayor's pillar, its bridge pulled in behind him. A white screecher nests on his roof. Raft Remade's fourth island.
+island on.arrive=message||Red sandstone stacks rise from the sea, trailers piled on their tops. Down in the inlet between them, a market - and a lift of ladders up the cliff.
+
+story crank|Winch crank|quest:Balboa_BrunosTool_Wrench|The bridge winch's crank, from the diver's crate by the sunken trailer.
+story mayorkey|Mayor's key|quest:Caravan_KeyMayor|The mayor's key, from the white screecher's nest on his roof.
+
+note tollnotice Toll notice | BY ORDER OF THE MAYOR\n\nThe bridge to the mayor's pillar stays PULLED IN until the toll is paid.\n\n(scrawled underneath) He threw the winch's crank to the diver, and the diver's boat went down in the bay - trailer and all. His dogs guard the pillar. And the white bird on his roof guards him.
+note ledger Market ledger | The market's ledger: water, fish, scrap - and on every page, the mayor's cut. The last page: "Market closed. The mayor has the keys to everything now."
+note divecrate Diver's crate | The diver's crate by his sunken trailer: his slate, a rope - and the winch's crank, as the mayor paid him to keep it.
+loot divecrate story:crank*1;Rope*2;Plastic*4
+prop divecrate loot.refill=0
+note nest Screecher's nest | A nest of wire and rags on the mayor's roof - and something shiny in it: the mayor's key.
+loot nest story:mayorkey*1;Feather*4
+prop nest loot.refill=0
+note mayorschest Mayor's chest | The mayor's chest: the toll money, the town's deeds - and the plans he never shared.
+loot mayorschest Blueprint_Firework*1;Blueprint_EngineControls*1;Blueprint_MetalDetector*1;Scrap*6;Nail*10
+prop mayorschest loot.refill=0
+prop mayorschest if.open=take|story:mayorkey|1
+prop mayorschest else.open=message||The mayor's chest is locked. Perhaps the white bird on his roof has the key.
+prop jammedcrate obj.name=jammedcrate
+note jammedcrate Jammed market crate | A trader's crate, its lid nailed down and the nails rusted in. Stencilled on the side: "VASAGATAN - SHIP'S STORES". Inside, packed in straw: rations and spares from the wreck.
+loot jammedcrate Cooked_Mackerel*2;Nail*10;Scrap*4;Battery*1
+prop jammedcrate loot.refill=0
+prop jammedcrate if.open=has|story:crowbar|1
+prop jammedcrate else.open=message||The crate's lid is nailed down tight - the nails rusted in. A crowbar would prise it open; the Vasagatan's crew had one at their camp.
+
+prop winch obj.name=winch
+prop winch beh.use=Turn the winch
+prop winch if.use=has|story:crank|1
+prop winch on.use=message||The crank bites. Chains rattle, and the bridge slides out from the mayor's pillar across the gap.\nopen|drawbridge
+prop winch else.use=message||The winch has no crank. The toll notice said it went down with the diver's trailer in the bay.
+prop drawbridge obj.name=drawbridge
+# (the island's axes, not its own: 9.2 m west, across the gap onto the upper town's edge)
+prop drawbridge beh.move=-9.2,0,0
+prop drawbridge beh.moveTime=3
+
+prop market zone.id=market
+prop market zone.radius=6
+prop market zone.message=The market: trailers, crates, an empty stall - and a toll notice on a post.
+prop airpocket zone.id=airpocket
+prop airpocket zone.radius=3
+prop airpocket zone.air=1
+prop airpocket zone.message=An air pocket by the sunken trailer - breathe, then search round her.
+prop mayortower zone.id=mayortower
+prop mayortower zone.radius=7
+prop mayortower zone.message=The mayor's pillar. Something growls behind his trailers.
+prop roof zone.id=roof
+prop roof zone.radius=3
+prop roof zone.message=The roof: a nest of wire and rags - and a white screecher rising from it.
+prop hyenas creature.count=3
+prop hyenas creature.respawn=0
+prop hyenas creature.zone=mayortower
+prop whitebird creature.count=1
+prop whitebird creature.size=1.4
+prop whitebird creature.health=3
+prop whitebird creature.respawn=0
+prop whitebird creature.zone=roof
+
+quest title=The Mayor's Toll
+quest intro=Red stacks of trailers, a market in the inlet - and the mayor's pillar with its bridge pulled in. The market is the place to start.
+step reach|market|1|Come into the market in the inlet
+step read|Toll notice|1|Read the toll notice by the market
+step read|Market ledger|1|Leaf through the market's ledger - the mayor's cut on every page
+step reach|airpocket|1|Dive to the sunken trailer in the bay - breathe in the air pocket by it
+step open|Diver's crate|1|Open the diver's crate by his sunken trailer
+step collect|story:crank|1|Bring the winch's crank up from the bay
+step reach|mayortower|1|Ride the lift up, wind the bridge across and cross to the mayor's pillar
+step kill|Hyena|3|Deal with the mayor's three hyenas
+step reach|roof|1|Climb the ladder to the mayor's roof
+step kill|Caravan screecher|1|Drive the white screecher off his roof
+step open|Screecher's nest|1|Take the mayor's key from her nest of wire and rags
+step open|Mayor's chest|1|Open the mayor's chest
+step blueprint|Blueprint_Firework|1|Take the firework plans from the mayor's chest
+step blueprint|Blueprint_EngineControls|1|Take the engine controls plans from the mayor's chest
+step blueprint|Blueprint_MetalDetector|1|Take the metal detector plans from the mayor's chest
+quest done=The chest opens: the fireworks' plans, the engine controls', a metal detector's. Down in the market, someone has already started to sweep.
+quest reward=Plank*8;Scrap*6;Rope*3
+
+save Caravan Town Remade

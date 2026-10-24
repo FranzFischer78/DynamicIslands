@@ -1,0 +1,1639 @@
+# What lies under water around Raft's islands (CIMeasureUnderwater, raft=1.1.01)
+# area	<island>	<style>	m² of ground per depth band (0-2 2-5 5-10 10-20 20-40 40-80 80+ m)	steep share per band	lowest
+# profile	<island>	median ground depth every 5 m from the coast
+# obj	<island>	<name>	count	depth p10/p50/p90	coast distance p10/p50/p90	slope p50	size p50	above ground p50	count per band	catalog
+# tex	<island>	<band>	texture=share ...
+area	Radar Big radio tower	Tropical	12 220 636 1384 656 2012 820	1.00 0.31 0.47 0.64 0.91 0.96 0.98	-161
+profile	Radar Big radio tower	0:11.2 5:12.9 10:17.3 15:46 20:52.2 25:53.6 30:60.2 35:69.3 40:93.4 45:101.2 105:160.2 110:160.2
+obj	Radar Big radio tower	LeafCoral_3	86	3.4/10.2/14.3	0/0/8.8	16	1.6	-9	45 16 14 11 0 0 0	core
+obj	Radar Big radio tower	LeafCoral_1	82	3.4/10.4/13.8	0/0/10.5	22.7	1.1	-9.1	43 17 11 11 0 0 0	core
+obj	Radar Big radio tower	CauliCoral	56	9.2/11/16.3	0/0/4.8	36.9	2.6	-22.1	36 1 2 17 0 0 0	core
+obj	Radar Big radio tower	TableCoral_1	46	7/10.4/14.3	0/0/7.7	36.9	1.4	-9.7	25 0 16 5 0 0 0	core
+obj	Radar Big radio tower	TableCoral_2	46	7/10.4/14.3	0/0/7.7	46.8	1.7	-13.8	28 2 12 4 0 0 0	core
+obj	Radar Big radio tower	RT_GroundPillar	40	2.3/8.3/11.3	0/0/0	71.6	3	-16.6	40 0 0 0 0 0 0	index
+obj	Radar Big radio tower	RT_PillarThick	39	2/5/5	0/0/0	36.9	3	-17	39 0 0 0 0 0 0	index
+obj	Radar Big radio tower	CylinderCoral_1	25	8/10.4/13.4	0/0/8.8	38	1.6	-22.7	17 2 2 4 0 0 0	core
+obj	Radar Big radio tower	CylinderCoral_2	25	7/10.4/14.3	0/0/5.7	38	1.7	-18.8	17 0 3 5 0 0 0	core
+obj	Radar Big radio tower	RT_Wall1	22	2/5/5	0/0/0	44.9	3	-20	22 0 0 0 0 0 0	index
+obj	Radar Big radio tower	Box Small	19	3/4/5	0/0/0	74.5	0.5	-28.5	19 0 0 0 0 0 0	core
+obj	Radar Big radio tower	Pickup_Landmark_Rock 2	18	3.4/10/14.1	0/0/13.3	36.9	0.4	-6.6	10 5 2 1 0 0 0	core
+obj	Radar Big radio tower	RT_PillarEndCap	17	4.9/4.9/4.9	0/0/0	36.9	1	-17.9	17 0 0 0 0 0 0	index
+obj	Radar Big radio tower	RT_Crossbeam	12	2/2/5	0/0/0	64.6	4.3	-19.9	12 0 0 0 0 0 0	index
+obj	Radar Big radio tower	RT_Radiator	12	1.5/4.6/4.6	0/0/0	59.3	1.5	-23	12 0 0 0 0 0 0	core
+obj	Radar Big radio tower	RT_WallWindow1	11	2/5/5	0/0/0	59.3	3	-20.6	11 0 0 0 0 0 0	index
+obj	Radar Big radio tower	Pickup_Landmark_Rock 3	11	4.6/6.9/10.4	0/4.8/13.7	17.2	0.5	0	4 4 2 1 0 0 0	core
+obj	Radar Big radio tower	Shelves	10	5/5/5	0/0/0	74.5	2	-21.6	10 0 0 0 0 0 0	core
+obj	Radar Big radio tower	RT_GroundPillarCap	9	5.3/5.3/5.3	0/0/0	72.1	3.2	-18.4	9 0 0 0 0 0 0	index
+obj	Radar Big radio tower	RT_RoofLamp	9	2/2/2	0/0/0	37.1	1.8	-19.1	9 0 0 0 0 0 0	index
+obj	Radar Big radio tower	Pickup_Landmark_Rock 1	9	3.4/9.8/14.2	0/0/4.8	36.9	0.4	-23.2	7 2 0 0 0 0 0	core
+obj	Radar Big radio tower	RT_Pillar	8	2/5/5	0/0/0	36.9	6	-18.1	8 0 0 0 0 0 0	index
+obj	Radar Big radio tower	BigRock_Low1_Sand	7	17.1/52.2/126.3	2/10.8/33.1	70.2	58.7	-39.8	0 0 0 4 2 1 0	core
+obj	Radar Big radio tower	RT_PipeDownStraight	6	2/2.1/2.5	0/0/0	79.3	2.9	-16	6 0 0 0 0 0 0	index
+obj	Radar Big radio tower	RT_WallDoor1	5	2/2/5	0/0/0	25.2	3	-20.9	5 0 0 0 0 0 0	index
+obj	Radar Big radio tower	RT_PipeWallConnector	5	2/2/4.9	0/0/2	46.8	0.5	-15.1	5 0 0 0 0 0 0	index
+obj	Radar Big radio tower	Pickup_Landmark_Sand	5	10/10.3/16.3	0/0/4.8	59.3	1.1	-27.2	4 0 0 1 0 0 0	core
+obj	Radar Big radio tower	RT_BeamThickCorner	4	5/5/5	0/0/0	83.1	1	-10.1	4 0 0 0 0 0 0	index
+obj	Radar Big radio tower	RT_BeamThick	4	5/5/5	0/0/0	83.1	24	-12.4	4 0 0 0 0 0 0	index
+obj	Radar Big radio tower	RT_BeamCorner	4	2/2/2	0/0/0	58.9	0.3	-15.1	4 0 0 0 0 0 0	index
+obj	Radar Big radio tower	RT_Beam	4	2/2/2	0/0/0	58.9	15	-19	4 0 0 0 0 0 0	index
+obj	Radar Big radio tower	Locker	4	2/5/5	0/0/0	56.4	2.6	-18.1	4 0 0 0 0 0 0	core
+obj	Radar Big radio tower	Pickup_Landmark_Clay 1	4	9.5/10.2/13.7	0/2/2	78.9	1.1	-5.8	2 1 0 1 0 0 0	core
+obj	Radar Big radio tower	RT_DuctConnector	3	2/2/2	0/0/0	37.1	1.2	-29.3	3 0 0 0 0 0 0	index
+obj	Radar Big radio tower	Table Office	3	1.2/4.5/5	0/0/0	37.1	2.2	-18.9	3 0 0 0 0 0 0	index
+obj	Radar Big radio tower	Trashcan	3	4.9/5/5	0/0/0	36.9	0.5	-20.1	3 0 0 0 0 0 0	core
+obj	Radar Big radio tower	Phone	3	0.5/3.3/3.5	0/0/0	36.9	0.8	-16.4	3 0 0 0 0 0 0	index
+obj	Radar Big radio tower	Fire Estinguisher	3	1.9/4.9/5	0/0/0	78.5	0.7	-22.2	3 0 0 0 0 0 0	index
+obj	Radar Big radio tower	Chair Office	3	1.7/5/5	0/0/0	25.2	0.9	-18.7	3 0 0 0 0 0 0	index
+obj	Radar Big radio tower	Box Big	3	2/2/5	0/0/0	46.3	1.4	-19.3	3 0 0 0 0 0 0	index
+obj	Radar Big radio tower	Pickup_Landmark_Scrap 4_OceanBottom	3	6.9/10.1/11.1	0/2/6.8	36.9	1.1	-9.3	2 0 1 0 0 0 0	core
+obj	Radar Big radio tower	Pickup_Landmark_Scrap 3_OceanBottom	3	11/11.1/13.7	0/0/2	38	1.6	-21.2	2 0 1 0 0 0 0	core
+obj	Radar Big radio tower	Pickup_Landmark_Scrap 1_OceanBottom	3	6.9/10.2/16.2	0/5.7/6	10.1	1	0	1 0 1 1 0 0 0	core
+obj	Radar Big radio tower	RT_Floor	2	2/5/5	0/0/0	83.1	24	-14.1	2 0 0 0 0 0 0	index
+obj	Radar Big radio tower	RT_Duct	2	2/2/2	0/0/0	72.1	2.9	-20.2	2 0 0 0 0 0 0	index
+obj	Radar Big radio tower	RT_PipeDownBendShort	2	0.5/4.3/4.3	0/0/0	75.2	0.7	-13.5	2 0 0 0 0 0 0	index
+obj	Radar Big radio tower	RT_PipeBendL	2	4.9/4.9/4.9	0/0/0	79.3	2.9	-33.4	2 0 0 0 0 0 0	index
+obj	Radar Big radio tower	RT_WallVent	2	2.4/2.4/2.4	0/0/0	36.9	0.6	-15.5	2 0 0 0 0 0 0	index
+obj	Radar Big radio tower	Cupboard	2	2.7/2.7/2.7	0/0/0	78.5	1	-17	2 0 0 0 0 0 0	index
+obj	Radar Big radio tower	Pickup_Landmark_LandmarkCrateRadioTower	2	1/5/5	0/0/0	72.1	1.8	-14.6	2 0 0 0 0 0 0	-
+obj	Radar Big radio tower	Pickup_Landmark_Scrap 2_Land	2	3.4/3.5/3.5	0/0/0	79.4	1.4	-21.4	2 0 0 0 0 0 0	-
+obj	Radar Big radio tower	Pickup_Landmark_Scrap 3_Land	2	4.4/4.8/4.8	0/0/0	79.4	1.4	-23.3	2 0 0 0 0 0 0	-
+obj	Radar Big radio tower	Pickup_Landmark_Scrap 2_OceanBottom	2	10.3/10.3/10.3	0/0/0	80.3	1.6	-15.4	2 0 0 0 0 0 0	core
+obj	Radar Big radio tower	RT_Stair_Broken	1	5/5/5	0/0/0	0	7.1	-18.1	1 0 0 0 0 0 0	index
+obj	Radar Big radio tower	RT_Camera	1	2.7/2.7/2.7	0/0/0	78.5	0.6	-15.8	1 0 0 0 0 0 0	index
+obj	Radar Big radio tower	RT_ExitSignCeiling1	1	2.1/2.1/2.1	0/0/0	1.7	0.6	-15.1	1 0 0 0 0 0 0	index
+obj	Radar Big radio tower	RT_ExitSignCeiling2	1	2/2/2	0/0/0	80.1	0.6	-18.1	1 0 0 0 0 0 0	index
+obj	Radar Big radio tower	RT_PowerBox	1	3.3/3.3/3.3	0/0/0	1.7	0.7	-16.4	1 0 0 0 0 0 0	index
+obj	Radar Big radio tower	RT_DuctCornerR	1	2/2/2	0/0/0	46.3	2.7	-17.5	1 0 0 0 0 0 0	index
+obj	Radar Big radio tower	Vent	1	3.1/3.1/3.1	0/0/0	84	1	-28.1	1 0 0 0 0 0 0	index
+obj	Radar Big radio tower	Counter Right	1	1.9/1.9/1.9	0/0/0	37.1	1.1	-18.5	1 0 0 0 0 0 0	index
+obj	Radar Big radio tower	Counter Left	1	1.9/1.9/1.9	0/0/0	37.1	1.1	-19	1 0 0 0 0 0 0	index
+obj	Radar Big radio tower	Pickup_Landmark_Scrap 1_Land	1	4.5/4.5/4.5	0/0/0	79.3	0.7	-36.9	1 0 0 0 0 0 0	-
+tex	Radar Big radio tower	0	Rock_Stylized_basecolor=1.00
+tex	Radar Big radio tower	2	Rock_Stylized_basecolor=0.55 Clean_Sand_basecolor=0.43 Dirt_basecolor=0.02
+tex	Radar Big radio tower	5	Clean_Sand_basecolor=0.59 Rock_Stylized_basecolor=0.39 Dirt_basecolor=0.02
+tex	Radar Big radio tower	10	Rock_Stylized_basecolor=0.59 Clean_Sand_basecolor=0.37 Dirt_basecolor=0.03
+tex	Radar Big radio tower	20	Rock_Stylized_basecolor=0.99
+tex	Radar Big radio tower	40	Rock_Stylized_basecolor=1.00
+tex	Radar Big radio tower	80	Rock_Stylized_basecolor=0.93 Clean_Sand_basecolor=0.07
+area	Big island OG	Tropical	2672 6616 7924 18532 17164 29300 45000	0.23 0.18 0.44 0.42 0.66 0.68 0.77	-161
+profile	Big island OG	0:1.6 5:4.1 10:6.1 15:8.6 20:10.5 25:11.9 30:13.8 35:17.1 40:19.9 45:23.6 50:31.1 55:35.9 60:45.5 65:49.6 70:56.3 75:60.5 80:64.1 85:72.8 90:81.8 95:89.3 100:92.1 105:88.5 110:85.5 115:83.8 120:83.4 125:86.1 130:92.2 135:99.5 140:109.5 145:126.8 150:136.8 155:139.9 160:147.4 165:149.7 170:151.1 175:152.2 180:155.9 185:158.8 190:160.1
+obj	Big island OG	LeafCoral_1	682	4.2/11.9/25.3	10.5/24.1/45.2	14	1.2	0	0 156 173 239 68 46 0	core
+obj	Big island OG	TableCoral_1	338	4.1/8.7/25.1	13.3/22/47.2	6.7	1.6	0	0 127 61 112 14 24 0	core
+obj	Big island OG	CauliCoral	256	3.8/8.7/15.6	14/22/41.6	3.6	2.5	-0.1	9 87 46 109 5 0 0	core
+obj	Big island OG	TableCoral_2	240	4/8.7/25.1	14.5/22.6/47.6	5.4	2	0	0 85 46 82 8 19 0	core
+obj	Big island OG	CylinderCoral_1	239	4.2/8.1/15.6	12/22.8/41.1	10	1.6	0	2 92 59 69 11 6 0	core
+obj	Big island OG	LeafCoral_3	177	4.5/13.6/24.6	14/25/45.1	14.6	1.6	0	0 49 43 61 24 0 0	core
+obj	Big island OG	CylinderCoral_2	112	4.3/13.8/34.7	11.7/25/44.4	11.8	1.6	0	4 10 28 43 17 10 0	core
+obj	Big island OG	LeafCoral_2	73	13.7/44.2/49.2	31.8/46.1/60.1	16.7	3	-0.1	0 0 1 23 11 38 0	core
+obj	Big island OG	Pickup_Landmark_Rock 1	62	5.6/13.5/25	11.7/24.6/43.1	8.5	0.4	0	0 2 25 23 12 0 0	core
+obj	Big island OG	seavine_tongue	55	14.6/20.6/51.4	35.3/46/68	44.9	13.6	0	0 0 0 26 17 12 0	core
+obj	Big island OG	SpineCoral_2	54	4.5/9.2/25.7	11.3/26.5/45	17.1	2.1	0	0 10 19 12 10 3 0	core
+obj	Big island OG	SeaVine3_klump	49	8.6/13.7/27.1	14/29.7/48.1	15.4	7.5	0	0 1 10 27 11 0 0	core
+obj	Big island OG	Pickup_Landmark_SeavineKlump	49	5/10.1/23.4	14/29.7/48.1	15.4	2.6	3.7	0 1 10 27 11 0 0	-
+obj	Big island OG	SpineCoral_1	45	4.6/9.5/44.2	12/26.5/47.8	12	2.8	-0.1	0 8 17 9 6 5 0	core
+obj	Big island OG	Pickup_Landmark_Iron 1	42	22.3/38/47.4	40.8/46.8/59.5	56.4	0.5	-0.7	0 0 4 4 16 18 0	core
+obj	Big island OG	SpineCoral_3	41	4.6/9.2/26.2	12/24.8/45.6	18	2.4	-0.1	0 6 16 9 8 2 0	core
+obj	Big island OG	SeaVine3	36	7.8/14.4/45.5	24/34/55	37.1	7.5	0	0 0 11 9 12 4 0	core
+obj	Big island OG	Pickup_Landmark_Copper 1	33	19.2/38/50.5	41.7/52.3/61.3	64.2	0.6	-0.6	0 0 0 6 17 10 0	core
+obj	Big island OG	Pickup_Landmark_Sand	33	4/12.3/27.5	4.8/20/42.8	8.9	1	0	0 8 8 10 5 2 0	core
+obj	Big island OG	Pickup_Landmark_Clay 1	33	5.9/15.6/47.6	8.8/30/59.7	9.1	0.8	0	0 0 8 15 5 5 0	core
+obj	Big island OG	Bamboo_3	23	0.4/0.7/1.9	0/2/2.8	35.1	7.4	-0.1	21 2 0 0 0 0 0	core
+obj	Big island OG	Coral2	17	46.1/46.8/48.4	57.3/60.1/63	26.8	1.8	0	0 0 0 0 0 17 0	core
+obj	Big island OG	Pickup_Landmark_Scrap 4_OceanBottom	17	1.7/12.7/42.9	12/28.8/48.1	5.1	0.8	0	2 4 2 5 2 2 0	core
+obj	Big island OG	BigRock_Low1_Sand	16	21.6/65.4/142.6	29.7/52/124.4	12.4	168.8	-13.6	0 0 0 8 4 4 0	core
+obj	Big island OG	Pickup_Landmark_Scrap 2_OceanBottom	16	3.9/13.7/42.9	19.3/36.1/51	3.2	1.3	0.1	0 3 3 5 1 4 0	core
+obj	Big island OG	Bamboo_2	14	0.5/0.9/1.4	2/2.8/4	23.4	8	-0.1	14 0 0 0 0 0 0	core
+obj	Big island OG	Bamboo_1	14	0.6/1.1/2.5	2/2.8/4	30.2	7.4	-0.1	12 2 0 0 0 0 0	core
+obj	Big island OG	SmallBoulder4	14	0.8/8.6/24.1	0/21/27.8	29.3	7.3	-1.9	3 2 6 2 1 0 0	core
+obj	Big island OG	BigBoulder2_Low	12	4.8/9.9/13.2	4/16.1/30.1	43.5	16.1	-3.7	3 2 5 2 0 0 0	core
+obj	Big island OG	Pickup_Landmark_Scrap 1_OceanBottom	10	8.6/15.5/42.9	28/35.3/51	5	0.9	0	0 1 3 2 1 3 0	core
+obj	Big island OG	BigBoulder3_Low	9	1.9/7.7/11.6	0/6/44.3	45.2	17.1	-2.3	4 0 5 0 0 0 0	core
+obj	Big island OG	SmallBoulder2	8	0.4/3/14.1	0/5.7/32.1	32.6	4.7	-0.9	5 0 1 2 0 0 0	core
+obj	Big island OG	SmallBoulder1	8	2.8/13.7/24.2	4/22/42.4	39.2	4.5	-1	0 1 3 4 0 0 0	core
+obj	Big island OG	FL_Plank1	8	11.2/13.6/14.2	32.8/38/38	74.6	2	0.2	0 0 3 5 0 0 0	core
+obj	Big island OG	Pickup_Landmark_Scrap 3_OceanBottom	8	4.5/19.1/49.1	8.8/45.9/65.3	5.7	1.4	0.1	0 1 2 2 0 3 0	core
+obj	Big island OG	BigBoulder1_Low	7	3.5/6.5/24	0/2.8/34.5	47.9	13	-4.1	3 1 1 2 0 0 0	core
+obj	Big island OG	ReefHuts_Pillar3	6	13.9/15.2/25.3	32.1/34.1/38.8	58.5	3.1	-1.3	0 0 2 2 2 0 0	core
+obj	Big island OG	BigBoulder4_Low	5	0.9/8.6/10.1	0/4.8/19.8	31.8	21.3	-5.1	1 3 1 0 0 0 0	core
+obj	Big island OG	FL_Plywood	4	13.6/13.7/13.7	31.7/36/38	8.3	2.2	0.1	0 0 2 2 0 0 0	core
+obj	Big island OG	Pickup_Landmark_SilverAlgae	4	13.7/24.5/45.7	23.8/38.8/57	13.4	3.4	0	0 0 0 3 0 1 0	-
+obj	Big island OG	SmallBoulder3	3	3.4/7.8/11.6	2.8/24.1/27	39.3	4.4	-2	1 0 2 0 0 0 0	core
+obj	Big island OG	ReefHuts_Pillar1	3	13.8/13.9/24.7	29.8/31.8/32.8	40.7	3	-4.6	0 0 2 0 1 0 0	core
+obj	Big island OG	FL_Pillar	2	13.6/13.7/13.7	38/38.8/38.8	74.6	3.4	0.5	0 0 0 2 0 0 0	core
+obj	Big island OG	ReefHuts_Cloths	2	12.4/23.6/23.6	32.1/32.8/32.8	64.9	2.5	1.4	0 0 1 0 1 0 0	core
+obj	Big island OG	Pickup_Landmark_LandmarkCrateMountain	2	25/42.9/42.9	35/53.8/53.8	37.1	1.7	0.1	0 0 0 0 1 1 0	-
+obj	Big island OG	Pickup_Landmark_Clay 3	2	13.7/13.7/13.7	28.8/29.7/29.7	13.3	1.1	-8.1	0 0 2 0 0 0 0	core
+obj	Big island OG	ReefHuts_Stick2	1	25.1/25.1/25.1	34.1/34.1/34.1	43.8	1.9	-0.2	0 0 0 0 1 0 0	core
+obj	Big island OG	ReefHuts_Stick1	1	22.6/22.6/22.6	37/37/37	52.6	3.9	0.6	0 0 0 0 1 0 0	core
+obj	Big island OG	ReefHuts_PlasticWall4	1	25/25/25	33/33/33	3.5	1.9	0	0 0 0 0 1 0 0	core
+obj	Big island OG	Pickup_Landmark_LandmarkCrateWood	1	43.2/43.2/43.2	48.5/48.5/48.5	0	1.6	-0.2	0 0 0 0 0 1 0	-
+obj	Big island OG	Pickup_Landmark_Clay 2	1	13.7/13.7/13.7	34.8/34.8/34.8	66.2	1	0.1	0 0 0 1 0 0 0	core
+tex	Big island OG	0	Clean_Sand_basecolor=0.85 Rock_Stylized_basecolor=0.13 Dirt_basecolor=0.02
+tex	Big island OG	2	Clean_Sand_basecolor=0.91 Rock_Stylized_basecolor=0.07 Dirt_basecolor=0.02
+tex	Big island OG	5	Clean_Sand_basecolor=0.70 Rock_Stylized_basecolor=0.24 Dirt_basecolor=0.06
+tex	Big island OG	10	Clean_Sand_basecolor=0.63 Rock_Stylized_basecolor=0.33 Dirt_basecolor=0.05
+tex	Big island OG	20	Rock_Stylized_basecolor=0.54 Clean_Sand_basecolor=0.41 Dirt_basecolor=0.05
+tex	Big island OG	40	Rock_Stylized_basecolor=0.59 Clean_Sand_basecolor=0.36 Dirt_basecolor=0.05
+tex	Big island OG	80	Rock_Stylized_basecolor=0.59 Clean_Sand_basecolor=0.35 Dirt_basecolor=0.05
+area	Big island Cresent	Tropical	1940 6912 5856 12480 44312 28400 38776	0.40 0.14 0.44 0.41 0.31 0.56 0.75	-161
+profile	Big island Cresent	0:2.4 5:3.6 10:8.1 15:12.3 20:13.9 25:20.6 30:21.5 35:21.6 40:22.8 45:27.5 50:32.9 55:34.1 60:35 65:37.2 70:40.1 75:44.9 80:46.9 85:48.4 90:54.5 95:55.3 100:58 105:62.2 110:68.7 115:78.2 120:81.8 125:82.8 130:84.6 135:85.7 140:85.9 145:85.1 150:85.2 155:88.5 160:95.7 165:111.8 170:127.8 175:105.6 180:99.5 185:115.7 190:129.9 195:137.9
+obj	Big island Cresent	LeafCoral_1	571	2.9/5.4/22	4.8/22.6/88.8	10.7	1.2	0	10 267 107 79 108 0 0	core
+obj	Big island Cresent	LeafCoral_3	555	2.9/5.6/34.7	4.8/23.7/110	10.8	1.8	0	12 244 108 66 125 0 0	core
+obj	Big island Cresent	TableCoral_1	398	2.6/3.3/21.2	8/20.8/109	5.2	1.2	0	5 216 52 80 45 0 0	core
+obj	Big island Cresent	Coral2	378	5.4/8.5/20.3	23/41.7/65.3	33.5	2	0	0 24 220 89 45 0 0	core
+obj	Big island Cresent	TableCoral_2	327	2.7/4.3/20.6	7.7/22.6/108.6	3.8	1.7	0	2 162 49 78 36 0 0	core
+obj	Big island Cresent	CylinderCoral_2	311	3/8.4/35	4.8/27.8/110.1	8.4	1.6	0	4 109 56 56 86 0 0	core
+obj	Big island Cresent	LeafCoral_2	304	3.2/10.7/21.6	6/25.5/66.2	28.4	3	0	2 76 67 108 51 0 0	core
+obj	Big island Cresent	CylinderCoral_1	287	2.9/8.4/22.5	4.8/25.5/90.5	9.3	1.6	-0.1	7 94 52 50 84 0 0	core
+obj	Big island Cresent	CauliCoral	264	3/4.7/22	9.7/26.6/87	1.9	3.5	0	1 133 0 0 130 0 0	core
+obj	Big island Cresent	Pickup_Landmark_Rock 1	127	2.9/8.9/21.8	8/24.1/38.5	6.3	0.4	0	3 35 36 31 22 0 0	core
+obj	Big island Cresent	SeaVine3	125	8.3/13.1/15.7	20/34.8/58.8	20	7.5	0	0 0 34 91 0 0 0	core
+obj	Big island Cresent	SpineCoral_2	85	3/5.9/22	4.8/24/82.7	17.7	2.5	0	0 35 20 8 22 0 0	core
+obj	Big island Cresent	seavine_tongue	76	18/20.5/37.4	61.1/76.4/134.8	32.8	10.3	0	0 0 0 33 43 0 0	core
+obj	Big island Cresent	SpineCoral_1	69	3/8.1/34.7	4/27.5/112	12.1	3.3	-0.1	2 25 10 16 16 0 0	core
+obj	Big island Cresent	SeaVine3_klump	66	8.2/14.1/18.3	20/45/98.2	21	7.6	0	0 0 19 47 0 0 0	core
+obj	Big island Cresent	Pickup_Landmark_SeavineKlump	66	4.6/10.1/14.3	20/45/98.2	21	2.7	3.8	0 0 19 47 0 0 0	-
+obj	Big island Cresent	SpineCoral_3	62	3/8.1/34.7	5.7/30.3/104.8	12	2.9	0	1 23 12 11 15 0 0	core
+obj	Big island Cresent	Pickup_Landmark_Sand	37	2/5.3/21.9	4.8/14/33.1	6	1.3	0	4 14 8 6 5 0 0	core
+obj	Big island Cresent	Bamboo_1	28	0.5/0.9/1.8	2/2.8/6	17.2	7.7	-0.1	28 0 0 0 0 0 0	core
+obj	Big island Cresent	Pickup_Landmark_Iron 1	28	11/26.1/40.2	0/61.4/122	59.3	0.5	-0.1	4 0 0 7 14 3 0	core
+obj	Big island Cresent	Pickup_Landmark_Scrap 1_OceanBottom	21	2.8/11.6/22	7.7/16.1/84.8	2.8	1	0	0 9 0 6 6 0 0	core
+obj	Big island Cresent	Pickup_Landmark_Scrap 3_OceanBottom	20	2.8/7.2/13	8.5/24/37.5	4.5	1.7	0.1	0 9 3 6 2 0 0	core
+obj	Big island Cresent	BigRock_Low1_Sand	19	118.7/143.1/181.8	30.3/83.8/157	21.4	138.5	-98.1	0 0 0 0 12 4 3	core
+obj	Big island Cresent	Pickup_Landmark_Clay 1	17	2.7/4.1/13.1	6.8/19.7/50.9	8.3	1.1	0	0 10 3 3 1 0 0	core
+obj	Big island Cresent	Pickup_Landmark_Scrap 4_OceanBottom	15	2.3/8.2/16.9	2.8/22.8/86.8	15.2	1.1	0	0 6 3 5 1 0 0	core
+obj	Big island Cresent	Pickup_Landmark_Copper 1	12	9/29.5/41.2	0/51.9/135.2	57.6	0.6	-0.1	3 0 2 1 4 2 0	core
+obj	Big island Cresent	Pickup_Landmark_Scrap 2_OceanBottom	11	2.8/9.6/21.7	5.7/19/72.7	12.9	1.5	0	0 3 3 2 3 0 0	core
+obj	Big island Cresent	FL_Roof2	10	20/30.7/30.7	16/97.3/98.1	0.3	1.5	0.6	0 0 0 0 10 0 0	index
+obj	Big island Cresent	Pickup_Landmark_Clay 2	10	3/3.5/20.4	0/23/35.9	16.4	1.2	0	2 4 1 1 2 0 0	core
+obj	Big island Cresent	FL_Pillar	9	18.8/20.7/29.8	16/18.8/99.3	11.2	2.9	0.7	0 0 0 1 8 0 0	core
+obj	Big island Cresent	Pickup_Landmark_Clay 3	9	2.6/3.1/13.1	0/12.5/38.8	5.2	1	0	1 4 1 3 0 0 0	core
+obj	Big island Cresent	ReefHuts_Pillar3	8	30.8/34.3/34.5	95.3/98.2/99.3	28.5	3.9	-1.1	0 0 0 0 8 0 0	core
+obj	Big island Cresent	FL_Plank1	7	19.3/29.8/31.9	16/96.2/99.3	38.9	1.7	1.4	0 0 0 1 6 0 0	core
+obj	Big island Cresent	FL_Roof1	6	30.7/30.7/30.7	96.1/99/100.1	28.5	1.5	0.1	0 0 0 0 6 0 0	index
+obj	Big island Cresent	Pickup_Landmark_SilverAlgae	5	2.9/13/37.2	12/25.5/131.6	0.1	2.9	0	0 2 0 1 2 0 0	-
+obj	Big island Cresent	FL_Plank3	4	20.5/25.8/29.3	16.8/93.3/97.3	38.9	1.3	1.1	0 0 0 0 4 0 0	core
+obj	Big island Cresent	SmallBoulder1	4	2.3/8.3/8.3	16.1/31.1/35.9	25.8	3.4	-0.9	1 0 3 0 0 0 0	core
+obj	Big island Cresent	BigBoulder4_Low	4	1.5/6.8/11.1	0/20.5/33.9	42	14.2	-1.5	2 0 2 0 0 0 0	core
+obj	Big island Cresent	BigBoulder2_Low	4	6.3/11.2/12.6	19/30/33.9	27.9	19.7	-2.4	0 2 2 0 0 0 0	core
+obj	Big island Cresent	TinyCoral	3	2.5/2.6/2.8	2/2/4	46.6	0.6	-0.1	0 3 0 0 0 0 0	index
+obj	Big island Cresent	ReefHuts_Wall1	3	21.9/30.8/30.8	16/97.3/98.2	13.5	2.1	-0.1	0 0 0 1 2 0 0	core
+obj	Big island Cresent	SmallBoulder4	3	3/7.9/7.9	21/29.5/33.9	13.9	2	-0.4	1 0 2 0 0 0 0	core
+obj	Big island Cresent	FL_Plank2	2	21.1/30.5/30.5	16.8/97.3/97.3	38.9	1.5	1	0 0 0 0 2 0 0	core
+obj	Big island Cresent	FL_Plywood	2	25.4/30.7/30.7	92.5/101.8/101.8	43.3	2.2	1.5	0 0 0 0 2 0 0	core
+obj	Big island Cresent	BigBoulder3_Low	2	2.6/6.7/6.7	0/41.5/41.5	70.5	31.8	-0.7	1 0 1 0 0 0 0	core
+obj	Big island Cresent	BigBoulder1_Low	2	6.6/9.3/9.3	0/31.5/31.5	58.5	14.3	-3.8	1 0 1 0 0 0 0	core
+obj	Big island Cresent	FL_Cloth	1	20.8/20.8/20.8	18/18/18	36	1.6	0.8	0 0 0 0 1 0 0	index
+obj	Big island Cresent	Log	1	0.9/0.9/0.9	4.8/4.8/4.8	13.1	7.2	0.3	1 0 0 0 0 0 0	core
+obj	Big island Cresent	ReefHuts_Wall5	1	30.7/30.7/30.7	96.1/96.1/96.1	28.5	2.8	0.1	0 0 0 0 1 0 0	core
+obj	Big island Cresent	ReefHuts_Cloths	1	19.8/19.8/19.8	84.8/84.8/84.8	11.2	2	2.5	0 0 0 0 1 0 0	core
+obj	Big island Cresent	SmallBoulder3	1	3/3/3	19/19/19	16.6	2.5	-0.7	0 1 0 0 0 0 0	core
+obj	Big island Cresent	SmallBoulder2	1	2.8/2.8/2.8	15.3/15.3/15.3	27	2.7	-0.4	0 1 0 0 0 0 0	core
+obj	Big island Cresent	Pickup_Landmark_LandmarkCrateRaft	1	30.4/30.4/30.4	98.1/98.1/98.1	0.1	1.4	0.3	0 0 0 0 1 0 0	-
+obj	Big island Cresent	Pickup_Landmark_LandmarkCrateWood	1	22.1/22.1/22.1	14/14/14	36	1.9	-1.1	0 0 0 0 1 0 0	-
+tex	Big island Cresent	0	Clean_Sand_basecolor=0.78 Rock_Stylized_basecolor=0.18 Dirt_basecolor=0.04
+tex	Big island Cresent	2	Clean_Sand_basecolor=0.93 Rock_Stylized_basecolor=0.06
+tex	Big island Cresent	5	Clean_Sand_basecolor=0.76 Rock_Stylized_basecolor=0.20 Dirt_basecolor=0.04
+tex	Big island Cresent	10	Clean_Sand_basecolor=0.75 Rock_Stylized_basecolor=0.22 Dirt_basecolor=0.04
+tex	Big island Cresent	20	Clean_Sand_basecolor=0.78 Rock_Stylized_basecolor=0.18 Dirt_basecolor=0.05
+tex	Big island Cresent	40	Clean_Sand_basecolor=0.53 Rock_Stylized_basecolor=0.43 Dirt_basecolor=0.04
+tex	Big island Cresent	80	Rock_Stylized_basecolor=0.59 Clean_Sand_basecolor=0.34 Dirt_basecolor=0.05
+area	Big island Twin peak	Tropical	3244 4640 10072 16976 23820 38232 45024	0.27 0.33 0.31 0.41 0.48 0.52 0.52	-161
+profile	Big island Twin peak	0:3.6 5:8.9 10:11.4 15:14.1 20:18 25:22.7 30:25.6 35:30.4 40:33.7 45:35.8 50:39.6 55:41.3 60:43.2 65:45.5 70:48.8 75:57.8 80:63.9 85:75.2 90:77.6 95:88.4 100:97.1 105:103 110:104.1 115:104.2 120:105.2 125:106.5 130:106.5 135:106.5 140:106.5 145:106.5 150:106.5 155:106.5 160:106.6 165:107.1 170:107.5 175:111.1 180:120.7 185:147.1 190:155.7 195:159.2
+obj	Big island Twin peak	LeafCoral_3	584	3.6/12.2/33.5	10.5/29.5/55.1	12.9	2	0	7 137 135 94 190 21 0	core
+obj	Big island Twin peak	Coral2	574	7.6/12.4/18.2	2.8/41.6/56.1	41.1	2.1	0	18 7 140 403 6 0 0	core
+obj	Big island Twin peak	LeafCoral_1	573	3.6/12.5/33.5	10.5/30.3/55.7	12.9	1.4	0	7 126 132 78 201 29 0	core
+obj	Big island Twin peak	TableCoral_2	440	3.6/9.3/30	10/25.5/63.7	2.6	1.9	0	0 111 127 103 72 27 0	core
+obj	Big island Twin peak	CylinderCoral_2	393	3.8/11.3/33.5	13.7/35.3/56.9	10.5	1.6	-0.1	1 66 97 115 91 23 0	core
+obj	Big island Twin peak	CylinderCoral_1	383	3.8/12.6/33.5	13.7/36.5/54.9	10.5	1.6	0	3 62 89 132 78 19 0	core
+obj	Big island Twin peak	TableCoral_1	288	3.6/14.9/43.4	12/31.8/72	4.9	1	0	0 42 54 67 89 36 0	core
+obj	Big island Twin peak	CauliCoral	246	4.3/10.2/33.5	20.8/47.3/59.4	4	3.5	0	0 31 89 73 53 0 0	core
+obj	Big island Twin peak	LeafCoral_2	202	6/9.6/16	5.7/19/53.8	17.1	3	-0.1	4 14 90 94 0 0 0	core
+obj	Big island Twin peak	Pickup_Landmark_Rock 1	202	3.8/13.3/33.5	7.7/36/66	11.7	0.4	0	15 15 43 88 34 7 0	core
+obj	Big island Twin peak	SeaVine3	113	8.2/15.8/19.8	10.5/57.9/70.5	21.5	7.5	0	0 0 19 84 10 0 0	core
+obj	Big island Twin peak	Bamboo_1	68	0.4/0.6/0.8	2/4/11.3	8.1	8.1	-0.1	66 2 0 0 0 0 0	core
+obj	Big island Twin peak	SpineCoral_3	62	3.8/12.9/33.5	6.8/30.8/53	14	2.9	-0.1	0 10 16 19 13 4 0	core
+obj	Big island Twin peak	SpineCoral_2	59	3.8/9.7/33.5	5.7/26.6/50.9	12.9	2.5	-0.1	0 10 20 16 9 4 0	core
+obj	Big island Twin peak	SpineCoral_1	53	3.9/12.8/33.5	14.5/35.1/52.4	11.9	3.3	0	0 8 16 18 9 2 0	core
+obj	Big island Twin peak	Pickup_Landmark_Sand	35	4.5/9.7/33	12/41/58.1	6.4	1.3	-0.1	0 4 14 6 11 0 0	core
+obj	Big island Twin peak	Pickup_Landmark_Clay 1	33	3.5/13.3/33.5	16.1/38.8/52.9	8.8	1.1	0	0 4 7 14 6 2 0	core
+obj	Big island Twin peak	Pickup_Landmark_Copper 1	25	16.4/33.3/45.3	34.8/52.8/83.5	58.2	0.6	-0.2	0 0 0 5 13 7 0	core
+obj	Big island Twin peak	BigRock_Low1_Sand	24	126.9/163.5/186.6	45.3/91.7/152.7	26	146.1	-80.3	0 0 0 3 3 9 9	core
+obj	Big island Twin peak	SmallBoulder4	22	3.5/11.6/22.4	26.5/35.8/50.6	13.1	5	-1	1 7 3 7 4 0 0	core
+obj	Big island Twin peak	SeaVine3_klump	21	9.6/16/17.9	33.9/57.2/63.4	22.4	8.9	0	0 0 3 18 0 0 0	core
+obj	Big island Twin peak	Pickup_Landmark_SeavineKlump	21	5.9/11.7/13.7	33.9/57.2/63.4	22.4	3.1	4.3	0 0 3 18 0 0 0	-
+obj	Big island Twin peak	Pickup_Landmark_Scrap 3_OceanBottom	20	8.3/12.1/32.8	10.8/30/68	10.5	1.5	0.1	0 2 6 7 4 1 0	core
+obj	Big island Twin peak	Pickup_Landmark_Scrap 1_OceanBottom	18	3.5/14.1/33.5	9.7/39/68	9.7	0.9	0	0 3 1 7 6 1 0	core
+obj	Big island Twin peak	Pickup_Landmark_Scrap 4_OceanBottom	16	5.3/12.2/34.7	16/38.3/56	10.9	1	0	0 1 5 4 5 1 0	core
+obj	Big island Twin peak	FL_Plank3	15	5.7/12.5/15.5	0/0/2	71.3	1.6	-34.3	15 0 0 0 0 0 0	core
+obj	Big island Twin peak	TinyCoral	13	43.2/43.8/43.8	38.3/47/49.1	6.6	0.8	0	0 0 0 0 0 13 0	index
+obj	Big island Twin peak	Pickup_Landmark_Iron 1	13	22.1/28.1/48.1	18.1/52.9/80	54.5	0.5	-0.8	0 0 0 0 10 3 0	core
+obj	Big island Twin peak	Pickup_Landmark_Iron 2	13	19.7/27.4/45.7	21.8/52.1/90	56.1	0.5	0	0 0 0 2 9 2 0	core
+obj	Big island Twin peak	BigBoulder3_Low	12	6.9/15.9/19.2	0/2.8/8	56.4	51.1	-12.1	5 3 2 2 0 0 0	core
+obj	Big island Twin peak	Pickup_Landmark_Iron 3	11	21/28.8/39.5	39.6/52.9/65	53.1	0.5	0	0 0 0 1 9 1 0	core
+obj	Big island Twin peak	Pickup_Landmark_Scrap 2_OceanBottom	9	12/24.1/33.4	4.8/25.5/70.8	1.9	1.4	0	0 0 0 4 5 0 0	core
+obj	Big island Twin peak	ReefHuts_Pillar3	8	5.2/7.3/15.8	0/0/0	71.3	4.2	-26	8 0 0 0 0 0 0	core
+obj	Big island Twin peak	SmallBoulder3	8	0.7/9.8/33.6	0/27.5/46.1	25	3.7	-0.9	3 1 2 0 2 0 0	core
+obj	Big island Twin peak	FL_Roof2	7	0.3/1.7/4.1	0/0/0	56.5	2.1	-22.1	7 0 0 0 0 0 0	index
+obj	Big island Twin peak	BigBoulder1_Low	7	1.3/5.2/8.8	0/0/35.3	28.2	18.7	-5.3	5 2 0 0 0 0 0	core
+obj	Big island Twin peak	FL_Plywood	6	2.3/3.6/4.7	0/0/2	44.2	1.7	-23.1	6 0 0 0 0 0 0	core
+obj	Big island Twin peak	FL_Roof1	4	5.2/5.2/5.2	0/2/2	82.5	2.1	-2.7	2 1 1 0 0 0 0	index
+obj	Big island Twin peak	SmallBoulder2	4	9.6/33.9/33.9	14.8/45.2/45.3	19.7	2.4	-0.8	0 0 2 0 2 0 0	core
+obj	Big island Twin peak	Pickup_Landmark_SilverAlgae	4	10.9/14.5/33.5	44.4/52.9/57.6	11.8	3.5	0	0 0 0 3 1 0 0	-
+obj	Big island Twin peak	FL_Pillar	3	4/4/4	0/0/0	44.2	2.9	-25	3 0 0 0 0 0 0	core
+obj	Big island Twin peak	ReefHuts_Wall1	2	0.8/5.7/5.7	0/0/0	56.8	2.1	-19.6	2 0 0 0 0 0 0	core
+obj	Big island Twin peak	BigBoulder2_Low	2	21.9/21.9/21.9	2.8/12.8/12.8	40.9	31.8	-7.5	0 0 0 2 0 0 0	core
+obj	Big island Twin peak	FL_Plank1	1	4.9/4.9/4.9	0/0/0	81.2	2	-16.2	1 0 0 0 0 0 0	core
+obj	Big island Twin peak	ReefHuts_Wall2	1	5.4/5.4/5.4	0/0/0	83.9	2.9	-26.1	1 0 0 0 0 0 0	index
+obj	Big island Twin peak	ReefHuts_Cloths	1	3.7/3.7/3.7	0/0/0	44.2	2.4	-24.8	1 0 0 0 0 0 0	core
+obj	Big island Twin peak	SmallBoulder1	1	33.4/33.4/33.4	32/32/32	2.5	3.2	0	0 0 0 0 1 0 0	core
+obj	Big island Twin peak	Pickup_Landmark_LandmarkCrateWood	1	0.7/0.7/0.7	0/0/0	52.6	1.6	-22.1	1 0 0 0 0 0 0	-
+obj	Big island Twin peak	Pickup_Landmark_LandmarkCrateMountain	1	5.2/5.2/5.2	0/0/0	31.8	1.4	-26.1	1 0 0 0 0 0 0	-
+tex	Big island Twin peak	0	Clean_Sand_basecolor=0.84 Rock_Stylized_basecolor=0.14 Dirt_basecolor=0.03
+tex	Big island Twin peak	2	Clean_Sand_basecolor=0.79 Rock_Stylized_basecolor=0.17 Dirt_basecolor=0.03
+tex	Big island Twin peak	5	Clean_Sand_basecolor=0.83 Rock_Stylized_basecolor=0.14 Dirt_basecolor=0.03
+tex	Big island Twin peak	10	Clean_Sand_basecolor=0.71 Rock_Stylized_basecolor=0.25 Dirt_basecolor=0.04
+tex	Big island Twin peak	20	Clean_Sand_basecolor=0.59 Rock_Stylized_basecolor=0.37 Dirt_basecolor=0.04
+tex	Big island Twin peak	40	Clean_Sand_basecolor=0.51 Rock_Stylized_basecolor=0.46 Dirt_basecolor=0.03
+tex	Big island Twin peak	80	Clean_Sand_basecolor=0.50 Rock_Stylized_basecolor=0.47 Dirt_basecolor=0.03
+area	Pilot	Tropical	344 1076 3912 6304 1948 900 39432	0.51 0.39 0.29 0.40 0.96 1.00 0.25	-161
+profile	Pilot	0:2.3 5:5.1 10:7 15:9.2 20:10.1 25:10.9 30:13.5 35:17.8 40:21.2 45:50.1 50:131.1 55:141.7 60:146.7 65:150.8 70:153.7 75:154 80:154 85:154 90:154 95:154 100:154.2 105:155.5 110:157.2 115:158.1 120:157.8 125:158.9 130:159.7 135:159.2 140:160 145:160.5
+obj	Pilot	Coral2	494	6.8/10.2/15.3	8/19.8/39	50.9	2.1	0.1	0 1 238 255 0 0 0	core
+obj	Pilot	LeafCoral_1	409	5.5/9.7/18.4	13.3/26.8/41.1	15.5	1.4	0	0 7 208 194 0 0 0	core
+obj	Pilot	LeafCoral_3	381	5.4/9.6/18.4	12/26.5/41.6	14.7	1.9	0	0 4 194 183 0 0 0	core
+obj	Pilot	CylinderCoral_2	244	5.4/10.9/18.4	16/28.6/42.8	14.6	1.6	0	0 1 117 126 0 0 0	core
+obj	Pilot	CylinderCoral_1	235	5.4/9.7/18.4	16/27.5/41.8	12.6	1.6	0	0 2 116 117 0 0 0	core
+obj	Pilot	TableCoral_2	167	7/10.1/12	16.5/28/33.1	4.5	1.8	-0.1	0 0 82 85 0 0 0	core
+obj	Pilot	TableCoral_1	160	6.8/10/12	15.3/26.6/32.8	9.1	1	0	0 0 81 79 0 0 0	core
+obj	Pilot	CauliCoral	132	5.2/10.2/18.4	11.3/27.3/47.3	5.2	3.5	-0.1	0 0 65 67 0 0 0	core
+obj	Pilot	Coral3	67	8.8/12.9/18.1	14/21.8/32.3	14.9	1.5	-0.1	0 0 16 51 0 0 0	index
+obj	Pilot	SeaVine3	63	11/18.3/18.4	19.7/38.8/51.2	12.2	9	0	0 0 10 53 0 0 0	core
+obj	Pilot	SpineCoral_2	34	5.4/10.5/18.4	16.8/30/46.3	12	2.5	0	0 0 17 17 0 0 0	core
+obj	Pilot	SpineCoral_1	30	6/9/18.4	14.8/27.3/42	14.2	3.4	-0.1	0 0 18 12 0 0 0	core
+obj	Pilot	SpineCoral_3	25	7.2/10.9/18.4	18.5/29.5/43.6	14.9	2.9	-0.1	0 0 12 13 0 0 0	core
+obj	Pilot	Pickup_Landmark_Sand	23	5.2/8.9/14	13.3/27/32.6	4	1.3	-0.1	0 0 17 6 0 0 0	core
+obj	Pilot	Pickup_Landmark_Clay 1	22	5.1/11.9/18.4	13.3/22.8/37.9	16.6	1	0	0 2 9 11 0 0 0	core
+obj	Pilot	SeaVine3_klump	21	9.1/18.1/18.4	24.6/35/48.1	17.5	9.2	0	0 0 5 16 0 0 0	core
+obj	Pilot	Pickup_Landmark_SeavineKlump	21	4.5/13.6/14.1	24.6/35/48.1	17.5	3.2	4.5	0 0 5 16 0 0 0	-
+obj	Pilot	Pickup_Landmark_Rock 1	16	7.2/9.3/17.5	14.8/25.3/38.3	14	0.4	0	0 0 10 6 0 0 0	core
+obj	Pilot	Bamboo_2	15	0.4/1/2.8	2/4/8.8	19.7	8	0	9 6 0 0 0 0 0	core
+obj	Pilot	Pickup_Landmark_Rock 2	15	8.5/8.9/17.4	23.3/28.3/34	7.8	0.4	0	0 0 8 7 0 0 0	core
+obj	Pilot	Bamboo_1	14	0.9/2.5/3	2/6/8	18.8	8.8	0	6 8 0 0 0 0 0	core
+obj	Pilot	Pickup_Landmark_Rock 3	14	5.1/10.8/17.4	19.8/28.1/40.8	8	0.5	0	0 0 5 9 0 0 0	core
+obj	Pilot	Bamboo_3	9	0.4/2.2/3.2	2/4.8/6.8	26.8	8.6	0	4 5 0 0 0 0 0	core
+obj	Pilot	Pickup_Landmark_Iron 1	8	12.1/16.6/19.3	13.3/37.1/47.6	56.7	0.5	-0.2	0 0 0 8 0 0 0	core
+obj	Pilot	Pickup_Landmark_Scrap 2_OceanBottom	8	8.2/11.6/18.3	19.8/30/41.7	12	1.5	0	0 0 4 4 0 0 0	core
+obj	Pilot	Pickup_Landmark_Scrap 1_OceanBottom	7	8.5/16.9/18.3	27.5/31.1/48.6	6.2	0.9	0.1	0 0 1 6 0 0 0	core
+obj	Pilot	BigRock_Low1_Sand	6	82.8/90.2/91.6	24.6/32/40.1	33.4	96.9	-73.5	0 0 0 6 0 0 0	core
+obj	Pilot	Pickup_Landmark_Scrap 3_OceanBottom	6	8.8/18.3/18.3	14/48.3/54.1	15.4	1.8	0.1	0 0 1 5 0 0 0	core
+obj	Pilot	Pickup_Landmark_Scrap 4_OceanBottom	6	8.8/8.8/18.3	22/30.8/48.1	0	1	0.1	0 0 5 1 0 0 0	core
+obj	Pilot	Pickup_Landmark_Copper 1	5	10.9/15.9/18.5	12/28.5/38.8	58.7	0.6	-0.2	0 0 0 5 0 0 0	core
+obj	Pilot	SmallBoulder2	4	6.7/17.3/18.4	20/30.3/48.1	6.8	2.2	-0.2	0 0 2 2 0 0 0	core
+obj	Pilot	SmallBoulder1	4	6.7/17.3/18.5	20.8/31.1/50.1	14	2	-0.1	0 0 2 2 0 0 0	core
+obj	Pilot	SmallBoulder3	3	7/8.9/18.8	22.5/30.3/47.2	3.9	3.2	-0.7	0 0 2 1 0 0 0	core
+obj	Pilot	BigBoulder2_Low	2	11.7/16.1/16.1	20/20/20	56.9	21.7	-7.3	0 1 1 0 0 0 0	core
+obj	Pilot	BigBoulder1_Low	2	10.5/11.7/11.7	12/12.5/12.5	54.5	24.3	-5.1	0 0 2 0 0 0 0	core
+obj	Pilot	BigBoulder3_Low	1	13.7/13.7/13.7	21.7/21.7/21.7	58.2	17.5	-2.3	0 0 0 1 0 0 0	core
+obj	Pilot	Pickup_Landmark_SilverAlgae	1	13/13/13	25.5/25.5/25.5	5	3.5	0	0 0 0 1 0 0 0	-
+tex	Pilot	0	Clean_Sand_basecolor=0.52 Rock_Stylized_basecolor=0.44 Dirt_basecolor=0.02 Grass_basecolor=0.01
+tex	Pilot	2	Clean_Sand_basecolor=0.82 Rock_Stylized_basecolor=0.13 Dirt_basecolor=0.04
+tex	Pilot	5	Clean_Sand_basecolor=0.80 Rock_Stylized_basecolor=0.18 Dirt_basecolor=0.02
+tex	Pilot	10	Clean_Sand_basecolor=0.75 Rock_Stylized_basecolor=0.22 Dirt_basecolor=0.02
+tex	Pilot	20	Rock_Stylized_basecolor=1.00
+tex	Pilot	40	Rock_Stylized_basecolor=1.00
+tex	Pilot	80	Clean_Sand_basecolor=0.80 Rock_Stylized_basecolor=0.19 Dirt_basecolor=0.01
+area	Big	Tropical	3000 11812 15600 17480 45288 22504 19968	0.38 0.23 0.29 0.32 0.29 0.66 0.97	-161
+profile	Big	0:2.9 5:5 10:5.6 15:6.4 20:7.1 25:7.7 30:9.8 35:11.8 40:15 45:18.7 50:20.3 55:21.1 60:24.2 65:27 70:29.8 75:32.9 80:34.6 85:36.1 90:41 95:43.7 100:44.6 105:45.2 110:51.2 115:66.4 120:75.4 125:89.8 130:104.8 135:109.3 140:113.3 145:110.7 150:121.1 155:105.7 160:96.1 165:99.8 170:131.2 175:155.7 180:156 185:158.4
+obj	Big	LeafCoral_3	1223	3.1/10/20.7	11.3/33.9/67.3	13.7	1.7	-0.1	17 316 298 444 148 0 0	core
+obj	Big	LeafCoral_1	1184	3.4/10.3/20.7	10.5/34.3/68.6	14.2	1.1	-0.1	14 295 276 437 162 0 0	core
+obj	Big	TableCoral_2	772	3.1/9.9/16.9	14.1/31.1/67.9	5.9	1.7	-0.1	36 193 194 296 53 0 0	core
+obj	Big	TableCoral_1	724	3.1/6.3/16.9	12.5/30.6/63.5	6.3	1.4	-0.1	33 213 190 252 36 0 0	core
+obj	Big	CylinderCoral_2	477	3.4/9.9/20.7	14/33/61.2	14.9	1.4	-0.1	3 114 138 160 62 0 0	core
+obj	Big	CylinderCoral_1	437	3.4/10/20.7	13.3/34.8/69.5	13.4	1.4	-0.1	6 100 117 156 58 0 0	core
+obj	Big	CauliCoral	379	3.4/9.9/20.6	9.7/27.7/57	4.4	3.9	-0.1	11 87 126 100 55 0 0	core
+obj	Big	SeaVine3	246	10.4/16.8/21.8	11.7/46.1/82.4	25.4	9.1	-0.6	0 1 31 140 74 0 0	core
+obj	Big	Coral2	179	5.3/10.3/18.5	13.7/52.5/69	54.8	1.5	0	0 10 74 83 12 0 0	core
+obj	Big	SeaVine3_klump	125	9.9/16.5/21.2	14.1/46.1/78.1	22.7	8.7	-0.4	0 1 20 69 35 0 0	core
+obj	Big	Pickup_Landmark_SeavineKlump	125	5.4/12.4/17.3	14.1/46.1/78.1	22.7	3	3.8	0 1 20 69 35 0 0	-
+obj	Big	SpineCoral_1	102	3.5/9.6/16.2	13.3/34.1/55.7	16.5	3.3	-0.1	0 27 37 37 1 0 0	core
+obj	Big	Pickup_Landmark_Rock 2	94	1.9/6.1/20.6	8/27.5/53.7	5.1	0.4	0	12 24 24 24 10 0 0	core
+obj	Big	Pickup_Landmark_Rock 3	92	2.1/5.6/20.6	8.5/25.8/53.9	6.3	0.5	0	9 26 23 24 10 0 0	core
+obj	Big	Pickup_Landmark_Rock 1	84	2.4/9.8/20.6	8/27.5/65.7	5.4	0.4	0	4 26 18 24 12 0 0	core
+obj	Big	SpineCoral_2	65	3.4/14.2/20.6	12/38.6/66.8	17.2	2.5	-0.1	0 11 14 32 8 0 0	core
+obj	Big	SpineCoral_3	65	3.5/10.5/16.8	13.3/34.3/66	13.6	2.9	-0.1	0 16 16 28 5 0 0	core
+obj	Big	Bamboo_1	61	0.4/1.1/2.5	0/2/4.8	34.4	8.7	-0.2	56 5 0 0 0 0 0	core
+obj	Big	Pickup_Landmark_Sand	49	3.1/6.2/20.4	10/24/64.8	4.7	1.3	-0.1	1 14 19 10 5 0 0	core
+obj	Big	SmallBoulder2	26	3/15.3/25	12/36.1/51.2	9.6	3	-0.2	2 3 5 9 7 0 0	core
+obj	Big	Pickup_Landmark_Scrap 1_OceanBottom	26	3.2/9.8/24.8	8.5/22.6/53.7	9.7	1	0	1 6 8 8 3 0 0	core
+obj	Big	BigBoulder1_Low	24	2.3/9.2/26.3	0/16.1/66.8	23.5	24.3	-6.4	10 4 5 3 2 0 0	core
+obj	Big	Pickup_Landmark_Scrap 4_OceanBottom	23	3/7.9/23.6	8/24.1/53.1	15	1.2	0.1	1 6 6 8 2 0 0	core
+obj	Big	Pickup_Landmark_Iron 1	22	12.7/20.5/28.4	9.7/45.3/94.5	63	0.5	-0.2	0 3 1 8 10 0 0	core
+obj	Big	SmallBoulder4	21	3.2/15.2/20.9	12/27.8/64.2	10.4	4.2	-0.8	2 4 4 7 4 0 0	core
+obj	Big	BigBoulder3_Low	20	4.9/7.7/24.9	2/30.1/47.6	32.7	34.4	-3.3	4 9 1 4 2 0 0	core
+obj	Big	SmallBoulder3	20	3.1/6.6/20.5	4/19/69.7	19.8	5.1	-1.2	2 8 3 7 0 0 0	core
+obj	Big	Pickup_Landmark_Clay 2	19	1.4/9.8/24.9	8.5/26.6/76	3.3	1.1	0	2 6 3 7 1 0 0	core
+obj	Big	Pickup_Landmark_Scrap 2_OceanBottom	19	3.3/12.1/24.5	13.3/30.1/60	6.7	1.5	0	0 4 4 7 4 0 0	core
+obj	Big	Pickup_Landmark_Clay 3	18	1.9/14.1/20.6	10.5/37.9/74	6.3	1.1	0	2 4 2 5 5 0 0	core
+obj	Big	BigBoulder4_Low	16	4.3/11.5/18.7	0/17.7/72.1	21.3	25.7	-6.1	6 4 2 4 0 0 0	core
+obj	Big	Pickup_Landmark_Scrap 3_OceanBottom	15	2.5/13.5/20.6	12/40.8/72.7	4.3	1.6	0.1	1 3 3 5 3 0 0	core
+obj	Big	FL_Pillar	14	20.2/23.7/24.7	37.5/72/74	30.1	2.9	0.3	0 0 0 0 14 0 0	core
+obj	Big	Pickup_Landmark_Clay 1	14	3.3/15.2/24.9	13.3/44.6/75.8	7.1	1	0	0 5 0 5 4 0 0	core
+obj	Big	BigRock_Low1_Sand	12	143.8/193.7/206.6	59.8/88.2/112.6	30.4	213.7	-163.6	0 0 0 1 9 2 0	core
+obj	Big	Pickup_Landmark_Copper 1	11	12.1/15.4/20.1	28.6/39.9/57.9	67.7	0.6	0.3	0 0 0 9 2 0 0	core
+obj	Big	Pickup_Landmark_Copper 2	10	12.9/14.4/19	6/56.4/58.4	65.4	0.6	0	0 0 1 9 0 0 0	core
+obj	Big	Pickup_Landmark_GiantClam	10	5.6/16.1/20.6	12.5/51.2/77.7	4.4	1.1	0.1	0 1 3 2 4 0 0	-
+obj	Big	Pickup_Landmark_SilverAlgae	6	3.3/15/21.6	10.5/36/76.8	18.2	3.1	0	0 2 1 1 2 0 0	-
+obj	Big	FL_Plywood	5	20.2/22.8/24.9	36.6/72/74	43.5	1.9	-0.1	0 0 0 1 4 0 0	core
+obj	Big	BigBoulder2_Low	5	5.6/8.8/12	0/28.8/53.7	22.5	28.1	-4.2	1 2 2 0 0 0 0	core
+obj	Big	FL_Plank1	4	20/24.4/24.5	34/70/74	32.8	2	0.3	0 0 0 0 4 0 0	core
+obj	Big	FL_Roof2	4	19.2/21.5/23.6	34.8/70/74	15.2	1.9	0.8	0 0 0 1 3 0 0	index
+obj	Big	FL_Roof1	4	20.3/24.8/24.8	35.8/37.8/68	27.5	1.8	0	0 0 0 1 3 0 0	index
+obj	Big	ReefHuts_Wall2	3	20.7/24.9/25	36.6/68/74	27.5	2.9	-1.1	0 0 0 1 2 0 0	index
+obj	Big	ReefHuts_Wall1	3	20.8/22.4/25.4	35.8/70/72.8	42.9	2.1	-0.7	0 0 0 0 3 0 0	core
+obj	Big	FL_Crate	3	19.9/20.2/24.9	70/72.8/74	22.1	1.3	-0.3	0 0 0 1 2 0 0	core
+obj	Big	Pickup_Landmark_LandmarkCrateRadioTower	3	20.8/24.8/24.9	37.5/70/74	15.1	1.8	-0.2	0 0 0 0 3 0 0	-
+obj	Big	FL_Plank3	2	19.2/24.8/24.8	37.5/70/70	15.1	1.7	1.4	0 0 0 0 2 0 0	core
+obj	Big	ReefHuts_Pillar3	2	24.9/25.1/25.1	74/74.8/74.8	73.5	3.1	-0.3	0 0 0 1 1 0 0	core
+obj	Big	TinyCoral	2	9.1/11.4/11.4	4.8/6/6	66.8	0.5	-0.5	0 1 1 0 0 0 0	index
+obj	Big	ReefHuts_PlasticWall1	1	21.5/21.5/21.5	74.8/74.8/74.8	15.5	2.8	-1.2	0 0 0 0 1 0 0	index
+obj	Big	ReefHuts_Tarpaulin	1	23.3/23.3/23.3	72/72/72	14.6	3.9	0.4	0 0 0 0 1 0 0	index
+tex	Big	0	Clean_Sand_basecolor=0.70 Rock_Stylized_basecolor=0.23 Dirt_basecolor=0.05 Grass_basecolor=0.02
+tex	Big	2	Clean_Sand_basecolor=0.86 Rock_Stylized_basecolor=0.11 Dirt_basecolor=0.03
+tex	Big	5	Clean_Sand_basecolor=0.84 Rock_Stylized_basecolor=0.13 Dirt_basecolor=0.03
+tex	Big	10	Clean_Sand_basecolor=0.81 Rock_Stylized_basecolor=0.15 Dirt_basecolor=0.03
+tex	Big	20	Clean_Sand_basecolor=0.81 Rock_Stylized_basecolor=0.17 Dirt_basecolor=0.02
+tex	Big	40	Rock_Stylized_basecolor=0.57 Clean_Sand_basecolor=0.41 Dirt_basecolor=0.02
+tex	Big	80	Rock_Stylized_basecolor=0.88 Clean_Sand_basecolor=0.10 Dirt_basecolor=0.01
+area	Boat	Tropical	504 1076 1912 9084 2120 1132 38220	0.60 0.50 0.45 0.28 0.93 1.00 0.22	-161
+profile	Boat	0:2.6 5:7.6 10:10.3 15:10.7 20:11.7 25:14.6 30:16.7 35:18.7 40:24.7 45:111.5 50:136.2 55:148.5 60:153.1 65:153.9 70:154 75:154 80:154 85:154 90:154 95:154.6 100:155.8 105:157.2 110:158.7 115:159.4 120:158.3 125:158.8 130:159.2 135:159.9 140:160.5
+obj	Boat	LeafCoral_3	444	6.6/10.7/14.9	6.8/17.7/29.3	16.7	1.5	0	10 17 116 301 0 0 0	core
+obj	Boat	LeafCoral_1	428	6.9/10.7/15.5	7.7/17.7/29.3	16.8	1.1	0	8 14 105 301 0 0 0	core
+obj	Boat	TableCoral_2	292	3.3/10.7/17	4.8/18.8/33	11.2	1.9	-0.1	3 31 82 176 0 0 0	core
+obj	Boat	TableCoral_1	262	5.5/10.7/17.3	5.7/18.8/36.8	12.8	1.4	-0.1	0 21 68 173 0 0 0	core
+obj	Boat	CylinderCoral_2	178	4.6/10.7/15.6	5.7/17/32	17.1	1.7	0	2 16 52 108 0 0 0	core
+obj	Boat	CylinderCoral_1	165	5.9/10.7/15.8	5.7/16/30.3	17.6	1.7	-0.1	2 11 48 104 0 0 0	core
+obj	Boat	CauliCoral	159	2.7/10.7/10.7	2.8/16.8/23.7	4.4	3.2	-0.1	9 23 2 125 0 0 0	core
+obj	Boat	Pickup_Landmark_Rock 1	144	6.9/10.7/14.8	7.7/16.8/27.7	10.7	0.4	0	0 4 28 112 0 0 0	core
+obj	Boat	SeaVine3	67	11.1/14.1/16.9	16/23.8/38.8	36.4	9.6	0	0 0 0 67 0 0 0	core
+obj	Boat	SpineCoral_1	44	6.7/10.7/11.3	6.8/18.1/28	15.2	3.4	-0.1	0 0 9 35 0 0 0	core
+obj	Boat	SpineCoral_2	44	7.7/10.8/15.4	7.7/20.8/32	17	2.6	-0.1	0 1 6 37 0 0 0	core
+obj	Boat	SpineCoral_3	40	6.8/10.7/13.8	7.7/17.7/26.1	15.1	2.9	-0.1	0 1 8 31 0 0 0	core
+obj	Boat	SeaVine3_klump	22	10.7/13.1/15.7	14.1/22/34	35.7	9	0	0 0 0 22 0 0 0	core
+obj	Boat	Pickup_Landmark_SeavineKlump	22	6.3/9.3/11.3	14.1/22/34	35.7	3.2	4.4	0 0 0 22 0 0 0	-
+obj	Boat	Pickup_Landmark_Scrap 3_OceanBottom	18	2.9/10.6/17.4	5.7/16.1/22	6.9	1.6	0.1	0 3 3 12 0 0 0	core
+obj	Boat	Pickup_Landmark_Scrap 1_OceanBottom	18	5.1/10.6/10.6	7.7/16.5/23.7	8.6	1	0.1	0 1 4 13 0 0 0	core
+obj	Boat	Pickup_Landmark_Scrap 2_OceanBottom	15	5.7/10.6/11.8	6.8/14.8/27.5	14.2	1.6	0.1	0 1 2 12 0 0 0	core
+obj	Boat	BigBoulder3_Low	13	3.3/6/11	0/0/6.8	51.7	27	-6.5	9 3 0 1 0 0 0	core
+obj	Boat	Pickup_Landmark_Scrap 4_OceanBottom	12	7.2/10.6/11.7	16/20.8/24.8	11.7	1.1	0.1	0 0 4 8 0 0 0	core
+obj	Boat	SmallBoulder1	7	1.6/10.5/11	2/22/31	13.4	3.9	-0.4	1 0 3 3 0 0 0	core
+obj	Boat	SmallBoulder4	7	2.3/11.1/11.2	2/24/31	13.5	2.8	-0.6	1 0 2 4 0 0 0	core
+obj	Boat	BigRock_Low1_Sand	7	91.4/94.4/97.8	0/22/39.7	8.1	101.9	-82.4	1 0 1 5 0 0 0	core
+obj	Boat	SmallBoulder2	6	0.4/10.4/10.5	0/20.5/30.1	21.1	2.8	-0.3	2 0 3 1 0 0 0	core
+obj	Boat	BigBoulder4_Low	6	2.8/15.8/17.8	0/14.8/22.1	45	24.7	-6.6	2 0 4 0 0 0 0	core
+obj	Boat	BigBoulder1_Low	5	8.3/11.9/16.3	2/16/34.8	30.3	23.6	-6.8	2 0 1 2 0 0 0	core
+obj	Boat	Pickup_Landmark_Copper 1	5	13.5/15.1/15.6	17/20.1/24.8	56.2	0.6	-0.1	0 0 0 5 0 0 0	core
+obj	Boat	Pickup_Landmark_Clay 2	5	10/10.7/15	8.8/16/18	3.6	1.2	0	0 0 0 5 0 0 0	core
+obj	Boat	Pickup_Landmark_Sand	5	10.5/10.8/17.7	14/24/25.8	17.9	1.3	-0.1	0 0 0 5 0 0 0	core
+obj	Boat	Pickup_Landmark_GiantClam	4	10.1/10.7/10.8	8.8/24.6/28	13.1	1.4	0.1	0 0 0 4 0 0 0	-
+obj	Boat	Pickup_Landmark_Iron 1	4	12.1/12.9/15.3	28.6/32.5/34	54.5	0.5	0.2	0 0 0 4 0 0 0	core
+obj	Boat	Pickup_Landmark_SilverAlgae	3	10.7/10.7/13.1	14.1/22.8/30	0.3	3.3	0	0 0 0 3 0 0 0	-
+obj	Boat	BigBoulder2_Low	2	12.3/14.1/14.1	8/19.8/19.8	39.8	22.2	-5.7	0 1 1 0 0 0 0	core
+obj	Boat	Pickup_Landmark_Copper 2	2	15.4/16/16	10.5/11.7/11.7	69.8	0.6	-0.2	0 0 0 2 0 0 0	core
+obj	Boat	SmallBoulder3	1	1.7/1.7/1.7	4/4/4	30.1	3.2	-0.6	1 0 0 0 0 0 0	core
+obj	Boat	Pickup_Landmark_LandmarkCrateRadioTower	1	2.7/2.7/2.7	0/0/0	50.3	1.9	-5.5	1 0 0 0 0 0 0	-
+obj	Boat	Pickup_Landmark_Plastic3_Land	1	0.4/0.4/0.4	0/0/0	50.3	0.9	-1.3	1 0 0 0 0 0 0	-
+obj	Boat	Pickup_Landmark_Plank_Land	1	2.4/2.4/2.4	2/2/2	28.9	1.1	-1.1	1 0 0 0 0 0 0	-
+obj	Boat	Pickup_Landmark_Iron 3	1	15/15/15	34/34/34	54.2	0.5	0	0 0 0 1 0 0 0	core
+obj	Boat	Pickup_Landmark_Clay 3	1	10.1/10.1/10.1	12.5/12.5/12.5	24.1	1.1	-0.2	0 0 1 0 0 0 0	core
+tex	Boat	0	Clean_Sand_basecolor=0.62 Rock_Stylized_basecolor=0.24 Dirt_basecolor=0.09 Grass_basecolor=0.06
+tex	Boat	2	Clean_Sand_basecolor=0.83 Rock_Stylized_basecolor=0.15 Dirt_basecolor=0.01
+tex	Boat	5	Clean_Sand_basecolor=0.74 Rock_Stylized_basecolor=0.22 Dirt_basecolor=0.04
+tex	Boat	10	Clean_Sand_basecolor=0.82 Rock_Stylized_basecolor=0.16 Dirt_basecolor=0.02
+tex	Boat	20	Rock_Stylized_basecolor=1.00
+tex	Boat	40	Rock_Stylized_basecolor=1.00
+tex	Boat	80	Clean_Sand_basecolor=0.81 Rock_Stylized_basecolor=0.17 Dirt_basecolor=0.01
+area	Small island 1	Tropical	128 208 3416 4068 1324 1304 564	0.91 0.81 0.34 0.49 0.98 0.99 1.00	-160.2
+profile	Small island 1	0:6 5:8.9 10:11.1 15:12.6 20:11.8 25:10.9 30:9.9 35:10.2 40:11.6 45:17.6 50:20 55:33.7 60:46.9 65:65.1 70:95.6 75:99
+obj	Small island 1	Coral1	493	6.6/10.3/15.9	7.7/23.7/38.8	46.8	1.4	0	0 0 204 289 0 0 0	core
+obj	Small island 1	LeafCoral_3	301	6.6/10.9/17.1	11.3/26.5/42	23.9	1.8	-0.1	0 0 127 172 2 0 0	core
+obj	Small island 1	LeafCoral_1	275	6.3/11/17.9	10.8/26.6/41.1	25.2	1.2	-0.1	0 0 109 165 1 0 0	core
+obj	Small island 1	Coral2	269	6.2/9.9/17.6	10.8/25/42.6	34.9	1.7	0.1	0 0 135 134 0 0 0	core
+obj	Small island 1	TableCoral_1	131	6.3/10.9/19	11.3/27.7/45	20.1	1.3	0	0 0 56 71 4 0 0	core
+obj	Small island 1	TableCoral_2	99	6.3/10.7/19	9.7/27/45	19.2	1.6	-0.1	0 0 41 55 3 0 0	core
+obj	Small island 1	CauliCoral	98	7.2/12.3/16.9	15.3/31.7/41.9	21.8	2.4	-0.1	0 0 28 68 2 0 0	core
+obj	Small island 1	CylinderCoral_2	81	6.3/11/17.1	10.5/27.8/41.3	24.1	1.7	-0.1	0 0 39 42 0 0 0	core
+obj	Small island 1	Pillar_04	72	6.2/10.7/16.5	11.3/26.5/41.7	20.6	1.5	0	0 0 34 37 1 0 0	core
+obj	Small island 1	CylinderCoral_1	72	6.4/9.9/17.2	9.7/29/42	21.6	1.7	-0.1	0 0 37 33 2 0 0	core
+obj	Small island 1	Pillar_01	52	6.2/9.5/16.3	12/23/38.8	20.6	3	0	0 2 25 23 2 0 0	core
+obj	Small island 1	SeaVine3	46	7.3/11.6/18.9	13.3/37/44.8	24.7	6.3	0	0 0 15 31 0 0 0	core
+obj	Small island 1	SpineCoral_1	40	6.7/11/17.2	9.7/26.1/43.3	22.7	3.3	0	0 0 14 25 1 0 0	core
+obj	Small island 1	SeaVine3_klump	21	7.2/11/17.2	17.7/35/45	15.4	7.2	0	0 0 9 12 0 0 0	core
+obj	Small island 1	Pickup_Landmark_SeavineKlump	21	3.6/7.6/13.7	17.7/35/45	15.4	2.5	3.5	0 0 9 12 0 0 0	-
+obj	Small island 1	Pickup_Landmark_Rock 2	18	1.5/11.1/12.4	2/22.6/34.6	20.6	0.6	0	2 0 5 11 0 0 0	core
+obj	Small island 1	Pickup_Landmark_Rock 1	17	7.8/12.3/12.9	12/25.7/44.8	12.3	0.5	0	0 0 7 10 0 0 0	core
+obj	Small island 1	BigBoulder1_Low	14	8.4/12.1/16.1	14/30.5/39.7	23.8	13.1	-3.5	0 1 10 3 0 0 0	core
+obj	Small island 1	BigRock_Low1_Sand	14	13.9/20.6/51.1	6/35.7/52	40.3	59.1	-5.1	0 0 4 9 1 0 0	core
+obj	Small island 1	BigBoulder3_Low	10	10.8/13.9/20.7	2/18.5/30	47.1	24.9	-5.7	1 0 7 2 0 0 0	core
+obj	Small island 1	Pickup_Landmark_Clay 1	10	9.3/12.2/20.2	15.3/26.5/37.7	16.4	1	0	0 0 3 5 2 0 0	core
+obj	Small island 1	Pickup_Landmark_Rock 3	10	6.1/9.4/11.5	10/26.6/40	30	0.6	0	1 0 5 4 0 0 0	core
+obj	Small island 1	BigBoulder4_Low	9	7.3/8.2/13.2	4/22/39.7	19	15	-2.4	0 0 9 0 0 0 0	core
+obj	Small island 1	Pickup_Landmark_Sand	9	6.2/10.1/20.2	7.7/29.3/46.1	13.8	1.3	-0.1	0 0 4 4 1 0 0	core
+obj	Small island 1	Bamboo_1	7	0.4/0.4/1.6	0/2/2	51.3	5.3	-0.4	7 0 0 0 0 0 0	core
+obj	Small island 1	Pickup_Landmark_Scrap 4_OceanBottom	5	6.1/11/18.8	22.1/42/45.3	13.4	1.1	0.1	0 0 2 3 0 0 0	core
+obj	Small island 1	Pickup_Landmark_Scrap 2_OceanBottom	5	9.3/12.3/13.5	8/28/40.3	20.1	1.6	0	0 0 2 3 0 0 0	core
+obj	Small island 1	Pickup_Landmark_Scrap 3_OceanBottom	4	6.8/12.4/12.5	10.8/21/36	21.4	1.7	0.1	0 0 1 3 0 0 0	core
+obj	Small island 1	Pickup_Landmark_Scrap 1_OceanBottom	4	7.4/10.8/12.3	8.5/27.3/38.3	12.6	1	0.1	0 0 2 2 0 0 0	core
+obj	Small island 1	Pickup_Landmark_Copper 1	3	14.2/15.7/20.8	38.6/47.3/48.1	61.2	0.6	-1	0 0 0 3 0 0 0	core
+obj	Small island 1	Pickup_Landmark_Iron 1	3	18.6/25.2/25.4	16.1/42.6/42.6	69.9	0.5	-0.8	0 1 0 0 2 0 0	core
+obj	Small island 1	Pickup_Landmark_Iron 2	3	11.6/13.6/19.1	15.7/16.1/48.8	45.9	0.5	-7	0 2 0 1 0 0 0	core
+obj	Small island 1	BigBoulder2_Low	2	11.2/15.2/15.2	33.3/34.5/34.5	49	13.1	-1.9	0 0 2 0 0 0 0	core
+obj	Small island 1	Pickup_Landmark_Copper 2	2	20.3/22.7/22.7	46.5/47.3/47.3	65.4	0.6	-0.1	0 0 0 0 2 0 0	core
+obj	Small island 1	Pickup_Landmark_GiantClam	2	6.4/13.1/13.1	16.5/42/42	13.4	1.2	0.1	0 0 1 1 0 0 0	-
+obj	Small island 1	ReefHuts_Stick2	1	1.5/1.5/1.5	2/2/2	65.5	2.1	0.1	1 0 0 0 0 0 0	core
+obj	Small island 1	ReefHuts_PlasticWall4	1	1.9/1.9/1.9	4/4/4	52.7	1.9	0.7	0 1 0 0 0 0 0	core
+obj	Small island 1	ReefHuts_Stick1	1	2.3/2.3/2.3	4/4/4	58.2	3.1	-0.1	0 1 0 0 0 0 0	core
+obj	Small island 1	FL_Plank3	1	1.1/1.1/1.1	2/2/2	34.3	1.5	-0.1	1 0 0 0 0 0 0	core
+obj	Small island 1	Pickup_Landmark_Iron 3	1	11.1/11.1/11.1	15.7/15.7/15.7	45.9	0.5	-6.9	0 1 0 0 0 0 0	core
+tex	Small island 1	0	Rock_Stylized_basecolor=0.71 Clean_Sand_basecolor=0.24 Dirt_basecolor=0.04
+tex	Small island 1	2	Rock_Stylized_basecolor=0.91 Clean_Sand_basecolor=0.08
+tex	Small island 1	5	Clean_Sand_basecolor=0.82 Rock_Stylized_basecolor=0.16 Dirt_basecolor=0.02
+tex	Small island 1	10	Clean_Sand_basecolor=0.62 Rock_Stylized_basecolor=0.36 Dirt_basecolor=0.02
+tex	Small island 1	20	Rock_Stylized_basecolor=0.86 Clean_Sand_basecolor=0.14
+tex	Small island 1	40	Rock_Stylized_basecolor=1.00
+tex	Small island 1	80	Rock_Stylized_basecolor=0.93 Clean_Sand_basecolor=0.07
+area	Small island 2	Tropical	140 680 792 2260 2528 3044 2364	0.57 0.34 0.42 0.44 0.59 0.91 0.99	-216.3
+profile	Small island 2	0:4.1 5:11.6 10:15.6 15:17.7 20:19.8 25:23.2 30:29.3 35:53.1 40:65.4 45:71.5 50:84.4 55:100.7 60:102.1 65:119 70:210.2
+obj	Small island 2	Coral1	400	1.9/13.6/21.6	2/12.8/24	46.6	1.4	0.1	48 35 90 157 70 0 0	core
+obj	Small island 2	Coral2	256	2.9/11.9/20.8	4/14/21.7	31.7	1.7	0.2	6 78 5 129 38 0 0	core
+obj	Small island 2	LeafCoral_1	253	3.4/15.9/21.2	6/14/22	24.1	1.3	-0.1	3 43 30 134 43 0 0	core
+obj	Small island 2	LeafCoral_3	249	3.1/13.6/21.6	4.8/14/22	24.1	1.8	-0.1	3 50 29 121 46 0 0	core
+obj	Small island 2	TableCoral_1	128	2.1/12/20.3	4/12.8/20	19.1	1.3	-0.1	10 18 14 68 18 0 0	core
+obj	Small island 2	TableCoral_2	116	3/14/21.3	4/14.8/21	18.9	1.6	-0.1	1 15 13 64 23 0 0	core
+obj	Small island 2	CauliCoral	101	2.9/12.3/23.7	4/12.5/20.8	21.4	1.9	-0.1	2 28 7 43 21 0 0	core
+obj	Small island 2	CylinderCoral_1	82	3.2/11.4/21	4.8/12.5/20	19	1.7	-0.1	2 20 10 40 10 0 0	core
+obj	Small island 2	CylinderCoral_2	64	2.6/14/21	4/12.8/20.5	24.1	1.7	-0.1	2 14 6 30 12 0 0	core
+obj	Small island 2	Pillar_04	51	2.7/11.3/21.2	6.8/15.3/21.7	17.4	1.5	0.1	0 15 2 24 10 0 0	core
+obj	Small island 2	Pillar_01	47	3.1/11.3/21	5.7/14/20	14.9	3.1	0.1	0 17 1 23 6 0 0	core
+obj	Small island 2	SeaVine3	44	11.2/16.3/23.7	5.7/19.3/28	25	6.2	0.1	0 0 2 30 12 0 0	core
+obj	Small island 2	Pickup_Landmark_Sand	35	4.8/12.9/20.1	4.8/14/20	20.9	1.3	-0.1	0 5 5 21 4 0 0	core
+obj	Small island 2	SpineCoral_1	26	4.2/15.9/22.8	10/18/22.8	27.7	3.4	-0.1	0 4 3 11 8 0 0	core
+obj	Small island 2	SeaVine3_klump	21	13.8/16.3/21.1	4.8/17/25.7	29.9	7.2	0	0 0 0 16 5 0 0	core
+obj	Small island 2	Pickup_Landmark_SeavineKlump	21	10.2/13.1/17.8	4.8/17/25.7	29.9	2.5	3.5	0 0 0 16 5 0 0	-
+obj	Small island 2	Pickup_Landmark_Rock 3	17	6.1/18.4/23.7	7.7/12/22.8	15.8	0.6	0	0 1 3 6 7 0 0	core
+obj	Small island 2	Pickup_Landmark_Scrap 2_OceanBottom	13	6.1/12.3/20.6	11.3/18/21	15.6	1.5	0	0 1 2 8 2 0 0	core
+obj	Small island 2	Pickup_Landmark_Clay 3	13	3/14/20	4.8/12.8/19.8	14.4	1	0	0 2 2 7 2 0 0	core
+obj	Small island 2	Pickup_Landmark_Rock 2	12	6.2/16.3/23.5	5.7/12/18	13.2	0.6	0	0 0 4 6 2 0 0	core
+obj	Small island 2	Pickup_Landmark_Scrap 4_OceanBottom	11	3.8/11.2/19.8	10/14.5/18	12.5	1	0.1	0 2 2 6 1 0 0	core
+obj	Small island 2	BigBoulder2_Low	10	6.1/20.5/24.6	5.7/8.5/20	32.8	14.6	-3.8	1 1 0 7 1 0 0	core
+obj	Small island 2	BigBoulder1_Low	10	15.5/22/26.9	11.3/16.1/24.1	28.2	11.3	-1.6	0 2 1 3 4 0 0	core
+obj	Small island 2	Pickup_Landmark_Rock 1	10	2.8/6.2/24.5	6.8/16/23.3	15.8	0.5	0	0 2 4 1 3 0 0	core
+obj	Small island 2	BigBoulder3_Low	9	5/9.2/25.4	0/15.3/21.7	30	16.2	-4.7	2 4 2 0 1 0 0	core
+obj	Small island 2	BigRock_Low1_Sand	9	10.4/30.6/72.9	5.7/25.8/39	34.1	75	-11.4	0 1 0 5 3 0 0	core
+obj	Small island 2	Pickup_Landmark_Scrap 1_OceanBottom	9	2.8/18.3/23.6	6.8/16.5/26.8	19.3	1	0.1	0 2 0 4 3 0 0	core
+obj	Small island 2	Pickup_Landmark_Scrap 3_OceanBottom	8	2.4/13.9/23.6	4.8/16.5/20.8	13.7	1.7	0.1	0 1 1 4 2 0 0	core
+obj	Small island 2	Pickup_Landmark_Copper 1	8	11.7/19.5/21.4	2/13.3/25.7	70.1	0.6	-0.6	0 0 2 4 2 0 0	core
+obj	Small island 2	Pickup_Landmark_Clay 1	7	2.8/14/20.7	4.8/8/19.7	14.4	1.1	0	0 2 0 4 1 0 0	core
+obj	Small island 2	Pickup_Landmark_Clay 2	7	2.5/5.5/23.7	4.8/8/13.3	11	1.1	-0.1	0 3 2 1 1 0 0	core
+obj	Small island 2	Pickup_Landmark_Iron 2	7	11.1/22/23.8	2.8/10/24.6	53.8	0.5	-1	0 0 0 3 4 0 0	core
+obj	Small island 2	Bamboo_1	5	0.4/0.4/1.2	2/2/2	73.4	5.5	0.6	4 1 0 0 0 0 0	core
+obj	Small island 2	SmallBoulder3	4	10/15.2/16.9	7.7/8.5/16.8	32.5	7.7	-2.3	0 0 2 2 0 0 0	core
+obj	Small island 2	Pickup_Landmark_Iron 1	4	5.6/11.7/22.1	14/21.8/22	35.3	0.5	-0.3	0 0 2 1 1 0 0	core
+obj	Small island 2	BigBoulder4_Low	3	0.6/24.7/29.2	0/24/28.1	24	14.3	-3	1 0 0 0 2 0 0	core
+obj	Small island 2	Pickup_Landmark_Iron 3	3	14.9/20.9/22.9	4.8/8/14	36	0.5	-0.2	0 0 0 2 1 0 0	core
+obj	Small island 2	Pickup_Landmark_Copper 2	2	15.7/17.1/17.1	11.3/18.1/18.1	33.4	0.6	-0.2	0 0 0 2 0 0 0	core
+obj	Small island 2	Pickup_Landmark_GiantClam	2	11.2/21.1/21.1	10/17.7/17.7	25.4	1.1	0.2	0 0 0 1 1 0 0	-
+tex	Small island 2	0	Rock_Stylized_basecolor=0.60 Clean_Sand_basecolor=0.40
+tex	Small island 2	2	Clean_Sand_basecolor=0.85 Rock_Stylized_basecolor=0.15
+tex	Small island 2	5	Clean_Sand_basecolor=0.75 Rock_Stylized_basecolor=0.25
+tex	Small island 2	10	Clean_Sand_basecolor=0.66 Rock_Stylized_basecolor=0.34
+tex	Small island 2	20	Clean_Sand_basecolor=0.53 Rock_Stylized_basecolor=0.47
+tex	Small island 2	40	Clean_Sand_basecolor=0.68 Rock_Stylized_basecolor=0.32
+tex	Small island 2	80	Rock_Stylized_basecolor=0.72 Clean_Sand_basecolor=0.27
+area	Small island 3	Tropical	252 368 2468 6592 4480 7444 3616	0.57 0.75 0.35 0.40 0.78 0.91 1.00	-223.2
+profile	Small island 3	0:4.5 5:13 10:16.4 15:25.4 20:33.9 25:38 30:48 35:50 40:47.5 45:36.6 50:18.1 55:17.4 60:16.1 65:21.9 70:17.6 75:24.2 80:23.7 85:25.6 90:30.5 95:42.6 100:50.4 105:60.3 110:69.9 115:74.2 120:79 125:107.7 130:123.6
+obj	Small island 3	Coral1	246	6.9/12.3/15.3	22.5/57.7/79.7	45.8	1.4	0.3	0 0 91 155 0 0 0	core
+obj	Small island 3	LeafCoral_1	233	7.9/14.9/18.1	22.8/55/76.5	19.4	1.3	-0.1	0 0 52 181 0 0 0	core
+obj	Small island 3	LeafCoral_3	220	7.6/14.9/17.3	22/50.8/74	21.9	1.8	-0.1	0 0 53 167 0 0 0	core
+obj	Small island 3	Coral2	175	7.4/14.4/17	24.8/48/79.7	28.8	1.5	0.2	0 0 40 135 0 0 0	core
+obj	Small island 3	TableCoral_1	112	9.3/14.9/17.3	32/60/74	14.1	1.3	-0.1	0 0 24 88 0 0 0	core
+obj	Small island 3	SeaVine3	85	12.9/14.9/18	13.7/55.7/78	16.4	6.5	0	0 0 4 81 0 0 0	core
+obj	Small island 3	CylinderCoral_1	82	9/14.8/17.1	21.3/51/73.3	22.6	1.6	-0.1	0 0 14 68 0 0 0	core
+obj	Small island 3	TableCoral_2	82	9.3/14.9/17.2	34.8/60.3/74	12.3	1.6	-0.1	0 0 20 62 0 0 0	core
+obj	Small island 3	CauliCoral	81	7.6/14.9/18.1	26/53.1/78.8	14.9	2.4	-0.1	0 0 28 53 0 0 0	core
+obj	Small island 3	CylinderCoral_2	61	9.3/14.9/18.2	20.5/62.6/80.5	21.5	1.6	0	0 0 12 49 0 0 0	core
+obj	Small island 3	Pillar_04	42	5.7/13.6/17.2	24/59.7/77.7	22.4	1.5	0.1	0 0 15 27 0 0 0	core
+obj	Small island 3	SeaVine3_klump	37	12.8/14.9/18	11.7/55.3/80	21.9	7.2	-0.1	0 0 2 35 0 0 0	core
+obj	Small island 3	Pickup_Landmark_SeavineKlump	37	9.1/11.5/14.5	11.7/55.3/80	21.9	2.5	3.4	0 0 2 35 0 0 0	-
+obj	Small island 3	SpineCoral_1	32	7.6/14.9/18.2	22/53.1/78.5	24.6	3.4	-0.1	0 0 6 26 0 0 0	core
+obj	Small island 3	Pillar_01	31	6.6/14.5/17.2	28.8/59.7/77.7	18.3	3	0.1	0 0 8 23 0 0 0	core
+obj	Small island 3	Pickup_Landmark_Sand	31	7.5/14.9/18.1	31.7/55.7/78	15	1.2	-0.1	0 0 10 21 0 0 0	core
+obj	Small island 3	Pickup_Landmark_Rock 1	31	7.4/14.9/18.1	40/66/78	12.6	0.4	0	0 0 9 22 0 0 0	core
+obj	Small island 3	Pickup_Landmark_Rock 3	24	7.5/14.8/18.2	20.8/64.1/80.5	17.6	0.5	0.1	0 0 8 16 0 0 0	core
+obj	Small island 3	Pickup_Landmark_Rock 2	24	7.6/15.8/18.4	42/66/82	15.7	0.4	0	0 0 4 20 0 0 0	core
+obj	Small island 3	BigBoulder1_Low	20	10.1/13.3/17.2	14/46.8/66.3	21.3	13.4	-3.3	1 0 9 10 0 0 0	core
+obj	Small island 3	BigRock_Low1_Sand	13	18/32.3/74.9	2/32.3/90	30.6	100.9	-18.2	2 0 2 3 5 1 0	core
+obj	Small island 3	Pickup_Landmark_Clay 3	11	12.9/14.9/18.1	40/58.3/72	15.2	1	0	0 0 1 10 0 0 0	core
+obj	Small island 3	Pickup_Landmark_Clay 2	11	9.3/14.8/19.2	25.3/57.3/87.3	18.3	1.1	0	0 0 2 9 0 0 0	core
+obj	Small island 3	Pickup_Landmark_Scrap 4_OceanBottom	11	7.3/14.8/17.9	20.8/50.8/78	12.1	1.1	0.1	0 0 4 7 0 0 0	core
+obj	Small island 3	Pickup_Landmark_Scrap 1_OceanBottom	11	10.2/14.8/17.2	20.5/49.3/63.8	11.7	1	0	0 0 1 10 0 0 0	core
+obj	Small island 3	Pickup_Landmark_Scrap 3_OceanBottom	8	7.3/15.8/18.1	24/54/81.7	13.9	1.6	0.1	0 0 2 6 0 0 0	core
+obj	Small island 3	Pickup_Landmark_Scrap 2_OceanBottom	8	7.3/14.8/18.5	24.8/67/82.8	10.8	1.6	0.1	0 0 2 6 0 0 0	core
+obj	Small island 3	Bamboo_1	7	0.3/0.5/0.8	0/0/2	50.1	5.4	-0.4	7 0 0 0 0 0 0	core
+obj	Small island 3	BigBoulder4_Low	7	5/14/15.4	27/52.8/77.7	35.2	13.9	-3.6	0 2 2 3 0 0 0	core
+obj	Small island 3	Pickup_Landmark_GiantClam	7	7.9/13.5/18.4	14/60.1/83.7	12.8	1.1	0.1	0 0 1 6 0 0 0	-
+obj	Small island 3	Pickup_Landmark_Copper 1	7	8.2/10/17.1	8/71.1/83.3	60.1	0.6	-0.3	0 0 4 3 0 0 0	core
+obj	Small island 3	Pickup_Landmark_Iron 1	7	12.5/14.5/22	21.3/74.3/88.5	50.6	0.5	-0.1	0 0 0 5 2 0 0	core
+obj	Small island 3	BigBoulder3_Low	6	11.7/18.1/19.9	2/29.7/59.7	50.5	29	-3.9	1 0 0 5 0 0 0	core
+obj	Small island 3	Pickup_Landmark_Clay 1	6	7.5/17.2/18.2	48/71.3/82.8	14.5	1.1	0	0 0 2 4 0 0 0	core
+obj	Small island 3	Pickup_Landmark_Iron 3	6	11.9/14.4/23.8	5.7/70.8/87.7	57.3	0.5	0	0 0 0 5 1 0 0	core
+obj	Small island 3	Pickup_Landmark_Iron 2	6	8.7/13.9/15	5.7/57.9/70.8	49.4	0.5	0.5	0 0 2 4 0 0 0	core
+obj	Small island 3	Pickup_Landmark_Copper 2	5	9.8/14.6/17	10/57/76	46.5	0.6	-0.2	0 0 1 4 0 0 0	core
+tex	Small island 3	0	Clean_Sand_basecolor=0.64 Rock_Stylized_basecolor=0.33 Dirt_basecolor=0.03
+tex	Small island 3	2	Rock_Stylized_basecolor=0.51 Clean_Sand_basecolor=0.47 Dirt_basecolor=0.02
+tex	Small island 3	5	Clean_Sand_basecolor=0.73 Rock_Stylized_basecolor=0.25 Dirt_basecolor=0.03
+tex	Small island 3	10	Clean_Sand_basecolor=0.61 Rock_Stylized_basecolor=0.37 Dirt_basecolor=0.02
+tex	Small island 3	20	Rock_Stylized_basecolor=0.80 Clean_Sand_basecolor=0.16 Dirt_basecolor=0.04
+tex	Small island 3	40	Rock_Stylized_basecolor=0.96 Clean_Sand_basecolor=0.02 Dirt_basecolor=0.02
+tex	Small island 3	80	Rock_Stylized_basecolor=0.99
+area	Small island 4	Tropical	548 3420 2132 2552 3120 4676 452	0.31 0.16 0.45 0.59 0.92 0.87 1.00	-223.2
+profile	Small island 4	0:2 5:2.2 10:3.3 15:5.3 20:8 25:16.3 30:16.7 35:13.5 40:15.3 45:18.1 50:24.1 55:29.9 60:36.8 65:44.4 70:50 75:55.7 80:62.8
+obj	Small island 4	Coral1	166	2.3/3.7/5.1	18/22/30.5	43.4	1.4	0.1	4 130 32 0 0 0 0	core
+obj	Small island 4	LeafCoral_1	136	3.3/5.2/6.4	13.3/21.8/31	19.4	1.2	-0.1	6 59 71 0 0 0 0	core
+obj	Small island 4	LeafCoral_3	117	3.3/5.1/6.4	13.3/22/30	21.5	1.8	-0.1	2 64 51 0 0 0 0	core
+obj	Small island 4	Coral2	98	2.6/4.5/5.3	12/22.8/30	30.3	1.7	0.3	1 63 34 0 0 0 0	core
+obj	Small island 4	TableCoral_1	61	3.6/5/6.4	12.5/22.5/31.3	12.6	1.3	-0.1	0 31 30 0 0 0 0	core
+obj	Small island 4	TableCoral_2	59	3.8/5.2/6.4	12.5/22.5/32	12.6	1.6	-0.1	0 28 31 0 0 0 0	core
+obj	Small island 4	CylinderCoral_2	50	3.1/5.2/6.4	12.5/22/29.5	22.6	1.6	-0.2	2 27 21 0 0 0 0	core
+obj	Small island 4	CylinderCoral_1	42	3.4/5.8/6.4	13.7/22/29.5	22.4	1.7	-0.1	0 20 22 0 0 0 0	core
+obj	Small island 4	CauliCoral	34	3.6/6.1/6.4	16/23/28	15.3	2.5	-0.1	0 11 23 0 0 0 0	core
+obj	Small island 4	Pickup_Landmark_Rock 1	23	3.6/5.9/6.2	16.8/23.7/26	23.3	0.4	-0.1	0 8 15 0 0 0 0	core
+obj	Small island 4	Pillar_04	21	1.8/4.1/6.4	14/26.6/31	19.2	1.5	0.1	2 14 5 0 0 0 0	core
+obj	Small island 4	SeaVine3	18	6.1/7.9/10.1	29.7/38/42.5	33.3	5.8	0	0 0 16 2 0 0 0	core
+obj	Small island 4	Pillar_01	18	2.8/4.4/6.6	10/23/30.8	12	3	0	0 12 6 0 0 0 0	core
+obj	Small island 4	BigRock_Low1_Sand	14	41.3/65.4/137.5	8/30.6/60.1	57.6	84.9	-39	0 4 1 2 7 0 0	core
+obj	Small island 4	Bamboo_1	13	0.4/0.5/1	0/2/2.8	27.6	5.1	-0.1	13 0 0 0 0 0 0	core
+obj	Small island 4	SpineCoral_1	13	4/5.3/6.4	16/24/32.8	16.7	3.4	-0.1	0 6 7 0 0 0 0	core
+obj	Small island 4	SeaVine3_klump	9	6.2/7.9/10.8	31.7/35.7/40.5	37.3	6.8	0	0 0 7 2 0 0 0	core
+obj	Small island 4	Pickup_Landmark_SeavineKlump	9	3.1/4.4/7.2	31.7/35.7/40.5	37.3	2.4	3.5	0 0 7 2 0 0 0	-
+obj	Small island 4	BigBoulder1_Low	8	1.9/5.4/8.2	0/8.5/22.8	33.4	13.2	-3.5	5 3 0 0 0 0 0	core
+obj	Small island 4	BigBoulder4_Low	6	1.1/6.3/10.3	0/24.8/30	44.3	14.7	-3.6	3 3 0 0 0 0 0	core
+obj	Small island 4	Pickup_Landmark_Sand	5	4.8/6.4/6.4	18.5/26.8/29.3	20.8	1.2	-0.1	0 1 4 0 0 0 0	core
+obj	Small island 4	Pickup_Landmark_Scrap 3_OceanBottom	4	3.2/5.9/6.1	16/22.6/27.3	19.8	1.5	0.1	0 2 2 0 0 0 0	core
+obj	Small island 4	SmallBoulder2	3	5.6/6.5/6.9	19/22.8/23	41.6	2.2	-0.6	0 1 2 0 0 0 0	core
+obj	Small island 4	BigBoulder3_Low	3	5.8/7.6/10.7	17/19/33.7	2.5	16	-2.6	0 3 0 0 0 0 0	core
+obj	Small island 4	Pickup_Landmark_Copper 2	3	6.3/6.5/7	27.7/32.6/34.6	48.4	0.6	0.5	0 0 3 0 0 0 0	core
+obj	Small island 4	Pickup_Landmark_Iron 1	3	5.4/8/8.6	34.5/35.3/38.5	51.2	0.5	0.1	0 0 3 0 0 0 0	core
+obj	Small island 4	Pickup_Landmark_Scrap 4_OceanBottom	3	4.7/5.9/6.3	18/19.8/22.1	17.3	1.1	0	0 1 2 0 0 0 0	core
+obj	Small island 4	Pickup_Landmark_Scrap 1_OceanBottom	3	4.2/5.8/5.9	20/25.3/34	10.8	1	0.1	0 1 2 0 0 0 0	core
+obj	Small island 4	SmallBoulder4	2	5.7/6.9/6.9	18.1/24/24	12.6	2.9	-0.9	0 1 1 0 0 0 0	core
+obj	Small island 4	SmallBoulder3	2	5.2/6.4/6.4	22.6/26/26	35.4	3	-0.1	0 1 1 0 0 0 0	core
+obj	Small island 4	Pickup_Landmark_Clay 1	2	7/7/7	25.8/27.8/27.8	27.2	1.1	0	0 0 2 0 0 0 0	core
+obj	Small island 4	Pickup_Landmark_Clay 2	2	6/6.3/6.3	18.1/20.1/20.1	27.1	1.2	-0.1	0 0 2 0 0 0 0	core
+obj	Small island 4	Pickup_Landmark_GiantClam	2	5.2/6.3/6.3	21.8/22/22	34.8	1.2	0.1	0 0 2 0 0 0 0	-
+obj	Small island 4	Pickup_Landmark_Copper 1	2	5.5/5.5/5.5	33.7/34/34	43.2	0.6	0.3	0 0 2 0 0 0 0	core
+obj	Small island 4	Pickup_Landmark_Scrap 2_OceanBottom	2	5.1/5.5/5.5	16.8/28.5/28.5	46.2	1.3	0.1	0 0 2 0 0 0 0	core
+tex	Small island 4	0	Clean_Sand_basecolor=0.85 Rock_Stylized_basecolor=0.13 Dirt_basecolor=0.01
+tex	Small island 4	2	Clean_Sand_basecolor=0.93 Rock_Stylized_basecolor=0.06 Dirt_basecolor=0.01
+tex	Small island 4	5	Clean_Sand_basecolor=0.78 Rock_Stylized_basecolor=0.20 Dirt_basecolor=0.02
+tex	Small island 4	10	Clean_Sand_basecolor=0.53 Rock_Stylized_basecolor=0.40 Dirt_basecolor=0.07
+tex	Small island 4	20	Rock_Stylized_basecolor=0.50 Clean_Sand_basecolor=0.41 Dirt_basecolor=0.08
+tex	Small island 4	40	Rock_Stylized_basecolor=1.00
+tex	Small island 4	80	Rock_Stylized_basecolor=0.98 Clean_Sand_basecolor=0.01
+area	Small island 5	Tropical	240 2084 3244 9448 6460 4624 6828	0.63 0.29 0.32 0.34 0.59 0.97 0.88	-223.2
+profile	Small island 5	0:2.5 5:4.9 10:7.8 15:11.3 20:11.4 25:11.9 30:11.9 35:13 40:15.4 45:17.8 50:28.2 55:44 60:66.5 65:90.4 70:96.4 75:51.5 80:46.3 85:65.4 90:93.6 95:100.9 100:107.3 105:129.9
+obj	Small island 5	Coral1	254	4.3/7/13.9	6/15.7/42.1	51.9	1.4	0.1	0 28 129 97 0 0 0	core
+obj	Small island 5	LeafCoral_3	112	4.3/7/15.4	9.7/28.8/40.1	21.1	1.8	-0.1	0 35 52 25 0 0 0	core
+obj	Small island 5	LeafCoral_1	110	2.6/6.8/15.4	8.5/30.1/41.1	17.8	1.3	-0.1	0 37 55 18 0 0 0	core
+obj	Small island 5	Coral2	91	2.4/5.2/12	6/23.3/38.1	26.7	1.7	0.2	0 29 44 18 0 0 0	core
+obj	Small island 5	TableCoral_1	67	2.5/7/15.4	8.8/21.7/43.5	8.9	1.3	-0.1	0 23 28 16 0 0 0	core
+obj	Small island 5	TableCoral_2	56	2.5/6.4/15.4	8.8/19.7/43.5	11.4	1.7	0	0 23 21 12 0 0 0	core
+obj	Small island 5	CylinderCoral_2	45	2.5/7/15.4	8.8/27.3/38.5	22.6	1.6	-0.1	0 13 24 8 0 0 0	core
+obj	Small island 5	CauliCoral	45	4.1/7.2/15.4	8/17/39.8	20.1	1.9	-0.1	0 12 16 17 0 0 0	core
+obj	Small island 5	CylinderCoral_1	37	2.5/6.6/15.4	8/27.3/41.1	16.6	1.6	-0.1	0 15 16 6 0 0 0	core
+obj	Small island 5	Pickup_Landmark_Rock 1	29	4/15/15.3	2/17.3/41.5	14.1	0.5	0	0 7 9 13 0 0 0	core
+obj	Small island 5	Pillar_04	26	2.5/7/15.3	8/25.3/40.6	8.7	1.5	0	0 8 10 8 0 0 0	core
+obj	Small island 5	Pickup_Landmark_Sand	25	4.1/7/15.4	0/22.5/42.6	9.5	1.3	-0.1	3 5 12 5 0 0 0	core
+obj	Small island 5	SeaVine3	21	14.4/15.3/15.3	16.5/24/35.3	6.7	4.8	0	0 0 0 21 0 0 0	core
+obj	Small island 5	Pillar_01	19	2.5/7/15.3	4.8/14.5/40.6	5.5	3	0	0 5 7 7 0 0 0	core
+obj	Small island 5	BigRock_Low1_Sand	17	88.7/102.5/195.9	36/58.9/75	31.1	114	-90	0 0 0 5 8 3 1	core
+obj	Small island 5	SeaVine3_klump	10	14.4/15.3/15.3	16.8/24/31.5	19.9	5.8	-0.1	0 0 0 10 0 0 0	core
+obj	Small island 5	Pickup_Landmark_SeavineKlump	10	11.6/12.5/12.7	16.8/24/31.5	19.9	2	2.8	0 0 0 10 0 0 0	-
+obj	Small island 5	SpineCoral_1	9	4.8/6.7/7.6	29.5/34.5/45.8	11.4	3.4	-0.1	0 3 6 0 0 0 0	core
+obj	Small island 5	Pickup_Landmark_Clay 2	9	2.5/7/15.3	6.8/31.5/41.8	6.1	1.2	0	0 2 4 3 0 0 0	core
+obj	Small island 5	Pickup_Landmark_Scrap 3_OceanBottom	9	2.4/6.9/14.5	0/31.5/42.3	6.8	1.5	0.1	2 3 4 0 0 0 0	core
+obj	Small island 5	Pickup_Landmark_Scrap 1_OceanBottom	9	3/6.9/15.2	0/24.5/41.5	15.7	1	0	1 4 2 2 0 0 0	core
+obj	Small island 5	Pickup_Landmark_Clay 1	8	2.5/15.2/15.3	2/10/38.6	7.1	1	0	0 3 2 3 0 0 0	core
+obj	Small island 5	Pickup_Landmark_Iron 2	8	5.8/8/9.3	21/41.3/48.6	56.7	0.5	0.2	0 0 8 0 0 0 0	core
+obj	Small island 5	Pickup_Landmark_Iron 1	8	5.8/6.7/13.9	0/17.7/40	42.2	0.5	0.3	3 0 5 0 0 0 0	core
+obj	Small island 5	Bamboo_1	7	0.4/0.5/1	2/2/2.8	40.6	5	0.1	7 0 0 0 0 0 0	core
+obj	Small island 5	Pickup_Landmark_Scrap 2_OceanBottom	7	2.4/5.9/15.2	8.8/14.1/47	19.7	1.5	0.1	0 3 2 2 0 0 0	core
+obj	Small island 5	Pickup_Landmark_Scrap 4_OceanBottom	6	4.7/6.9/15.2	17.3/32.6/40.3	20.1	1.1	0.1	0 1 4 1 0 0 0	core
+obj	Small island 5	Pickup_Landmark_Copper 2	6	9.8/11.7/14.6	0/23/40.8	59.4	0.6	-0.3	1 0 1 4 0 0 0	core
+obj	Small island 5	BigBoulder4_Low	5	1.3/5.2/8.3	0/16.5/42.1	36.1	13.8	-2.4	2 2 1 0 0 0 0	core
+obj	Small island 5	Pickup_Landmark_Clay 3	5	4.7/8.3/15.3	12/20.5/26.5	9.5	1	0	0 1 2 2 0 0 0	core
+obj	Small island 5	BigBoulder2_Low	4	7/8.3/8.9	28.6/34/40.8	30	20	-2.4	0 2 2 0 0 0 0	core
+obj	Small island 5	Pickup_Landmark_Copper 1	4	8.8/10/12.6	0/25.8/41.7	52.8	0.6	-0.3	2 0 1 1 0 0 0	core
+obj	Small island 5	FL_Plank3	3	1.3/1.6/1.8	0/0/0	43.2	1.5	-8.4	3 0 0 0 0 0 0	core
+obj	Small island 5	Pickup_Landmark_Iron 3	3	5.7/6.1/7.6	11.7/21/37.1	64.2	0.5	0.5	0 0 3 0 0 0 0	core
+obj	Small island 5	Pickup_Landmark_GiantClam	3	4.7/6.9/14.3	0/29.8/35.8	23.9	1.1	0.1	1 1 1 0 0 0 0	-
+obj	Small island 5	FL_Pillar	2	1.7/1.9/1.9	0/0/0	43.2	2	-8.6	2 0 0 0 0 0 0	core
+obj	Small island 5	FL_Crate	1	2.1/2.1/2.1	0/0/0	28.4	1.9	-11.2	1 0 0 0 0 0 0	core
+obj	Small island 5	BigBoulder3_Low	1	12.1/12.1/12.1	4/4/4	37.5	29.5	-6.5	0 0 1 0 0 0 0	core
+obj	Small island 5	BigBoulder1_Low	1	3/3/3	0/0/0	45.5	29	-5.8	1 0 0 0 0 0 0	core
+tex	Small island 5	0	Rock_Stylized_basecolor=0.71 Clean_Sand_basecolor=0.25 Dirt_basecolor=0.04
+tex	Small island 5	2	Clean_Sand_basecolor=0.70 Rock_Stylized_basecolor=0.28 Dirt_basecolor=0.02
+tex	Small island 5	5	Clean_Sand_basecolor=0.64 Rock_Stylized_basecolor=0.34 Dirt_basecolor=0.02
+tex	Small island 5	10	Clean_Sand_basecolor=0.70 Rock_Stylized_basecolor=0.26 Dirt_basecolor=0.04
+tex	Small island 5	20	Clean_Sand_basecolor=0.51 Rock_Stylized_basecolor=0.43 Dirt_basecolor=0.06
+tex	Small island 5	40	Rock_Stylized_basecolor=0.82 Clean_Sand_basecolor=0.12 Dirt_basecolor=0.04 Grass_basecolor=0.01
+tex	Small island 5	80	Rock_Stylized_basecolor=0.97 Clean_Sand_basecolor=0.02
+area	Small island 6	Tropical	552 1256 3184 6204 10280 4960 9544	0.20 0.28 0.26 0.41 0.51 0.97 0.94	-223.2
+profile	Small island 6	0:2 5:3.9 10:5.8 15:7.6 20:9.8 25:12.5 30:16.3 35:22.7 40:25.6 45:26.5 50:29 55:32.7 60:36.2 65:39.5 70:65.5 75:85.9 80:103.5 85:122.1 90:137.2 95:126.8 100:152.3 105:221.6
+obj	Small island 6	Coral1	239	2/6.7/8.7	2/21.8/32.6	50	1.4	0.1	10 37 187 5 0 0 0	core
+obj	Small island 6	LeafCoral_3	162	3.9/7.9/10.7	4.8/25.3/33.9	23.1	1.8	-0.1	2 37 96 27 0 0 0	core
+obj	Small island 6	LeafCoral_1	146	4.5/8.1/10.5	7.7/25.3/33.3	23.1	1.2	-0.1	2 17 108 19 0 0 0	core
+obj	Small island 6	Coral2	134	3.2/7.5/9.3	9.7/27/35.1	33.9	1.5	0.3	0 23 99 12 0 0 0	core
+obj	Small island 6	TableCoral_1	92	5.8/8.1/10.8	6/24.6/31.3	20.2	1.3	-0.1	0 8 65 19 0 0 0	core
+obj	Small island 6	TableCoral_2	80	5.8/8.1/10.8	6/24.8/32.1	19.5	1.6	-0.1	0 8 52 20 0 0 0	core
+obj	Small island 6	CylinderCoral_1	57	3.9/8.4/10.8	5.7/24.5/31	22.8	1.6	-0.1	0 8 35 14 0 0 0	core
+obj	Small island 6	CylinderCoral_2	46	4.4/8.1/10.8	6.8/24.5/31.3	28.9	1.7	-0.1	0 9 31 6 0 0 0	core
+obj	Small island 6	CauliCoral	36	7.1/9.4/10.8	22/27.5/35.8	16.6	2.5	-0.1	0 0 25 11 0 0 0	core
+obj	Small island 6	SpineCoral_1	26	4.2/7.7/10.8	4.8/26.8/34.5	25.3	3.4	0	0 5 17 4 0 0 0	core
+obj	Small island 6	SeaVine3	20	7.6/9.6/11.1	26/35.3/39.7	21	6	0	0 0 11 9 0 0 0	core
+obj	Small island 6	Pillar_04	20	4.8/8.4/10.5	19.7/28.1/33.1	14.2	1.5	0.1	0 1 16 3 0 0 0	core
+obj	Small island 6	Pickup_Landmark_Rock 2	20	4.1/8.1/9.5	5.7/25/28.5	19	0.4	0	0 5 15 0 0 0 0	core
+obj	Small island 6	Pickup_Landmark_Sand	19	3.7/8/10.5	2/24.6/32	17.2	1.3	-0.1	0 5 11 3 0 0 0	core
+obj	Small island 6	SeaVine3_klump	15	7.7/10.1/10.8	21.3/34.5/39.9	22.6	7.1	0	0 0 8 7 0 0 0	core
+obj	Small island 6	Pickup_Landmark_SeavineKlump	15	4.2/6.9/7.6	21.3/34.5/39.9	22.6	2.5	3.4	0 0 8 7 0 0 0	-
+obj	Small island 6	Pickup_Landmark_Rock 1	14	5.4/8.9/10.7	10.5/24.1/33.8	17.2	0.4	0	0 1 9 4 0 0 0	core
+obj	Small island 6	BigRock_Low1_Sand	13	21.4/41.4/127	16.8/50/75.7	39.5	144	-17.3	0 1 1 4 7 0 0	core
+obj	Small island 6	Pickup_Landmark_Rock 3	13	2.1/4.8/10.5	2.8/10.8/28.5	22.6	0.5	0	1 6 3 3 0 0 0	core
+obj	Small island 6	Pillar_01	12	4.1/7.4/10.5	18.8/27.3/30.1	29.4	3.1	0.1	0 2 8 2 0 0 0	core
+obj	Small island 6	BigBoulder1_Low	9	3.1/8.2/12.5	0/17/37.1	38.5	14.1	-4.2	1 5 3 0 0 0 0	core
+obj	Small island 6	BigBoulder4_Low	9	1.1/11.7/15.7	0/23.7/42.8	27.9	14.2	-4.7	2 1 6 0 0 0 0	core
+obj	Small island 6	Pickup_Landmark_Iron 3	8	4.1/9.6/13.2	11.7/24/38.6	45.8	0.5	-0.1	0 1 5 2 0 0 0	core
+obj	Small island 6	Bamboo_1	7	0.4/0.5/0.8	0/2/2	22.5	5.6	-0.2	7 0 0 0 0 0 0	core
+obj	Small island 6	Pickup_Landmark_Scrap 4_OceanBottom	7	2.1/5.9/10.5	2.8/18/24.5	22.7	1	0.1	0 3 3 1 0 0 0	core
+obj	Small island 6	Pickup_Landmark_Scrap 1_OceanBottom	7	5.6/8.3/10.5	18.5/27.7/31	15.8	1	0	0 0 6 1 0 0 0	core
+obj	Small island 6	FL_Pillar	6	10/11.6/12.8	40.8/42.4/43.6	18.7	3.3	-0.3	0 0 0 6 0 0 0	core
+obj	Small island 6	Pickup_Landmark_Clay 1	6	2.3/9.2/10.7	4/24.5/33	25.1	1	0	0 1 4 1 0 0 0	core
+obj	Small island 6	Pickup_Landmark_Scrap 3_OceanBottom	6	5.1/8.6/10.5	2/26/28.3	14.2	1.7	0.1	0 0 5 1 0 0 0	core
+obj	Small island 6	Pickup_Landmark_Iron 2	6	3.4/9.2/12.5	11.7/33/38.6	50	0.5	-0.4	0 1 3 2 0 0 0	core
+obj	Small island 6	Pickup_Landmark_Clay 2	5	5/9.7/11.4	10.5/25.7/31	19.6	1.1	0	0 1 2 2 0 0 0	core
+obj	Small island 6	Pickup_Landmark_Scrap 2_OceanBottom	5	3.3/9.2/12.1	4/16.8/33	19.5	1.7	0	0 1 2 2 0 0 0	core
+obj	Small island 6	Pickup_Landmark_Iron 1	5	7.7/11/11.8	14/26/38.6	49	0.5	-0.1	0 0 2 3 0 0 0	core
+obj	Small island 6	Pickup_Landmark_Copper 1	5	1/3.1/9	2/2/15.7	59.2	0.6	-0.4	1 2 2 0 0 0 0	core
+obj	Small island 6	Pickup_Landmark_Copper 2	3	5.2/6/9.6	16.5/27.8/27.8	53.7	0.6	0.1	0 0 3 0 0 0 0	core
+obj	Small island 6	FL_Plank1	2	10.8/12/12	41.6/41.6/41.6	18.7	1.9	-0.1	0 0 0 2 0 0 0	core
+obj	Small island 6	Pickup_Landmark_Clay 3	2	5.7/8/8	8.5/25/25	25	1.2	0	0 0 2 0 0 0 0	core
+obj	Small island 6	Pickup_Landmark_GiantClam	2	5/5.9/5.9	7.7/18.8/18.8	11.6	1.1	0.5	0 0 2 0 0 0 0	-
+obj	Small island 6	FL_Roof2	1	10.1/10.1/10.1	41.6/41.6/41.6	18.7	2.1	0.3	0 0 0 1 0 0 0	index
+obj	Small island 6	FL_Roof1	1	11.1/11.1/11.1	40.8/40.8/40.8	10	2.1	-0.5	0 0 0 1 0 0 0	index
+obj	Small island 6	FL_Plywood	1	11.5/11.5/11.5	41.6/41.6/41.6	18.7	3	-1	0 0 0 1 0 0 0	core
+obj	Small island 6	FL_Crate	1	10.8/10.8/10.8	41.6/41.6/41.6	18.7	1.8	-0.4	0 0 0 1 0 0 0	core
+obj	Small island 6	BigBoulder3_Low	1	0.7/0.7/0.7	0/0/0	9.6	28.9	-4.2	1 0 0 0 0 0 0	core
+obj	Small island 6	Pickup_Landmark_LandmarkCrateMountain	1	10.9/10.9/10.9	40.8/40.8/40.8	10	1.4	-0.1	0 0 0 1 0 0 0	-
+tex	Small island 6	0	Clean_Sand_basecolor=0.78 Rock_Stylized_basecolor=0.20 Dirt_basecolor=0.02
+tex	Small island 6	2	Clean_Sand_basecolor=0.77 Rock_Stylized_basecolor=0.21 Dirt_basecolor=0.02
+tex	Small island 6	5	Clean_Sand_basecolor=0.70 Rock_Stylized_basecolor=0.28 Dirt_basecolor=0.02
+tex	Small island 6	10	Clean_Sand_basecolor=0.78 Rock_Stylized_basecolor=0.19 Dirt_basecolor=0.03
+tex	Small island 6	20	Clean_Sand_basecolor=0.67 Rock_Stylized_basecolor=0.31 Dirt_basecolor=0.03
+tex	Small island 6	40	Rock_Stylized_basecolor=0.72 Clean_Sand_basecolor=0.25 Dirt_basecolor=0.03
+tex	Small island 6	80	Rock_Stylized_basecolor=0.89 Clean_Sand_basecolor=0.11
+area	Small island 7	Tropical	216 1188 3320 2432 1920 3508 4496	0.59 0.26 0.24 0.73 0.90 0.97 1.00	-223.2
+profile	Small island 7	0:3.6 5:6.1 10:7.2 15:8.4 20:10.1 25:15.5 30:33 35:49.5 40:66.3 45:68.1 50:45.6 55:61.2 60:76.9 65:88.7 70:119.7 75:131.7 80:142
+obj	Small island 7	Coral1	242	4.4/5.8/7.9	2/14.5/23	40.2	1.4	0	0 66 176 0 0 0 0	core
+obj	Small island 7	LeafCoral_1	135	4.8/6.7/9.1	6.8/13.7/22	25.8	1.3	-0.1	0 18 117 0 0 0 0	core
+obj	Small island 7	LeafCoral_3	120	4.8/6.6/9.1	8/16.5/24.6	23.7	1.7	-0.1	0 17 103 0 0 0 0	core
+obj	Small island 7	Coral2	119	4.2/5.7/6.8	10.5/16.1/21.3	33.3	1.7	0.2	0 26 93 0 0 0 0	core
+obj	Small island 7	TableCoral_1	78	5.7/6.9/9.1	9.7/15.3/22.6	25	1.3	-0.1	0 0 78 0 0 0 0	core
+obj	Small island 7	TableCoral_2	64	6.2/7.1/9.1	8.5/15.3/22.6	23.2	1.7	-0.1	0 1 63 0 0 0 0	core
+obj	Small island 7	CylinderCoral_1	51	4.9/6.6/9.1	4.8/14.1/21.8	25.4	1.7	-0.1	0 6 43 2 0 0 0	core
+obj	Small island 7	CylinderCoral_2	48	5.6/7/9.1	8.5/16.1/22.1	25.1	1.6	-0.1	0 1 47 0 0 0 0	core
+obj	Small island 7	CauliCoral	36	6.1/7.8/9.7	5.7/16.1/21.7	22.8	2.4	-0.1	0 1 35 0 0 0 0	core
+obj	Small island 7	Pickup_Landmark_Rock 2	26	4.7/6.8/9	5.7/14.5/28.8	19.8	0.4	0	0 3 23 0 0 0 0	core
+obj	Small island 7	Pickup_Landmark_Sand	24	6.3/7.5/9.6	5.7/18.1/22.6	18.4	1.3	-0.1	0 0 24 0 0 0 0	core
+obj	Small island 7	SpineCoral_1	23	4.6/6.8/9.1	5.7/13.3/22	25.5	3.2	-0.1	0 5 18 0 0 0 0	core
+obj	Small island 7	SeaVine3	22	7.6/9.2/9.8	13.7/19.8/29.7	30.8	5.8	0	0 0 22 0 0 0 0	core
+obj	Small island 7	Pickup_Landmark_Iron 1	21	7.2/8.6/10.8	10.5/22.1/31.3	54.5	0.5	-0.3	0 0 16 5 0 0 0	core
+obj	Small island 7	Pickup_Landmark_Rock 1	19	4.3/6.3/8.7	8.5/14.1/23	16.4	0.4	0	0 5 14 0 0 0 0	core
+obj	Small island 7	Pillar_04	18	4/6.3/8.2	13.7/16.5/24.6	25.1	1.6	0	0 5 13 0 0 0 0	core
+obj	Small island 7	Bamboo_1	16	0.4/0.6/1	0/2/2	38.2	5.3	-0.2	16 0 0 0 0 0 0	core
+obj	Small island 7	SeaVine3_klump	16	7.7/9.1/10.3	14.8/19.8/29.7	33.9	6.2	0	0 0 15 1 0 0 0	core
+obj	Small island 7	Pickup_Landmark_SeavineKlump	16	4.9/5.9/6.7	14.8/19.8/29.7	33.9	2.2	3.2	0 0 15 1 0 0 0	-
+obj	Small island 7	Pickup_Landmark_Rock 3	14	5.3/6.8/9	5.7/14.8/24	12.6	0.5	0	0 1 13 0 0 0 0	core
+obj	Small island 7	Pillar_01	13	4.3/5.3/7	11.3/15.7/19	26.8	3.1	0.1	0 5 8 0 0 0 0	core
+obj	Small island 7	BigRock_Low1_Sand	11	16.1/38.1/81.3	8/25.3/45.6	31.7	119.3	-32.4	0 2 6 1 1 1 0	core
+obj	Small island 7	Pickup_Landmark_Scrap 2_OceanBottom	9	4.2/6/9.5	7.7/18/21	17.6	1.5	0.1	0 2 7 0 0 0 0	core
+obj	Small island 7	Pickup_Landmark_Scrap 3_OceanBottom	9	5.1/6.5/9.4	4.8/13.3/21.8	19.8	1.6	0	0 0 9 0 0 0 0	core
+obj	Small island 7	BigBoulder1_Low	8	0.7/7.4/9.4	0/11.7/20	17.9	13.2	-2.8	3 3 2 0 0 0 0	core
+obj	Small island 7	BigBoulder4_Low	8	4.1/10.1/14.3	0/13.7/27.3	28.5	15.5	-4.4	1 4 3 0 0 0 0	core
+obj	Small island 7	Pickup_Landmark_Scrap 4_OceanBottom	7	5.6/7.2/8.8	10.8/17/22	19.9	1.1	0.1	0 0 7 0 0 0 0	core
+obj	Small island 7	Pickup_Landmark_Copper 2	7	6/8.2/14.8	14/22.1/30.5	38.5	0.6	-0.2	0 0 6 1 0 0 0	core
+obj	Small island 7	Pickup_Landmark_Clay 1	6	3.2/6.9/9.7	9.7/17.3/19.3	21.3	1	0	0 1 5 0 0 0 0	core
+obj	Small island 7	Pickup_Landmark_Clay 2	6	4.6/6.4/7.8	7.7/10.8/20.1	32.4	1.2	0	0 1 5 0 0 0 0	core
+obj	Small island 7	Pickup_Landmark_Copper 1	6	6.7/8.7/14.8	12.8/24.5/28.3	46	0.6	-0.1	0 0 4 2 0 0 0	core
+obj	Small island 7	Pickup_Landmark_Clay 3	5	6.5/7/9.9	10.8/15.3/19	12.3	0.9	0	0 0 5 0 0 0 0	core
+obj	Small island 7	Pickup_Landmark_Scrap 1_OceanBottom	4	5.4/7/7	12.5/24/24.6	27.4	1	0.2	0 0 4 0 0 0 0	core
+obj	Small island 7	BigBoulder3_Low	2	6.7/7.5/7.5	16.1/21/21	25.5	9.2	-0.3	0 0 2 0 0 0 0	core
+obj	Small island 7	Pickup_Landmark_GiantClam	2	6.1/6.6/6.6	7.7/22/22	13.2	1.1	0	0 0 2 0 0 0 0	-
+obj	Small island 7	BigBoulder2_Low	1	6.7/6.7/6.7	0/0/0	7.5	36	-12.3	1 0 0 0 0 0 0	core
+tex	Small island 7	0	Clean_Sand_basecolor=0.55 Rock_Stylized_basecolor=0.44 Dirt_basecolor=0.02
+tex	Small island 7	2	Clean_Sand_basecolor=0.79 Rock_Stylized_basecolor=0.20
+tex	Small island 7	5	Clean_Sand_basecolor=0.67 Rock_Stylized_basecolor=0.31 Dirt_basecolor=0.02
+tex	Small island 7	10	Rock_Stylized_basecolor=0.91 Clean_Sand_basecolor=0.07 Dirt_basecolor=0.02
+tex	Small island 7	20	Rock_Stylized_basecolor=0.78 Clean_Sand_basecolor=0.18 Dirt_basecolor=0.03
+tex	Small island 7	40	Rock_Stylized_basecolor=1.00
+tex	Small island 7	80	Rock_Stylized_basecolor=0.96 Clean_Sand_basecolor=0.03
+area	Small island 8	Tropical	300 908 2696 1284 1436 3908 7564	0.37 0.26 0.21 0.88 1.00 0.88 0.96	-223.2
+profile	Small island 8	0:2.1 5:3.7 10:5.8 15:7.2 20:9.3 25:15 30:31.9 35:48.8 40:54.3 45:81.3 50:113.3 55:127.1 60:134.9 65:123.8 70:134 75:167.2 80:186.4
+obj	Small island 8	Coral1	299	2.9/5.1/6.4	5.7/14.1/29.7	39.1	1.4	0.1	8 106 185 0 0 0 0	core
+obj	Small island 8	LeafCoral_3	193	3.4/6.3/7.5	6.8/17/30.8	20	1.8	-0.1	2 53 138 0 0 0 0	core
+obj	Small island 8	LeafCoral_1	189	3.7/6.2/7.4	6/17.3/29.7	22.3	1.2	-0.1	1 57 131 0 0 0 0	core
+obj	Small island 8	Coral2	136	2.5/4.9/6.9	6/14/28.1	25.4	1.7	0.4	0 50 86 0 0 0 0	core
+obj	Small island 8	TableCoral_1	121	2.4/6.5/7.5	4/13.3/31	19.6	1.3	-0.1	3 39 79 0 0 0 0	core
+obj	Small island 8	TableCoral_2	97	2.3/6.6/7.4	2.8/13.3/31.3	19.6	1.6	-0.1	3 32 62 0 0 0 0	core
+obj	Small island 8	CylinderCoral_1	69	3.6/6.6/7.4	4.8/17.7/30.1	19.2	1.7	-0.1	2 19 48 0 0 0 0	core
+obj	Small island 8	CylinderCoral_2	55	3.5/6.5/7.5	4.8/18.8/30	21.8	1.6	-0.1	1 14 40 0 0 0 0	core
+obj	Small island 8	CauliCoral	48	3/6.5/7.7	6/12.8/30	19.6	2.2	-0.1	1 14 33 0 0 0 0	core
+obj	Small island 8	SpineCoral_1	27	3.7/6.5/7.5	6/16.8/28.8	20.8	3.3	-0.1	0 8 19 0 0 0 0	core
+obj	Small island 8	Pillar_01	20	3.4/6.4/7.3	8.8/18.5/28.8	19.4	3	-0.1	0 5 15 0 0 0 0	core
+obj	Small island 8	Pillar_04	19	3.2/6/7.3	5.7/16/32.8	19.4	1.5	0.1	0 5 14 0 0 0 0	core
+obj	Small island 8	SeaVine3	18	9.8/10.6/14.6	24.6/36/40.8	37.9	5.5	-0.1	0 0 3 15 0 0 0	core
+obj	Small island 8	Bamboo_1	17	0.3/0.4/0.9	2/2.8/4	28.7	5.3	0	17 0 0 0 0 0 0	core
+obj	Small island 8	BigRock_Low1_Sand	16	13/56.1/121.7	13.7/31.8/48.4	69.2	96.2	-25.7	0 0 6 2 3 4 1	core
+obj	Small island 8	Pickup_Landmark_Sand	15	5.3/6.7/7.9	8.8/16.1/32.1	20.7	1.3	-0.1	0 2 13 0 0 0 0	core
+obj	Small island 8	Pickup_Landmark_Rock 1	15	4.6/6.3/7.4	7.7/17.3/27	19.9	0.4	0	0 3 12 0 0 0 0	core
+obj	Small island 8	BigBoulder1_Low	14	1.6/5.3/7.3	0/10/18	30.2	7.6	-1.8	2 9 3 0 0 0 0	core
+obj	Small island 8	Pickup_Landmark_Rock 2	13	4.4/6.5/7.3	9.7/16.5/24.8	19.3	0.4	0	0 4 9 0 0 0 0	core
+obj	Small island 8	Pickup_Landmark_Rock 3	13	4.6/5.6/7.5	8.5/10.8/27	22	0.5	0	0 5 8 0 0 0 0	core
+obj	Small island 8	BigBoulder4_Low	9	3.1/7.6/9.1	0/8.5/30.8	38.1	12.3	-3.8	2 3 4 0 0 0 0	core
+obj	Small island 8	SeaVine3_klump	7	10/10.9/14.2	23/36/38.8	44.2	6.5	-0.1	0 0 1 6 0 0 0	core
+obj	Small island 8	BigBoulder3_Low	7	5/7.8/9.9	5.7/14/28.8	23.6	10.5	-2.5	0 3 4 0 0 0 0	core
+obj	Small island 8	Pickup_Landmark_Iron 1	7	5.9/9.4/12.6	8.8/23.7/30.6	54	0.5	0	0 0 4 3 0 0 0	core
+obj	Small island 8	Pickup_Landmark_Copper 1	7	4.6/6.6/11.7	14.8/26/37.7	47	0.6	-0.4	0 2 3 2 0 0 0	core
+obj	Small island 8	Pickup_Landmark_SeavineKlump	7	7.1/8.1/11	23/36/38.8	44.2	2.3	2.8	0 0 1 6 0 0 0	-
+obj	Small island 8	Pickup_Landmark_Clay 2	6	6.4/6.9/7.1	8/18.1/26	25.3	1.2	0	0 0 6 0 0 0 0	core
+obj	Small island 8	Pickup_Landmark_Clay 3	5	5.6/6.4/7.3	11.7/17.7/21.7	11.1	1	0	0 0 5 0 0 0 0	core
+obj	Small island 8	Pickup_Landmark_Copper 2	5	4.9/5.7/10	6.8/15.3/37.7	40.8	0.6	-0.1	0 1 3 1 0 0 0	core
+obj	Small island 8	Pickup_Landmark_Scrap 2_OceanBottom	5	1.5/6.1/7.7	6/14/32	18.5	1.4	0.1	1 1 3 0 0 0 0	core
+obj	Small island 8	Pickup_Landmark_Clay 1	4	2.6/6.7/6.9	6.8/25.7/26.8	10.3	1.1	0	0 1 3 0 0 0 0	core
+obj	Small island 8	Pickup_Landmark_Iron 3	4	8.9/10.2/13.4	21/22.5/27	66.3	0.5	0.7	0 0 2 2 0 0 0	core
+obj	Small island 8	Pickup_Landmark_Scrap 1_OceanBottom	4	6.1/6.9/7.3	16.1/28.8/33.7	25.3	1.1	0.1	0 0 4 0 0 0 0	core
+obj	Small island 8	FL_Plank3	3	6.9/6.9/6.9	30.8/31.7/31.7	7.6	1.5	0.4	0 0 3 0 0 0 0	core
+obj	Small island 8	FL_Pillar	3	7.2/7.2/7.3	28/28/28.8	44.2	3.3	-1.2	0 0 3 0 0 0 0	core
+obj	Small island 8	Pickup_Landmark_Iron 2	3	6.8/7.5/9.3	22.5/31.7/32.6	33.1	0.5	-0.2	0 0 3 0 0 0 0	core
+obj	Small island 8	Pickup_Landmark_GiantClam	2	3.7/6.6/6.6	5.7/26.8/26.8	35.8	1.1	0.3	0 1 1 0 0 0 0	-
+obj	Small island 8	Pickup_Landmark_Scrap 3_OceanBottom	2	6.2/7.1/7.1	18.1/30.8/30.8	18.1	1.7	0.1	0 0 2 0 0 0 0	core
+obj	Small island 8	Pickup_Landmark_Scrap 4_OceanBottom	2	2/7.4/7.4	8/16.5/16.5	31.7	1.2	0.1	0 1 1 0 0 0 0	core
+obj	Small island 8	Log	1	0.6/0.6/0.6	2/2/2	27.8	4.7	-0.1	1 0 0 0 0 0 0	core
+obj	Small island 8	FL_Roof1	1	5.8/5.8/5.8	28/28/28	44.2	2.1	-0.9	0 1 0 0 0 0 0	index
+obj	Small island 8	FL_Crate	1	7.1/7.1/7.1	28.8/28.8/28.8	16.2	1.8	-0.1	0 0 1 0 0 0 0	core
+obj	Small island 8	BigBoulder2_Low	1	3.1/3.1/3.1	0/0/0	29.8	19.1	-9.5	1 0 0 0 0 0 0	core
+obj	Small island 8	Pickup_Landmark_LandmarkCrateMountain	1	6.8/6.8/6.8	28/28/28	44.2	1.4	-1.6	0 0 1 0 0 0 0	-
+tex	Small island 8	0	Clean_Sand_basecolor=0.81 Rock_Stylized_basecolor=0.17 Dirt_basecolor=0.01
+tex	Small island 8	2	Clean_Sand_basecolor=0.86 Rock_Stylized_basecolor=0.10 Dirt_basecolor=0.03
+tex	Small island 8	5	Clean_Sand_basecolor=0.85 Rock_Stylized_basecolor=0.13 Dirt_basecolor=0.02
+tex	Small island 8	10	Rock_Stylized_basecolor=0.97 Dirt_basecolor=0.02
+tex	Small island 8	20	Rock_Stylized_basecolor=1.00
+tex	Small island 8	40	Rock_Stylized_basecolor=1.00
+tex	Small island 8	80	Rock_Stylized_basecolor=0.97 Clean_Sand_basecolor=0.03
+area	Small island 9	Tropical	324 1336 2996 1044 1524 3280 6960	0.23 0.20 0.20 0.96 1.00 0.90 0.99	-223.2
+profile	Small island 9	0:1.7 5:2.8 10:4.6 15:6.5 20:8.3 25:12 30:28.2 35:42.5 40:48.9 45:74.8 50:112.7 55:121.7 60:138 65:143.7 70:144.2 75:169.5 80:179.7
+obj	Small island 9	Coral1	303	2.6/4.4/5.8	8.5/13.3/24.6	34.8	1.4	0.1	3 200 100 0 0 0 0	core
+obj	Small island 9	LeafCoral_3	197	2.7/5.6/8	7.7/16/31.8	22.8	1.8	0	1 82 114 0 0 0 0	core
+obj	Small island 9	LeafCoral_1	193	3.2/5.6/8.3	8/16/31.8	21.8	1.3	0	2 83 108 0 0 0 0	core
+obj	Small island 9	Coral2	170	2.4/4.2/6.7	6.8/13.3/25.8	30.4	1.5	0.3	4 105 61 0 0 0 0	core
+obj	Small island 9	TableCoral_1	108	3.6/6.2/8.5	9.7/15.3/30.6	17.8	1.3	-0.1	0 34 74 0 0 0 0	core
+obj	Small island 9	TableCoral_2	87	3.4/6.2/8.5	9.7/14.8/30.3	17.8	1.6	-0.1	0 29 58 0 0 0 0	core
+obj	Small island 9	CauliCoral	69	3.9/6.2/8.6	8/15.7/31.8	19.8	2.2	-0.1	2 25 42 0 0 0 0	core
+obj	Small island 9	CylinderCoral_1	68	2.6/5.7/8.1	8.8/15.7/33.9	25.9	1.7	-0.1	1 29 38 0 0 0 0	core
+obj	Small island 9	CylinderCoral_2	67	3.6/5.8/8.2	8.8/15.3/31.5	25.9	1.6	-0.1	0 28 39 0 0 0 0	core
+obj	Small island 9	SpineCoral_1	30	3.5/6/7.7	9.7/18.8/27	23.8	3.4	0	0 10 20 0 0 0 0	core
+obj	Small island 9	SeaVine3	25	6.9/8.6/9.4	17.7/32.1/37.5	22.1	5.9	0	0 0 25 0 0 0 0	core
+obj	Small island 9	Pillar_04	25	2.4/4.4/6.9	8/18.1/35.1	20.9	1.5	0.1	1 13 11 0 0 0 0	core
+obj	Small island 9	BigBoulder1_Low	22	4.5/6.4/8.7	5.7/11.3/20.1	24.3	11	-2.5	2 16 4 0 0 0 0	core
+obj	Small island 9	BigRock_Low1_Sand	18	46.4/112.8/198.1	24.6/37.7/50.8	73.7	84.9	-69.6	0 0 2 6 4 3 3	core
+obj	Small island 9	Pickup_Landmark_Rock 2	18	3.1/6.2/8.5	7.7/22.6/32.6	19.7	0.4	0	0 6 12 0 0 0 0	core
+obj	Small island 9	Pickup_Landmark_Rock 3	15	3.6/5.6/6.9	7.7/14.1/22.6	15.9	0.5	0	0 5 10 0 0 0 0	core
+obj	Small island 9	Pillar_01	12	3.3/4.9/6.2	10/19.8/26.6	24.1	3	0.1	0 7 5 0 0 0 0	core
+obj	Small island 9	SeaVine3_klump	11	6.3/7.8/8.9	17.7/24.5/35.9	27.2	6.3	0.1	0 0 11 0 0 0 0	core
+obj	Small island 9	Pickup_Landmark_SeavineKlump	11	3.5/4.6/5.8	17.7/24.5/35.9	27.2	2.2	3	0 0 11 0 0 0 0	-
+obj	Small island 9	Pickup_Landmark_Sand	11	3.5/6.3/8.5	10/16.1/31	15.9	1.3	-0.1	0 4 7 0 0 0 0	core
+obj	Small island 9	Pickup_Landmark_Rock 1	10	3.4/5.5/8.4	8.8/21/31.5	17	0.4	0	0 5 5 0 0 0 0	core
+obj	Small island 9	Pickup_Landmark_Iron 2	8	5.7/9.2/9.5	20.8/27/37.9	37.4	0.5	-0.1	0 0 7 1 0 0 0	core
+obj	Small island 9	Pickup_Landmark_Iron 3	7	5.9/7.9/11.3	10.5/23/29	43	0.5	-0.4	0 2 3 2 0 0 0	core
+obj	Small island 9	Pickup_Landmark_Copper 2	7	4.6/8.1/10.8	5.7/20/37.3	34.4	0.6	-0.1	0 1 5 1 0 0 0	core
+obj	Small island 9	Bamboo_3	6	0.4/0.6/0.7	2/2/4	35	5.5	-0.1	6 0 0 0 0 0 0	core
+obj	Small island 9	BigBoulder4_Low	6	5.9/7.1/12.3	8.5/19.3/35.1	14.5	13.5	-3.2	1 3 2 0 0 0 0	core
+obj	Small island 9	Pickup_Landmark_Clay 3	6	1.8/6.8/7.6	4/21/30.3	17.8	1.1	-0.1	1 0 5 0 0 0 0	core
+obj	Small island 9	Bamboo_2	5	0.4/0.5/0.6	2/2/2.8	31.5	5.5	-0.1	5 0 0 0 0 0 0	core
+obj	Small island 9	Pickup_Landmark_Scrap 1_OceanBottom	5	2.3/4.6/6.8	6.8/15.7/16.1	14.6	0.9	0	0 3 2 0 0 0 0	core
+obj	Small island 9	Pickup_Landmark_Scrap 3_OceanBottom	4	3.7/5.6/5.7	9.7/14.8/16.5	19.4	1.6	0	0 2 2 0 0 0 0	core
+obj	Small island 9	Pickup_Landmark_Scrap 4_OceanBottom	4	3.4/6.6/8	9.7/19.8/26.6	8.3	1.2	0.1	0 1 3 0 0 0 0	core
+obj	Small island 9	Pickup_Landmark_Copper 1	4	5.3/8.9/9.6	7.7/20/33.3	46.7	0.6	-0.4	0 2 2 0 0 0 0	core
+obj	Small island 9	Pickup_Landmark_Clay 1	3	2.9/3.9/5.4	7.7/12/14	17	1.1	0.1	0 2 1 0 0 0 0	core
+obj	Small island 9	Pickup_Landmark_Scrap 2_OceanBottom	3	6.1/7.5/8.6	18/24.6/24.6	28.6	1.6	0	0 0 3 0 0 0 0	core
+obj	Small island 9	Pickup_Landmark_Iron 1	3	7.6/7.8/8.1	18.5/20.8/21.8	38.6	0.5	-0.4	0 0 3 0 0 0 0	core
+obj	Small island 9	Bamboo_1	2	0.5/0.6/0.6	0/2/2	40.3	5.5	-0.1	2 0 0 0 0 0 0	core
+obj	Small island 9	Pickup_Landmark_Clay 2	2	4.7/6.8/6.8	9.7/17/17	29.6	1.2	0	0 1 1 0 0 0 0	core
+obj	Small island 9	FL_Roof2	1	7.7/7.7/7.7	28.3/28.3/28.3	8.3	2.1	0.2	0 0 1 0 0 0 0	index
+obj	Small island 9	FL_Plywood	1	8.4/8.4/8.4	25.5/25.5/25.5	10.3	3	-0.2	0 0 1 0 0 0 0	core
+obj	Small island 9	FL_Pillar	1	7.3/7.3/7.3	27.5/27.5/27.5	16.7	3	0.3	0 0 1 0 0 0 0	core
+obj	Small island 9	FL_Crate	1	8.3/8.3/8.3	25.5/25.5/25.5	10.3	2.1	0	0 0 1 0 0 0 0	core
+obj	Small island 9	Pickup_Landmark_LandmarkCrateMountain	1	8.1/8.1/8.1	25.5/25.5/25.5	10.3	1.4	0	0 0 1 0 0 0 0	-
+tex	Small island 9	0	Clean_Sand_basecolor=0.80 Rock_Stylized_basecolor=0.20
+tex	Small island 9	2	Clean_Sand_basecolor=0.80 Rock_Stylized_basecolor=0.19
+tex	Small island 9	5	Clean_Sand_basecolor=0.61 Rock_Stylized_basecolor=0.38
+tex	Small island 9	10	Rock_Stylized_basecolor=1.00
+tex	Small island 9	20	Rock_Stylized_basecolor=1.00
+tex	Small island 9	40	Rock_Stylized_basecolor=1.00
+tex	Small island 9	80	Rock_Stylized_basecolor=0.97 Clean_Sand_basecolor=0.03
+area	Small island 10	Tropical	204 1668 1312 1924 1796 3528 8276	0.53 0.11 0.48 0.71 1.00 0.97 0.95	-223.2
+profile	Small island 10	0:2.2 5:2.9 10:4 15:5.9 20:9.3 25:15 30:25.3 35:37.7 40:52.6 45:81.5 50:113.1 55:115.9 60:139.1 65:133 70:133.3 75:146.4 80:151.5 85:145.2 90:179.2 95:196.2
+obj	Small island 10	Coral1	290	2.7/5.6/9	5.7/16/30	40.3	1.4	0.2	14 104 162 10 0 0 0	core
+obj	Small island 10	LeafCoral_1	192	2.3/3.9/9.6	4.8/12/28.1	21.2	1.2	-0.1	5 111 60 16 0 0 0	core
+obj	Small island 10	Coral2	190	1.8/4.5/9.6	6/14/28.5	23.7	1.5	0.1	17 83 74 16 0 0 0	core
+obj	Small island 10	LeafCoral_3	167	2.4/3.8/10.1	4/13.3/30	20.3	1.8	-0.1	5 91 53 18 0 0 0	core
+obj	Small island 10	SeaVine3	80	7.4/12.2/16.7	17.3/32/37.8	35.5	5.9	-0.1	0 0 34 46 0 0 0	core
+obj	Small island 10	CylinderCoral_1	74	1.9/3.6/7.4	6.8/10.5/24	18.1	1.7	0	6 41 26 1 0 0 0	core
+obj	Small island 10	CauliCoral	65	2.3/3.5/8.2	4/10.8/26	18.3	2.4	-0.1	4 36 25 0 0 0 0	core
+obj	Small island 10	TableCoral_1	63	2.2/3.6/9.6	4/12/28	18.1	1.3	0	4 39 17 3 0 0 0	core
+obj	Small island 10	TableCoral_2	49	2.1/3.3/9.9	4/11.7/26	15.9	1.6	0	4 29 11 5 0 0 0	core
+obj	Small island 10	CylinderCoral_2	33	2/2.8/8.1	6/9.7/29.3	15.1	1.7	0	0 21 10 2 0 0 0	core
+obj	Small island 10	Pillar_04	30	2.3/4.8/9.4	7.7/17.7/30	15.2	1.5	0.1	0 17 11 2 0 0 0	core
+obj	Small island 10	Pillar_01	23	2.6/5.8/9.4	8.5/19/30	15.5	3	0	0 11 11 1 0 0 0	core
+obj	Small island 10	Pickup_Landmark_Rock 3	18	2.1/4.1/10	4.8/14/28	13	0.5	0	0 10 7 1 0 0 0	core
+obj	Small island 10	BigRock_Low1_Sand	15	41.3/56/220.1	24.6/35.1/52.1	64.6	58.6	-36.1	0 0 0 5 5 2 3	core
+obj	Small island 10	SeaVine3_klump	13	7.4/11/12.9	14.1/32/34	38.4	7	0	0 0 6 7 0 0 0	core
+obj	Small island 10	SmallBoulder2	13	2.3/2.8/5.2	4.8/8/12.5	10.8	2.2	-0.6	2 11 0 0 0 0 0	core
+obj	Small island 10	Pickup_Landmark_SeavineKlump	13	4.5/7.1/9.7	14.1/32/34	38.4	2.4	3.2	0 0 6 7 0 0 0	-
+obj	Small island 10	Pickup_Landmark_Rock 1	13	2.6/3.6/7.4	6.8/10.5/20	14.9	0.4	0	0 9 4 0 0 0 0	core
+obj	Small island 10	SpineCoral_1	12	3.2/7.3/8.5	9.7/24/28.5	15.5	3.4	0	0 4 7 1 0 0 0	core
+obj	Small island 10	BigBoulder4_Low	11	4.7/5.1/8.7	0/8/14	19.1	13.3	-4.6	3 7 1 0 0 0 0	core
+obj	Small island 10	BigBoulder1_Low	9	0.5/4.8/11.2	0/15.3/26.5	25.8	10.3	-2.6	3 3 3 0 0 0 0	core
+obj	Small island 10	Pickup_Landmark_Sand	9	2.3/2.6/10.3	2.8/10/28.8	13.6	1.3	-0.1	0 6 2 1 0 0 0	core
+obj	Small island 10	Pickup_Landmark_Rock 2	9	2.3/2.6/10.6	4/5.7/30	12.7	0.4	0	0 7 1 1 0 0 0	core
+obj	Small island 10	Bamboo_1	7	0.3/0.6/0.8	0/2/2	37.5	5.6	-0.1	7 0 0 0 0 0 0	core
+obj	Small island 10	Pickup_Landmark_Clay 1	7	2/2.4/8.2	4.8/9.7/24	18.1	1	0	0 4 3 0 0 0 0	core
+obj	Small island 10	Pickup_Landmark_Iron 3	6	3.4/7.3/9.9	4/11.7/29.8	46.8	0.5	-0.1	0 2 4 0 0 0 0	core
+obj	Small island 10	Pickup_Landmark_Scrap 1_OceanBottom	5	2.5/8.1/9.8	4/20.8/28	11.9	0.9	0	0 2 3 0 0 0 0	core
+obj	Small island 10	Pickup_Landmark_Copper 2	5	7.1/8.5/9.1	16.1/16.1/20.8	50.6	0.6	0	0 0 5 0 0 0 0	core
+obj	Small island 10	Pickup_Landmark_Iron 2	5	4.8/8.2/9.9	12.5/29.8/31.3	50.7	0.5	0	0 1 4 0 0 0 0	core
+obj	Small island 10	SmallBoulder1	4	2.9/3.3/3.6	4/5.7/10.8	11.7	2.4	-0.8	0 4 0 0 0 0 0	core
+obj	Small island 10	Pickup_Landmark_Scrap 3_OceanBottom	4	2.3/4.8/7.4	6/18/18.5	20.5	1.6	0.1	0 3 1 0 0 0 0	core
+obj	Small island 10	Pickup_Landmark_Scrap 2_OceanBottom	4	2.3/5.9/8	4.8/19.7/21	7.9	1.5	0	0 2 2 0 0 0 0	core
+obj	Small island 10	Pickup_Landmark_Copper 1	4	6.4/7.2/7.5	15.3/18/21.7	53.9	0.6	0.1	0 0 4 0 0 0 0	core
+obj	Small island 10	SmallBoulder4	3	2.5/2.9/3.2	4.8/7.7/11.7	5	2.1	-0.6	0 3 0 0 0 0 0	core
+obj	Small island 10	BigBoulder3_Low	2	5.9/7.1/7.1	14.5/22.5/22.5	56.2	12.3	-1.3	0 2 0 0 0 0 0	core
+obj	Small island 10	Pickup_Landmark_Iron 1	2	5/9.7/9.7	16/30.5/30.5	49.5	0.5	0.1	0 0 2 0 0 0 0	core
+obj	Small island 10	Pickup_Landmark_Scrap 4_OceanBottom	1	2.3/2.3/2.3	10/10/10	4.3	1.3	0.2	0 1 0 0 0 0 0	core
+tex	Small island 10	0	Rock_Stylized_basecolor=0.61 Clean_Sand_basecolor=0.37 Dirt_basecolor=0.02
+tex	Small island 10	2	Clean_Sand_basecolor=0.74 Rock_Stylized_basecolor=0.25
+tex	Small island 10	5	Clean_Sand_basecolor=0.54 Rock_Stylized_basecolor=0.45 Dirt_basecolor=0.02
+tex	Small island 10	10	Rock_Stylized_basecolor=0.79 Clean_Sand_basecolor=0.20
+tex	Small island 10	20	Rock_Stylized_basecolor=1.00
+tex	Small island 10	40	Rock_Stylized_basecolor=1.00
+tex	Small island 10	80	Rock_Stylized_basecolor=0.97 Clean_Sand_basecolor=0.03
+area	Vasagatan	Tropical	1604 1792 1768 3224 1564 1716 2780	0.44 0.63 0.78 0.65 0.83 0.93 0.99	-223.2
+profile	Vasagatan	0:4.3 5:13 10:21.2 15:68.5 20:80 25:80.8 30:93.4 35:115.7 40:138.7
+obj	Vasagatan	Coral1	143	1/2.9/5.5	0/0/4	78	1.4	-6.9	96 29 18 0 0 0 0	core
+obj	Vasagatan	Coral2	20	1.6/2.6/7.8	2/2/4	63.6	1.7	0	9 6 5 0 0 0 0	core
+obj	Vasagatan	BigBoulder3_Low	20	8.6/15.9/23.1	0/2/6.8	53	45.7	-12.8	9 6 3 2 0 0 0	core
+obj	Vasagatan	BigBoulder4_Low	17	1.5/5.5/19.1	0/0/6.8	62.6	12.3	-3.2	12 4 0 1 0 0 0	core
+obj	Vasagatan	SeaVine3	16	15.3/18.3/18.4	6/8.8/10.8	9	5.7	0	0 0 0 16 0 0 0	core
+obj	Vasagatan	Pillar_04	13	1.5/4.7/9.5	2/2/8.8	72.5	1.6	-0.1	7 4 2 0 0 0 0	core
+obj	Vasagatan	Bamboo_3	12	0.3/0.5/1	0/2/2.8	29.2	5.4	-0.1	12 0 0 0 0 0 0	core
+obj	Vasagatan	BigRock_Low1_Sand	11	75.7/80/191.1	0/4/8	60.7	80.7	-72.5	2 2 4 3 0 0 0	core
+obj	Vasagatan	Bamboo_2	11	0.4/0.8/1	0/2/2	30.7	5.1	-0.1	11 0 0 0 0 0 0	core
+obj	Vasagatan	CylinderCoral_2	10	3.2/7.2/9	0/5.7/7.7	44.6	1.7	-0.1	2 3 5 0 0 0 0	core
+obj	Vasagatan	Bamboo_1	10	0.4/0.6/0.7	0/2/2	29.9	5.4	0	10 0 0 0 0 0 0	core
+obj	Vasagatan	CylinderCoral_1	9	3.2/5.8/7.1	0/6.8/8.8	30.8	1.7	-0.1	2 3 4 0 0 0 0	core
+obj	Vasagatan	SpineCoral_1	9	1.9/4.3/9.6	0/2.8/7.7	25.3	3.3	-0.2	4 3 2 0 0 0 0	core
+obj	Vasagatan	SeaVine3_klump	8	15.2/18.2/18.4	2.8/6.8/11.7	29.5	6.2	-0.2	0 0 0 8 0 0 0	core
+obj	Vasagatan	Pickup_Landmark_Scrap 4_OceanBottom	8	2.1/4.5/7	0/2/6	73.1	1	-4.7	5 3 0 0 0 0 0	core
+obj	Vasagatan	Pickup_Landmark_Scrap 3_OceanBottom	8	2.1/4.5/7	0/2/4.8	74.9	1.7	-2.3	5 3 0 0 0 0 0	core
+obj	Vasagatan	Pickup_Landmark_SeavineKlump	8	12.1/15.1/15.7	2.8/6.8/11.7	29.5	2.2	2.9	0 0 0 8 0 0 0	-
+obj	Vasagatan	BigBoulder1_Low	5	1.7/7.5/11.1	0/2/8	50.8	15.4	-5.9	2 3 0 0 0 0 0	core
+obj	Vasagatan	Pickup_Landmark_Scrap 1_OceanBottom	5	2.1/2.1/5.4	0/2/4	75	1	-0.1	2 2 1 0 0 0 0	core
+obj	Vasagatan	Pillar_01	4	4.6/9.5/9.6	2/2/4	76.6	2.9	-0.1	0 2 2 0 0 0 0	core
+obj	Vasagatan	Pickup_Landmark_GiantClam	4	1.4/4.7/8.8	2/4.8/7.7	44.6	1.1	0.3	1 2 1 0 0 0 0	-
+obj	Vasagatan	Pickup_Landmark_Rock 1	4	1.9/3.2/4.6	5.7/7.7/7.7	8.2	0.5	0	1 3 0 0 0 0 0	core
+obj	Vasagatan	Pickup_Landmark_Scrap 2_OceanBottom	3	4.5/4.6/5.4	0/0/5.7	78.9	1.6	-6.9	2 1 0 0 0 0 0	core
+obj	Vasagatan	Pickup_Landmark_Sand	3	3.2/3.2/4.6	2/4/4.8	21.1	1.2	-0.1	0 3 0 0 0 0 0	core
+obj	Vasagatan	Pickup_Landmark_Rock 2	3	1.9/3.1/4.6	5.7/6.8/7.7	6.4	0.6	0	1 2 0 0 0 0 0	core
+obj	Vasagatan	Pickup_Landmark_Rock 3	3	3.1/3.2/3.2	4/4/4.8	27.2	0.5	0	0 3 0 0 0 0 0	core
+obj	Vasagatan	Pickup_Landmark_SilverAlgae	2	3.5/7.2/7.2	2.8/7.7/7.7	43.8	3.5	0	0 1 1 0 0 0 0	-
+obj	Vasagatan	BigPalm3	1	0.4/0.4/0.4	0/0/0	8.8	35.9	-0.8	1 0 0 0 0 0 0	core
+obj	Vasagatan	Pickup_Landmark_LandmarkCrateMetal	1	50.5/50.5/50.5	4.8/4.8/4.8	56	1.3	-42.3	0 0 1 0 0 0 0	-
+obj	Vasagatan	Pickup_Landmark_Clay 3	1	4.6/4.6/4.6	6/6/6	0.3	1.2	0	0 1 0 0 0 0 0	core
+obj	Vasagatan	Pickup_Landmark_Clay 2	1	4.6/4.6/4.6	4.8/4.8/4.8	2.1	1.2	0	0 1 0 0 0 0 0	core
+obj	Vasagatan	Pickup_Landmark_Clay 1	1	4.6/4.6/4.6	2.8/2.8/2.8	12.6	0.9	0	0 1 0 0 0 0 0	core
+tex	Vasagatan	0	Clean_Sand_basecolor=0.67 Rock_Stylized_basecolor=0.29 Dirt_basecolor=0.03
+tex	Vasagatan	2	Clean_Sand_basecolor=0.68 Rock_Stylized_basecolor=0.29 Dirt_basecolor=0.02
+tex	Vasagatan	5	Clean_Sand_basecolor=0.65 Rock_Stylized_basecolor=0.32 Dirt_basecolor=0.02
+tex	Vasagatan	10	Rock_Stylized_basecolor=0.58 Clean_Sand_basecolor=0.41 Dirt_basecolor=0.01
+tex	Vasagatan	20	Rock_Stylized_basecolor=0.91 Clean_Sand_basecolor=0.09
+tex	Vasagatan	40	Rock_Stylized_basecolor=0.96 Clean_Sand_basecolor=0.04
+tex	Vasagatan	80	Rock_Stylized_basecolor=1.00
+area	Balboa Island	Forest	3478 9041 11609 25039 57278 61100 122635	0.34 0.27 0.40 0.41 0.45 0.70 0.89	-244.7
+profile	Balboa Island	0:4.5 5:9.5 10:12.4 15:16.4 20:20 25:23.5 30:27.7 35:31.6 40:32.9 45:35 50:37.8 55:41.7 60:45.5 65:55.3 70:60.6 75:64.8 80:71.6 85:80.9 90:90.6 95:100.1 100:110.3 105:121.4 110:134 115:145.1 120:151.8 125:164.1 130:170.3 135:173.8 140:168 145:170.8 150:176 155:181.3 160:184.3 165:190.6 170:195 175:199.9 180:206.4 185:223.2
+obj	Balboa Island	BigRock_Low1_Sand	91	34.3/53/186	0/17.8/80.3	33.5	53.6	-39.2	20 8 7 32 14 0 10	core
+obj	Balboa Island	BigRock_Low2_Sand	35	11.3/15.7/24	0/18/39.2	19.6	29.7	-12.1	8 14 6 7 0 0 0	index
+obj	Balboa Island	Reef_Barrel5	31	4.1/7.5/20	8.5/18.8/37.8	18.7	1.5	-0.1	1 7 12 8 3 0 0	core
+obj	Balboa Island	Pickup_Landmark_Sand	31	4.4/8.5/12.7	6.3/15.6/40.1	19.1	1.3	-0.1	0 6 14 10 1 0 0	core
+obj	Balboa Island	Reef_Barrel1	30	2.2/7.1/12.2	2.2/19.7/34.7	20.6	1.6	-0.1	3 6 14 7 0 0 0	core
+obj	Balboa Island	Reef_Barrel3	23	1.6/6.6/10.9	3.2/12.1/24.3	22	1.6	-0.2	4 6 9 4 0 0 0	core
+obj	Balboa Island	Reef_Barrel2	22	2.5/6.6/15.1	4.5/17.5/37.8	15	1.6	-0.1	2 8 6 5 1 0 0	core
+obj	Balboa Island	Reef_Barrel4	20	3.9/10.5/20.4	4.5/14.8/44.2	20.3	1.5	-0.1	1 5 4 7 3 0 0	core
+obj	Balboa Island	BigRock_1	19	0.4/8.7/30.2	0/0/0	43.4	67.3	-67.2	19 0 0 0 0 0 0	index
+obj	Balboa Island	BigRock_Low3_Sand	15	2.3/9.1/17	0/7.6/33.8	14.5	20.4	-6.9	7 6 1 1 0 0 0	index
+obj	Balboa Island	Pickup_Landmark_Scrap 3_OceanBottom	14	3.7/7.1/11.7	10.8/17.8/28.6	13.1	1.7	0	0 6 5 3 0 0 0	core
+obj	Balboa Island	Pickup_Landmark_Clay 1	14	5.9/10.7/19.4	13.4/22.3/41.8	25.5	1	0	0 0 7 6 1 0 0	core
+obj	Balboa Island	Pickup_Landmark_Copper 2	13	5/8.5/19.3	9.8/24.3/31.5	55.5	1	-1	1 3 4 5 0 0 0	core
+obj	Balboa Island	Pickup_Landmark_Scrap 1_OceanBottom	11	4.9/7.4/9.3	8.5/21.2/30.8	15.3	1	0	1 0 9 0 1 0 0	core
+obj	Balboa Island	Pickup_Landmark_Scrap 2_OceanBottom	9	2.1/6.8/15.5	10.8/16.5/36.9	14.8	1.5	0.1	0 3 4 2 0 0 0	core
+obj	Balboa Island	Pickup_Landmark_Clay 3	9	2.5/7.3/13.3	11.7/14.8/44	7.7	1.1	0	0 4 2 3 0 0 0	core
+obj	Balboa Island	Pickup_Landmark_Iron 2	9	6.9/9.9/24	15.8/27.5/59	59.9	0.7	-0.4	0 1 4 3 1 0 0	core
+obj	Balboa Island	Pickup_Landmark_Clay 2	8	4.2/7.9/10.6	8.5/14.8/27.5	24.6	1.2	0	0 2 5 1 0 0 0	core
+obj	Balboa Island	Reef_Container	7	2.7/6.2/16.5	12.6/17.8/42.3	26.7	8.7	-0.9	1 3 2 1 0 0 0	core
+obj	Balboa Island	Reef_Buoy	7	1.9/8.6/13.4	4.5/17.8/43.2	13.8	4.4	-1	2 1 2 2 0 0 0	core
+obj	Balboa Island	TreeLog_01	7	0.4/3.5/8.1	2.2/13/29	15.2	3.5	0.2	3 1 3 0 0 0 0	core
+obj	Balboa Island	BigRock_2	7	1.1/1.1/8	0/0/0	72.4	35	-49.2	7 0 0 0 0 0 0	core
+obj	Balboa Island	Pickup_Landmark_Iron 3	7	10.6/15/17.9	13.4/22.1/50.5	54.8	0.7	0.1	0 0 1 6 0 0 0	core
+obj	Balboa Island	Pickup_Landmark_Copper 1	6	1.7/8/9.6	0/23.8/39.8	62.6	1	0.3	1 0 5 0 0 0 0	core
+obj	Balboa Island	Landfall1	5	0.4/0.7/2.9	0/0/0	20.9	32.2	-5	5 0 0 0 0 0 0	index
+obj	Balboa Island	Pickup_Landmark_Scrap 4_OceanBottom	5	3/7.5/15.3	2.2/15.6/40.1	16.9	1.2	0.1	0 2 2 1 0 0 0	core
+obj	Balboa Island	Pickup_Landmark_Iron 1	5	6/18/24.9	11.2/50.5/59	46	0.7	-0.5	0 1 0 2 2 0 0	core
+obj	Balboa Island	TreeLog_02	3	1.2/3.5/3.7	3.2/9.5/15.6	11.9	5.1	0.2	1 2 0 0 0 0 0	core
+obj	Balboa Island	Reef_Wheelbarrow	2	6.9/7.8/7.8	2.2/28.2/28.2	75.3	1.9	0.2	0 0 2 0 0 0 0	index
+obj	Balboa Island	BigRock_3	1	3.6/3.6/3.6	0/0/0	26.9	18.2	-4.5	1 0 0 0 0 0 0	core
+tex	Balboa Island	0	Clean_Sand_basecolor=0.68 Rock_Stylized_basecolor=0.18 Balboa_Dirt_basecolor=0.07 Balboa_Grass_basecolor=0.06
+tex	Balboa Island	2	Clean_Sand_basecolor=0.75 Balboa_Dirt_basecolor=0.10 Rock_Stylized_basecolor=0.10 Balboa_Grass_basecolor=0.04 Boat_GenericMetal_Metallic_Roughness=0.02
+tex	Balboa Island	5	Clean_Sand_basecolor=0.78 Rock_Stylized_basecolor=0.13 Balboa_Dirt_basecolor=0.07 Balboa_Grass_basecolor=0.02
+tex	Balboa Island	10	Clean_Sand_basecolor=0.72 Rock_Stylized_basecolor=0.25 Balboa_Dirt_basecolor=0.03
+tex	Balboa Island	20	Rock_Stylized_basecolor=0.67 Clean_Sand_basecolor=0.29 Balboa_Dirt_basecolor=0.04
+tex	Balboa Island	40	Rock_Stylized_basecolor=0.99
+tex	Balboa Island	80	Clean_Sand_basecolor=0.78 Rock_Stylized_basecolor=0.19 Balboa_Dirt_basecolor=0.03
+area	Balboa Small 1	Forest	1484 4304 7560 5324 2840 9868 17336	0.23 0.15 0.24 0.69 1.00 0.81 0.24	-166.2
+profile	Balboa Small 1	0:2 5:3.1 10:5.4 15:5.8 20:8.4 25:13.9 30:19.2 35:39.7 40:57.9 45:69.3 50:72.9 55:81 60:163.6 65:163.6 70:163.6 75:163.6 80:163.6 85:163.6 90:163.6 95:163.6 100:163.6 105:163.6 110:163.6 115:163.6
+obj	Balboa Small 1	Pickup_Landmark_Rock 1	51	2.7/5.6/5.7	8/17/23.7	8.3	0.5	0	0 23 28 0 0 0 0	core
+obj	Balboa Small 1	BigRock_Low1_Sand	22	9.6/102/184.9	4.8/26/44.4	21.7	126.3	-78.8	3 1 12 1 5 0 0	core
+obj	Balboa Small 1	BigRock_2	17	0.7/6.8/12.2	0/0/0	14.7	33.9	-14.5	17 0 0 0 0 0 0	core
+obj	Balboa Small 1	BigRock_Low2_Sand	16	16.3/19/19.4	4/10.8/32	17.1	32.6	-13.9	2 6 8 0 0 0 0	index
+obj	Balboa Small 1	Reef_Barrel5	12	2.8/5.3/5.8	8.5/16.1/19.8	16.6	1.4	-0.1	0 6 6 0 0 0 0	core
+obj	Balboa Small 1	BigRock_Low3_Sand	12	2.9/8.8/9.6	2/6/11.3	28.5	19.8	-5.2	5 7 0 0 0 0 0	index
+obj	Balboa Small 1	Pickup_Landmark_Sand	12	2.6/3.6/5.8	9.7/16.1/20	15.5	1.3	0	0 9 3 0 0 0 0	core
+obj	Balboa Small 1	Pickup_Landmark_Clay 1	12	2.8/5.7/5.7	8.5/22.8/28	0	1	0	0 3 9 0 0 0 0	core
+obj	Balboa Small 1	Reef_Barrel3	10	3.9/5.8/5.8	9.7/21.8/22	13.4	1.7	-0.1	1 3 6 0 0 0 0	core
+obj	Balboa Small 1	Pickup_Landmark_Copper 1	10	4.5/8.5/8.8	2.8/16.1/42	59.3	1	-0.5	0 3 7 0 0 0 0	core
+obj	Balboa Small 1	Reef_Barrel1	8	2.1/5.7/5.8	6/16.8/20.8	7.8	1.6	-0.1	0 4 4 0 0 0 0	core
+obj	Balboa Small 1	Pickup_Landmark_Scrap 1_OceanBottom	7	2/5.1/5.7	7.7/16.1/22.8	12.4	0.9	0.1	0 2 5 0 0 0 0	core
+obj	Balboa Small 1	Pickup_Landmark_Scrap 4_OceanBottom	7	2.8/3.9/5.7	6.8/13.7/23.7	16.2	1.1	0.1	0 4 3 0 0 0 0	core
+obj	Balboa Small 1	Reef_Barrel2	6	2.3/4.9/5.8	4/19.8/22.8	20.9	1.6	-0.2	1 3 2 0 0 0 0	core
+obj	Balboa Small 1	Reef_Barrel4	6	2.8/5.8/6	8.5/20/26	4.3	1.6	-0.1	0 1 5 0 0 0 0	core
+obj	Balboa Small 1	Pickup_Landmark_Scrap 3_OceanBottom	5	2.8/4/5.7	7.7/12.8/26	11	1.7	0.1	0 4 1 0 0 0 0	core
+obj	Balboa Small 1	BigRock_3	4	0.7/1.2/1.8	0/0/0	39	19.9	-5.2	4 0 0 0 0 0 0	core
+obj	Balboa Small 1	Pickup_Landmark_Iron 3	4	4.5/10/10.8	14.1/34/37.7	49	0.8	-0.3	0 1 3 0 0 0 0	core
+obj	Balboa Small 1	Reef_Container	3	2.8/4.5/6	16.1/19.8/22.5	13.2	8.4	-1.1	1 2 0 0 0 0 0	core
+obj	Balboa Small 1	Reef_Buoy	3	0.6/3.9/5.9	0/10/20	11.5	4.4	-1	2 0 1 0 0 0 0	core
+obj	Balboa Small 1	Pickup_Landmark_Scrap 2_OceanBottom	3	2.9/3.2/5.7	13.3/15.3/22	9.4	1.5	0.1	0 2 1 0 0 0 0	core
+obj	Balboa Small 1	Pickup_Landmark_Iron 2	3	6.9/7.7/8.5	29.5/29.5/31.1	44.9	0.7	0.2	0 0 3 0 0 0 0	core
+obj	Balboa Small 1	Pickup_Landmark_Iron 1	3	5/6.2/11.3	13.3/34/37.7	49.6	0.7	-0.9	0 1 2 0 0 0 0	core
+tex	Balboa Small 1	0	Clean_Sand_basecolor=0.82 Rock_Stylized_basecolor=0.16 Balboa_Dirt_basecolor=0.02
+tex	Balboa Small 1	2	Clean_Sand_basecolor=0.90 Rock_Stylized_basecolor=0.07 Balboa_Dirt_basecolor=0.03
+tex	Balboa Small 1	5	Clean_Sand_basecolor=0.81 Rock_Stylized_basecolor=0.18
+tex	Balboa Small 1	10	Rock_Stylized_basecolor=0.98 Clean_Sand_basecolor=0.02
+tex	Balboa Small 1	20	Rock_Stylized_basecolor=0.61 Clean_Sand_basecolor=0.39
+tex	Balboa Small 1	40	Rock_Stylized_basecolor=0.64 Clean_Sand_basecolor=0.36
+tex	Balboa Small 1	80	Clean_Sand_basecolor=0.80 Rock_Stylized_basecolor=0.20
+area	Balboa Small 2	Forest	2264 3808 7064 7992 4596 8152 8880	0.35 0.23 0.27 0.45 0.72 0.82 0.87	-163.6
+profile	Balboa Small 2	0:1.5 5:4.9 10:8.4 15:10.5 20:14.9 25:16.8 30:26.5 35:39.2 40:44.2 45:46.9 50:52.2 55:55.4 60:71.3 65:76.5 70:82.2 75:92.3 80:95.9 85:100.6
+obj	Balboa Small 2	Pickup_Landmark_Rock 1	70	2.6/6.2/11.8	9.7/24/33.9	10	0.5	0	2 27 33 8 0 0 0	core
+obj	Balboa Small 2	BigRock_Low2_Sand	32	14/16/37.9	0/2/14.1	19.5	34.7	-16	19 10 2 1 0 0 0	index
+obj	Balboa Small 2	BigRock_Low1_Sand	29	49.7/96.9/189.3	4/33.9/52.9	21.8	87.9	-81.9	1 3 4 13 7 0 1	core
+obj	Balboa Small 2	Reef_Barrel3	22	2.7/8.4/13.4	11.7/18.5/34.3	8.5	1.7	-0.1	1 4 12 5 0 0 0	core
+obj	Balboa Small 2	Reef_Barrel2	22	3/4.9/9.2	4.8/16.5/27.7	8.8	1.7	-0.1	1 12 8 1 0 0 0	core
+obj	Balboa Small 2	Reef_Barrel5	20	3.4/8.1/13.4	6.8/17/30.1	13.4	1.5	-0.1	2 5 8 5 0 0 0	core
+obj	Balboa Small 2	Reef_Barrel1	18	0.5/8.2/13.7	2/17/32.6	6	1.8	-0.1	2 5 6 5 0 0 0	core
+obj	Balboa Small 2	Reef_Barrel4	15	3.7/7.2/13.7	7.7/11.7/33.9	11	1.5	-0.1	0 4 9 2 0 0 0	core
+obj	Balboa Small 2	BigRock_2	12	1.8/4.2/12.8	0/0/0	17.8	34.6	-14.7	12 0 0 0 0 0 0	core
+obj	Balboa Small 2	Pickup_Landmark_Scrap 4_OceanBottom	10	2.3/5.5/8.9	4.8/21.8/35.1	10.8	1.2	0.1	0 5 4 1 0 0 0	core
+obj	Balboa Small 2	Pickup_Landmark_Sand	10	4.8/7.4/8.6	14.8/25.5/30.3	12.3	1.2	0	0 3 6 1 0 0 0	core
+obj	Balboa Small 2	Pickup_Landmark_Clay 1	10	3.1/5/8.5	12/22.6/32.6	7.9	1.1	0	0 6 3 1 0 0 0	core
+obj	Balboa Small 2	Pickup_Landmark_Scrap 1_OceanBottom	8	2.5/7.6/14	6.8/14/25.5	7.9	1	0.1	0 4 2 2 0 0 0	core
+obj	Balboa Small 2	Pickup_Landmark_Scrap 2_OceanBottom	8	5.3/7.4/9.3	10.8/28.1/35.1	12.3	1.5	0.1	0 0 8 0 0 0 0	core
+obj	Balboa Small 2	Landfall1	7	0.4/0.9/1.1	0/0/0	3.8	17.1	-1.8	7 0 0 0 0 0 0	index
+obj	Balboa Small 2	Pickup_Landmark_Scrap 3_OceanBottom	6	2.5/8.3/12.4	12/21.8/32.3	16.6	1.7	0.1	0 1 3 2 0 0 0	core
+obj	Balboa Small 2	Pickup_Landmark_Iron 3	6	1.7/6.9/12.1	2/21/22.6	54.1	0.7	-0.5	1 0 3 2 0 0 0	core
+obj	Balboa Small 2	BigRock_3	5	5.1/5.9/5.9	0/0/2	14.4	23.1	-5.9	5 0 0 0 0 0 0	core
+obj	Balboa Small 2	Pickup_Landmark_Copper 1	5	9.3/11.4/12	8.5/18.5/22.1	72.2	0.9	0.6	0 0 2 3 0 0 0	core
+obj	Balboa Small 2	Reef_Container	4	3.3/7.2/13	8.8/19.8/31.1	31.5	8.6	-1	0 1 2 1 0 0 0	core
+obj	Balboa Small 2	Pickup_Landmark_Iron 1	4	2.1/7.9/8.7	2/19/42.4	50.6	0.7	-0.7	1 0 3 0 0 0 0	core
+obj	Balboa Small 2	Reef_Buoy	3	2/5/5.9	2.8/12.5/42.8	7.1	4.4	-1.1	1 1 1 0 0 0 0	core
+obj	Balboa Small 2	BigRock_Low3_Sand	3	6.7/9.9/12.3	16.1/16.1/21	4.1	20.1	-5.8	0 3 0 0 0 0 0	index
+obj	Balboa Small 2	Pickup_Landmark_Copper 2	3	11.2/12/12.3	8.5/28/28.8	56.2	1	-0.5	0 0 1 2 0 0 0	core
+obj	Balboa Small 2	Pickup_Landmark_Iron 2	2	9.2/12.9/12.9	9.7/42.4/42.4	77.2	0.8	-0.4	0 0 1 1 0 0 0	core
+obj	Balboa Small 2	Reef_Wheelbarrow	1	3.1/3.1/3.1	16.1/16.1/16.1	1.7	1.9	-0.2	0 1 0 0 0 0 0	index
+obj	Balboa Small 2	Balboa_Bush_01 Variant	1	0.4/0.4/0.4	0/0/0	8.3	3.9	-1.9	1 0 0 0 0 0 0	core
+tex	Balboa Small 2	0	Clean_Sand_basecolor=0.76 Rock_Stylized_basecolor=0.15 Balboa_Grass_basecolor=0.06 Balboa_Dirt_basecolor=0.03
+tex	Balboa Small 2	2	Clean_Sand_basecolor=0.87 Rock_Stylized_basecolor=0.12
+tex	Balboa Small 2	5	Clean_Sand_basecolor=0.83 Rock_Stylized_basecolor=0.16
+tex	Balboa Small 2	10	Clean_Sand_basecolor=0.64 Rock_Stylized_basecolor=0.35
+tex	Balboa Small 2	20	Rock_Stylized_basecolor=0.63 Clean_Sand_basecolor=0.37
+tex	Balboa Small 2	40	Rock_Stylized_basecolor=0.79 Clean_Sand_basecolor=0.21
+tex	Balboa Small 2	80	Rock_Stylized_basecolor=0.98 Clean_Sand_basecolor=0.02
+area	Balboa Small 3	Forest	2392 6524 8396 2120 2136 11884 5336	0.33 0.15 0.25 0.92 0.96 0.70 0.98	-163.6
+profile	Balboa Small 3	0:1.6 5:3.8 10:5.1 15:6.2 20:8.2 25:22.3 30:56.1 35:63.1 40:67.5 45:71.7 50:77.2 55:80.4 60:85.7 65:79.9 70:83.2 75:97.8
+obj	Balboa Small 3	Pickup_Landmark_Rock 1	60	2.3/4.7/7.8	5.7/12/21.3	12.2	0.5	0	4 28 28 0 0 0 0	core
+obj	Balboa Small 3	BigRock_Low1_Sand	24	7.5/12.5/173.7	0/14.1/34.6	18.2	89	-7.2	6 6 10 0 1 0 1	core
+obj	Balboa Small 3	BigRock_Low2_Sand	22	14.4/14.9/15.5	0/0/2	22.3	34	-17.3	22 0 0 0 0 0 0	index
+obj	Balboa Small 3	BigRock_2	21	2.1/4.8/10.4	0/0/0	12.2	31.4	-12.6	21 0 0 0 0 0 0	core
+obj	Balboa Small 3	Reef_Barrel4	14	2.2/3.9/6	4/7.7/19.3	18.7	1.4	-0.1	1 7 6 0 0 0 0	core
+obj	Balboa Small 3	Reef_Barrel2	14	2.2/5.5/8.3	2.8/10.5/19	12.4	1.6	-0.1	2 4 8 0 0 0 0	core
+obj	Balboa Small 3	Reef_Barrel5	14	1.8/3.6/6.2	2.8/9.7/33.1	12.9	1.5	-0.1	3 7 4 0 0 0 0	core
+obj	Balboa Small 3	Pickup_Landmark_Scrap 4_OceanBottom	14	1.6/3.6/6.4	4.8/9.7/21.8	16.5	1.1	0.1	2 8 4 0 0 0 0	core
+obj	Balboa Small 3	Pickup_Landmark_Scrap 1_OceanBottom	13	3.4/5.2/8.1	8.5/12.5/19	14.3	1	0.1	1 4 8 0 0 0 0	core
+obj	Balboa Small 3	Reef_Barrel3	12	2.2/3.8/7.3	4/12/19.8	24	1.7	-0.1	2 6 4 0 0 0 0	core
+obj	Balboa Small 3	Pickup_Landmark_Scrap 2_OceanBottom	12	2.9/3.5/5.3	6/10.5/24.6	12.7	1.7	0.1	0 9 3 0 0 0 0	core
+obj	Balboa Small 3	Pickup_Landmark_Sand	12	2.3/4.7/8	8.5/12/19.8	19	1.2	0	0 7 5 0 0 0 0	core
+obj	Balboa Small 3	Pickup_Landmark_Clay 1	12	2.8/4.7/7.2	6.8/12.8/19	13.2	1.1	0	0 9 3 0 0 0 0	core
+obj	Balboa Small 3	Pickup_Landmark_Scrap 3_OceanBottom	11	2.2/3.6/5.6	5.7/6.8/16.8	16.1	1.6	0.1	1 7 3 0 0 0 0	core
+obj	Balboa Small 3	Reef_Barrel1	10	2/4.3/6.6	4.8/7.7/16.1	20.5	1.6	-0.2	2 4 4 0 0 0 0	core
+obj	Balboa Small 3	Pickup_Landmark_Iron 3	5	3.5/8.8/9.4	4.8/21.7/21.7	37.9	0.8	-0.3	0 2 3 0 0 0 0	core
+obj	Balboa Small 3	Reef_Container	4	3.5/5.8/7.4	12/13.7/28	27.7	8.8	-1.1	0 3 1 0 0 0 0	core
+obj	Balboa Small 3	Reef_Buoy	3	2.7/4.9/5.5	8/11.3/20.8	28.1	4.4	-1.3	1 2 0 0 0 0 0	core
+obj	Balboa Small 3	Pickup_Landmark_Copper 1	3	4.7/4.9/5.3	2/2/4	61.3	1	-0.9	0 3 0 0 0 0 0	core
+obj	Balboa Small 3	Pickup_Landmark_Copper 2	2	4.8/5.5/5.5	2/4/4	59.1	0.9	-0.5	0 1 1 0 0 0 0	core
+obj	Balboa Small 3	BigRock_Low3_Sand	1	6/6/6	5.7/5.7/5.7	10.9	20.8	-3.2	0 1 0 0 0 0 0	index
+obj	Balboa Small 3	BigRock_3	1	2.2/2.2/2.2	0/0/0	49.7	20.7	-9.9	1 0 0 0 0 0 0	core
+obj	Balboa Small 3	Pickup_Landmark_Iron 1	1	5.1/5.1/5.1	5.7/5.7/5.7	51.9	0.7	-0.7	0 1 0 0 0 0 0	core
+obj	Balboa Small 3	Pickup_Landmark_Iron 2	1	3.9/3.9/3.9	4/4/4	41.5	0.7	-0.9	0 1 0 0 0 0 0	core
+tex	Balboa Small 3	0	Clean_Sand_basecolor=0.79 Rock_Stylized_basecolor=0.17 Balboa_Grass_basecolor=0.03 Balboa_Dirt_basecolor=0.02
+tex	Balboa Small 3	2	Clean_Sand_basecolor=0.93 Rock_Stylized_basecolor=0.06
+tex	Balboa Small 3	5	Clean_Sand_basecolor=0.85 Rock_Stylized_basecolor=0.15
+tex	Balboa Small 3	10	Rock_Stylized_basecolor=1.00
+tex	Balboa Small 3	20	Rock_Stylized_basecolor=1.00
+tex	Balboa Small 3	40	Rock_Stylized_basecolor=1.00
+tex	Balboa Small 3	80	Rock_Stylized_basecolor=0.97 Clean_Sand_basecolor=0.03
+area	Caravan Island Real Deal	Desert	1980 7184 10092 20352 25116 42776 58088	0.51 0.20 0.25 0.29 0.57 0.66 0.86	-163.5
+profile	Caravan Island Real Deal	0:2.8 5:3.8 10:7.1 15:10.3 20:12.1 25:12.3 30:12.7 35:14.1 40:16.6 45:19.5 50:21.3 55:24.7 60:28.8 65:30.6 70:35.2 75:37.9 80:42 85:46 90:50.6 95:54 100:58.5 105:64.4 110:69 115:74.1 120:78.8 125:84.6 130:88.8 135:94.1 140:103.6 145:118.3 150:133.3 155:144.5 160:149.6 165:122.2 170:118 175:127.7 180:142.6 185:153.9 190:160.2 195:162.3
+obj	Caravan Island Real Deal	LeafCoral_2	236	6.2/54.9/127.5	6/30.3/58.1	19.2	2.9	-0.2	7 20 4 47 36 61 61	core
+obj	Caravan Island Real Deal	SeaVine3	175	13.5/17.8/54.8	15.7/47.2/71	20.2	6.7	0	0 0 1 111 33 30 0	core
+obj	Caravan Island Real Deal	LeafCoral_1	158	3.5/49.5/90.5	6.8/27.5/51.8	20.9	1.3	-0.3	7 21 3 26 21 51 29	core
+obj	Caravan Island Real Deal	Seavine_tongue	126	51.1/89.2/127.7	11.7/29.5/62.6	8.8	10.2	0	0 0 0 0 2 75 49	index
+obj	Caravan Island Real Deal	SeaVine3_klump	33	16.2/26.9/50.2	17/36.6/57.6	10	6.7	-0.2	0 0 0 13 11 9 0	core
+obj	Caravan Island Real Deal	Pickup_Landmark_SeavineKlump	33	12.6/23.7/47.3	17/36.6/57.6	10	2.6	3	0 0 0 13 11 9 0	-
+obj	Caravan Island Real Deal	Pickup_Landmark_Clay 1	18	13.2/17/25.6	22.6/37.9/66.6	21.8	1.1	0	0 0 0 14 4 0 0	core
+obj	Caravan Island Real Deal	Pickup_Landmark_Sand_Caravan	16	12.1/17.1/26	6.8/46.1/67.4	11.6	1.1	-0.1	0 0 0 14 2 0 0	core
+obj	Caravan Island Real Deal	Pickup_Landmark_Scrap 3_OceanBottom	14	11.9/18.1/127.4	9.7/25.3/60.8	18.9	1.5	0.1	0 0 0 8 1 2 3	core
+obj	Caravan Island Real Deal	Pickup_Landmark_Rock 1	14	14.7/19.1/49.5	22.6/30.5/60.1	17.6	0.5	0	0 0 0 8 2 4 0	core
+obj	Caravan Island Real Deal	CaravanIsland_SmallRock_1	13	2.8/3.5/18.2	2/7.7/58.3	13.7	4.3	-0.6	3 4 0 6 0 0 0	core
+obj	Caravan Island Real Deal	Pickup_Landmark_Scrap 1_OceanBottom	13	12.2/31.7/89.8	4.8/18.5/43.9	8.3	0.9	0	1 0 0 4 4 2 2	core
+obj	Caravan Island Real Deal	Pickup_Landmark_Scrap 4_OceanBottom	11	12.5/31.7/90.4	14.5/19.8/38.6	15	1.1	0.1	0 0 0 3 5 1 2	core
+obj	Caravan Island Real Deal	Pickup_Landmark_Rock 2	11	11.8/18.7/32.1	8/30.5/60.1	14	0.6	0	0 0 0 8 3 0 0	core
+obj	Caravan Island Real Deal	Pickup_Landmark_Scrap 2_OceanBottom	10	6.6/14.4/90.2	2/31.3/64.1	25.4	1.5	0.1	0 1 3 3 0 1 2	core
+obj	Caravan Island Real Deal	Pickup_Landmark_Landmark_RandomLoot_Materials	7	1.4/3.1/3.6	0/2/13.3	40.5	0.4	-1.9	5 2 0 0 0 0 0	-
+obj	Caravan Island Real Deal	Pickup_Landmark_Copper 1	7	75/80.6/121.5	6/33.5/48.6	49.3	0.6	-25	0 0 0 0 1 5 1	core
+obj	Caravan Island Real Deal	Pickup_Landmark_Iron 1	6	54/125.4/126.3	28.3/33.5/60.1	33	0.5	-21.5	0 0 0 0 1 2 3	core
+obj	Caravan Island Real Deal	Pickup_Landmark_Iron 2	6	49.1/67.5/92.1	31.1/45.2/53.6	79.2	0.5	-3.1	0 0 0 0 1 5 0	core
+obj	Caravan Island Real Deal	Reef_Barrel1	5	11.7/32.4/56	10/13.3/27	20.5	1.5	-0.1	0 0 0 2 1 2 0	core
+obj	Caravan Island Real Deal	CaravanIsland_BigRoundRock_1	4	3.8/13.4/30.1	9.7/10.5/53.6	8.4	8.1	-1.4	0 1 0 2 1 0 0	index
+obj	Caravan Island Real Deal	Interior	4	2.3/3/3.7	2/11.3/11.7	40.9	6.9	-1.4	2 2 0 0 0 0 0	index
+obj	Caravan Island Real Deal	Pickup_Landmark_Copper 2	4	88.1/124.2/125.3	12/36.3/39.6	27.7	0.6	-34.9	0 0 0 0 0 1 3	core
+obj	Caravan Island Real Deal	Pickup_Landmark_Rock 3	4	18.8/32/32.1	19/38.1/65.9	14	0.6	0	0 0 0 2 2 0 0	core
+obj	Caravan Island Real Deal	Pickup_Landmark_Iron 3	3	48/68.7/92.9	32/43.6/52.8	80.5	0.5	-4.4	0 0 0 0 0 2 1	core
+obj	Caravan Island Real Deal	CaravanBarebones1	2	4.1/4.1/4.1	2/4.8/4.8	30.6	9.4	-2.5	2 0 0 0 0 0 0	index
+obj	Caravan Island Real Deal	Pickup_Landmark_Landmark_RandomLoot_Tools	2	3.5/3.9/3.9	2/4/4	54.7	0.6	-1.1	1 1 0 0 0 0 0	-
+obj	Caravan Island Real Deal	AirPocket_1	1	77.9/77.9/77.9	37/37/37	71.5	8.7	-4.1	0 0 0 0 0 1 0	index
+obj	Caravan Island Real Deal	AirPocket_3	1	126.9/126.9/126.9	33.8/33.8/33.8	84.8	11.9	-32.8	0 0 0 0 0 0 1	index
+obj	Caravan Island Real Deal	AirPocket_2	1	32/32/32	19.8/19.8/19.8	48.9	9.9	-4.6	0 0 0 0 1 0 0	index
+obj	Caravan Island Real Deal	DivePuzzle_Hose&Pump	1	0.5/0.5/0.5	2/2/2	31	130.3	0.2	1 0 0 0 0 0 0	index
+obj	Caravan Island Real Deal	Pickup_Landmark_Blueprint_MetalDetector	1	126/126/126	32.1/32.1/32.1	8.5	0.8	-35.5	0 0 0 0 0 0 1	-
+obj	Caravan Island Real Deal	Pickup_Landmark_LandmarkCrateMetal	1	90/90/90	16.1/16.1/16.1	6	1	-0.1	0 0 0 0 0 0 1	-
+obj	Caravan Island Real Deal	Pickup_Landmark_LandmarkCrate_Treasure_Safe	1	127.5/127.5/127.5	49.5/49.5/49.5	78.1	1.2	-56.6	0 0 0 0 0 1 0	-
+obj	Caravan Island Real Deal	Pickup_Landmark_LandmarkCrateWood	1	2/2/2	0/0/0	14.6	1.9	-2.6	1 0 0 0 0 0 0	-
+tex	Caravan Island Real Deal	0	Red_Rock_Side_basecolor=0.54 CaravanIsland_SandGroundTex_basecolor=0.36 CaravanIsland_GravelGroundTex_basecolor=0.08 CaravanIsland_RockGroundTex_basecolor=0.01
+tex	Caravan Island Real Deal	2	CaravanIsland_SandGroundTex_basecolor=0.64 Red_Rock_Side_basecolor=0.22 CaravanIsland_GravelGroundTex_basecolor=0.14
+tex	Caravan Island Real Deal	5	CaravanIsland_SandGroundTex_basecolor=0.57 Red_Rock_Side_basecolor=0.33 CaravanIsland_GravelGroundTex_basecolor=0.09
+tex	Caravan Island Real Deal	10	CaravanIsland_SandGroundTex_basecolor=0.52 Red_Rock_Side_basecolor=0.38 CaravanIsland_GravelGroundTex_basecolor=0.10
+tex	Caravan Island Real Deal	20	Red_Rock_Side_basecolor=0.69 CaravanIsland_SandGroundTex_basecolor=0.23 CaravanIsland_GravelGroundTex_basecolor=0.08
+tex	Caravan Island Real Deal	40	Red_Rock_Side_basecolor=0.76 CaravanIsland_SandGroundTex_basecolor=0.13 CaravanIsland_GravelGroundTex_basecolor=0.11
+tex	Caravan Island Real Deal	80	Red_Rock_Side_basecolor=0.88 CaravanIsland_SandGroundTex_basecolor=0.09 CaravanIsland_GravelGroundTex_basecolor=0.03
+area	Tangaroa	Forest	0 0 0 0 0 0 0	- - - - - - -	-30
+profile	Tangaroa	
+obj	Tangaroa	model	33	17.5/17.5/17.5	0/0/0	20.9	2.4	-126.4	33 0 0 0 0 0 0	index
+obj	Tangaroa	Pickup_Landmark_Plastic3_Land	6	11.3/16.9/17.3	0/0/0	36	0.5	-112.7	6 0 0 0 0 0 0	-
+obj	Tangaroa	Pickup_Landmark_Plastic6_Land	6	8.9/16.4/16.5	0/0/0	36	0.3	-112.1	6 0 0 0 0 0 0	-
+obj	Tangaroa	Pickup_Landmark_Landmark_RandomLoot_Food	6	9.4/10.3/10.5	0/0/0	22.1	0.7	-117.5	6 0 0 0 0 0 0	-
+obj	Tangaroa	Dome_Glass_03	5	0.8/0.8/0.8	0/0/0	0	100	-138.7	5 0 0 0 0 0 0	index
+obj	Tangaroa	Dome_Glass_02	5	0.8/0.8/0.8	0/0/0	0	102.4	-138.7	5 0 0 0 0 0 0	index
+obj	Tangaroa	Dome_Glass_01	5	0.8/0.8/0.8	0/0/0	0	106.3	-138.7	5 0 0 0 0 0 0	index
+obj	Tangaroa	Dome_Frame_1	5	0.8/0.8/0.8	0/0/0	0	120.5	-138.7	5 0 0 0 0 0 0	index
+obj	Tangaroa	Dome_DoorFrame01	5	0.8/0.8/0.8	0/0/0	0	10.6	-138.7	5 0 0 0 0 0 0	index
+obj	Tangaroa	Pickup_Landmark_Plank_Land	5	9/16.3/17.5	0/0/0	0	1.3	-154.2	5 0 0 0 0 0 0	-
+obj	Tangaroa	Pickup_Landmark_Titanium_Land	5	15.7/17.2/17.5	0/0/0	26	0.9	-134.1	5 0 0 0 0 0 0	-
+obj	Tangaroa	Pickup_Landmark_Plank_Floating	4	16.8/16.8/17.1	0/0/0	20.5	1.4	-122.2	4 0 0 0 0 0 0	-
+obj	Tangaroa	Underground_Tunnel_DoorFrameOneWayDoor	3	11.5/17.5/17.5	0/0/0	19.4	6	-141.5	3 0 0 0 0 0 0	index
+obj	Tangaroa	Cockpit	3	1.2/1.2/1.2	0/0/0	0	116.5	-139	3 0 0 0 0 0 0	index
+obj	Tangaroa	und_tunnel_Door	3	10.2/16.2/16.6	0/0/0	24	2.4	-117.5	3 0 0 0 0 0 0	index
+obj	Tangaroa	Dome_Base_2	2	0.8/0.8/0.8	0/0/0	0	173.4	-138.7	2 0 0 0 0 0 0	index
+obj	Tangaroa	Dome_Base_1	2	0.8/0.8/0.8	0/0/0	0	168.5	-138.7	2 0 0 0 0 0 0	index
+obj	Tangaroa	und_tunnel_DoorHinge	2	10.2/16.6/16.6	0/0/0	24	1	-115.6	2 0 0 0 0 0 0	index
+obj	Tangaroa	Pickup_Landmark_Scrap 2_Land	2	10.8/16.3/16.3	0/0/0	18.3	1.4	-118.3	2 0 0 0 0 0 0	-
+obj	Tangaroa	Pickup_Landmark_Scrap 1_Land	2	10.5/17.5/17.5	0/0/0	36	0.9	-113.7	2 0 0 0 0 0 0	-
+obj	Tangaroa	Pickup_Landmark_LandmarkCrate_Treasure_Briefcase	2	16.7/17.3/17.3	0/0/0	18.3	1.1	-125	2 0 0 0 0 0 0	-
+obj	Tangaroa	VG_DecorationPrefabBase_Kitchenfan Variant	1	15.4/15.4/15.4	0/0/0	80.5	1.6	-124.5	1 0 0 0 0 0 0	core
+obj	Tangaroa	VG_DecorationPrefabBase_SmallFridge Variant	1	17.5/17.5/17.5	0/0/0	18.3	1.1	-125.7	1 0 0 0 0 0 0	core
+obj	Tangaroa	Table Office	1	17.5/17.5/17.5	0/0/0	24.3	2	-123.7	1 0 0 0 0 0 0	index
+obj	Tangaroa	Underground_Room_Wall_Top_Window	1	17.8/17.8/17.8	0/0/0	20.6	15.6	-124.8	1 0 0 0 0 0 0	index
+obj	Tangaroa	Underground_Stairwell	1	17/17/17	0/0/0	35.8	7.2	-113.3	1 0 0 0 0 0 0	index
+obj	Tangaroa	ThisRemovesLightBleedingIntoTunnelBelow	1	12.8/12.8/12.8	0/0/0	30.5	40.9	-115.8	1 0 0 0 0 0 0	index
+obj	Tangaroa	HarborGate	1	0.8/0.8/0.8	0/0/0	0	17.7	-138.7	1 0 0 0 0 0 0	index
+obj	Tangaroa	HarborPlatform	1	0.8/0.8/0.8	0/0/0	0	18.8	-138.7	1 0 0 0 0 0 0	index
+obj	Tangaroa	TangaroaHarbor_Tunnel	1	0.8/0.8/0.8	0/0/0	0	14.8	-138.7	1 0 0 0 0 0 0	index
+obj	Tangaroa	UndergroundToSurface_Tunnel	1	14.5/14.5/14.5	0/0/0	0	26.1	-152.4	1 0 0 0 0 0 0	index
+obj	Tangaroa	TangaroaRoads_Combined	1	0.8/0.8/0.8	0/0/0	0	143.2	-138.7	1 0 0 0 0 0 0	index
+obj	Tangaroa	Arrows	1	0.8/0.8/0.8	0/0/0	0	172.4	-138.7	1 0 0 0 0 0 0	index
+obj	Tangaroa	Text	1	1.2/1.2/1.2	0/0/0	0	72.9	-139	1 0 0 0 0 0 0	index
+obj	Tangaroa	Outside	1	1.2/1.2/1.2	0/0/0	0	36.2	-139	1 0 0 0 0 0 0	index
+obj	Tangaroa	Inside	1	1.2/1.2/1.2	0/0/0	0	36.1	-139	1 0 0 0 0 0 0	index
+obj	Tangaroa	Hatch	1	1.2/1.2/1.2	0/0/0	0	1.9	-139	1 0 0 0 0 0 0	index
+obj	Tangaroa	CockpitExt	1	1.2/1.2/1.2	0/0/0	0	36.5	-139	1 0 0 0 0 0 0	index
+obj	Tangaroa	Balcony02	1	1.2/1.2/1.2	0/0/0	0	77.5	-139	1 0 0 0 0 0 0	index
+obj	Tangaroa	Balcony01	1	1.2/1.2/1.2	0/0/0	0	116.6	-139	1 0 0 0 0 0 0	index
+obj	Tangaroa	Generator	1	11.5/11.5/11.5	0/0/0	20.3	4	-118.8	1 0 0 0 0 0 0	index
+obj	Tangaroa	RT_FloodlightBase	1	8.9/8.9/8.9	0/0/0	39.7	0.5	-145.3	1 0 0 0 0 0 0	index
+obj	Tangaroa	RT_Floodlight	1	8.9/8.9/8.9	0/0/0	39.7	26.4	-144.9	1 0 0 0 0 0 0	index
+obj	Tangaroa	Magnet_Base	1	8.1/8.1/8.1	0/0/0	15.2	17.8	-117.1	1 0 0 0 0 0 0	index
+obj	Tangaroa	Claw_ControlBoard	1	11.9/11.9/11.9	0/0/0	80.4	3.9	-121.1	1 0 0 0 0 0 0	index
+obj	Tangaroa	TangaroaHatchLadder	1	18.7/18.7/18.7	0/0/0	37.2	7.3	-111.6	1 0 0 0 0 0 0	index
+obj	Tangaroa	TangaroaHatchRoom_Hatch	1	11.1/11.1/11.1	0/0/0	37.2	1.2	-104.2	1 0 0 0 0 0 0	index
+obj	Tangaroa	TangaroaHatchRoom	1	11.2/11.2/11.2	0/0/0	36	6.1	-104.6	1 0 0 0 0 0 0	index
+obj	Tangaroa	Pickup_Landmark_Blueprint_Pipes_Water	1	17/17/17	0/0/0	23.8	1	-121.5	1 0 0 0 0 0 0	-
+obj	Tangaroa	Pickup_Landmark_Plastic3_Floating	1	8.8/8.8/8.8	0/0/0	20.6	0.5	-116.1	1 0 0 0 0 0 0	-
+obj	Tangaroa	Pickup_Landmark_Scrap 3_Land	1	11.4/11.4/11.4	0/0/0	20.5	1.5	-118.7	1 0 0 0 0 0 0	-
+obj	Tangaroa	Pickup_Landmark_Scrap 4_Land	1	11.4/11.4/11.4	0/0/0	12.9	1	-119.2	1 0 0 0 0 0 0	-
+obj	Tangaroa	Pickup_Landmark_Machete	1	16.3/16.3/16.3	0/0/0	26	0.7	-149.2	1 0 0 0 0 0 0	-
+area	Caravan Small 1	Desert	1284 4304 10904 7568 17716 35260 105636	0.06 0.10 0.12 0.49 0.41 0.89 0.73	-163.5
+profile	Caravan Small 1	0:1.1 5:2.4 10:3.5 15:5.5 20:5.6 25:6.8 30:7.4 35:7.5 40:10.6 45:14.2 50:15.3 55:22.5 60:23.5 65:29.1 70:38.2 75:39.4 80:44.7 85:48.2 90:50.9 95:54.4 100:57.9 105:61.9 110:66.4 115:72 120:77.3 125:83 130:88.7 135:94.1 140:100.7 145:106.5 150:112.3 155:118.5 160:124.7 165:129.6 170:134.7 175:139.5 180:144.3 185:147.4 190:150 195:152.9
+obj	Caravan Small 1	LeafCoral_2	52	4.8/6/7.5	16/28.3/39.6	30	3.1	-0.1	0 9 43 0 0 0 0	core
+obj	Caravan Small 1	SeaVine3	52	7.4/14.1/14.2	34.5/50/56.8	20.2	6.5	0	0 0 11 41 0 0 0	core
+obj	Caravan Small 1	SeaVine3_klump	14	7.4/14.2/14.5	34.8/50/58	9.1	6.2	0	0 0 5 9 0 0 0	core
+obj	Caravan Small 1	Pickup_Landmark_SeavineKlump	14	4.2/11/11.5	34.8/50/58	9.1	2.2	3	0 0 5 9 0 0 0	-
+obj	Caravan Small 1	Pickup_Landmark_Rock 1	13	2.8/5.8/14	18.8/28/58.6	5.4	0.4	0	0 4 6 3 0 0 0	core
+obj	Caravan Small 1	Pickup_Landmark_Sand_Caravan	12	5.6/7.5/11.1	21.8/36/39.6	15.2	1.3	0	0 1 9 2 0 0 0	core
+obj	Caravan Small 1	Pickup_Landmark_Rock 2	12	4.8/7.4/14.2	14.8/38.8/50.9	12.4	0.4	0	0 3 5 4 0 0 0	core
+obj	Caravan Small 1	Pickup_Landmark_Rock 3	10	6.1/7.4/13	23.8/36.8/50.1	15	0.5	0	0 1 6 3 0 0 0	core
+obj	Caravan Small 1	Pickup_Landmark_Scrap 3_OceanBottom	10	5.3/7/7.9	18/30.3/36.8	14.6	1.6	0.1	0 1 9 0 0 0 0	core
+obj	Caravan Small 1	Pickup_Landmark_Copper 2	8	5.1/8.3/16.7	26/49.2/67	63	0.6	0.1	0 2 3 3 0 0 0	core
+obj	Caravan Small 1	Pickup_Landmark_Clay 1	7	5.6/7.4/14	24.6/34.8/54.9	28.6	1	0	0 0 6 1 0 0 0	core
+obj	Caravan Small 1	Reef_Barrel1	6	2.6/5.7/14.3	13.3/30.3/54	1.6	1.8	-0.1	0 2 3 1 0 0 0	core
+obj	Caravan Small 1	Pickup_Landmark_Iron 2	6	6.1/8.9/13.3	34/48/50.1	70.3	0.5	-0.8	0 0 6 0 0 0 0	core
+obj	Caravan Small 1	Pickup_Landmark_Copper 1	6	4.3/10.1/16.4	24/56/66.2	66.8	0.6	0.3	0 1 1 4 0 0 0	core
+obj	Caravan Small 1	Pickup_Landmark_Scrap 1_OceanBottom	6	2.7/5.5/14.1	18.8/26/51.7	11.8	1	0.1	0 2 2 2 0 0 0	core
+obj	Caravan Small 1	BigSharpRock_3	5	2.2/12.2/13.5	0/30/31.7	7.6	21.9	-10.6	1 2 2 0 0 0 0	core
+obj	Caravan Small 1	BigSharpRock_2	5	3.9/17.5/17.5	0/19/52	0.2	37	-15.1	1 3 1 0 0 0 0	core
+obj	Caravan Small 1	Reef_Barrel4	4	7/14.3/14.3	19/52.8/53.7	12.4	1.4	-0.1	0 0 2 2 0 0 0	core
+obj	Caravan Small 1	Reef_Barrel2	4	2.3/5.6/7.5	8.5/19.8/40.8	5	1.7	-0.1	0 2 2 0 0 0 0	core
+obj	Caravan Small 1	Pickup_Landmark_Clay 2	4	5.7/13.8/14.2	29.7/53.7/58.6	9.1	1.2	0	0 0 2 2 0 0 0	core
+obj	Caravan Small 1	Pickup_Landmark_Scrap 4_OceanBottom	4	5.5/7.8/14.1	24.8/38.8/55.7	11.8	1.1	0.1	0 0 3 1 0 0 0	core
+obj	Caravan Small 1	Reef_Container	3	4.2/7.2/8.8	18.1/28.8/37.9	18.2	8.7	-1.2	0 1 2 0 0 0 0	core
+obj	Caravan Small 1	Reef_Barrel3	3	3.9/5.2/7.5	16.1/17.7/29	15.1	1.7	-0.1	0 1 2 0 0 0 0	core
+obj	Caravan Small 1	Reef_Barrel5	3	2.9/8.7/10.9	30.3/33.9/37.9	25.2	1.4	-0.1	0 1 1 1 0 0 0	core
+obj	Caravan Small 1	Pickup_Landmark_Iron 1	3	5.2/6.8/10.8	33.9/34/48	56.8	0.5	-0.2	0 0 3 0 0 0 0	core
+obj	Caravan Small 1	Pickup_Landmark_Scrap 2_OceanBottom	3	5.5/6.1/7	16.1/21/24	19.3	1.6	0.1	0 0 3 0 0 0 0	core
+obj	Caravan Small 1	Pickup_Landmark_Clay 3	1	5.8/5.8/5.8	28.8/28.8/28.8	13.4	1.1	-0.2	0 0 1 0 0 0 0	core
+obj	Caravan Small 1	Pickup_Landmark_Iron 3	1	11.4/11.4/11.4	50.1/50.1/50.1	66.7	0.5	-1.9	0 0 1 0 0 0 0	core
+tex	Caravan Small 1	0	CaravanIsland_SandGroundTex_basecolor=0.85 Red_Rock_Side_basecolor=0.09 CaravanIsland_GravelGroundTex_basecolor=0.05
+tex	Caravan Small 1	2	CaravanIsland_SandGroundTex_basecolor=0.83 Red_Rock_Side_basecolor=0.13 CaravanIsland_GravelGroundTex_basecolor=0.04
+tex	Caravan Small 1	5	CaravanIsland_SandGroundTex_basecolor=0.84 Red_Rock_Side_basecolor=0.10 CaravanIsland_GravelGroundTex_basecolor=0.05
+tex	Caravan Small 1	10	Red_Rock_Side_basecolor=0.54 CaravanIsland_SandGroundTex_basecolor=0.44 CaravanIsland_GravelGroundTex_basecolor=0.02
+tex	Caravan Small 1	20	CaravanIsland_SandGroundTex_basecolor=0.53 Red_Rock_Side_basecolor=0.45 CaravanIsland_GravelGroundTex_basecolor=0.03
+tex	Caravan Small 1	40	Red_Rock_Side_basecolor=0.96 CaravanIsland_SandGroundTex_basecolor=0.02 CaravanIsland_GravelGroundTex_basecolor=0.02
+tex	Caravan Small 1	80	Red_Rock_Side_basecolor=0.79 CaravanIsland_SandGroundTex_basecolor=0.18 CaravanIsland_GravelGroundTex_basecolor=0.03
+area	Caravan Small 2	Desert	1408 2888 9708 8716 17748 37320 105636	0.10 0.14 0.10 0.48 0.49 0.83 0.73	-163.5
+profile	Caravan Small 2	0:0.9 5:2.5 10:4 15:5.5 20:5.7 25:7 30:7.4 35:8 40:10.4 45:13.6 50:17.1 55:21.6 60:23.6 65:27.5 70:35 75:38.6 80:42.4 85:46.7 90:49.2 95:52.4 100:55.7 105:59.5 110:63.6 115:69.2 120:74.1 125:80 130:86 135:92.1 140:98.5 145:104.9 150:111.2 155:116.5 160:122.8 165:128.2 170:133.7 175:138.1 180:142.8 185:146.6 190:149.2 195:151.7
+obj	Caravan Small 2	SeaVine3	40	12.8/21.4/23.3	23.7/32/40	22.9	6.3	0	0 0 0 20 20 0 0	core
+obj	Caravan Small 2	LeafCoral_2	28	5.6/21.8/23.4	15.3/35.7/50.8	19.2	3.1	-0.1	0 0 8 6 14 0 0	core
+obj	Caravan Small 2	Pickup_Landmark_Rock 1	21	5.5/13.9/23.5	12/29.7/46	10.8	0.4	0	0 2 7 3 9 0 0	core
+obj	Caravan Small 2	SeaVine3_klump	15	12.6/13/21.4	22/36/46.1	16.9	6.3	0	0 0 0 13 2 0 0	core
+obj	Caravan Small 2	Pickup_Landmark_SeavineKlump	15	9.5/10/18.1	22/36/46.1	16.9	2.2	3	0 0 0 13 2 0 0	-
+obj	Caravan Small 2	Pickup_Landmark_Rock 3	14	5.2/13.7/22.9	16/32/49	12.4	0.5	0	0 0 6 3 5 0 0	core
+obj	Caravan Small 2	Pickup_Landmark_Rock 2	12	6.3/7.4/17.5	20.5/33.7/42.1	17.4	0.4	0	0 1 6 5 0 0 0	core
+obj	Caravan Small 2	BigSharpRock_2	8	2.7/17.5/31	0/23.8/38.1	4.4	30.9	-15.1	3 4 0 0 1 0 0	core
+obj	Caravan Small 2	Pickup_Landmark_Sand_Caravan	8	5.7/21.5/23.4	10.5/31.3/40.5	6.6	1.2	-0.1	0 0 3 1 4 0 0	core
+obj	Caravan Small 2	Reef_Barrel1	7	1.5/13/21.7	4/27.3/35.1	6.6	1.6	-0.1	1 0 1 2 3 0 0	core
+obj	Caravan Small 2	BigSharpRock_3	7	10.7/18.8/28.9	12.8/24.8/34	5.9	21.8	-10.6	0 2 2 2 1 0 0	core
+obj	Caravan Small 2	Pickup_Landmark_Scrap 3_OceanBottom	7	2/12.6/17.4	4.8/29.8/41.3	12.2	1.6	0.1	0 2 1 4 0 0 0	core
+obj	Caravan Small 2	Pickup_Landmark_Clay 3	6	6.6/23.3/23.4	19.7/40.3/42.8	21.4	1	-0.1	0 0 2 0 4 0 0	core
+obj	Caravan Small 2	Pickup_Landmark_Scrap 1_OceanBottom	6	6.7/8.1/21.3	21.3/30/44.5	17.4	1	0.1	0 0 4 1 1 0 0	core
+obj	Caravan Small 2	Reef_Barrel4	5	2.3/12.8/17.5	5.7/32.3/42.8	18.3	1.6	-0.1	0 1 1 3 0 0 0	core
+obj	Caravan Small 2	Reef_Barrel2	5	5.7/7.3/22.4	10/24.8/46.8	10	1.6	-0.1	0 0 3 1 1 0 0	core
+obj	Caravan Small 2	Pickup_Landmark_Clay 2	5	5.2/12.6/17.5	11.3/20.8/43.8	37	1.1	-0.2	0 0 2 3 0 0 0	core
+obj	Caravan Small 2	Pickup_Landmark_Scrap 2_OceanBottom	5	2.4/12.7/21.3	8/30.5/45.3	7.3	1.4	0.1	0 1 1 2 1 0 0	core
+obj	Caravan Small 2	Reef_Barrel3	4	5.7/13/22.6	9.7/30.3/44	50	1.7	-0.2	0 0 1 2 1 0 0	core
+obj	Caravan Small 2	CaravanIsland_SmallRock_1	4	5.6/17.5/23.4	11.3/36.1/36.1	15.2	4.2	-0.6	0 1 0 2 1 0 0	core
+obj	Caravan Small 2	Pickup_Landmark_Copper 2	4	11.4/21.2/22.4	26/32.5/40	65.7	0.6	-1.6	0 0 1 3 0 0 0	core
+obj	Caravan Small 2	Pickup_Landmark_Iron 3	4	4.6/11/17.7	13.7/41/41.3	66.7	0.5	-1.7	0 1 2 1 0 0 0	core
+obj	Caravan Small 2	Reef_Container	3	6.6/7.1/7.4	18.1/28/33.7	26.5	8.7	-1.3	0 1 2 0 0 0 0	core
+obj	Caravan Small 2	Pickup_Landmark_Clay 1	3	5.6/12.7/13.1	8.5/33.1/45.8	3.4	1.1	0	0 0 1 2 0 0 0	core
+obj	Caravan Small 2	Reef_Barrel5	2	7.5/7.5/7.5	24.1/34.8/34.8	10.5	1.7	0	0 0 2 0 0 0 0	core
+obj	Caravan Small 2	Pickup_Landmark_Copper 1	2	11.9/21.5/21.5	28/34.5/34.5	44.9	0.6	0	0 0 0 1 1 0 0	core
+obj	Caravan Small 2	Pickup_Landmark_Iron 1	2	11.6/16.6/16.6	37.9/41/41	68.2	0.5	-0.4	0 0 1 1 0 0 0	core
+obj	Caravan Small 2	Pickup_Landmark_Scrap 4_OceanBottom	2	7.7/8.1/8.1	23.3/32.8/32.8	42	1.3	-0.1	0 0 2 0 0 0 0	core
+obj	Caravan Small 2	BigSharpRock_1	1	1.6/1.6/1.6	0/0/0	22.9	25.8	-9.9	1 0 0 0 0 0 0	core
+obj	Caravan Small 2	Pickup_Landmark_LandmarkCrateMountain	1	6.8/6.8/6.8	16.1/16.1/16.1	21.3	1.7	-1.8	0 1 0 0 0 0 0	-
+tex	Caravan Small 2	0	CaravanIsland_SandGroundTex_basecolor=0.66 Red_Rock_Side_basecolor=0.24 CaravanIsland_GravelGroundTex_basecolor=0.10
+tex	Caravan Small 2	2	CaravanIsland_SandGroundTex_basecolor=0.70 Red_Rock_Side_basecolor=0.21 CaravanIsland_GravelGroundTex_basecolor=0.09
+tex	Caravan Small 2	5	CaravanIsland_SandGroundTex_basecolor=0.81 Red_Rock_Side_basecolor=0.14 CaravanIsland_GravelGroundTex_basecolor=0.05
+tex	Caravan Small 2	10	Red_Rock_Side_basecolor=0.59 CaravanIsland_SandGroundTex_basecolor=0.35 CaravanIsland_GravelGroundTex_basecolor=0.06
+tex	Caravan Small 2	20	Red_Rock_Side_basecolor=0.56 CaravanIsland_SandGroundTex_basecolor=0.39 CaravanIsland_GravelGroundTex_basecolor=0.06
+tex	Caravan Small 2	40	Red_Rock_Side_basecolor=0.90 CaravanIsland_SandGroundTex_basecolor=0.07 CaravanIsland_GravelGroundTex_basecolor=0.03
+tex	Caravan Small 2	80	Red_Rock_Side_basecolor=0.79 CaravanIsland_SandGroundTex_basecolor=0.17 CaravanIsland_GravelGroundTex_basecolor=0.04
+area	Caravan Small 3	Desert	108 188 460 3052 34664 41948 103040	0.85 0.94 0.97 0.53 0.18 0.49 0.73	-163.5
+profile	Caravan Small 3	0:11.1 5:14.1 10:23 15:23.3 20:23.3 25:23.3 30:24.3 35:29.4 40:36.6 45:38.2 50:38.2 55:38.2 60:38.2 65:38.2 70:38.3 75:39.9 80:44.9 85:49.7 90:52.2 95:53.8 100:56.6 105:59.5 110:61.7 115:63.5 120:67.7 125:76.4 130:86 135:92.5 140:98.8 145:105 150:111.1 155:117.9 160:124.3 165:130.7 170:135.6 175:140.8 180:145.1 185:149 190:151.9 195:153.7
+obj	Caravan Small 3	SeaVine3	91	23/28.4/38.2	5.7/37.1/58.6	7.5	6.2	0	0 1 1 2 87 0 0	core
+obj	Caravan Small 3	LeafCoral_2	68	23.3/38.1/38.3	7.7/32/62.2	34.3	2.9	-0.1	0 0 0 2 66 0 0	core
+obj	Caravan Small 3	LeafCoral_1	36	23.1/38.2/38.3	9.7/33.9/58	16	1.3	-0.3	0 0 0 2 34 0 0	core
+obj	Caravan Small 3	SeaVine3_klump	25	23/29.5/38.2	14/42.4/57.7	1.7	6.2	0	0 0 0 1 24 0 0	core
+obj	Caravan Small 3	Pickup_Landmark_SeavineKlump	25	19.9/26.5/35.4	14/42.4/57.7	1.7	2.2	3	0 0 0 1 24 0 0	-
+obj	Caravan Small 3	CaravanIsland_SmallRock_1	17	11.4/37.3/38.2	6/30.3/62.8	7	4.2	-0.8	0 0 0 2 15 0 0	core
+obj	Caravan Small 3	BigSharpRock_2	11	15.4/29.5/42.9	0/14.8/43.5	28	30.9	-15.1	2 0 0 5 4 0 0	core
+obj	Caravan Small 3	Pickup_Landmark_Sand_Caravan	9	11.5/23.3/38.3	2/36/43.3	1.7	1.2	-0.1	0 0 0 1 8 0 0	core
+obj	Caravan Small 3	BigSharpRock_3	7	5.3/27.9/39.9	0/16.1/63.2	2.5	21.8	-11.5	3 0 0 2 2 0 0	core
+obj	Caravan Small 3	CaravanIsland_BigRoundRock_1	5	22.5/24.2/39.1	20.5/26.1/59.4	27	8.3	-1.4	0 0 0 0 5 0 0	index
+obj	Caravan Small 3	Pickup_Landmark_Copper 2	5	32.3/36.3/36.9	19/36/47.2	65.8	0.6	-1.8	0 0 0 0 5 0 0	core
+obj	Caravan Small 3	Pickup_Landmark_Clay 1	5	23/38.2/38.2	16.1/34/40	0.1	1.1	0	0 0 0 0 5 0 0	core
+obj	Caravan Small 3	Pickup_Landmark_Clay 2	5	23/23.3/38.2	14.8/31.1/32.8	6.8	1.1	0	0 0 0 0 5 0 0	core
+obj	Caravan Small 3	Pickup_Landmark_Copper 1	4	34.3/35.2/35.5	24/34/48.1	78.6	0.6	-4.7	0 0 0 0 4 0 0	core
+obj	Caravan Small 3	Pickup_Landmark_Iron 2	4	34.8/35.8/36.5	21/46/62.5	79.1	0.5	-2.7	0 0 0 0 4 0 0	core
+obj	Caravan Small 3	Pickup_Landmark_Iron 3	4	35.6/36.4/36.8	21.8/63.7/63.7	79.1	0.5	-6.8	0 0 0 0 4 0 0	core
+obj	Caravan Small 3	Pickup_Landmark_Scrap 1_OceanBottom	4	23.3/38.2/38.2	6.8/49.3/62	5.4	1.1	0.1	0 0 0 0 4 0 0	core
+obj	Caravan Small 3	Pickup_Landmark_Scrap 3_OceanBottom	4	23.3/38.2/38.2	25.5/36/60.8	13.5	1.8	0.1	0 0 0 0 4 0 0	core
+obj	Caravan Small 3	Pickup_Landmark_Scrap 2_OceanBottom	4	38.1/38.2/38.2	28.3/39.7/42.8	9.4	1.7	0.1	0 0 0 0 4 0 0	core
+obj	Caravan Small 3	Pickup_Landmark_Clay 3	3	23/23/38.2	14.8/27.5/38	16.5	0.9	0	0 0 0 0 3 0 0	core
+obj	Caravan Small 3	Pickup_Landmark_Scrap 4_OceanBottom	3	38.2/38.2/38.2	44/53.7/63.4	0.4	1.2	0.1	0 0 0 0 3 0 0	core
+obj	Caravan Small 3	Reef_Container	2	22/38.2/38.2	40/42.8/42.8	40.1	8.7	-1	0 0 0 0 2 0 0	core
+obj	Caravan Small 3	BigSharpRock_1	2	5.1/19/19	0/0/0	9.3	56.7	-20.7	2 0 0 0 0 0 0	core
+obj	Caravan Small 3	Pickup_Landmark_Iron 1	1	32.7/32.7/32.7	46/46/46	79.1	0.5	2	0 0 0 0 1 0 0	core
+tex	Caravan Small 3	0	CaravanIsland_GravelGroundTex_basecolor=0.70 Red_Rock_Side_basecolor=0.16 CaravanIsland_SandGroundTex_basecolor=0.14
+tex	Caravan Small 3	2	Red_Rock_Side_basecolor=0.46 CaravanIsland_SandGroundTex_basecolor=0.28 CaravanIsland_GravelGroundTex_basecolor=0.26
+tex	Caravan Small 3	5	Red_Rock_Side_basecolor=0.85 CaravanIsland_SandGroundTex_basecolor=0.14
+tex	Caravan Small 3	10	Red_Rock_Side_basecolor=0.72 CaravanIsland_SandGroundTex_basecolor=0.28
+tex	Caravan Small 3	20	CaravanIsland_SandGroundTex_basecolor=0.81 Red_Rock_Side_basecolor=0.19
+tex	Caravan Small 3	40	Red_Rock_Side_basecolor=0.68 CaravanIsland_SandGroundTex_basecolor=0.32
+tex	Caravan Small 3	80	Red_Rock_Side_basecolor=0.79 CaravanIsland_SandGroundTex_basecolor=0.17 CaravanIsland_GravelGroundTex_basecolor=0.04
+area	Varuna Point	Tropical	8 0 4 408 2088 3412 24	1.00 - 1.00 0.75 0.57 0.46 1.00	-120.9
+profile	Varuna Point	0:20.8 5:34.8 10:69.7 15:69.7 20:69.7 25:69.4 30:69.4
+obj	Varuna Point	SeaWeed	3655	13.8/111.7/132.8	0/0/12	67.3	1.7	-84	2013 18 33 177 434 975 5	index
+obj	Varuna Point	Model_Frame	399	7/14/35	0/0/0	18.9	7	-26.6	360 7 17 3 5 7 0	index
+obj	Varuna Point	Model_Fill	397	7/14/35	0/0/0	19	4.4	-27.6	358 7 17 3 5 7 0	index
+obj	Varuna Point	VP_Scaffolding_M_Extension	202	39.8/57.7/69.7	2/6.8/10	83.1	5	0	5 0 0 0 49 148 0	index
+obj	Varuna Point	VG_DecorationPrefabBase_Pipe_ThickLong Variant	145	0.7/1.6/29.4	0/0/2	14.4	2.5	-28.9	130 1 0 1 13 0 0	core
+obj	Varuna Point	VP_StorageCrate03	75	80.5/101.5/132.7	4/10/18	0	3.6	-32	2 1 1 0 3 68 0	index
+obj	Varuna Point	Pallet	73	79.4/101.2/132.5	2/10/18	4.3	4	-51.1	4 2 0 4 13 50 0	index
+obj	Varuna Point	VP_MetalCrate02	59	80.5/101.5/132.7	4.8/12/18	0	2.5	-42	4 0 0 1 3 51 0	index
+obj	Varuna Point	Model	56	7/14/21	0/0/0	0	7	-23.8	53 1 1 0 1 0 0	index
+obj	Varuna Point	VP_StorageCrate02	51	80.5/101.5/129.1	6/10/18	79.2	3.2	-45.2	2 0 0 1 5 43 0	index
+obj	Varuna Point	VP_MetalCrate01	51	80.5/101.5/122.5	0/12/18	4.3	2.5	-42	6 0 0 1 3 41 0	index
+obj	Varuna Point	VP_StorageCrate01	50	27.8/90.7/122.5	0/6/14	79.2	2.3	-45.7	11 0 0 6 16 17 0	index
+obj	Varuna Point	test_debris_plank	48	80.7/101.9/125.1	0/0/4	75.7	3.8	-114.1	39 0 0 6 3 0 0	index
+obj	Varuna Point	VP_ConcretePipe01	48	53.8/57.5/131	0/0/12	67.3	3.6	-69	33 0 0 1 2 12 0	index
+obj	Varuna Point	VP_MetalCrate05	44	80.5/101.5/122.5	4/12/16.8	4.3	2.6	-39.7	3 0 0 0 5 36 0	index
+obj	Varuna Point	VP_MetalCrate03	44	80.5/101.5/122.5	4.8/14/19.7	5.7	2.4	-42	3 0 0 1 4 36 0	index
+obj	Varuna Point	VP_ConcretePipe02	40	87.6/110.5/131.5	4.8/10/16	5.7	4.2	-40.8	0 0 0 0 0 40 0	index
+obj	Varuna Point	VP_MetalCrate04	37	80.5/101.5/122.5	4.8/13.7/18	1.8	2.5	-39.7	3 0 0 0 1 33 0	index
+obj	Varuna Point	VP_SteelBeam02	35	35.7/111.4/122.2	4/14.8/16	0	7	-41.7	3 0 0 0 1 31 0	index
+obj	Varuna Point	AirPillar	33	34.8/69.7/125.9	0/0/6.8	79.2	1.1	-72	21 0 0 0 6 6 0	index
+obj	Varuna Point	VP_MovingBox04	27	2.1/6.8/13.8	0/0/0	60.3	1.1	-24.2	27 0 0 0 0 0 0	index
+obj	Varuna Point	VP_DecorationPrefabBase_CeilingLamp_Fancy	26	2.7/2.7/9.7	0/0/0	60.3	0.5	-24.3	26 0 0 0 0 0 0	index
+obj	Varuna Point	VP_Scaffolding_L_Extension	26	1.9/5/14	0/0/0	79.2	7	-6.9	16 6 3 1 0 0 0	index
+obj	Varuna Point	VP_MotherlodeElevatorTrack_CompleteSet	24	89.8/110.8/131.8	4/12/14.5	0	12.2	-41.1	0 0 0 0 3 21 0	index
+obj	Varuna Point	Pickup_Landmark_HealingSalveGood_Arena	24	71.4/92.5/123.7	2.8/16/18	0	0.4	-22.8	0 0 0 0 0 24 0	-
+obj	Varuna Point	VP_RubblePile_Small02	22	6.8/30.6/34.8	0/0/2	51.2	5.1	-37.1	19 0 0 0 3 0 0	index
+obj	Varuna Point	VP_DecorationPrefabBase_DinnerChair	21	6.5/13.4/13.8	0/0/0	79.2	1	-21.4	21 0 0 0 0 0 0	index
+obj	Varuna Point	VP_MovingBox01	20	2.6/6.8/13.8	0/0/0	46.8	1.4	-23.8	20 0 0 0 0 0 0	index
+obj	Varuna Point	VP_MovingBox03	20	6/6.8/13.8	0/0/0	59.5	1.1	-33.9	20 0 0 0 0 0 0	index
+obj	Varuna Point	VP_DecorationPrefabBase_Closet	20	6.8/13.8/13.8	0/0/0	16.7	2.2	-31.4	20 0 0 0 0 0 0	index
+obj	Varuna Point	LeafCoral_1	19	69.4/69.8/69.8	2/9.7/14	85.5	0.7	-0.1	0 0 0 0 6 10 3	core
+obj	Varuna Point	VP_Scaffolding_S_Extension	19	4.9/8/14	0/0/2	79.2	3	-11.6	15 2 2 0 0 0 0	index
+obj	Varuna Point	VP_SteelBeam01	18	1.1/110.8/121.6	0/14/16	10.8	4.8	-41.1	5 0 0 0 0 13 0	index
+obj	Varuna Point	QuestInteractable_VP_Door_Executive	17	6.8/13.8/13.8	0/0/0	19	2.2	-28.3	17 0 0 0 0 0 0	index
+obj	Varuna Point	VP_Rubble_Plank01	16	27.7/110.8/111.7	0/6/10	74.1	1.9	-75.9	6 0 0 2 8 0 0	index
+obj	Varuna Point	VP_DecorationPrefabBase_Bookshelf	15	6.8/13.2/13.8	0/0/0	60.3	2.6	-35	15 0 0 0 0 0 0	index
+obj	Varuna Point	VP_RubblePile_Small01	14	2.6/27.8/34.8	0/0/4.8	1.1	5.7	-23.5	11 0 0 1 2 0 0	index
+obj	Varuna Point	SeaVine3_klump	14	34.8/48.8/48.8	0/4/6	79.5	5.6	0	3 0 0 0 0 11 0	core
+obj	Varuna Point	Pickup_Landmark_Landmark_RandomLoot_Materials	14	5.8/13/47.9	0/0/6	47.5	0.9	-34.3	12 0 0 0 2 0 0	-
+obj	Varuna Point	Pickup_Landmark_SeavineKlump	14	32/46/46	0/4/6	79.5	2	2.8	3 0 0 0 0 11 0	-
+obj	Varuna Point	VP_RubblePile_Small03	13	2.7/27.8/34.8	0/0/6	0	5.4	-21	9 0 0 0 4 0 0	index
+obj	Varuna Point	VP_FoldingLadder_Short	13	62.8/101.5/122.8	0/8/14	81.9	1.7	-53.1	2 0 0 0 3 8 0	index
+obj	Varuna Point	VP_NailBoard_05	13	24.9/33.2/34.8	0/0/4	0	2.7	-34	10 0 0 0 3 0 0	index
+obj	Varuna Point	VP_DecorationPrefabBase_FloorLamp	12	6.8/13.8/13.8	0/0/0	79	1.6	-42	12 0 0 0 0 0 0	index
+obj	Varuna Point	VP_MovingBox02	12	6.8/13.8/13.8	0/0/0	81.2	1.4	-28.5	12 0 0 0 0 0 0	index
+obj	Varuna Point	VP_MotherlodeBuildingPieces_Wall	12	91/112/133	4/12/14.5	79.2	63.1	-54.2	0 0 0 0 3 9 0	index
+obj	Varuna Point	VP_MotherlodeBuildingPieces_WallBreakable_Broken	12	80.8/101.8/122.8	6/14/16	85	21	-32.1	0 0 0 0 0 12 0	index
+obj	Varuna Point	VP_MotherlodeBuildingPieces_WallBreakable	12	80.8/101.8/122.8	6/14/16	85	21	-32.1	0 0 0 0 0 12 0	index
+obj	Varuna Point	VP_RubblePile_Medium01	11	30.5/34.7/34.8	0/0/4	0	10.1	-38.9	9 0 0 0 2 0 0	index
+obj	Varuna Point	LeafCoral_2	11	69.8/69.8/69.8	4.8/10/12	83.2	1.8	-21.9	0 0 0 0 4 7 0	core
+obj	Varuna Point	VP_Wagon01	11	80.5/111.7/122.5	0/16/18	39.2	1.5	-52.8	3 0 0 0 2 6 0	index
+obj	Varuna Point	VP_NailBoard_02	11	25.4/26.2/27.8	0/0/0	0	3.4	-33.4	11 0 0 0 0 0 0	index
+obj	Varuna Point	VP_Rubble_Cement07	10	2.2/30.4/90	0/0/14	67.6	2.3	-30.2	8 0 0 0 2 0 0	index
+obj	Varuna Point	VP_FoldingLadder_Tall	10	80.5/111.7/122.5	0/8.5/18	79.2	3	-52.1	2 0 0 0 1 7 0	index
+obj	Varuna Point	VP_Forklift	10	90.7/111.7/132.8	0/2/16	79.4	5.7	-63	3 0 0 1 1 5 0	index
+obj	Varuna Point	VP_AirPocket_Buoy	10	6.8/13.8/41.8	0/0/0	60.3	5.4	-24	10 0 0 0 0 0 0	index
+obj	Varuna Point	VP_NailBoard_03	10	25.8/29.4/32.9	0/0/2	0	3.5	-33.5	8 0 0 0 2 0 0	index
+obj	Varuna Point	VP_NailBoard_04	10	27.8/30.6/34.8	0/0/0	18.9	3.3	-36.1	8 2 0 0 0 0 0	index
+obj	Varuna Point	VP_DecorationPrefabBase_Book_1	9	6.8/6.8/13.8	0/0/0	77.6	0.3	-21	9 0 0 0 0 0 0	index
+obj	Varuna Point	VP_Cable_Roll01	9	31.2/80.5/132.8	0/8/14	74.1	1.2	-45.8	2 0 0 0 4 3 0	index
+obj	Varuna Point	VP_SteelBeam03	9	1.5/111.3/132.4	0/16/18	0	3.6	-51.4	2 0 0 0 0 7 0	index
+obj	Varuna Point	VP_NailPole_02	9	27.8/31.8/34.8	0/0/0	0	6.9	-37.6	7 1 1 0 0 0 0	index
+obj	Varuna Point	Pickup_Landmark_LandmarkCrateMetal	9	9.6/37.6/124.8	0/0/8	47.5	1.2	-41.5	6 0 0 0 3 0 0	-
+obj	Varuna Point	VP_Spotlight_LightBulb	8	6.8/22.7/22.8	2/2/4	84.7	0.6	11	0 0 0 2 6 0 0	index
+obj	Varuna Point	VP_RubblePile_Medium02	8	2.4/30.5/62.8	0/0/2	50.9	13	-35	7 0 0 1 0 0 0	index
+obj	Varuna Point	VP_RubblePile_Medium03	8	2.4/6.8/34.8	0/0/0	0	6.7	-23.6	8 0 0 0 0 0 0	index
+obj	Varuna Point	VP_Rubble_Brick05	8	13.7/58.5/132.4	0/0/14	81.9	0.5	-39.9	6 0 0 0 2 0 0	index
+obj	Varuna Point	SeaVine3	8	69.7/69.7/69.7	0/9.7/12	83.2	4.8	-0.6	1 0 0 0 0 7 0	core
+obj	Varuna Point	VP_Rubble_Cement05	8	27.8/90.6/125.4	0/6/14	83.5	0.4	-55.9	3 0 0 0 5 0 0	index
+obj	Varuna Point	VP_Cable_Floor02	8	34.8/90.7/132.8	0/0/14.8	39.2	7.9	-49	5 0 1 0 1 1 0	index
+obj	Varuna Point	VP_Rubble_Brick01	8	32.2/111.6/132.6	0/10/14	79.2	0.6	-84	3 0 0 0 5 0 0	index
+obj	Varuna Point	VP_DecorationPrefabBase_Bedside_Table	8	6.8/13.8/13.8	0/0/0	79.2	0.8	-21	8 0 0 0 0 0 0	index
+obj	Varuna Point	VP_DecorationPrefabBase_Carpet_Circle	8	6.8/6.8/13.8	0/0/0	75.7	3.2	-35	8 0 0 0 0 0 0	index
+obj	Varuna Point	VP_NailPole_01	8	26/34.6/34.9	0/0/0	0	7	-35.1	7 1 0 0 0 0 0	index
+obj	Varuna Point	Pickup_Landmark_Landmark_RandomLoot_Tools	8	6.8/27.6/125.3	0/0/8	38	0.9	-43	6 0 0 0 1 1 0	-
+obj	Varuna Point	VP_DecorationPrefabBase_Carpet_Rectangle	7	6.8/13.8/13.8	0/0/0	78.5	3.4	-28.4	7 0 0 0 0 0 0	index
+obj	Varuna Point	VP_ExplosiveBarrel_Pile	7	90.7/90.7/132.8	0/0/0	60.3	3	-139.9	7 0 0 0 0 0 0	index
+obj	Varuna Point	LightCone	7	70/112/112	0/0/0	67.6	19.6	-119.2	7 0 0 0 0 0 0	index
+obj	Varuna Point	Carriable_Barrel_Model	7	76.5/121.4/121.4	0/0/0	75.7	2.1	-128.6	7 0 0 0 0 0 0	index
+obj	Varuna Point	VP_ShopVac	7	34.8/80.5/132.8	0/4/12	79.2	1.1	-52.8	3 0 0 0 3 1 0	index
+obj	Varuna Point	VP_Rubble_Cement01	7	27.8/90.6/125.7	0/6/14	68	0.7	-69.9	3 0 0 0 4 0 0	index
+obj	Varuna Point	VP_Skylift	7	90.7/111.7/132.8	2/4.8/12	85.9	4	-73	0 0 0 0 4 3 0	index
+obj	Varuna Point	VP_Cable_Roll02	7	89.7/111.7/132.3	0/6.8/14.8	74.1	1	-54.9	0 1 0 1 2 3 0	index
+obj	Varuna Point	VP_Wagon02	7	30.5/111.7/132.8	0/0/6	85.9	1.6	-84.3	4 0 0 0 3 0 0	index
+obj	Varuna Point	VP_Rubble_Plank02	7	2/110.7/131.5	0/6/16	79.8	2.2	-75.9	2 0 0 1 3 1 0	index
+obj	Varuna Point	VP_Rubble_Brick03	7	30.4/111.6/132.7	0/0/14	79.2	0.6	-81.3	4 0 0 0 3 0 0	index
+obj	Varuna Point	VP_BrickStack01	7	101/101/132.8	2/8/12	79.2	3.7	-31.3	0 0 0 1 0 6 0	index
+obj	Varuna Point	VG_DecorationPrefabBase_Pillow Variant	7	6.3/13.2/13.9	0/0/0	79.1	1.1	-20.4	7 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_Pipe_ThickCurve Variant	7	0.7/1.5/28.7	0/0/0	0	0.5	-29.7	7 0 0 0 0 0 0	core
+obj	Varuna Point	VP_WeldingTool	6	34.2/111.7/130.9	0/8/12	79.2	0.9	-55.8	1 0 0 0 3 2 0	index
+obj	Varuna Point	VP_Rubble_MetalPiece03	6	55.8/90.7/132.7	0/0/14	78.6	1.8	-72.7	4 0 0 0 1 1 0	index
+obj	Varuna Point	VP_Cable_Floor03	6	34.8/111.7/132.8	0/4/6	78.8	6.8	-63	3 0 0 0 1 2 0	index
+obj	Varuna Point	VP_Cable_Floor01	6	34.8/111.7/132.8	0/2.8/14	85.9	6	-49	2 0 0 2 1 1 0	index
+obj	Varuna Point	VP_DecorationPrefabBase_Armchair	6	6.8/13.6/13.8	0/0/0	60.3	1.2	-40.9	6 0 0 0 0 0 0	index
+obj	Varuna Point	VP_Scaffolding_S_Open	6	3.8/10.9/11	0/0/2	79.3	3	-11.8	4 1 1 0 0 0 0	index
+obj	Varuna Point	VP_DecorationPrefabBase_Clock	5	4.4/10.9/11.4	0/0/0	79	0.5	-24.4	5 0 0 0 0 0 0	index
+obj	Varuna Point	Balboa_DecorationPrefabBase_Fridge	5	6.8/13.8/13.8	0/0/0	67.6	1.6	-35	5 0 0 0 0 0 0	index
+obj	Varuna Point	TangaroaKitchen_BenchCabinet1	5	6.8/13.8/13.8	0/0/0	79.1	0.9	-21	5 0 0 0 0 0 0	index
+obj	Varuna Point	TangaroaKitchen_BenchCabinet2	5	6.8/13.8/13.8	0/0/0	75.7	0.9	-24.9	5 0 0 0 0 0 0	index
+obj	Varuna Point	TangaroaKitchen_Bench4_Sink	5	6.8/13.8/13.8	0/0/0	60.9	3	-23.5	5 0 0 0 0 0 0	index
+obj	Varuna Point	TangaroaKitchen_StoveOven	5	6.8/13.8/13.8	0/0/0	60.9	1	-23.5	5 0 0 0 0 0 0	index
+obj	Varuna Point	VG_DecorationPrefabBase_Kitchenfan Variant	5	4.8/11.8/11.8	0/0/0	77.8	0.9	-20.1	5 0 0 0 0 0 0	core
+obj	Varuna Point	TangaroaKitchen_BenchDrawers	5	6.8/13.8/13.8	0/0/0	75.7	0.9	-32.4	5 0 0 0 0 0 0	index
+obj	Varuna Point	VP_DecorationPrefabBase_OfficeChair	5	6.8/13.8/13.8	0/0/0	65.5	1	-34	5 0 0 0 0 0 0	index
+obj	Varuna Point	VP_DecorationPrefabBase_Desk	5	6.8/13.8/13.8	0/0/0	65.5	1.7	-35	5 0 0 0 0 0 0	index
+obj	Varuna Point	VP_Rubble_Cement03	5	13.7/58.5/132.7	0/0/12	3.7	0.7	-55.7	3 0 0 0 2 0 0	index
+obj	Varuna Point	VG_DecorationPrefabBase_Workbench Variant	5	62.8/62.8/125.8	0/0/8	79.2	1.8	-109.8	4 0 0 0 1 0 0	core
+obj	Varuna Point	VP_Rubble_Cement06	5	29.8/58.5/125.7	0/0/12	68.3	1.3	-56	3 0 0 0 2 0 0	index
+obj	Varuna Point	VP_Cable_Wall02	5	35.7/57.1/109.7	0/4/10	68.3	2.7	-53.7	2 0 0 0 1 2 0	index
+obj	Varuna Point	VP_Cable_WallFloor01	5	34.8/111.7/132.8	0/6/10	70.6	3.8	-65.8	1 0 0 1 1 2 0	index
+obj	Varuna Point	VP_PortableToilet	5	34.8/62.8/79.8	0/0/14	83.5	2.9	-45.2	3 0 0 0 1 1 0	index
+obj	Varuna Point	VP_Rubble_Brick04	5	55.8/111.6/132.6	0/0/12	75.7	0.6	-84	3 0 0 0 2 0 0	index
+obj	Varuna Point	VP_Rubble_MetalPiece01	5	2.2/31.1/125.8	0/0/6	74.1	2	-41.9	3 0 0 0 2 0 0	index
+obj	Varuna Point	VP_Dumpster01	5	30/111.7/132.8	0/0/16	75.1	4.9	-63	3 0 0 0 1 1 0	index
+obj	Varuna Point	VP_AngleGrinder	5	33.7/61.8/122.5	0/0/5.7	81.9	0.7	-75.5	3 0 0 0 1 1 0	index
+obj	Varuna Point	VP_Scaffolding_L_Ramp	5	5/8/34.8	0/0/2	79.2	7.2	-11.4	4 0 0 1 0 0 0	index
+obj	Varuna Point	VP_DecorationPrefabBase_Book_Tall_1	4	6/13.8/13.8	0/0/0	83.5	0.3	-21	4 0 0 0 0 0 0	index
+obj	Varuna Point	VP_DecorationPrefabBase_DinnerTable	4	6.8/13.7/13.8	0/0/0	60.3	2	-21	4 0 0 0 0 0 0	index
+obj	Varuna Point	VG_DecorationPrefabBase_BenchWithDrawers Variant	4	34.8/62.8/125.8	0/2/6	81.9	2.1	-54.7	2 0 1 0 0 1 0	core
+obj	Varuna Point	VP_Rubble_Cement04	4	29.3/90.6/111.6	2/8/14	85.4	0.9	-12.6	0 0 0 0 4 0 0	index
+obj	Varuna Point	VP_Cable_Wall01	4	33.2/88.9/130.9	0/2/4	79.2	2.7	-42.4	1 0 1 1 0 1 0	index
+obj	Varuna Point	VP_Skylift_Extended	4	62.8/111.7/132.8	0/4.8/8	79.3	7.5	-62.7	2 0 0 0 1 1 0	index
+obj	Varuna Point	VP_Cable_Roof02	4	35.2/83.4/94	0/6/12	17.5	4	-45.2	2 0 0 0 1 1 0	index
+obj	Varuna Point	VP_Cable_WallFloor02	4	34.8/111.7/132.8	0/4/6	17.5	4.6	-66.1	2 0 0 1 0 1 0	index
+obj	Varuna Point	VP_Dumpster02	4	30.5/111.7/132.7	0/10/16	83.5	5.9	-63	1 0 0 1 1 1 0	index
+obj	Varuna Point	VP_MotherlodePillar1_Exploded	4	112/112/112	0/0/0	66	22.8	-130.3	4 0 0 0 0 0 0	index
+obj	Varuna Point	VP_MotherlodePillar1_Stage2	4	112/112/112	0/0/0	66	21.3	-130.3	4 0 0 0 0 0 0	index
+obj	Varuna Point	VP_MotherlodePillar1_Stage1	4	112/112/112	0/0/0	66	21.3	-130.3	4 0 0 0 0 0 0	index
+obj	Varuna Point	VG_DecorationPrefabBase_BathroomShelf Variant	4	6.8/62.8/62.8	0/0/0	71.7	2.3	-32.7	4 0 0 0 0 0 0	core
+obj	Varuna Point	VP_RubblePile_Large02	4	2.6/34.8/69.8	0/0/0	0	15.3	-35	4 0 0 0 0 0 0	index
+obj	Varuna Point	VP_DecorationPrefabBase_BedKingsize	4	6.8/13.8/13.8	0/0/0	87	2.7	-21	4 0 0 0 0 0 0	index
+obj	Varuna Point	VP_DecorationPrefabBase_BedKingsize_Cover	4	6.3/13.3/13.3	0/0/0	87	2.9	-20.5	4 0 0 0 0 0 0	index
+obj	Varuna Point	VG_DecorationPrefabBase_Sofa Variant	4	6.8/6.8/13.8	0/0/0	8	2.2	-28.2	4 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_TV Variant	4	6.2/13.1/13.2	0/0/0	87	1.3	-27.8	4 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_TowelHanger Variant	4	4.5/11.5/11.5	0/0/0	21.7	1.7	-31.9	4 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_Mirror Variant	4	5.1/12.1/12.1	0/0/0	12.1	1.3	-26.7	4 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_ShowerWDrapes Variant	4	6.8/13.8/13.8	0/0/0	81	2.7	-28	4 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_ToiletFancier Variant	4	6.5/13.5/13.5	0/0/0	79.2	0.8	-33.3	4 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_FancySink Variant	4	6.8/13.8/13.8	0/0/0	12.1	1.3	-28.4	4 0 0 0 0 0 0	core
+obj	Varuna Point	Pickup_Landmark_LandmarkCrateFood	4	9.4/27.6/40.6	0/0/4	60.3	0.7	-19.8	3 0 0 0 1 0 0	-
+obj	Varuna Point	Pickup_Landmark_Landmark_RandomLoot_Food	4	5.8/12.8/13	0/0/0	79.2	0.7	-20.2	4 0 0 0 0 0 0	-
+obj	Varuna Point	VP_OneWayDoor	3	20.8/27.8/41.9	0/0/2	81.9	2.4	-34.1	2 0 1 0 0 0 0	index
+obj	Varuna Point	VP_GlassBridge	3	126/126/126	0/0/4.8	87.3	8.4	-172.5	2 0 0 0 0 1 0	index
+obj	Varuna Point	VP_CoralFoliose02	3	69.6/69.7/69.7	6/6.8/8.8	86.2	1	-3.4	0 0 0 0 1 1 1	index
+obj	Varuna Point	VP_CoralBulb06	3	69.7/70.3/71	8.8/8.8/10	87.3	1.5	-33.8	0 0 0 0 2 1 0	index
+obj	Varuna Point	VP_Rubble_MetalPiece02	3	58.5/90.7/111.7	0/0/12	79.6	1.7	-87.4	2 0 0 0 1 0 0	index
+obj	Varuna Point	VP_Rubble_Cement02	3	55.7/90.6/132.7	0/0/12	79.2	1.2	-83.9	2 0 0 0 1 0 0	index
+obj	Varuna Point	VP_HammerDrill	3	58.5/89.7/90.7	0/7.7/8	74.1	0.8	-54.9	1 0 0 0 1 1 0	index
+obj	Varuna Point	VP_BrickStack02	3	101/101.5/132.8	4.8/6/6.8	84.4	3.7	-61.3	0 0 0 1 0 2 0	index
+obj	Varuna Point	VP_BrickStack03	3	101/101.5/132.8	6/6/10	79.2	3.8	-52.7	0 0 0 1 0 2 0	index
+obj	Varuna Point	VP_Rubble_Brick02	3	32.2/125.4/132.6	0/6/14	83.9	0.6	-98.2	1 0 0 0 2 0 0	index
+obj	Varuna Point	VP_RubblePile_Large01	3	55.8/55.8/55.8	0/0/0	79.2	13.8	-71	3 0 0 0 0 0 0	index
+obj	Varuna Point	VG_DecorationPrefabBase_Lockers_Closed Variant	3	62.8/62.8/62.8	0/0/0	79	2.1	-83	3 0 0 0 0 0 0	core
+obj	Varuna Point	VP_RubblePile_Large03	3	27.8/34.8/69.8	0/0/0	13.8	18.9	-42.2	3 0 0 0 0 0 0	index
+obj	Varuna Point	Drawer_01	3	6.8/6.8/13.8	0/0/0	87	1.4	-34.9	3 0 0 0 0 0 0	index
+obj	Varuna Point	VG_DecorationPrefabBase_SofaU_Leather Variant	3	6.8/6.8/13.8	0/0/0	79.1	4.4	-14	3 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_BoardWithPapers Variant	3	5.8/12.8/12.8	0/0/0	88.1	2.2	-37.1	3 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_ToiletPaperHolder1 Variant	3	5.8/5.9/12.8	0/0/0	10.8	0.3	-42.1	3 0 0 0 0 0 0	core
+obj	Varuna Point	VP_SpikeTrap_04	3	23.6/30.6/30.7	0/0/0	2.2	4	-37.8	3 0 0 0 0 0 0	index
+obj	Varuna Point	Pickup_Landmark_LandmarkCrateWood	3	25.9/27.5/34.5	0/0/5.7	81.9	1.8	-42.4	2 0 0 0 1 0 0	-
+obj	Varuna Point	VP_Spotlight	2	6.5/22.2/22.2	2/2/2	85.6	3.3	-6.2	1 0 1 0 0 0 0	index
+obj	Varuna Point	TEMP LIGHT CONE	2	6.7/22.2/22.2	2/2/2	84.7	26.5	14.8	0 0 0 0 2 0 0	index
+obj	Varuna Point	VP_GlassBridge_Broken	2	42/126/126	0/10.8/10.8	88.9	8.4	-5.9	1 0 0 0 1 0 0	index
+obj	Varuna Point	VP_DecorationPrefabBase_Bookshelf Filled 1	2	13.8/13.8/13.8	0/0/0	58.1	2.6	-21	2 0 0 0 0 0 0	index
+obj	Varuna Point	VP_DoublDoor_Executive	2	13.8/13.8/13.8	0/0/0	0	2.2	-21	2 0 0 0 0 0 0	index
+obj	Varuna Point	VP_CoralDigitate01	2	69.4/70.9/70.9	6.8/8.8/8.8	87.7	1.1	0.8	0 0 0 0 1 1 0	index
+obj	Varuna Point	VP_CoralDigitate02	2	69.7/70.2/70.2	4/8.8/8.8	87.3	1.6	0	0 0 0 0 1 1 0	index
+obj	Varuna Point	VP_CoralTubular01	2	69.8/71/71	8.8/8.8/8.8	87.3	1.6	-31.6	0 0 0 0 2 0 0	index
+obj	Varuna Point	VP_CoralFoliose03	2	69.7/70.1/70.1	6.8/8.8/8.8	87.7	1.5	44.8	0 0 0 0 1 0 1	index
+obj	Varuna Point	VP_CoralTubular03	2	9.4/69.7/69.7	2/4/4	85.9	1.7	15.8	0 0 0 0 1 1 0	index
+obj	Varuna Point	VP_CoralDigitate03	2	69.7/71.5/71.5	6.8/8/8	87.7	1.9	22.1	0 0 0 0 1 0 1	index
+obj	Varuna Point	VP_MotherlodePillar2_Stage3	2	91/91/91	0/0/0	87.1	21	-103.6	2 0 0 0 0 0 0	index
+obj	Varuna Point	VP_MotherlodePillar2_Exploded	2	91/91/91	0/0/0	87.1	23.5	-103.6	2 0 0 0 0 0 0	index
+obj	Varuna Point	VP_MotherlodePillar2_Stage2	2	91/91/91	0/0/0	87.1	21	-103.6	2 0 0 0 0 0 0	index
+obj	Varuna Point	VP_MotherlodePillar2_Stage1	2	91/91/91	0/0/0	87.1	21	-103.6	2 0 0 0 0 0 0	index
+obj	Varuna Point	VP_RotaryTool	2	61.8/122.5/122.5	0/5.7/5.7	88.2	0.3	-68.5	1 0 0 0 0 1 0	index
+obj	Varuna Point	VP_Screwdriver	2	61.8/130.1/130.1	0/2/2	88.2	0.5	-96.1	1 0 0 1 0 0 0	index
+obj	Varuna Point	VP_Cable_Roof01	2	49.2/49.2/49.2	0/0/0	79.2	3.4	-56.4	2 0 0 0 0 0 0	index
+obj	Varuna Point	VP_ConcretePipeSlot	2	56/56/56	0/0/0	82.3	7	-70.7	2 0 0 0 0 0 0	index
+obj	Varuna Point	VP_Folder	2	62.1/62.1/62.1	0/0/0	74.1	0.3	-78.6	2 0 0 0 0 0 0	index
+obj	Varuna Point	VG_DecorationPrefabBase_WorkshopStorage_3 Variant	2	62.8/62.8/62.8	0/0/0	87	2.5	-70.6	2 0 0 0 0 0 0	core
+obj	Varuna Point	VP_Jigsaw	2	61.8/61.8/61.8	0/0/0	79.2	0.6	-97	2 0 0 0 0 0 0	index
+obj	Varuna Point	VG_DecorationPrefabBase_Tools_Wrench Variant	2	33.7/61.8/61.8	0/2/2	85.3	0.2	-26.3	1 0 1 0 0 0 0	core
+obj	Varuna Point	VP_DecorationPrefabBase_DinnerTable_Oval	2	6.8/13.8/13.8	0/0/0	79.2	2.7	-21	2 0 0 0 0 0 0	index
+obj	Varuna Point	VP_Scaffolding_L_Open	2	7.9/8/8	0/0/0	79.3	7	-3.3	1 1 0 0 0 0 0	index
+obj	Varuna Point	PlasticChair_01	2	34.5/34.8/34.8	0/0/0	81.9	1.4	-45.3	2 0 0 0 0 0 0	index
+obj	Varuna Point	VG_DecorationPrefabBase_TowelsFloor_1 Variant	2	27.8/34.8/34.8	0/0/0	60.3	1.4	-37	2 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_Junk_03 Variant	2	27.8/34.8/34.8	0/0/0	81.9	0.2	-35	2 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_Junk_02 Variant	2	27.8/33.7/33.7	0/0/0	79.3	0.1	-35	2 0 0 0 0 0 0	core
+obj	Varuna Point	VP_SpikeTrap_01	2	23.6/33.3/33.3	0/0/0	38.4	4.5	-30.8	2 0 0 0 0 0 0	index
+obj	Varuna Point	Pickup_Landmark_LandmarkCrate_Treasure_Briefcase	2	13.6/124.7/124.7	0/8/8	80.6	1.1	-20.8	1 0 0 0 0 1 0	-
+obj	Varuna Point	RT_FloodlightBase	1	56.2/56.2/56.2	0/0/0	79.2	0.5	-89	1 0 0 0 0 0 0	index
+obj	Varuna Point	RT_Floodlight	1	56.7/56.7/56.7	0/0/0	79.2	20.5	-89.6	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_GarageDoor	1	91/91/91	0/0/0	88.1	6.1	-118.5	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_GarageDoor_KeyHole	1	89.7/89.7/89.7	0/0/0	88.1	0.2	-113.3	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_GarageDoor_Frame	1	91/91/91	0/0/0	88.1	7	-100.7	1 0 0 0 0 0 0	index
+obj	Varuna Point	Sofa_01	1	13.8/13.8/13.8	0/0/0	78.8	2.3	-26.8	1 0 0 0 0 0 0	index
+obj	Varuna Point	Table_Coffee_01	1	13.8/13.8/13.8	0/0/0	79.8	2.3	-23.7	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_DecorationPrefabBase_Book_Tall_2	1	13/13/13	0/0/0	65.5	0.3	-20.2	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_DecorationPrefabBase_Bookshelf Filled 3	1	13.8/13.8/13.8	0/0/0	0.2	2.6	-21	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_ConcretePipeSlot02	1	14/14/14	0/0/0	0	7	-21.2	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_MotherlodePillar3_Stage4	1	70/70/70	0/0/0	67.6	21.1	-87.8	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_MotherlodePillar3_Stage3	1	70/70/70	0/0/0	67.6	21.1	-87.8	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_MotherlodePillar3_Exploded	1	70/70/70	0/0/0	67.6	22.5	-87.8	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_MotherlodePillar3_Stage2	1	70/70/70	0/0/0	67.6	21.3	-87.8	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_MotherlodePillar3_Stage1	1	70/70/70	0/0/0	67.6	21.1	-87.8	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_CoralBulb03	1	69.7/69.7/69.7	4/4/4	85.5	1.5	0	0 0 0 0 0 1 0	index
+obj	Varuna Point	VP_CoralBulb04	1	69.9/69.9/69.9	8.8/8.8/8.8	87.3	1.7	-23	0 0 0 0 0 1 0	index
+obj	Varuna Point	VP_CoralFoliose01	1	70.3/70.3/70.3	6.8/6.8/6.8	87.7	1.2	36.1	0 0 0 0 0 0 1	index
+obj	Varuna Point	VP_MotherlodeFloor2	1	91/91/91	0/0/0	67.6	84	-108.8	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_MotherlodeFloor1	1	112/112/112	0/0/0	67.6	84	-129.8	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_ConcretePipeSlot01	1	56/56/56	0/0/0	79.2	7	-66.5	1 0 0 0 0 0 0	index
+obj	Varuna Point	VG_DecorationPrefabBase_Paper_SmallPile Variant	1	62.1/62.1/62.1	0/0/0	74.1	0.3	-80.5	1 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_Paper Variant	1	62.1/62.1/62.1	0/0/0	80.5	0.4	-81.6	1 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_Paper_BigPile Variant	1	62.1/62.1/62.1	0/0/0	74.1	0.4	-80.5	1 0 0 0 0 0 0	core
+obj	Varuna Point	VP_Form04	1	61.6/61.6/61.6	0/0/0	74.1	0.4	-77	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_Form03	1	61.6/61.6/61.6	0/0/0	74.1	0.4	-77	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_Form02	1	61.2/61.2/61.2	0/0/0	74.1	0.4	-76.7	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_Folder03	1	62.8/62.8/62.8	0/0/0	80.5	0.4	-88.5	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_Folder02	1	62.1/62.1/62.1	0/0/0	74.1	0.3	-78.3	1 0 0 0 0 0 0	index
+obj	Varuna Point	VG_DecorationPrefabBase_Desk Variant	1	62.9/62.9/62.9	0/0/0	80.5	1.7	-82	1 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_BoardWithToolOutline Variant	1	60.5/60.5/60.5	0/0/0	82.3	2.1	-86.2	1 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_OfficeChair Variant	1	62.8/62.8/62.8	0/0/0	74.1	1	-83.4	1 0 0 0 0 0 0	core
+obj	Varuna Point	VP_BlankForm	1	61.6/61.6/61.6	0/0/0	74.1	0.3	-77	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_Whiteboard	1	61.2/61.2/61.2	0/0/0	68	3.1	-91.6	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_Noteboard	1	61.2/61.2/61.2	0/0/0	74.1	2.5	-76.5	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_Excavator	1	34.8/34.8/34.8	0/0/0	5.4	9.7	-70.1	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_DecorationPrefabBase_Book_Tall_4	1	6.7/6.7/6.7	0/0/0	79.2	0.3	-34.9	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_Scaffolding_S_Ramp	1	3.8/3.8/3.8	0/0/0	0	3	-39	1 0 0 0 0 0 0	index
+obj	Varuna Point	DoorFrame	1	6.8/6.8/6.8	0/0/0	14.4	2.2	-42.3	1 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_ToiletPaperHolder2 Variant	1	12.9/12.9/12.9	0/0/0	79.4	0.3	-27.3	1 0 0 0 0 0 0	core
+obj	Varuna Point	VP_DecorationPrefabBase_Book_2	1	13.8/13.8/13.8	0/0/0	82.3	0.3	-49	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_ElevatorShaft	1	14/14/14	2/2/2	85.9	22.4	8.4	0 0 0 0 1 0 0	index
+obj	Varuna Point	VP_NailBoard_01	1	27.8/27.8/27.8	0/0/0	0	3.3	-35	1 0 0 0 0 0 0	index
+obj	Varuna Point	VG_DecorationPrefabBase_Vice Variant	1	33.6/33.6/33.6	2/2/2	85.4	0.6	-15.6	0 0 0 1 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_TowelsFloor_2 Variant	1	27.6/27.6/27.6	0/0/0	9.6	1.9	-34.8	1 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_Tools_Saw2 Variant	1	33.7/33.7/33.7	2/2/2	85.3	0.8	-34.7	1 0 0 0 0 0 0	index
+obj	Varuna Point	VG_DecorationPrefabBase_PillowDecor_1 Variant	1	27.6/27.6/27.6	0/0/0	60.3	0.8	-34.8	1 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_PillowDecor_2 Variant	1	27.6/27.6/27.6	0/0/0	9.6	0.9	-34.8	1 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_PillowDecor_4 Variant	1	27.6/27.6/27.6	0/0/0	9.6	0.8	-34.8	1 0 0 0 0 0 0	index
+obj	Varuna Point	VG_DecorationPrefabBase_Pillow_2 Variant	1	27.6/27.6/27.6	0/0/0	60.3	1.1	-36.4	1 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_Mattress_Regular Variant	1	27.8/27.8/27.8	0/0/0	9.6	1.9	-35	1 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_Mattress_Bent Variant	1	27.8/27.8/27.8	0/0/0	60.3	1.9	-36.3	1 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_Flask_3 Variant	1	27.8/27.8/27.8	0/0/0	9.6	0.4	-35.5	1 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_Flask_2 Variant	1	27.8/27.8/27.8	0/0/0	60.3	0.4	-35.4	1 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_Flask_1 Variant	1	27.8/27.8/27.8	0/0/0	60.3	0.3	-39.8	1 0 0 0 0 0 0	core
+obj	Varuna Point	VG_DecorationPrefabBase_BedTable Variant	1	34.8/34.8/34.8	0/0/0	79.3	0.6	-42	1 0 0 0 0 0 0	core
+obj	Varuna Point	VP_Scaffolding_M_Ramp	1	31.8/31.8/31.8	0/0/0	87.3	5	-59.9	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_Scaffolding_M_Open	1	34.8/34.8/34.8	0/0/0	87.3	5	-62.9	1 0 0 0 0 0 0	index
+obj	Varuna Point	VG_DecorationPrefabBase_Pipe_Plate2 Variant	1	28.7/28.7/28.7	0/0/0	81.9	0.8	-38.7	1 0 0 0 0 0 0	core
+obj	Varuna Point	VP_MotherlodeMap	1	25.7/25.7/25.7	0/0/0	82.2	4.6	-24	1 0 0 0 0 0 0	index
+obj	Varuna Point	VP_Doll_Miranda	1	34.6/34.6/34.6	2/2/2	85.3	2.2	-13.8	0 0 0 0 1 0 0	index
+obj	Varuna Point	VP_SpikeTrap_03	1	27.1/27.1/27.1	0/0/0	0	5.1	-34.3	1 0 0 0 0 0 0	index
+obj	Varuna Point	Pickup_Landmark_LandmarkCrate_Treasure_Safe	1	27.8/27.8/27.8	0/0/0	75.1	1.7	-41	1 0 0 0 0 0 0	-
+obj	Varuna Point	Pickup_Landmark_QuestReset_Varuna	1	76.2/76.2/76.2	0/0/0	75.8	12.9	-91	1 0 0 0 0 0 0	-
+obj	Varuna Point	Pickup_Landmark_Scrap 1_Land	1	125.4/125.4/125.4	6/6/6	80.1	0.8	-72.2	0 0 0 0 0 1 0	-
+obj	Varuna Point	Pickup_Landmark_Plastic3_Land	1	125.6/125.6/125.6	8/8/8	80.6	0.5	-78.6	0 0 0 0 0 1 0	-
+obj	Varuna Point	Pickup_Landmark_Blueprint_Windturbine	1	62.1/62.1/62.1	0/0/0	80.5	1	-83.5	1 0 0 0 0 0 0	-
+obj	Varuna Point	Pickup_Landmark_Blueprint_BatteryAdvanced	1	13/13/13	0/0/0	65.5	0.8	-20.2	1 0 0 0 0 0 0	-
+obj	Varuna Point	Pickup_Landmark_Blueprint_HeadLightAdvanced	1	33.7/33.7/33.7	2/2/2	85.4	0.8	-27.3	0 0 1 0 0 0 0	-
+obj	Varuna Point	Pickup_Landmark_ConstructionHelmet_Pickup	1	36.8/36.8/36.8	0/0/0	0	0.6	-72	1 0 0 0 0 0 0	-
+area	Temperance	Snowy	2396 1203 449 92 0 5037 11889	0.94 1.00 1.00 1.00 - 0.83 0.86	-151.8
+profile	Temperance	0:5.4 5:121.2 10:109.7 15:102.1 20:96 25:97.4 30:116.4 35:128.1 40:138.3
+obj	Temperance	TP_BigRock03	94	1.1/3.3/13.5	0/0/0	13.3	46.9	-11.5	94 0 0 0 0 0 0	core
+obj	Temperance	TP_BigRock04	8	1.9/7.6/15.2	0/0/0	54.7	54.7	-23.3	8 0 0 0 0 0 0	core
+obj	Temperance	TP_IcePillar02	7	12/18.3/19.9	0/0/0	20.1	6.7	-49.1	7 0 0 0 0 0 0	index
+obj	Temperance	TP_StalagmiteCluster02	5	11.7/13.5/14.3	0/0/0	24.8	3.4	-42.8	5 0 0 0 0 0 0	index
+obj	Temperance	TP_StalagmiteCluster01	5	6.8/18.6/19.4	0/0/0	27.5	3.7	-48.9	5 0 0 0 0 0 0	index
+obj	Temperance	TP_StalagmiteCluster03	4	7.1/19.6/19.8	0/0/0	60.5	4.4	-47.4	4 0 0 0 0 0 0	index
+obj	Temperance	TP_UnderwaterCaveTunnel_Corner	3	11/13.9/14.7	0/0/0	20.4	21.5	-41.8	3 0 0 0 0 0 0	index
+obj	Temperance	TP_StalagmiteCluster02_Snow	2	5.3/11.8/11.8	0/0/0	62.8	4.8	-37.5	2 0 0 0 0 0 0	index
+obj	Temperance	TP_IcePillar01	2	11.7/19.6/19.6	0/0/0	33	6.9	-47.5	2 0 0 0 0 0 0	index
+obj	Temperance	TP_UnderwaterCaveTunnel_CornerLong	2	15.7/18.4/18.4	0/0/0	23.4	29	-44.7	2 0 0 0 0 0 0	index
+obj	Temperance	TP_StalagmiteCluster01_Snow	1	11.7/11.7/11.7	0/0/0	28.9	5	-44	1 0 0 0 0 0 0	core
+obj	Temperance	TP_UnderwaterCaveTunnel_Straight	1	12.9/12.9/12.9	0/0/0	0	17.4	-40.8	1 0 0 0 0 0 0	index
+obj	Temperance	TP_UnderwaterCaveTunnel_StraightLong	1	18.5/18.5/18.5	0/0/0	53.8	18.2	-48.8	1 0 0 0 0 0 0	index
+obj	Temperance	TP_CaveTunnel_Room_WeatherStationLadder	1	11.5/11.5/11.5	0/0/0	66.5	23.6	-48	1 0 0 0 0 0 0	index
+obj	Temperance	TP_UnderwaterCaveTunnel_CrossT	1	18.2/18.2/18.2	0/0/0	62.2	19.8	-46.3	1 0 0 0 0 0 0	index
+obj	Temperance	TP_IceShore	1	0.8/0.8/0.8	0/0/0	3.5	1237.3	-5.4	1 0 0 0 0 0 0	index
+tex	Temperance	0	TP_Rock_basecolor=0.50 TP_Snow_basecolor=0.48 TP_IceRough_basecolor=0.02
+tex	Temperance	2	TP_Rock_basecolor=0.71 TP_Snow_basecolor=0.29
+tex	Temperance	5	TP_Rock_basecolor=0.96 TP_Snow_basecolor=0.03
+tex	Temperance	10	TP_Rock_basecolor=0.94 TP_Snow_basecolor=0.06
+tex	Temperance	20	TP_Rock_basecolor=0.77 TP_Snow_basecolor=0.23
+tex	Temperance	40	TP_Rock_basecolor=0.72 TP_Snow_basecolor=0.28
+tex	Temperance	80	TP_Rock_basecolor=0.69 TP_Snow_basecolor=0.31
+area	Utopia	Tropical	16 52 40 708 720 2284 1860	1.00 1.00 1.00 0.97 0.99 0.87 0.95	-317.1
+profile	Utopia	0:44.6 5:101.9 10:101.9 15:283.1
+obj	Utopia	UT_Set_Tower_Int_HarpoonRoom	1	44.6/44.6/44.6	0/0/0	10.9	20.6	-103.8	1 0 0 0 0 0 0	index
+obj	Utopia	UT_Set_TowerHarpoon_WindowIntact	1	44.6/44.6/44.6	0/0/0	10.9	18.2	-103.8	1 0 0 0 0 0 0	index
+obj	Utopia	UT_Set_TowerHarpoon_WindowBroken	1	44.6/44.6/44.6	0/0/0	10.9	123	-103.8	1 0 0 0 0 0 0	index
+obj	Utopia	UT_Set_TowerHarpoon	1	44.6/44.6/44.6	0/0/0	10.9	379.5	-103.8	1 0 0 0 0 0 0	index
+obj	Utopia	UT_Set_Prison	1	0.7/0.7/0.7	0/0/0	34.9	48.8	-67.5	1 0 0 0 0 0 0	index
+obj	Utopia	UT_Set_TowerDeco03	1	13.9/13.9/13.9	0/0/0	10.9	379.5	-103.8	1 0 0 0 0 0 0	index
+obj	Utopia	UT_Set_TowerDeco02	1	60.7/60.7/60.7	0/0/0	22.6	443	-130.5	1 0 0 0 0 0 0	index
+obj	Utopia	UT_Set_TowerDeco01	1	101.9/101.9/101.9	0/0/0	0	441.3	-141.4	1 0 0 0 0 0 0	index
+obj	Utopia	UT_Set_HyenaRoom	1	0.7/0.7/0.7	0/0/0	34.9	42.1	-67.5	1 0 0 0 0 0 0	index
+obj	Utopia	UT_Set_Tower_EndRoom_Glass	1	0.7/0.7/0.7	0/0/0	34.9	39.3	-67.5	1 0 0 0 0 0 0	index
+obj	Utopia	UT_Set_Tower_EndRoom	1	0.7/0.7/0.7	0/0/0	34.9	41.6	-67.5	1 0 0 0 0 0 0	index
+obj	Utopia	UT_Set_Tower03	1	0.7/0.7/0.7	0/0/0	34.9	471.1	-67.5	1 0 0 0 0 0 0	index
+obj	Utopia	UT_Set_Tower02	1	0.7/0.7/0.7	0/0/0	34.9	453.6	-67.5	1 0 0 0 0 0 0	index
+obj	Utopia	UT_Set_Tower01	1	0.7/0.7/0.7	0/0/0	34.9	443	-67.5	1 0 0 0 0 0 0	index
+obj	Utopia	UT_Set_HookRoom01	1	0.7/0.7/0.7	0/0/0	34.9	52.5	-67.5	1 0 0 0 0 0 0	index
+obj	Utopia	UT_Set_JumpPuzzle	1	0.7/0.7/0.7	0/0/0	34.9	52.9	-67.5	1 0 0 0 0 0 0	index
+obj	Utopia	UT_Set_Market	1	0.7/0.7/0.7	0/0/0	34.9	118	-67.5	1 0 0 0 0 0 0	index
+obj	Utopia	UT_Set_BossRoom	1	0.7/0.7/0.7	0/0/0	34.9	48.4	-67.5	1 0 0 0 0 0 0	index
+obj	Utopia	UT_Set_Tower_Int_BrokenElevatorRoom	1	0.7/0.7/0.7	0/0/0	34.9	16.7	-67.5	1 0 0 0 0 0 0	index
+obj	Utopia	UT_Set_Tower_Int_MainEntrance	1	0.7/0.7/0.7	0/0/0	34.9	25.3	-67.5	1 0 0 0 0 0 0	index
+obj	Utopia	UT_Set_Tower_Int_PreJumpPuzzle	1	0.7/0.7/0.7	0/0/0	34.9	13.6	-67.5	1 0 0 0 0 0 0	index
+obj	Utopia	UT_Set_Tower_Int_RescueElevatorRoom	1	0.7/0.7/0.7	0/0/0	34.9	13.8	-67.5	1 0 0 0 0 0 0	index
+obj	Utopia	UT_Set_JumpPuzzle_SafetyNet	1	0.7/0.7/0.7	0/0/0	34.9	70.8	-67.5	1 0 0 0 0 0 0	index
+obj	Utopia	UT_Set_JumpPuzzle_Platforms	1	0.7/0.7/0.7	0/0/0	34.9	49.6	-67.5	1 0 0 0 0 0 0	index
+area	Temperance Small 1	Snowy	512 192 1100 5196 16432 22444 30932	0.98 0.96 0.38 0.56 0.82 0.75 0.89	-153
+profile	Temperance Small 1	0:26 5:37.5 10:48.1 15:55.9 20:83 25:109.6 30:120.1 35:119.3 40:98.8 45:84.7 50:92.1 55:85.2 60:77.2 65:81.5 70:91.4 75:99 80:108.9 85:113.8 90:125.8 95:136 100:145.8 105:149.1 110:150.6 115:152.2
+obj	Temperance Small 1	TP_BigRock03	39	2.9/7.1/13.5	0/0/0	10.7	49.2	-14.4	39 0 0 0 0 0 0	core
+obj	Temperance Small 1	TP_SmallRock01	4	1.4/5.8/6.3	0/0/0	35.2	32.3	-8.8	4 0 0 0 0 0 0	core
+obj	Temperance Small 1	TP_BigRock04	2	5.6/11/11	0/0/0	15.9	55	-18.8	2 0 0 0 0 0 0	core
+obj	Temperance Small 1	TP_SmallRock03	1	1.9/1.9/1.9	0/0/0	20.5	14.6	-6.7	1 0 0 0 0 0 0	core
+obj	Temperance Small 1	TP_BigRock02	1	0.6/0.6/0.6	0/0/0	8.5	41.7	-17.4	1 0 0 0 0 0 0	core
+tex	Temperance Small 1	0	TP_Snow_basecolor=0.92 TP_Rock_basecolor=0.07
+tex	Temperance Small 1	2	TP_Snow_basecolor=0.88 TP_Rock_basecolor=0.12
+tex	Temperance Small 1	5	TP_Snow_basecolor=0.78 TP_Rock_basecolor=0.22
+tex	Temperance Small 1	10	TP_Snow_basecolor=0.68 TP_Rock_basecolor=0.32
+tex	Temperance Small 1	20	TP_Rock_basecolor=0.64 TP_Snow_basecolor=0.36
+tex	Temperance Small 1	40	TP_Rock_basecolor=0.67 TP_Snow_basecolor=0.33
+tex	Temperance Small 1	80	TP_Rock_basecolor=0.87 TP_Snow_basecolor=0.13
+area	Temperance Small 2	Snowy	232 492 2080 6188 53776 24636 34508	0.62 0.32 0.15 0.14 0.04 0.89 0.86	-153
+profile	Temperance Small 2	0:23.1 5:24.5 10:27.1 15:29.6 20:32.2 25:34.2 30:35.9 35:37.4 40:39.6 45:42.8 50:49.5 55:58.4 60:75.3 65:90.8 70:105.8 75:115 80:118.7 85:122.5 90:121.3 95:124.8 100:131.6 105:136 110:140 115:141.4 120:143.5 125:146.7 130:150.7 135:152.1
+obj	Temperance Small 2	TP_BigRock03	30	3.5/5.3/10.3	0/0/0	12.4	41.5	-10.8	30 0 0 0 0 0 0	core
+obj	Temperance Small 2	TP_BigRock04	2	8.3/16.1/16.1	0/0/0	12.5	52	-25.5	2 0 0 0 0 0 0	core
+obj	Temperance Small 2	TP_BigRock02	1	4.4/4.4/4.4	0/0/0	9.5	43.8	-14.2	1 0 0 0 0 0 0	core
+tex	Temperance Small 2	0	TP_Snow_basecolor=0.76 TP_Rock_basecolor=0.18 TP_IceRough_basecolor=0.05
+tex	Temperance Small 2	2	TP_Snow_basecolor=0.79 TP_Rock_basecolor=0.18 TP_IceRough_basecolor=0.04
+tex	Temperance Small 2	5	TP_Snow_basecolor=0.79 TP_Rock_basecolor=0.19 TP_IceRough_basecolor=0.02
+tex	Temperance Small 2	10	TP_Snow_basecolor=0.78 TP_Rock_basecolor=0.22
+tex	Temperance Small 2	20	TP_Snow_basecolor=0.98 TP_Rock_basecolor=0.02
+tex	Temperance Small 2	40	TP_Rock_basecolor=0.85 TP_Snow_basecolor=0.15
+tex	Temperance Small 2	80	TP_Rock_basecolor=0.85 TP_Snow_basecolor=0.15
+area	Temperance Small 3	Snowy	172 40 116 1208 25940 42004 27256	1.00 1.00 0.83 0.44 0.25 0.45 0.78	-153
+profile	Temperance Small 3	0:28.9 5:32.6 10:34.6 15:34.7 20:35.4 25:41.8 30:54.3 35:60.8 40:61.3 45:61.3 50:61.5 55:63.2 60:70.8 65:91.7 70:119.3 75:139.3 80:148.4 85:149.9 90:150.7 95:151.5 100:98 105:97.6 110:115 115:133.2 120:146.4 125:151.6 185:152.5 190:152.4 195:152.4
+obj	Temperance Small 3	TP_BigRock03	37	1.3/5/9.2	0/0/0	9.4	31.3	-9	37 0 0 0 0 0 0	core
+obj	Temperance Small 3	TP_BigRock02	7	3.3/4.6/7.9	0/0/0	8.3	40.9	-14.8	7 0 0 0 0 0 0	core
+obj	Temperance Small 3	TP_SmallRock01	1	5.7/5.7/5.7	0/0/0	9.4	27.4	-7.5	1 0 0 0 0 0 0	core
+obj	Temperance Small 3	TP_BigRock04	1	2.1/2.1/2.1	0/0/0	47.4	40	-14.1	1 0 0 0 0 0 0	core
+tex	Temperance Small 3	0	TP_Snow_basecolor=0.61 TP_Rock_basecolor=0.29 TP_IceRough_basecolor=0.10
+tex	Temperance Small 3	2	TP_Snow_basecolor=0.66 TP_Rock_basecolor=0.26 TP_IceRough_basecolor=0.08
+tex	Temperance Small 3	5	TP_Rock_basecolor=0.46 TP_Snow_basecolor=0.42 TP_IceRough_basecolor=0.12
+tex	Temperance Small 3	10	TP_IceRough_basecolor=0.51 TP_Rock_basecolor=0.26 TP_Snow_basecolor=0.23
+tex	Temperance Small 3	20	TP_IceRough_basecolor=0.66 TP_Rock_basecolor=0.23 TP_Snow_basecolor=0.11
+tex	Temperance Small 3	40	TP_IceRough_basecolor=0.54 TP_Rock_basecolor=0.43 TP_Snow_basecolor=0.03
+tex	Temperance Small 3	80	TP_Rock_basecolor=0.76 TP_IceRough_basecolor=0.19 TP_Snow_basecolor=0.04

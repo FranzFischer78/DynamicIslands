@@ -1,0 +1,61 @@
+# Play test of The Sunken Liner (CIPlay sunken_liner, in a test world 'CI ...'). Points as in its recipe ("offset").
+# Lifeboat 7's camp on the west islet (6.5 m, -14 10); under water in the trench between the islets: the bow (8 20, bed
+# 16 m down), the ballroom (x 2-14, z -11..-2, its floor 16 m down), the debris field (z -13..-23), the purser's office
+# (x 2.5-11.5, z -32..-26, 24 m down) and the stern (13 -46) at the deep south end.
+island The Sunken Liner
+offset -0.2904 -0.4361
+expect step 0
+expect title The Polar Star
+wait 5
+expect animals Goat 2
+expect animals Dolphin 2
+
+# Lifeboat 7's camp: the survivors' log, the camp chest with the steward's keys
+walk -8 18 to -11 14 to -13 11.5 h=6.5
+zone lifeboat
+expect step 1
+read Survivors' log
+expect step 2
+open Lifeboat 7's camp chest
+expect story stewardkey 1
+expect step 3
+
+# Down to the bow: the wireless operator's last message on her deck
+at 8 18 h=-4
+zone bow
+expect step 4
+read Wireless operator's last message
+expect step 5
+
+# The ballroom: the air under its ceiling, the steward's cabinet with the purser's combination
+at 8 -13.5 h=-13
+zone ballroom
+expect step 6
+air ballroomair
+open Chief steward's cabinet
+expect story pursercode 1
+expect step 7
+
+# The stern's two lamps
+at 12 -38 h=-16
+zone stern
+kill Angler fish
+expect step 8
+
+# The purser's office: his safe (the Polar Star, the pay chest's key), the ship's pay chest
+at 7 -29 h=-22
+zone purser
+expect step 9
+open Purser's safe
+expect story sapphire 1
+expect step 10
+open Ship's pay chest
+wait 2
+expect done
+
+# The other boxes: the trunks, the stores, the coal barrel, the box on the east islet
+open First-class steamer trunk
+open Third-class trunk
+open Ship's stores crate
+open Coal barrel
+open Box in the cleft

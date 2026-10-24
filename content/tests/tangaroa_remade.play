@@ -1,0 +1,66 @@
+# Play test of Tangaroa Remade (CIPlay tangaroa_remade, in a test world 'CI ...'). Points as in its recipe: the floating
+# harbour's deck (1.96 m) on its ring pontoon east of the island, the harbour front (2.2 m) with the pump house at its
+# west end, the road up to the square (12.5 m), the old statue on the sea floor north of the harbour (10 m down).
+island Tangaroa Remade
+expect step 0
+expect title The Lights of Tangaroa
+
+# Onto the floating harbour's deck: the council's notice at the pier's end
+at 60 -4
+zone harbour
+expect step 0
+read Council notice
+expect step 1
+
+# The harbour master's key card: into his office (its door faces the pier), his locker in the corner
+walk 62 2 to 70 2 to 73 2 to 76 2 to 75.6 4.2 h=2
+reach Harbour master's locker
+open Harbour master's locker
+expect story keycard 1
+
+# The founder's key card: down from the north ladder to his toppled statue on the sea floor (7 m), his strongbox by it
+at 53 12 h=-5
+open Founder's strongbox
+expect story keycard 2
+expect step 2
+
+# The harbour front: into the pump house - its rats - and the generator's part in its locker
+walk 50 -4 to 40 -4 to 30 -4 to 25.5 -1 to 21 -1 h=2.2
+zone pumphouse
+kill Tangaroa rat
+expect step 3
+walk 22.5 -1 to 20 1.2 h=2.2 below=4
+reach Pump house locker
+open Pump house locker
+expect story genpart 1
+expect step 4
+
+# Up the road to the square; the caretaker's flat in the apartment block - its roaches - and his locker
+walk 25 -1 to 27 2.5 to 27.5 6 to 26.5 8 to 19.7 10 to 12.9 12 to 6.1 14 to -2 14 h=12.5
+walk -2 14 to -3.5 16 to -3.5 19.5 to -5.5 20.5 h=12.5
+zone flat
+kill Roach
+walk -3.5 16 to -3.5 19.5 to -5.5 20.5 h=12.5
+reach Caretaker's locker
+open Caretaker's locker
+expect story keycard 3
+expect step 5
+
+# The generator by the council office: its part fitted, the lamps come on and the office's shutter rolls aside
+walk -3.5 16 to -6 4 to -9 1.5 h=12.5
+# (the council office's shutter shut while the city has no power)
+walk -11 8 to -15.2 8 blocked h=12.5
+use generator
+expect message coughs and runs
+expect shown citylights
+expect story genpart 0
+wait 3
+walk -9 1.5 to -12 8 to -15.2 8 to -15.4 11 to -17.5 11.2 h=12.5
+zone council
+walk -15.2 8 to -15.4 11 to -17.5 11.2 h=12.5 below=15
+reach Council's vault
+open Council's vault
+wait 5
+expect item Blueprint_WaterTank 1
+expect item Blueprint_Storage_Large 1
+expect done

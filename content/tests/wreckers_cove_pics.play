@@ -1,0 +1,19 @@
+# Guide pictures of Wreckers' Cove (CIPlay wreckers_cove_pics): Raft's camera, midday, calm
+island Wreckers' Cove
+hour 11
+weather Calm
+wait 25
+at -11 1
+wait 2
+picture wreckers_cove_island 50 26 -72 2 3 -12
+picture wreckers_cove_hamlet -4 6 -16 -12 4 5
+picture wreckers_cove_wreck 6 4 -64 -8 0 -50
+at 10 -3
+wait 2
+picture wreckers_cove_den_mouth -6 6 -22 10 3 2
+wait 2
+picture wreckers_cove_den 10 2.2 -3 22 1.2 9
+at 36 -47.3
+wait 2
+picture wreckers_cove_lantern 24 9 -64 42 9 -48
+picture wreckers_cove_from_lantern 41 15 -49 -12 2 -2

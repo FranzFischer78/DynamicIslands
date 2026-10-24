@@ -361,3 +361,11 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Packed mod output
+/DynamicIslands.rmod
+/DynamicIslands.build.txt
+
+docs/Custom-Islands-Guide.html
+# Crash dumps of Git Bash and other tools (never in the .rmod either: pack.ps1)
+*.stackdump

@@ -1,0 +1,34 @@
+# The Long Voyage - a world plan of the library: Raft's whole story, twice as long
+# Raft's eight story islands as Raft has them, and after each one but Utopia a big quest island of the library on its
+# own Receiver frequency: the story island's note leads to it first, and its quest done gives the next story island's
+# frequency. The smaller library islands turn up now and then as side trips while sailing.
+#
+# Built by the recipe player (CIRecipe plan_long_voyage) in the editor's World plans window. Its play test:
+# content\tests\plan_long_voyage.play.
+plan new The Long Voyage
+plan description Raft's whole story - and after every story island but Utopia a big quest island of its own, found on the Receiver: the voyage twice as long. The library's smaller islands turn up as side trips while you sail. Its main islands are about 120% the size of Raft's own big islands.
+plan random on
+plan story on
+
+# --- The story: a big quest island after each of Raft's (done when its quest is) -------------------------------------
+plan rule cove | island:Wreckers' Cove | start | receiver:700 | Under the Radio Tower's signal hides another: a lantern code, blinking over and over. | Wreckers' Cove | after:RadioTower | quest
+plan rule thornwood | island:Thornwood | start | receiver:900 | The Vasagatan's radio picks up drums - and an explorer's call for help from a jungle island. | Thornwood | after:Vasagatan | quest
+plan rule scrapyard | island:Scrapyard Haven | start | receiver:900 | Balboa's radio mast catches a trader's broadcast: Scrapyard Haven, open for business. | Scrapyard Haven | after:Balboa | quest
+plan rule ironreef | island:Ironreef Caverns | start | receiver:900 | A mining company's beacon, still running after all these years. | Ironreef Caverns | after:CaravanTown | quest
+plan rule metropolis | island:The Drowned Metropolis | start | receiver:1000 | Tangaroa's archives name a sister city: Meridian, drowned when the water rose. | The Drowned Metropolis | after:Tangaroa | quest
+plan rule observatory | island:Coral Observatory | start | receiver:1000 | A research station's automatic call: the reef observatory is still listening. | Coral Observatory | after:VarunaPoint | quest
+plan rule glacier | island:Glacier Station | start | receiver:1000 | A weak call from beyond Temperance: a station on a glacier, its reactor dead. | Glacier Station | after:Temperance | quest
+
+# --- Side trips: the smaller islands, now and then ahead while sailing ------------------------------------------------
+plan rule gull | island:The Stranded Gull | km:2 | ahead:450 | A white hull glints on a sandbar ahead. | The Stranded Gull
+plan rule signal | island:Signal Rock | km:4 | ahead:450 | A mast on a rock ahead - its light is dead. | Signal Rock
+plan rule ranger | island:Ranger's Rest | km:7 | ahead:450 | A jungle hill with a watchtower comes up ahead. | Ranger's Rest
+plan rule stilt | island:Stilt Hollow | km:10 | ahead:450 | Trailers on stilts over a reef - someone lived out here. | Stilt Hollow
+plan rule wharf | island:Mayor's Wharf | km:13 | ahead:450 | Rooftops stick out of the sea ahead: a sunken city block. | Mayor's Wharf
+plan rule crane | island:Crane Yard | km:16 | ahead:450 | A crane rises from the sea ahead. | Crane Yard
+plan rule frost | island:Frost Hollow | km:20 | ahead:450 | A snowy islet with a hut - it's getting colder. | Frost Hollow
+plan rule farm | island:Tide Farm | km:24 | ahead:450 | Water wheels turn on a floating farm ahead. | Tide Farm
+plan rule mine | island:Old Mine Islet | km:28 | ahead:450 | A headframe stands over an old shaft on the islet ahead. | Old Mine Islet
+plan rule shelter | island:Shelter Atoll | km:32 | ahead:450 | A quiet atoll ahead - and a hatch in the middle of it. | Shelter Atoll
+plan ending Every island of the long voyage is in this book now - Raft's own story and one of your own after each, twice the sea it was.\n\nThe end of The Long Voyage.
+plan save

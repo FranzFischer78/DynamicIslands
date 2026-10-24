@@ -1,0 +1,40 @@
+# Play test of Hermit's Table (CIPlay hermits_table, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The landing at the north cliff's foot (3 34, 2.6 m), the scaffold (x 1.5..4.5, z 29.5..32.5; ladders on its north face,
+# the ledge deck east of it at 16.6 m, the top deck at 32.6 m), the table top at 33.2 m: the hut (0.75..5.25 11.75..16.25),
+# the three levers at x 8 (z 18 stones, 20 footsteps, 22 tides).
+island Hermit's Table
+offset 0 0
+expect step 0
+expect title Three Levers
+wait 5
+expect animals Goat 2
+expect animals Dolphin 2
+at 3 38 h=3
+walk 3 37.5 to 3 35 h=2.6
+zone foot
+expect step 0
+read Climber's note
+expect step 1
+open Climbers' box
+at 6.4 31.5 h=17.4
+zone ledge
+expect step 1
+open Ledge box
+expect step 2
+at 3 19 h=34.5
+zone top
+expect step 2
+read The hermit's riddles
+expect step 3
+open Hermit's chest
+expect message locked
+use leverstones
+expect shown birds
+kill Screecher
+use leverfootsteps
+expect story hermitkey 1
+expect step 4
+use leverfootsteps
+expect message The drawer is empty
+open Hermit's chest
+expect done

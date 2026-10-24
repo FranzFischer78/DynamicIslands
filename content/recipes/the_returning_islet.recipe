@@ -1,0 +1,93 @@
+# The Returning Islet - the side island of the library's plan The Lullaby Frequency (SL1, horror)
+# One small grey rock, one palm, no reef: a fisherman's hut on stilts with one door, and inside a table set for four -
+# chairs, plates, a candle. It comes back every two days until its quest is done. Each time a plate holds a note it did
+# not hold before: each note is hidden at the start and the one before it shows it a little later. Quest "Supper for
+# Four" (5 steps): the notes on plates 1 to 4, then the hatch in the floor and the box under the hut.
+#
+# Built by the recipe player (CIRecipe the_returning_islet) through the editor's own operations.
+include lib_sea
+include lib_huts
+new
+# (nature: an empty rock - no trees but one palm, Rocks Like Raft, nothing to gather)
+gen Trees=0 Bushes=0.08 Rocks=0.43 Harvest=0 BeachThings=0.2
+gen Seed=1204 Radius=26 Height=5 Roughness=0.3 Peaks=1 Shape=0 Style=0 PeakShape=0.3 Cliffs=0.1 BeachWidth=0.5
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.2 Hostiles=0 Friendly=0 SeaLife=0.2
+generate
+
+# --- Terrain: the hut's pad at 2.5 m, the path up from the south beach ---------------------------------------------
+brush flatten at 0 0 r=6 s=20 frames=80 h=2.5
+brush smooth from 0 -4 to 0 -16 r=3 s=6 frames=20
+origin
+clear at 0 0 r=7
+clear from 0 -4 to 0 -18 r=2.5
+
+# --- The hut on stilts (deck 2.6 m over the pad), its ladder to the south; the table for four ----------------------
+push at -2.25 -2.25 h=2.5
+call stilt_hut y=2.6
+place "Table Office" - at 2.25 2.7 y=3.6 sit drop yaw=0
+place Placeable_Chair_Wood - at 1.7 1.75 y=3.4 sit drop yaw=0
+place Placeable_Chair_Wood - at 2.8 1.75 y=3.4 sit drop yaw=0
+place Placeable_Chair_Wood - at 1.7 3.65 y=3.4 sit drop yaw=180
+place Placeable_Chair_Wood - at 2.8 3.65 y=3.4 sit drop yaw=180
+place Plate_01 - at 1.7 2.45 y=4.2 sit drop
+place Plate_01 - at 2.8 2.45 y=4.2 sit drop
+place Plate_01 - at 1.7 2.95 y=4.2 sit drop
+place Plate_01 - at 2.8 2.95 y=4.2 sit drop
+place Candle_03 - at 2.25 2.7 y=4.2 sit drop
+place Note_Paper plate1 at 1.7 2.45 y=4.4 sit drop yaw=5
+place Note_Paper plate2 at 2.8 2.45 y=4.4 sit drop yaw=-10
+place Note_Paper plate3 at 1.7 2.95 y=4.4 sit drop yaw=170
+place Note_Paper plate4 at 2.8 2.95 y=4.4 sit drop yaw=185
+place TangaroaHatchRoom_Hatch floorhatch at 3.6 0.9 y=2.62 yaw=0
+place Loot_Chest hatchbox at 3.4 1.6 y=0.6 sit drop yaw=0
+pop
+place "Pickup_Landmark_Tree_Palm 2" - at 7 5 ground
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=The Returning Islet
+info author=Custom Islands
+info description=A grey rock with one palm and a fisherman's hut on stilts, a table inside set for four. It keeps coming back. The side island of The Lullaby Frequency.
+island on.arrive=message||The same small rock. The same hut. A candle is lit inside, and no one is there.
+
+story crystal|Spare Receiver crystal|Placeable_Lantern_Metal|A Receiver crystal wrapped in a napkin, from the box under the hut. It hums faintly at night.
+
+note plate1 Plate 1 | We waited supper for you.
+note plate2 Plate 2 | You came back. We knew you would. Your chair is the one facing the sea.
+note plate3 Plate 3 | The soup went cold three nights ago. We keep it warm for you anyway.
+note plate4 Plate 4 | Sit down. She's singing.\n\n(Under the plate, scratched in the wood: THE HATCH)
+note hatchbox Floor hatch | Under the hatch, in a tin box, wrapped in a napkin: the family's savings - and a spare Receiver crystal.
+loot hatchbox story:crystal*1;TitaniumIngot*1;MetalIngot*3;CopperIngot*2;Canteen_Water*1
+prop hatchbox loot.refill=0
+prop hatchbox obj.name=hatchbox
+prop hatchbox beh.hidden=1
+
+prop plate1 obj.name=plate1
+prop plate1 if.read=!signal|ri_p1
+prop plate1 on.read=signal||ri_p1\nwait|20\nshow|plate2
+prop plate2 obj.name=plate2
+prop plate2 beh.hidden=1
+prop plate2 if.read=!signal|ri_p2
+prop plate2 on.read=signal||ri_p2\nwait|20\nshow|plate3
+prop plate3 obj.name=plate3
+prop plate3 beh.hidden=1
+prop plate3 if.read=!signal|ri_p3
+prop plate3 on.read=signal||ri_p3\nwait|20\nshow|plate4
+prop plate4 obj.name=plate4
+prop plate4 beh.hidden=1
+prop plate4 on.read=signal||ri_p4
+prop floorhatch obj.name=floorhatch
+prop floorhatch if.use=signal|ri_p4
+prop floorhatch on.use=hide|\nshow|hatchbox\nsound||event:/amb/wreck_creaks\nmessage||The hatch lifts. Under the deck, on the sand between the stilts, a tin box.
+prop floorhatch else.use=message||The hatch is nailed down. Not yet.
+
+quest title=Supper for Four
+quest intro=A hut on stilts and a table set for four. Climb up and look at the plates.
+step read|Plate 1|1|Read what lies on the first plate
+step read|Plate 2|1|Come back for the second plate
+step read|Plate 3|1|Come back for the third plate
+step read|Plate 4|1|Come back for the fourth plate
+step open|Floor hatch|1|Open the hatch in the floor and the box under the hut
+quest done=The table is empty now. The islet will not come back.
+quest reward=TitaniumIngot*1;Cooked_Mackerel*2
+
+save The Returning Islet

@@ -1,0 +1,190 @@
+# Timberline Haul - a new large island of the library (ROADMAP 3e VI3), a vehicle island with a quest
+# A big island of pine forest where a timber company ran its last log drive: the cut block high in the north with the
+# excavator stacking the logs, the logging camp with the cook's caravan and the crew van, the mill yard with two
+# forklifts, a train of log wagons on its track and the haul crane over it, and the log landing on the south shore with
+# the loading crane and the boss's van. A bear raids the camp. A lookout over the cut, a cave in the south-west.
+#
+# Built by the recipe player (CIRecipe vi_timberline_haul) through the editor's own operations. Points: the log landing
+# (2.5 m, r 12 round 0 -62); the haul road 0 -50 > 20 -22 > -30 10 > 10 44; the mill yard (6 m, r 14 round 20 -22), the
+# loader engine at 24 -16, the mill locker at 26.5 -16, the wagon track x 4..16 at z -12, the haul crane at 31 -28 and
+# its lever at 26 -27; the logging camp (8 m, r 12 round -30 10), the cook's cabin x -24..-19.5 z 4..7 (door south),
+# the larder at -36 7, the bear round -42 18; the cut block (10 m, r 14 round 10 44), the tally at 6 40, the fuel cache
+# at 18 39; the lookout x 0..3 z 50..53 (10 m), its ladder at 0.75 49.8; the cave rock at -50 -30, floor 3.45 m, mouth
+# south at -49 -51.
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+include lib_ni8
+include lib_vi
+new
+# (nature: pine forest - pines and birches, ferns, logs; not too dense)
+gen Trees=0.45 Bushes=0.4 Rocks=0.45 Harvest=0.5 BeachThings=0.4
+gen Seed=8631 Radius=88 Height=14 Roughness=0.35 Peaks=2 Shape=0 Style=3 BeachWidth=0.4 Cliffs=0.35 PeakShape=0.4
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0.1 SeaLife=0.2
+generate
+
+# ===== Terrain: the landing, the haul road, the mill yard, the camp, the cut block, the cave ===============================
+brush flatten at 0 -62 r=12 s=20 frames=120 h=2.5
+brush sand at 0 -66 r=8 s=20 frames=15
+brush smooth from 0 -50 to 20 -30 r=4 s=10 frames=100
+brush smooth from 12 -12 to -24 4 r=4 s=10 frames=100
+brush smooth from -26 18 to 6 34 r=4 s=10 frames=100
+brush flatten at 20 -22 r=14 s=20 frames=140 h=6
+brush flatten at -30 10 r=12 s=20 frames=120 h=8
+brush grass at -30 10 r=10 s=20 frames=15
+brush flatten at 10 44 r=14 s=20 frames=140 h=10
+brush flatten at 1.5 51.5 r=4 s=20 frames=60 h=10
+# (the wagon track level with the yard)
+brush flatten from 3 -12 to 18 -12 r=3 s=20 frames=80 h=6
+call ni8cave x=-50 z=-30 h=3 yaw=180 al=pinecave
+clear at 0 -62 r=13
+clear from 0 -50 to 20 -30 r=4
+clear from 12 -12 to -24 4 r=4
+clear from -26 18 to 6 34 r=4
+clear at 20 -22 r=15
+clear at -30 10 r=13
+clear at 10 44 r=15
+
+# ===== The log landing on the south shore: the loading crane, the log piles, the boss's van, the notice =====================
+place UT_ElectricityIsland_Crane02 landingcrane at 8 -68 ground y=-2.05 sit scale=0.6 yaw=180
+place TreeLog_01 - at -4 -64 ground sit yaw=0
+place TreeLog_02 - at -4 -66 ground sit yaw=5
+place TreeLog_01 - at -4 -65 ground y=0.7 sit yaw=2
+place Van_4 - at -9 -56 ground sit yaw=20
+place Note_Board hauldnotice at 3 -57 ground sit yaw=180
+place RT_PlasticBoat - at -14 -72 ground sit rot=0,0,0 yaw=150 roll=6
+place Placeable_Lantern_FireBasket - at 5 -60 ground sit
+place Zone_Trigger loglanding at 0 -62 ground y=1
+
+# ===== The mill yard: the loader engine and the locker, the wagon train, two forklifts, the haul crane and its lever ========
+place "VG_DecorationPrefabBase_Engine Variant" loaderengine at 24 -16 ground sit yaw=90
+place Loot_ChestLarge milllocker at 26.5 -16 ground sit yaw=270
+call sleepersx x1=4 x2=17 z=-12
+place VP_Wagon01 - at 5.5 -12 ground sit yaw=90
+place VP_Wagon01 - at 8 -12 ground sit yaw=90
+place VP_Wagon02 - at 11 -12 ground sit yaw=90
+place VP_Wagon02 - at 14.5 -12 ground sit yaw=90
+place VP_Forklift - at 14 -26 ground sit yaw=30
+place VP_Forklift - at 19 -31 ground sit yaw=300
+place UT_ElectricityIsland_Crane01 haulcrane at 31 -28 ground sit scale=0.55 yaw=250
+place RT_Pillar - at 26 -27 ground sy=0.4
+place TP_LaserControlPanel_lever cranelever at 26 -27 ground y=1.25 scale=3 yaw=90
+place TreeLog_02 - at 22 -30 ground sit yaw=80
+place TreeLog_01 - at 24 -31 ground sit yaw=85
+place Scaffolding_6x4m - at 12 -32 ground sit yaw=0
+place Pallet - at 17 -18 ground sit
+
+# ===== The logging camp: the cook's cabin and larder, the cook's caravan, the crew van, the fire ============================
+push at -24 4 h=8
+call cabin w=3 d=2 al=cookcabin
+place Note_Book cookbook at 3.2 2 y=0.1 sit yaw=30
+place Placeable_Table_Basic - at 3.2 1.05 y=0.1 sit
+pop
+place Caravan_Green_01 - at -35 14 ground sit yaw=90
+place Loot_Chest larder at -36 7 ground sit yaw=60
+place Van_5 - at -23 18 ground sit yaw=30
+place campfire_1 - at -30 6 ground sit
+place BenchTable_01 - at -28 10 ground sit yaw=10
+place Balboa_DecorationPrefabBase_SimpleTent - at -38 2 ground sit yaw=70
+place Zone_Trigger loggingcamp at -30 10 ground y=1
+place Creature_Bear bear at -42 18 ground
+prop bear creature.count=1
+prop bear creature.respawn=0
+
+# ===== The cut block: stumps, the excavator stacking logs, the feller's tally, the fuel cache, the lookout ==================
+scatter Tree_Stump 6 at 10 44 r=12 seed=8681 free=3
+place VP_Excavator stacker at 15 49 ground sit yaw=200
+place TreeLog_01 - at 8 47 ground sit yaw=90
+place TreeLog_02 - at 9.2 47 ground sit yaw=92
+place TreeLog_01 - at 8.6 47 ground y=0.7 sit yaw=88
+place Tree_Stump - at 6 40 ground sit
+place Note_Paper fellertally at 7.2 40.4 ground sit yaw=20
+place Loot_Chest cutfuel at 18 39 ground sit yaw=200
+place Zone_Trigger cutblock at 10 44 ground y=1
+call lookout x=0 z=50 h=10 al=lookoutchest
+
+# ===== The cave in the south-west, a chest inside =============================================================================
+call cavein x=-50 z=-30 h=3 yaw=180 al=pinecavechest
+
+# ===== Pines and birches (not too dense), ferns, logs; things to gather; Raft's finds in the shallows ========================
+scatter PineTree_Small1 6 at 0 0 r=70 seed=8682 free=10
+scatter BirchTree_Small1 4 at -20 -20 r=50 seed=8683 free=10
+scatter "Balboa_Bush_01 Variant" 4 at 0 0 r=60 seed=8684 free=5
+place TreeLog_01 - at -40 -10 ground sit yaw=40
+place TreeLog_02 - at 40 10 ground sit yaw=110
+scatter "Pickup_Landmark_Tree_Pine" 6 at 0 0 r=66 seed=8685 free=8
+scatter "Pickup_Landmark_Tree_Birch" 3 at -20 -20 r=40 seed=8686 free=8
+scatter "Pickup_Landmark_BerryBush" 4 at 0 0 r=60 seed=8687 free=3
+scatter "Pickup_Landmark_Mushroom 2" 3 at -40 -20 r=20 seed=8688 free=3
+call hives x=0 z=0 r=60 n=2 seed=8689
+call dirt x=0 z=0 r=60 n=3 seed=8690
+call treasure x=0 z=0 r=64 n=2 seed=8631
+call shallows r=110 deep=5 n=2 seed=868
+
+info title=Timberline Haul
+info author=Custom Islands
+info description=A big pine island where a timber company ran its last log drive: the excavator in the cut block, the logging camp and the cook's caravan, the mill yard with its forklifts, wagons and haul crane, and the loading crane at the landing.
+
+story loaderrun|The mill loader running|Placeable_Lantern_Metal|The mill yard's loader engine runs again, and the mill locker has shaken open.
+story lastlog|The last log aboard|Banner_01|The haul crane swung the last log of Timberline onto the wagons.
+
+note hauldnotice Haul boss's notice | TIMBERLINE HAUL - LAST DRIVE\n\nAll crews: one more load and we are done with this island.\n\nCut block crew - fell the last stand. Camp - feed them. Mill - the loader is DRY, fuel is stored up in the cut, away from the camp fire.\n\nThe last log goes on the wagons with the haul crane. Then we go home.
+note cookbook Camp cook's book | THE COOK'S BOOK\n\nDay 41. The bear again. It took the bacon, the flour, the good knife. It is learning the larder lock.\n\nDay 42. Larder moved behind my caravan. The bear found it in an hour.\n\nDay 43. If anyone reads this: the fellers are up in the cut, and they have not come down for supper.
+note larder Cook's larder | What the bear left: tins, a sack of salt, and the cook's spare rope. A note pinned inside: GONE UP TO THE CUT.
+loot larder Rope*3;Leather*2;Plank*4;Seed_Mango*2
+prop larder loot.refill=0
+note fellertally Feller's tally | FELLER'S TALLY - THE LAST STAND\n\n38 trees down. 4 to go. Fuel cans stacked by the big stump, east side, under the tarp.\n\nIf the loader runs, the crane runs. If the crane runs, we are done.
+note cutfuel Fuel cache in the cut | The mill's fuel, stacked under a tarp by the big stump.
+loot cutfuel story:raft-Vasagatan_GasTank*1;Plastic*2;Rope*1
+prop cutfuel loot.refill=0
+note milllocker Mill locker | The mill's locker: the company's plans for the motor wheel that drove the loader, the pay chits, the spare bolts.
+loot milllocker Blueprint_MotorWheel*1;MetalIngot*3;Bolt*4;Hinge*2
+prop milllocker loot.refill=0
+prop milllocker obj.name=milllocker
+prop milllocker beh.hidden=1
+note lookoutchest Chest on the lookout | The fire watch's box: a flag, a whistle, a rope.
+loot lookoutchest Rope*3;Feather*3;Plank*4
+prop lookoutchest loot.refill=0
+note pinecavechest Chest in the south-west cave | A poacher's stash, well out of the boss's sight.
+loot pinecavechest Leather*3;MetalIngot*2;Scrap*3;Glass*1
+prop pinecavechest loot.refill=0
+
+prop loaderengine obj.name=loaderengine
+prop loaderengine on.use=message||The loader engine coughs, catches and roars. The mill yard shakes awake - and the mill locker's door rattles open.\nsignal||engine\nshow|milllocker\ngive||story:loaderrun*1
+prop cranelever obj.name=cranelever
+prop cranelever beh.use=Pull the crane lever
+prop cranelever if.use=signal|engine
+prop cranelever on.use=sound||event:/raft/radar/lever\nmessage||The haul crane groans, swings its boom over the yard and sets the last log of Timberline down on the wagons. That's the drive done.\ngive||story:lastlog*1
+prop cranelever else.use=message||The lever moves, but nothing answers. The crane runs off the loader engine.
+
+prop loglanding zone.id=log_landing
+prop loglanding zone.radius=9
+prop loglanding zone.message=The log landing: a crane over the water, logs stacked for a ship that never came.
+prop loggingcamp zone.id=logging_camp
+prop loggingcamp zone.radius=9
+prop loggingcamp zone.message=The logging camp: a cold fire, the cook's caravan, the larder door clawed open.
+prop cutblock zone.id=cut_block
+prop cutblock zone.radius=10
+prop cutblock zone.message=The cut block: stumps in rows, the excavator with a log still in its claw.
+
+quest title=Down to the Mill
+quest intro=A timber island with its last load half done. Come ashore at the log landing.
+step reach|log_landing|1|Come ashore at the log landing
+step read|Haul boss's notice|1|Read the haul boss's notice at the landing
+step reach|logging_camp|1|Follow the haul road up to the logging camp
+step read|Camp cook's book|1|Read the cook's book in the camp cabin
+step kill|Bear|1|Drive off the bear raiding the camp
+step open|Cook's larder|1|Open the cook's larder
+step reach|cut_block|1|Climb to the cut block in the north
+step read|Feller's tally|1|Read the feller's tally on the big stump
+step open|Fuel cache in the cut|1|Open the fuel cache in the cut
+step collect|story:loaderrun|1|Start the loader engine in the mill yard
+step open|Mill locker|1|Open the mill locker
+step blueprint|Blueprint_MotorWheel|1|Take the motor wheel plans from the mill locker
+step collect|story:lastlog|1|Pull the haul crane's lever and load the last log
+quest done=The last log of Timberline is on the wagons. The drive is done - the island can grow back now.
+quest reward=MetalIngot*4;Plank*10;Rope*4;Bolt*3
+
+save Timberline Haul

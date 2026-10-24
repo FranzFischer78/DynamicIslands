@@ -1,0 +1,12 @@
+# Guide pictures of Mistlock Causeway (CIPlay mistlock_causeway_pics): Raft's camera, dusk - the lamps going out into
+# the mist, a fork, the gatehouse
+island Mistlock Causeway
+offset 0 0
+hour 19
+weather Calm
+at 0 -32
+wait 3
+picture sl1_mistlock_island 0 30 -80 0 1 0
+picture sl1_mistlock_lamps 0 3 -31 0 2 -10
+picture sl1_mistlock_fork 0 4.5 -21 -3 2 -12
+picture sl1_mistlock_gatehouse 5 3 24 0 2 31

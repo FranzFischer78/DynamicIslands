@@ -1,0 +1,10 @@
+# Guide pictures of Vasagatan Remade (CIPlay vasagatan_remade_pics): Raft's camera, midday, calm
+island Vasagatan Remade
+hour 11
+weather Calm
+at -18.5 -25.5
+wait 3
+picture vasagatan_remade_island -62 30 -75 -18 2 -28
+picture vasagatan_remade_bow -40 8 -36 -26.5 1.5 -23.5
+picture vasagatan_remade_camp -29 9 -24 -37.2 4 -16.5
+picture vasagatan_remade_stern -15 -7 -47 -24.5 -12.5 -40

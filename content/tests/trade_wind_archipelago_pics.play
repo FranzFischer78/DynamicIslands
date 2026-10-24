@@ -1,0 +1,14 @@
+# Guide pictures of The Trade Wind Archipelago (CIPlay trade_wind_archipelago_pics): Raft's camera, midday, calm. Points
+# as in its recipe ("offset").
+island The Trade Wind Archipelago
+offset 0 0
+hour 11
+weather Calm
+at -45 14 h=3
+wait 3
+picture trade_wind_archipelago_island -20 120 -160 -20 0 20
+picture trade_wind_archipelago_port -45 14 -30 -45 3 22
+picture trade_wind_archipelago_committee -25 6 -35 -40 1 -22
+picture trade_wind_archipelago_windward 60 10 130 95 3 140
+picture trade_wind_archipelago_leeward -90 10 -45 -118 4 -35
+picture trade_wind_archipelago_clubhouse -15 22 45 -38 12 58

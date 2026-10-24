@@ -1,0 +1,64 @@
+# Fleetbreak Moorings (CIPlay fleetbreak_moorings): the chart room, the articles, the bosun's locker (machete), the
+# vines on the stair cut, the boars in the roof garden, the fuel tank and fuel pipe, Teo's log, the biofuel press, the
+# strongbox and the Fleet's offer; then the contract: the boom, three filter crates, the Rookery's drop, the receipt.
+# offset 0 0 is a placeholder: phase 2 sets it from the recipe's save log (PLAY_FORMAT: Coordinates).
+island Fleetbreak Moorings
+offset 0 0
+expect step 0
+expect title The Free Fleet
+zone chart_room
+expect step 1
+read Free Fleet articles
+expect step 2
+open Bosun's locker
+wait 3
+expect step 3
+use gardenvines
+expect hidden gardenvines
+zone roof_garden
+expect step 4
+kill Warthog
+expect animals Warthog 0
+expect step 5
+open Fuel tank crate
+wait 3
+expect step 6
+open Fuel store
+wait 3
+expect step 7
+read Teo's log
+expect step 8
+open Biofuel press
+wait 3
+expect step 9
+open Fleet strongbox
+wait 3
+expect story authpass 1
+expect step 10
+zone gull_ridge
+expect step 11
+read Harbourmaster's ledger
+expect step 12
+open Seaplane's crate
+wait 3
+expect step 13
+zone bosuns_cave
+expect step 14
+read Fleet contract offer
+expect done
+expect step 0 quest=2
+expect title Filters Past the Boom quest=2
+zone boom
+expect step 1 quest=2
+openat 27 -31
+openat 45.5 8
+openat -41.5 14
+expect story filtercrate 3
+expect step 2 quest=2
+zone rookery_drop
+expect step 3 quest=2
+read Fleet receipt
+expect step 4 quest=2
+open Fleet reward
+wait 3
+expect done quest=2

@@ -1,0 +1,162 @@
+# Kelpdeep Rock - a new island of the library, normal size (much of it under water)
+# Pine-topped islets on a shallow reef and between them a forest of giant kelp; under the kelp four caves dug into the
+# reef - north, east, south, west - each with a numbered marker post at its mouth, two with air trapped under a rock. The
+# survey hut on the north-east islet, the survey buoy with its recorder out in the kelp.
+# Quest "Under the Kelp" (4 steps): an underwater survey - the orders, the air under the north cave's overhang, a reading
+# from each of four caves, logged at the buoy.
+#
+# Built by the recipe player (CIRecipe kelpdeep_rock) through the editor's own operations.
+include lib_huts
+include lib_sea
+new
+gen Trees=0.1 Bushes=0.38 Rocks=0.42 Harvest=0.1 BeachThings=0.3
+gen Seed=9102 Radius=45 Height=10 Roughness=0.4 Peaks=2 Shape=2 Style=3 BeachWidth=0.4 Cliffs=0.3 PeakShape=0.4
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the four caves dug into the reef (12 m down), the hut's pad on the north-east islet ------------------------
+brush flatten at -6 24 r=5 s=20 frames=150 h=-12
+brush flatten at 30 6 r=5 s=20 frames=150 h=-12
+brush flatten at 2 -22 r=5 s=20 frames=150 h=-11
+brush flatten at -20 8 r=5 s=20 frames=150 h=-12
+brush flatten at 15.25 29.75 r=3.5 s=20 frames=80 h=4.6
+clear at 15 30 r=5
+clear at -6 24 r=7
+clear at 30 6 r=7
+clear at 2 -22 r=7
+clear at -20 8 r=7
+
+# --- The survey hut on the north-east islet: a hut on posts, the orders pinned inside, the hut's box, the survey chest
+push at 13 27.5 h=4.6
+call stilt_hut y=0.6 ladder=none
+place Placeable_Table_Basic - at 2.25 3.4 y=0.6 sit
+place Note_Paper orders at 2.25 3.4 y=1.7 drop yaw=15
+place "Box Small" hutbox at 0.9 3.6 y=0.6 sit yaw=10
+place Loot_ChestLarge surveychest at 3.6 2.2 y=0.6 sit yaw=270
+pop
+place Zone_Trigger hut at 15.25 29.75 h=6
+
+# --- The survey buoy out in the kelp with its recorder ---------------------------------------------------------------------
+place Reef_Buoy recorder at 8 14 h=0.1
+
+# --- The four kelp caves: a hollow in the reef, a fallen slab of rock leaning over it, the numbered marker post at its
+# mouth; air trapped under the rock in the north and east caves -----------------------------------------------------------
+macro kelpcave x z post
+place SmallBoulder2 - at {$x+3} $z h=-11 rot=0,30,70 scale=0.9
+place SmallBoulder2 - at {$x-3.5} {$z+1} h=-11 rot=0,-40,80 scale=0.8
+place ReefHuts_Pillar3 $post at $x {$z-3} ground sy=1.4
+end
+call kelpcave -6 24 post1
+call kelpcave 30 6 post2
+call kelpcave 2 -22 post3
+call kelpcave -20 8 post4
+place AirPocket_1 - at -6 25 h=-11.5 scale=0.6
+place Zone_Trigger air1 at -6 25 h=-10
+place Zone_Atmosphere bubbles1 at -6 25 h=-10.5
+place AirPocket_2 - at 30 7 h=-11.5 scale=0.6
+place Zone_Trigger air2 at 30 7 h=-10
+place Zone_Atmosphere bubbles2 at 30 7 h=-10.5
+place Loot_SunkenBarrel kelpbarrel at 5 17 h=-2 drop
+
+# --- The kelp forest between the islets, its green light; pines on the islets --------------------------------------------
+scatter SeaVine3 75 at 6 6 r=32 wet seed=401
+scatter SeaVine3_klump 28 at 6 6 r=32 wet seed=402
+scatter seavine_tongue 22 at 6 6 r=32 wet seed=403
+place Zone_Atmosphere kelplight at 6 6 h=-5
+scatter Pickup_Landmark_Tree_Pine 2 at 3 0 r=6 seed=404
+scatter Pickup_Landmark_Tree_Pine 1 at 15 31 r=4 seed=405
+
+# --- Turtles in the kelp, dolphins outside; Raft's finds in the shallows (lib_sea) ----------------------------------------
+place Creature_Turtle turtles at 0 12 h=-3
+prop turtles creature.count=2
+place Creature_Dolphin dolphins at 40 -40 h=-3
+prop dolphins creature.count=2
+call shallows r=58 deep=5 n=1
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): berries, birches, flowers ----------
+scatter "Pickup_Landmark_BerryBush" 3 at 0 0 r=31.5 seed=4575 free=3
+scatter "Pickup_Landmark_Tree_Birch" 3 at 0 0 r=31.5 seed=4585 free=5
+scatter "Pickup_Landmark_Flower_Blue" 2 at 0 0 r=31.5 seed=4595 free=3
+scatter "Pickup_Landmark_Flower_White" 2 at 0 0 r=31.5 seed=4596 free=3
+
+# ===== Settings, story items, notes, behaviours, quest (4 steps) ==========================================================
+info title=Kelpdeep Rock
+info author=Custom Islands
+info description=Two pine-topped islets over a forest of giant kelp, a survey hut and a buoy - and under the kelp four caves nobody has measured. Take a depth reading in each and log them at the buoy.
+island on.arrive=message||Two little islets with pines on them, and between them the sea is dark green - a forest growing up from the bottom, swaying.
+
+story reading|Depth reading|quest:Tangaroa_Tape|A depth reading scratched on a slate tag, with a cave's number on it.
+
+note orders Survey orders | KELPDEEP SURVEY - ORDERS\n\nFour caves under the kelp, all on the chart, none measured. Swim to each one, find its marker post at the mouth and take the reading off it (the posts are numbered: north, east, south, west).\n\nThe kelp is thick and the caves are deep. There's air trapped under the overhang at the north cave and under the east one - use it.\n\nWhen you have all four, log them at the buoy's recorder. The recorder unlocks the survey chest.\n- M. Okafor, surveyor
+note surveychest Survey chest | The survey's chest, unlocked by the recorder: a diving mask, a coil of good line, the surveyor's pay.
+loot surveychest Blueprint_Canteen*1;OxygenBottle*1;Rope*4;TradeToken*6
+prop surveychest loot.refill=0
+prop surveychest if.open=signal|logged
+prop surveychest else.open=message||The survey chest is locked to the buoy's recorder. Four readings first.
+note hutbox Survey hut box | The survey hut's box: chalk, slate tags, a thermos.
+loot hutbox Cooked_GenericMeat*2;PlasticBottle_Water*2;Plank*4
+prop hutbox loot.refill=0
+note kelpbarrel Sunk survey barrel | A survey barrel lost in the kelp: spare weights and line.
+loot kelpbarrel MetalOre*2;Rope*2;Scrap*3
+prop kelpbarrel loot.refill=0
+
+prop post1 obj.name=post1
+prop post1 beh.use=Take the north cave's reading
+prop post1 if.use=!signal|r1
+prop post1 on.use=message||NORTH CAVE - 14 M, the tag says. You scratch it onto a slate.\ngive||story:reading*1\nsignal||r1
+prop post1 else.use=message||You have this cave's reading.
+prop post2 obj.name=post2
+prop post2 beh.use=Take the east cave's reading
+prop post2 if.use=!signal|r2
+prop post2 on.use=message||EAST CAVE - 11 M.\ngive||story:reading*1\nsignal||r2
+prop post2 else.use=message||You have this cave's reading.
+prop post3 obj.name=post3
+prop post3 beh.use=Take the south cave's reading
+prop post3 if.use=!signal|r3
+prop post3 on.use=message||SOUTH CAVE - 9 M.\ngive||story:reading*1\nsignal||r3
+prop post3 else.use=message||You have this cave's reading.
+prop post4 obj.name=post4
+prop post4 beh.use=Take the west cave's reading
+prop post4 if.use=!signal|r4
+prop post4 on.use=message||WEST CAVE - 13 M, and a shape in the dark you'd rather not measure.\ngive||story:reading*1\nsignal||r4
+prop post4 else.use=message||You have this cave's reading.
+prop recorder obj.name=recorder
+prop recorder beh.use=Log the four readings
+prop recorder if.use=quest|3\ntake|story:reading|4
+prop recorder on.use=message||The recorder ticks through the four depths and stamps the chart: SURVEY COMPLETE. The survey chest's lock clicks.\nsignal||logged\nsound||event:/exploring/obstacles/keypad/keypad_selene_correct
+prop recorder else.use=message||The buoy's recorder wants four readings, one from each cave.
+prop hut zone.id=hut
+prop hut zone.radius=6
+prop hut zone.message=The survey hut on the east islet: a chart on the wall, slate tags, a view straight down into the kelp.
+prop air1 zone.id=air1
+prop air1 zone.radius=2.5
+prop air1 zone.repeat=1
+prop air1 zone.air=1
+prop air2 zone.id=air2
+prop air2 zone.radius=2.5
+prop air2 zone.repeat=1
+prop air2 zone.air=1
+prop bubbles1 atmo.particles=bubbles
+prop bubbles1 zone.radius=3
+prop bubbles2 atmo.particles=bubbles
+prop bubbles2 zone.radius=3
+prop kelplight atmo.fog=#1a4a30
+prop bubbles1 atmo.particles=bubbles
+prop bubbles1 zone.radius=3
+prop bubbles2 atmo.particles=bubbles
+prop bubbles2 zone.radius=3
+prop kelplight atmo.fogAmount=0.35
+prop kelplight atmo.light=#5ab070
+prop kelplight atmo.lightAmount=0.25
+prop kelplight zone.radius=30
+
+quest title=Under the Kelp
+quest intro=A survey hut on a pine islet over a forest of kelp. The surveyor's orders are pinned up inside.
+step read|Survey orders|1|Read the survey orders pinned up in the hut on the east islet
+step reach|air1|1|Dive to the north cave and find the air trapped under its overhang
+step collect|story:reading|4|Take the depth readings at the four kelp caves' marker posts
+step open|Survey chest|1|Log the readings at the buoy's recorder and open the survey chest
+quest done=The chart of Kelpdeep is complete - four caves, four depths, and a note in the margin about the west one.
+quest reward=Rope*4;MetalOre*3;Clay*4
+
+save Kelpdeep Rock

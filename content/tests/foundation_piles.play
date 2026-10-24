@@ -1,0 +1,50 @@
+# The Foundation Piles (CIPlay foundation_piles): the mudflat, the engineer's note, the first pile's air and jack, the
+# third jack refusing while the stingray lives, the second jack, the pile stingray in two phases, the last two jacks,
+# the closing note, back to the mudflat; the treasure.
+# offset 0 0 is a placeholder: phase 2 sets it from the recipe's save log (PLAY_FORMAT: Coordinates).
+island The Foundation Piles
+offset 0 0
+expect step 0
+expect title The Piles
+expect hidden closing
+zone mudflat
+expect step 1
+read Pile engineer's note
+expect step 2
+zone pile_1
+air pile_1
+expect step 3
+use jack1
+expect story jack1 1
+expect step 4
+zone pile_2
+expect step 5
+use jack3
+expect story jack3 0
+use jack2
+expect story jack2 1
+expect step 6
+# (a play's kill skips the phase: on.defeat gives both story items)
+kill Stingray
+wait 3
+expect story rayhurt 1
+expect story raydown 1
+expect step 8
+use jack3
+expect story jack3 1
+expect step 9
+use jack4
+expect shown closing
+expect step 10
+read The city holds
+expect step 11
+zone rubble_bank
+expect step 12
+read Engineers' survey
+expect step 13
+open Excavator's toolbox
+wait 3
+expect step 14
+zone mudflat_return
+expect done
+dig

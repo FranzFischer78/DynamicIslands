@@ -1,0 +1,24 @@
+# Relic of the Seventh Tide - a world plan of the library: Professor Kett's hunt for the engine that raised the sea
+# Raft's own story on, with seven islands of Kett's trail woven into it: a looted museum after the Radio Tower, a
+# sandstone mesa in Balboa's place (it holds Balboa's blueprints), a buried necropolis, a mooring mast on a sea stack,
+# a hollow fang of rock, a giant statue astride a strait and, last before Utopia, the Tide Engine itself. Two side islands
+# turn up by chance: a Syndicate dredging camp and a gorge with a rope bridge.
+#
+# Built by the recipe player (CIRecipe plan_relic_seventh_tide) in the editor's World plans window. Its play test:
+# content\tests\plan_relic_seventh_tide.play (run it on day 5 or later: CISetDay 5, for Rope Bridge Gorge's day:5).
+plan new Relic of the Seventh Tide
+plan description Professor Kett's hunt for the engine that raised the sea, woven into Raft's own story: a looted museum, a sandstone mesa in Balboa's place, a buried necropolis, a mooring mast, a hollow fang of rock, a giant astride a strait - and before Utopia, the Tide Engine. Two side islands turn up on the way. Its main islands are about 80% the size of Raft's own big islands.
+plan random on
+plan story on
+plan rule museum | island:Marrow Key Museum | km:3 | receiver:600 | A museum's alarm, looping on the Receiver - and a man's voice under it: "Kett here. Someone got here first." | Marrow Key Museum | after:RadioTower | quest
+plan rule mesa | island:Sunstaff Mesa | quest:museum | receiver:800 | Kett's next broadcast: a mesa of red sandstone, his map room on top. | Sunstaff Mesa | instead:Balboa | quest
+plan rule necro | island:Sandsunk Necropolis | visit:mesa | receiver:900 | From the mesa's map room the Receiver finds a dig's beacon: a necropolis half under the sand. | Sandsunk Necropolis | after:CaravanTown | quest
+plan rule mast | island:Skyhook Mast | rule:necro | receiver:900 | A mooring mast's beacon on 900, blinking for an airship that never came. | Skyhook Mast | after:Tangaroa | step:5
+plan rule fang | island:The Hollow Fang | quest:mast | receiver:1000 | Kett's voice, thin with static: "The Fang. Three trials. Mind the glass." | The Hollow Fang | after:VarunaPoint | quest
+plan rule colossus | island:Colossus of the Strait | quest:fang | receiver:1100 | A Syndicate channel on 1100: "The giant in the strait. Dig out the heel." | Colossus of the Strait | after:Temperance | quest
+plan rule engine | island:The Tide Engine | quest:colossus | receiver:1300 | On 1300 the sea itself seems to hum: seven beats, over and over. The Tide Engine. | The Tide Engine | after:colossus | quest
+plan rule dredgers | island:Dredgers Bank | km:8 | sailing:600 | A generator coughs somewhere out to sea - a sandbank with a rig on legs. | Dredgers Bank
+plan rule gorge | island:Rope Bridge Gorge | day:5 | ahead:450 | An island split in two ahead, a rope bridge swaying over the gap. | Rope Bridge Gorge
+plan credits A Professor Kett adventure | Custom Islands
+plan ending The Seventh Tide stops. Somewhere, the sea is a finger's width lower.\n\nThe end of Relic of the Seventh Tide.
+plan save

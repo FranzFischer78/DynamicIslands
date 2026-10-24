@@ -1,0 +1,103 @@
+# Kestrel Strand - a vehicle island (VI1, quest island)
+# A desert island where a small plane came down on the sand: the plane at the end of a long skid with its wing torn
+# off, the pieces strewn back along the skid, the pilot's shade shelter, a dinghy pulled up on the beach and hyenas
+# denning in the rocks. Quest "Mayday" (6 steps): the crash, the pilot's logbook, two hyenas, the cargo hatch opened
+# with the key from the flight case, the pilot's stash, the pilot's last entry at the dinghy.
+#
+# Points (metres from the land centre): the skid from -12 -8 to 6 4 (h 2), the plane 6 4, the shelter pad -12 5
+# (h 2), the hyena den 15 -10, the dinghy on the beach 4 -24.
+include lib_sea
+include lib_huts
+include lib_verdance
+new
+gen Trees=0.12 Bushes=0.2 Rocks=0.45 Harvest=0.15 BeachThings=0.35
+gen Seed=15104 Radius=30 Height=5 Roughness=0.35 Peaks=1 Shape=0.35 Style=2 PeakShape=0.4 Cliffs=0.15 BeachWidth=0.6
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.2 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+
+# --- Terrain: the skid, the shelter pad, the den rocks, the beach ------------------------------------------------
+brush flatten from -12 -8 to 6 4 r=6 s=20 frames=150 h=2
+brush sand from -12 -8 to 6 4 r=4 s=8 frames=20
+brush flatten at -12 5 r=4 s=20 frames=80 h=2
+# (the plane's whole length on the flat: at the strip's end the ground fell away under its floats)
+brush flatten at 6 4 r=8 s=20 frames=120 h=2
+brush rock at 15 -10 r=6 s=8 frames=30
+brush flatten at 15 -10 r=3.5 s=20 frames=60 h=2.6
+brush flatten at 4 -24 r=6 s=20 frames=100 h=1.1
+origin
+clear from -12 -8 to 6 4 r=6
+clear at -12 5 r=4
+clear at 4 -24 r=5
+
+# --- The plane and the skid of wreckage ---------------------------------------------------------------------------
+place Airplane plane at 6 4 ground sit rot=0,0,0 yaw=55 tilt=4
+place WingBroken - at -2 -2 ground sit rot=0,0,0 yaw=120
+place PropellerBlade - at -6 -4 ground sit rot=0,0,0 yaw=40
+place BackWingBroken - at -9 -7 ground sit rot=0,0,0 yaw=200
+place Door_Left - at 1 0 ground sit yaw=75
+place Note_Paper logbook at 2 -1 ground sit yaw=30
+place Zone_Trigger crashzone at 0 -1 ground
+
+# --- The pilot's shade shelter --------------------------------------------------------------------------------------
+push at -13.5 3.5 h=2
+call shelter w=2 d=2 y=0.1
+place Loot_ChestSmall stash at 1.5 2.2 y=0.1 sit yaw=180
+place "Box Small" - at 0.7 0.8 y=0.1 sit
+pop
+place campfire_1 - at -9 7 ground sit
+place Reef_Barrel1 - at -15 6 ground sit
+
+# --- The hyena den and the flight case; the dinghy on the beach --------------------------------------------------
+place Creature_Hyena den at 15 -10 ground
+prop den creature.count=2
+prop den creature.respawn=0
+place Loot_Crate flightcase at 13 -8 ground sit yaw=60
+place RT_PlasticBoat dinghy at 4 -24 ground sit rot=0,0,0 yaw=10
+place Note_Sign lastentry at 7.5 -20 ground sit yaw=190
+scatter Cactus3A 3 at -6 14 r=7 seed=15141 free=2
+scatter SmallBushyTree_2 2 at 16 8 r=5 seed=15142 free=3
+scatter CaravanIsland_SmallRock_1 3 at -18 -12 r=6 seed=15143 free=2
+call shallows x=0 z=0 r=38 deep=5 n=1 seed=15144
+
+# --- Settings, notes, quest ---------------------------------------------------------------------------------------
+info title=Kestrel Strand
+info author=Custom Islands
+info description=A small plane crashed on a desert island: a long skid of wreckage, the pilot's shade shelter, a dinghy on the beach and hyenas in the rocks.
+island on.arrive=message||A long scar across the sand, pieces of wing along it, and at the end a small plane nosed into the dunes.
+
+story cargokey|Cargo hatch key|quest:Varuna_CraneKey|The key of the plane's cargo hatch, from the flight case.
+story hatchopen|Cargo hatch open|Bolt|The plane's cargo hatch, unlocked. The stash in the shelter came loose with it.
+
+note logbook Pilot's logbook | PILOT'S LOGBOOK - KESTREL\n\nEngine out at the coast. Put her down on the sand. Wing gone, me fine.\nThe flight case went flying with the wing - somewhere over by the rocks. Hyenas there now.\nThe cargo hatch key is in that case. The stash in the shelter is chained to the hatch, do not ask.
+note flightcase Flight case | The flight case: the cargo hatch key and the pilot's charts.
+loot flightcase story:cargokey*1;Rope*2
+prop flightcase loot.refill=0
+note stash Pilot's stash | The pilot's stash: flight rations and spare parts.
+loot stash CircuitBoard*1;Battery*1;PlasticBottle_Water*2;Coconut*2
+prop stash loot.refill=0
+prop stash obj.name=stash
+prop stash beh.hidden=1
+note lastentry Last entry | LAST ENTRY\n\nPatched the dinghy. The sea is calm. Taking her out to look for a raft.\nIf you read this - the plane is yours. Not that she will fly.
+
+prop plane obj.name=plane
+prop plane beh.use=Unlock the cargo hatch
+prop plane if.use=take|story:cargokey|1
+prop plane on.use=message||The hatch swings down. A chain runs from it to the shelter - and the stash box there comes free.\ngive||story:hatchopen*1\nshow|stash
+prop plane else.use=message||The cargo hatch is locked. The logbook says where the key went.
+
+prop crashzone zone.id=crash
+prop crashzone zone.radius=5
+prop crashzone zone.message=The crash site. A small plane, nose down in the sand. Nobody in the seat.
+
+quest title=Mayday
+quest intro=A plane came down on Kestrel Strand. Find the crash.
+step reach|crash|1|Find the crashed plane
+step read|Pilot's logbook|1|Read the pilot's logbook
+step kill|Hyena|2|Drive the hyenas away from the flight case
+step collect|story:hatchopen|1|Unlock the plane's cargo hatch with the key from the flight case
+step open|Pilot's stash|1|Open the pilot's stash in the shelter
+step read|Last entry|1|Find where the pilot went
+quest done=The pilot took the dinghy out to sea. The plane, and the stash, are yours.
+quest reward=PlasticBottle_Water*2;Scrap*4
+
+save Kestrel Strand

@@ -1,0 +1,11 @@
+# Guide pictures of Embers Isle (CIPlay embers_isle_pics): Raft's camera, afternoon, calm
+island Embers Isle
+offset 1.8103 -0.3116
+hour 15
+weather Calm
+at 12 8.5
+wait 3
+picture embers_isle_bay 36 9 24 20 4 1
+picture embers_isle_village 13 9 11 25 3.5 1.5
+picture embers_isle_cliff 66 5 -2 45 4 -10
+picture embers_isle_cave 43.4 1.9 -11.4 40.4 0.7 -12.5

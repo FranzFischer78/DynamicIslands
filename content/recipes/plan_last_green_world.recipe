@@ -1,0 +1,27 @@
+# The Last Green World - a world plan of the library (SL11): Verdance, the last land where things still grow
+# A main story in place of Raft's (Raft's own story off, random islands off: Verdance should feel like one land): ten
+# islands from a pollen-dusted spit to the Heart of Green and the Rootcore under it, following the Seedkeepers who grew a
+# living organism to green the drowned world - and lost control of it. Ranger Oda Fenn's logs lead the way; the goat
+# Burr finds what she hid. At the Heart the player turns one valve, BURN or SPREAD, and the Rootcore is finished the same
+# way. Thornback Ridge, a hermit's camp, turns up ahead on day 6. Raft's story blueprints are quest steps on the way.
+#
+# Built by the recipe player (CIRecipe plan_last_green_world) in the editor's World plans window. Its play test:
+# content\tests\plan_last_green_world.play.
+plan new The Last Green World
+plan description Verdance, the last land where things still grow: a pollen spit, a ranger station, a river delta, a tracker's hill, a grove of giant trees, root caves, a poisoned marsh, a stair of roots, and the Heart of Green with the Rootcore beneath it - where one valve decides what Verdance becomes Its quest islands are as big as Raft's own big islands.
+plan random off
+plan story off
+plan rule spit | island:Pollenreach Spit | start | receiver:500 | The Receiver hisses, then a calm recorded voice: "Verdance Ranger Service. Landing beacon on Pollenreach Spit." | Pollenreach Spit | first | quest
+plan rule landing | island:Ranger Landing | quest:spit | receiver:700 | The spit's beacon hands over to the ranger station's band, 700: a hen clucking near the microphone. | Ranger Landing | after:spit | quest
+plan rule delta | island:Riverfork Delta | visit:landing | receiver:800 | From the station mast the Receiver finds a river outpost on 800, its relay ticking. | Riverfork Delta | after:landing | quest
+plan rule rise | island:Tracker's Rise | step:delta:6 | receiver:700 | Upriver, a ranger's tower calls on 700: "Tracker's Rise. The herds are back on the meadow." | Tracker's Rise | after:delta | step:8
+plan rule grove | island:Hollowtrunk Grove | quest:rise | receiver:900 | On 900, wind in very tall trees and a watering rota read aloud: Hollowtrunk Grove. | Hollowtrunk Grove | after:rise | zone:roots
+plan rule caves | island:Rootweave Caves | zone:grove:roots | receiver:600 | Down among the roots the Receiver picks up a survey team's beacon on 600, from under a hill. | Rootweave Caves | after:grove | quest
+plan rule mire | island:Blightmire | quest:caves | receiver:1000:needs=engine | On 1000, far off and faint, a smelter camp's call: "Blightmire. Bring fire." | Blightmire | after:caves | signal:cleansed
+plan rule canopy | island:Canopy Stair | rule:mire | receiver:900 | With the marsh clean, the Seedkeepers' last camp answers on 900: a stair of roots, north. | Canopy Stair | after:mire | quest
+plan rule heart | island:The Heart of Green | quest:canopy | receiver:1200 | On 1200, a slow hum like a heartbeat - the Heart of Green, at the centre of Verdance. | The Heart of Green | after:canopy | step:23
+plan rule rootcore | island:The Rootcore | signal:heart:below | receiver:400 | Under the Heart, on 400, warm static: the Rootcore, breathing. | The Rootcore | after:heart | quest
+plan rule ridge | island:Thornback Ridge | day:6 | ahead:500 | Ahead, a thorny ridge with a thin line of smoke from a ledge halfway up. | Thornback Ridge
+plan credits The Last Green World | Custom Islands
+plan ending One seed from the oldest root, warm in your hand. Whatever Verdance becomes now, it began again with you.\n\nThe end of The Last Green World.
+plan save

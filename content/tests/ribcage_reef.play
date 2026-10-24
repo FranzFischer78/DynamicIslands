@@ -1,0 +1,79 @@
+# Play test of Ribcage Reef (CIPlay ribcage_reef, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The village's shore at 2 m along x -2..48 (z about -5..9), the gate at -3 2, the houses on stilts, the highest rib's
+# ladders at 23.8 -1.45 (its platform 12 m up); the tide pool at 38 10 (3 m under the sea); the stage round 43 1, the four
+# rib-chime posts at 31/36 x -3.8/7.8, the jaw at x 49 and the throat's gate at x 51.5, the throat sloping down to 59.6 22;
+# the skull's chamber x 59..65, z 25..34 (floor 9 m down, door south at x 59..62); the altar on the east horn at 92 22.
+island Ribcage Reef
+offset 0 0
+expect step 0
+expect title The Bone-Singers' Festival
+wait 5
+expect animals Chicken 3
+expect animals Turtle 3
+at -8 2 h=3
+walk -8 2 to 4 2 h=2
+zone ribvillage
+expect step 1
+read The festival invitation
+expect step 2
+open Tail box
+expect step 3
+kill Roach
+expect step 4
+open First song shell
+expect step 5
+open Second song shell
+expect story songshell 2
+expect step 6
+at 22.6 -1.4 h=15
+zone ribtop
+expect step 7
+open Third song shell
+expect step 8
+open Fourth song shell
+expect story songshell 4
+expect step 9
+at 44 -3 h=3
+zone jawstage
+expect step 10
+read The song's rule
+expect step 11
+use ribwind
+expect message dead clack
+use ribtide
+use ribwind
+use ribstar
+use ribdeep
+expect story mask 1
+expect step 12
+wait 4
+at 54 6 h=1.5
+zone throatzone
+expect step 13
+at 60.5 20 h=-5
+at 62 27 h=-7.5
+zone skull
+expect step 14
+read The eldest singer's tablet
+expect step 15
+open The eye's pearl
+expect story pearl 1
+expect step 16
+kill Angler fish
+expect step 17
+expect shown braincase
+open The skull's brain-case
+expect story heartbone 1
+expect step 18
+at 92 16 h=5
+zone altarzone
+expect step 19
+use altar
+expect shown festival
+expect step 20
+read The singers' blessing
+expect step 21
+open The festival chest
+expect done
+open Cook pot box
+open Sunk canoe

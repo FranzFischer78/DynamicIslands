@@ -1,0 +1,26 @@
+# Play test of Coyote Mesa (CIPlay coyote_mesa, in a test world 'CI ...'). No quest: the hermit's cabin and box, up the
+# west mesa's ladders, across the rope bridge to the east mesa's hidden chest; the hyenas, the screecher, the treasure.
+# Points as in its recipe.
+island Coyote Mesa
+offset 0 0
+expect animals Hyena 3
+expect animals Screecher 1
+wait 3
+kill Hyena
+kill Screecher
+# The hermit's cabin
+walk -25.75 -25 to -25.75 -23 to -25.75 -20.5 h=3.1 below=4
+open Hermit's box
+# Up the west mesa
+at -18 -13.5 h=3
+climb -18 -11.65 h=3
+expect stand -18 -9.5 h=7.8 below=9
+climb -18 -8.15 h=7.8
+expect stand -18 -6 h=12.6 below=14
+climb -18 -4.65 h=12.6
+expect stand -18 0 h=17.4 below=19
+# Across the bridge
+walk -15 0 to -12 0 to -2 0 to 8 0 to 12 0 h=17.5 below=19
+expect stand -2.7 0 h=15.9 below=17
+open The hermit's hidden chest
+dig

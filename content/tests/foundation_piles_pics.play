@@ -1,0 +1,13 @@
+# Guide pictures of The Foundation Piles (CIPlay foundation_piles_pics): Raft's camera, midday, calm; the mudflat and the pile forest below
+# offset 0 0 is a placeholder: phase 2 sets it from the recipe's save log (PLAY_FORMAT: Coordinates).
+island The Foundation Piles
+offset 0 0
+hour 11
+weather Calm
+at 26.4 0
+wait 3
+picture sl13_foundation_piles_island 86.4 24 -70 18.4 -2 0
+picture sl13_piles_bank -35 20 25 -50 10 38
+picture sl13_piles_digger -48 9 -30 -62 3 -42
+picture sl13_piles_hut 10 9 -50 10 4 -66
+picture sl13_piles_barrels 13 8 18 13 0 0

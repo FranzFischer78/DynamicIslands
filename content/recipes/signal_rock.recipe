@@ -1,0 +1,266 @@
+# Signal Rock - a small island of the library (inspired by Raft's Radio Tower)
+# A crescent ridge around a sheltered cove; in the cove a radio relay station stands on legs: a deck, a radio room,
+# a roof platform and a 20 m mast with a beacon. Quest "Dead Air" (6 steps): climb up, read the log, clear the puffer
+# fish off the coil's crate, dive for the transmitter coil, fit it, read the printout, climb the mast and light the
+# beacon. Screechers nest on the ridge.
+#
+# Built by the recipe player (CIRecipe signal_rock) through the editor's own operations - open the saved island in
+# the editor to see how each part is made.
+
+include lib_sea
+new
+# (nature: a rocky island: half again Raft's rocks - Raft's islands as the generator's Like Raft has them, CIGenLikeRaft)
+gen Trees=0.25 Bushes=0.28 Rocks=0.55 Harvest=0.24 BeachThings=0.3
+gen Seed=311 Radius=30 Height=17 Roughness=0.55 Peaks=1 Shape=6 Style=0 Cliffs=0.6 BeachWidth=0.25 PeakShape=0.55
+# (sea: Raft's finds and corals as dense as around Raft's islands - Like Raft 0.5 - the review, 2026-10-03)
+gen SeaFloor=1 Seabed=1 Water=0.5 SeaRocks=0.6 SeaFinds=0.5 Sunken=0.1
+gen Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# --- Terrain: a deeper cove with a channel to the open sea, a higher summit on the ridge ---------------------------
+brush lower at -11 -11 r=9 s=10 frames=4
+brush lower at -14 -15 r=6 s=10 frames=3
+brush lower at -8 -6 r=5 s=10 frames=2
+brush lower from -12 -17 to -14 -30 r=5 s=10 frames=8
+brush smooth at -11 -12 r=12 s=6 frames=12
+brush raise at 9 0 r=5 s=10 frames=8
+brush smooth at 9 0 r=7 s=4 frames=6
+brush rock at 9 0 r=5 frames=25
+brush rock at 4 8 r=4 frames=20
+brush rock at 6 -8 r=4 frames=20
+# (the ground where the walkway lands: raised to its height, 2.5 m, and levelled from the slope down to it)
+brush raise at -0.7 -18.5 r=3.5 s=10 frames=4
+brush flatten from 0.8 -20.0 to -1.6 -17.6 r=2.5 s=20 frames=24
+brush smooth at -0.2 -19.0 r=4 s=4 frames=6
+clear at -1 -18 r=3
+clear at 9 0 r=3
+
+# --- The relay station: a frame on the cove, its floor 2.5 m above the sea, facing the open sea (south-west) --------
+push at -11 -11 h=2.5 yaw=45
+
+# Deck: two of Raft's radio tower floors (6 x 9 m each; the pivot is their +x/+z corner)
+place RT_Floor deckA at 0 4.5
+place RT_Floor deckB at 6.04 4.5
+
+# Legs into the cove: two thick pillars (6 m) on top of each other at the corners and the middle
+for lx -5.9 5.9 11.8
+for lz -4.4 4.4 8.8
+place RT_PillarThick - at $lx $lz y=-6
+place RT_PillarThick - at $lx $lz y=-12
+next
+next
+place RT_PillarThick - at 0 -4.4 y=-6
+place RT_PillarThick - at 0 4.4 y=-6
+place RT_PillarThick - at 0 -4.4 y=-12
+place RT_PillarThick - at 0 4.4 y=-12
+
+# A ladder up from the water at the front of deck B, a small boat moored at it
+place LandmarkLadder_6m ladder at 3 -4.62 y=-6.3
+place RT_PlasticBoat - at 3 -7 h=-0.3 yaw=10 rot=0,0,0
+
+# Railings of deck B (fences run 1.5 m from their pivot towards -x: turned 90 they run along +z); gaps for the
+# ladder (front) and the walkway (the sea-side edge)
+place RT_Fence - at 1.5 -4.5
+place RT_Fence - at 2.25 -4.5
+place RT_Fence - at 5.25 -4.5
+place RT_Fence - at 6.0 -4.5
+for fz -4.5 -1.5 1.5
+place RT_Fence - at 6.0 $fz yaw=90
+next
+
+# Stairs from deck B up to the roof along the back edge (Raft's tower stair rises 3 m towards its -x end): the foot
+# at the walkway, the top on the roof
+place RT_Stair stair at 6.0 3.0
+
+# The radio room on deck A: walls of 3 x 3 m (a window, a door to deck B). The outer walls stand 8 cm in from the
+# deck's edges, on the floor whole (at the edge half their thickness stood over the cove, 6-9 m down - CIGroundIslands)
+place RT_Wall1 - at -3 4.42
+place RT_Wall1 - at 0 4.42
+place RT_WallWindow1 - at -3 -4.42
+place RT_Wall1 - at 0 -4.42
+place RT_Wall1 - at -5.96 -4.5 yaw=90
+place RT_WallWindow2 - at -5.96 -1.5 yaw=90
+place RT_Wall1 - at -5.96 1.5 yaw=90
+place RT_Wall1 - at 0 -4.5 yaw=90
+place RT_WallDoor1 door at 0 -1.5 yaw=90
+place RT_WallWindow1 - at 0 1.5 yaw=90
+
+# Inside: the desk with the dead transmitter, the operator's log, the console, counters, boxes, a lamp
+place "Table Office" desk at -3 3.55 sit
+place RT_CommRadio radio at -3.3 3.95 y=1.08 sit
+place RT_CommRadio radioLive at -3.3 3.95 y=1.08 sit
+place Note_Book log at -2.3 3.85 y=1.08 sit
+place Note_Papers printout at -4.1 3.9 y=1.08 sit
+place "Chair Office" - at -3 2.7 sit yaw=170
+place Placeable_Lantern_Metal - at -1.8 4.05 y=1.08 sit
+place RT_RadarScreen - at -5.45 -0.5 sit yaw=90
+place Cupboard - at -5.75 -0.5 y=2.5 yaw=90
+place "Counter Left" - at -5 -4.4 sit
+place "Counter Mid" - at -4 -4.4 sit
+place "Counter Right" - at -3 -4.4 sit
+place Phone - at -4 -4.05 y=1.07 sit
+place "Box Big" - at -5.3 3.25 sit
+place "Box Big" - at -5.2 -3.65 sit yaw=20
+place "Fire Estinguisher" - at -0.45 -3.9 sit
+place RT_RoofLamp - at -3 0 y=2.95
+place RT_PowerBox - at -0.2 2.3 y=1.4 yaw=90
+place Zone_Sound hum at -3 0 y=1.5
+
+# The notice next to the door, outside on deck B
+place Note_Board notice at 0.12 -3.0 y=1.6 yaw=90
+
+# Roof: another floor 3 m up, railings (a gap where the stair arrives), the dish, floodlights, a vent
+place RT_Floor roof at 0 4.5 y=3
+for fx -4.5 0 1.5
+place RT_Fence - at $fx 4.5 y=3
+next
+for fx -4.5 -1.5 1.5
+place RT_Fence - at $fx -4.5 y=3
+next
+for fz -4.5 3 1.5
+place RT_Fence - at -6.0 $fz y=3 yaw=90
+next
+for fz -4.5 1.5 1.5
+place RT_Fence - at 0 $fz y=3 yaw=90
+next
+place RT_SatteliteDisc - at -4.7 -2.6 y=3 sit yaw=200
+place RT_Floodlight - at -5.85 -4.35 y=4.35 yaw=225
+place RT_Floodlight - at -5.85 4.35 y=4.35 yaw=315
+place RT_DuctTop - at -2.7 3.3 y=3 sit
+
+# The mast: three thick pillars (18 m), a ladder up its front, a small platform on top with the beacon
+place RT_PillarThick - at -3 2 y=3
+place RT_PillarThick - at -3 2 y=9
+place RT_PillarThick - at -3 2 y=15
+place LandmarkLadder_6m - at -3 1.62 y=3
+place LandmarkLadder_6m - at -3 1.62 y=9.78
+place LandmarkLadder_6m - at -3 1.62 y=16.56
+place Scaffolding_2x2m top at -3 2.9 y=21
+place Block_Wall_Fence_Tier3 - at -3 3.9 y=22
+place Block_Wall_Fence_Tier3 - at -4 2.9 y=22 yaw=90
+place Block_Wall_Fence_Tier3 - at -2 2.9 y=22 yaw=90
+place RT_Floodlight beacon at -3 3.3 y=22.4
+place Antenna_dish - at -2.3 3.6 y=22 sit
+place RT_PowerBox - at -3 2.35 y=4.4 yaw=180
+place Zone_Trigger masttop at -3 2.9 y=23
+place Zone_Trigger beaconswitch at -3 2.9 y=23
+
+# Where the deck starts (the quest's first step)
+place Zone_Trigger deck at 3 0 y=1
+
+# The walkway to the ridge's southern arm: a scaffold platform (6 x 4 m, 1 m thick) on pillars, railings (open
+# where the stair starts)
+push at 6.04 2.0
+place Scaffolding_6x4m walkway at 3 0 y=-1
+place RT_PillarThick - at 3 -1.7 y=-7
+place RT_PillarThick - at 3 1.7 y=-7
+line RT_Fence from 0 -1.95 to 6 -1.95 step=1.5 ends yaw=180
+line RT_Fence from 1.5 1.95 to 6 1.95 step=1.5 ends yaw=180
+pop
+pop
+
+# --- The ridge: the windmill, a dish, the screechers' nest -------------------------------------------------------
+place RT_WindMill - at 9.5 0.5 sit yaw=200
+place Antenna_dish - at 7.5 2 sit yaw=120
+place Bird_Nest - at 9.75 -0.8 y=-0.05 sit
+place Creature_StoneBird screechers at 8 -2.8
+place Note_Sign sign at 1.4 -18.0 yaw=300
+
+# --- Life on the ridge: palms with coconuts, bushes, flowers, stones to pick up; finds on the cove floor -----------
+scatter "Pickup_Landmark_Tree_Palm 1" 3 at 4 6 r=6 seed=11
+scatter "Pickup_Landmark_Tree_Palm 3" 2 at 6 -6 r=5 seed=12
+scatter Bush 6 at 4 2 r=10 seed=13
+scatter Monstera_1 3 at -4 9 r=4 seed=14
+scatter Banana_Bush_1 2 at 2 8 r=4 seed=15
+scatter Pickup_Landmark_Flower_Red 3 at 1 -21 r=3 seed=16
+scatter "Pickup_Landmark_Rock 1" 4 at 1 -20 r=4 seed=17
+scatter SmallBoulder4 5 at -6 4 r=12 seed=18
+scatter "Pickup_Landmark_Scrap 1_OceanBottom" 3 at -13 -13 r=6 wet seed=19
+scatter Pickup_Landmark_SilverAlgae 2 at -16 -10 r=4 wet seed=20
+
+# --- The cove floor: the snapped crane arm, the coil's crate, boxes, the shark cage, puffer fish ------------------
+place RT_Beam - at -14 -12 y=0.25 yaw=30 tilt=8
+place Loot_Crate coilcrate at -15 -14.5 sit tilt=12 yaw=40
+place "Box Big" - at -16 -12 sit tilt=20
+place "Box Big" - at -12.5 -16 sit tilt=-15 yaw=70
+place Reef_Barrel1 - at -17 -10 sit tilt=80
+place RT_SharkCage sharkcage at -8.5 -17 sit yaw=30
+# (scenery: a shark cage wrecked on the reef; it wanted bolt cutters - the ready piece's lock taken off)
+prop sharkcage beh.use=
+prop sharkcage if.use=
+prop sharkcage else.use=
+prop sharkcage on.use=
+place Creature_PufferFish puffers at -13.5 -13.5 h=-1.5
+place Note_Bottle bottle at -14 -23 h=0
+
+# --- Settings, story item, notes, behaviours, quest -----------------------------------------------------------
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=50 deep=5 n=1
+
+info title=Signal Rock
+info author=Custom Islands
+info description=A small rocky island with a radio relay station standing in its cove. Climb the station, dive for the lost transmitter coil, bring the radio back on the air and light the beacon on top of the mast. Inspired by Raft's Radio Tower.
+island on.arrive=message||Signal Rock. A silent radio mast stands in the cove.
+
+story coil|Transmitter coil|CircuitBoard|A heavy copper coil from the relay transmitter. The radio won't work without it.
+loot coilcrate story:coil*1;Bolt*3;Scrap*4
+prop coilcrate loot.refill=0
+
+note log Operator's log | Day 212. The mainland has been silent for a week. I keep sending on the old frequency anyway.\n\nDay 219. Storm. The crane arm snapped while I was lifting the spare transmitter coil to the roof - coil, crate and arm all went into the cove. It's only five metres deep there. I'll dive for it when the swell drops.\n\nDay 220. The swell isn't dropping, and screechers have taken the ridge. Without that coil the transmitter is dead.\n\nDay 223. Taking the boat to look for the others. If you read this: the coil is in a crate on the cove floor, on the seaward side. Fit it in the transmitter and the station will print the last message it caught.\n\n- R. Okafor, operator, relay station SR-4
+note printout Signal printout | SR-4 RELAY - LAST BUFFERED MESSAGE\n\n...TO ANY STATION... THIS IS THE CARAVAN... WE HAVE WATER AND SHELTER FOR ALL WHO COME... FOLLOW THE BEACONS EAST... REPEAT, FOLLOW THE BEACONS...\n\n[END OF BUFFER]\n\nUnder it, in pencil: "Light the beacon so they know we're still here."
+note notice Relay Station SR-4 | AUTHORISED PERSONNEL ONLY\n\nTransmitter maintenance: every Monday.\nThe mast ladder is NOT a lookout.\n\n- Management
+note sign Signal Rock | Relay station SR-4 - the walkway to the station.\nMind the screechers on the ridge.
+note bottle A message in a bottle | Ruth - we made it to the caravan. Come east when the radio works again, and bring that coil money you owe me. - D.
+
+prop hum sound.event=event:/exploring/relaystation/electricity
+prop hum sound.volume=0.5
+prop hum zone.radius=5
+
+# The dead transmitter takes the coil; then it is swapped for a live one and the printout appears
+prop radio obj.name=radioDead
+prop radio beh.use=Fit the transmitter coil
+prop radio if.use=take|story:coil|1
+prop radio on.use=message||You fit the coil. The transmitter hums, and a printout feeds out.\nhide|radioDead\nshow|radioLive\nshow|printout\nshow|beaconswitch\nsound||event:/exploring/obstacles/tangaroa/generator_placepart
+prop radio else.use=message||The transmitter is dead - its coil socket is empty.
+prop radioLive obj.name=radioLive
+prop radioLive beh.hidden=1
+prop radioLive beh.use=Listen
+prop radioLive on.use=message||Static... then, faintly, the same words over and over: "Follow the beacons east."
+# (Raft's comm radio as a ready piece only works with power (a running generator or Raft's battery charger part), which this island has none of: the radio, live once the coil is fitted, answered "The radio is dead". The ready piece's lock taken off)
+prop radioLive if.use=
+prop radioLive else.use=
+prop printout obj.name=printout
+prop printout beh.hidden=1
+
+# The deck, the mast top (wakes the screechers), the beacon switch (there once the radio works) and the beacon
+prop deck zone.id=deck
+prop deck zone.radius=5
+prop deck zone.message=The relay station's deck. The radio room door stands open.
+prop masttop zone.id=masttop
+prop masttop zone.radius=2.5
+prop masttop zone.message=The wind howls up here. Screechers lift off the ridge!
+prop beaconswitch zone.id=beaconswitch
+prop beaconswitch zone.radius=2.5
+prop beaconswitch obj.name=beaconswitch
+prop beaconswitch beh.hidden=1
+prop beaconswitch on.enter=show|beacon\nmessage||You throw the beacon switch. The light starts to turn.\nsound||event:/raft/radar/lever
+prop beacon obj.name=beacon
+prop beacon beh.hidden=1
+prop beacon beh.spin=60
+
+prop screechers creature.count=2
+prop screechers creature.zone=masttop
+prop puffers creature.count=2
+
+quest title=Dead Air
+quest intro=A relay mast stands in the cove of Signal Rock, silent for weeks. Find out why the station went quiet - and bring it back on the air.
+step reach|deck|1|Climb up to the station deck
+step read|Operator's log|1|Read the operator's log in the radio room
+step kill|Puffer fish|2|Dive to the cove floor and clear the puffer fish off the coil's crate
+step collect|story:coil|1|Find the transmitter coil in the cove
+step read|Signal printout|1|Fit the coil in the transmitter and read the printout
+step reach|beaconswitch|1|Climb the mast and light the beacon
+quest done=The beacon on Signal Rock sweeps the sea again. Whoever is out there will see it.
+quest reward=HeadLight*1;Battery*2;CircuitBoard*1;Bolt*4
+
+save Signal Rock

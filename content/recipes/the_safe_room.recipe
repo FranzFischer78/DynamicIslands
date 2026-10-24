@@ -1,0 +1,338 @@
+# The Safe Room - a themed island, normal size (x1)
+# Inspiration: home-invasion thrillers (a mother and daughter in a steel safe room behind a bookshelf while intruders
+#   search the house) - the mood only, never named on the island.
+# Island type: Shape 4 (Plateau), Style 2 (desert). A red-rock bluff with cliffs all round and the generator's one ramp
+#   up its side - the villa's driveway; a strip of beach at the cliff's foot with the boathouse.
+# A modern concrete villa on a desert bluff over the sea, broken into one night by three men in a speedboat. The owner and her
+# daughter locked themselves in the safe room behind the study's bookshelf; the men gave up, their boat sank on the rocks
+# below and their dogs still guard the garden. The safe room's code changes every month and is kept in three parts.
+# Quest "Behind the Bookshelf" (6 steps): the night guard's log, the dogs in the garden, three parts of the code, the
+# hidden door and the dogs that come back, the safe room's log, down the escape shaft to the boathouse safe (battery
+# charger blueprint, binoculars, salves).
+#
+# Built by the recipe player (CIRecipe the_safe_room) through the editor's own operations.
+include lib_rt
+include lib_huts
+include lib_sea
+new
+# (nature: desert, Like Raft - acacias and scrub on the bluff, the villa's garden the recipe's own)
+gen Trees=0.38 Bushes=0.5 Rocks=0.55 Harvest=0.25 BeachThings=0.3
+gen Seed=9002 Radius=45 Height=16 Roughness=0.3 Peaks=1 Shape=4 Style=2 BeachWidth=0.6 Cliffs=0.7 PeakShape=0.3
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the bluff's top (15.6-15.9 m) levelled at 15.9 where the villa, the gatehouse and the garden stand; the
+# driveway cut along the south face from the shelf at the cliffs' foot (2.5 m) up to the top's south-east corner (about
+# 1:3, 6 m wide), a landing at each end; a pad on the north beach for the boathouse; a lawn behind the villa -----------
+brush flatten from -14 -7 to 8 -7 r=6 s=20 frames=80 h=15.9
+brush flatten from -14 -1 to 8 -1 r=6 s=20 frames=80 h=15.9
+brush flatten from -14 5 to 8 5 r=6 s=20 frames=80 h=15.9
+brush flatten from -14 10 to 8 10 r=6 s=20 frames=80 h=15.9
+brush flatten from 10 -20 to 17 -20 r=5 s=20 frames=60 h=15.9
+for i 0 28 1
+brush flatten at {-26+$i*1.5} {-33+$i*0.268} r=4.5 s=20 frames=20 h={2.6+$i*0.4536}
+next
+brush flatten at -29 -33.5 r=4 s=20 frames=40 h=2.6
+brush flatten from 16 -25.5 to 20 -23 r=4.5 s=20 frames=40 h=15.6
+brush smooth from -26 -33 to 16 -25.5 r=4.5 s=10 frames=12
+brush flatten from -2.5 39.2 to 3 39.2 r=3.5 s=20 frames=60 h=1.2
+brush flatten from -2.5 42.4 to 3 42.4 r=3.5 s=20 frames=60 h=1.2
+# (the shelf behind it back up to its deck: the pad had cut it down to 1.2 m, a step the walker couldn't climb)
+brush flatten from -2.5 36.3 to 3 36.3 r=2.6 s=20 frames=150 h=2.55
+brush flatten from -2.5 37.2 to 3 37.2 r=2.2 s=20 frames=150 h=2.55
+brush grass from -10 14 to 8 14 r=5 s=20 frames=30
+brush grass from -10 19 to 8 19 r=5 s=20 frames=30
+# (no "origin": the set pieces keep the frame the strokes above used, the generated land's exact middle)
+clear from -14 -5 to 8 -5 r=8
+clear from -14 6 to 8 6 r=7
+clear from -10 16 to 8 16 r=6
+clear at 13.5 -19 r=6
+clear from 18 -24 to 8 -16 r=5
+clear from -26 -33 to 16 -25.5 r=5
+clear at 0 40 r=5
+clear at 0 32 r=3
+# (boulders on the cliffs' steep faces, 4-14 m up, looked as if they hung in the air)
+clear at 0 0 r=70 only=Rock|Boulder above=4 below=14
+
+# --- The villa on the bluff's top: five of the radio tower's rooms (6 x 9 m each, flat roofs) in a block - the living
+# room at the front door with the kitchen beside it (open between them), Lia's room off the living room, the study behind
+# the living room and the safe room behind the kitchen, its only door in the study's side wall behind the middle
+# bookshelf. Villa frame: x across, z from the front (the driveway's side) to the back -------------------------------------
+push at 0 -3 h=15.95
+# (the living room: the front door, a window, a door into Lia's room, open to the kitchen and the study)
+push at 0 0
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 l2=RT_WallDoor1 r2=none b2=none
+place RT_Floor - at 0 4.5 y=3
+pop
+# (the kitchen: the broken window the men came in by)
+push at 6 0
+call rt_storey f1=RT_WallWindow1 f2=RT_WallWindowBroken l1=none l2=none l3=none r1=RT_WallWindow1 r3=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+pop
+# (Lia's room)
+push at -6 0
+call rt_storey f1=RT_WallWindow1 l2=RT_WallWindow1 b2=RT_WallWindow1 r1=none r2=none r3=none
+place RT_Floor - at 0 4.5 y=3
+pop
+# (the study: windows to the garden; its right wall's middle a radio tower doorway - the safe room's door)
+push at 0 9
+call rt_storey f1=none f2=none l1=RT_WallWindow1 l3=RT_WallWindow1 b1=RT_WallWindow1 r2=RT_WallDoor1
+place RT_Floor - at 0 4.5 y=3
+pop
+# (the safe room: steel all round, no windows)
+push at 6 9
+call rt_storey f1=none f2=none l1=none l2=none l3=none
+place RT_Floor - at 0 4.5 y=3
+pop
+
+# (the living room: a sofa and an armchair facing the TV on its bench, a carpet, a floor lamp, a plant by the door)
+place "VG_DecorationPrefabBase_Carpet_Rectangle Variant" - at -3.9 2.5 y=0.02
+place "VG_DecorationPrefabBase_Sofa Variant" - at -3.9 1 y=0 sit
+place "VG_DecorationPrefabBase_Armchair Variant" - at -2.4 2.6 y=0 sit yaw=270
+place "VG_DecorationPrefabBase_TVBench Variant" - at -3.9 4.15 y=0 sit yaw=180
+place "VG_DecorationPrefabBase_TV Variant" - at -3.9 4.15 y=0.6 sit yaw=180
+place "VG_DecorationPrefabBase_FloorLamp Variant" - at -5.5 -3.9 y=0 sit
+place Placeable_TangaroaPlant_4 - at -0.7 -3.8 y=0 sit
+# (the kitchen: the sink bench along the back wall, the stove, the drawer unit with a code part, the fridge, a calendar)
+place TangaroaKitchen_Bench5_Sink - at 5.9 4.4 y=0 sit
+place TangaroaKitchen_StoveOven - at 2.1 4.4 y=0 sit
+place TangaroaKitchen_BenchDrawers_Openable kitchendrawer at 1.3 4.4 y=0 sit
+place TangaroaKitchen_Fridge - at 5.4 -3.7 y=0 sit yaw=270
+place Placeable_Calendar - at 4 4.4 y=1.9 yaw=180
+# (the dinner table in the middle of the kitchen, its four chairs)
+place "VG_DecorationPrefabBase_DinnerTable_Oval Variant" - at 3 0 y=0 sit
+place "VG_DecorationPrefabBase_DinnerChair Variant" - at 2.4 -1.2 y=0 sit
+place "VG_DecorationPrefabBase_DinnerChair Variant" - at 3.6 -1.2 y=0 sit
+place "VG_DecorationPrefabBase_DinnerChair Variant" - at 2.4 1.2 y=0 sit yaw=180
+place "VG_DecorationPrefabBase_DinnerChair Variant" - at 3.6 1.2 y=0 sit yaw=180
+# (Lia's room: her bed, her treasure box at its foot, a toy robot and a doll)
+place BedSmall - at -10.5 2.5 y=0 sit
+place Loot_ChestSmall liabox at -10.5 0.55 y=0 sit yaw=180
+place Placeable_ToyRobot - at -7 3.9 y=0 sit yaw=200
+place Balboa_DecorationPrefabBase_Doll_R - at -11.3 -3.7 y=0 sit yaw=30
+# (the study: the big desk and its chair, three bookshelves along the right wall - the middle one rolls 1.5 m back along
+# it and uncovers the safe room's door - and the keypad between the first two)
+place "VG_DecorationPrefabBase_BigOfficeDesk Variant" - at -3.6 10.4 y=0 sit
+place "VG_DecorationPrefabBase_OfficeChair Variant" - at -3.4 11.9 y=0 sit yaw=180
+place "VG_DecorationPrefabBase_Bookshelf Filled 1 Variant" - at -0.08 6.75 y=0 sit
+place "VG_DecorationPrefabBase_Bookshelf Filled 2 Variant" bookshelf at -0.08 9 y=0 sit
+place "VG_DecorationPrefabBase_Bookshelf Filled 3 Variant" - at -0.08 12.6 y=0 sit
+place Tangaroa_CockpitLaunchKeypad keypad at 0 7.88 y=1.35 yaw=270
+# (the safe room: the screens on the office table, the radar console, the bunk bed, sealed crates, the water tank, the
+# log, the turning red light, the escape hatch in the floor; dark red air and the screens' hum)
+place "Table Office" - at 4.2 12.6 y=0 sit
+place Balboa_DecorationPrefabBase_Flatscreen - at 3.5 13.1 y=1.08 sit yaw=180
+place Balboa_DecorationPrefabBase_Flatscreen - at 4.2 13.1 y=1.08 sit yaw=180
+place Balboa_DecorationPrefabBase_Flatscreen - at 4.9 13.1 y=1.08 sit yaw=180
+place Note_Book panicnote at 3.9 12.7 y=1.1 drop yaw=10 rot=0,0,0
+place "Chair Office" - at 4.2 11.8 y=0 sit yaw=180
+place RT_RadarScreen - at 5.3 9 y=0 sit yaw=90
+place "VG_DecorationPrefabBase_BunkBed Variant" - at 1.9 12.3 y=0 sit
+place TP_Moontown_SealedCrate02_Clean - at 5 5.4 y=0 sit
+place TP_Moontown_SealedCrate02_Clean - at 5 5.4 y=0.92 sit yaw=10
+place Placeable_WaterTank - at 3 5.3 y=0 sit
+place TangaroaHatchRoom_Hatch hatch at 3.2 9.4 y=0.02
+place TP_RotatingRedLight redlight at 3 9 y=2.85
+place Zone_Atmosphere saferoomair at 3 9 y=1.5
+place Zone_Sound saferoomhum at 3 9 y=1.5
+place Zone_Trigger saferoomtop at 2.2 9.6 y=0.2
+place Pickup_Landmark_Plastic3_Land - at -2 -2.5 y=0.3 drop yaw=18
+place Pickup_Landmark_Plank_Land - at 4.9 -1.8 y=0.3 drop yaw=222
+place Pickup_Landmark_Plastic3_Land - at -8.8 -2.2 y=0.3 drop yaw=140
+place Pickup_Landmark_Plastic3_Land - at -4.5 7.2 y=0.3 drop yaw=275
+pop
+
+# --- The gatehouse at the driveway's top: two by two of Raft's floor, solid wooden walls with a window, a gap for its
+# door, a wooden roof on its corner posts; the guard's screen on a table, his log, his locker ---------------------------
+push at 12.5 -20.5 h=15.95
+call floors w=2 d=2
+place Block_Wall_Tier3 - at 0.75 3 y=0.1
+place Block_Wall_Window_Tier3 - at 2.25 3 y=0.1
+place Block_Wall_Tier3 - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Tier3 - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Window_Tier3 - at 3 2.25 y=0.1 yaw=90
+place Block_Wall_Tier3 - at 3 0.75 y=0.1 yaw=90
+place Block_Wall_Tier3 - at 2.25 0 y=0.1
+call corners w=2 d=2
+roof 2 2 at 0 0 y=0.1 wood
+place Tangaroa_OutdoorFurniture_Table - at 2.2 2.3 y=0.1 sit
+place Balboa_DecorationPrefabBase_CRTScreen - at 2.4 2.4 y=0.85 sit yaw=180
+place Note_Book securitylog at 1.9 2.1 y=0.85 drop yaw=-15 rot=0,0,0
+place Balboa_DecorationPrefabBase_SmallLocker gatelocker at 0.4 2.4 y=0.1 sit yaw=90
+place Zone_Trigger driveway at 1.5 -3 y=1
+place "Pickup_Landmark_Scrap 4_Land" - at 1.5 1.0 y=0.4 drop yaw=96
+pop
+# (outside: the gate standing open by the road, the family's van, the carport's tool crate)
+place Block_Wall_Gate_Tier3 - at 16.6 -22.4 ground yaw=60
+place Van_2 - at 4 -16 ground
+place Loot_Crate garagecrate at 7 -14 ground yaw=20
+
+# --- The garden on the villa's seaward side: loungers, a sun shade, a table and chairs, cacti and aloes, two palms; the
+# cooler; the intruders' dogs, and the two that come back ------------------------------------------------------------------
+place "VG_DecorationPrefabBase_WideStationarySunbed Variant" - at -6.5 15 ground
+place VG_PoolChair - at -3.5 15.5 ground
+place VG_PoolChair - at -2 15.5 ground
+place VG_PoolChair - at -0.5 15.5 ground
+place RestaSunshadeGround - at -5 17.8 ground
+place RestaSunshadeGround - at 5 17.5 ground
+place Tangaroa_OutdoorFurniture_Table - at 5 17.5 ground
+place Tangaroa_OutdoorFurniture_Chair - at 4 17.5 ground yaw=90
+place Tangaroa_OutdoorFurniture_Chair - at 6 17.5 ground yaw=270
+place "Box Small" coolerbox at -2 13.6 ground yaw=10
+place Placeable_Flower_Cactus - at -9 12.5 ground
+place Placeable_Flower_Cactus - at 8 12 ground
+place Placeable_Flower_Cactus - at -10 20.5 ground
+place Placeable_Flower_AloeVera - at -8 13.2 ground
+place Placeable_Flower_AloeVera - at 7.5 21 ground
+place Placeable_Flower_AloeVera - at 2 22 ground
+place "Pickup_Landmark_Tree_Palm 2" - at -11 17 ground
+place "Pickup_Landmark_Tree_Palm 2" - at 9.5 15 ground yaw=140
+place Zone_Trigger garden at 0 17 y=1
+place Creature_Hyena dogs at -2 20 ground
+place Creature_Hyena ambushdogs at 3 20 ground
+
+# --- The boathouse on the north beach under the cliff: a hut on low stilts, its open front to the sea, its deck level
+# with the rock shelf behind it (the way in from the shelf: its back wall's left half left open); the boathouse safe;
+# the escape shaft's foot - a hatch in the shelf at the cliff's foot ------------------------------------------------------
+push at 2.25 41.5 h=1.2 yaw=180
+call stilt_hut y=1.4 ladder=none w1=none
+place VG_Safe boatsafe at 3.4 3.7 y=1.4 sit
+place Reef_Barrel1 - at 3.9 1 y=1.4 sit
+place Reef_Barrel1 - at 0.8 3.9 y=1.4 sit yaw=40
+place Pickup_Landmark_Plank_Land - at 1.4 1.8 y=1.7 drop yaw=333
+place "Pickup_Landmark_Scrap 2_Land" - at 2.4 2.6 y=1.7 drop yaw=58
+pop
+place TangaroaHatchRoom_Hatch boathatch at 0 32.8 ground
+place Zone_Trigger shaftfoot at 1.5 34 y=0.3
+place Zone_Trigger boathouse at 0.5 38 y=1
+
+# --- In the bay below the cliff: the intruders' speedboat on its side, their tool box, scrap spilled round it ----------
+place RT_PlasticBoat - at -12 52 h=-4.2 sit yaw=60 roll=75
+place "Box Small" thievesbox at -10.4 50.6 h=-4.2 sit yaw=20
+place "Pickup_Landmark_Scrap 1_OceanBottom" - at -13.5 50.4 ground
+place "Pickup_Landmark_Scrap 1_OceanBottom" - at -10.8 53.8 ground
+
+# --- Animals: two wild goats on the bluff's slope below the garden; dolphins in the bay -----------------------------------
+place Creature_Goat wildgoats at -30 -37 ground
+prop wildgoats creature.count=2
+place Creature_Dolphin dolphins at 0 62 h=-3
+prop dolphins creature.count=2
+# --- More of the desert's own where nothing is built (the generator's desert bluff is thinner than Raft's desert
+# islands): acacias and rocks on the top's west and east ends, rocks on the shelves at the cliffs' foot ----------------
+scatter SmallBushyTree_1 2 at -25 -6 r=3 seed=31
+scatter SmallBushyTree_2 2 at -25 10 r=3 seed=32
+scatter SmallBushyTree_1 2 at 20 8 r=3 seed=33
+scatter SmallBushyTree_2 2 at 20 38 r=4 seed=34
+scatter CaravanIsland_SmallRock_1 5 at -24 0 r=5 seed=41 rot=0,0,0
+scatter CaravanIsland_SmallRock_2 4 at 20 -6 r=4 seed=42 rot=0,0,0
+scatter CaravanIsland_SmallRock_3 4 at 8 -36 r=5 seed=43 rot=0,0,0
+scatter CaravanIsland_SmallRock_1 3 at -14 34 r=4 seed=44 rot=0,0,0
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): flowers, pineapples, melons ----------
+scatter "Pickup_Landmark_Flower_Yellow" 2 at 0 0 r=31.5 seed=4290 free=3
+scatter "Pickup_Landmark_Flower_Red" 2 at 0 0 r=31.5 seed=4291 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 3 at 0 0 r=31.5 seed=4300 free=3
+scatter "Pickup_Landmark_WatermelonLandmark" 3 at 0 0 r=31.5 seed=4310 free=3
+
+# --- Raft's finds in the shallows round the island (sand, clay, stones, ores, scrap - every Raft island has them): lib_sea
+call shallows r=60 deep=5
+
+# ===== Settings, story items, notes, behaviours, quest (6 steps) ==========================================================
+info title=The Safe Room
+info author=Custom Islands
+info description=A concrete villa on a red desert bluff, broken into one night by men in a speedboat. The owner and her daughter hid in the safe room behind the bookshelf - the code is in three parts somewhere in the house, and the intruders' dogs still guard the garden.
+island on.arrive=message||A low concrete villa on a red bluff over the sea. The gate bar is up, a window is broken - and somewhere in the garden a dog laughs.
+
+story codepart|Part of the code|quest:Utopia_DettoCode|One part of this month's safe room code, on a slip of paper.
+
+note securitylog Security log | NIGHT GUARD'S LOG - FALCON HOUSE\n\n01:10 A speedboat, no lights, in the bay under the cliff.\n01:25 Three men on the cliff path. Dogs with them.\n01:31 The alarm went dead on my screen. They cut it.\n01:33 Mrs. Solberg and Lia are in the safe room. I told them not to open for anyone.\n\nFor the morning shift: the code changed on the first, as always in three parts - one in the kitchen drawer, one in Lia's treasure box (she insists), one in my locker here.\n\nThe dogs are THEIRS, not ours. - Dario
+note gatelocker Night guard's locker | The night guard's locker: a torch, a flask of cold coffee and a slip with one part of the code.
+loot gatelocker story:codepart*1;HeadLight*1;Nail*6
+prop gatelocker loot.refill=0
+note kitchendrawer Kitchen drawer | The kitchen drawer: string, batteries, takeaway menus - and a slip of paper with one part of the code, taped under the cutlery tray.
+loot kitchendrawer story:codepart*1;Battery*1;Rope*2
+prop kitchendrawer loot.refill=0
+note liabox Lia's treasure box | A tin treasure box at the foot of her bed: shells, a drawing of the house with a secret door in it - and a slip of paper: "MY PART OF THE CODE. TOP SECRET."
+loot liabox story:codepart*1;Feather*3;Placeable_ToyRobot*1
+prop liabox loot.refill=0
+note panicnote Safe room log | SAFE ROOM - HOUR BY HOUR\n\nHour 2. They found the bookshelf. Crowbars on the steel. It held.\nHour 6. Lia watched them on the screens and counted: three men, four dogs.\nHour 9. Their boat is gone - it hit the rocks under the cliff and sank, the fools. They left on foot round the point, two of the dogs with them. The other two stayed.\nHour 11. We're going down the escape shaft to the boathouse. Our little boat is still there.\n\nThe boathouse safe opens with this month's code. Take what you need - and don't let the dogs follow you down. - Mira Solberg
+note boatsafe Boathouse safe | The boathouse safe, behind the oars: the family's spare things - a charger for the house's batteries, binoculars, the first-aid box.
+loot boatsafe Blueprint_BatteryCharger*1;Battery*2;Binoculars*1;HealingSalve_Good*2;CircuitBoard*2
+prop boatsafe loot.refill=0
+prop boatsafe if.open=has|story:codepart|3
+prop boatsafe else.open=message||The boathouse safe has the same keypad as the house. It wants this month's code - all three parts.
+note garagecrate Carport tool crate | The carport's tool crate: bolts, a spare hinge, scrap from the broken gate.
+loot garagecrate Bolt*4;Hinge*1;Scrap*4;Nail*8
+prop garagecrate loot.refill=0
+note coolerbox Lounge cooler | A cooler by the loungers, the ice long gone: bottles of water and fruit.
+loot coolerbox PlasticBottle_Water*2;Watermelon*1;Pineapple*1
+prop coolerbox loot.refill=0
+note thievesbox Intruders' tool box | The intruders' tool box from the sunken speedboat: crowbars bent on the safe room's steel, wire cutters, a gold watch that isn't theirs.
+loot thievesbox MetalIngot*3;Scrap*4;TradeToken*4
+prop thievesbox loot.refill=0
+
+prop keypad obj.name=keypad
+prop keypad beh.use=Enter the three parts of the code
+prop keypad if.use=has|story:codepart|3
+prop keypad on.use=message||The keypad beeps three times. Behind the study's middle bookshelf, bolts slide back - and the whole shelf rolls aside on hidden rails. A steel door stands open behind it.\nopen|bookshelf\nshow|ambushdogs\nsound||event:/exploring/obstacles/keypad/keypad_correct\nwait|3\nmessage||Claws on the terrace tiles - the dogs that went with the men have come back!
+prop keypad else.use=message||A keypad beside the bookshelf. The code is in three parts - and you haven't got all of them.\nsound||event:/exploring/obstacles/keypad/keypad_error
+prop bookshelf obj.name=bookshelf
+prop bookshelf beh.move=0,0,1.5
+prop bookshelf beh.moveTime=2.5
+prop bookshelf beh.moveMode=switch
+prop ambushdogs obj.name=ambushdogs
+prop ambushdogs beh.hidden=1
+prop ambushdogs creature.count=2
+prop ambushdogs creature.respawn=0
+prop hatch obj.name=hatch
+prop hatch beh.use=Climb down the escape shaft
+prop hatch on.use=message||You lift the hatch: a narrow shaft with iron rungs, down through the rock. You climb, and climb - and come out at the bottom of the cliff, behind the boathouse.\nteleport|shaftfoot
+prop boathatch obj.name=boathatch
+prop boathatch beh.use=Climb up the escape shaft
+prop boathatch on.use=message||Up the iron rungs, through the rock, into the safe room.\nteleport|saferoomtop
+prop shaftfoot obj.name=shaftfoot
+prop shaftfoot zone.id=shaftfoot
+prop shaftfoot zone.radius=2
+prop saferoomtop obj.name=saferoomtop
+prop saferoomtop zone.id=saferoomtop
+prop saferoomtop zone.radius=1.5
+prop redlight beh.spin=90
+
+prop driveway zone.id=driveway
+prop driveway zone.radius=7
+prop driveway zone.message=The gate bar is up and the gatehouse door hangs open. Up ahead, a concrete villa with a broken window.
+prop garden zone.id=garden
+prop garden zone.radius=9
+prop garden zone.message=Two dogs come loping round the loungers - the intruders' dogs, and nobody has fed them in a while.
+prop boathouse zone.id=boathouse
+prop boathouse zone.radius=5
+prop boathouse zone.message=The boathouse at the foot of the cliff. The slip is empty - their little boat got away.
+prop dogs creature.count=2
+prop dogs creature.respawn=0
+prop dogs creature.zone=garden
+prop saferoomair atmo.fog=#140808
+prop saferoomair atmo.fogAmount=0.5
+prop saferoomair atmo.light=#5a2020
+prop saferoomair atmo.lightAmount=0.6
+prop saferoomair zone.radius=4
+prop saferoomhum sound.event=event:/exploring/relaystation/crt
+prop saferoomhum sound.volume=0.5
+prop saferoomhum zone.radius=5
+
+quest title=Behind the Bookshelf
+quest intro=A villa on a desert bluff, broken into one night. Somebody hid in it - and somebody else's dogs are still here. Start up the driveway.
+step read|Security log|1|Climb the driveway and read the night guard's log in the gatehouse
+step kill|Hyena|2|Deal with the dogs the intruders left in the garden behind the villa
+step collect|story:codepart|3|Find the code's three parts: the gatehouse locker, the kitchen drawer, Lia's treasure box
+step kill|Hyena|2|Enter the code at the study's keypad - and fight off the dogs that come back
+step read|Safe room log|1|Open the door behind the study's bookshelf and read the log inside
+step open|Boathouse safe|1|Take the escape shaft down to the boathouse and open its safe
+step blueprint|Blueprint_BatteryCharger|1|Take the battery charger plans from the boathouse safe
+quest done=Mother and daughter got away in the little boat - and the intruders' boat is at the bottom of the bay. What they left in the boathouse is yours.
+quest reward=Glass*4;Plank*6;Nail*12
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=34 n=1 seed=8859
+prop treasure8859 treasure.loot=TitaniumOre*2
+
+save The Safe Room

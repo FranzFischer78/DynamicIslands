@@ -1,0 +1,11 @@
+# FLOAT2 close side pictures: grass on a freshly generated large island (the name's file doesn't exist, so the world
+# makes it new from its name with today's generator - plants re-seated by the lowest ground near them)
+island gen-large-424242
+hour 12
+weather Calm
+at -30 0
+wait 3
+picture f2_gen_grass_c 0 +1.6 -5 0 +0 0
+picture f2_gen_grass_ne 15 +1.6 5 15 +0 10
+picture f2_gen_grass_sw -15 +1.6 -15 -15 +0 -10
+picture f2_gen_grass_e 25 +1.6 -5 25 +0 0

@@ -1,0 +1,51 @@
+# Sandsunk Necropolis (CIPlay sandsunk_necropolis): the plaza at 3 m (r~24 at 0 2), the dune path from the landing in
+# the south (0 -72); Kett's camp at 14 -44; the obelisk at -16 -30, the seal buried just north of it; the processional
+# way x 0, z -26..-6; the tomb x -6..6, z 0..18 (antechamber z 0..9, burial chamber z 9..18), its door at 0 0.
+island Sandsunk Necropolis
+offset 0 0
+expect step 0
+expect title The Tomb of the Sea Kings
+expect shown tombslab
+expect shown gate
+walk 0 -64 to 0 -56 to 0 -51 h=3
+zone dunes
+expect step 1
+read Kett's dig notes
+expect step 2
+open Kett's dig kit
+expect item MetalDetector 1
+expect item Shovel 1
+dig 0
+expect story seal 1
+expect step 3
+walk 0 -24 to 0 -14 h=3
+zone processional
+expect step 4
+use sealplinth
+expect hidden tombslab
+expect story seal 0
+expect story sealset 1
+expect step 5
+walk 0 -4 to 0 -1 to 0 1.5 h=3
+zone antechamber
+expect step 6
+kill Roach
+expect step 7
+read Wall of the Flood
+read Wall of the Engine
+read Wall of the Strait
+expect step 10
+walk 0 6 to 0 10 h=3 blocked
+use lever
+expect hidden gate
+walk 0 6 to 0 8 to 0 11 h=3
+zone burial_chamber
+expect step 11
+open Sarcophagus
+expect story gear1 1
+expect step 13
+wait 22
+expect shown gate
+use hatch
+zone tomb_exit
+expect done

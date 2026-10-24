@@ -1,0 +1,9 @@
+# FLOAT2 close side pictures: the harpoon gun's post on its platform
+island The Kraken's Wake
+offset 0.6508 -0.4589
+hour 15
+weather Calm
+at 40 -40
+wait 3
+picture f2_kraken_post_w 61 9 -14 66.3 8.4 -13
+picture f2_kraken_post_s 66.5 9 -18.5 66.3 8.4 -13

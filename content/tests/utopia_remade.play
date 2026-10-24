@@ -1,0 +1,81 @@
+# Play test of Utopia Remade (CIPlay utopia_remade, in a test world 'CI ...'). Points as in its recipe: the quay on the
+# north beach (1.8 m) and its pier, the prison house's flats (6 m) with the clerk's desk in front, the path up to the
+# warden's yard on the summit (18 m), its gate in the north side.
+# Quest "The Warden's Gate", 20 steps: the docks (1-9), the prison house (10-14), the summit (15-20).
+island Utopia Remade
+expect step 0
+expect title The Warden's Gate
+
+# The docks: Olof's last message on the covered crate, his crate, the empty cage, the fisherman's crate, the market's
+# stores, the trader's stack box (six pages)
+walk 8 52 to 6 46 h=1.8
+zone docks
+expect step 1
+read Olof's last message
+expect step 2
+open Olof's crate
+expect step 3
+open Empty cage
+expect step 4
+open Fisherman's crate
+expect step 5
+open Market stores
+expect step 6
+open Trader's stack box
+wait 2
+expect step 7
+
+# The dock master's crate at the end of the pier
+walk 6 47 to 6 51 to 8.6 55.8 h=1.8
+reach Dock master's crate
+open Dock master's crate
+expect story dockkey 1
+wait 2
+expect step 9
+
+# The prison clerk's desk in front of the prison house - its rats first; the crate beside it, nine pages
+walk 14 44 to 19 36 to 22 31 h=6
+zone clerkyard
+expect step 10
+kill Rat
+expect step 11
+walk 20.5 31.5 to 22 30.1 h=6
+reach Prison clerk's desk
+open Prison clerk's desk
+expect story prisonkey 1
+wait 2
+expect step 13
+open Clerk's crate
+wait 2
+expect step 14
+
+# Up the path to the summit: the warden's gate shut until both keys turn in it
+walk 4 41 to 1.9 33.8 to -0.2 26.6 to -2.3 19.4 to -4.4 12.2 to -6.5 5 to -6.5 3 h=18
+walk -6.5 2.6 to -6.5 -1 blocked h=18
+use wardensgate
+expect message Both keys turn
+expect story dockkey 0
+expect story prisonkey 0
+wait 3
+walk -6.5 3 to -6.5 -1 to -6.5 -3.5 h=18
+zone yard
+expect step 15
+kill Hyena
+expect step 16
+
+# The warden's table, his pot, his jar (twelve pages) - and his chest behind the table
+open Warden's table
+expect step 17
+open Warden's pot
+expect step 18
+open Warden's jar
+wait 2
+expect step 19
+walk -2.5 -5 to -2.5 -11.8 to -4.8 -12.3 h=18
+reach Warden's chest
+open Warden's chest
+wait 4
+expect item Blueprint_TitaniumTools 1
+expect item Blueprint_ZiplineToolElectric 1
+wait 2
+expect done

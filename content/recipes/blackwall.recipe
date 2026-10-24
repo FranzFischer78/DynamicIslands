@@ -1,0 +1,387 @@
+# Blackwall - a themed island, twice the size (x2). Inspiration: films and photographs of abandoned concrete mining
+# islands (blocks of flats packed on a walled rock, a mine head, everything left overnight: a cake on a table, letters never
+# posted) - the mood only, never named on the island.
+# Three black basalt stacks in a row over a shallow shelf (Shape 3, Style 4), joined by concrete bridges: the gate stack
+# in the north (3 31, top 6.3 m) with the sea wall along its seaward side (z 41) and the stair up over it, the company
+# gate, its notice and the school room; the apartment stack in the middle (4.1 -3, top 9 m) with two blocks of flats round
+# a courtyard (block A x -5..1, block B x 7.2..13.2, z -7.5..1.5) and their outside stairs; the mine stack in the south
+# (3 -39, top 5.4 m) with the flooded shaft (14 m deep) under its headframe, the winding house and the coal.
+# Quest "The Last Post" (12 steps): the sea wall, the closure notice, the school cupboard, Tomas's letter in flat 1, the
+# other unposted letters, the rats in the post office, the letters posted (the postmistress's key), the mine head, the
+# bathhouse box, the shaft's black water, the lamp in the flooded shaft, the lamp-room tally chest.
+include lib_rt
+include lib_sea
+new
+gen Trees=0.2 Bushes=0.3 Rocks=0.5 Harvest=0.25 BeachThings=0.3
+gen Seed=9014 Radius=63 Height=20 Roughness=0.45 Peaks=3 Shape=3 Style=4 BeachWidth=0.3 Cliffs=0.9 PeakShape=0.45
+gen SeaFloor=0 Shelf=0.45 Seabed=1
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.2 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== The stacks: raised from the shelf with steep sides, their tops levelled ==========================================
+# (the generator's third stack, beside the mine stack's place, taken down to the shelf)
+brush flatten at -11 -27 r=9 s=20 frames=60 h=-2.5
+# (the gate stack, its sea wall's apron along the north side at the waterline)
+brush flatten at 3 31 r=12 s=20 frames=60 h=6.3
+brush flatten at -1.5 34.5 r=8 s=20 frames=60 h=6.3
+brush flatten from -4 36.5 to 10 36.5 r=2 s=20 frames=40 h=6.3
+brush flatten from -8 42.5 to 14 42.5 r=2.2 s=20 frames=40 h=0.3
+brush flatten from -8 44.5 to 14 44.5 r=3 s=20 frames=40 h=0.3
+brush flatten from -6 41.3 to 12 41.3 r=2 s=20 frames=40 h=0.3
+# (the apartment stack and the plots of its two blocks)
+brush flatten at 4.1 -3 r=15 s=20 frames=60 h=9
+brush flatten from -2 -3 to 10.2 -3 r=8 s=20 frames=60 h=9
+# (the mine stack)
+brush flatten at 3 -39 r=20 s=20 frames=60 h=5.4
+# (the bridges' heads)
+brush flatten at 4.1 24 r=3 s=20 frames=30 h=6.3
+brush flatten at 4.1 6 r=3 s=20 frames=30 h=9
+brush flatten at 4.1 -12 r=3 s=20 frames=30 h=9
+brush flatten at 4.1 -27 r=3 s=20 frames=30 h=5.4
+# (the mine shaft: a pit 14 m deep under the shaft frame - the sea fills it)
+for px 0 6 2
+for pz -41 -37 2
+brush flatten at $px $pz r=2.2 s=20 frames=30 h=-14
+next
+next
+# (the ground under the winding house's east wall kept up beside the pit)
+brush flatten from -4.8 -38 to -4.8 -28 r=2 s=20 frames=30 h=5.4
+# (the tops built over, cleared)
+clear at 3 31 r=13
+clear at 4.1 -3 r=15
+clear at 3 -39 r=17
+
+# ===== The gate stack: the sea wall along its seaward side, the stair up over it, the company gate ======================
+# (two courses of the radio tower's concrete walls on the apron at the waterline, 6 m up to the stack's top; the stair's
+# two flights along their face; a barrel from a sunk skiff at the wall's foot)
+for wx -3 12 3
+place RT_Wall1 - at $wx 41 h=0.3
+place RT_Wall1 - at $wx 41 h=3.3
+next
+# (behind the wall's top a concrete deck back to the stack's level top)
+place RT_Floor - at 12 41 h=6.3 sx=2.98 sz=0.344
+place RT_Stair - at -6 42.6 h=0.3 yaw=180
+place RT_Stair - at 1.5 42.6 h=3.3 yaw=180
+place Loot_SunkenBarrel wallbarrel at -8 44.5 h=0 drop yaw=30
+place Zone_Trigger seawall at 8 40 h=7.4
+# (the company gate: a facade of concrete across the stack's top, its opening with Selene's gate standing open beside it;
+# the closure notice on the facade, its dead lamps)
+place RT_Wall1 - at -1 30 h=6.3
+place RT_Wall1 - at 2 30 h=6.3
+place RT_Wall1 - at 8 30 h=6.3
+place RT_Wall1 - at 11 30 h=6.3
+place TP_SeleneEntranceGate - at 8 30.5 h=6.3 yaw=0
+place Note_Board notice at 0.5 30.25 h=7.2 yaw=180
+place Stairwell_WallLamp_NoLight - at -1.5 30.2 h=8.9 yaw=180
+place Stairwell_WallLamp_NoLight - at 6.5 30.2 h=8.9 yaw=180
+# (the school room on the gate stack, its door towards the gate (its leaf opening inwards): the whiteboard, the
+# cupboard, the pupils' chairs)
+push at -1.5 37.5 h=6.3 yaw=270
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow2 b1=RT_WallWindowBroken r2=RT_WallWindow2 l2=RT_WallWindow2
+place VP_Whiteboard - at -0.05 2.85 y=1.5 yaw=270
+place Placeable_Cupboard_Small schoolbox at -5.6 -3.5 y=0 yaw=90
+place Dinnerchair_01 - at -2.5 1.5 y=0 yaw=90
+place Dinnerchair_01 - at -2.5 0 y=0 yaw=90
+place Dinnerchair_01 - at -2.5 -1.5 y=0 yaw=90
+place Dinnerchair_01 - at -4 1.5 y=0 yaw=90
+place Dinnerchair_01 - at -4 0 y=0 yaw=90
+pop
+push at -1.5 37.5 h=9.3 yaw=270
+call rt_storey b1=none b2=none f1=none f2=none l1=none l2=none l3=none r1=none r2=none r3=none
+pop
+place Creature_Goat goats at 7 35 ground
+
+# ===== The bridges: concrete decks on legs from the shelf, railings both sides =======================================
+# (gate stack -> apartment stack, rising 3.6 m; apartment stack -> mine stack, falling 3.6 m)
+place RT_Floor - at 5.35 24 h=6.3 tilt=8.53 sx=0.414 sz=2.022
+place RT_PillarThick - at 2.95 15 h=-3 sy=1.65
+place RT_PillarThick - at 5.25 15 h=-3 sy=1.65
+ramp RT_Fence from 2.95 24 6.3 to 2.95 6 9 len=1.5 top=-0.1
+ramp RT_Fence from 5.25 24 6.3 to 5.25 6 9 len=1.5 top=-0.1
+place RT_Floor - at 5.35 -12 h=9 tilt=-13.5 sx=0.414 sz=1.714
+place RT_PillarThick - at 2.95 -19.5 h=-3 sy=1.65
+place RT_PillarThick - at 5.25 -19.5 h=-3 sy=1.65
+ramp RT_Fence from 2.95 -12 9 to 2.95 -27 5.4 len=1.5 top=-0.1
+ramp RT_Fence from 5.25 -12 9 to 5.25 -27 5.4 len=1.5 top=-0.1
+
+# ===== The apartment stack: two blocks of flats round a courtyard ======================================================
+# Block A (x -5..1): the post office on the ground floor (9 m), flat 1 above (12 m), flat 2 on top (15 m); block B (x
+# 7.2..13.2): the company store (9 m), flat 3 (12 m), flat 4 (15 m). Their doors open on the
+# courtyard (x 1..7.2); the outside stairs climb it in two columns along each block (the radio tower's stair flights,
+# 3 m a flight, each ending in a landing at a door), plank-and-concrete roofs on top.
+# (block A turned round, so that its doors' leaves open into its rooms, not onto the stairs)
+push at -5 -3 h=9 yaw=180
+call rt_storey l1=RT_WallDoor1 f2=RT_WallWindow2 r3=RT_WallWindow2 r1=RT_WallWindow2 l3=RT_WallWindow2 b1=RT_WallWindow2
+pop
+push at -5 -3 h=12 yaw=180
+call rt_storey l1=RT_WallDoor1 f2=RT_WallWindowBroken f1=RT_WallWindow2 r3=RT_WallWindow2 r2=RT_WallWindowBroken r1=RT_WallWindow2 l3=RT_WallWindow2 b2=RT_WallWindow2
+pop
+push at -5 -3 h=15 yaw=180
+call rt_storey l3=RT_WallDoor1 f2=RT_WallWindow2 f1=RT_WallWindowBroken r3=RT_WallWindowBroken r2=RT_WallWindow2 r1=RT_WallWindow2 l1=RT_WallWindow2 b1=RT_WallWindow2
+pop
+push at -5 -3 h=18 yaw=180
+call rt_storey b1=none b2=none f1=none f2=none l1=none l2=none l3=none r1=none r2=none r3=none
+pop
+push at 13.2 -3 h=9
+call rt_storey l3=RT_WallDoor1 b2=RT_WallWindow2 r1=RT_WallWindow2 r3=RT_WallWindow2 l1=RT_WallWindow2 f1=RT_WallWindow2
+pop
+push at 13.2 -3 h=12
+call rt_storey l3=RT_WallDoor1 b1=RT_WallWindow2 b2=RT_WallWindow2 r1=RT_WallWindowBroken r2=RT_WallWindow2 r3=RT_WallWindow2 l1=RT_WallWindow2 f2=RT_WallWindow2
+pop
+push at 13.2 -3 h=15
+call rt_storey l1=RT_WallDoor1 b1=RT_WallWindowBroken b2=RT_WallWindow2 r1=RT_WallWindow2 r2=RT_WallWindowBroken r3=RT_WallWindow2 l3=RT_WallWindow2 f1=RT_WallWindow2
+pop
+push at 13.2 -3 h=18
+call rt_storey b1=none b2=none f1=none f2=none l1=none l2=none l3=none r1=none r2=none r3=none
+pop
+# (the stairs: block A's up its east side - the inner column north to flat 1's door, the outer back south to the landing
+# at flat 2's door with a slab across to it; block B's the same up its west side; a broken flight against block A's west
+# side)
+place RT_Stair - at 1 -6.75 h=9 yaw=90
+place RT_Stair - at 4 0.75 h=12 yaw=270
+place RT_Floor - at 2.5 -5.25 h=15 sx=0.25 sz=0.167
+place RT_Stair - at 5.7 -6.75 h=9 yaw=90
+place RT_Stair - at 5.7 0.75 h=12 yaw=270
+place RT_Floor - at 7.2 -5.25 h=15 sx=0.25 sz=0.167
+place RT_Stair_Broken - at -6.6 -7 h=9 yaw=90
+
+# --- Block A's ground floor: the post office - the counter, the sorting rack, the postmistress's drawer; the rats in
+# the mail sacks (in block A's turned frame) ---------------------------------------------------------------------------
+push at -5 -3 h=9 yaw=180
+place "Counter Mid" - at -3 1.5 y=0 yaw=270
+place "Counter Mid" - at -3 0.5 y=0 yaw=270
+place "Counter Mid" - at -3 -0.5 y=0 yaw=270
+place TP_CabinetCharts02 sortingrack at -0.5 1 y=0 yaw=270
+place TP_Drawer pmdrawer at -1 -2.6 y=0 yaw=270
+place Placeable_PaperBundle - at -3 0.5 y=1.6 drop
+place "Box Small" - at -5 3.6 y=0.1 sit yaw=15
+place "Box Small" - at -4.4 3.5 y=0.1 sit yaw=-20
+place Creature_Rat_Tangaroa rats at -4 4 y=0.3
+place Zone_Trigger postoffice at -2.5 3 y=1.5
+place Stairwell_CeilingLamp - at -3 3 y=2.95
+pop
+# --- Flat 1 (block A, 12 m): a bedroom-kitchen; the birthday cake on the table, the letter in the bedside table -------
+push at -5 -3 h=12 yaw=180
+place BedSmall - at -1.1 -2.6 y=0 yaw=180
+place Bedsidetable_01 flat1 at -2.7 -3.9 y=0 yaw=0
+place Table_Common_01 - at -3 2.5 y=0 yaw=270
+place Dinnerchair_01 - at -4 2 y=0 yaw=90
+place Dinnerchair_01 - at -2 3 y=0 yaw=270
+place Tangaroa_BirthdayKit_OldCake - at -3 2.5 y=1.5 drop
+place Tangaroa_BirthdayKit_PartyHat - at -2.8 1.6 y=1.5 drop yaw=210
+place Placeable_Calendar - at -4.5 4.42 y=1.7 yaw=180
+pop
+# --- Flat 2 (block A, 15 m): the letter in the kitchen drawer, the old television --------------------------------------
+push at -5 -3 h=15 yaw=180
+place BedSmall - at -1.1 -2.6 y=0 yaw=180
+place Drawer_01 flat2 at -0.4 -2 y=0 yaw=270
+place Table_Common_01 - at -3.5 -1 y=0 yaw=180
+place Dinnerchair_01 - at -3.5 -2 y=0 yaw=0
+place "Balboa_DecorationPrefabBase_Old TV" - at -0.5 4 y=0 yaw=270
+pop
+# --- Block B's ground floor: the company store, its last box ----------------------------------------------------------
+push at 13.2 -3 h=9
+place "Counter Mid" - at -3 -1 y=0 yaw=270
+place "Counter Mid" - at -3 0 y=0 yaw=270
+place Shelf_Empty_02 - at -0.5 -3.15 y=0 yaw=270
+place Shelf_Empty_02 - at -0.5 -5.12 y=0 yaw=270
+place "Box Small" storebox at -1.5 3.5 y=0.1 sit yaw=10
+pop
+# --- Flat 3 (block B, 12 m): the letter in the cabinet ----------------------------------------------------------------
+push at 13.2 -3 h=12
+place BedSmall - at -1.1 2.6 y=0 yaw=0
+place Cabinet_01 flat3 at -0.4 -2 y=0 yaw=270
+place Table_Common_01 - at -3.5 -3 y=0 yaw=90
+place Dinnerchair_01 - at -2.5 -3 y=0 yaw=270
+pop
+# --- Flat 4 (block B, 15 m): the letter in the wardrobe, the calendar on the wall -------------------------------------
+push at 13.2 -3 h=15
+place BedSmall - at -1.1 2.6 y=0 yaw=0
+place Closet_01 flat4 at -0.4 -1 y=0 yaw=270
+place Placeable_Calendar - at -1.5 -4.42 y=1.7 yaw=0
+place "Balboa_DecorationPrefabBase_Old TV" - at -2 3.9 y=0 yaw=180
+pop
+place Creature_Chicken hens at 4.1 4 h=9.3
+
+# ===== The mine stack: the flooded shaft under its headframe, the winding house, the coal ==============================
+# (Varuna's elevator shaft standing in the pit from its floor, its top 3 m over the stack; its open north side closed by
+# concrete walls and Utopia's padlock door; a ladder inside from the water up to the door; a concrete collar round it)
+place VP_ElevatorShaft shaftframe at -0.5 -35.6 h=-12.9
+place RT_Wall1 - at 1.3 -35.6 h=5.4 sx=0.6
+place RT_Wall1 - at 6.5 -35.6 h=5.4 sx=0.59
+place UT_Skyscraber01PadlockDoorBase - at 3.96 -35.6 h=5.4
+place UT_Skyscraber01PadlockDoor shaftgate at 3.96 -35.6 h=5.4
+place LandmarkLadder_6m shaftladder at 3 -35.9 h=-1.38 yaw=0
+macro collar x1 x2 z1 z2
+place RT_Floor - at $x2 $z2 h=5.4 sx={($x2-$x1)/6.04} sz={($z2-$z1)/9}
+end
+call collar -4.1 9 -35.6 -33.1
+call collar -4.1 9 -44.9 -42.4
+call collar -4.1 -0.5 -42.4 -35.6
+call collar 6.5 9 -42.4 -35.6
+# (the headframe: four towers of thick pillars at the shaft's corners, beams across, the winding wheel upright between)
+place RT_PillarThick - at -1.2 -34.4 h=5.4
+place RT_PillarThick - at -1.2 -34.4 h=11.4
+place RT_PillarThick - at 7.2 -34.4 h=5.4
+place RT_PillarThick - at 7.2 -34.4 h=11.4
+place RT_PillarThick - at -1.2 -43.6 h=5.4
+place RT_PillarThick - at -1.2 -43.6 h=11.4
+place RT_PillarThick - at 7.2 -43.6 h=5.4
+place RT_PillarThick - at 7.2 -43.6 h=11.4
+place RT_BeamThick - at 8.15 -34.4 h=17.4
+place RT_BeamThick - at 8.15 -43.6 h=17.4
+place UT_WaterChallengeWheel3 - at 3 -39 h=17.6 rot=90,0,0
+place RT_BeamThick - at 3 -43.85 h=17.6 yaw=90 sx=0.95
+# (in the shaft: the tally chest on the bottom, the lamp in the dark, the black water and its echo)
+push at 3 -39 h=-14
+place Loot_Box tallychest at 0 0 y=0 yaw=0
+pop
+place Creature_AnglerFish shaftlamp at 3 -39.5 h=-8
+place Zone_Trigger shaft at 3 -39 h=0
+place Zone_Atmosphere shaftdark at 3 -39 h=-7
+place Zone_Sound shaftsound at 3 -39 h=-3
+place Zone_Trigger minehead at 4 -31 h=6.5
+# (the winding house and the miners' bathhouse in one concrete room west of the shaft)
+push at -4.2 -33 h=5.4
+call rt_storey r2=RT_WallDoor1 l2=RT_WallWindow2 b1=RT_WallWindow2 f2=RT_WallWindow2
+pop
+push at -4.2 -33 h=8.4
+call rt_storey b1=none b2=none f1=none f2=none l1=none l2=none l3=none r1=none r2=none r3=none
+pop
+place Generator - at -7 -30.5 h=5.4 yaw=90
+place "Box Small" bathbox at -9.3 -36.5 h=5.5 sit yaw=10
+place Stairwell_CeilingLamp - at -7.2 -33 h=8.35
+# (the coal: heaps, tubs rusted to their rails)
+place VP_RubblePile_Small01 coal at 6 -48 ground yaw=20
+place VP_RubblePile_Small02 coal at 12 -37 ground yaw=-30
+line Beam_Long_01 from 8.5 -30.5 to 15.5 -30.5 step=3.5 ends yaw=180 rot=0,0,0
+line Beam_Long_01 from 8.5 -29.5 to 15.5 -29.5 step=3.5 ends yaw=180 rot=0,0,0
+place VP_Wagon01 - at 11 -30 sit yaw=90
+place VP_Wagon01 - at 13.8 -30 sit yaw=90
+
+# ===== The wind, the friendly animals, Raft's finds in the shallows ===================================================
+place Zone_Sound wind at 3 0 h=6
+place Creature_Turtle turtles at -20 10 h=-1.5
+place Creature_Dolphin dolphins at 40 -10 h=-2
+call shallows r=60 deep=5 n=1
+prop goats creature.count=2
+prop hens creature.count=3
+prop turtles creature.count=2
+prop dolphins creature.count=2
+prop coal tint.color=#202020
+prop coal tint.amount=0.7
+
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): mangoes, flowers, pineapples ----------
+scatter "Pickup_Landmark_Tree_Mango" 6 at 0 0 r=44.1 seed=4469 free=5
+scatter "Pickup_Landmark_Flower_Black" 4 at 0 0 r=44.1 seed=4479 free=3
+scatter "Pickup_Landmark_Flower_Red" 4 at 0 0 r=44.1 seed=4480 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=44.1 seed=4489 free=3
+
+# ===== Settings, story items, notes, behaviours, quest (12 steps) ==========================================================
+info title=Blackwall
+info author=Custom Islands
+info description=Three black stacks built over with concrete: a sea wall, blocks of flats, a mine head. The coal company closed the island in one night when the seam flooded with men still below. The families' last letters were never posted - and the only list of who came up is at the bottom of the flooded shaft.
+island on.arrive=message||Black rock and grey concrete, rows of empty windows. A headframe on the third stack, its wheel still. Not a light anywhere.
+
+story letter|Unposted letter|Placeable_PaperBundle|A letter from one of Blackwall's flats, stamped and never posted.
+story shaftkey|Shaft gate key|quest:Varuna_MotherlodeKey|The key of the mine shaft's gate, from the postmistress's drawer.
+
+note notice Company closure notice | BLACKWALL COAL COMPANY - NOTICE\n\nThe Number Two seam has flooded.\nThe island is CLOSED as of tonight.\nAll families to the steamer by midnight. Take only what you can carry.\nMail will not be collected.\n\n- The Management\n\n(chalked underneath) Men were still below.
+note flat1 Letter in the bedside table | Dear Papa,\nMama says we must go on the boat tonight and you will come on the next one. I left your lamp tag on the table so you can find your way. Come quick.\nTomas
+loot flat1 story:letter*1;Feather*2
+prop flat1 loot.refill=0
+note flat2 Letter in the kitchen drawer | To my sister on the mainland - the seam flooded at the evening shift. Forty men down. They say they're sealing the shaft. I won't believe it until I see the tally board. - Rosa
+loot flat2 story:letter*1;Glass*2
+prop flat2 loot.refill=0
+note flat3 Letter in the cabinet | To the post office, from flat 3-14: please forward all our post. We don't know where to.
+loot flat3 story:letter*1;Rope*2
+prop flat3 loot.refill=0
+note flat4 Letter in the wardrobe | Dear Mrs. Haldane at the post office - if you're reading this, you stayed. Please count them. The tally in the lamp room is the only list. - J.
+loot flat4 story:letter*1;Wool*2
+prop flat4 loot.refill=0
+note pmdrawer Postmistress's drawer | A drawer under the counter, and a note in a neat hand: "For whoever finally brings the post - the shaft key. The men below deserve to be counted. E. Haldane, postmistress."
+loot pmdrawer story:shaftkey*1;TradeToken*3
+prop pmdrawer loot.refill=0
+prop pmdrawer if.open=signal|posted
+prop pmdrawer else.open=message||The drawer under the counter is locked, and a card is pinned to it: "Post first."
+note tallychest Lamp-room tally chest | The lamp-room tally chest. Every miner took a numbered lamp tag going down and hung it back coming up. Thirty-eight tags hang on its lid. Two do not. Under them: the company's last pay, and the plans of the chargers for the miners' lamps.
+loot tallychest Blueprint_BatteryCharger*1;Battery*2;CopperIngot*4;MetalIngot*4;TradeToken*6
+prop tallychest loot.refill=0
+note storebox Company store box | The company store's last box: candles, matches, lamp oil, tinned fish.
+loot storebox Cooked_Mackerel*2;BioFuel*1;Rope*2
+prop storebox loot.refill=0
+note schoolbox School cupboard | The school cupboard: slates, chalk, a box of pencils and a jar of nails from the woodwork class.
+loot schoolbox Nail*10;Plank*4;Feather*2
+prop schoolbox loot.refill=0
+note bathbox Bathhouse box | The miners' bathhouse box: soap, towels, a forgotten pocket knife.
+loot bathbox Wool*2;Scrap*3;Plastic*2
+prop bathbox loot.refill=0
+note wallbarrel Sunk skiff's barrel | A barrel from a skiff that sank at the sea wall the night of the evacuation: coal and tools.
+loot wallbarrel Stone*4;Scrap*3;Bolt*2
+prop wallbarrel loot.refill=0
+
+prop sortingrack obj.name=sortingrack
+prop sortingrack beh.use=Post the four letters in the sorting rack
+prop sortingrack if.use=quest|6\ntake|story:letter|4
+prop sortingrack on.use=message||You slot the four letters into the rack's pigeonholes, one by one. Under the counter a drawer pops open.\nsignal||posted\nsound||event:/raft/door/drawer_open
+prop sortingrack else.use=message||A sorting rack, its pigeonholes empty. The island's last letters are still in the flats.
+prop shaftgate obj.name=shaftgate
+prop shaftgate beh.use=Unlock the shaft gate
+prop shaftgate beh.turn=-95
+prop shaftgate beh.moveTime=2
+prop shaftgate beh.moveMode=switch
+prop shaftgate if.use=has|story:shaftkey|1
+prop shaftgate on.use=message||The padlock drops and the gate screams open. Below, the shaft goes down into black water - and far down in it, a small light.\nopen|shaftgate\nsound||event:/exploring/utopia/gate_metal_open
+prop shaftgate else.use=message||The shaft's gate is chained and locked. The key was left with the post.
+
+prop seawall zone.id=seawall
+prop seawall zone.radius=7
+prop seawall zone.message=Over the sea wall: a gate standing open, a notice board, and above, the empty windows of the flats.
+prop postoffice zone.id=postoffice
+prop postoffice zone.radius=3.5
+prop postoffice zone.message=The post office - and in the sacks of undelivered mail, rats, nesting.
+prop minehead zone.id=minehead
+prop minehead zone.radius=8
+prop minehead zone.message=The mine head: the wheel still, the coal tubs rusted to their rails, and the shaft's gate chained.
+prop shaft zone.id=shaft
+prop shaft zone.radius=4
+prop shaft zone.message=Black water in a concrete shaft. The small light far down is coming up.
+prop rats creature.count=4
+prop rats creature.respawn=0
+prop rats creature.zone=postoffice
+prop shaftlamp creature.count=1
+prop shaftlamp creature.size=1.5
+prop shaftlamp creature.health=2.5
+prop shaftlamp creature.respawn=0
+prop shaftlamp creature.zone=shaft
+prop shaftdark atmo.fog=#030405
+prop shaftdark atmo.fogAmount=0.85
+prop shaftdark atmo.light=#101418
+prop shaftdark atmo.lightAmount=0.9
+prop shaftdark zone.radius=9
+prop shaftsound sound.event=event:/amb/varuna_tunnels
+prop shaftsound sound.volume=0.6
+prop shaftsound zone.radius=10
+prop wind sound.event=event:/amb/ocean
+prop wind sound.volume=0.5
+prop wind zone.radius=50
+
+quest title=The Last Post
+quest intro=A concrete island closed in a single night. The families left; their letters didn't. Start at the sea wall.
+step reach|seawall|1|Climb the stair over the sea wall
+step read|Company closure notice|1|Read the company's closure notice at the gate
+step open|School cupboard|1|Look into the school room by the gate - the slates are still on the desks
+step open|Letter in the bedside table|1|Cross to the flats and find Tomas's letter, beside the birthday cake in flat 1
+step collect|story:letter|4|Gather the other three unposted letters from the empty flats
+step kill|Tangaroa rat|4|Clear the rats out of the post office
+step collect|story:shaftkey|1|Post the letters in the sorting rack - the postmistress's drawer holds the shaft key
+step reach|minehead|1|Cross the bridge to the mine head on the third stack
+step open|Bathhouse box|1|Search the winding house, where the miners washed off the coal after each shift
+step reach|shaft|1|Unlock the shaft's gate with the postmistress's key and go down to the black water
+step kill|Angler fish|1|Dive into the flooded dark and face the light coming up
+step open|Lamp-room tally chest|1|Open the lamp-room tally chest at the bottom of the shaft
+quest done=The letters are posted and the tally is up: thirty-eight came home, two did not. Blackwall's last shift is counted.
+quest reward=Stone*10;MetalOre*6;CopperOre*4
+
+save Blackwall

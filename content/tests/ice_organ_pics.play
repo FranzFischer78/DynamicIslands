@@ -1,0 +1,21 @@
+# Guide pictures of The Ice Organ (CIPlay ice_organ_pics): Raft's camera, noon, calm; the organ played and the gate open
+island The Ice Organ
+hour 12
+weather Calm
+open Organist's chest
+at -14 1
+wait 3
+picture ice_organ_island -55 30 50 -2 4 0
+picture ice_organ_hut 6 6 2 11 5 13
+picture ice_organ_mouth -8 3.5 3 -15 3.5 -7
+at -15 -12 h=2.5
+wait 2
+picture ice_organ_organ -13 4.5 -11 -20.5 4 -15.5
+use pipethin
+use pipecracked
+use pipegreat
+use pipebent
+use pipeblue
+use cryptgate
+wait 5
+picture ice_organ_crypt -14 4.5 -20 -15 3 -29

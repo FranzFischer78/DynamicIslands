@@ -1,0 +1,31 @@
+# Skyhook Mast (CIPlay skyhook_mast): the stack's top at 18 m (r~13 at 0 6) with the mast at 0 9 and the cabin x 4.5..9,
+# z -1..3.5; the beach and the stack's foot at 1.5 m (x 0, z -44..-24) with the skylift at 0 -22.5; the wreck's shore at
+# -12 -40, the wreck in the shallows south-west.
+island Skyhook Mast
+offset 0 0
+expect step 0
+expect title The Mooring Mast
+walk 0 -40 to 0 -32 h=1.5
+zone stack_foot
+expect step 1
+read Mooring log
+expect step 2
+walk 0 -26 to 0 -12 blocked
+use lift
+wait 6
+expect story liftride 1
+expect step 3
+expect height 18
+zone mast_top
+kill Screecher
+expect step 4
+walk 0 0 to 6.75 -2 to 6.75 1 h=18
+open Mast cabin strongbox
+expect story gear2 1
+expect item ZiplineTool 1
+expect step 5
+use liftdown
+wait 6
+expect height 1.5
+zone wreck_shore
+expect done

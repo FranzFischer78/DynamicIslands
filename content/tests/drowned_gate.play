@@ -1,0 +1,64 @@
+# Play test of The Drowned Gate (CIPlay drowned_gate, in a test world 'CI ...'). Points as in its recipe (its gate frame
+# turned into the island's): the north pad (5 m) with the lock keeper's house and his count, the wall's deck (5.05 m) from
+# the pad through the pump room to the lock's deck (the outer gate's lever, the inner gate's wheel) and the gate office,
+# the lock chamber under the deck (water, 4 m deep) between the two gates, the flooded pump hall beside it (its door in
+# the chamber's north wall, the chest on its floor 3.95 m down).
+island The Drowned Gate
+expect step 0
+expect title Locks and Pumps
+wait 5
+
+# Onto the wall from the north pad: along the pad past the keeper's house, onto the deck's end
+walk 57.17 6.99 to 44 11.69 to 41.29 7.35 h=5.05
+zone wall
+expect step 1
+read Lock keeper's count
+expect step 2
+
+# Along the deck through the pump room to the lock's deck; the outer gate's lever; into the lock
+walk 41.29 7.35 to 39.27 1.7 to 37.59 -3.01 to 35.57 -8.66 to 37.05 -10.78 h=5.05
+use outerlever
+expect message chain rattles
+wait 6
+log the gates after the lever (the outer one sunk 7.4 m):
+where TP_SeleneEntranceGate
+at 35.6 -11.86 h=0.3
+zone lockgate
+expect step 3
+
+# The keeper's crowbar: in at his house's door, his locker
+walk 46.2 7.46 to 48.08 6.79 to 49.68 6.22 h=5.2 below=8
+open Lock keeper's locker
+expect story crowbar 1
+expect step 4
+
+# Back in the lock: the pump hall's jammed door, its flooded hall, the angler, the chest on the floor
+at 35.74 -8.19 h=0.3
+use pumpdoor
+expect message screeches open
+wait 2
+at 36.75 -5.36 h=0.3
+zone pumphall
+expect step 5
+kill Angler fish
+expect step 6
+open Pump hall chest
+expect story lockkey 1
+expect step 7
+
+# The inner lock's wheel on the lock's deck; the inner gate and the office's door open; into the gate office
+walk 41.29 7.35 to 39.27 1.7 to 37.59 -3.01 to 35.57 -8.66 to 33.6 -13.9 h=5.05
+zone innerlock
+expect step 8
+use innerwheel
+expect message the wheel spins
+expect story lockkey 0
+wait 3
+walk 34.23 -12.43 to 32.55 -17.14 to 31.16 -19.83 h=5.05 below=7.5
+zone gateoffice
+expect step 9
+open Gate office vault
+wait 4
+expect item Blueprint_TitaniumTools 1
+expect item Blueprint_ZiplineToolElectric 1
+expect done

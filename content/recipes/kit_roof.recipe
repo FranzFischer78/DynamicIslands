@@ -1,0 +1,20 @@
+# Kit check (not content): gable roofs of Raft's straight wooden roof pieces over a 4.5 x 4.5 m hut - which way they face
+new
+gen Seed=1 Radius=40 Height=4 Shape=4 Roughness=0.1 ObjectDensity=0 Trees=0 Bushes=0 Rocks=0 BeachThings=0 Harvest=0
+gen Hostiles=0 Friendly=0 SeaLife=0 Water=0 SeaRocks=0 SeaFinds=0 Sunken=0
+generate
+brush flatten at 0 0 r=35 s=20 frames=60
+# A: rows at z 0.75 (yaw 0) and z 3.75 (yaw 180)
+push at -8 0
+for rx 0.75 3.75 1.5
+place Block_Roof_Straight_Wood a0 at $rx 0.75 y=2
+place Block_Roof_Straight_Wood a180 at $rx 3.75 y=2 yaw=180
+next
+pop
+# B: the same rows the other way round
+push at 4 0
+for rx 0.75 3.75 1.5
+place Block_Roof_Straight_Wood b180 at $rx 0.75 y=2 yaw=180
+place Block_Roof_Straight_Wood b0 at $rx 3.75 y=2
+next
+pop

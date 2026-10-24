@@ -1,0 +1,13 @@
+# Guide pictures of The Rootcore (CIPlay the_rootcore_pics): Raft's camera, midday, calm
+island The Rootcore
+# RESIZE 10-24: the recipe moved this island's old content by 0 22; the points below are in the old frame
+offset 0 -22
+hour 11
+weather Calm
+at 0 22
+wait 3
+picture sl11_the_rootcore_island 40 30 70 0 4 -6
+# (RESIZE 10-24 retest: the dome from inside - the old shot stood in the sea under the hill's cliff)
+snap sl11_the_rootcore_dome heartseed 0 4 1
+# (REDO 10-24) the new ramp up the west flank to the cave mouth's ledge
+picture sl11_the_rootcore_ramp -40 30 50 -5 18 19

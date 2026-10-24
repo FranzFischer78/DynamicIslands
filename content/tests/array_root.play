@@ -1,0 +1,42 @@
+# The Array Root (CIPlay array_root): 35 m down; the pylon ring, the crew notice, chamber 1, the anglers in the kelp,
+# pylon A, chamber 2, pylon B, the Root's guardian (a giant angler, in the pit), the root cutoff (the pylons burst), the
+# root vault, Halvard's apology, the buoy on the surface.
+island The Array Root
+offset 0 0
+expect step 0
+expect title The Root
+zone pylon_ring
+expect step 1
+read Root crew notice
+expect step 2
+air dome_1
+expect step 3
+zone root_anglers
+kill Angler fish
+expect step 4
+use rootcutoff
+expect story rootoff 0
+use pylona
+expect story pylonaoff 1
+expect step 5
+air dome_2
+expect step 6
+use pylonb
+expect story pylonboff 1
+expect step 7
+zone root_pit
+kill Angler fish
+expect story rootguard 1
+expect step 8
+use rootcutoff
+expect story rootoff 1
+expect hidden pylons
+expect shown pylonsburst
+expect step 9
+open Root vault
+wait 3
+expect step 10
+read Halvard's apology
+expect step 11
+zone surface_buoy
+expect done

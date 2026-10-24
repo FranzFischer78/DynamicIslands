@@ -1,0 +1,54 @@
+# Lowstreet (CIPlay lowstreet): the tram stop, the expedition plan, the cinema's projection box (wind turbine), the
+# shops' air, the anglers, the electronics shop (advanced battery), the department store, the cage release refusing
+# until the office's key, Ines's report, the lamp shop (advanced headlight), the big stingray, the diner.
+# offset 0 0 is a placeholder: phase 2 sets it from the recipe's save log (PLAY_FORMAT: Coordinates).
+island Lowstreet
+offset 0 0
+expect step 0
+expect title The Drowned District
+zone tram_stop
+expect step 1
+read Expedition plan
+expect step 2
+open Projection box
+wait 3
+expect step 3
+zone shop_1
+air shop_1
+air shop_4
+expect step 4
+kill Angler fish
+expect animals Angler fish 0
+expect step 5
+open Electronics shop
+wait 3
+expect step 6
+zone store_front
+expect step 7
+use cagerelease
+expect story cagesopen 0
+open Floor manager's office
+wait 3
+expect story storekey 1
+use cagerelease
+expect story cagesopen 1
+expect step 8
+read Ines's report
+expect step 9
+open Lamp shop
+wait 3
+expect step 10
+kill Stingray
+expect step 11
+zone embankment
+expect step 12
+read Depot timetable
+expect step 13
+zone tram_wagons
+expect step 14
+open Stripped caravan's crate
+wait 3
+expect step 15
+open Diner
+wait 3
+expect done

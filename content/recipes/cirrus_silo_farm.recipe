@@ -1,0 +1,172 @@
+# Cirrus Silo Farm - an island of the library's plan The Rainmakers (Nimbus Works' second station)
+# Rolling grassland in a steady drizzle and six tall silos of cloud-seeding salt in two rows: each one of Temperance's
+# moon-town barrels blown up to silo size and painted galvanised grey. The farmer Teo's wooden farmhouse
+# on its stone base to the west, the goat pen to the east with its goats loose. Quest "The Seed Silos" (6 steps): the
+# farm gate, net the three goats, Teo's letter to his daughter, the hatch at the foot of silo three (the silo key in the
+# farmhouse drawer), the silo's store (the motor wheel's and the steering wheel's blueprints), free Teo from the seed
+# cage, his seed box.
+#
+# Built by the recipe player (CIRecipe cirrus_silo_farm) through the editor's own operations.
+include lib_sea
+include lib_features
+new
+# (nature: grassland farm, Like Raft's own: Trees 0.28, Bushes 0.28, Rocks 0.43; Harvest 0.3 - the crops)
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.3 BeachThings=0.3
+gen Seed=9401 Radius=48 Height=14 Roughness=0.35 Peaks=1 Shape=0 Style=0 PeakShape=0.4 Cliffs=0.1 BeachWidth=0.5
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.3 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the silo yard levelled on the north rise, the farmhouse plot, the pen, the lane to the farm gate -------
+brush flatten from -12 16 to 12 16 r=10 s=20 frames=100 h=3
+brush flatten at -21 -15 r=7 s=20 frames=60 h=3
+brush flatten at 18 -10 r=10 s=20 frames=60 h=3
+brush flatten at 8 8.6 r=3 s=20 frames=60 h=3
+brush smooth from 0 -30 to 0 6 r=5 s=6 frames=20
+origin
+clear from -12 16 to 12 16 r=11
+clear at -21 -15 r=8
+clear at 18 -10 r=11
+clear from 0 -32 to 0 6 r=3
+
+# --- The six silos: Temperance's moon-town barrels blown up to silo size (4.2 m across, 12.5 m tall), ribbed metal
+# drums painted galvanised grey; silo three (east, front row) has its hatch and the seed cage ---------------------------
+for sx -8 8 8
+for sz 12 20 8
+place TP_Moontown_Barrel01_Clean silos at $sx $sz ground y=-0.3 sx=6 sz=6 sy=11.3
+next
+next
+prop silos tint.color=#a9b0b4
+# the seed walk between the rows: the radio tower's floor plates
+for wx -12 12 1.6
+place Block_Floor_Tier3 - at $wx 16 ground y=0.05
+next
+
+# --- Silo three's hatch, its store under it, the seed cage beside it -------------------------------------------------
+place TangaroaHatchRoom_Hatch silohatch at 8 8.6 ground y=0.05 yaw=0
+place Loot_Chest silostore at 10 8.4 ground sit yaw=200
+place Survivor_Cage teocage at 12.6 12 ground yaw=270
+place Loot_Chest seedbox at 4.5 8.2 ground sit yaw=160
+place Placeable_Lantern_Metal - at 5.6 8.2 ground sit
+
+# --- Teo's farmhouse: a stone base, wooden walls, a wooden hip roof on its corner posts ------------------------------
+push at -24 -17 h=3
+for fx 0.75 3.75 1.5
+for fz 0.75 2.25 1.5
+place Block_Floor_Tier3 - at $fx $fz y=0.05
+next
+next
+place Block_Wall_Wood - at 0.75 3 y=0.2
+place Block_Wall_Window_Wood - at 2.25 3 y=0.2
+place Block_Wall_Wood - at 3.75 3 y=0.2
+place Block_Wall_Wood - at 0 0.75 y=0.2 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.2 yaw=90
+place Block_Wall_Window_Wood - at 4.5 0.75 y=0.2 yaw=90
+place Block_Wall_Wood - at 4.5 2.25 y=0.2 yaw=90
+place Block_Wall_Wood - at 0.75 0 y=0.2
+place Block_Wall_Wood - at 3.75 0 y=0.2
+place Block_Pillar_Wood - at 0 0 y=0.2
+place Block_Pillar_Wood - at 4.5 0 y=0.2
+place Block_Pillar_Wood - at 0 3 y=0.2
+place Block_Pillar_Wood - at 4.5 3 y=0.2
+roof 3 2 at 0 0 y=0.2 wood
+place "Table Office" teotable at 3.4 2.2 y=0.54 yaw=0
+place Note_Paper teoletter at 3.4 2.2 y=2 sit drop yaw=15
+place Loot_ChestSmall drawer at 0.8 2.3 y=0.25 yaw=90
+place "Chair Office" - at 3.4 1.2 y=0.25 yaw=180
+pop
+
+# --- The goat pen to the east (its gate open), the tool chest with the net launcher ---------------------------------
+line Balboa_DecorationPrefabBase_Fence_Mid from 12 -14 to 24 -14 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from 12 -6 to 15 -6 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from 21 -6 to 24 -6 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from 12 -14 to 12 -6 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from 24 -14 to 24 -6 step=2.98
+place Loot_Chest toolchest at 12 -4 ground sit yaw=200
+place Creature_Goat goats at 26 2 ground
+prop goats creature.count=3
+place Creature_Chicken hens at -16 -8 ground
+prop hens creature.count=3
+
+# --- The farm gate on the lane up from the south beach --------------------------------------------------------------
+place Block_Pillar_Wood - at -2 -28 ground
+place Block_Pillar_Wood - at 2 -28 ground
+place Placeable_Flag_03 - at 2.6 -28.4 ground
+place Zone_Trigger farmgate at 0 -28 ground y=1
+
+# --- The drizzle: a grey sky and the sound of rain over the whole farm ----------------------------------------------
+place Zone_Atmosphere drizzle at 0 0 ground y=3
+place Zone_Sound drizzlesound at 0 0 ground y=3
+prop drizzle atmo.fog=#8a949c
+prop drizzle atmo.fogAmount=0.25
+prop drizzle atmo.light=#a4adb5
+prop drizzle atmo.lightAmount=0.25
+prop drizzle atmo.particles=mist
+prop drizzle zone.radius=60
+prop drizzlesound sound.event=event:/amb/rain_ocean
+prop drizzlesound sound.volume=0.5
+prop drizzlesound zone.radius=60
+
+# --- Things to gather -------------------------------------------------------------------------------------------------
+scatter "Pickup_Landmark_PineappleLandmark" 3 at 0 0 r=36 seed=9411 free=3
+scatter "Pickup_Landmark_Tree_Mango" 2 at 0 0 r=36 seed=9412 free=5
+scatter "Pickup_Landmark_Flower_Yellow" 2 at 0 0 r=36 seed=9413 free=3
+call dirt x=-6 z=-14 r=8 n=3 seed=9414
+call shallows r=68 deep=5 n=2
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Cirrus Silo Farm
+info author=Custom Islands
+info description=Nimbus Works' second station: a grass island in a steady drizzle, six galvanised silos of cloud-seeding salt, a farmhouse and a goat pen - and the farmer Teo, who never left. The second island of The Rainmakers.
+island on.arrive=message||Six grey silos stand over a wet green island, domes on their tops. Somewhere a goat is bleating.
+
+story silokey|Silo key|Placeable_Lantern_Metal|The key of silo three's hatch and its seed cage, from Teo's drawer.
+story silohatch|Silo three's hatch open|Placeable_Pipe_Water|The hatch at the foot of silo three is open.
+
+note teoletter Farmer Teo's letter to his daughter | Dear Liv,\n\nThe boat came for the company people today. I didn't go. Somebody has to keep the goats, and somebody has to keep the seed out of the wrong hands - one silo of it would rain on a whole coast for a year.\n\nI lock myself in silo three's seed cage at night, with the stock. It sounds mad. It's the only dry place left.\n\nThe silo key is in the drawer by the door. If you come and I'm not answering, use it. And catch the goats - they're out again.\n\nYour father, Teo
+note drawer Farmhouse drawer | Teo's drawer: string, a pencil stub, a goat bell - and the key of silo three on a leather cord.
+loot drawer story:silokey*1;Rope*2
+prop drawer loot.refill=0
+note toolchest Farm tool chest | A tool chest by the pen: a net launcher and its nets, kept for the goats.
+loot toolchest NetGun*1;NetCanister*4;Rope*2
+prop toolchest loot.refill=0
+note silostore Silo 3 store | Silo three's store under the hatch: sacks of grey seeding salt, and Nimbus Works' plans for a raft that steers itself into the wind.
+loot silostore Blueprint_MotorWheel*1;Blueprint_SteeringWheel*1;Scrap*4;Bolt*2
+prop silostore loot.refill=0
+prop silostore obj.name=silostore
+prop silostore beh.hidden=1
+note seedbox Teo's seed box | Teo's own seed box, not the company's: real seeds, and a basket of food for the road.
+loot seedbox Seed_Pineapple*3;Seed_Watermelon*2;Seed_Strawberry*2;Coconut*2;Watermelon*2
+prop seedbox loot.refill=0
+prop seedbox if.open=signal|teofree
+prop seedbox else.open=message||A seed box with a padlock and a tag: TEO'S - NOT THE COMPANY'S.
+
+prop silohatch obj.name=silohatch
+prop silohatch if.use=has|story:silokey|1
+prop silohatch on.use=message||The silo key turns. The hatch lifts on a dry store under silo three - sacks of grey salt, and a chest.\nhide|\ngive||story:silohatch*1\nshow|silostore
+prop silohatch else.use=message||The hatch at the foot of silo three is locked. The key must be somewhere on the farm.
+
+prop teocage obj.name=teocage
+prop teocage survivor.name=Teo
+prop teocage survivor.id=rainmakers_teo
+prop teocage survivor.key=silokey
+prop teocage survivor.signal=teofree
+prop teocage survivor.line=You came! I'm Teo. The goats - you caught the goats? Then I'm coming with you. Next station is the kite meadow, frequency nine hundred.
+
+prop farmgate zone.id=farm_gate
+prop farmgate zone.radius=5
+prop farmgate zone.message=Cirrus Silo Farm: a lane up to six grey silos and a farmhouse, all of it wet.
+
+quest title=The Seed Silos
+quest intro=A farm of seed silos, and somebody's goats loose. Walk up through the farm gate.
+step reach|farm_gate|1|Walk up the lane through the farm gate
+step catch|Goat|3|Net the three runaway goats (the net launcher is in the tool chest by the pen)
+step read|Farmer Teo's letter to his daughter|1|Read the letter on the farmhouse table
+step collect|story:silohatch|1|Open the hatch at the foot of silo three with the silo key
+step open|Silo 3 store|1|Open the store under silo three
+step blueprint|Blueprint_MotorWheel|1|Take the engine plans from the silo 3 store
+step blueprint|Blueprint_SteeringWheel|1|Take the steering wheel plans from the silo 3 store
+step open|Teo's seed box|1|Free Teo from the seed cage beside silo three (the silo key opens it), then open his seed box
+quest done=Teo is free and on his way to your raft. The next station is the kite meadow: tune the Receiver to 900.
+quest reward=Plank*6;Rope*3;Scrap*4
+
+save Cirrus Silo Farm

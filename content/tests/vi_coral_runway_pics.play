@@ -1,0 +1,13 @@
+# Pictures of Coral Runway (CIPlay vi_coral_runway_pics; vehicle island): Raft's camera, midday, calm
+island Coral Runway
+offset -0.4637 -0.9763
+hour 11
+weather Calm
+at 0 0
+wait 3
+picture vi_coral_runway_overview 75 59 -75 0 3 0
+picture vi_coral_runway_plane -35 +4 -10 -48 +2 0
+picture vi_coral_runway_loft -24 +6 31 -40 +0.5 17
+picture vi_coral_runway_jetty 28 4 18 24 1.8 27
+picture vi_coral_runway_fueltruck 18 +3 4 10 +1 12
+picture vi_coral_runway_boats 34 5 30 22 0.5 31

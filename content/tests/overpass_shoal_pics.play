@@ -1,0 +1,16 @@
+# Guide pictures of Overpass Shoal (CIPlay overpass_shoal_pics): Raft's camera, midday, calm
+island Overpass Shoal
+offset 0 0
+hour 11
+weather Calm
+at 8 -1 h=8
+wait 3
+picture sl10_overpass_island 10 16 -34 4 0 0
+picture sl10_overpass_broken_end -12 6 -10 -19 3 0
+picture sl10_overpass_sunken_lane 22 -1 6 30 -4 0
+picture sl10_overpass_vehicles 2 9 -9 8 3 -1
+picture sl10_overpass_parked_vehicles 30 10 -20 22 2 -7
+picture sl10_overpass_shoal_ridge 2 18 55 2 9 69
+picture sl10_overpass_shoal_cave 18 13 -35 24 4 -47
+picture sl10_overpass_shoal_ruin 55 13 42 66 4 50
+picture sl10_overpass_shoal_wreck -53 13 -19 -66 4 -24

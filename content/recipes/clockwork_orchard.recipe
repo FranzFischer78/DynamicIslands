@@ -1,0 +1,220 @@
+# The Clockwork Orchard - a new island of the library, normal size
+# An inventor's orchard on a flat-topped rock (Shape 4, tropical): rows of mango, banana and pineapple on the plateau
+# (9.8 m), three hand pumps with their wind towers at its rim - the pineapple pump west, the mango pump south, the banana
+# pump east - stone gutters from each to the dry fountain in the middle, the inventor's lean-to by the head of the cliff
+# ramp; below the plateau on the south plain (2.5 m) his workshop, its door a steel shutter that only the fountain's
+# pressure lifts.
+# Quest "The Water Order" (5 steps, a sequence): the diagram, the crank, the three pumps in the diagram's order (a wrong
+# pump chokes them all and they must be started again), the parts crate behind the crank wheel by the workshop, the
+# strongbox inside.
+#
+# Built by the recipe player (CIRecipe clockwork_orchard) through the editor's own operations. Points: the plateau's top
+# at 9.8 m (x -24..24, z -21..21); the ramp up its north-west cliff from -28 24 (2.6 m) to -6 21 (9.8 m); the lean-to at
+# -9 13; the pumps at -19 0 (pineapple), 0 -17 (mango), 19 0 (banana); the fountain at 0 0; the workshop on the south
+# plain, x -3..3, z -38.5..-29.5, its shutter in the south wall at 1.5 -38.5.
+include lib_rt
+include lib_huts
+include lib_sea
+include lib_features
+new
+gen Trees=0.4 Bushes=0.45 Rocks=0.5 Harvest=0.4 BeachThings=0.3
+gen Seed=9112 Radius=45 Height=10 Roughness=0.25 Peaks=1 Shape=4 Style=0 BeachWidth=0.6 Cliffs=0.6 PeakShape=0.3
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== The land: the plateau's top levelled, the ramp up its cliff, the gutters, the workshop's plot ===================
+macro dabs x1 z1 h1 x2 z2 h2 n=12 r=2.6
+for i 0 $n
+brush flatten at {$x1+($x2-$x1)*$i/$n} {$z1+($z2-$z1)*$i/$n} r=$r s=20 frames=25 h={$h1+($h2-$h1)*$i/$n}
+next
+end
+brush flatten at 0 0 r=19 s=20 frames=80 h=9.8
+call dabs -30 25 2.6 -7 21 9.8 n=16
+brush flatten from -10 -36 to 10 -36 r=7 s=20 frames=60 h=2.5
+brush flatten from -6 -31 to 6 -31 r=4 s=20 frames=40 h=2.5
+# (the gutters: stone channels from each pump to the fountain)
+brush rock from -17 0 to -2 0 r=0.9 s=20 frames=30
+brush rock from 0 -15 to 0 -2 r=0.9 s=20 frames=30
+brush rock from 17 0 to 2 0 r=0.9 s=20 frames=30
+brush rock at 0 0 r=3 s=20 frames=20
+clear at 0 0 r=24
+clear from -30 25 to -7 21 r=4
+clear from -10 -36 to 10 -36 r=8
+
+# ===== The orchard: rows of mango trees, banana and pineapple between them =============================================
+for ox -15 15 7.5
+place Pickup_Landmark_Tree_Mango - at $ox 11 ground yaw={$ox*20}
+place Pickup_Landmark_Tree_Mango - at {$ox+3.5} -10 ground yaw={$ox*30}
+next
+for ox -14 14 7
+place Banana_Bush_1 - at $ox 6 ground yaw={$ox*15}
+place Pickup_Landmark_PineappleLandmark - at {$ox+2} -5.5 ground yaw={$ox*40}
+next
+place Banana_Bush_2 - at 9 15.5 ground yaw=40
+place Banana_Bush_3 - at -14 -15 ground yaw=110
+place Pickup_Landmark_PineappleLandmark - at 6 -15 ground
+place Pickup_Landmark_PineappleLandmark - at -6 15 ground yaw=70
+
+# ===== The three pump stations at the rim: hand pump, wind tower, a cog that turns when the pump runs, its sign ========
+macro station x z yaw pump cog sign
+push at $x $z h=9.8 yaw=$yaw
+place Pump $pump at 0 0 y=1.1
+place Pump_Handle - at 0 0 y=0
+place RT_WindMill - at 0 -3 y=0 sit
+place UT_DrawBridgeMechanism_Cogwheel01 $cog at 0.9 0 y=0 sit scale=3
+place Note_Sign $sign at -1.2 0.6 y=0 sit yaw=0
+pop
+end
+call station -19 0 90 pineapplepump pineapplecog pineapplesign
+call station 0 -17 0 mangopump mangocog mangosign
+call station 19 0 270 bananapump bananacog bananasign
+
+# ===== The fountain in the middle: its bowl, the water wheel and the spray that rise when the pumps run ===============
+place VP_ConcretePipe02 fountainbowl at 0 0 h=10.05 rot=90,0,0 scale=1.6 sz=0.15
+place UT_WaterChallengeWheel2 fountainwheel at 0 0 h=10.2 scale=0.3
+place Zone_Atmosphere fountainspray at 0 0 h=11
+place Zone_Sound fountainsound at 0 0 h=10.5
+place Zone_Trigger orchard at -8 19 h=11
+
+# ===== The inventor's lean-to by the head of the ramp: his diagram on a board, his toolbox, a bench ===================
+push at -12 11 h=9.8
+call floors w=3 d=2 y=0.1
+place Block_Pillar_Wood - at 0 0 y=0.1
+place Block_Pillar_Wood - at 4.5 0 y=0.1
+place Block_Pillar_Wood - at 0 3 y=0.1
+place Block_Pillar_Wood - at 4.5 3 y=0.1
+place Block_Wall_Wood - at 0.75 3 y=0.1
+place Block_Wall_Wood - at 2.25 3 y=0.1
+place Block_Wall_Wood - at 3.75 3 y=0.1
+roof 3 2 at 0 0 y=0.1 wood
+place Note_Board diagram at 2.25 2.85 y=1.3 yaw=180
+place Workbench - at 1 2.2 y=0.1 sit yaw=180
+place "Box Small" toolbox at 3.8 2.2 y=0.1 sit yaw=10
+place UT_DrawBridgeMechanism_Cogwheel01 - at 1 2.2 y=1.2 sit scale=1.5
+pop
+
+# ===== The workshop on the south plain under the cliff: a concrete room, its door a steel shutter =====================
+push at 3 -34 h=2.55 yaw=0
+call rt_storey l2=RT_WallWindow1 r2=RT_WallWindow1 f2=none
+place RT_Wall1 workshopdoor at 0 -4.5 y=0
+place Workbench - at -1.5 3.6 y=0 sit yaw=0
+place Loot_ChestLarge strongbox at -4.5 3.6 y=0 sit yaw=180
+place "VG_DecorationPrefabBase_Clock Variant" - at -3 4.42 y=1.8 yaw=180
+place UT_HookRoom_Lift_Cogwheel - at -5.4 -1 y=0 sit yaw=90 scale=0.8
+place UT_DrawBridgeMechanism_Cogwheel01 - at -1.5 3.6 y=1 sit scale=1.8
+place Zone_Trigger workshop at -3 1 y=1.5
+pop
+push at 3 -34 h=5.55 yaw=0
+call rt_storey b1=none b2=none f1=none f2=none l1=none l2=none l3=none r1=none r2=none r3=none
+pop
+
+# ===== Friendly animals, Raft's finds in the shallows ===================================================================
+place Creature_Goat goats at -20 -34 ground
+place Creature_Dolphin dolphins at 50 40 h=-3
+call shallows r=58 deep=5 n=1
+prop goats creature.count=3
+prop dolphins creature.count=2
+
+# ===== Settings, story items, notes, behaviours, quest (5 steps) ==========================================================
+info title=The Clockwork Orchard
+info author=Custom Islands
+info description=An inventor's orchard on a flat-topped rock: mango, banana and pineapple in rows, three hand pumps with their wind towers at the rim, stone gutters to a dry fountain - and below the cliff, his workshop, its steel shutter down. Start the pumps in the order on his diagram and the water does the rest.
+island on.arrive=message||A flat-topped rock with an orchard on it, wind towers at its edges, and a ramp cut up the cliff. Nothing turns. Nothing drips.
+
+story crank|Pump crank|quest:Balboa_BrunosTool_Wrench|The inventor's pump crank, from his toolbox: it fits all three pumps.
+story flow|Running water|Placeable_Pipe_Water|The orchard's water running again, pumps to fountain - the workshop shutter's pressure line is live.
+
+note diagram Inventor's diagram | (chalk on a board, much rubbed out and redrawn)\n\nTHE WATER ORDER\n\nThe gutters fill the fountain; the fountain lifts the workshop shutter.\nThe pumps must run in the order the fruit ripens - lowest first, highest last:\n\n  the PINEAPPLE (it sits on the ground),\n  then the MANGO (it hangs on the tree),\n  then the BANANA (it hangs highest of all).\n\nStart one out of order and they choke each other - all three stop and you start again.\nThe crank is in my toolbox. I am at the market, back Thursday.\n- O.V.
+note pineapplesign Pineapple pump | PINEAPPLE PUMP (west)
+note mangosign Mango pump | MANGO PUMP (south)
+note bananasign Banana pump | BANANA PUMP (east)
+note toolbox Inventor's toolbox | The inventor's toolbox: spanners, springs, a pocket watch with no hands - and the pump crank.
+loot toolbox story:crank*1;Bolt*4;Hinge*2
+prop toolbox loot.refill=0
+note strongbox Inventor's strongbox | His strongbox: the plans for every pump, pipe and tank on the island, sprinklers, seeds from the orchard - and a note: "If you got in, you understood the water. Keep it running."
+loot strongbox Blueprint_Pipe_Water*1;Blueprint_WaterTank*1;Placeable_Sprinkler*2;Seed_Mango*2;Seed_Banana*2;Seed_Pineapple*2;TradeToken*6
+prop strongbox loot.refill=0
+
+prop pineapplecog obj.name=pineapplecog
+prop pineapplecog beh.hidden=1
+prop pineapplecog beh.spin=90
+# (Selene's cogwheel as a ready piece is a crank players turn: this one only spins when its pump runs - the ready piece's settings taken off)
+prop pineapplecog beh.use=
+prop pineapplecog if.use=
+prop pineapplecog else.use=
+prop pineapplecog on.use=
+prop mangocog obj.name=mangocog
+prop mangocog beh.hidden=1
+prop mangocog beh.spin=90
+# (Selene's cogwheel as a ready piece is a crank players turn: this one only spins when its pump runs - the ready piece's settings taken off)
+prop mangocog beh.use=
+prop mangocog if.use=
+prop mangocog else.use=
+prop mangocog on.use=
+prop bananacog obj.name=bananacog
+prop bananacog beh.hidden=1
+prop bananacog beh.spin=90
+# (Selene's cogwheel as a ready piece is a crank players turn: this one only spins when its pump runs - the ready piece's settings taken off)
+prop bananacog beh.use=
+prop bananacog if.use=
+prop bananacog else.use=
+prop bananacog on.use=
+prop pineapplepump obj.name=pineapplepump
+prop pineapplepump beh.use=Crank the pineapple pump
+prop pineapplepump if.use=has|story:crank|1
+prop pineapplepump on.use=hide|mangocog\nhide|bananacog\nshow|pineapplecog\nmessage||The pineapple pump coughs and starts to chug. Water gurgles into the west gutter.\nsound||event:/raft/engine/waterwheel
+prop pineapplepump else.use=message||A hand pump with no handle. The inventor's crank is somewhere.
+prop mangopump obj.name=mangopump
+prop mangopump beh.use=Crank the mango pump
+prop mangopump if.use=has|story:crank|1\nstate|pineapplecog|shown
+prop mangopump on.use=show|mangocog\nmessage||The mango pump picks up the pineapple pump's beat. The south gutter runs.\nsound||event:/raft/engine/waterwheel
+prop mangopump else.use=hide|pineapplecog\nhide|mangocog\nhide|bananacog\nmessage||The pump bucks against the crank - and all over the plateau the pumps choke and stop. Wrong order (or no crank). The diagram, again.
+prop bananapump obj.name=bananapump
+prop bananapump beh.use=Crank the banana pump
+prop bananapump if.use=has|story:crank|1\nstate|mangocog|shown
+prop bananapump on.use=show|bananacog\nshow|fountainwheel\nshow|fountainspray\nshow|fountainsound\nopen|workshopdoor\ngive||story:flow*1\nmessage||Three pumps in time, three gutters full - the fountain rises, its wheel turns - and from below the cliff comes a long steel groan as the workshop shutter lifts.\nsound||event:/raft/engine/waterwheel
+prop bananapump else.use=hide|pineapplecog\nhide|mangocog\nhide|bananacog\nmessage||The pump bucks against the crank - and all over the plateau the pumps choke and stop. Wrong order (or no crank). The diagram, again.
+prop fountainwheel obj.name=fountainwheel
+prop fountainwheel beh.hidden=1
+prop fountainwheel beh.spin=45
+prop fountainspray obj.name=fountainspray
+prop fountainspray beh.hidden=1
+prop fountainspray atmo.particles=bubbles
+prop fountainspray atmo.fog=#c8e8f0
+prop fountainspray atmo.fogAmount=0.05
+prop fountainspray zone.radius=3
+prop fountainsound obj.name=fountainsound
+prop fountainsound beh.hidden=1
+prop fountainsound sound.event=event:/raft/engine/waterwheel
+prop fountainsound sound.volume=0.6
+prop fountainsound zone.radius=10
+prop workshopdoor obj.name=workshopdoor
+prop workshopdoor beh.move=0,-2.95,0
+prop workshopdoor beh.moveTime=3
+prop workshopdoor beh.moveMode=switch
+
+prop orchard zone.id=orchard
+prop orchard zone.radius=6
+prop orchard zone.message=The Clockwork Orchard: fruit trees in rows, wind towers at the rim, dry stone gutters running to a dry fountain.
+prop workshop zone.id=workshop
+prop workshop zone.radius=3.5
+prop workshop zone.message=The inventor's workshop: cogs on every surface, a clock with no hands, and his strongbox under the bench.
+
+# --- Raft's special features (the user, 2026-10-05: every Raft feature on at least one island): dirt spots in the orchard rows, for its seeds
+call dirt x=0 z=0 r=20 n=5 seed=101
+# --- Raft's story machinery (the user, 2026-10-06): on the plain either side of the workshop, one of Temperance's crank
+# wheels that lifts the shutter of the inventor's parts crate, and a hand lever that draws the bolt of his spare chest
+call crankcache x=-6.5 z=-36 yaw=90 alias=partscrank sig=partscrank chest=partscrate cx=-7.5 cz=-31.5 cyaw=90 items=Bolt*4;Hinge*2;Rope*2 title="Inventor's parts crate"
+call leverchest x=6.5 z=-36 yaw=270 alias=sparelever sig=sparelever chest=sparechest cx=7.5 cz=-31.5 cyaw=270 items=MetalIngot*2;Nail*12;Glass*2 title="Inventor's spare chest"
+
+quest title=The Water Order
+quest intro=An orchard on a rock where nothing turns. The inventor left his diagram in the lean-to at the top of the ramp.
+step read|Inventor's diagram|1|Climb the ramp to the orchard and read the inventor's diagram in his lean-to
+step open|Inventor's toolbox|1|Take the pump crank from his toolbox
+step collect|story:flow|1|Start the three pumps in the diagram's order and get the water running
+step open|Inventor's parts crate|1|Down by the workshop, turn the crank wheel and take his parts crate
+step open|Inventor's strongbox|1|Duck under the raised shutter and open the inventor's strongbox
+quest done=The pumps chug in time, the fountain turns, and the orchard drinks. The inventor's plans are yours - keep it running.
+quest reward=Mango*4;Banana*4;Pineapple*2
+
+save The Clockwork Orchard

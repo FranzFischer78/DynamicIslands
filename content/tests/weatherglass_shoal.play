@@ -1,0 +1,18 @@
+# Weatherglass Shoal (CIPlay weatherglass_shoal): a side shoal at sea level; the station, the weather log, the barometer,
+# the station chest and the twin note.
+island Weatherglass Shoal
+offset 0 0
+expect step 0
+expect title The Weatherglass
+zone station
+expect step 1
+read Weather log
+expect step 2
+use barometer
+expect story reading 1
+expect step 3
+open Station chest
+wait 3
+expect step 4
+read Twin note
+expect done

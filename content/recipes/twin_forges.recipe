@@ -1,0 +1,299 @@
+# Twin Forges - a new island of the library, four times the size (x4)
+# A volcanic island of two dark peaks, the Anvil (north-east) and the Bellows (south-west): two rival smithies on their
+# shoulders, a chasm split across the high saddle between them with a plank bridge over it and the judging stone on its
+# middle, the old mine adit in the north-east peak's flank, the charcoal clamps in the south slope's scrub.
+# Quest "The Master-Smith" (13 steps): a contest - ore for one smith, charcoal for the other, two blades on the judging
+# stone, and the Forge-Warden the old rule wakes for a drawn contest; the prize vault in the chasm.
+#
+# Built by the recipe player (CIRecipe twin_forges) through the editor's own operations.
+include lib_rt
+include lib_huts
+include lib_sea
+new
+# (nature: volcanic - sparse scrub, pines and birches on the lower slopes, palms by the jetty)
+gen Trees=0.2 Bushes=0.3 Rocks=0.5 Harvest=0.25 BeachThings=0.3
+gen Seed=9219 Radius=90 Height=44 Roughness=0.5 Peaks=2 Shape=7 Style=4 BeachWidth=0.35 Cliffs=0.45 PeakShape=0.55 Valleys=0.3
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the saddle between the peaks levelled at 30 m along the line from peak to peak (the two forges at its
+# ends, under the peaks); the chasm split across it (8 m wide, its floor at 22 m), reached by ladders from the bridge; the adit's gallery dug under the north-east peak's
+# north flank (floor 4 m); the jetty's beach on the north coast --------------------------------------------------------
+brush flatten from -12.4 -17.4 to 17.4 0.4 r=7 s=20 frames=300 h=30
+brush flatten from -12.4 -17.4 to 17.4 0.4 r=7 s=20 frames=300 h=30
+brush flatten from 10.7 -22.2 to -5.7 5.2 r=4 s=20 frames=300 h=22
+brush flatten from 10.7 -22.2 to -5.7 5.2 r=4 s=20 frames=300 h=22
+brush flatten at -3.6 3.5 r=8 s=20 frames=500 h=22
+brush flatten from 29 41 to 29 27 r=4.5 s=20 frames=300 h=4
+brush flatten at -0.5 76 r=4 s=20 frames=100 h=1.2
+brush rock from 10.7 -22.2 to -5.7 5.2 r=6 s=20 frames=20
+clear from -12.4 -17.4 to 17.4 0.4 r=9
+clear from 10.7 -22.2 to -5.7 5.2 r=6
+clear from 29 42 to 29 27 r=6
+clear at -11 -50 r=10
+
+# --- The bridge over the chasm: a deck of boards with rails from bank to bank (two ladders down from its middle), the judging stone on its middle with the
+# verdict (hidden till the blades are laid), the rules on a post at its west end, the Forge-Warden (hidden till then) and
+# his music ---------------------------------------------------------------------------------------------------------------
+push at 2.5 -8.5 h=30.05 yaw=-31
+place RT_Floor bridge at 8 1.5 y=0 sx=2.65 sz=0.333
+for k 0 10 1
+place RT_Fence - at {-6.5+1.5*$k} -1.45 y=0.05
+next
+for k 0 4 1
+place RT_Fence - at {-6.5+1.5*$k} 1.45 y=0.05
+next
+for k 7 10 1
+place RT_Fence - at {-6.5+1.5*$k} 1.45 y=0.05
+next
+place LandmarkLadder_6m - at 1.75 1.75 y=-8 yaw=180
+place LandmarkLadder_6m - at 1.75 1.75 y=-4.7 yaw=180
+place RT_GroundPillarCap judgingstone at 0 0 y=1.05 sy=0.33
+place Note_Paper verdict at 0 0 y=1.6 drop yaw=20
+place Note_Sign rules at -10.5 2 y=0 sit yaw=90
+place Creature_MamaBear warden at 11 4 y=0.5
+pop
+place Zone_Trigger saddle at 2.5 -8.5 h=31.5
+place Zone_Sound wardenmusic at 2.5 -8.5 h=31
+
+# --- The prize vault at the chasm's north-west end, in its wall (a radio tower room, its door a stone slab that sinks when
+# the Warden falls): the prize, the Warden's broken chains --------------------------------------------------------------
+push at -1.13 3.35 h=22.05 yaw=-31
+call rt_storey f1=none f2=RT_Wall1 l1=none
+# (the front left wall stands on the floor's edge, not past it: the chasm's rim falls away under the edge, and a wall
+# reaching down to the rim hung in the air at its far end)
+place RT_Wall1 - at -5.94 -4.5 yaw=90
+place RT_Floor - at 0 4.5 y=3
+place RT_Wall1 vaultgate at -3 -4.5
+place Loot_ChestLarge prize at -3 3.2 y=0 sit yaw=180
+place Chains02_Open - at -5.6 2 y=1.5 yaw=90
+place Zone_Trigger vault at -3 1 y=1.5
+pop
+
+# --- The Anvil, Brann's forge on the north-east peak's shoulder (a radio tower room, open to the saddle): the furnace and
+# its fire (hidden till lit), a vice on a stump, his tool board, his chalkboard, a box under the bench ------------------------
+push at 15.7 -4.1 h=30.05 yaw=59
+call rt_storey f1=none f2=none
+place RT_Floor - at 0 4.5 y=3
+place Placeable_CookingStand_Smelter anvilforge at -3 3.05 y=0 sit scale=2
+place campfire_1 anvilfire at -1.4 3.2 y=0 sit scale=1.5
+place Tree_Stump - at -4.6 0 y=0 sit
+place "VG_DecorationPrefabBase_Vice Variant" - at -4.6 0 y=1.3 drop
+place "VG_DecorationPrefabBase_BoardWithToolOutline Variant" - at -5.9 -2 y=1.8 yaw=90
+place Note_Board chalkboard at -5.7 1.6 y=0 sit yaw=90
+place "Box Small" anvilbox at -1 -3.2 y=0 sit yaw=20
+pop
+place Zone_Trigger anvil at 14.2 -1.5 h=31.5
+
+# --- The mine adit in the north-east peak's north flank: Balboa's bear cave set into the slope, its mouth north onto the
+# plain (floor 4 m); rails on its floor, three ore carts (the ore), a lamp at the mouth, the dark --------------------------
+place BalboaCave_Bear adit at 30 24 h=8.55
+place RT_Beam - at 28.9 39 h=4.05 yaw=90
+place RT_Beam - at 28.9 33 h=4.05 yaw=90
+place VP_Wagon01 ore1 at 27.5 36 h=4.05 sit yaw=10
+place VP_Wagon01 ore2 at 29.5 32.5 h=4.05 sit yaw=-5
+place VP_Wagon01 ore3 at 28 29 h=4.05 sit yaw=20
+place Placeable_Lantern_Metal - at 32.5 40 ground sit
+place Zone_Atmosphere aditdark at 29 32 h=6
+
+# --- The Bellows, Kessa's forge on the south-west peak's shoulder (open to the saddle): the furnace and its fire (hidden),
+# a pair of great bellows, her note, her quench barrel -----------------------------------------------------------------------
+push at -10.7 -13 h=30.05 yaw=239
+call rt_storey f1=none f2=none
+place RT_Floor - at 0 4.5 y=3
+place Placeable_CookingStand_Smelter bellowsforge at -3 3.05 y=0 sit scale=2
+place campfire_1 bellowsfire at -1.4 3.2 y=0 sit scale=1.5
+place Block_Wall_Slope_Wood - at -5 2.6 y=0 sit scale=1.4 yaw=90
+place Block_Wall_Slope_Wood - at -5 1 y=0 sit scale=1.4 yaw=90
+place Note_Paper kessanote at -2 -3.6 y=0.05 drop yaw=30
+place Loot_Barrel bellowsbarrel at -5.2 -3.2 y=0 sit
+pop
+place Zone_Trigger bellows at -9.2 -15.6 h=31.5
+
+# --- The charcoal clamps on the south slope below the Bellows: three mounds with a sack on each, stacked logs, the smoke;
+# the boars wait for whoever comes ----------------------------------------------------------------------------------------
+place VP_RubblePile_Small01 - at -14 -46 ground sit yaw=10
+place VP_RubblePile_Small01 - at -8 -50 ground sit yaw=80
+place VP_RubblePile_Small01 - at -12 -55 ground sit yaw=150
+place "VG_DecorationPrefabBase_WoodenBoxes_ShortRect Variant" coal1 at -14 -46 ground drop
+place "VG_DecorationPrefabBase_WoodenBoxes_ShortRect Variant" coal2 at -8 -50 ground drop
+place "VG_DecorationPrefabBase_WoodenBoxes_ShortRect Variant" coal3 at -12 -55 ground drop
+place TreeLog_02 - at -18 -51 ground sit yaw=20
+place TreeLog_02 - at -18 -52.2 ground sit yaw=25
+place Zone_Atmosphere clampsmoke at -11 -50 y=3
+place Zone_Trigger clamps at -11 -50 y=1.5
+place Creature_Boar boars at -5 -45 ground
+
+# --- The jetty on the north coast, a box on it, palms; hens on the plain, goats on the south slopes, pines and birches on
+# the plain (the clamps' wood), dolphins, a sunk ingot crate; the volcanic haze --------------------------------------------
+push at -0.75 76 h=-2 yaw=-90
+call boardwalk n=6 wide=1 y=3.6
+pop
+place "Box Small" jettybox at 0 79 h=3 sit drop yaw=15
+scatter "Pickup_Landmark_Tree_Palm 3" 2 at 8 70 r=5 seed=1901
+scatter Pickup_Landmark_Tree_Pine 1 at -25 55 r=6 seed=1902
+scatter Pickup_Landmark_Tree_Birch 1 at 25 55 r=6 seed=1903
+place Creature_Chicken hens at 12 64 ground
+place Creature_Goat goats at -20 -62 ground
+place Creature_Dolphin dolphins at 0 100 h=-3
+place Loot_SunkenBarrel sunkingots at 5 90 h=-1 drop
+place Zone_Atmosphere haze at 0 -10 y=10
+place Zone_Atmosphere haze at 0 40 y=10
+
+# --- Raft's finds in the shallows round the island (lib_sea) ------------------------------------------------------------
+call shallows r=110 deep=5 n=1
+
+# ===== Settings, story items, notes, behaviours, quest (13 steps) =========================================================
+info title=Twin Forges
+info author=Custom Islands
+info description=Two rival smithies on the two peaks of a volcanic island and a bridge over the chasm between them where their contest was never judged. Find Brann his ore and Kessa her charcoal, forge both blades, lay them on the judging stone - and face what the old rule wakes.
+island on.arrive=message||Two dark peaks, a forge house on each with a cold chimney, and between them on the saddle a stone bridge over a black chasm.
+
+story ore|Lump of iron ore|MetalOre|A heavy lump of the adit's red-black ore.
+story charcoal|Sack of charcoal|quest:Caravan_BatteryChargerPart|A sack of good hardwood charcoal from the clamps.
+story northblade|Brann's blade|Sword_Titanium|A long, plain, perfect blade from the Anvil.
+story southblade|Kessa's blade|Machete|A curved blade with a pattern like water in the steel, from the Bellows.
+
+note rules The contest's rules | THE CONTEST OF THE MASTER-SMITH\n\nTwo smiths, two forges, one blade each by midsummer.\nThe blades are laid side by side on the judging stone.\nThe better blade makes its smith master of the island.\nIF THE BLADES ARE EQUAL, the contest is drawn - and a drawn contest is settled, as it always was, by the Forge-Warden under the bridge.\n\n(scratched underneath:) Brann has no ore. Kessa has no charcoal. Neither will ask. - the bridge-keeper
+note chalkboard Brann's chalkboard | (in chalk, on the forge's board)\n\nORE: NONE. Adit carts - 3 lumps left, maybe. Too proud to fetch them myself after what Kessa said. Gone fishing.\n\nThe furnace takes three lumps. It'll make a blade by itself, it knows how.\n- B.
+note kessanote Kessa's note | (on the Bellows' door)\n\nCharcoal: out. The clamps are full of boars since the burner left. Three sacks would do it.\n\nIf you're fetching for Brann - fetch for me too. I won't lose to an empty furnace.\n- K.
+note verdict The verdict | (a slip of paper that appears on the stone, in the bridge-keeper's hand)\n\nTHE BLADES ARE EQUAL.\nThe contest is drawn.\nThe Forge-Warden is loosed.\n\nWhoever stands on the bridge settles it.
+note prize The contest prize | The prize for the master-smith of the island: a titanium sword from the first smiths, the plans for fine joinery, bars of good steel, and the chain the Warden wore, broken.
+loot prize Sword_Titanium*1;Blueprint_DetailPlank*1;MetalIngot*4;TitaniumIngot*2
+prop prize loot.refill=0
+note anvilbox Anvil bench box | A box under Brann's bench: tongs, a file, nails he made himself.
+loot anvilbox Nail*10;MetalIngot*1;Scrap*2
+prop anvilbox loot.refill=0
+note bellowsbarrel Bellows barrel | Kessa's quench barrel, drained: scrap and copper offcuts in the bottom.
+loot bellowsbarrel CopperIngot*1;Scrap*3;MetalOre*1
+prop bellowsbarrel loot.refill=0
+note jettybox Jetty box | A box at the jetty: Brann's fishing line, and a fish he forgot.
+loot jettybox FishingBait_Simple*3;Cooked_Herring*2;Rope*2
+prop jettybox loot.refill=0
+note sunkingots Sunk ingot crate | A crate of ingots that fell off a boat at the jetty.
+loot sunkingots MetalIngot*2;MetalOre*2;Bolt*2
+prop sunkingots loot.refill=0
+
+prop ore1 obj.name=ore1
+prop ore1 beh.use=Take the ore lump from the cart
+prop ore1 if.use=!signal|o1
+prop ore1 on.use=hide|ore1\ngive||story:ore*1\nsignal||o1\nsound||event:/exploring/utopia/metal_pickup
+prop ore2 obj.name=ore2
+prop ore2 beh.use=Take the ore lump from the cart
+prop ore2 if.use=!signal|o2
+prop ore2 on.use=hide|ore2\ngive||story:ore*1\nsignal||o2\nsound||event:/exploring/utopia/metal_pickup
+prop ore3 obj.name=ore3
+prop ore3 beh.use=Take the ore lump from the cart
+prop ore3 if.use=!signal|o3
+prop ore3 on.use=hide|ore3\ngive||story:ore*1\nsignal||o3\nsound||event:/exploring/utopia/metal_pickup
+prop anvilforge obj.name=anvilforge
+prop anvilforge beh.use=Feed the three lumps to the Anvil's furnace
+prop anvilforge if.use=quest|5\ntake|story:ore|3
+prop anvilforge on.use=message||The ore goes in, the furnace roars - and the old forge does what Brann said it would: hammers you can't see ring on the anvil until a long plain blade cools in the trough.\nshow|anvilfire\ngive||story:northblade*1\nsound||event:/crafting/hammer_impact
+prop anvilforge else.use=message||Brann's furnace, cold. His chalkboard says three lumps from the adit.
+prop anvilfire obj.name=anvilfire
+prop anvilfire beh.hidden=1
+prop coal1 obj.name=coal1
+prop coal1 beh.use=Take the sack of charcoal
+prop coal1 if.use=!signal|k1
+prop coal1 on.use=hide|coal1\ngive||story:charcoal*1\nsignal||k1\nsound||event:/exploring/utopia/scale/2_sack
+prop coal2 obj.name=coal2
+prop coal2 beh.use=Take the sack of charcoal
+prop coal2 if.use=!signal|k2
+prop coal2 on.use=hide|coal2\ngive||story:charcoal*1\nsignal||k2\nsound||event:/exploring/utopia/scale/2_sack
+prop coal3 obj.name=coal3
+prop coal3 beh.use=Take the sack of charcoal
+prop coal3 if.use=!signal|k3
+prop coal3 on.use=hide|coal3\ngive||story:charcoal*1\nsignal||k3\nsound||event:/exploring/utopia/scale/2_sack
+prop bellowsforge obj.name=bellowsforge
+prop bellowsforge beh.use=Feed the three sacks to the Bellows' furnace
+prop bellowsforge if.use=quest|8\ntake|story:charcoal|3
+prop bellowsforge on.use=message||The charcoal catches white-hot; the great bellows heave by themselves. When the ringing stops, a curved blade lies in the trough, its steel patterned like running water.\nshow|bellowsfire\ngive||story:southblade*1\nsound||event:/crafting/hammer_impact
+prop bellowsforge else.use=message||Kessa's furnace, cold. Her note says three sacks from the clamps.
+prop bellowsfire obj.name=bellowsfire
+prop bellowsfire beh.hidden=1
+prop judgingstone obj.name=judgingstone
+prop judgingstone beh.use=Lay both blades on the judging stone
+prop judgingstone if.use=has|story:northblade|1\nhas|story:southblade|1\n!signal|judged
+prop judgingstone on.use=message||You lay the two blades side by side. They are equal - you can see it, and so, it seems, can the bridge: a slip of paper is lying on the stone that wasn't there, and under the bridge iron chains crash and fall.\nsignal||judged\nshow|verdict\nwait|5\nshow|warden\nshow|wardenmusic\nsound||event:/wildlife/boss/boss_rumble
+prop judgingstone else.use=message||The judging stone. Two blades, side by side - Brann's and Kessa's.
+prop verdict obj.name=verdict
+prop verdict beh.hidden=1
+prop warden obj.name=warden
+prop warden beh.hidden=1
+prop warden creature.count=1
+prop warden creature.size=2
+prop warden creature.health=4
+prop warden creature.damage=2
+prop warden creature.respawn=0
+prop warden tint.color=#4a4a52
+prop warden tint.amount=0.6
+prop warden on.defeat=open|vaultgate\nhide|wardenmusic\nmessage||The Forge-Warden crashes down on the bridge's stones. Below in the chasm, a stone slab grinds down into the floor.\nsound||event:/exploring/utopia/door_entrance_open
+prop wardenmusic obj.name=wardenmusic
+prop wardenmusic beh.hidden=1
+prop wardenmusic sound.event=event:/music/music_boss
+prop wardenmusic sound.volume=0.6
+prop wardenmusic zone.radius=35
+prop vaultgate obj.name=vaultgate
+prop vaultgate beh.move=0,-3.2,0
+prop vaultgate beh.moveTime=6
+prop vaultgate beh.moveMode=switch
+
+prop saddle zone.id=saddle
+prop saddle zone.radius=9
+prop saddle zone.message=The saddle: a stone bridge over a black chasm, a judging stone on its middle, a post with the contest's rules.
+prop anvil zone.id=anvil
+prop anvil zone.radius=5
+prop anvil zone.message=The Anvil, Brann's forge: a cold furnace, a vice on a stump, a chalkboard.
+prop bellows zone.id=bellows
+prop bellows zone.radius=5
+prop bellows zone.message=The Bellows, Kessa's forge: a cold furnace and a pair of bellows as big as a boat.
+prop clamps zone.id=clamps
+prop clamps zone.radius=10
+prop clamps zone.repeat=never
+prop clamps zone.message=The charcoal clamps - smoking mounds, sacks on top, and boars rooting round them who think it's theirs now.
+prop boars creature.count=3
+prop boars creature.respawn=0
+prop boars creature.zone=clamps
+prop vault zone.id=vault
+prop vault zone.radius=2.5
+prop vault zone.message=The prize vault under the bridge: broken chains on the wall where the Warden hung, and a chest.
+prop aditdark atmo.fog=#0a0806
+prop aditdark atmo.fogAmount=0.65
+prop aditdark atmo.light=#3a2a1a
+prop aditdark atmo.lightAmount=0.7
+prop aditdark zone.radius=10
+prop clampsmoke atmo.fog=#4a4440
+prop clampsmoke atmo.fogAmount=0.2
+prop clampsmoke atmo.particles=mist
+prop clampsmoke zone.radius=12
+prop haze atmo.fog=#5a504a
+prop haze atmo.fogAmount=0.1
+prop haze atmo.particles=embers
+prop haze zone.radius=40
+prop hens creature.count=3
+prop goats creature.count=2
+prop dolphins creature.count=2
+
+quest title=The Master-Smith
+quest intro=Two forges on two peaks and an unjudged contest. The rules are carved at the end of the bridge on the saddle.
+step reach|saddle|1|Climb to the bridge on the saddle
+step read|The contest's rules|1|Read the contest's rules
+step reach|anvil|1|Walk to the Anvil, Brann's forge at the saddle's north-east end
+step read|Brann's chalkboard|1|Read Brann's chalkboard
+step collect|story:ore|3|Fetch three lumps of ore from the carts in the adit
+step collect|story:northblade|1|Feed the ore to the Anvil's furnace for Brann's blade
+step kill|Warthog|3|Drive the boars off the charcoal clamps on the south slope
+step collect|story:charcoal|3|Take three sacks of charcoal from the clamps
+step collect|story:southblade|1|Feed the charcoal to the Bellows' furnace for Kessa's blade
+step read|The verdict|1|Lay both blades on the judging stone and read the verdict
+step kill|Mama bear|1|Settle the contest with the Forge-Warden
+step reach|vault|1|Go down into the prize vault under the bridge
+step open|The contest prize|1|Open the contest prize
+quest done=The contest of the master-smith is settled - not by Brann, not by Kessa, but by a stranger with both their blades. They'll have to share the island now. Or fight you for it.
+quest reward=MetalIngot*4;Nail*12;Cooked_GenericMeat*2
+
+# --- A Raft store on the Bellows' shoulder: the ironmonger, selling what the smiths don't make (Raft's goods, and plans the crew missed) --
+store ironmonger at 6 -32 ground
+
+save Twin Forges

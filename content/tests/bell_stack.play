@@ -1,0 +1,45 @@
+# Play test of The Bell Stack (CIPlay bell_stack, in a test world 'CI ...'). Points as in its recipe: the landing beach at
+# -12 -38 (0.6 m) and its ramp up the stack's west side to the top (5 m); the pilgrims' hut x -6..-3, z -29..-26, its
+# doorway in the north wall at -3.75 -26; the rope bridge x 0 from z -16.5 (5 m) to z -7 (9 m); the chapel x -5.5..-2.5,
+# z -4..0.5, open to the south; the bell tower at 0 2.5; the cell bridge x 0 from z 7 to 16 at 9 m (shown when the bell
+# rings); the hermit's cell x -2.25..2.25, z 26..29, open to the south
+island The Bell Stack
+offset -0.7757 -2.2826
+expect step 0
+expect title The Torn Chant
+expect animals Goat 2
+expect animals Dolphin 2
+expect hidden cellbridge
+wait 5
+
+# The landing: the page on the mooring post
+walk -12 -38.5 to -12 -37.5 h=0.6
+zone landing
+expect step 1
+read Chant, first page
+# Up the ramp onto the landing stack; the hut's page, the cairn's page
+walk -12 -37 to -9 -33 to -6 -29.5 to -2 -27 h=5
+walk -2 -24 to -3.75 -24.5 to -3.75 -27 h=5.1 below=7
+read Chant, second page
+read Chant, third page
+# Over the rope bridge to the chapel stack; the bell is silent before the chant is whole
+walk 0 -19 to 0 -12 to 0 -6 to 0 -4 h=9
+zone chapelstack
+use bell
+expect message isn't whole
+walk -4 -5.5 to -4 -2.5 h=9.1 below=11
+read Chant, fourth page
+read Chant, fifth page
+read Chant, sixth page
+expect step 2
+
+# The bell rung: the bridge to the cell is there; across it to the hermit's chest
+use bell
+expect shown cellbridge
+expect story rung 1
+expect step 3
+walk 0 5.5 to 0 10 to 0 16 to 0 24 h=9
+zone cellstack
+walk 0 24 to 0 27.5 h=9.1 below=11
+open Hermit's chest
+expect done

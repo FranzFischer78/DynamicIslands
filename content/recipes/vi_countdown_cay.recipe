@@ -1,0 +1,67 @@
+# Countdown Cay - a vehicle island (VI1, no quest, no banner)
+# A flat tropical cay with a wide white beach where somebody tried to launch a rocket built from a caravan. The rocket
+# still stands on its pad of pallets with a ring of its own debris round it from the first try; a van parked facing it
+# was mission control, and a stripped caravan frame was the workshop, a model boat left on its table.
+#
+# Points (metres from the land centre): the launch pad round 6 4 (h 1.8), mission control -6 -4, the workshop -10 8,
+# the landing beach 0 -22.
+include lib_sea
+new
+gen Trees=0.24 Bushes=0.22 Rocks=0.35 Harvest=0.22 BeachThings=0.4
+gen Seed=15107 Radius=28 Height=3.5 Roughness=0.3 Peaks=1 Shape=0.3 Style=0 PeakShape=0.3 Cliffs=0 BeachWidth=0.8
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.1 Hostiles=0 Friendly=0.1 SeaLife=0.3
+generate
+
+# --- Terrain: the pad, the control flat, the beach -----------------------------------------------------------------
+brush flatten at 6 4 r=7 s=20 frames=120 h=1.8
+brush sand at 6 4 r=7 s=6 frames=20
+brush flatten at -8 2 r=9 s=20 frames=150 h=1.8
+brush flatten at 0 -22 r=6 s=20 frames=100 h=1.0
+# (a level spot for the metal sheet)
+brush flatten at -14 12.5 r=2 s=20 frames=40
+# (the van's whole length on the flat: it stood over the hill's edge)
+brush flatten at -8 -6 r=8 s=20 frames=150 h=1.8
+origin
+clear at 6 4 r=7
+clear at -8 2 r=8
+clear at 0 -22 r=5
+
+# --- The rocket on its pad and the debris of the first try ---------------------------------------------------------
+place Pallet - at 5.4 3.4 ground sit
+place Pallet - at 6.6 3.4 ground sit
+place Pallet - at 5.4 4.6 ground sit
+place Pallet - at 6.6 4.6 ground sit
+place CaravanRocket - at 6 4 y=0.15 sit scale=4 yaw=30
+place CaravanRocketDebris_SidePlate - at 11 0 ground yaw=70 scale=4
+place CaravanRocketDebris_Door - at 13 6 ground sit yaw=15 scale=4
+place CaravanRocketDebris_Leg1 - at 2 10 ground sit yaw=120 scale=4
+place CaravanRocketDebris_Exhaust - at 10 10 ground sit yaw=200 scale=4
+place Cableroll_01 - at 1 2 ground sit yaw=40
+
+# --- Mission control: the van facing the pad, chairs, a whiteboard ------------------------------------------------
+place Van_4 - at -8 -6 ground sit yaw=60
+place PlasticChair_01 - at -2 -2 ground sit yaw=60
+place PlasticChair_01 - at -3 0 ground sit yaw=80
+place VP_Whiteboard - at 2 -8 ground sit yaw=250
+place VP_Whiteboard - at 1.86 -8.05 ground sit yaw=70
+place "Box Big" - at -4 1 ground sit yaw=10
+
+# --- The workshop: the caravan frame, the table with the model boat, the bench --------------------------------------
+place CaravanBarebones1 - at -12 8 ground sit yaw=0
+place CaravanWorkbench - at -8 4 ground sit yaw=180
+place CaravanWorkbench_Tools - at -10 4.2 ground sit yaw=180
+place Placeable_Table_Basic - at -14 3.5 ground sit
+place BoatMini - at -14 3.5 y=0.74 sit yaw=60 scale=4
+place Loot_ChestSmall parts at -6 7 ground sit yaw=200
+loot parts Bolt*3;Scrap*3;Plastic*2
+place MetalSheet_3 - at -14 12.5 ground sit yaw=30
+
+scatter "Pickup_Landmark_Tree_Palm 1" 3 at -16 -10 r=6 seed=15171 free=3
+scatter "Pickup_Landmark_Tree_Palm 3" 2 at 16 -8 r=5 seed=15172 free=3
+scatter Pickup_Landmark_BerryBush 2 at 14 14 r=4 seed=15173 free=2
+call shallows x=0 z=0 r=36 deep=5 n=1 seed=15174
+
+info title=Countdown Cay
+info description=A flat cay with a wide white beach where somebody tried to launch a rocket built from a caravan: the rocket still on its pad of pallets, its debris round it, the van that was mission control and the stripped caravan that was the workshop.
+info author=Custom Islands
+save Countdown Cay

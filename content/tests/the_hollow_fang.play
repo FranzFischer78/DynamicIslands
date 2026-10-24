@@ -1,0 +1,48 @@
+# The Hollow Fang (CIPlay the_hollow_fang): the cleft at 3 m along x 0 from the sea cave (0 -50) to the hollow (0 8, r~12);
+# trial 1 z -44..-27, the Word's pit z -26..-16 (stones x -1.6 0 1.6, rows -25.6..-14.4; letters O R I N on rows -24..-19.2), the Leap's
+# chasm z -10..-4 with the invisible bridge at x 0; the glass bridge over the void to the altar (0 15.6); the window 0 28.
+island The Hollow Fang
+offset 0 0
+expect step 0
+expect title The Three Trials
+expect hidden sandtrail
+walk 0 -56 to 0 -51 h=3
+zone sea_cave
+expect step 1
+read Kett's last diary page
+expect step 2
+zone trial1
+expect step 3
+expect spinsown blade1
+walk 0 -43 to -2.6 -40 to 0 -36 to 0 -28 h=3
+zone trial1_end
+expect step 4
+read The Word
+expect step 5
+zone wrong_stone
+expect message throws you back
+walk 0 -27 to 0 -25.6 to 0 -24 to 1.6 -22.4 to 0 -20.8 to -1.6 -19.2 to -1.6 -17.6 to 0 -14.4 to 0 -12.8 h=3
+zone trial2_end
+expect step 6
+read The Leap
+expect step 7
+open Bag of sand
+expect story sand 1
+expect step 8
+use lionhead
+expect story sand 0
+expect shown sandtrail
+walk 0 -11 to 0 -7 to 0 -3 h=3
+zone trial3_end
+expect step 9
+walk 0 -1 to 0 6 to 0 12.5 h=6.5
+zone altar
+kill Bear
+expect step 10
+open Altar
+expect story gear3 1
+expect step 11
+read Orin's charge
+expect step 12
+zone fang_top
+expect done

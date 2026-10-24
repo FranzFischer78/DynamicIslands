@@ -1,0 +1,14 @@
+# Guide pictures of Propeller Point (CIPlay propeller_point_pics): Raft's camera, morning, calm
+island Propeller Point
+offset 0 0
+hour 10
+weather Calm
+at 0 -16
+wait 3
+picture propeller_point_island 10 40 -90 0 4 0
+picture propeller_point_apron 2 7 -24 -6 3 -5
+picture propeller_point_cabin -16 5 -2 -24 4 9
+picture propeller_point_hut 28 6 -2 22 5 8
+picture propeller_point_crash 4 8 22 -6 4 31
+picture propeller_point_beach -46 4 -14 -54 1 -6
+picture propeller_point_sunken 70 -3 -18 76 -5 -12

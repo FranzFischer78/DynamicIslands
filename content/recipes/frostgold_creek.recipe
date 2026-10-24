@@ -1,0 +1,315 @@
+# Frostgold Creek - a themed island, twice the size (x2). Inspiration: gold-rush films (a boomtown in the snow, sluice
+# boxes on a creek, claim jumpers, an assayer's scales and a claim staked by law) - the mood only, never named on the island.
+# Two snowy peaks (Shape 7, Style 1): the long west ridge and the north-east peak, a valley between them. Up the valley
+# runs the creek - the sea let in at sea level from the south coast (x -6) to the pool under the falls at its head (-2 6);
+# the boomtown of Frostgold on the flat south shore east of its mouth (main street along z -44, x 2..34, 2.8 m), the three
+# sluice boxes on its banks, Abbie's cabin on the valley floor (2 m) by the pool, the old mine on the north-east peak's
+# shoulder (its mouth at 22 -4, 9 m) and the claim post on the saddle north of the pool (-8 21, 10 m).
+# Quest "Stake the Claim" (10 steps): the boomtown, the assay notice, Abbie's letter, three sluice boxes, the mine and its
+# white bear, the mine's and the pool's nuggets (a dive), the scales, the claim post, her strongbox.
+include lib_huts
+include lib_relay
+include lib_sea
+new
+gen Trees=0.08 Bushes=0.15 Rocks=0.12 Harvest=0.05 BeachThings=0.3
+gen Seed=9015 Radius=63 Height=34 Roughness=0.45 Peaks=2 Shape=7 Style=1 BeachWidth=0.4 Cliffs=0.3 PeakShape=0.45 Valleys=0.3
+gen SeaFloor=0 Shelf=0.4 Seabed=1
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.2 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== The land ==========================================================================================================
+# (ramps: flatten dabs from one height to another along a line - the trails up to the mine and the saddle)
+macro dabs x1 z1 h1 x2 z2 h2 n=10 r=2.6
+for i 0 $n
+brush flatten at {$x1+($x2-$x1)*$i/$n} {$z1+($z2-$z1)*$i/$n} r=$r s=20 frames=25 h={$h1+($h2-$h1)*$i/$n}
+next
+end
+# (the town's plot on the flat south shore; the valley's floor between the peaks, 2 m up)
+brush flatten from -6 -38 to -3 0 r=11 s=20 frames=60 h=2
+brush flatten at -12.5 -1.5 r=4 s=20 frames=40 h=2
+brush flatten from 2 -44 to 32 -44 r=10 s=20 frames=60 h=2.8
+brush flatten from 0 -32 to 34 -32 r=6 s=20 frames=60 h=2.8
+# (the creek: the sea let in up the valley, 6-8 m wide and 2.5 m deep, to the pool at its head, 5 m deep)
+brush flatten from -6 -68 to -6 -40 r=3.5 s=20 frames=60 h=-2.5
+brush flatten from -6 -40 to -4.5 -24 r=3.5 s=20 frames=60 h=-2.5
+brush flatten from -4.5 -24 to -3 -10 r=3.5 s=20 frames=60 h=-2.5
+brush flatten from -3 -10 to -2 2 r=3.5 s=20 frames=60 h=-2.5
+brush flatten at -2 6 r=5 s=20 frames=60 h=-5
+# (the old mine: its ledge on the north-east peak's shoulder, the gallery's trench into the peak, the trail up from town)
+brush flatten at 22 -5 r=8 s=20 frames=40 h=9
+brush flatten at 27 -4 r=4 s=20 frames=30 h=9
+brush flatten from 22 -6 to 22 28 r=9 s=20 frames=60 h=9
+call dabs 36 -30 3 25 -9 9 n=16 r=3.4
+# (the saddle north of the pool, the trail up to it beside the falls)
+brush flatten at -8 21 r=6 s=20 frames=40 h=10
+call dabs -9 -1 2.2 -9 15 10 n=10
+# (the snow painted back over the cuts)
+brush grass from -6 -38 to -3 0 r=12 s=20 frames=40
+brush grass from 2 -44 to 32 -44 r=11 s=20 frames=40
+# (the town, the valley, the trails cleared)
+clear from 2 -44 to 34 -40 r=12
+clear from -6 -40 to -3 6 r=12
+clear from 22 -8 to 22 28 r=9
+clear from 36 -30 to 25 -9 r=4
+clear from -9 -1 to -8 21 r=6
+
+# ===== Frostgold at the creek's mouth ===================================================================================
+# --- Main street: a boardwalk along its north side, the saloon, the assay office, the general store facing it -----------
+push at 3 -42 h=2.4
+call boardwalk n=21 wide=1 y=0.5 rs=none rn=none
+pop
+# (the saloon: Balboa's log house, its porch onto the street; a box on its porch)
+place Balboa_Shack saloon at 8 -32 h=2.45 yaw=90
+place "Box Small" saloonbox at 4 -40 h=3.2 drop yaw=20
+# (the assay office: a relay house, its veranda onto the street; the notice by its door, the scales on the table inside)
+push at 26 -38 h=2.9 yaw=90
+call relay_house
+place "Pickup_Landmark_Scrap 2_Land" - at -6 -2 y=0.3 drop yaw=64
+place Pickup_Landmark_Plastic3_Land - at -9 -8.8 y=0.3 drop yaw=215
+pop
+place Note_Sign assaynotice at 18.2 -35 h=2.9 yaw=180
+place Table - at 20 -31 h=3.8 drop yaw=90
+place UT_HookRoom_Weight02 scales at 19.6 -31 h=5 drop yaw=0
+place UT_HookRoom_Weight02 scales at 20 -31.2 h=5 drop yaw=30
+place UT_HookRoom_Weight02 scales at 20.4 -30.8 h=5 drop yaw=-20
+place Placeable_Lantern_Metal - at 16.2 -34.6 h=2.9 sit
+# (the general store: Raft's wooden walls under a wooden roof, its door onto the street, its sign; the crate inside)
+push at 28.5 -36.5 h=2.8
+call floors w=4 d=3 y=0.1
+place Block_Wall_Wood - at 0.75 0 y=0.1
+place Block_Wall_Wood - at 3.75 0 y=0.1
+place Block_Wall_Wood - at 5.25 0 y=0.1
+place Block_Wall_Wood - at 0.75 4.5 y=0.1
+place Block_Wall_Wood - at 2.25 4.5 y=0.1
+place Block_Wall_Wood - at 3.75 4.5 y=0.1
+place Block_Wall_Wood - at 5.25 4.5 y=0.1
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 3.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 6 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 6 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 6 3.75 y=0.1 yaw=90
+call corners w=4 d=3
+roof 4 3 at 0 0 y=0.1 wood
+place Sign_02 - at 3 -0.05 y=3.3 yaw=180
+place Loot_Crate storecrate at 4.5 3.5 y=0.1 sit yaw=10
+place Pickup_Landmark_Plank_Land - at 1.4 2.0 y=0.4 drop yaw=349
+place "Pickup_Landmark_Scrap 1_Land" - at 3.0 3.4 y=0.4 drop yaw=120
+pop
+# --- The street's south side: tents, ore carts, barrels, lamps, a snow shovel; the hens -------------------------------
+place Balboa_DecorationPrefabBase_SimpleTent - at 7 -50 ground yaw=170
+place Balboa_DecorationPrefabBase_SimpleTent - at 13 -51 ground yaw=190
+place Balboa_DecorationPrefabBase_SimpleTent - at 19 -50 ground yaw=175
+place VP_Wagon02 - at 25 -48.5 ground yaw=80
+place VP_Wagon02 - at 27 -48.8 ground yaw=95
+place TP_Moontown_Barrel01 - at 10 -47 ground
+place TP_Moontown_Barrel01 - at 10.7 -47.4 ground
+place Placeable_Lantern_Metal - at 16 -47 ground
+place TP_SnowShovel02 - at 22.5 -47 ground yaw=40 rot=0,40,8
+place Creature_Chicken hens at 14 -47 ground
+place Zone_Trigger frostgold at 18 -44 h=4
+# --- The claim jumpers' tent a little apart, its fire cold -------------------------------------------------------------
+place Balboa_DecorationPrefabBase_SimpleTent - at 38 -48 ground yaw=230
+place campfire_1 - at 35.5 -45.5 ground
+place "Box Small" jumperstent at 39.5 -46 ground yaw=40
+
+# ===== The creek: three sluice boxes on its banks, Abbie's cabin, the pool under the falls ============================
+# (each sluice a trough of planks with half-wall sides running down off the bank into the water, its top end on short
+# trestles; its riffle box on the bank beside it, a bucket)
+macro sluice x1 x2 z
+ramp Block_Floor_Wood from $x1 $z 3 to $x2 $z 0.2 len=1.5 top=0
+ramp Block_HalfWall_Wood from $x1 {$z-0.65} 3 to $x2 {$z-0.65} 0.2 len=0.75 top=-0.15
+ramp Block_HalfWall_Wood from $x1 {$z+0.65} 3 to $x2 {$z+0.65} 0.2 len=0.75 top=-0.15
+place Block_Pillar_Wood - at $x1 {$z-0.6} ground sy=0.25
+place Block_Pillar_Wood - at $x1 {$z+0.6} ground sy=0.25
+place ReefHuts_Pillar3 - at $x2 {$z-0.65} ground sy=0.54
+place ReefHuts_Pillar3 - at $x2 {$z+0.65} ground sy=0.54
+place ReefHuts_Pillar3 - at {$x2+($x1-$x2)*0.12} {$z-0.65} ground sy=0.54
+place ReefHuts_Pillar3 - at {$x2+($x1-$x2)*0.12} {$z+0.65} ground sy=0.54
+end
+call sluice 1.5 -4 -34
+place "Box Small" sluice1 at 2.5 -35.6 ground yaw=10
+place TangaroaBucket - at 3.5 -36 ground
+call sluice -11 -5.5 -20
+place "Box Small" sluice2 at -10 -21.8 ground yaw=-15
+place TangaroaBucket - at -9 -22.2 ground
+call sluice 4.3 -1.2 -6
+place "Box Small" sluice3 at 5.3 -7.6 ground yaw=20
+place TangaroaBucket - at 6.3 -8 ground
+# (Abbie's cabin on the valley floor west of the creek: 2 x 2 cells of Raft's wooden building, its doorway towards the
+# creek, a window, a wooden roof; inside her stove, her bed, a little table with her letter)
+push at -14 -3 h=2
+call floors w=2 d=2 y=0.1
+place Block_Wall_Wood - at 0.75 0 y=0.1
+place Block_Wall_Window_Wood - at 2.25 0 y=0.1
+place Block_Wall_Wood - at 0.75 3 y=0.1
+place Block_Wall_Wood - at 2.25 3 y=0.1
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 3 2.25 y=0.1 yaw=90
+call corners w=2 d=2
+roof 2 2 at 0 0 y=0.1 wood
+place "Balboa_DecorationPrefabBase_Old Stove" - at 0.6 2.4 y=0.1 sit yaw=90
+place Placeable_Bed_Basic - at 1.15 0.9 y=0.1 sit yaw=90
+place Placeable_Table_Square_Small - at 2.3 2.3 y=0.1 sit
+place Note_Paper abbieletter at 2.3 2.3 y=1.2 drop yaw=20
+pop
+# (the falls: boulders in the step at the valley's head over the pool; the pool's tin box and pay dirt on its floor)
+place SmallBoulder3 - at -6 10.5 ground
+place SmallBoulder3 - at 2 10.5 ground
+place SmallBoulder3 - at -2 12.5 ground
+place Loot_ChestSmall poolbox at -2 6 h=-4.9 yaw=20
+place "Pickup_Landmark_Iron 1" - at -3.5 7 h=-4.9
+place "Pickup_Landmark_Copper 2" - at -0.6 5 h=-4.9
+place "Pickup_Landmark_Iron 3" - at -2.5 4 h=-4.9
+place Zone_Trigger pool at -2 6 h=0
+place Creature_Turtle turtles at -6 -58 h=-1.5
+
+# ===== The old mine on the north-east peak's shoulder ===================================================================
+# (Balboa's bear cave set into the peak, its mouth south onto the ledge (floor 9 m), its gallery north; timber props at
+# the mouth, rails, a tub, lanterns on crates; the nugget's box at the back; the white bear; the dark inside)
+place BalboaCave_Bear minecave at 20.93 12 h=13.55 yaw=180
+place Relay_support_beam_wood - at 16.2 -4.6 h=9 rot=0,0,-90 sx=0.75
+place Relay_support_beam_wood - at 27.8 -4.6 h=9 rot=0,0,-90 sx=0.75
+place Relay_support_beam_wood - at 27.8 -4.6 h=16 rot=0,0,0 sx=1.23
+line Beam_Long_01 from 21.5 -5 to 21.5 24 step=3.6 ends yaw=180 rot=0,0,0
+line Beam_Long_01 from 22.5 -5 to 22.5 24 step=3.6 ends yaw=180 rot=0,0,0
+place VP_Wagon01 - at 22 5 sit
+place Crate_Big_01 - at 18.5 2 h=9 sit yaw=10
+place Placeable_Lantern_Metal - at 18.5 2 h=9.45 sit
+place Crate_Big_01 - at 25.5 16 h=9 sit yaw=80
+place Placeable_Lantern_Metal - at 25.5 16 h=9.45 sit
+place "Box Small" minebox at 22 25.5 h=10 drop yaw=15
+place Creature_PolarBear whitebear at 22 15 h=9.5
+place Zone_Trigger mine at 22 -5 h=10
+place Zone_Atmosphere minedark at 22 12 h=12
+
+# ===== The claim post on the saddle =====================================================================================
+place Placeable_Sign claimpost at -8 21 ground yaw=180
+place MayorsChest strongbox at -6.8 20.4 ground yaw=200
+place ReefHuts_Pillar1 - at -10.5 19 ground rot=0,30,90
+place ReefHuts_Pillar1 - at -9.5 23.5 h=9.65 rot=0,110,90
+place ReefHuts_Pillar1 - at -5.5 23 ground y=0.45 rot=0,70,88
+place Zone_Trigger saddle at -8 21 h=11
+place Creature_Goat goats at -20 -12 ground
+
+# ===== The creek's mouth, the snow, the wind, Raft's finds in the shallows ============================================
+place Loot_SunkenBarrel creekbarrel at -6 -63 ground sit yaw=30
+place Zone_Atmosphere snowfall at 5 -15 h=8
+place Zone_Sound wind at 5 -10 h=8
+place Creature_Dolphin dolphins at 10 -85 h=-2
+call shallows r=70 deep=5 n=1
+prop hens creature.count=3
+prop goats creature.count=3
+prop turtles creature.count=2
+prop dolphins creature.count=2
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): pines, flowers, berries ----------
+scatter "Pickup_Landmark_Tree_Pine" 6 at 0 0 r=44.1 seed=4299 free=5
+scatter "Pickup_Landmark_Flower_White" 4 at 0 0 r=44.1 seed=4309 free=3
+scatter "Pickup_Landmark_Flower_Blue" 4 at 0 0 r=44.1 seed=4310 free=3
+scatter "Pickup_Landmark_BerryBush" 6 at 0 0 r=44.1 seed=4319 free=3
+
+info title=Frostgold Creek
+info author=Custom Islands
+info description=A gold-rush boomtown on a snowy creek between two peaks. Abbie Starling's claim was the richest on the creek - until the Rourke brothers pulled up her stakes. She hid five nuggets in plain sight: weigh them at the assay office and set the slip on her claim post, and the claim is yours.
+island on.arrive=message||Two white peaks and a creek between them, a town of tents and false fronts at its mouth. Smoke from no chimney. A sign: FROSTGOLD.
+
+story nugget|Gold nugget|TitaniumOre|A nugget of Frostgold's gold, one of the five Abbie Starling hid.
+story assayslip|Assay slip|quest:Utopia_DettoCode|The assayer's slip: five ounces from Claim No. 7, weighed and witnessed by the scales.
+
+note assaynotice Assay office notice | FROSTGOLD ASSAY OFFICE - CLOSED\n\nClaim No. 7 (A. Starling) is CONTESTED. The Rourke brothers say she never registered it. She says they pulled up her stakes.\n\nThe law up here: whoever brings five ounces from the claim to these scales gets an assay slip. Whoever sets the slip on the claim post owns the claim.\n\n- The Assayer
+note abbieletter Abbie Starling's letter | To whoever comes up the creek after me.\n\nThe Rourkes pulled my stakes, and they'll pull yours. So I hid my gold where they'd never look - in plain sight:\none nugget in each of my three sluice boxes along the creek,\none in the old mine where the white bear sleeps,\nand one I dropped in the creek pool below the falls. Go on, get your feet wet.\n\nWeigh them at the assay office and set the slip on my claim post up on the saddle. My strongbox is chained to it.\n\nI'm going over the pass for the winter. If I don't come back - it's yours, and good luck to you.\n\n- Abbie Starling
+note sluice1 Lower sluice box | The riffle box at the foot of the lower sluice: grit, gravel - and a nugget the size of a thumbnail.
+loot sluice1 story:nugget*1;Sand*3
+prop sluice1 loot.refill=0
+note sluice2 Middle sluice box | The middle sluice's riffle box, frozen at the edges: gravel, a nugget, a bent nail.
+loot sluice2 story:nugget*1;Nail*4
+prop sluice2 loot.refill=0
+note sluice3 Upper sluice box | The upper sluice's riffle box, half buried in snow: a nugget, wrapped in a scrap of red flannel.
+loot sluice3 story:nugget*1;Wool*2
+prop sluice3 loot.refill=0
+note minebox Box at the back of the mine | A box at the back of the mine, gnawed at the corners: candles, a pick head - and a nugget.
+loot minebox story:nugget*1;MetalOre*3
+prop minebox loot.refill=0
+note poolbox Box in the creek pool | A little tin box on the pool's gravel bottom, a stone on its lid: the fifth nugget.
+loot poolbox story:nugget*1;CopperOre*2
+prop poolbox loot.refill=0
+note strongbox Abbie's strongbox | Abbie's strongbox: a season's dust in a leather poke, the plans of the ore line she meant to string from the mine to the creek, and a note: "Told you so."
+loot strongbox Blueprint_ZiplineBase*1;MetalIngot*6;CopperIngot*4;TitaniumOre*3;TradeToken*10
+prop strongbox loot.refill=0
+prop strongbox if.open=signal|staked
+prop strongbox else.open=message||The strongbox is chained to the claim post. The chain's lock is stamped CLAIM No. 7 - stake the claim first.
+note storecrate General store crate | The general store's last crate: rope, nails, a slab of bacon frozen hard.
+loot storecrate Rope*3;Nail*10;Raw_GenericMeat*2
+prop storecrate loot.refill=0
+note jumperstent Claim jumpers' box | The Rourkes' box: a crowbar, Abbie's pulled stakes' tags - and a bottle of something strong.
+loot jumperstent Scrap*3;Leather*2;Bolt*2
+prop jumperstent loot.refill=0
+note saloonbox Saloon box | A box on the saloon's porch: playing cards, glasses, a tin of coffee.
+loot saloonbox Glass*3;Plank*4;Juniper*2
+prop saloonbox loot.refill=0
+note creekbarrel Ore boat's barrel | A barrel off an ore boat that sank at the creek's mouth: ore and tools.
+loot creekbarrel MetalOre*2;CopperOre*2;Scrap*3
+prop creekbarrel loot.refill=0
+
+prop scales obj.name=scales
+prop scales beh.use=Weigh the five nuggets
+prop scales if.use=quest|7\ntake|story:nugget|5
+prop scales on.use=message||The nuggets go on the pan one by one and the weights rise - five ounces, near enough. The scales' drawer prints a slip: CLAIM No. 7 - WEIGHED AND WITNESSED.\ngive||story:assayslip*1\nsound||event:/exploring/utopia/scale/weight_move
+prop scales else.use=message||The assayer's scales. The notice said five ounces from the claim - five nuggets.
+prop claimpost obj.name=claimpost
+prop claimpost beh.use=Set the assay slip on the claim post
+prop claimpost if.use=has|story:assayslip|1
+prop claimpost on.use=message||You nail the slip to the post under Abbie's board. By the law of the creek, Claim No. 7 has its owner - and the chain on the strongbox falls slack.\nsignal||staked\nsound||event:/crafting/hammer_impact
+prop claimpost else.use=message||Abbie's claim post. A slip from the assay office goes here.
+
+prop frostgold zone.id=frostgold
+prop frostgold zone.radius=12
+prop frostgold zone.message=Frostgold: tents, false fronts, a saloon, an assay office with its door nailed shut - and the creek, steaming in the cold.
+prop pool zone.id=pool
+prop pool zone.radius=5
+prop pool zone.message=The creek pool under the falls, green and deep. Something glints on the bottom.
+prop mine zone.id=mine
+prop mine zone.radius=7
+prop mine zone.message=The old mine - and a white shape uncurling at the back of it, much bigger than the mine's mouth.
+prop saddle zone.id=claimpost
+prop saddle zone.radius=6
+prop saddle zone.message=The saddle between the peaks: Abbie's claim post, her strongbox chained to it, and her old stakes in the snow.
+prop whitebear creature.count=1
+prop whitebear creature.size=1.6
+prop whitebear creature.health=3
+prop whitebear creature.respawn=0
+prop whitebear creature.zone=mine
+prop minedark atmo.fog=#0a0a0c
+prop minedark atmo.fogAmount=0.7
+prop minedark atmo.light=#20242a
+prop minedark atmo.lightAmount=0.8
+prop minedark zone.radius=14
+prop snowfall atmo.fog=#d0d8de
+prop snowfall atmo.fogAmount=0.2
+prop snowfall atmo.particles=snow
+prop snowfall zone.radius=50
+prop wind sound.event=event:/amb/temperance
+prop wind sound.volume=0.5
+prop wind zone.radius=50
+
+quest title=Stake the Claim
+quest intro=A gold-rush town on a snowy creek, empty for the winter, and a claim contested by law. Start in the town.
+step reach|frostgold|1|Walk into the boomtown of Frostgold at the creek's mouth
+step read|Assay office notice|1|Read the notice nailed to the assay office door
+step read|Abbie Starling's letter|1|Read Abbie Starling's letter in her cabin up the creek
+step collect|story:nugget|3|Find the nuggets she hid in the three sluice boxes along the creek
+step reach|mine|1|Climb to the old mine on the north-east peak's shoulder
+step kill|Polar bear|1|Drive the white bear out of the mine
+step collect|story:nugget|5|Take the mine's nugget and dive for the one in the creek pool
+step collect|story:assayslip|1|Weigh the five nuggets on the assay office's scales
+step reach|claimpost|1|Climb to her claim post on the saddle
+step open|Abbie's strongbox|1|Set the assay slip on the claim post and open her strongbox
+quest done=Claim No. 7 is staked, by the law of the creek. The Rourkes can pull all the stakes they like - the slip is nailed to the post, and Abbie's gold is yours.
+quest reward=Plank*10;Leather*3;Cooked_GenericMeat*3
+
+# --- A Raft store down the creek: the outfitter's, still trading with the diggers (Raft's goods, and plans the crew missed) --
+store outfitter at 30 -44 ground
+
+save Frostgold Creek

@@ -1,0 +1,777 @@
+# Sundown Canyons - a themed island, ten times the size (x10). Inspiration: westerns and the frontier-town theme park
+# film (a dusty town with a saloon, a jail and a bank; a silver train derailed in a canyon; a mine with a lift; an outlaw
+# gang's fort on a mesa; rustled stock) - the mood only, never named on the island.
+# A big red-rock island (Shape 0, Style 2, terraced): the town of Sundown on the flat west shore (main street x -115,
+# z -38..12), the railroad from its station (-101 -46) east up the canyon cut along the mesa's south side (floor 4 m) -
+# the derailment at its bend (-46 -73), the section house (-28 -82), the blown trestle over the river gorge that the sea
+# reaches up from the south coast (x 4), the Lucky Strike mine up the switchbacks in the canyon's north wall (mouth
+# 24 -58, 11.5 m); Black Mesa in the middle, its top levelled at 42 m with the gang's fort (-26 -24), the mine lift's top
+# station (-2 -34) and the ladder trail down its north face (x -24); the Double Bar ranch on the east plain (104 4) and the
+# box canyon behind it (66 -6).
+# Quest "The New Sheriff" (36 steps, 6 chapters): Sundown (6), the ranch (5), the railroad (7), the mine (5), the fort
+# (8), the bank (5).
+include lib_rt
+include lib_huts
+include lib_relay
+include lib_sea
+include lib_features
+new
+gen Trees=0.38 Bushes=0.5 Rocks=0.55 Harvest=0.25 BeachThings=0.3
+gen Seed=9026 Radius=142 Height=45 Roughness=0.5 Peaks=3 Shape=0 Style=2 BeachWidth=0.5 Cliffs=0.5 PeakShape=0.35 Valleys=0.7 Terraces=0.4
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.2 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== The land ==========================================================================================================
+# (ramps: flatten dabs from one height to another along a line - switchbacks, a doorstep)
+macro dabs x1 z1 h1 x2 z2 h2 n=10 r=2.6
+for i 0 $n
+brush flatten at {$x1+($x2-$x1)*$i/$n} {$z1+($z2-$z1)*$i/$n} r=$r s=20 frames=25 h={$h1+($h2-$h1)*$i/$n}
+next
+end
+# (Black Mesa: its top levelled at 42 m, reaching north to the ladder trail's head)
+brush flatten from -34 -24 to -12 -24 r=26 s=20 frames=80 h=42
+# (the ladder trail down its north face: three cliff bands 6 m high, each faced with timber cribbing (at z -4.5, 1.5 and
+# 7.5) with a landing of planks behind its top; ledges at 36 and 30 m between them, the foot at 24 m - drawn in strokes
+# across the face from the top down)
+brush flatten from -30 -9 to -18 -9 r=2 s=20 frames=30 h=42
+brush flatten from -30 -8 to -18 -8 r=2 s=20 frames=30 h=42
+brush flatten from -30 -7 to -18 -7 r=2 s=20 frames=30 h=42
+brush flatten from -30 -6 to -18 -6 r=2 s=20 frames=30 h=42
+brush flatten from -30 -5 to -18 -5 r=2 s=20 frames=30 h=42
+brush flatten from -30 -4 to -18 -4 r=2 s=20 frames=30 h=36
+brush flatten from -30 -3 to -18 -3 r=2 s=20 frames=30 h=36
+brush flatten from -30 -2 to -18 -2 r=2 s=20 frames=30 h=36
+brush flatten from -30 -1 to -18 -1 r=2 s=20 frames=30 h=36
+brush flatten from -30 0 to -18 0 r=2 s=20 frames=30 h=36
+brush flatten from -30 1 to -18 1 r=2 s=20 frames=30 h=36
+brush flatten from -30 2 to -18 2 r=2 s=20 frames=30 h=30
+brush flatten from -30 3 to -18 3 r=2 s=20 frames=30 h=30
+brush flatten from -30 4 to -18 4 r=2 s=20 frames=30 h=30
+brush flatten from -30 5 to -18 5 r=2 s=20 frames=30 h=30
+brush flatten from -30 6 to -18 6 r=2 s=20 frames=30 h=30
+brush flatten from -30 7 to -18 7 r=2 s=20 frames=30 h=30
+brush flatten from -30 8 to -18 8 r=2 s=20 frames=30 h=24
+brush flatten from -30 9 to -18 9 r=2 s=20 frames=30 h=24
+brush flatten from -30 10 to -18 10 r=2 s=20 frames=30 h=24
+brush flatten from -30 11 to -18 11 r=2 s=20 frames=30 h=24
+brush flatten from -30 12 to -18 12 r=2 s=20 frames=30 h=24
+# (the town on the flat west shore: main street and the building plots, the wharf's head)
+brush flatten from -115 -44 to -115 12 r=20 s=20 frames=60 h=3
+brush flatten from -104 -17 to -90 -17 r=8 s=20 frames=60 h=3
+brush flatten at -133 -28 r=7 s=20 frames=60 h=3
+brush flatten from -100 -2 to -96 8 r=7 s=20 frames=60 h=3
+brush flatten from -93 -5 to -91 6 r=6 s=20 frames=60 h=3
+brush flatten from -106 10 to -101 21 r=8 s=20 frames=60 h=3
+brush flatten at -104 -34 r=6 s=20 frames=60 h=3
+brush flatten at -126 10 r=5 s=20 frames=40 h=3
+brush flatten from -112 -47 to -96 -47 r=8 s=20 frames=60 h=3
+brush flatten at -130 -20 r=5 s=20 frames=40 h=3
+brush flatten at -128 -11 r=10 s=20 frames=60 h=3
+brush flatten at -100 -44 r=9 s=20 frames=60 h=3
+# (the wharf's channel through the beach)
+brush flatten from -158 -20 to -137 -20 r=4 s=20 frames=60 h=-1.2
+# (the railroad's canyon from the station east along the mesa's south side, its floor at 4 m)
+brush flatten from -93 -54 to -82 -60 r=7 s=20 frames=60 h=4
+brush flatten from -82 -60 to -64 -67 r=7 s=20 frames=60 h=4
+brush flatten from -64 -67 to -46 -73 r=7 s=20 frames=60 h=4
+brush flatten from -46 -73 to -26 -77 r=7 s=20 frames=60 h=4
+brush flatten from -26 -77 to -9 -75 r=7 s=20 frames=60 h=4
+brush flatten from -9 -75 to 17 -75 r=7 s=20 frames=60 h=4
+brush flatten from 17 -75 to 32 -68 r=7 s=20 frames=60 h=4
+brush flatten at -28.5 -82.5 r=5 s=20 frames=40 h=4
+# (the river: the sea let in from the south coast up a gorge through the terrace and across the canyon, 7 m deep)
+brush flatten from 4 -168 to 4 -66 r=9 s=20 frames=80 h=-7
+# (the Lucky Strike: switchbacks up the canyon's north wall to the ledge at the mine's mouth, the gallery's trench)
+call dabs 16 -68.5 4.2 38 -64.5 8.2 n=12
+brush flatten at 40 -62.5 r=3 s=20 frames=30 h=8.4
+call dabs 38 -60.5 8.6 28 -58 11.5 n=6
+brush flatten at 25 -59.5 r=7 s=20 frames=40 h=11.5
+brush flatten from 24 -60 to 24 -26 r=9 s=20 frames=60 h=11.5
+# (the trench as wide as the bear cave's back gallery, 16 m: its walls ran steeply through the gallery's sides, and the
+# cells cut there for it reached up out of the rock - a slit of sky on the west wall)
+brush flatten from 16 -49 to 16 -28 r=5 s=20 frames=50 h=11.5
+brush flatten from 32 -49 to 32 -28 r=5 s=20 frames=50 h=11.5
+brush flatten at 30.5 -61.5 r=4 s=20 frames=30 h=11.5
+# (the Double Bar ranch on the east plain; the box canyon behind it, cut into the hills)
+brush flatten at 106 2 r=22 s=20 frames=60 h=13.5
+brush flatten at 110 -13 r=8 s=20 frames=60 h=13.5
+brush flatten at 99 12 r=12 s=20 frames=60 h=13.5
+brush flatten from 90 -6 to 68 -6 r=7 s=20 frames=60 h=13.5
+brush flatten at 64 -6 r=9 s=20 frames=60 h=13.5
+# (the sites and the trails cleared of the generator's trees, bushes and rocks)
+clear from -115 -44 to -115 14 r=22
+clear from -104 -17 to -88 -17 r=9
+clear from -158 -20 to -128 -20 r=5
+clear from -100 -51 to -82 -60 r=8
+clear from -82 -60 to -46 -73 r=8
+clear from -46 -73 to -9 -75 r=8
+clear from -9 -75 to 32 -68 r=9
+clear from 4 -150 to 4 -66 r=10
+clear from 16 -68 to 40 -60 r=5
+clear from 24 -62 to 24 -26 r=8
+clear from -34 -24 to -2 -30 r=20
+clear from -26 -6 to -24 12 r=6
+clear at 106 2 r=22
+clear from 90 -6 to 62 -6 r=9
+clear from -96 8 to -78 40 r=3
+clear from -78 40 to -40 58 r=3
+clear from -40 58 to 40 60 r=3
+clear from 40 60 to 88 32 r=3
+clear from 88 32 to 100 16 r=3
+clear from -24 12 to -40 30 r=3
+
+# ===== Chapter 1 - Sundown ===============================================================================================
+# --- The wharf: a boardwalk on posts out over its channel, crates on it, a rowing boat drawn up on the beach ------------
+push at -154 -21.5 h=-1.2
+call boardwalk n=14 wide=2 y=4.2
+pop
+place Crate_Big_01 - at -150.5 -20.5 h=3 sit yaw=10
+place Crate_Big_01 - at -150.4 -20.4 h=3.5 sit yaw=-5
+place "Box Small" wharfcrate at -146 -19.4 h=3.2 drop yaw=20
+place RT_PlasticBoat - at -141 -27 ground yaw=25
+place Zone_Trigger wharf at -140 -20 h=4.5
+
+# --- Main street: the boardwalk along the west side, hitching rails, barrels, cacti ------------------------------------
+push at -121.5 -34 h=2.6 yaw=270
+call boardwalk n=30 wide=1 y=0.5 rs=none rn=none
+pop
+place Block_Wall_Fence_Plank - at -120.3 -27 ground yaw=90
+place Block_Wall_Fence_Plank - at -120.3 -12 ground yaw=90
+place Block_Wall_Fence_Plank - at -109.6 -9 ground yaw=90
+place TP_Moontown_Barrel01 - at -120.6 -24.5 ground
+place TP_Moontown_Barrel01 - at -120.4 -23.7 ground
+place TP_Moontown_Barrel01 - at -108.5 -21.5 ground
+place TP_Moontown_Barrel01 - at -108.6 -12 ground
+place Placeable_Flower_Cactus - at -110 4 ground
+place Placeable_Flower_Cactus - at -121 9 ground
+place Placeable_Flower_Cactus - at -109 -35 ground
+place Balboa_DirectionSign - at -112 13 ground yaw=40
+
+# --- The saloon: Balboa's log house, its porch onto the street; the wanted poster by its steps, a box on its porch ------
+place Balboa_Shack saloon at -132 -28 h=2.6 yaw=0
+place Note_Sign wantedposter at -122.9 -33.4 ground yaw=90
+place "Box Small" saloonbox at -123 -25.4 ground yaw=15
+
+# --- The jail: a relay house, its veranda onto the street; the cell, the sheriff's desk with her report, its drawer, the
+# gun locker by the door -------------------------------------------------------------------------------------------------
+push at -123 -6 h=3.1 yaw=0
+call relay_house
+pop
+place TP_Selene_Int_Room_Bars - at -133.3 -9.6 h=3.1 yaw=0
+place "VG_DecorationPrefabBase_Desk Variant" - at -130.4 -14.8 h=4 drop yaw=0
+place Note_Paper sheriffreport at -130.6 -14.8 h=5 drop yaw=15
+place Drawer_01 sheriffdrawer at -132.85 -12.4 h=3.1 yaw=90
+place Balboa_DecorationPrefabBase_SmallLocker gunlocker at -127.3 -15.4 h=3.1 yaw=270
+
+# --- The general store: Raft's wooden walls 4 x 3 cells under a wooden roof, its door onto the street, its sign --------
+push at -129 0 h=3
+call floors w=4 d=3 y=0.1
+place Block_Wall_Wood - at 0.75 0 y=0.1
+place Block_Wall_Wood - at 2.25 0 y=0.1
+place Block_Wall_Wood - at 3.75 0 y=0.1
+place Block_Wall_Wood - at 5.25 0 y=0.1
+place Block_Wall_Wood - at 0.75 4.5 y=0.1
+place Block_Wall_Wood - at 2.25 4.5 y=0.1
+place Block_Wall_Wood - at 3.75 4.5 y=0.1
+place Block_Wall_Wood - at 5.25 4.5 y=0.1
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 3.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 6 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 6 3.75 y=0.1 yaw=90
+call corners w=4 d=3
+roof 4 3 at 0 0 y=0.1 wood
+place Sign_02 - at 6.1 1.35 y=3.1 yaw=90
+place "Box Small" storebox at 1 2.25 y=0.18 sit yaw=10
+pop
+
+# --- The bank: two concrete rooms one behind the other, the front onto the street. The front room: the teller's counter,
+# the manager's letter on a desk behind it; at its back the vault door (Utopia's padlock door in its frame); the vault in
+# the back room ------------------------------------------------------------------------------------------------------------
+push at -102.5 -20 h=3.05 yaw=90
+call rt_storey f1=RT_WallWindow1 f2=RT_WallDoor1 b1=none l2=RT_WallWindow1
+place UT_Skyscraber01PadlockDoorBase - at -3.555 4.5
+place UT_Skyscraber01PadlockDoor vaultdoor at -3.555 4.5
+pop
+push at -93.5 -20 h=3.05 yaw=90
+call rt_storey f1=none f2=none
+pop
+push at -102.5 -20 h=6.05 yaw=90
+call rt_storey b1=none b2=none f1=none f2=none l1=none l2=none l3=none r1=none r2=none r3=none
+pop
+push at -93.5 -20 h=6.05 yaw=90
+call rt_storey b1=none b2=none f1=none f2=none l1=none l2=none l3=none r1=none r2=none r3=none
+pop
+place "Counter Left" - at -105 -16.6 h=3 yaw=0
+place "Counter Mid" teller at -104 -16.6 h=3 yaw=0
+place "Counter Right" - at -103 -16.6 h=3 yaw=0
+place "VG_DecorationPrefabBase_Desk Variant" - at -104 -14.6 h=4 drop yaw=180
+place Note_Paper managerletter at -104 -14.6 h=5 drop yaw=-10
+place Loot_ChestLarge bankvault at -90.6 -17 h=3 yaw=270
+place Zone_Trigger bankzone at -102 -17.5 h=4.5
+
+# --- The water tower on four legs, the windmill -------------------------------------------------------------------------
+place Relay_support_beam_wood - at -94.1 -5.8 h=3 rot=0,0,-90 sx=0.48
+place Relay_support_beam_wood - at -91.9 -5.8 h=3 rot=0,0,-90 sx=0.48
+place Relay_support_beam_wood - at -94.1 -4.2 h=3 rot=0,0,-90 sx=0.48
+place Relay_support_beam_wood - at -91.9 -4.2 h=3 rot=0,0,-90 sx=0.48
+place Placeable_WaterTank - at -92.26 -5.36 h=7.5
+place RT_WindMill windmill at -91 6 ground yaw=200
+
+# --- More of main street: the hotel (a relay house, its veranda onto the street), the livery stable and the barber's shop
+# (Raft's wooden walls under wooden roofs, their doors onto the street) -------------------------------------------------
+push at -107 10 h=3.1 yaw=180
+call relay_house
+pop
+push at -107 -36 h=3
+call floors w=4 d=3 y=0.1
+place Block_Wall_Wood - at 0.75 0 y=0.1
+place Block_Wall_Wood - at 2.25 0 y=0.1
+place Block_Wall_Wood - at 3.75 0 y=0.1
+place Block_Wall_Wood - at 5.25 0 y=0.1
+place Block_Wall_Wood - at 0.75 4.5 y=0.1
+place Block_Wall_Wood - at 2.25 4.5 y=0.1
+place Block_Wall_Wood - at 3.75 4.5 y=0.1
+place Block_Wall_Wood - at 5.25 4.5 y=0.1
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 3.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 6 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 6 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 6 3.75 y=0.1 yaw=90
+call corners w=4 d=3
+roof 4 3 at 0 0 y=0.1 wood
+place TP_Moontown_Barrel01 - at 1 1 y=0.1 sit
+place Crate_Big_01 - at 4.5 3.5 y=0.1 sit yaw=20
+pop
+push at -128 8 h=3
+call floors w=3 d=3 y=0.1
+place Block_Wall_Wood - at 0.75 0 y=0.1
+place Block_Wall_Wood - at 2.25 0 y=0.1
+place Block_Wall_Wood - at 3.75 0 y=0.1
+place Block_Wall_Wood - at 0.75 4.5 y=0.1
+place Block_Wall_Wood - at 2.25 4.5 y=0.1
+place Block_Wall_Wood - at 3.75 4.5 y=0.1
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 3.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 4.5 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 4.5 3.75 y=0.1 yaw=90
+call corners w=3 d=3
+roof 3 3 at 0 0 y=0.1 wood
+pop
+
+# --- The railway station at the street's south end: a relay house, its veranda the platform onto the rails; a box on it,
+# the rails off east up the canyon -----------------------------------------------------------------------------------------
+push at -96 -48 h=3.1 yaw=90
+call relay_house
+pop
+push at -112 -51 h=2.6 yaw=0
+call boardwalk n=4 wide=2 y=0.5 rs=none rn=none
+pop
+place "Box Small" stationbox at -98 -46.4 h=3.4 drop yaw=20
+place Zone_Trigger station at -101 -50 h=4.5
+line FL_Plank2 from -111 -50.5 to -96 -52 step=1.5 yaw=90 rot=0,0,0
+
+# ===== Chapter 3 - the railroad up the canyon ============================================================================
+line Beam_Long_01 from -112.05 -51.00 to -96.05 -52.50 step=3.59 ends yaw=180 rot=0,0,0
+line Beam_Long_01 from -111.95 -50.00 to -95.95 -51.50 step=3.59 ends yaw=180 rot=0,0,0
+line Beam_Long_01 from -96.25 -52.43 to -82.25 -60.43 step=3.59 ends yaw=180 rot=0,0,0
+line Beam_Long_01 from -95.75 -51.57 to -81.75 -59.57 step=3.59 ends yaw=180 rot=0,0,0
+line Beam_Long_01 from -82.18 -60.47 to -64.18 -67.47 step=3.59 ends yaw=180 rot=0,0,0
+line Beam_Long_01 from -81.82 -59.53 to -63.82 -66.53 step=3.59 ends yaw=180 rot=0,0,0
+line Beam_Long_01 from -64.16 -67.47 to -50 -72.2 step=3.59 ends yaw=180 rot=0,0,0
+line Beam_Long_01 from -63.84 -66.53 to -50 -71.2 step=3.59 ends yaw=180 rot=0,0,0
+line Beam_Long_01 from -42 -74.3 to -26.10 -77.49 step=3.59 ends yaw=180 rot=0,0,0
+line Beam_Long_01 from -42 -73.3 to -25.90 -76.51 step=3.59 ends yaw=180 rot=0,0,0
+line Beam_Long_01 from -25.94 -77.50 to -8.94 -75.50 step=3.59 ends yaw=180 rot=0,0,0
+line Beam_Long_01 from -26.06 -76.50 to -9.06 -74.50 step=3.59 ends yaw=180 rot=0,0,0
+line FL_Plank2 from -64 -67 to -50 -71.7 step=1.5 yaw=90 rot=0,0,0
+line FL_Plank2 from -42 -73.8 to -30 -76.2 step=1.5 yaw=90 rot=0,0,0
+
+# --- The derailment at the bend: the engine off the rails, the express car on its side with its safe beside it, the ore
+# wagons tipped over, the tool car upright with its box, the mail sack; the logs the gang laid across the line ------------
+place CaravanBarebones1 - at -44.5 -70 ground yaw=-20 tilt=12
+# (the engine's tank thrown off beside it on the canyon floor: lying across the engine it ran into the canyon's north
+# bank, its middle buried 1 m, CIGroundIslands)
+place Placeable_FuelTank - at -43.94 -73.95 sit rot=0,340,90
+place RT_PipeDownStraight - at -46.3 -68.8 h=7.2 rot=0,0,15
+place Note_Book engineerlog at -45.6 -70.6 h=8 drop yaw=20
+place Caravan_Green_02 - at -50.5 -76.6 h=5.4 rot=0,15,88
+# (the safe on the canyon floor east of the car: at -48 -79.2 it stood on the south wall's foot, a 6 m-in-1.5 m slope,
+# set down at its low side and buried 1.4 m, CIGroundIslands)
+place VG_Safe expresssafe at -47.6 -74.8 ground yaw=200
+place VP_Wagon02 - at -55 -74 h=4.6 rot=0,30,80
+place VP_Wagon02 - at -57.5 -71.4 h=4.6 rot=0,10,-85
+# (on the floor: at -60 -73.2 it stood on the south wall's foot, its middle under the slope, CIGroundIslands)
+place VP_Wagon02 - at -59.5 -70.5 ground yaw=40 tilt=20
+place VP_Wagon02 - at -53.2 -67.5 h=4.6 rot=0,60,-80
+place VP_Wagon02 - at -61.8 -68.7 ground yaw=21
+place "Box Small" toolcar at -61.8 -68.7 h=7 drop yaw=21
+place "Box Small" mailsack at -51.8 -79.4 ground yaw=60
+place TreeLog_02 - at -40 -74.6 ground yaw=80
+place TreeLog_02 - at -38.4 -74 ground yaw=95
+place Zone_Trigger derailment at -48 -73 h=5.5
+place Creature_StoneBird vultures at -46 -66 h=22
+
+# --- The section house up the line: a shed of Raft's walls with a wooden roof, the gang's box inside --------------------
+push at -30 -84 h=4.05
+call floors w=2 d=2 y=0.1
+place Block_Wall_Wood - at 0.75 0 y=0.1
+place Block_Wall_Wood - at 2.25 0 y=0.1
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 3 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 3 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 0.75 3 y=0.1
+call corners w=2 d=2
+roof 2 2 at 0 0 y=0.1 wood
+place "Box Small" sectionhouse at 0.8 0.8 y=0.1 sit yaw=10
+pop
+
+# --- The trestle over the river: decks on timber legs from the riverbed, the middle span blown (two decks lying on the
+# bed below); the river's thing, the fallen strongbox and a barrel on the bed ----------------------------------------------
+for tx -3.27 12.42 5.23
+place Relay_support_beam_wood - at $tx -77.2 h=-8 rot=0,0,-90 sx=1.26
+place Relay_support_beam_wood - at $tx -72.8 h=-8 rot=0,0,-90 sx=1.26
+next
+place Relay_Floor_deck trestle at -3.27 -72.385 h=4
+place Relay_Floor_deck trestle at 1.96 -72.385 h=4
+place Relay_Floor_deck trestle at 12.42 -72.385 h=4
+place Relay_Floor_deck trestle at 17.65 -72.385 h=4
+line Beam_Long_01 from -8.5 -75.5 to 1.9 -75.5 step=3.47 ends yaw=180 h=4.17 rot=0,0,0
+line Beam_Long_01 from -8.5 -74.5 to 1.9 -74.5 step=3.47 ends yaw=180 h=4.17 rot=0,0,0
+line Beam_Long_01 from 7.25 -75.5 to 17.6 -75.5 step=3.45 ends yaw=180 h=4.17 rot=0,0,0
+line Beam_Long_01 from 7.25 -74.5 to 17.6 -74.5 step=3.45 ends yaw=180 h=4.17 rot=0,0,0
+place Relay_Floor_deck - at 6.5 -76 h=-6.6 rot=14,40,0
+place Relay_Floor_deck - at 8 -70.5 h=-6.4 rot=-18,-30,6
+place "Box Big" fallenbox at 2.5 -79 h=-5 drop yaw=30
+place Loot_SunkenBarrel riverbarrel at 6.5 -82 h=-5.5 drop yaw=10
+place Creature_AnglerFish riverthing at 4 -86 h=-4
+place Zone_Trigger trestlezone at -8 -75 h=5.5
+# (the railhead at the switchbacks' foot, three lengths: the last two ran on into the bank the switchbacks raised and
+# were buried in it, CIGroundIslands)
+line Beam_Long_01 from 17.21 -75.45 to 26.97 -70.9 step=3.59 ends yaw=180 rot=0,0,0
+line Beam_Long_01 from 16.79 -74.55 to 26.55 -69.995 step=3.59 ends yaw=180 rot=0,0,0
+
+# ===== Chapter 4 - the Lucky Strike mine ================================================================================
+# (Balboa's bear cave set into the canyon's north wall, its mouth south onto the ledge (its floor level with it, 11.5 m),
+# its gallery north; the timbered portal, rails, a tub; the tally board; the foreman's shack on the ledge; the lift at the
+# gallery's back)
+place BalboaCave_Bear minecave at 22.93 -42 h=16.05 yaw=180
+place Relay_support_beam_wood - at 18.2 -58.6 h=11.5 rot=0,0,-90 sx=0.75
+place Relay_support_beam_wood - at 29.8 -58.6 h=11.5 rot=0,0,-90 sx=0.75
+place Relay_support_beam_wood - at 29.8 -58.6 h=18.5 rot=0,0,0 sx=1.23
+line Beam_Long_01 from 23.5 -59 to 23.5 -31 step=3.5 ends yaw=180 rot=0,0,0
+line Beam_Long_01 from 24.5 -59 to 24.5 -31 step=3.5 ends yaw=180 rot=0,0,0
+place VP_Wagon01 - at 24 -47 sit
+place Note_Board tallyboard at 19.6 -61 ground yaw=200
+place Zone_Trigger minezone at 24 -60 h=13
+place Creature_Bear minebear at 24 -37 h=12
+place "Box Small" minecache at 21 -31.5 h=13 drop yaw=30
+place VP_MotherlodeElevatorTrack_CompleteSet - at 25.5 -28.4 h=11.5 yaw=180 sy=0.62
+place UT_HookRoom_Lift liftcage at 24 -29.5 h=11.5 yaw=180
+push at 29 -63 h=11.5
+call floors w=2 d=2 y=0.1
+place Block_Wall_Wood - at 0.75 0 y=0.1
+place Block_Wall_Wood - at 2.25 0 y=0.1
+place Block_Wall_Wood - at 0.75 3 y=0.1
+place Block_Wall_Wood - at 2.25 3 y=0.1
+place Block_Wall_Wood - at 3 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 3 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+call corners w=2 d=2
+roof 2 2 at 0 0 y=0.1 wood
+place Loot_ChestLarge foremanbox at 2.3 1.5 y=0.1 sit yaw=270
+pop
+
+# ===== Chapter 5 - the gang's fort on Black Mesa ========================================================================
+# --- The lift's top station: Utopia's lift under a headframe of two thick pillars and a beam ---------------------------
+place UT_JumpPuzzle_Lift mesalift at -2 -34 h=44.02
+# (the posts start 3 m down and run 9 m up to the beam: the mesa top falls to 41 by the east post, which hung in the air)
+place RT_PillarThick - at -4.5 -34 h=39 sy=1.5
+place RT_PillarThick - at 0.5 -34 h=39 sy=1.5
+place RT_BeamThick - at 2.95 -34 h=48.2
+place Zone_Trigger mesatopzone at -2 -34 h=43.5
+
+# --- The palisade: Varuna's tall poles in a ring 28 m across, its gate east-south-east towards the lift ----------------
+for a -8 331 6
+place VP_NailPole_01 - at {-26+14*cos($a)} {-24+14*sin($a)} ground rot=0,{-90-$a},0
+place VP_NailPole_02 - at {-26+14*cos($a+3)} {-24+14*sin($a+3)} ground rot=0,{-93-$a},0
+next
+place Zone_Trigger fortgate at -14 -27.5 h=43.5
+
+# --- Inside: the gang's cabin (Balboa's log house, its porch towards the gate) with the ledger and the loot chest; two
+# tents with a box, the black flag; the hounds and their alpha --------------------------------------------------------
+place Balboa_Shack gangcabin at -30 -20 h=41.65 yaw=0
+place MayorsChest gangloot at -26.1 -18.5 h=42.31 yaw=270
+place Note_Book gangledger at -26.2 -22.6 h=42.33 yaw=40
+place Balboa_DecorationPrefabBase_SimpleTent - at -18 -35 ground yaw=10
+place Balboa_DecorationPrefabBase_SimpleTent - at -17 -13.5 ground yaw=160
+place "Box Small" tentbox at -15 -35.5 ground yaw=30
+place Placeable_Flag_07 - at -14.5 -23 ground yaw=90
+place Creature_Hyena hounds at -22 -28 h=42.3
+place Creature_Hyena alpha at -24 -30 h=42.3
+
+# --- The watchtower: a deck on four timber legs 6.5 m up, a ladder up its north side, plank rails; the signal fire's
+# basket on the deck, its fire hidden until lit -------------------------------------------------------------------------
+place Relay_support_beam_wood - at -32.7 -34.7 h=42 rot=0,0,-90 sx=0.676
+place Relay_support_beam_wood - at -28.1 -34.7 h=42 rot=0,0,-90 sx=0.676
+place Relay_support_beam_wood - at -32.7 -30.1 h=42 rot=0,0,-90 sx=0.676
+place Relay_support_beam_wood - at -28.1 -30.1 h=42 rot=0,0,-90 sx=0.676
+place Relay_Floor_deck - at -27.77 -29.77 h=48.35
+place LandmarkLadder_6m towerladder at -30.4 -29.5 h=42 yaw=180
+place Block_Wall_Fence_Plank - at -32.2 -35 h=48.5 yaw=0
+place Block_Wall_Fence_Plank - at -30.4 -35 h=48.5 yaw=0
+place Block_Wall_Fence_Plank - at -28.6 -35 h=48.5 yaw=0
+place Block_Wall_Fence_Plank - at -33 -34.2 h=48.5 yaw=90
+place Block_Wall_Fence_Plank - at -33 -32.4 h=48.5 yaw=90
+place Block_Wall_Fence_Plank - at -33 -30.6 h=48.5 yaw=90
+place Block_Wall_Fence_Plank - at -27.77 -34.2 h=48.5 yaw=90
+place Block_Wall_Fence_Plank - at -27.77 -32.4 h=48.5 yaw=90
+place Block_Wall_Fence_Plank - at -27.77 -30.6 h=48.5 yaw=90
+place Block_Wall_Fence_Plank - at -32.3 -29.77 h=48.5 yaw=0
+place Block_Wall_Fence_Plank - at -28.6 -29.77 h=48.5 yaw=0
+place Placeable_Lantern_FireBasket signalfire at -30.4 -32.6 h=48.5
+place campfire_1 signalflame at -30.4 -32.6 h=49.05
+place Zone_Trigger watchtowerzone at -30.4 -32.4 h=49.6
+
+# --- The ladder trail down the mesa's north face: three ladders, each from a ledge to the band above; the signpost at its
+# foot, the mayor's proclamation and the zone hidden until the signal --------------------------------------------------
+# (each band: a wall of timber cribbing three planks high, a landing of planks behind its top, the ladder up its face)
+# (lo: how far under the ledge the lowest course starts; t: its thickness - see the middle band)
+macro cribband z hl lo=1 t=1
+for cx -26.25 -21.75 1.5
+place Block_Wall_Wood - at $cx $z h={$hl-$lo} sz=$t
+place Block_Wall_Wood - at $cx $z h={$hl+1.43}
+place Block_Wall_Wood - at $cx $z h={$hl+3.86}
+place Block_Floor_Wood - at $cx {$z-0.75} h={$hl+6}
+place Block_Floor_Wood - at $cx {$z-2.25} h={$hl+6}
+next
+place LandmarkLadder_6m mesaladder at -24 {$z+0.25} h=$hl yaw=180
+end
+call cribband 7.5 24
+# (its face stands half way up the slope, the ground 1.56 m over the ledge: the lowest course 25 cm higher, its top over
+# the ground - a metre under, it was buried whole, CIGroundIslands; 10% thicker where it reaches into the course on it)
+call cribband 1.5 30 lo=0.75 t=1.1
+call cribband -4.5 36
+place Balboa_DirectionSign - at -21 11 ground yaw=200
+place Note_Sign proclamation at -22.6 11.4 ground yaw=180
+place Zone_Trigger homeward at -24 11 y=1.5
+
+# ===== Chapter 2 - the Double Bar ranch on the east plain ==============================================================
+# --- The ranch house (a relay house, its veranda east) with the rancher's letter, the pantry and his strongbox; the
+# barn of Raft's walls with the tack chest; the corral, empty; the hens --------------------------------------------------
+push at 102 16 h=13.6 yaw=0
+call relay_house
+pop
+place Placeable_Table_Basic - at 95 12 h=14.6 drop yaw=0
+place Note_Paper rancherletter at 95 12 h=16 drop yaw=20
+place Placeable_Cupboard_Medium ranchpantry at 92.3 8.5 h=13.6 yaw=90
+place Loot_ChestLarge rancherbox at 97.6 14.9 h=13.6 yaw=180
+push at 106 -16 h=13.5
+call floors w=5 d=4 y=0.1
+place Block_Wall_Wood - at 0.75 0 y=0.1
+place Block_Wall_Wood - at 2.25 0 y=0.1
+place Block_Wall_Wood - at 3.75 0 y=0.1
+place Block_Wall_Wood - at 5.25 0 y=0.1
+place Block_Wall_Wood - at 6.75 0 y=0.1
+place Block_Wall_Wood - at 0.75 6 y=0.1
+place Block_Wall_Wood - at 2.25 6 y=0.1
+place Block_Wall_Wood - at 5.25 6 y=0.1
+place Block_Wall_Wood - at 6.75 6 y=0.1
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 3.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 5.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 7.5 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 7.5 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 7.5 3.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 7.5 5.25 y=0.1 yaw=90
+call corners w=5 d=4
+roof 5 4 at 0 0 y=0.1 wood
+place Loot_Chest tackchest at 1.2 4.6 y=0.1 sit yaw=90
+pop
+for a 20 340 15
+place Block_Wall_Fence_Plank - at {115+5.5*cos($a)} {4+5.5*sin($a)} ground yaw={-90-$a}
+next
+place Zone_Trigger ranch at 104 4 h=15
+place Creature_Chicken hens at 108 6 ground
+place Balboa_DirectionSign - at 98 18 ground yaw=-60
+# --- The box canyon behind the ranch: the three rustled llamas -------------------------------------------------------
+place Creature_Llama llamas at 66 -6 ground
+place Zone_Trigger boxcanyon at 70 -6 h=15
+
+# ===== The canyon's dust and wind, the friendly animals, Raft's finds in the shallows ==================================
+place Zone_Atmosphere canyondust at -64 -67 h=6
+place Zone_Atmosphere canyondust at -20 -76 h=6
+place Zone_Atmosphere canyondust at 20 -70 h=8
+place Zone_Atmosphere canyondust at -26 -24 h=44
+place Zone_Sound wind at -40 -72 h=8
+place Creature_Goat goats at -60 40 ground
+place Creature_Turtle turtles at -152 -40 h=-2
+place Creature_Dolphin dolphins at -175 0 h=-3
+call shallows r=170 deep=5 n=2
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): flowers ----------
+scatter "Pickup_Landmark_Flower_Yellow" 6 at 0 0 r=99.4 seed=4482 free=3
+scatter "Pickup_Landmark_Flower_Red" 6 at 0 0 r=99.4 seed=4483 free=3
+
+# ===== Settings, story items, notes, behaviours, quest (36 steps, 6 chapters) =============================================
+prop hens creature.count=4
+prop goats creature.count=3
+prop turtles creature.count=2
+prop dolphins creature.count=3
+prop vultures creature.zone=derailment
+
+info title=Sundown Canyons
+info author=Custom Islands
+info description=A red-rock island of canyons and mesas: the town of Sundown on its shore, a ranch on the plain, a silver train derailed in the canyon, a mine with a lift through Black Mesa - and on the mesa's top, the outlaw fort where the gang took the town's silver and the bank's key. The sheriff rode after them and didn't come back. Her badge is on the desk.
+island on.arrive=message||A town of false fronts and boardwalks under red canyons. The saloon's doors swing in the wind. Somewhere up in the rocks, dogs howl - a lot of dogs.
+
+story sheriffkey|Sheriff's key ring|quest:Utopia_KeyPrison|Sheriff Brennan's key ring: the jail, the gun locker.
+story dynamite|Stick of dynamite|quest:Vasagatan_Bomb|A stick of the railroad's blasting powder, its fuse still dry.
+story silverbar|Silver bar|MetalIngot|A bar of Sundown's silver, stamped with the bank's mark.
+story liftkey|Mine lift key|quest:Varuna_MotherlodeKey|The Lucky Strike's lift key, from the foreman's strongbox.
+story vaultkey|Bank vault key|quest:Caravan_KeyMayor|The Bank of Sundown's vault key, from the gang's loot chest.
+story allclear|Signal fire|Placeable_Lantern_FireBasket|The fire is lit on Black Mesa: the town knows the gang is gone.
+story receipt|Bank receipt|quest:Utopia_DettoCode|The teller's receipt: six silver bars, PAID IN FULL.
+
+note sheriffreport Sheriff's last report | SUNDOWN - SHERIFF'S REPORT\n\nThe Black Mesa gang hit the silver train in the canyon on the 3rd. Derailed her at the bend, blew the express safe (half of it), blew the trestle behind them so the posse couldn't follow, and took the rest up to their fort on Black Mesa.\n\nThey rustled the Double Bar's llamas on the way - three got loose in the box canyon behind the ranch.\n\nThe bank's vault key was on the train for the new branch. Clem Harlan has it now.\n\nI'm riding up after them. My keys are in the desk drawer; the gun locker's yours if you need it.\n\nWhoever wears this badge next: get the town's silver back to the bank.\n- A. Brennan, Sheriff
+note wantedposter Wanted poster | WANTED\n\nCLEM HARLAN and the BLACK MESA GANG\n\nfor train robbery, rustling, and the blowing of the Red Rock trestle.\n\nReward from the Bank of Sundown.\nBEWARE THE GANG'S HOUNDS.
+note rancherletter Rancher's letter | To the sheriff, or whoever reads this:\n\nThe gang ran off with my llamas - three got loose in the box canyon behind the house. Net them - the net launcher's in the barn's tack chest - and my strongbox is yours to open.\n\nThere's a map in it of the gang's trail: through the old Lucky Strike mine. Its lift goes clean up through Black Mesa to their back door.\n\n- W. Pruett, Double Bar ranch
+note engineerlog Engineer's log | SUNDOWN & RED ROCK LINE - ENGINE No. 4\n\n3rd. Logs across the line at the bend. Hit them at speed. Express car over.\n\nThe gang blew the express safe but only got one drawer - two bars are still in there. They took two more across the trestle and blew it under themselves; the strongbox went into the river. The rest went up the mesa.\n\nThey cleaned out the tool car's powder - nearly. One stick left under the seat. There's more at the section house up the line.\n\nAda went after them alone.\n- S. Tull, engineer
+note tallyboard Foreman's tally board | LUCKY STRIKE - TALLY\n\nTons this month: 12. Men: 9.\nBears in the lower gallery: 1. DON'T.\n\nThe lift to the top of the mesa is locked. Key's in my strongbox. Lost the strongbox's own key down the shaft - use powder on it, it's only a box.
+note gangledger Gang's ledger | BLACK MESA - CLEM'S LEDGER\n\nSilver train: 6 bars. Left 2 in the safe (fools). Lost 2 in the river when the bridge went. 2 here.\nLlamas: 6, 3 got away.\nSheriff's horse: 1.\nSheriff: (crossed out, hard)\nThe bank's key: in the chest.\n\nWatch the town for smoke.
+note proclamation Mayor's proclamation | PROCLAMATION\n\nThe Black Mesa gang is gone! The town of Sundown thanks whoever lit the fire on the mesa.\n\nBring the silver to the bank and the vault is yours to open, by order of the Mayor - and the badge too, if you'll have it.
+note managerletter Bank manager's letter | To the next sheriff:\n\nThe vault holds the town's trust - deeds, plans, coin, the mayor's hat (don't ask). Return the silver at the counter and the vault is yours to open, to keep for us.\n\n- J. Whitlock, Bank of Sundown
+note sheriffdrawer Sheriff's desk drawer | The sheriff's desk drawer: a box of cartridges, a photograph, and her key ring.
+loot sheriffdrawer story:sheriffkey*1;Rope*2
+prop sheriffdrawer loot.refill=0
+note gunlocker Sheriff's gun locker | The jail's gun locker: a bow and a quiver of iron arrows, a spear, a leather vest.
+loot gunlocker Bow*1;Arrow_Metal*12;Spear_Scrap*1;Equipment_LeatherChest*1
+prop gunlocker loot.refill=0
+prop gunlocker if.open=has|story:sheriffkey|1
+prop gunlocker else.open=message||The gun locker is locked. The sheriff's keys are in her desk drawer.
+note tackchest Barn tack chest | The barn's tack chest: halters, a saddle blanket - and the ranch's net launcher with its canisters.
+loot tackchest NetGun*1;NetCanister*6;Rope*3
+prop tackchest loot.refill=0
+note rancherbox Rancher's strongbox | Walt Pruett's strongbox: his thanks in coin, a llama carved in wood - and a map of the gang's trail, through the Lucky Strike and up its lift to the mesa's top.
+loot rancherbox TradeToken*6;Placeable_Figurine_Llama*1;Leather*3
+prop rancherbox loot.refill=0
+prop rancherbox if.open=quest|9
+prop rancherbox else.open=message||Walt's strongbox. His letter said: net the llamas in the box canyon first - then it's yours.
+prop rancherbox on.open=journal|The gang's trail|Walt's map: from the derailment, up the switchbacks to the Lucky Strike mine in the canyon wall. Its lift runs up through Black Mesa to the gang's back door. The lift's key is in the foreman's strongbox.
+note toolcar Tool car box | The tool car's box, under the seat: spikes, a hammer - and one stick of dynamite the gang missed.
+loot toolcar story:dynamite*1;Nail*8
+prop toolcar loot.refill=0
+note sectionhouse Section house box | The section gang's box in the hut by the line: a lamp, a jug - and a stick of dynamite.
+loot sectionhouse story:dynamite*1;BioFuel*1
+prop sectionhouse loot.refill=0
+note expresssafe Express car safe | The express car's safe, its lid blown off at last: two bars of silver the gang left behind.
+loot expresssafe story:silverbar*2;TradeToken*3
+prop expresssafe loot.refill=0
+prop expresssafe if.open=quest|14\ntake|story:dynamite|1
+prop expresssafe else.open=message||The express safe's one drawer is blown open and empty; the rest is shut tight. A stick of dynamite would do it.
+prop expresssafe on.open=sound||event:/weapons/dynamite/explode\nmessage||BOOM. When the dust settles, the safe's door hangs by one hinge.
+note fallenbox Fallen strongbox | The strongbox the gang dropped when the trestle went, on the riverbed: two silver bars.
+loot fallenbox story:silverbar*2;Scrap*2
+prop fallenbox loot.refill=0
+note foremanbox Foreman's strongbox | The foreman's strongbox, its lock blown: the lift key, the month's pay, a map of the galleries.
+loot foremanbox story:liftkey*1;TradeToken*4;MetalOre*3
+prop foremanbox loot.refill=0
+prop foremanbox if.open=quest|21\ntake|story:dynamite|1
+prop foremanbox else.open=message||The foreman's strongbox, locked. His board said: use powder on it.
+prop foremanbox on.open=sound||event:/weapons/dynamite/explode\nmessage||BOOM. The lock is gone, and so are your eyebrows.
+note gangloot Gang's loot chest | The gang's loot chest: two bars of the town's silver, a fistful of coin - and the Bank of Sundown's vault key.
+loot gangloot story:silverbar*2;story:vaultkey*1;TradeToken*5
+prop gangloot loot.refill=0
+note bankvault Bank vault | The Bank of Sundown's vault: the town's trust - deeds, the telegraph office's charger plans, the carpenter's patterns, a machine for turning scrap back into iron, coin, and yes, the mayor's hat.
+loot bankvault Blueprint_BatteryCharger*1;Blueprint_DetailPlank*1;Blueprint_Recycler*1;Hat_Mayor*1;TradeToken*30;MetalIngot*10
+prop bankvault loot.refill=0
+prop bankvault if.open=has|story:receipt|1
+prop bankvault else.open=message||The vault's inner lock answers to the teller's receipt. Return the silver at the counter first.
+note wharfcrate Wharf crate | A crate on the wharf: nails, rope, canned beans.
+loot wharfcrate Nail*10;Rope*3;Cooked_GenericMeat*2
+prop wharfcrate loot.refill=0
+note saloonbox Saloon box | The saloon's box on the porch: glasses, a deck of cards, a jar of pickled eggs.
+loot saloonbox Glass*3;Egg*2;Plank*4
+prop saloonbox loot.refill=0
+note storebox General store box | The store's box: flour, salt, tobacco, a bolt of cloth.
+loot storebox Wool*3;Raw_Potato*3;Rope*2
+prop storebox loot.refill=0
+note stationbox Station box | The station's box: timetables, a lantern, a coil of telegraph wire.
+loot stationbox CopperIngot*2;Placeable_Lantern_Metal*1;Scrap*2
+prop stationbox loot.refill=0
+note ranchpantry Ranch pantry | The ranch pantry: jerky, beans, a jar of honey.
+loot ranchpantry Cooked_GenericMeat*3;Jar_Honey*1;Raw_Beet*2
+prop ranchpantry loot.refill=0
+note mailsack Mail sack | The train's mail sack, split open: letters, a parcel of tools.
+loot mailsack Bolt*4;Hinge*2;Nail*6
+prop mailsack loot.refill=0
+note riverbarrel River barrel | A barrel on the riverbed under the trestle: railroad spikes, scrap.
+loot riverbarrel Scrap*4;MetalOre*2;Nail*6
+prop riverbarrel loot.refill=0
+note minecache Mine cache | A miner's cache deep in the gallery: candles, ore, a flask.
+loot minecache MetalOre*4;CopperOre*2;BioFuel*1
+prop minecache loot.refill=0
+note tentbox Gang's tent box | A box in the gang's tent: playing cards, a mouth organ, beef jerky.
+loot tentbox Cooked_GenericMeat*2;Leather*2;Feather*3
+prop tentbox loot.refill=0
+
+prop windmill beh.spin=60
+prop liftcage obj.name=liftcage
+prop liftcage beh.use=Unlock the lift and ride it up
+prop liftcage if.use=has|story:liftkey|1
+prop liftcage on.use=message||The key turns, the cage shudders and climbs - up through the dark heart of the mesa, rock sliding past the bars, for a long minute - and stops in daylight.\nteleport|mesalift\nsound||event:/exploring/utopia/lift_pull
+prop liftcage else.use=message||The lift cage is padlocked to its track. The tally board said the key is in the foreman's strongbox.
+prop mesalift obj.name=mesalift
+prop signalfire obj.name=signalfire
+prop signalfire beh.use=Light the signal fire
+prop signalfire if.use=quest|27
+prop signalfire on.use=message||The fire basket roars up. Far below, in Sundown, a bell starts ringing - and a rider leaves town, heading for the foot of the mesa.\nshow|signalflame\nshow|homeward\nshow|proclamation\ngive||story:allclear*1\nsound||event:/crafting/torch
+prop signalfire else.use=message||A signal fire, laid and ready. Not yet - the gang's loot first.
+prop signalflame obj.name=signalflame
+prop signalflame beh.hidden=1
+prop homeward obj.name=homeward
+prop homeward beh.hidden=1
+prop proclamation obj.name=proclamation
+prop proclamation beh.hidden=1
+prop teller obj.name=teller
+prop teller beh.use=Return the six silver bars
+prop teller if.use=quest|33\ntake|story:silverbar|6
+prop teller on.use=message||The teller's scale clanks down under the silver, bar after bar. A rubber stamp: PAID IN FULL. The receipt is yours.\ngive||story:receipt*1\nsound||event:/exploring/shop/sell
+prop teller else.use=message||The teller's counter. The town's silver was six bars - all six, please.
+prop vaultdoor obj.name=vaultdoor
+prop vaultdoor beh.use=Unlock the vault door
+prop vaultdoor beh.turn=-95
+prop vaultdoor beh.moveTime=2
+prop vaultdoor beh.moveMode=switch
+prop vaultdoor if.use=has|story:vaultkey|1
+prop vaultdoor on.use=message||The gang's key fits the vault's padlock. The heavy door swings open.\nopen|vaultdoor\nsound||event:/raft/door/door_unlock_key
+prop vaultdoor else.use=message||The vault door's padlock. Its key went up Black Mesa with the gang.
+
+prop wharf zone.id=wharf
+prop wharf zone.radius=8
+prop wharf zone.message=Sundown's wharf. Main street runs up from it: a saloon, a jail, a bank with its blinds down.
+prop ranch zone.id=ranch
+prop ranch zone.radius=12
+prop ranch zone.message=The Double Bar ranch: the corral gate open, the corral empty, a letter weighed down with a horseshoe on the table.
+prop boxcanyon zone.id=boxcanyon
+prop boxcanyon zone.radius=12
+prop boxcanyon zone.message=The box canyon - and three llamas, looking at you as if this is all your fault.
+prop station zone.id=station
+prop station zone.radius=8
+prop station zone.message=Sundown station. The rails run off up the canyon. No train has come down them since the 3rd.
+prop derailment zone.id=derailment
+prop derailment zone.radius=12
+prop derailment zone.message=The silver train, on its side in the canyon: wagons spilled, the express car over, logs across the line.
+prop trestlezone zone.id=trestle
+prop trestlezone zone.radius=12
+prop trestlezone zone.message=The trestle, blown in the middle, the river green and deep below - and something long moving in it.
+prop minezone zone.id=mine
+prop minezone zone.radius=8
+prop minezone zone.message=The Lucky Strike: a timbered mouth, a tally board, and from the lower gallery a growl.
+prop mesatopzone zone.id=mesatop
+prop mesatopzone zone.radius=6
+prop mesatopzone zone.message=The top of Black Mesa. The whole island below you - and a palisade of poles a little way off. The gang's back door.
+prop fortgate zone.id=fortgate
+prop fortgate zone.radius=7
+prop fortgate zone.message=The gang's fort - and the hounds come pouring out of it, a huge one at their head!
+prop watchtowerzone zone.id=watchtower
+prop watchtowerzone zone.radius=4
+prop watchtowerzone zone.message=The fort's watchtower. Sundown is a scatter of roofs far below, by the sea.
+prop homeward zone.id=homeward
+prop homeward zone.radius=8
+prop homeward zone.message=The foot of the mesa. Somebody rode out from town and nailed a notice to the signpost.
+prop bankzone zone.id=bank
+prop bankzone zone.radius=5
+prop bankzone zone.message=The Bank of Sundown: a teller's counter, a letter behind it, and the vault door at the back.
+prop riverthing creature.count=1
+prop riverthing creature.size=1.6
+prop riverthing creature.health=2.5
+prop riverthing creature.respawn=0
+prop riverthing creature.zone=trestle
+prop minebear creature.count=1
+prop minebear creature.size=1.6
+prop minebear creature.health=3
+prop minebear creature.respawn=0
+prop minebear creature.zone=mine
+prop hounds creature.count=4
+prop hounds creature.respawn=0
+prop hounds creature.zone=fortgate
+prop alpha creature.count=1
+prop alpha creature.size=2
+prop alpha creature.health=4
+prop alpha creature.damage=2
+prop alpha creature.respawn=0
+prop alpha creature.zone=fortgate
+prop llamas creature.count=3
+prop llamas creature.respawn=0
+prop vultures creature.count=2
+prop vultures creature.respawn=0
+prop canyondust atmo.fog=#c8a070
+prop canyondust atmo.fogAmount=0.12
+prop canyondust atmo.particles=mist
+prop canyondust zone.radius=45
+prop wind sound.event=event:/amb/caravan
+prop wind sound.volume=0.5
+prop wind zone.radius=50
+
+quest title=The New Sheriff
+quest intro=A frontier town under red canyons, its sheriff gone after an outlaw gang. Her report is on the jail's desk. Start at the wharf.
+# Chapter 1 - Sundown
+step reach|wharf|1|Tie up at Sundown's wharf
+step read|Sheriff's last report|1|Read the sheriff's last report on the jail's desk
+step read|Wanted poster|1|Read the wanted poster by the saloon's door
+step collect|story:sheriffkey|1|Find the sheriff's key ring in her desk drawer
+step open|Sheriff's gun locker|1|Open the sheriff's gun locker with her keys
+step reach|ranch|1|Take the east trail out to the Double Bar ranch
+# Chapter 2 - the ranch
+step read|Rancher's letter|1|Read the rancher's letter in the ranch house
+step open|Barn tack chest|1|Open the barn's tack chest for the ranch's net launcher
+step catch|Llama|3|Round up the three rustled llamas in the box canyon
+step open|Rancher's strongbox|1|Open the rancher's strongbox - his thanks and the map of the gang's trail
+step reach|station|1|Back in Sundown, go to the railway station and follow the rails up the canyon
+# Chapter 3 - the railroad
+step reach|derailment|1|Find the derailed silver train in the canyon
+step read|Engineer's log|1|Read the engineer's log in the wrecked engine's cab
+step collect|story:dynamite|2|Find two sticks of dynamite: under the tool car's seat and at the section house
+step open|Express car safe|1|Blow the express car's safe with a stick of dynamite
+step reach|trestle|1|Reach the blown trestle over the canyon river
+step kill|Angler fish|1|Face the thing in the river pool under the trestle
+step open|Fallen strongbox|1|Dive for the strongbox that fell with the trestle
+# Chapter 4 - the mine
+step reach|mine|1|Climb the switchbacks to the Lucky Strike mine
+step read|Foreman's tally board|1|Read the foreman's tally board at the mine's mouth
+step kill|Bear|1|Drive the bear out of the mine's lower gallery
+step collect|story:liftkey|1|Blow the foreman's strongbox open for the lift key
+step reach|mesatop|1|Ride the mine's lift up through Black Mesa
+# Chapter 5 - the fort
+step reach|fortgate|1|Find the gang's fort on the mesa's top
+step kill|Hyena|5|Fight off the gang's hounds and their alpha
+step read|Gang's ledger|1|Read the gang's ledger in their cabin
+step open|Gang's loot chest|1|Open the gang's loot chest
+step reach|watchtower|1|Climb the fort's watchtower
+step collect|story:allclear|1|Light the signal fire to tell the town the gang is gone
+step reach|homeward|1|Climb down the mesa's ladder trail to the signpost at its foot
+step read|Mayor's proclamation|1|Read the mayor's proclamation nailed to the signpost
+# Chapter 6 - the bank
+step collect|story:silverbar|6|Carry all six silver bars: the express safe, the river, the gang's chest
+step reach|bank|1|Walk into the Bank of Sundown
+step collect|story:receipt|1|Return the silver at the teller's counter
+step read|Bank manager's letter|1|Read the bank manager's letter behind the counter
+step open|Bank vault|1|Open the bank vault with the gang's key
+step blueprint|Blueprint_BatteryCharger|1|Take the battery charger plans from the bank vault
+step blueprint|Blueprint_DetailPlank|1|Take the decorative plank plans from the bank vault
+step blueprint|Blueprint_Recycler|1|Take the recycler plans from the bank vault
+quest done=The silver is home, the gang is gone and the vault is open. Sundown's church bell is still ringing - for its new sheriff.
+quest reward=Plank*12;Leather*4;Cooked_GenericMeat*4
+
+# --- A Raft store on the edge of Sundown: the general store, still trading (Raft's goods, and plans the crew missed) --
+store generalstore at -116 -20 ground
+
+# Buried treasure (one of the story line's last islands): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=70 n=1 seed=8812
+prop treasure8812 treasure.loot=TitaniumOre*3
+
+save Sundown Canyons

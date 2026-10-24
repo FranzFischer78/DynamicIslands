@@ -1,0 +1,11 @@
+# Guide pictures of The General Post Office (CIPlay general_post_office_pics): Raft's camera, midday, calm
+island The General Post Office
+offset 0 0
+hour 11
+weather Calm
+at 0 -30
+wait 3
+picture general_post_office_island 70 45 -95 0 6 0
+picture general_post_office_square 14 9 -40 -2 6 -15
+picture general_post_office_hall 0 5.5 -8 0 4 -4
+picture general_post_office_roof 14 18 22 0 13 36

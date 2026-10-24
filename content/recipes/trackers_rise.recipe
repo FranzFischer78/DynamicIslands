@@ -1,0 +1,235 @@
+# Tracker's Rise - the fourth island of the library's plan The Last Green World (SL11, Verdance)
+# A grass ridge rising out of the sea to an open meadow 6 m up, goats and llamas grazing on it. The trackers' watch tower
+# stands on four posts at the meadow's edge, a zipline running from it down to the sand cove at the foot. A trail of
+# broken bushes leads across the meadow to a gully, where an injured goat, Burr, is pinned in a cage of fallen branches
+# and a ranger's satchel lies dropped. Quest "Tracks" (12 steps): the meadow, the tracking guide, the engine controls
+# plans in the tower, the broken-bush trail to the gully, Burr freed, the metal detector and firework plans in the
+# satchel, the zipline plans in the anchor box, a llama, Ranger log 5.
+#
+# Built by the recipe player (CIRecipe trackers_rise) through the editor's own operations. Points (metres over the
+# sea): the meadow 6 m round 0 4 (r 22), the cove 1.2 m round 0 -40, the tower x -14..-9.5, z -12..-7.5 (deck 8.6 m),
+# the gully floor 3.5 m round 24 24, the satchel 26 27, Ranger log 5 at 2 -4.
+include lib_sea
+include lib_features
+include lib_huts
+include lib_verdance
+include lib_ni7a
+include lib_ni8
+# RESIZE 10-24: Radius 50 -> 85 (Height 11 -> 11), the old content moved 17.7 -7.6 as one frame (push) so its sea side stays at the coast; the island grows behind it.
+new
+gen Trees=0.25 Bushes=0.3 Rocks=0.3 Harvest=0.3 BeachThings=0.3
+gen Seed=11041 Radius=85 Height=11 Roughness=0.3 Peaks=1 Shape=0 Style=0 PeakShape=0.3 Cliffs=0.3 BeachWidth=0.5
+gen Water=0.4 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.1 Hostiles=0 Friendly=0.3 SeaLife=0.2
+generate
+push at 17.7 -7.6
+
+# --- Terrain: the meadow on top, the gully cut into its north-east edge, the sand cove at the foot ------------------
+brush flatten at 0 4 r=22 s=20 frames=300 h=6
+brush flatten at 0 -40 r=7 s=20 frames=200 h=1.2
+brush sand at 0 -40 r=9 s=10 frames=30
+brush grass at 0 4 r=22 s=6 frames=30
+pop
+brush flatten at -25.6 20.8 r=5 s=8 frames=40
+origin
+clear at -25.6 20.8 r=6
+push at 17.7 -7.6
+clear at 0 4 r=14
+clear at -11.75 -9.75 r=5
+clear at 0 -40 r=6
+
+# --- The trackers' watch tower on four posts: the tower chest on its deck; the zipline down to the cove ---------------
+push at -14 -12 h=6
+call stilt_hut y=2.6
+place Loot_Chest towerchest at 3.6 3.6 y=2.7 sit yaw=180
+# REDO 10-24: the tower's map table (the island's machine) and Oda's map case it opens
+place MapTable maptable at 1.4 3.4 y=2.7 sit yaw=0
+place Loot_ChestSmall mapcase at 3.6 1.0 y=2.7 sit yaw=270
+pop
+# (zip deck beside the tower)
+push at -9 -14 h=6
+call zipdeck y=2.6
+pop
+place ZiplinePath_Landmark towerzip at -2.53 -14.22 h=10.07
+zipto towerzip 2 -40
+place Loot_Crate anchorbox at -6 -14 ground sit yaw=160
+
+# --- The meadow: the tracking guide, goats and llamas, Ranger log 5 on a crate by the lookout stone ------------------
+place Zone_Trigger meadowzone at 0 4 ground
+place Note_Sign trackguide at 3 -2 ground sit yaw=200
+place Creature_Goat goats at 8 -6 ground
+prop goats creature.count=3
+
+# --- The trail of broken bushes to the gully; Burr's cage of branches; the ranger's satchel -------------------------
+
+# --- Gathering: copper and clay in the cove rocks, berries on the slope; the shallows ------------------------------
+scatter "Pickup_Landmark_Copper 1" 2 at 6 -34 r=8 seed=11042 free=2
+scatter "Pickup_Landmark_Clay 2" 2 at -6 -34 r=8 seed=11043 free=2
+scatter Pickup_Landmark_BerryBush 3 at -16 18 r=10 seed=11044 free=3
+call shallows x=-17.7 z=7.6 r=102 deep=5 n=1 seed=11045
+pop
+
+# --- AREAS 10-24 (explore rule: no dead space, the quest crosses the island) ----------------------------------------
+#     Middle: the meadow and the tower (zipline down to the south cove). North-east: the gully between two rock humps,
+#     Burr and the satchel (the broken-bush trail leads there). West: the old trackers' hut on the lower pasture with the
+#     llamas (Ranger log 5). North: a stony ridge with a bear cave, its stash behind vines (the machete, from the delta).
+#     East: a fishing boat wrecked on the shore.
+clear at 46 50 r=14
+brush raise at 37 51 r=7 s=20 frames=8
+brush raise at 55 47 r=7 s=20 frames=8
+brush flatten at 46 49 r=5 s=20 frames=200 h=3.5
+call trailbush x=24 z=6 yaw=20
+call trailbush x=30 z=16 yaw=70
+call trailbush x=36 z=27 yaw=130
+call trailbush x=41 z=37 yaw=40
+place Zone_Trigger gullyzone at 44 46 ground
+place Creature_Goat burr at 46 49 ground
+prop burr creature.count=1
+prop burr creature.respawn=0
+place Log burrcage at 44.6 48.4 ground sit yaw=20
+place Log burrcage at 47.4 49.8 ground sit yaw=110
+place Log burrcage at 46.2 47 ground sit yaw=160
+place Loot_Crate satchel at 48 51 ground sit yaw=220
+brush flatten at -45 -10 r=7 s=20 frames=200 h=3.4
+clear at -45 -10 r=8
+push at -47.25 -11.5 h=3.4
+call thatchhut w=3 d=2
+place "Box Small" - at 2.25 2.2 y=0.1 sit
+place Note_Paper rangerlog5 at 2.25 2.2 y=0.8 drop yaw=30
+pop
+# REDO 10-24 (optional): Oda's ranger cache by the old hut, locked with her ranger key from Ranger Landing
+clear at -51 -14.5 r=2
+place "Box Big" rangerlock at -51 -14.5 ground sit yaw=20
+beside Loot_ChestSmall rangercache rangerlock d=0.3
+call stonewall x1=-56 z1=-2 x2=-50 z2=4 hgt=1.6 th=1.4
+place Creature_Llama llamas at -38 12 ground
+prop llamas creature.count=2
+clear from -32 60 to 12 64 r=15
+brush raise from -32 60 to 12 64 r=13 s=20 frames=12
+call ni8cave x=-10 z=60 h=3.2 yaw=180 al=ridgecave
+place Loot_ChestSmall dcavechest at -7.5 55 h=3.65 sit yaw=200
+prop dcavechest obj.name=dcavechest
+prop dcavechest beh.hidden=1
+beside ChoppableVines cavevines dcavechest d=1.6
+prop cavevines on.use=hide|\nshow|dcavechest\nmessage||The machete bites through the vines. A trapper's chest was hidden behind them.
+place Placeable_Lantern_Metal - at -12.6 56 h=3.65 sit
+place BoatStranded dboat at 66 -30 ground sit yaw=150
+place Loot_ChestSmall dboatchest at 60 -24 ground sit yaw=40
+for ga 0 315 45
+brush grass at {52*cos($ga)} {52*sin($ga)} r=18 s=20 frames=20
+next
+
+# --- DISCOVERIES 10-24 (optional, no quest needs them): camp + note; Van_1 + chest; vine-hidden chest; buried treasure; viewpoint ---
+place campfire_1 - at -25.6 20.8 ground sit
+place Balboa_DecorationPrefabBase_SimpleTent - at -22.6 22.8 ground sit yaw=277
+place "Box Small" - at -27.6 23.3 ground sit
+place Note_Paper dnote at -27.6 23.3 ground y=0.7 drop yaw=20
+note dnote Hunter's note | Boar sign everywhere. Hyena sign at the edge of the dark trees.\nI hid the good chest behind the vines - cut them if you need it more than I do.
+place Van_1 dvan at -6.1 -38.5 ground yaw=37
+prop dvan tint.color=#5a4a32
+prop dvan tint.amount=0.5
+place Loot_ChestSmall dwreckchest at -10.1 -35.5 ground sit yaw=337
+note dwreckchest Overgrown chest | A chest the green has half swallowed: rope, nails and an old machete's whetstone.
+note dcavechest Trapper's chest | Left in the cave behind the vines: snares, rope and nails.
+loot dcavechest Rope*3;Nail*8;Leather*2
+prop dcavechest loot.refill=0
+note dboatchest Fisher's locker | From the wrecked boat on the shore: nets gone to rope, a few bolts.
+loot dboatchest Rope*2;Bolt*3;Scrap*2;story:mappiece*1
+prop dboatchest loot.refill=0
+loot dwreckchest Rope*3;Nail*8;Stone*3;story:mappiece*1
+prop dwreckchest loot.refill=0
+call vinecache x=29.4 z=25.6 r=15 seed=11131 chest=dvinechest vines=dvines items=Rope*3;Nail*10;Leather*2
+call treasure x=-36.4 z=-14 r=15 n=1 seed=11132
+prop treasure11132 treasure.loot=CopperOre*2;Clay*3
+place Zone_Trigger dview at -0.7 39 ground
+prop dview zone.id=trackers_rise_view
+prop dview zone.radius=7
+prop dview zone.repeat=never
+prop dview zone.message=The meadow, the tower and the zipline's thin line down to the cove - and the herds moving slowly in the grass.
+
+# --- FILL 10-24 (RESIZE rework): the bigger island's whole area at Raft-like density - trees, bushes, rocks; free= keeps them
+#     off the quest's objects and paths
+scatter "Pickup_Landmark_Tree_Palm 1" 10 at 0 0 r=74 seed=11391 free=5
+scatter "Pickup_Landmark_Tree_Palm 2" 10 at 0 0 r=74 seed=11392 free=5
+scatter "Pickup_Landmark_Tree_Palm 4" 6 at 0 0 r=74 seed=11393 free=5
+scatter "Pickup_Landmark_Tree_Mango" 6 at 0 0 r=74 seed=11394 free=5
+scatter "Balboa_Bush_01 Variant" 30 at 0 0 r=74 seed=11395 free=2.5
+scatter "Balboa_Bush_03 Variant" 30 at 0 0 r=74 seed=11396 free=2.5
+scatter CaravanIsland_SmallRock_1 14 at 0 0 r=74 seed=11397 free=3 ground y=-0.6
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=74 seed=11398 free=3
+scatter "Pickup_Landmark_Flower_Red" 8 at 0 0 r=74 seed=11399 free=2
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Tracker's Rise
+info author=Custom Islands
+info description=A grass ridge with a meadow on top: goats and llamas, the trackers' watch tower, and a trail of broken bushes to a gully. The fourth island of The Last Green World.
+island on.arrive=message||A green ridge over the jungle. Something bleats up on the meadow - not like the goats.
+
+story burr|Burr|Note_Paper|Burr, a ranger's goat with a torn ear, freed from a cage of branches in the gully.
+
+note trackguide Tracking guide | TRACKERS' BOARD\n\nA bush pushed flat points the way an animal went.\nTwo flat bushes in a row: it ran.\nThe gully takes everything that falls off the meadow.\n\nTower kit on the deck. Zipline down to the cove.
+note rangerlog5 Ranger log 5 | RANGER LOG 5 - O. FENN\n\nBurr is safe. If you found him first - thank you.\n\nFrom the tower I saw them: the river people's lights, going in through the hollow trees. Into the trees, not under them.\n\nI follow tomorrow.
+note towerchest Tower chest | The tower chest: plans for an engine's controls, a pair of field glasses, cord.
+note satchel Ranger's satchel | Oda's satchel, dropped in the gully and torn: one piece of her map, and her shovel.
+note anchorbox Zipline anchor box | The zipline's anchor box: the plans for the zipline it was built from.
+loot towerchest Blueprint_EngineControls*1;Rope*2;Bolt*2
+prop towerchest loot.refill=0
+loot satchel story:mappiece*1;Shovel*1;Battery*1
+prop satchel loot.refill=0
+story mappiece|Map piece|Note_Paper|A torn piece of Oda's tracking map. The tower's map table can join them.
+story trackmap|Oda's tracking map|Note_Paper|Oda's map, whole again on the tower table: the hunters' trail, and her map case's catch.
+prop maptable obj.name=maptable
+prop maptable beh.use=Lay the map pieces on the table
+prop maptable if.use=take|story:mappiece|3
+prop maptable on.use=message||The three pieces fit. Oda's trail runs off the map's edge, upriver - and the map case under the table clicks open.\ngive||story:trackmap*1\nshow|mapcase
+prop maptable else.use=message||A map table with a torn map's outline pinned on it. The pieces went where Oda went: the gully, the fishing wreck, the cove.
+note mapcase Oda's map case | Oda's map case: the plans she was carrying - a metal detector's and a firework's.
+loot mapcase Blueprint_MetalDetector*1;Blueprint_Firework*1;Bolt*2
+prop mapcase loot.refill=0
+prop mapcase obj.name=mapcase
+prop mapcase beh.hidden=1
+note rangercache Ranger cache | RANGER - STORES. Oda's cache: rope, leather, a lantern and dried meat.
+loot rangercache Rope*4;Leather*3;Placeable_Lantern_Metal*1;Cooked_GenericMeat*2
+prop rangercache loot.refill=0
+prop rangercache obj.name=rangercache
+prop rangercache beh.hidden=1
+prop rangerlock obj.name=rangerlock
+prop rangerlock beh.use=Open the ranger stores
+prop rangerlock if.use=has|story:rangerkey
+prop rangerlock on.use=hide|\nshow|rangercache\nmessage||Oda's key turns the stores lock. The lid comes up on a ranger cache.
+prop rangerlock else.use=message||A locked box stencilled RANGER - STORES. A ranger's key would open it.
+loot anchorbox Blueprint_ZiplineBase*1;Rope*3;MetalIngot*1
+prop anchorbox loot.refill=0
+
+prop burrcage obj.name=burrcage
+prop burrcage beh.use=Lift the branches off the goat
+prop burrcage if.use=!signal|burr
+prop burrcage on.use=signal||burr\ngive||story:burr*1\nhide|burrcage\nmessage||The branches roll away. The goat limps out, shakes itself - a ranger's tag on its ear: BURR.
+prop burrcage else.use=message||Burr is free.
+
+prop meadowzone zone.id=meadow
+prop meadowzone zone.radius=8
+prop meadowzone zone.message=The meadow. Goats, llamas, and a tower on four posts at the edge.
+prop gullyzone zone.id=gully
+prop gullyzone zone.radius=5
+prop gullyzone zone.message=The gully. Fallen branches - and a goat pinned under them.
+
+quest title=Tracks
+quest intro=Something bleats on the meadow. Climb up to it.
+step reach|meadow|1|Climb up to the meadow
+step read|Tracking guide|1|Read the trackers' board
+step blueprint|Blueprint_EngineControls|1|Take the engine controls plans from the tower chest
+step reach|gully|1|Follow the broken bushes to the gully
+step collect|story:burr|1|Free the goat from the branches
+step collect|story:mappiece|3|Find the three pieces of Oda's torn map: the gully, the fishing wreck, the cove
+step collect|story:trackmap|1|Lay the pieces on the tower's map table
+step blueprint|Blueprint_MetalDetector|1|Take the metal detector plans from Oda's map case
+step blueprint|Blueprint_Firework|1|Take the firework plans from Oda's map case
+step blueprint|Blueprint_ZiplineBase|1|Take the zipline plans from the anchor box by the tower
+step catch|Llama|1|Catch a llama
+step read|Ranger log 5|1|Read Ranger log 5 by the lookout stone
+quest done=Into the hollow trees. Their band is 900.
+quest reward=Seed_Pine*2;Feather*4
+
+clear at 38.98 75.17 r=1.5 only=SmallBoulder2 all
+clear at -56.93 -23.17 r=1.5 only=CaravanIsland_SmallRock all
+save Tracker's Rise

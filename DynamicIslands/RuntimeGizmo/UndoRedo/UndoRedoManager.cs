@@ -8,6 +8,12 @@ namespace CommandUndoRedo
 
 		public static int maxUndoStored {get {return undoRedo.maxUndoStored;} set {undoRedo.maxUndoStored = value;}}
 
+		public static int UndoCount { get { return undoRedo.UndoCount; } }
+		public static int RedoCount { get { return undoRedo.RedoCount; } }
+
+		/// <summary>Counts every change (done, undone, redone) - the editor autosaves when it moved (Custom Islands).</summary>
+		public static int Changes { get; private set; }
+
 		public static void Clear()
 		{
 			undoRedo.Clear();
@@ -15,22 +21,27 @@ namespace CommandUndoRedo
 
 		public static void Undo()
 		{
-			undoRedo.Undo();
+			int n = undoRedo.UndoCount; undoRedo.Undo(); if (undoRedo.UndoCount != n) Changes++;
 		}
 
 		public static void Redo()
 		{
-			undoRedo.Redo();
+			int n = undoRedo.RedoCount; undoRedo.Redo(); if (undoRedo.RedoCount != n) Changes++;
 		}
 
 		public static void Insert(ICommand command)
 		{
-			undoRedo.Insert(command);
+			undoRedo.Insert(command); Changes++;
+		}
+
+		public static void AppendToLast(ICommand command)
+		{
+			undoRedo.AppendToLast(command); Changes++;
 		}
 
 		public static void Execute(ICommand command)
 		{
-			undoRedo.Execute(command);
+			undoRedo.Execute(command); Changes++;
 		}
 	}
 }

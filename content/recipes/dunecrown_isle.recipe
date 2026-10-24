@@ -1,0 +1,154 @@
+# Dunecrown Isle - a new island of the library (ROADMAP 3d NI8), large, with no quest
+# A big desert island. On a sand plaza in its middle stands a great stepped pyramid of five tiers, a stair cut up its
+# south face to a little shrine on its top; a smaller pyramid rises in the north-west. South-east of the plaza a tomb
+# is dug into a hump of rock, two marble columns at its door, pots and a sealed coffer inside where the rats live. In the
+# south-west an oasis: a pool among palms, a caravan's tents and their fire. Along the east side runs a ridge of black
+# rock, hot and smoking. Out at sea a boat lies wrecked on the sea floor. Monsters: hyenas round the pyramids, rats in
+# the tomb, a screecher over the ridge.
+#
+# Built by the recipe player (CIRecipe dunecrown_isle) through the editor's own operations. Points: the plaza at 0 10
+# (4 m, r 36); the great pyramid round 0 14 - tiers half 22 (7 m), 18.5 (10 m), 15 (13 m), 11.5 (16 m), 8 (19 m); its stair
+# up the south face from 0 -20 (4 m) to 0 7 (19 m); the shrine at 0 14 (19 m); the small pyramid round -42 44 - tiers half
+# 13 (8 m), 9 (11 m), 5 (14 m); the tomb rock at 35 -25 (pad 3.6 m, floor 4.05 m, the mouth north at z -9); the oasis
+# at -38 -38 (rim 1.2 m, pool -0.7 m, r 7); the ridge from 58 30 to 62 -30 (14-17 m); the wreck at -20 -100 (8 m down).
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+include lib_ni8
+new
+# (nature: a desert island - fewer trees, more rocks, less to harvest; palms at the oasis)
+gen Trees=0.12 Bushes=0.2 Rocks=0.45 Harvest=0.15 BeachThings=0.3
+gen Seed=7802 Radius=88 Height=7 Roughness=0.35 Peaks=1 Shape=0 Style=2 BeachWidth=0.6 Cliffs=0.35 PeakShape=0.3
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0.2
+generate
+
+# ===== The ground: the plaza, the two pyramids tier by tier, the stair, the tomb, the oasis, the ridge, the wreck's bed ==
+brush flatten at 0 10 r=36 s=20 frames=160 h=4
+call ni8tier x=0 z=14 half=22 h=7
+call ni8tier x=0 z=14 half=18.5 h=10
+call ni8tier x=0 z=14 half=15 h=13
+call ni8tier x=0 z=14 half=11.5 h=16
+call ni8tier x=0 z=14 half=8 h=19
+brush flatten at 0 14 r=7.5 s=20 frames=160 h=19
+for i 0 27 1
+brush flatten at 0 {-20+$i} r=2.5 s=20 frames=80 h={4+$i*15/27}
+next
+brush rock at 0 14 r=26 s=20 frames=40
+brush sand from 0 -14 to 0 7 r=2.2 s=20 frames=20
+brush flatten at -42 44 r=18 s=20 frames=100 h=5
+call ni8tier x=-42 z=44 half=13 h=8
+call ni8tier x=-42 z=44 half=9 h=11
+call ni8tier x=-42 z=44 half=5 h=14
+brush rock at -42 44 r=15 s=20 frames=40
+call ni8cave x=35 z=-25 h=3.6 yaw=0 al=tombrock
+brush sand from 34 -10 to 34 -2 r=4 s=20 frames=20
+brush flatten at -38 -38 r=15 s=20 frames=100 h=1.2
+brush flatten at -38 -38 r=7 s=20 frames=120 h=-0.7
+brush grass at -38 -38 r=15 s=20 frames=30
+brush sand at -38 -38 r=8 s=20 frames=20
+for i 0 6 1
+brush flatten at {58+$i*0.7} {30-$i*10} r=8 s=20 frames=200 h={14+3*abs(sin($i*70))}
+next
+brush smooth from 58 32 to 62 -32 r=10 s=6 frames=40
+brush rock from 58 32 to 62 -32 r=10 s=20 frames=40
+brush flatten at -20 -100 r=10 s=20 frames=80 h=-8
+clear at 0 14 r=26
+clear at -42 44 r=16
+clear at -38 -38 r=9
+clear from 0 -16 to 0 7 r=3
+
+# ===== The great pyramid's top: a shrine of columns, the king's chest under its roof, a fire basket each side ===========
+call ni8temple x=0 z=14 h=19 al=shrinecolumns roofal=shrineroof
+prop shrinecolumns tint.color=#e2d2a8
+prop shrineroof tint.color=#e2d2a8
+place Loot_Chest crownchest at 0 15 h=19 sit yaw=180
+place UT_EndRoom_Pot02 - at 1.8 12.5 h=19 sit
+place Placeable_Lantern_FireBasket - at -1.6 9.2 h=19 sit
+place Placeable_Lantern_FireBasket - at 1.6 9.2 h=19 sit
+place Note_Sign stairsign at 2.8 -22 ground yaw=180
+
+# ===== The tomb in the rock south-east of the plaza: columns at its door, pots, the sealed coffer, its lights ============
+place Pillar_01 tombcolumns at 31.5 -8.5 ground sit
+place Pillar_01 tombcolumns at 36.5 -8.5 ground sit
+prop tombcolumns tint.color=#e2d2a8
+place UT_EndRoom_Pot02 - at 32 -20 h=4.05 sit
+place UT_EndRoom_Pot02 - at 38 -21 h=4.05 sit yaw=60
+place UT_MarketBasket01 - at 37.5 -18 h=4.05 sit
+place Loot_ChestLarge tombchest at 35.5 -19.5 h=4.05 sit yaw=0
+place Note_Paper tombtablet at 33 -18.5 h=4.05 sit yaw=30
+place Placeable_Lantern_FireBasket - at 30 -7 ground sit
+place Placeable_Lantern_FireBasket - at 38 -7 ground sit
+place Zone_Sound tombair at 35 -20 h=5
+prop tombair sound.event=event:/amb/cave
+prop tombair sound.volume=0.3
+prop tombair zone.radius=8
+place Creature_Rat rats at 35 -17 h=4.1
+
+# ===== The oasis: palms round the pool, a caravan's two tents and their fire, a chest in a tent =========================
+for a 0 330 30
+place "Pickup_Landmark_Tree_Palm {1+$a/30-4*floor($a/120)}" - at {-38+10.5*cos($a)} {-38+10.5*sin($a)} ground sit yaw={$a*7}
+next
+scatter Banana_Bush_1 3 at -38 -38 r=14 seed=7830 free=3
+scatter Monstera_1 3 at -38 -38 r=14 seed=7831 free=3
+place Balboa_DecorationPrefabBase_SimpleTent tents at -28 -46 ground sit yaw=210
+place Balboa_DecorationPrefabBase_SimpleTent tents at -27 -38 ground sit yaw=250
+place campfire_1 - at -31 -42 ground
+place Loot_Chest caravanchest at -26 -43 ground sit yaw=270
+place Note_Book caravanledger at -29 -44.5 ground sit yaw=40
+call ni8air x=-38 z=-38 h=1.5 al=oasisair fog=#c8d8b0 fa=0.08 light=#fff0c0 la=0.15 parts=fireflies r=14
+
+# ===== The ridge of black rock in the east: boulders, dead trees, smoke and embers over its top ==========================
+scatter BigBoulder2_Low 5 at 60 0 r=26 seed=7832 free=4
+scatter DeadTree1 3 at 60 0 r=22 seed=7833 free=4
+scatter DeadTree2 2 at 60 10 r=20 seed=7834 free=4
+call ni8air x=60 z=0 h=18 al=ridgesmoke fog=#3a2a20 fa=0.25 light=#ff8040 la=0.25 parts=embers r=26
+place Loot_Barrel ridgebarrel at 59 -1 ground
+
+# ===== The desert: cactus and dry bushes about the island ==============================================================
+scatter Cactus1A 4 at -10 -50 r=30 seed=7835 free=4
+scatter Cactus2A 4 at 30 50 r=30 seed=7836 free=4
+scatter Cactus3A 3 at -60 10 r=20 seed=7837 free=4
+scatter Cactus4B 3 at 20 -60 r=20 seed=7838 free=4
+
+# ===== Under the sea: a boat wrecked on the sea floor south of the island; Raft's finds in the shallows ==================
+call wreck x=-20 z=-100 yaw=110 roll=14 tilt=4 sink=2.8 seed=7839 al=wreck
+place Loot_SunkenBarrel wreckbarrel at -26 -96 ground
+call shallows r=102 deep=5 n=1 seed=7840
+
+# ===== Monsters: hyenas round the pyramids, a screecher over the ridge (the rats are in the tomb) =====================
+place Creature_Hyena hyenas at -20 30 ground
+place Creature_StoneBird screecher at 60 0 h=30
+
+# ===== Raft's features: dirt, a buried tin in the sand, a chest under vines at the oasis ================================
+call dirt x=-38 z=-38 r=14 n=3 seed=7841
+call treasure x=20 z=50 r=16 n=2 seed=7842
+call vinecache x=-50 z=-30 r=10 seed=7843 items=Rope*3;Clay*4;CopperOre*2
+
+# ===== Settings, notes, loot (no quest) ===================================================================================
+info title=Dunecrown Isle
+info author=Custom Islands
+info description=A big desert island with a great stepped pyramid and a smaller one, a tomb dug into the rock, an oasis among palms and a smoking ridge of black rock. A boat wrecked on the sea floor. Hyenas, rats and a screecher. No quest.
+
+note stairsign Stone at the stair | THE KING CLIMBS ALONE\nWhat he took up, he keeps.
+note crownchest The king's chest | The chest at the top of the great pyramid: copper, titanium, leather - and a feather from some bird that nests up here.
+loot crownchest CopperIngot*3;TitaniumOre*2;Leather*2;Feather*3
+prop crownchest loot.refill=0
+note tombtablet Tomb tablet | HERE LIES THE KEEPER OF THE CROWN\nHe kept the oasis, the road and the stair.\nLet the rats keep him.
+note tombchest Sealed coffer | The coffer in the tomb, its seal long broken by the rats: metal, rope, glass beads, a little clay.
+loot tombchest MetalIngot*3;Rope*3;Glass*2;Clay*3
+prop tombchest loot.refill=0
+note caravanledger The caravan master's ledger | DUNECROWN\n\nWater at the oasis, sweet. Palms, and shade enough for the camels.\nThe dogs circle the pyramids at dusk. Kept the fire high.\nThe black ridge smokes all night and the ground is warm. Nobody goes up.\nThe boy went into the tomb. He came out with a rat bite and a story.
+note caravanchest Caravan chest | The caravan's chest: rope, plastic, seeds, a sweep net.
+loot caravanchest Rope*2;Plastic*3;Seed_Banana*2;SweepNet*1
+prop caravanchest loot.refill=0
+note ridgebarrel Barrel on the ridge | A barrel left on the black ridge, its staves scorched: metal ore, scrap, stone.
+loot ridgebarrel MetalOre*3;Scrap*2;Stone*4
+prop ridgebarrel loot.refill=0
+note wreckbarrel Barrel by the wreck | A barrel from the wreck south of the island, still sealed: nails, hinges, rope.
+loot wreckbarrel Nail*10;Hinge*2;Rope*2
+prop wreckbarrel loot.refill=0
+prop hyenas creature.count=3
+prop rats creature.count=2
+
+save Dunecrown Isle

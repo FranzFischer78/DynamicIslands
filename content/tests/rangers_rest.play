@@ -1,0 +1,36 @@
+# Play test of Ranger's Rest (CIPlay rangers_rest, in a test world 'CI ...'). Points as in its recipe.
+island Ranger's Rest
+expect step 0
+expect title Old Scar
+
+# From the north beach up the trail to the station on its terrace, round the cabin to the porch
+walk 10 26 to 12 14 to 14 8 to 18 3.6 to 29.5 3.6 to 29.5 -2 h=10.5
+zone station
+expect step 0
+expect message stove is cold
+read Ranger's diary
+expect step 1
+
+# The ranger's two goats by the campfire behind the cabin
+catch Goat 2
+expect step 2
+
+# The watchtower beside the station: its ladder, the deck
+walk 29.5 -4 to 29.5 -8.2 to 23 -9.2 to 19.5 -15.3 h=10.4
+climb 19 -14.75
+expect stand 19 -12 h=16.1
+zone tower
+expect step 3
+expect message cave mouth on the south shore
+
+# Down to the den: Old Scar wakes, is driven off; the stolen crate
+walk 12 -26 to 6 -27
+zone den
+expect message reeks of bear
+kill Bear
+expect step 4
+expect animals Bear 0
+open Ranger's stash
+expect done
+expect item Machete 1
+expect item Bow 1

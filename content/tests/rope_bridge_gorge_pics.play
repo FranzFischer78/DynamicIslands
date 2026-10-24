@@ -1,0 +1,10 @@
+# Guide pictures of Rope Bridge Gorge (CIPlay rope_bridge_gorge_pics): Raft's camera, midday, calm
+island Rope Bridge Gorge
+offset 0 0
+hour 11
+weather Calm
+at -18 0
+wait 3
+picture rope_bridge_gorge_island 0 30 -80 0 4 0
+picture rope_bridge_gorge_bridge -16 7 -8 0 3 0
+picture rope_bridge_gorge_idols 12 6 -6 21 5 0

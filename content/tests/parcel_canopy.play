@@ -1,0 +1,50 @@
+# Parcel Canopy (CIPlay parcel_canopy_solo; in the plan after Pillarbox Pier): quest "The Last Mail Flight"
+# (it needs Eskil's dead letter from The Dead Letter Office: parcel_canopy_solo.play reads it first)
+island Parcel Canopy
+offset 0 0
+expect step 0
+expect title The Last Mail Flight
+expect hidden tailzone
+expect hidden graveflowers
+expect hidden landinglight
+zone beach
+expect step 1
+read Pilot Eskil's notebook
+expect step 2
+open Pilot's camp chest
+wait 3
+expect item Blueprint_Machete 1
+expect step 4
+use tailvines1
+expect shown tailzone
+zone tail
+expect step 5
+use bag1
+use bag2
+use bag3
+use bag4
+use bag5
+expect story mailbag 5
+expect step 6
+kill Warthog
+expect animals Warthog 0
+expect step 7
+open Cargo hold
+wait 3
+expect item Blueprint_Fueltank 1
+expect item Blueprint_Pipe_Fuel 1
+expect step 10
+use planeradio
+expect message Pneumatic Heights
+expect step 11
+open Fuel shed
+wait 3
+expect item Blueprint_BiofuelExtractor 1
+expect step 13
+use grave
+expect story eskildelivered 1
+expect shown graveflowers
+expect step 14
+use beacon
+expect shown landinglight
+expect done

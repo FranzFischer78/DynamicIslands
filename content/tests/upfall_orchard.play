@@ -1,0 +1,24 @@
+# Upfall Orchard (CIPlay upfall_orchard): a sky island 30 m up; the rim, the four apple baskets, the farmhouse chest,
+# the well notice and the winch (signal roots: the plan's done-when, it brings Rootcellar Deep).
+island Upfall Orchard
+offset 0 0
+expect step 0
+expect title The Apples Fall Up
+zone rim
+expect step 1
+read Orchard keeper's diary
+expect step 2
+use apple1
+use apple2
+use apple3
+use apple4
+expect story upapple 4
+expect step 3
+open Farmhouse chest
+wait 3
+expect step 5
+read Well notice
+expect step 6
+use crank
+expect story wellrope 1
+expect done

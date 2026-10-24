@@ -1,0 +1,11 @@
+# Guide pictures of Camp Blackwater (CIPlay camp_blackwater_pics): Raft's camera, midday, calm. Points as in its recipe ("offset").
+island Camp Blackwater
+offset -0.5279 -1.75
+hour 11
+weather Calm
+at -44 34
+wait 3
+picture camp_blackwater_camp -8 14 46 -30 4 32
+picture camp_blackwater_lake -15 15 24 16 0 40
+picture camp_blackwater_boathouse 22 7 34 33 3.5 39.5
+picture camp_blackwater_lookout -10 16 24 0 14 10

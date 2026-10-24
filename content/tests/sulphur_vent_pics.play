@@ -1,0 +1,11 @@
+# Guide pictures of Sulphur Vent (CIPlay sulphur_vent_pics): Raft's camera, midday, calm. Points as in its recipe ("offset").
+island Sulphur Vent
+offset 0 0
+hour 11
+weather Calm
+at -7 18 h=11
+wait 3
+picture sulphur_vent_island 50 30 60 -4 8 4
+picture sulphur_vent_works 8 16 26 -6 11 14
+picture sulphur_vent_cap 4 24 4 -6 21 -3
+picture sulphur_vent_boathouse 24 6 30 12 2 40

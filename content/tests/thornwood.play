@@ -1,0 +1,80 @@
+# Play test of Thornwood (CIPlay thornwood, in a test world 'CI ...'). Points as in its recipe (from the land centre
+# of the finished land): the camp on the south beach, the rope bridge over the gorge at x -20, the shrines, the temple
+# on the hill at 15 25 (23.4 m). The quest's 21 steps: the camp, the diary, the map; the Shrine of the Roots and its
+# tusk; the gorge's rim, the bridge's carved post, the bridge; the trail to the falls, the Shrine of the Falls and its
+# tusk, a wild beehive, the Shrine of the Hill and the third tusk; the boar trail, the temple, the Boar King and his
+# guards, the boar idol, the offering (the machete); the two vine caches.
+island Thornwood
+expect step 0
+expect title The Boar King of Thornwood
+
+# The explorer's camp: the diary and the map
+walk -50 -78 to -45 -74 h=3
+zone camp
+expect step 1
+read Explorer's diary
+expect step 2
+read Map of Thornwood
+expect step 3
+
+# The Shrine of the Roots, this side of the gorge (its tusk counted at once)
+open Shrine of the Roots
+expect story tusk 1
+expect step 5
+
+# Up to the rope bridge past the gorge's rim (the walk passes it): the carved post at its south end, and across
+walk -45 -70 to -40 -60 to -32 -50 to -25 -40 to -20 -33 h=14
+zone gorgerim
+expect step 6
+read Carved post
+expect step 7
+walk -20 -33 to -20 -22 to -20 -12 h=13.2
+expect stand -20.75 -22 h=13.6
+zone bridge
+expect step 8
+
+# The trail to the falls, the Shrine of the Falls; a wild beehive; the temple's chest stays shut with two tusks
+zone falls
+expect step 9
+open Shrine of the Falls
+expect story tusk 2
+expect step 11
+open Wild beehive
+expect step 12
+open Temple offering
+expect message won't open without three
+expect story tusk 2
+
+# The Shrine of the Hill
+open Shrine of the Hill
+expect story tusk 3
+expect step 14
+
+# Up the boar trail into the stone ring (the walk passes the trail's zone; opening the temple's chest above took the
+# player into the ring, so that step is credited with it): the Boar King and his guards
+walk -20 -12 to -10 0 to 0 10 to 10 18 to 15 21 h=23.4
+zone hilltrail
+expect step 16
+zone temple
+expect message Boar King
+kill Warthog
+expect step 17
+expect animals Warthog 0
+read The boar idol
+expect step 18
+open Temple offering
+wait 2
+expect story tusk 0
+expect item Blueprint_Machete 1
+expect step 20
+
+# The machete: the explorer's two caches behind the vines
+expect hidden thornvine2
+use thornvines2
+expect shown thornvine2
+open Vine cache by the temple
+expect step 21
+use thornvines1
+expect shown thornvine1
+open Vine cache by the camp
+expect done

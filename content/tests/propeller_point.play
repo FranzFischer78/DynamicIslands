@@ -1,0 +1,24 @@
+# Play test of Propeller Point (CIPlay propeller_point): no quest - the strip, the cabin, the watch hut, the leather gear
+# in its chests, the warthogs
+island Propeller Point
+offset 0 0
+expect animals Warthog 2
+expect animals Dolphin 2
+wait 5
+walk -20 -16 to 0 -16 to 20 -16 h=2.4
+walk -23.75 4 to -23.75 6.5 to -23.75 9.5 h=2.7
+read The pilot's log
+open Pilot's locker
+expect item Equipment_LeatherHelmet 1
+read Strip sign
+climb 22.25 5.9 h=3.5
+read Watch hut log
+open Watch hut box
+expect item Equipment_LeatherChest 1
+open Fuel drum
+open Cockpit kit
+expect item Equipment_LeatherLegs 1
+open Barrel by the sunken plane
+dig
+kill Warthog
+expect animals Warthog 0

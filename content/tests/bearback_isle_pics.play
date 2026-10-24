@@ -1,0 +1,9 @@
+# Guide pictures of Bearback Isle (CIPlay bearback_isle_pics): Raft's camera, morning, calm
+island Bearback Isle
+offset 0 0
+hour 9
+weather Calm
+at 0 -14
+wait 3
+picture ni_bearback_isle_island 40 16 -40 0 4 4
+picture ni_bearback_isle_cave -1 4 32 -1 4 14

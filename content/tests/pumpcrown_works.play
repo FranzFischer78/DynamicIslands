@@ -1,0 +1,56 @@
+# Pumpcrown Works (CIPlay pumpcrown_works): the purifier hall's door refusing a stranger, the guards' laundry (the
+# coat), the door, the hall's locker, the tank house, the pipe gallery, the purifier bench, the stores, the outfall
+# (the plan's lowstreet rule); then the contract: the roster, the boom tower, its winch, three screechers, the receipt.
+# offset 0 0 is a placeholder: phase 2 sets it from the recipe's save log (PLAY_FORMAT: Coordinates).
+island Pumpcrown Works
+offset 0 0
+expect step 0
+expect title The Authority's Water
+use hallgate
+expect shown hallgate
+open Laundry basket
+wait 3
+expect story authcoat 1
+expect step 1
+use hallgate
+expect hidden hallgate
+open Purifier hall
+wait 3
+expect step 2
+open Tank house locker
+wait 3
+expect step 3
+open Pipe gallery
+wait 3
+expect step 4
+open Purifier bench
+wait 3
+expect step 5
+open Authority stores
+wait 3
+expect step 6
+zone reservoir_bank
+expect step 7
+read Filter house notice
+expect step 8
+open Patrol van's lockbox
+wait 3
+expect step 9
+zone sludge_beds
+expect step 10
+zone outfall
+expect done
+expect step 0 quest=2
+expect title Keep the Boom quest=2
+read Authority duty roster
+expect step 1 quest=2
+zone boom_tower
+expect step 2 quest=2
+use boomwinch
+expect story boomwinch 1
+expect step 3 quest=2
+kill Screecher
+expect animals Screecher 0
+expect step 4 quest=2
+read Authority receipt
+expect done quest=2

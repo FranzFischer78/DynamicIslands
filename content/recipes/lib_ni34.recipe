@@ -1,0 +1,121 @@
+# lib_ni34 - macros for the library's small and medium no-quest islands (ROADMAP 3d, NI3/NI4): sights Raft's own islands
+# don't have - a plank jetty out into the water, a small wooden cabin, a boat wrecked on the sea floor, a rope bridge
+# hanging between two peaks - and ladders up a rock face. "include lib_ni34" (lib_huts for floors/corners first).
+#
+# jetty: a plank jetty of Raft's wooden floor blocks two wide (z -1.5..1.5), n cells long out along +x of the frame (push
+# at its root on the shore, turned with yaw= so +x heads out to sea), its deck h m above the sea, rope rails both sides,
+# a head 3 cells wide at its end. Spans x 0..(n+2)*1.5. d=: its own posts (Raft's reef hut posts every 3 m along both
+# sides and round the head) from d m under the sea up to the deck's underside - d deeper than the sea floor under it (a
+# post's foot in the ground is fine; one under the shore whole is left out). d=0: no posts (save's StandPosts only).
+macro jetty n=10 h=1.5 d=0
+for jx 0.75 {$n*1.5-0.75} 1.5
+place Block_Floor_Wood - at $jx -0.75 h=$h
+place Block_Floor_Wood - at $jx 0.75 h=$h
+place Block_Wall_Fence_Rope - at $jx -1.5 h=$h
+place Block_Wall_Fence_Rope - at $jx 1.5 h=$h
+next
+for jx {$n*1.5+0.75} {$n*1.5+2.25} 1.5
+for jz -2.25 2.25 1.5
+place Block_Floor_Wood - at $jx $jz h=$h
+next
+next
+place Block_Wall_Fence_Rope - at {$n*1.5+3} -1.5 h=$h yaw=90
+place Block_Wall_Fence_Rope - at {$n*1.5+3} 0 h=$h yaw=90
+place Block_Wall_Fence_Rope - at {$n*1.5+3} 1.5 h=$h yaw=90
+for jk 1 {ceil($d/100)} 1
+for px 0.1 {$n*1.5-0.1} 3
+place ReefHuts_Pillar3 - at $px -1.4 h={-$d} sy={($h-0.2+$d)/4.815}
+place ReefHuts_Pillar3 - at $px 1.4 h={-$d} sy={($h-0.2+$d)/4.815}
+next
+for pz -2.9 2.9 1.45
+place ReefHuts_Pillar3 - at {$n*1.5+2.9} $pz h={-$d} sy={($h-0.2+$d)/4.815}
+next
+place ReefHuts_Pillar3 - at {$n*1.5+0.1} -2.9 h={-$d} sy={($h-0.2+$d)/4.815}
+place ReefHuts_Pillar3 - at {$n*1.5+0.1} 2.9 h={-$d} sy={($h-0.2+$d)/4.815}
+next
+end
+
+# cabin: a small wooden cabin of Raft's blocks in a frame (push at its -x -z corner with h= its pad): wooden floor w x d
+# cells (tops at 0.1 m), walls all round - the front (z 0) has its door in the second cell, each side a window - wooden
+# pillars at the corners, a hipped wooden roof resting on walls and pillars. w at least 3. al: the walls' alias.
+macro cabin w=3 d=2 al=cabinwall
+call floors w=$w d=$d y=0.1
+for fx 0.75 {$w*1.5-0.75} 1.5
+place Block_Wall_Wood $al at $fx {$d*1.5} y=0.1
+next
+place Block_Wall_Wood $al at 0.75 0 y=0.1
+place Block_Wall_Door_Wood $al at 2.25 0 y=0.1
+for fx 3.75 {$w*1.5-0.75} 1.5
+place Block_Wall_Wood $al at $fx 0 y=0.1
+next
+place Block_Wall_Window_Wood $al at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Window_Wood $al at {$w*1.5} 0.75 y=0.1 yaw=90
+for fz 2.25 {$d*1.5-0.75} 1.5
+place Block_Wall_Wood $al at 0 $fz y=0.1 yaw=90
+place Block_Wall_Wood $al at {$w*1.5} $fz y=0.1 yaw=90
+next
+call corners w=$w d=$d y=0.1
+roof $w $d at 0 0 y=0.1 wood
+end
+
+# wreck: Raft's stranded boat sunk on the sea floor at x z, its keel bedded sink m in the sand, rolled over on its side
+# (roll) and pitched (tilt) as a wreck lies; a scatter of barrels, scrap and kelp by it (al: the boat's alias; where: the
+# scatter's ground - wet under the sea, or any on a sunken island, whose ground is dry land in the island's own frame)
+macro wreck x=0 z=0 yaw=0 roll=22 tilt=4 sink=1.4 al=wreck seed=1 where=wet
+place BoatStranded $al at $x $z ground sit y={0-$sink} yaw=$yaw roll=$roll tilt=$tilt
+scatter Reef_Barrel2 2 at $x $z r=9 seed=$seed $where free=2
+scatter Reef_Barrel4 1 at $x $z r=9 seed={$seed+1} $where free=2
+scatter "Pickup_Landmark_Scrap 1_OceanBottom" 3 at $x $z r=10 seed={$seed+2} $where free=1
+scatter SeaVine3_klump 2 at $x $z r=11 seed={$seed+3} $where free=3
+end
+
+# hangbridge: a rope bridge hanging between two heights - from x1 z1 (deck h1 above the sea) to x2 z2 (h2), sagging sag m
+# in the middle: Raft's wooden floor blocks end to end, rope rails on both sides, a stout post either side at each end.
+# po: how far beyond each end the stout posts stand (more where the end is at a cliff edge, so a post isn't snapped onto the face).
+# Given pb (m above the sea; -1 none), over a gap wider than a few planks it rests on slim posts from pb at every third joint of each half,
+# so no plank is more than one from a held one (CIFloating's one-tile reach); the recipe ends with "posts off" so save
+# doesn't stand a post under every corner.
+macro hangbridge x1=0 z1=0 h1=10 x2=10 z2=0 h2=10 sag=1.2 pb=-1 po=0.6
+set dx {$x2-$x1}
+set dz {$z2-$z1}
+set dl {sqrt($dx*$dx+$dz*$dz)}
+set nx {0-$dz/$dl*0.75}
+set nz {$dx/$dl*0.75}
+set mx {($x1+$x2)/2}
+set mz {($z1+$z2)/2}
+set mh {($h1+$h2)/2-$sag}
+ramp Block_Floor_Wood from $x1 $z1 $h1 to $mx $mz $mh len=1.5 top=0
+ramp Block_Floor_Wood from $mx $mz $mh to $x2 $z2 $h2 len=1.5 top=0
+ramp Block_Wall_Fence_Rope from {$x1+$nx} {$z1+$nz} $h1 to {$mx+$nx} {$mz+$nz} $mh len=1.5 top=0
+ramp Block_Wall_Fence_Rope from {$mx+$nx} {$mz+$nz} $mh to {$x2+$nx} {$z2+$nz} $h2 len=1.5 top=0
+ramp Block_Wall_Fence_Rope from {$x1-$nx} {$z1-$nz} $h1 to {$mx-$nx} {$mz-$nz} $mh len=1.5 top=0
+ramp Block_Wall_Fence_Rope from {$mx-$nx} {$mz-$nz} $mh to {$x2-$nx} {$z2-$nz} $h2 len=1.5 top=0
+place RT_PillarThick bridgepost at {$x1+$nx*1.4-$dx/$dl*$po} {$z1+$nz*1.4-$dz/$dl*$po} ground sy=0.4
+place RT_PillarThick bridgepost at {$x1-$nx*1.4-$dx/$dl*$po} {$z1-$nz*1.4-$dz/$dl*$po} ground sy=0.4
+place RT_PillarThick bridgepost at {$x2+$nx*1.4+$dx/$dl*$po} {$z2+$nz*1.4+$dz/$dl*$po} ground sy=0.4
+place RT_PillarThick bridgepost at {$x2-$nx*1.4+$dx/$dl*$po} {$z2-$nz*1.4+$dz/$dl*$po} ground sy=0.4
+for bk 1 {ceil(($pb+1)/100)} 1
+set hl {$dl/2}
+set hn {max(1,ceil(sqrt($hl*$hl+$sag*$sag)/1.5-0.05))}
+for bj 3 {$hn} 3
+set bf {$bj/$hn}
+set bt {$h1+($mh-$h1)*$bf-0.3}
+place ReefHuts_Pillar3 - at {$x1+($mx-$x1)*$bf+$nx*0.8} {$z1+($mz-$z1)*$bf+$nz*0.8} h=$pb sy={($bt-$pb)/4.815}
+place ReefHuts_Pillar3 - at {$x1+($mx-$x1)*$bf-$nx*0.8} {$z1+($mz-$z1)*$bf-$nz*0.8} h=$pb sy={($bt-$pb)/4.815}
+for bm 1 {ceil(($hn-$bj)/100)} 1
+set bt {$h2+($mh-$h2)*$bf-0.3}
+place ReefHuts_Pillar3 - at {$x2+($mx-$x2)*$bf+$nx*0.8} {$z2+($mz-$z2)*$bf+$nz*0.8} h=$pb sy={($bt-$pb)/4.815}
+place ReefHuts_Pillar3 - at {$x2+($mx-$x2)*$bf-$nx*0.8} {$z2+($mz-$z2)*$bf-$nz*0.8} h=$pb sy={($bt-$pb)/4.815}
+next
+next
+next
+end
+
+# ladders: n of Raft's building ladders one above the other up a rock face at x z from h (the foot, above the sea),
+# facing yaw, each on a wooden pillar behind it (back m behind, towards the rock)
+macro ladders x=0 z=0 h=0 n=2 yaw=0 back=0.2
+for k 0 {$n-1} 1
+place Block_Ladder - at $x $z h={$h+2.42*$k} yaw=$yaw
+place Block_Pillar_Wood - at {$x-$back*sin($yaw)} {$z-$back*cos($yaw)} h={$h+2.42*$k}
+next
+end

@@ -1,0 +1,13 @@
+# Guide pictures of The Aqueduct (CIPlay the_aqueduct_pics): Raft's camera, midday, calm. Points as in its recipe ("offset").
+island The Aqueduct
+offset 0 0
+hour 11
+weather Calm
+at 24 18 h=17
+wait 3
+picture the_aqueduct_island -80 70 -110 0 10 0
+picture the_aqueduct_arches -22 12 16 2 14 6
+picture the_aqueduct_square 34 24 8 22 17 24
+picture the_aqueduct_source -6 22 -24 -18 19 -14
+picture the_aqueduct_harbour 70 12 10 52 4 24
+picture the_aqueduct_lagoon 14 6 -16 -2 8 4

@@ -1,0 +1,141 @@
+# Netmender's Harbour - a new island of the library (ROADMAP 3d NI2), medium size, with no quest
+# A green island with a fishing harbour cut into its east side: a level quay, two plank piers out into the basin on reef
+# hut posts, the net shed standing over the water at the end of the north pier, the harbour master's cabin on the quay.
+# Boats everywhere: dinghies tied up along the piers, two upturned on the quay, a big boat beached on the west shore and
+# another lying wrecked on the sea floor off the harbour mouth. A few net canisters to find (Raft's net launcher's
+# ammunition): the net shed's crate, the harbour master's chest, the barrel by the wreck. A bear den in the west hill, set
+# by hand (the generator's den buried the cabin), warthogs in the west hills.
+#
+# Built by the recipe player (CIRecipe netmenders_harbour) through the editor's own operations. Points: the quay x 16..32,
+# z -20..20 (1.6 m); the basin x 36..56 (sea floor 2.5 m down); the south pier x 30..48, z -10..-7, the north pier
+# x 30..48, z 8..11 (decks 1.8 m); the net shed x 48..52.5, z 7.5..12 (deck 1.8 m, open to the pier and the south);
+# the harbour master's cabin x 18..22.5, z -3..0 (door south); the beached boat at -50 10; the wreck at 66 -30 (sea
+# floor 9 m down).
+include lib_huts
+include lib_sea
+include lib_features
+new
+# (nature: tropical, Like Raft - palms and bushes, the quay bare)
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=9322 Radius=60 Height=14 Roughness=0.35 Peaks=2 Shape=0 Style=0 BeachWidth=0.5 Cliffs=0.2 PeakShape=0.35
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0 Caves=false
+generate
+
+# ===== The ground: the quay, the basin, the cabin's pad, the sea floor under the wreck ===================================
+brush flatten from 24 -18 to 24 18 r=8 s=20 frames=260 h=1.6
+brush flatten from 46 -22 to 46 22 r=10 s=20 frames=260 h=-2.5
+brush flatten at 20.25 -1.5 r=4.5 s=20 frames=60 h=1.6
+brush sand from 24 -18 to 24 18 r=5 s=3 frames=40
+brush flatten at 66 -30 r=10 s=20 frames=80 h=-9
+clear from 24 -22 to 24 22 r=9
+clear from 46 -22 to 46 22 r=10
+clear at -50 10 r=9
+clear at -5.9 -31 r=1.5
+clear at 10.8 -17.3 r=1.5
+
+# ===== The piers: two plank walkways out into the basin on reef hut posts standing on the sea floor (decks 1.8 m) ========
+push at 30 -10 h=-2.5
+call boardwalk n=12 wide=2 y=4.3
+pop
+push at 30 8 h=-2.5
+call boardwalk n=12 wide=2 y=4.3
+pop
+
+# ===== The net shed over the water at the north pier's end: open to the pier (west) and the south, nets inside ===========
+push at 48 7.5 h=-2.5
+call stilt_hut y=4.3 w3=none w4=none ladder=none
+place FishingNets_02 - at 3.6 3.6 y=4.3 sit yaw=20
+place FishingNets_02 - at 3.8 2.2 y=4.3 sit yaw=110
+place Loot_Crate netcrate at 1.3 3.7 y=4.3 sit yaw=5
+place NetCanister_Empty - at 3.3 1.0 y=4.3 sit
+place NetCanister_Empty - at 3.6 1.3 y=4.3 sit
+pop
+
+# ===== Boats: dinghies tied up along the piers (at the water line), two upturned on the quay ==============================
+place RT_PlasticBoat - at 36 -12.3 h=0.15 yaw=90
+place RT_PlasticBoat - at 41.5 -12.4 h=0.15 yaw=95
+place RT_PlasticBoat - at 46 -12.2 h=0.15 yaw=88
+place RT_PlasticBoat - at 38 -5.2 h=0.15 yaw=270
+place RT_PlasticBoat - at 44 -5.3 h=0.15 yaw=265
+place RT_PlasticBoat - at 39 6 h=0.15 yaw=92
+place RT_PlasticBoat - at 43 5.8 h=0.15 yaw=86
+place RT_PlasticBoat - at 39 13.3 h=0.15 yaw=272
+place RT_PlasticBoat - at 44.5 13.2 h=0.15 yaw=268
+place RT_PlasticBoat - at 22 10 h=3 drop roll=180 yaw=10
+place RT_PlasticBoat - at 25.5 10.6 h=3 drop roll=180 yaw=-8
+place BoatLandmark_Flag - at 27 -16 ground yaw=0
+
+# ===== The quay: the harbour master's cabin (bed, table, his book and a model boat, the chest), crates, nets drying =====
+push at 18 -3 h=1.6
+call floors w=3 d=2 y=0.1
+place Block_Wall_Wood - at 0.75 3 y=0.1
+place Block_Wall_Wood - at 2.25 3 y=0.1
+place Block_Wall_Wood - at 3.75 3 y=0.1
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 4.5 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 4.5 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 0.75 0 y=0.1
+place Block_Wall_Wood - at 3.75 0 y=0.1
+call corners w=3 d=2
+roof 3 2 at 0 0 y=0.1 wood
+place Placeable_Bed_Basic - at 1.15 1.6 y=0.1 sit yaw=90
+place Placeable_Table_Basic - at 3.3 1.95 y=0.1 sit
+place Note_Book harbourbook at 3.0 1.95 y=0.84 sit yaw=20
+place BoatMini - at 3.7 2.0 y=0.84 sit yaw=60 scale=4
+place Loot_Chest masterchest at 3.7 0.7 y=0.1 sit yaw=180
+pop
+place Note_Sign harboursign at 23.5 -4 ground yaw=90
+place Crate_Big_01 - at 27 -2 ground yaw=10
+place Crate_Small_02 - at 27.8 -1.2 ground yaw=50
+place Loot_Barrel quaybarrel at 27.4 1.4 ground
+place FishingNets_02 - at 21 4.5 ground yaw=30
+place FishingNets_02 - at 22.4 5.2 ground yaw=80
+
+# ===== The big boat beached on the west shore; the wreck on the sea floor off the harbour mouth with its barrel =========
+place BoatStranded - at -50 10 ground yaw=35 tilt=6
+place "Box Small" beachbox at -44.5 14 ground yaw=20
+place BoatStranded wreck at 66 -30 ground sit y=-2.8 yaw=120 roll=-14 tilt=4
+place Loot_SunkenBarrel wreckbarrel at 60.5 -26 ground
+call shallows r=72 deep=5 n=1
+place Creature_Dolphin dolphins at 78 10 h=-3
+
+# ===== The den: Balboa's bear cave in the west hill, well clear of the quay; the hoard on its floor =====================
+place BalboaCave_Bear den at -14 -19 h=11.06 yaw=310
+place Loot_ChestSmall denhoard at -20.8 -14.7 h=6.55 sit yaw=40
+
+# ===== Animals and Raft's features: warthogs in the west hills, wild bees, dirt ==========================================
+place Creature_Boar hogs at -22 -14 ground
+call hives x=-15 z=10 r=18 n=2 seed=321
+call dirt x=-10 z=-10 r=16 n=3 seed=322
+
+# ===== Settings, notes, loot (no quest) ===================================================================================
+info title=Netmender's Harbour
+info author=Custom Islands
+info description=A fishing harbour cut into a green island: a quay, two plank piers out into the basin, a net shed over the water and boats everywhere - tied up, upturned, beached and one wrecked on the sea floor. A few net canisters to find. No quest.
+
+note harbourbook The harbour master's book | NETMENDER'S HARBOUR - BOATS IN\n\nThe Gull, the Nellie, the Two Brothers, the Pike: tied up, north pier.\nThe Kittiwake, the Brass Monkey, the Dory: south pier.\nThe Margit: beached on the west shore after the spring gale. Can't move her.\nThe Saint Anna: went down off the mouth with the season's nets aboard. A barrel of net canisters too. Divers welcome.\n\nThe launcher's canisters are in the shed, the crate at the back. Don't waste them on gulls.
+note harboursign Harbour sign | NETMENDER'S HARBOUR\nNo mooring on the north side of the net shed.\nNets to dry on the quay, not the piers.\n- The harbour master
+note netcrate Net shed crate | The crate at the back of the net shed: net canisters, rope, a sweep net.
+loot netcrate NetCanister*2;Rope*3;SweepNet*1
+prop netcrate loot.refill=0
+note masterchest Harbour master's chest | The harbour master's chest: one net canister, his spare rope, nails, a tin of meat.
+loot masterchest NetCanister*1;Rope*2;Nail*8;Cooked_GenericMeat*1
+prop masterchest loot.refill=0
+note quaybarrel Quay barrel | A barrel on the quay: bait, plastic, a few planks.
+loot quaybarrel FishingBait_Simple*3;Plastic*3;Plank*3
+prop quaybarrel loot.refill=0
+note beachbox Box by the beached boat | A box off the Margit: scrap, rope, a hinge.
+loot beachbox Scrap*3;Rope*2;Hinge*1
+prop beachbox loot.refill=0
+note wreckbarrel Barrel by the wreck | A barrel from the Saint Anna, still dry inside: net canisters, rope.
+loot wreckbarrel NetCanister*2;Rope*2
+prop wreckbarrel loot.refill=0
+prop hogs creature.count=2
+prop dolphins creature.count=2
+
+note denhoard Bear den hoard | A chest left in the bear's den: rope, nails, a net canister, some scrap.
+loot denhoard NetCanister*1;Rope*2;Nail*6;Scrap*2
+prop denhoard loot.refill=0
+
+save Netmender's Harbour

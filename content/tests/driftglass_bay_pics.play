@@ -1,0 +1,23 @@
+# Guide pictures of Driftglass Bay (CIPlay driftglass_bay_pics): Raft's camera, late afternoon, calm; the lamp lit first
+island Driftglass Bay
+hour 17
+weather Calm
+read Pell's bottle, the driftwood man
+read Pell's bottle, the hut
+read Pell's bottle, the north horn
+read Pell's bottle, the south horn
+read Pell's bottle, the whale
+read Pell's bottle, the bay
+read Pell's bottle, the east reef
+read Pell's bottle, the north-west shallows
+use lamp
+at -1 0
+wait 3
+picture driftglass_bay_island -52 22 -18 2 2 0
+picture driftglass_bay_tower 1 9 7 10 8 0
+picture driftglass_bay_landing -7 2.5 2 -1 1.5 4
+picture driftglass_bay_hut -6 8 17 -6 5.5 27
+picture driftglass_bay_whale 0 8.5 -27 7 6 -21
+at -25 0 h=-2
+wait 2
+picture driftglass_bay_bay -21 -2 -2 -25 -3.6 2

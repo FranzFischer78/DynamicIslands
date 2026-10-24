@@ -1,0 +1,124 @@
+# Rope Bridge Gorge - a side island of the library's plan Relic of the Seventh Tide (seen ahead from day 5)
+# A jungle island split north to south by a deep gorge. A rope bridge of Caravan Town's plank spans on thick posts
+# at the lips crosses it to a temple porch on the far side, where Balboa's doll effigies stand as
+# idols with lanterns. Quest "The Idol's Bridge" (5 steps): the west lip, the idol's warning, the temple's warthogs,
+# the idol's offering, the far porch.
+#
+# Built by the recipe player (CIRecipe rope_bridge_gorge) through the editor's own operations.
+include lib_sea
+include lib_features
+new
+# (nature: a forest island at Raft's density - trees on both halves, the gorge bare)
+gen Trees=0.35 Bushes=0.6 Rocks=0.65 Harvest=0.3 BeachThings=0.2
+gen Seed=9901 Radius=56 Height=8 Roughness=0.35 Peaks=2 Shape=0 Style=3 PeakShape=0.4 Cliffs=0.5 BeachWidth=0.5
+gen Water=0.5 SeaRocks=0.7 SeaFinds=0.4 Sunken=0.6 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: two flat halves at 4 m, the gorge between them (x -6..6, 7 m deep), a path up from the west beach ------
+brush flatten at -26 0 r=18 s=20 frames=200 h=4
+brush flatten at 26 0 r=18 s=20 frames=200 h=4
+brush flatten from -13 0 to -9 0 r=3.5 s=20 frames=120 h=4
+brush flatten at -8 0 r=1.6 s=20 frames=60 h=3.5
+brush flatten at -7 0 r=1.6 s=20 frames=60 h=3
+brush flatten at -6 0 r=1.6 s=20 frames=60 h=2.4
+brush flatten from 13 0 to 9 0 r=3.5 s=20 frames=120 h=4
+brush flatten at 8 0 r=1.6 s=20 frames=60 h=3.5
+brush flatten at 7 0 r=1.6 s=20 frames=60 h=3
+brush flatten at 6 0 r=1.6 s=20 frames=60 h=2.4
+brush flatten from 0 -70 to 0 70 r=6 s=20 frames=300 h=-3
+brush smooth from -60 0 to -40 0 r=4 s=10 frames=60
+origin
+clear at -18 0 r=10
+clear at 20 0 r=12
+clear from 0 -60 to 0 60 r=9
+
+# --- The rope bridge: two plank spans (17.5 m) on thick posts at the lips (the spans' own posts are its rails) ---
+place CaravanHubBridge3 bridge at -4.38 0 h=3.15 yaw=90
+place CaravanHubBridge3 bridge at 4.38 0 h=3.15 yaw=90
+# (the spans' ends meet the lips at 4 m; an invisible net just under the planks' sag, lip to lip, for the gaps)
+place Helper_Wall bridgewalk at -9.2 0 h=2.9 rot=90,90,0 sy=6.14 sx=0.75 sz=1.9
+for bx -9.2 9.2 18.4
+place RT_PillarThick bridgeposts at $bx -1.3 h=0
+place RT_PillarThick bridgeposts at $bx 1.3 h=0
+next
+place Zone_Trigger bridgelip at -12 0 h=4
+place Note_Sign idolwarning at -11 2 h=4 ground sit yaw=90
+prop bridge tint.color=#8a6a44
+prop bridgeposts tint.color=#6b4f32
+
+# --- The temple porch on the far side: a tier3 floor, six pillars, a roof on them, a back wall; idols at the front ---
+push at 20 -3 h=4
+for fx 0.75 5.25 1.5
+for fz 0.75 5.25 1.5
+place Block_Floor_Tier3 porchfloor at $fx $fz y=0.05
+place Block_Floor_Tier3 porchroof at $fx $fz y=4.05
+next
+next
+for fz 0.75 5.25 1.5
+place Block_Wall_Tier3 porchwall at 6 $fz y=0.2 yaw=90 sy=1.5
+next
+for px 0 6 3
+place Block_Pillar_Tier3 porchpillars at $px 0 y=0.2 sy=1.5
+place Block_Pillar_Tier3 porchpillars at $px 6 y=0.2 sy=1.5
+next
+place Loot_Chest offering at 4.6 3 y=0.25 sit yaw=270
+place Balboa_DecorationPrefabBase_Doll_R idols at -1.2 -0.6 y=0 ground sit scale=2.4 yaw=270
+place Balboa_DecorationPrefabBase_Doll_R idols at -1.2 6.6 y=0 ground sit scale=2.4 yaw=270
+place Placeable_Lantern_Metal idollamps at -1.6 -1.6 y=0 ground sit
+place Placeable_Lantern_Metal idollamps at -1.6 7.6 y=0 ground sit
+place Zone_Trigger farporch at 3 3 y=0.3
+pop
+prop porchfloor tint.color=#8b7d62
+prop porchroof tint.color=#6b6048
+prop porchwall tint.color=#8b7d62
+prop porchpillars tint.color=#8b7d62
+prop idols tint.color=#7a6a50
+prop idols tint.amount=0.5
+
+# --- The temple's warthogs, things to gather, the reef --------------------------------------------------------------
+place Zone_Trigger templeground at 14 0 h=4
+place Creature_Boar hogs at 28 -10 ground
+scatter "Pickup_Landmark_PineappleLandmark" 2 at -30 12 r=8 seed=9911 free=3
+call shallows x=-20 z=-48 r=10 deep=3 n=1 seed=9912
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Rope Bridge Gorge
+info author=Custom Islands
+info description=A jungle island split by a deep gorge, crossed by a rope bridge to a temple porch where doll idols with lanterns keep watch. A side island of Relic of the Seventh Tide.
+island on.arrive=message||The island is split in two. A rope bridge sways over the gorge, and on the far side two tall figures stand beside lanterns.
+
+note idolwarning Idol warning | Carved on a board at the bridge's lip, in a hand like Kett's:\n\nTHE IDOLS ARE PAINTED DOLLS. THE PIGS ARE NOT.\nThe builders' people left their offering here. Take it - and cross back quickly.
+note offering Idol's offering | A box the builders' people left between their idols: dried food, coins and a tide-mark scratched in its lid - seven lines.
+loot offering TradeToken*6;Cooked_GenericMeat*3;Coconut*3;PlasticBottle_Water*2
+prop offering loot.refill=0
+
+prop bridgelip zone.id=bridge_lip
+prop bridgelip zone.radius=3
+prop bridgelip zone.repeat=never
+prop bridgelip zone.message=The bridge's planks creak. Far below, the gorge's floor is wet sand.
+prop templeground zone.id=temple_ground
+prop templeground zone.radius=8
+prop templeground zone.repeat=never
+prop templeground zone.message=Warthogs! They root among the temple's stones.
+prop hogs creature.count=3
+prop hogs creature.respawn=0
+prop hogs creature.zone=temple_ground
+prop farporch zone.id=far_porch
+prop farporch zone.radius=3
+prop farporch zone.message=The temple porch. The idols' lanterns still burn - someone keeps them.
+
+quest title=The Idol's Bridge
+quest intro=A rope bridge crosses a gorge to a temple porch with two tall idols.
+step reach|bridge_lip|1|Go to the bridge's lip
+step read|Idol warning|1|Read the warning at the bridge
+step kill|Warthog|3|Drive off the temple's warthogs
+step open|Idol's offering|1|Open the idols' offering
+step reach|far_porch|1|Stand on the temple porch
+quest done=Seven lines on the offering's lid - the same tide marks as Kett's notes. The builders came this way too.
+quest reward=TradeToken*4;Cooked_GenericMeat*2;Rope*3
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=46 n=1 seed=8853
+prop treasure8853 treasure.loot=TitaniumOre*2
+
+save Rope Bridge Gorge

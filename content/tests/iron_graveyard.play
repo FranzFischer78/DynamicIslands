@@ -1,0 +1,111 @@
+# Play test of The Iron Graveyard (CIPlay iron_graveyard, in a test world 'CI ...'). Points as in its recipe: the yard
+# (2 m) on the south beach, its gate at the west end, the hulls' decks (the tanker 5.2-6 m, the trawler 4.2-5 m, the ferry
+# 4.9-5.5 m) up Raft's ladders on their sides, the barge in its hole (8 m down), the crane's platform (6.4 m), the office
+# (floor 2.05 m), the ramp up the mesa's south-east flank, the turbine on its rim (13.8 m).
+island The Iron Graveyard
+expect step 0
+expect title Breakers' Yard
+wait 5
+
+# In through the gate: the dogs and their alpha come for the player; the foreman's board by the office
+walk -46 -64 to -38 -64.5 to -32 -64.5 h=2
+zone yardgate
+expect step 1
+kill Hyena
+walk -32 -64.5 to -10 -62 to 8.4 -60.6 h=2
+read Foreman's board
+expect step 3
+
+# The blades in the beached hulls: up each one's ladder onto its deck, to its locker
+walk 8.4 -60.6 to 3 -61.5 to -6 -61.5 to -8.6 -70 to -9.8 -78 h=1.6
+climb -11.1 -78 h=1.55
+climb -11.1 -78 h=3.97
+expect stand -14 -78 h=6 below=8
+walk -14 -78 to -14 -82.4 h=6
+open Tanker's locker
+at 3.6 -79 h=2.4
+climb 5.35 -79 h=1.2
+climb 5.35 -79 h=3.6
+expect stand 7.2 -79 h=4.8 below=7
+walk 7.2 -79 to 8.3 -82.8 h=4.3
+open Trawler's locker
+at 21.4 -75 h=2.2
+climb 22.75 -75 h=1.05
+climb 22.75 -75 h=3.45
+expect stand 24.6 -75 h=5.2 below=7.5
+walk 24.6 -75 to 24.4 -79.8 h=4.9
+open Ferry's locker
+expect story blade 3
+expect step 4
+
+# The barge sunk off the beach: its angler, the crate from its hold
+at -1.5 -94.3 h=-6.5
+zone barge
+kill Angler fish
+expect step 5
+open Barge's hold
+expect story blade 4
+expect step 6
+
+# Up the crane's ladders to its platform: the operator's note
+walk 8 -60.5 to 3 -61.5 to 0.35 -62.7 h=2
+climb 0.35 -63.56 h=2
+climb 0.35 -63.56 h=4.43
+expect stand -1.2 -64.6 h=6.4 below=8.5
+read Crane operator's note
+expect step 7
+
+# The yard office's safe: the crane's key; the crane lifts the hub off the tanker
+walk 6 -64 to 10.5 -64 to 13 -64 to 13.6 -61.4 h=2.05 below=4.5
+open Yard office safe
+expect story cranekey 1
+expect step 8
+walk 13 -64 to 6 -64 to 2.5 -62 h=2
+use crane
+expect message coughs into life
+expect story hub 1
+expect step 9
+
+# Up the ramp cut in the mesa's cliff to the turbine's mast: the hub and the blades; the store opens
+walk 2.5 -62 to 10 -57 to 19.5 -57.5 to 19.5 -64.2 to 30 -64.2 to 40 -62 to 42 -60.5 h=3.4
+walk 42 -60 to 31 -52 to 20 -44 h=13.6
+walk 20 -44 to 8 -43 to -3.5 -43 h=13.8
+zone turbinehill
+expect step 10
+use turbine
+expect message the turbine turns
+expect story blade 0
+expect story hub 0
+at 25 -61.4 h=3.1
+open Yard store
+wait 5
+expect item Blueprint_WindTurbine 1
+expect item Blueprint_ElectricGrill 1
+expect done
+# Raft's story machinery: the radio is dead without power and the generator won't start without its part; the part from
+# the mechanic's toolbox starts it, the radio then gives away the supply drop on the mesa. The trawler's engine is dry;
+# the gas tank from the fuel crate starts it and its locker shakes open
+use officeradio
+expect message radio is dead
+use yardgenerator
+expect message A part is missing
+open Mechanic's toolbox
+expect story raft-Tangaroa_GeneratorPart 1
+use yardgenerator
+expect message The power is on
+expect story raft-Tangaroa_GeneratorPart 0
+expect hidden supplydrop
+use officeradio
+expect shown supplydrop
+open Supply drop
+expect item Battery 2
+use trawlerengine
+expect message tank is dry
+expect hidden enginelocker
+open Fuel crate
+expect story raft-Vasagatan_GasTank 1
+use trawlerengine
+expect message sputters, then roars
+expect shown enginelocker
+open Engine room locker
+expect item Hinge 2

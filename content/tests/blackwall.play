@@ -1,0 +1,84 @@
+# Play test of Blackwall (CIPlay blackwall, in a test world 'CI ...'). Points as in its recipe: the gate stack in the north
+# (top 6.3 m) - the sea wall along z 41 on its apron (0.3 m), the stair's two flights up its face (x -6..9, z 41.1..42.6,
+# the top landing at x 7.5..9), the concrete deck behind the wall, the gate facade along z 30 with its opening at x 2..5;
+# the bridges along x 2.85..5.35 (gate stack z 24 at 6.3 m -> apartment stack z 6 at 9 m; apartment stack z -12 -> mine
+# stack z -27 at 5.4 m); the apartment stack (top 9 m): block A x -5..1 and block B x 7.2..13.2, z -7.5..1.5, the
+# courtyard between - the post office's door at 1 0 (9 m), the stairs up block A's east side (inner flight x 1..2.5 from
+# z -6.75 north to flat 1's door at 1 0, 12 m; outer flight x 2.5..4 back south to flat 2's door at 1 -6, 15 m) and up
+# block B's west side (the same, flat 3's door at 7.2 0, flat 4's at 7.2 -6); the school room on the gate stack (x -6..3,
+# z 31.5..37.5, its door at 3 33); the mine stack (top 5.4 m):
+# the shaft's padlock gate at 3 -35.6, the ladder inside it at 3 -35.9, the winding house's door at -4.2 -33
+island Blackwall
+offset 3.1075 -10.8314
+expect step 0
+expect title The Last Post
+expect animals Goat 2
+expect animals Chicken 3
+expect animals Turtle 2
+wait 5
+
+# Up the stair over the sea wall: along the apron, the two flights up its face, onto the deck behind its top
+walk -8 43.5 to -6.5 42 h=0.3
+walk -5.5 41.85 to 0.5 41.85 to 6.5 41.85 to 8.3 41.85 h=6.3
+walk 8.3 41.85 to 8.3 39 to 7 36 h=6.3
+zone seawall
+expect step 1
+read Company closure notice
+expect step 2
+open Sunk skiff's barrel
+# (the school room by the gate, in at its door on the east)
+walk 6 33 to 1.5 33 h=6.3 below=8
+open School cupboard
+expect step 3
+
+# Through the company gate and across the bridge to the apartment stack
+walk 3.5 34 to 3.5 28 to 4.1 25 h=6.3
+walk 4.1 25 to 4.1 15 to 4.1 6 to 4.1 3 h=9
+
+# The flats: up block A's stairs to flat 1 and flat 2; up block B's to flat 3, flat 4 and the school room
+walk 1.75 -8.3 to 1.75 -6.5 to 1.75 -1 to 1.75 0 h=12 below=13
+walk 1.75 0 to -1 0 to -2.5 1 h=12 below=14
+open Letter in the bedside table
+expect step 4
+walk 3.25 0.2 to 3.25 -4 to 3.25 -6 to 1.75 -6 to -1 -6 h=15 below=16.5
+open Letter in the kitchen drawer
+walk 6.45 -8.3 to 6.45 -6.5 to 6.45 -1 to 6.45 0 to 9 0 h=12 below=13
+open Letter in the cabinet
+walk 4.95 0.2 to 4.95 -4 to 4.95 -6 to 6.45 -6 to 9 -6 h=15 below=16.5
+open Letter in the wardrobe
+expect story letter 4
+expect step 5
+open Company store box
+
+# The post office: the rats in the mail; the drawer won't open before the post; the sorting rack takes the letters
+walk 4.1 2.5 to 3.5 0 to -1 0 h=9 below=11
+zone postoffice
+kill Tangaroa rat
+expect step 6
+open Postmistress's drawer
+expect message Post first
+use sortingrack
+expect story letter 0
+open Postmistress's drawer
+expect story shaftkey 1
+expect step 7
+
+# Across to the mine stack; the winding house; the shaft's gate chained - unlocked with the key; down into the black water
+walk 4.1 -10 to 4.1 -20 to 4.1 -27 to 4.1 -31 h=5.4
+zone minehead
+expect step 8
+walk -1.5 -33 to -6 -33 h=5.4 below=8
+open Bathhouse box
+expect step 9
+walk 3 -32 to 3 -37 h=5.4 blocked
+use shaftgate
+wait 3
+zone shaft
+expect step 10
+kill Angler fish
+expect step 11
+open Lamp-room tally chest
+expect item Blueprint_BatteryCharger 1
+expect done
+# (the ladder in the shaft takes hold of a diver at the water)
+climb 3 -35.9 h=-1.38

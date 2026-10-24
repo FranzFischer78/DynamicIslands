@@ -1,0 +1,9 @@
+# Guide pictures of Driftwood Key (CIPlay driftwood_key_pics): Raft's camera, morning, calm
+island Driftwood Key
+offset 0 0
+hour 9
+weather Calm
+at 0 -8
+wait 3
+picture ni_driftwood_key_island 38 14 -34 0 1 0
+picture ni_driftwood_key_cabin 4 4 -12 -2.25 3 -1.5

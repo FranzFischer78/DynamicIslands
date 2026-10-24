@@ -1,0 +1,48 @@
+# Hookline Stack (CIPlay hookline_stack): the Union hall, the charter, the hall desk (engine controls), crane three,
+# the foreman's box (metal detector), the flare store (firework), crane three's cab (zipline); then the contract: the
+# missing expedition notice, the dive rope, two salvage caches on the street below, the tally, the Union's receipt.
+# offset 0 0 is a placeholder: phase 2 sets it from the recipe's save log (PLAY_FORMAT: Coordinates).
+island Hookline Stack
+offset 0 0
+expect step 0
+expect title The Salvagers' Union
+zone union_hall
+expect step 1
+read Union charter
+expect step 2
+open Hall desk
+wait 3
+expect step 3
+zone crane_3
+expect step 4
+open Foreman's box
+wait 3
+expect step 5
+open Flare store
+wait 3
+expect step 6
+zone spoil_heap
+expect step 7
+open Toppled crane's toolbox
+wait 3
+expect step 8
+read Tally book
+expect step 9
+zone divers_cave
+expect step 10
+open Crane cab
+wait 3
+expect done
+expect step 0 quest=2
+expect title Lost Below quest=2
+read Missing expedition notice
+expect step 1 quest=2
+zone dive_rope
+expect step 2 quest=2
+openat -40 -24
+openat -42 -15
+expect story salvagetag 2
+expect step 3 quest=2
+use tally
+read Union receipt
+expect done quest=2

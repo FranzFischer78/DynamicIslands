@@ -1,0 +1,15 @@
+# Guide pictures of Albatross Field (CIPlay albatross_field_pics): Raft's camera, afternoon, calm. The pictures above the
+# water first (a player under water makes Raft draw every picture as seen under water), the ditched fighter last
+island Albatross Field
+offset -1.6942 -0.1074
+hour 15
+weather Calm
+at -55 -30
+wait 3
+picture albatross_field_atoll -100 45 -90 0 0 5
+picture albatross_field_runway -55 7 -52 -48 4 40
+picture albatross_field_tower 4 13 74 -20 6 48
+picture albatross_field_hangars -16 9 -30 -36 6 -48
+at 5 4 h=-5
+wait 2
+picture albatross_field_ditched 10 -4.5 9 5 -7 0

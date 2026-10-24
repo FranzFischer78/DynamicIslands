@@ -1,0 +1,12 @@
+# Guide pictures of Steamvent Harbour (CIPlay steamvent_harbour_pics): Raft's camera, midday, calm
+island Steamvent Harbour
+# RESIZE 10-24: the recipe moved this island's old content by 0 -24.2; the points below are in the old frame
+offset 0 24.2
+hour 11
+weather Calm
+at 0 -30
+use ventvalve
+wait 3
+picture sl12_steamvent_harbour_island 0 22 -62 0 3 0
+picture sl12_steamvent_harbour_vent -7 +2.5 -7 0 +1 0
+picture sl12_steamvent_harbour_greenhouse 10 +3 -14 18 +1 -3

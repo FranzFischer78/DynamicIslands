@@ -1,0 +1,16 @@
+# Guide pictures of Scrapyard Haven (CIPlay scrapyard_haven_pics): Raft's camera, midday, calm
+island Scrapyard Haven
+hour 11
+weather Calm
+at 27 25
+wait 2
+picture scrapyard_haven_island 70 45 -45 0 5 10
+picture scrapyard_haven_harbour 46 8 30 15 5 26
+picture scrapyard_haven_town 31 17 45 9 4 24
+at -6 8
+wait 2
+picture scrapyard_haven_gate -5 6 9 4 6 20
+at -10 -38
+wait 2
+picture scrapyard_haven_pit 0 12 -28 -11 5 -47
+picture scrapyard_haven_fortress 0 16 -14 -26 17 -10

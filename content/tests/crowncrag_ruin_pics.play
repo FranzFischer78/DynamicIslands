@@ -1,0 +1,11 @@
+# Guide pictures of Crowncrag Ruin (CIPlay crowncrag_ruin_pics): Raft's camera, morning, calm
+island Crowncrag Ruin
+offset 0 0
+hour 9
+weather Calm
+at 1 -15
+wait 3
+picture ni7_crowncrag_ruin_island 62 30 -62 0 6 0
+picture ni7_crowncrag_ruin_castle 12 19 -15 10 11 6
+picture ni7_crowncrag_ruin_village -14 9 -38 -14 4 -18
+picture ni7_crowncrag_ruin_cave -13 6 54 -13 4 30

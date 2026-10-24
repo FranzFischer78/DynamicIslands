@@ -1,0 +1,148 @@
+# Pendulum Isle - an island of the library's plan The Gravity Sea (a low sky island, 12 m over the sea)
+# A long, narrow island hovering just 12 m over the water - the raft sails under it. On top the Institute's pendulum
+# hall: a frame of stone posts with a crossbeam, its chain (posts) hanging from the beam and the bob (a big antenna dish)
+# resting in its cradle; the generator shed beside it, the survey bolt buried in the grass. A zipline runs from the high
+# west end to the low east end, where a hatch drops down the keel shaft to the island's underside - the keel, the
+# field's lowest point. A Raft store at the low end. Quest "The Keel" (11 steps): the top, the hall rules, the buried
+# survey bolt, the pendulum frame (it takes the bolt and the generator starts), the four power blueprints, the
+# zipline, the shaft warning and the keel (the plan's done-when, zone keel; a camera looks up from under the island).
+#
+# Built by the recipe player (CIRecipe pendulum_isle) through the editor's own operations. Points (metres over the
+# island's own water line; in the world it all floats 12 m higher): the island stretched 2.5 times along x; its top at
+# 5 m (x -22..22), the high west end at 6 m round -24 0, the low east end at 3.5 m round 22 0; the pendulum frame round
+# 0 0; the generator shed x 6..9, z 4..7; the keel zone at 0 18, at the water line beside the south coast.
+include lib_huts
+include lib_features
+include lib_gravity
+new
+gen Trees=0.08 Bushes=0.3 Rocks=0.3 Harvest=0.3 BeachThings=0
+gen Seed=9601 Radius=22 Height=8 Roughness=0.4 Peaks=1 Shape=0 Style=0 BeachWidth=0.1 Cliffs=0.8 PeakShape=0.5
+gen Stretch=2.5 StretchAngle=0
+gen Water=0 SeaRocks=0 SeaFinds=0 Sunken=0 Hostiles=0 Friendly=0 SeaLife=0
+generate
+elevation 12
+
+# --- Terrain: the top at 5 m, the high west end, the low east end ---------------------------------------------------
+brush flatten from -18 0 to 18 0 r=7 s=20 frames=200 h=5
+brush flatten at -25 0 r=5 s=20 frames=80 h=6
+brush flatten at 23 0 r=6 s=20 frames=80 h=3.5
+brush grass from -20 0 to 20 0 r=6 s=20 frames=20
+origin
+clear at 0 0 r=5
+clear at 7.5 4 r=3
+clear at -24 0 r=3
+clear at 22 0 r=6
+
+# --- The pendulum frame: four stone posts, a crossbeam of two posts laid on them, the chain hanging from the beam, the
+# bob in its cradle; the frame's lever; the hall rules ----------------------------------------------------------------
+place RT_PillarThick frame at -2.5 -1 ground
+place RT_PillarThick frame at -2.5 1 ground
+place RT_PillarThick frame at 2.5 -1 ground
+place RT_PillarThick frame at 2.5 1 ground
+place RT_Pillar beam at 0 -1 ground y=6.1 rot=0,0,90 sy=1.8
+place RT_Pillar beam at 0 1 ground y=6.1 rot=0,0,90 sy=1.8
+place RT_Pillar chain at 0 -0.2 ground y=2.6 sy=1.17
+place RT_Pillar chain at 0 0.2 ground y=2.6 sy=1.17
+place "Box Big" cradle at 0 0 ground sit
+place Antenna_dish bob at 0 0 ground y=1.1 rot=-90,0,0 scale=3
+prop frame tint.color=#8a8577
+prop frame tint.amount=0.6
+prop beam tint.color=#4a4642
+prop beam tint.amount=0.6
+prop chain tint.color=#4a4642
+prop chain tint.amount=0.6
+prop bob tint.color=#9a7a3a
+prop bob tint.amount=0.5
+place RT_Pillar - at 4 -3 ground sy=0.4
+place TP_LaserControlPanel_lever framelever at 4 -3 ground y=1.25 scale=3 yaw=180
+place Note_Sign hallrules at -4 -4 ground sit yaw=180
+place Zone_Trigger topzone at -6 0 ground
+
+# --- The generator shed (roof on its corner posts), the generator room's chest; the buried survey bolt -----------
+push at 6 2.5 h=5
+call hut w=2 d=2 y=0.1
+place Loot_Chest genroom at 2.2 2.4 y=0.1 sit yaw=180
+place "VG_DecorationPrefabBase_EmergencyGenerator Variant" - at 0.9 2.4 y=0.1 sit yaw=90
+pop
+call treasure x=-12 z=0 r=6 n=1 seed=9611
+
+# --- The zipline from the high west end to the low east end; the store, the keel shaft and its warning ------------
+# (a fixed height: on "ground" Raft's piece sank its near floor (5.72 m west, 0.97 m north of the pivot, 1.35 m under it)
+# 23 m into the island - now it stands on the high west end's flat top, 6.0)
+place ZiplinePath_Landmark zipdown at -20.28 -0.97 h=7.35
+zipto zipdown 21 1
+place Zone_Trigger lowzone at 22 0 ground
+store pendshop at 20 -3 ground
+place Note_Sign shaftwarning at 24.5 2.5 ground sit yaw=270
+place TangaroaHatchRoom_Hatch shaft at 25 0 ground sit yaw=90
+# (the keel zone hangs in the open air beside the south coast at the water line: under it a flying island leaves out
+# everything below its own sea level, so it cannot sit under the island)
+place Zone_Trigger keelzone at 0 18 h=0
+place Placeable_Lantern_Metal - at 22 3.5 ground y=0.05 sit
+
+# --- Things to gather ------------------------------------------------------------------------------------------------
+scatter "Pickup_Landmark_PineappleLandmark" 2 at -14 2 r=4 seed=9612 free=2
+call dirt x=12 z=-2 r=4 n=2 seed=9613
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Pendulum Isle
+info author=Custom Islands
+info description=A long, thin island hovering only 12 m over the water - sail under it. On top the Institute's pendulum hall and generator shed, a zipline from end to end, and a shaft down to the island's keel. A Raft store at the low end. The sixth island of The Gravity Sea.
+island on.arrive=message||An island hanging 12 m over the water - low enough to sail under. Something swings slowly on top of it.
+
+story surveybolt|Survey bolt|Bolt|A brass survey bolt dug from the pendulum island's grass, stamped HALVARD - KEEL REF.
+story power|Pendulum power on|Battery|You set the survey bolt in the pendulum frame: the generator woke.
+
+note hallrules Pendulum hall rules | PENDULUM HALL - RULES\n\n1. The pendulum measures the field. Do not touch the bob.\n2. The frame's reference bolt is LOST (Lift Day). A spare was buried as a marker west of the hall - find it with a detector.\n3. With the bolt in the frame, the generator runs.\n4. The keel shaft is at the low east end. Staff only.
+note shaftwarning Keel shaft warning | KEEL SHAFT - WARNING\n\nThe shaft goes through the island to the KEEL, its underside, 12 m over the water. There is nothing below the keel but sea.\nHalvard measures the field from here. So should you.
+note genroom Generator room | The generator room's chest: the power plans of the Institute - a wind turbine, an advanced battery, an advanced head light and an electric grill.
+loot genroom Blueprint_WindTurbine*1;Blueprint_BatteryAdvanced*1;Blueprint_HeadLight_Advanced*1;Blueprint_ElectricGrill*1;Battery*1
+prop genroom loot.refill=0
+prop genroom if.open=signal|power
+prop genroom else.open=message||The generator room is dark and its chest bolted. The pendulum frame wants its survey bolt.
+prop treasure9611 treasure.loot=story:surveybolt*1;Scrap*2
+
+prop framelever obj.name=framelever
+prop framelever beh.use=Set the survey bolt in the pendulum frame
+prop framelever if.use=take|story:surveybolt|1
+prop framelever on.use=signal||power\ngive||story:power*1\nmessage||The bolt clicks into the frame. The bob swings - and in the shed the generator coughs and runs.\nsound||event:/exploring/obstacles/keypad/keypad_correct
+prop framelever else.use=message||The frame's reference socket is empty. The hall rules say where the spare bolt was buried.
+prop bob obj.name=bob
+prop shaft obj.name=shaft
+prop shaft beh.use=Climb down the keel shaft
+prop shaft on.use=message||You climb down and down through the rock - and out under the island, into open air.\nteleport|keelzone
+prop keelzone obj.name=keelzone
+prop keelzone zone.id=keel
+prop keelzone zone.radius=4
+prop keelzone zone.repeat=never
+prop keelzone zone.message=The keel: the underside of the island, and the sea 12 m below your feet.
+prop keelzone on.enter=camera|keelzone|bob|5|30
+
+prop topzone zone.id=top
+prop topzone zone.radius=8
+prop topzone zone.message=The top of Pendulum Isle. The pendulum hangs still in its frame.
+prop lowzone zone.id=low_end
+prop lowzone zone.radius=4
+prop lowzone zone.message=The low end. A hatch in the rock, and a warning sign.
+
+quest title=The Keel
+quest intro=An island hanging 12 m over the water. Get onto its top.
+step reach|top|1|Climb onto the top of Pendulum Isle
+step read|Pendulum hall rules|1|Read the pendulum hall's rules
+step collect|story:surveybolt|1|Dig up the buried survey bolt (metal detector and shovel)
+step collect|story:power|1|Set the survey bolt in the pendulum frame
+step blueprint|Blueprint_WindTurbine|1|Take the wind turbine plans from the generator room
+step blueprint|Blueprint_BatteryAdvanced|1|Take the advanced battery plans from the generator room
+step blueprint|Blueprint_HeadLight_Advanced|1|Take the advanced head light plans from the generator room
+step blueprint|Blueprint_ElectricGrill|1|Take the electric grill plans from the generator room
+step reach|low_end|1|Take the zipline to the low end
+step read|Keel shaft warning|1|Read the keel shaft's warning
+step reach|keel|1|Climb down the shaft to the keel
+quest done=From the keel the field pulls straight down - to a well on the seabed. The Receiver hears a pump hall on band 900.
+quest reward=Battery*2;CopperIngot*2
+
+# Buried treasure (the story line's middle): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=14 n=1 seed=8830
+prop treasure8830 treasure.loot=TitaniumOre*3
+
+save Pendulum Isle

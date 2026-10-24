@@ -1,0 +1,113 @@
+# Turtlewatch Atoll - a new island of the library, normal size, with no quest
+# A turtle sanctuary on a palm-ringed atoll (Shape 1, tropical): the warden's hut on stilts on the broad south shore, two
+# hatchery pens fenced on the east nesting beach, a lookout with a telescope over the west reef, the notice board at the
+# north landing - and a lagoon full of turtles and of Raft's finds. A place to wander: the warden's notes, the
+# volunteers' boxes, turtles, dolphins and rays.
+#
+# Built by the recipe player (CIRecipe turtlewatch_atoll) through the editor's own operations. Points: the ring of land at
+# about 3.4 m round the lagoon (its floor 3 m down, r ~20); the hut's pad at 0 -30 (3.5 m), the hut x -2..2.5, z -32..-27.5,
+# its deck 6.1 m, the ladder at 0.25 -32.1; the pens at 32 8 and 32 -6; the lookout at -32 4; the landing at 3 36.
+include lib_huts
+include lib_sea
+new
+gen Trees=0.28 Bushes=0.28 Rocks=0.3 Harvest=0.24 BeachThings=0.3
+gen Seed=9113 Radius=45 Height=4 Roughness=0.3 Peaks=1 Shape=1 Style=0 BeachWidth=0.8 Cliffs=0 PeakShape=0.2
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.35 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== The pads: the hut's on the south shore, the pens' on the east beach, the lookout's, the landing ===================
+brush flatten at 0 -30 r=6 s=20 frames=60 h=3.5
+brush flatten from 32 -9 to 32 11 r=5 s=20 frames=60 h=3.3
+brush sand from 32 -10 to 32 12 r=6 s=20 frames=30
+brush flatten at -32 4 r=4 s=20 frames=40 h=3.4
+brush flatten at 3 36 r=4 s=20 frames=40 h=3.2
+clear at 0 -30 r=7
+clear from 32 -10 to 32 12 r=6
+clear at -32 4 r=5
+clear at 3 36 r=5
+
+# ===== The warden's hut on stilts: his log on a table, the volunteers' supply crate, a hammock of nets ================
+push at -2 -32 h=3.5
+call stilt_hut y=2.6
+place Placeable_Table_Square_Small - at 3.4 3.6 y=2.6 sit
+place Note_Book wardenlog at 3.4 3.6 y=3.5 drop yaw=20
+place Loot_Crate suppliescrate at 0.9 3.6 y=2.6 sit yaw=10
+place FishingNets_02 - at 1 1.2 y=2.6 sit yaw=40
+pop
+place "Box Small" medicinebox at 4.5 -29 ground sit yaw=20
+place RestaSunshadeGround - at -6 -28 ground
+
+# ===== The hatchery pens on the nesting beach: fenced squares of nests, their signs; the egg count on a board =========
+macro pen x z sign
+line Balboa_DecorationPrefabBase_Fence_Mid from {$x-3} {$z-3} to {$x+3} {$z-3} step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from {$x-3} {$z+3} to {$x+3} {$z+3} step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from {$x+3} {$z-3} to {$x+3} {$z+3} step=2.98
+place Bird_Nest - at {$x-1.5} {$z-1} ground
+place Bird_Nest - at {$x+1.2} {$z-1.5} ground yaw=60
+place Bird_Nest - at {$x-0.5} {$z+1.4} ground yaw=120
+place Note_Sign $sign at {$x-3.6} {$z+3.4} ground yaw=270
+end
+call pen 32 8 northpen
+call pen 32 -6 southpen
+place Note_Board eggcount at 27.5 1 ground yaw=270
+place "Box Small" hatcherybox at 27.5 -1.7 ground sit yaw=15
+
+# ===== The lookout over the west reef: a telescope on a stand of planks, the reef notes =================================
+push at -32 4 h=3.4
+call floors w=2 d=2 y=0.1
+place TP_Telescope - at 1.5 1.5 y=0.1 sit yaw=270 scale=0.6
+place Note_Sign reefnotes at 3.4 0.4 y=0 sit yaw=90
+pop
+
+# ===== The north landing: the welcome board, a box ======================================================================
+place Note_Board welcome at 3 37.5 ground yaw=0
+place "Box Small" landingbox at 5.5 35 ground sit yaw=30
+
+# ===== Palms round the ring =============================================================================================
+for a 30 330 30
+place "Pickup_Landmark_Tree_Palm 2" - at {33*cos($a)} {33*sin($a)} ground yaw={$a*2}
+place "Pickup_Landmark_Tree_Palm 4" - at {29*cos($a+12)} {29*sin($a+12)} ground yaw=$a
+next
+
+# ===== The sanctuary's animals: turtles in the lagoon, dolphins and rays outside; Raft's finds in lagoon and shallows ===
+place Creature_Turtle turtles at 0 0 h=-2
+place Creature_Dolphin dolphins at 55 -30 h=-3
+place Creature_Stingray rays at -55 30 h=-3
+call shallows x=0 z=0 r=20 deep=5 n=2 seed=80
+call shallows r=60 deep=5 n=1
+prop turtles creature.count=4
+prop dolphins creature.count=2
+prop rays creature.count=2
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): pineapples, mangoes, melons ----------
+scatter "Pickup_Landmark_PineappleLandmark" 3 at 0 0 r=31.5 seed=4328 free=3
+scatter "Pickup_Landmark_Tree_Mango" 3 at 0 0 r=31.5 seed=4338 free=5
+scatter "Pickup_Landmark_WatermelonLandmark" 3 at 0 0 r=31.5 seed=4348 free=3
+
+# ===== Settings, notes, boxes (no quest) =================================================================================
+info title=Turtlewatch Atoll
+info author=Custom Islands
+info description=A turtle sanctuary on a palm-ringed atoll: a warden's hut on stilts, hatchery pens on the nesting beach, a lookout over the reef - and a lagoon full of turtles. No quest: wander, read the warden's notes, help yourself to the volunteers' boxes and dive the lagoon for finds.
+island on.arrive=message||A ring of palms round a green lagoon. Something in the water lifts its head, looks at you, and goes back down. A board on the beach says WELCOME.
+
+note welcome Welcome board | TURTLEWATCH ATOLL - SEA TURTLE SANCTUARY\n\nWelcome, visitor. Walk where you like - the turtles have the lagoon, you have the beach.\n\nPlease:\n- don't dig on the east beach (nests!)\n- don't feed anything\n- take what you need from the boxes, leave what you can\n\nThe warden's hut is on the south shore. Knock - he won't answer, he went to the mainland for the season.
+note wardenlog Warden's log | WARDEN'S LOG - TURTLEWATCH\n\nNesting season: 31 nests on the east beach, 19 of them in the pens. Two hatched early, at night - I watched them go down the sand to the water like wind-up toys.\n\nThe old female with the notched shell is back in the lagoon, fourth year running. I call her Auntie.\n\nDolphins outside the reef most mornings. Rays on the west shelf - watch your feet.\n\nI'm off to the mainland for supplies. The lagoon looks after itself. Whoever reads this: so can you.\n- Tomas, warden
+note northpen North pen | NORTH PEN - nests 1 to 9. Laid in the second week. Due any night now.
+note southpen South pen | SOUTH PEN - nests 10 to 19. Do not step over the fence.
+note eggcount Egg count board | EGG COUNT\n\nNests: 31 (19 in pens)\nHatched: 2\nLost to crabs: 1\nLost to storms: 0\n\nAuntie seen: Monday, Wednesday, Wednesday again.
+note reefnotes Reef notes | WEST REEF - from the lookout\n\nRays on the shelf at low water. Dolphins round the point at dawn. Clams and copper in the shallows if you can hold your breath.
+note suppliescrate Volunteers' supply crate | The volunteers' crate: tins, rope, a spare net, a hand trowel for nest marking.
+loot suppliescrate Cooked_GenericMeat*2;Rope*3;Plank*4;Nail*6
+prop suppliescrate loot.refill=0
+note medicinebox Warden's medicine box | Bandages, sun cream, a salve for coral cuts.
+loot medicinebox HealingSalve*2;Plastic*2
+prop medicinebox loot.refill=0
+note hatcherybox Hatchery box | Nest markers, a bucket, a notebook of dates - and a couple of coconuts someone forgot.
+loot hatcherybox Coconut*2;Plank*3;Rope*2
+prop hatcherybox loot.refill=0
+note landingbox Landing box | A box by the board: water for visitors, fruit, a sign-in sheet with three names on it.
+loot landingbox PlasticBottle_Water*3;Banana*2;Mango*2
+prop landingbox loot.refill=0
+
+save Turtlewatch Atoll

@@ -1,0 +1,347 @@
+# The Arena - a themed island, three times the size (x3)
+# Inspiration: survival-game films (an island arena built for a contest: a great canopy of supplies, rounds of beasts
+#   released by unseen wardens, gifts falling from the sky, a champion, a hidden control room) - the mood only, never named.
+# Island type: Shape 7 (Twin peaks), Style 3 (forest). Two forested peaks over a flat-topped northern upland and a broad
+#   plain that runs down to the south beach; on the plain the arena: a meadow with a great canopy of supplies in its middle, a lake
+#   dug down to the sea's level west of it with an islet, the wardens' control room cut into the south-west peak's flank.
+# The contest still runs on its own, though the gamewardens left long ago: step onto a starting plate and the horn sounds.
+# Three rounds - boars, hounds, a champion - with supplies under the great canopy and a last gift on the lake's islet holding
+# a warden's pass. When the champion falls, a door opens in the peak.
+# Quest "The Games Run On" (13 steps): the shore, the rules, the starting plate (round one), the boars, the canopy's crate,
+# a contestant's diary, round two's hounds, the gift on the islet (warden's pass), the champion, the hidden door, the
+# warden's log, the master console, the prize vault (titanium sword, leather armour, zipline tool blueprint).
+#
+# Built by the recipe player (CIRecipe the_arena) through the editor's own operations.
+include lib_selene
+include lib_sea
+new
+# (nature: forest, Like Raft's Balboa - birch and pine round the arena, berry bushes to forage; the meadow the recipe's own)
+gen Trees=0.21 Bushes=0.38 Rocks=0.42 Harvest=0.1 BeachThings=0.3
+gen Seed=9016 Radius=78 Height=32 Roughness=0.45 Peaks=2 Shape=7 Style=3 BeachWidth=0.4 Cliffs=0.3 PeakShape=0.45 Lakes=0.35
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the meadow levelled on the plain round the great canopy; west of it the lake dug 2.5 m under the sea's level,
+# its banks eased and sanded, an islet left in its middle; the trail up from the south beach ----------------------------
+for mz -54 -27 4.5
+brush flatten from -4 $mz to 36 $mz r=5 s=20 frames=100 h=3.5
+next
+brush smooth from -8 -40 to 40 -40 r=16 s=10 frames=10
+brush flatten at -22 -44 r=7 s=20 frames=150 h=-3.5
+for a 0 330 30
+brush flatten at {-22+8*cos($a)} {-44+5.5*sin($a)} r=5.5 s=20 frames=120 h=-3.5
+next
+for a 0 340 20
+brush smooth at {-22+14*cos($a)} {-44+10.5*sin($a)} r=4 s=10 frames=14
+next
+brush flatten at -22 -44 r=3.5 s=20 frames=80 h=1
+brush sand at -22 -44 r=14 s=20 frames=30
+# (the plain's grass: the generator laid it all as beach; a band of sand left along the coast)
+for gz -56 -14 7
+brush grass from -48 $gz to 48 $gz r=6 s=20 frames=25
+next
+brush sand at -22 -44 r=13 s=20 frames=20
+clear from -40 -44 to -4 -44 r=14
+for mz -54 -27 4.5
+clear from -4 $mz to 36 $mz r=5
+next
+clear from 15 -68 to 15 -54 r=2.5
+
+# --- The great canopy: Caravan Town's market roof on its poles (it takes no tint); under it the supply crate (chained till round one
+# is over) and the contest's crates; round it the ring of eight starting plates; the rules on a board where the trail
+# comes up from the beach ------------------------------------------------------------------------------------------------
+place Pillars horn at 15 -38 ground
+place Roof horn at 15 -38 ground
+place "Box Big" horncrate at 15 -38 ground sit
+place VP_StorageCrate01 - at 12 -35 ground sit yaw=20
+place VP_StorageCrate01 - at 18.5 -41 ground sit yaw=-15
+place Crate_Big_01 - at 13 -41.5 ground sit yaw=60
+place Crate_Big_01 - at 17.5 -34.5 ground sit yaw=-30
+place Crate_Big_01 - at 17.6 -34.6 y=0.45 sit yaw=-24
+place TP_Moontown_Barrel01_Clean - at 11 -40 ground sit
+place Relay_stairs_platform plates at 27 -38 ground centred yaw=-90
+place Relay_stairs_platform plates at 23.49 -29.51 ground centred yaw=-135
+place Relay_stairs_platform plates at 15 -26 ground centred yaw=180
+place Relay_stairs_platform plates at 6.51 -29.51 ground centred yaw=135
+place Relay_stairs_platform plates at 3 -38 ground centred yaw=90
+place Relay_stairs_platform plates at 6.51 -46.49 ground centred yaw=45
+place Relay_stairs_platform plates at 15 -50 ground centred
+place Relay_stairs_platform plates at 23.49 -46.49 ground centred yaw=-45
+place Note_Board rules at 11.5 -55 ground yaw=180
+place Zone_Trigger ringzone at 15 -38 y=1
+
+# --- The wardens' eyes: cameras on poles round the meadow and by the beach, all turned on the canopy; two
+# floodlights on the peaks' shoulders ---------------------------------------------------------------------------------------
+place Antenna_pole - at 18 -62 ground
+place RT_Camera cams at 18 -62 y=6.2 yaw=-7
+place Antenna_pole - at 40 -46 ground
+place RT_Camera cams at 40 -46 y=6.2 yaw=-72
+place Antenna_pole - at 38 -22 ground
+place RT_Camera cams at 38 -22 y=6.2 yaw=-125
+place Antenna_pole - at 6 -15 ground
+place RT_Camera cams at 6 -15 y=6.2 yaw=159
+place Antenna_pole - at -2 -33 ground
+place RT_Camera cams at -2 -33 y=6.2 yaw=106
+place Antenna_pole - at -4 -58 ground
+place RT_Camera cams at -4 -58 y=6.2 yaw=44
+place RT_Floodlight - at -1 -11 ground scale=2.2 yaw=149
+place RT_Floodlight - at 36 -12 ground scale=2.2 yaw=-141
+
+# --- The rounds, hidden at the meadow's edges till the horn calls them: the boars east, the hounds south-east, the
+# champion in the valley between the peaks; the champion's music over the meadow -----------------------------------------
+place Creature_Boar round1 at 36 -30 ground
+place Creature_Hyena round2 at 38 -52 ground
+place Creature_Bear champion at 15 -17 ground
+place Zone_Sound finalmusic at 15 -38 y=3
+
+# --- The plain's woods round the arena (Like Raft's Balboa: pine and birch to cut, bushes, stumps), kept off the meadow,
+# the lake, the cutting and the walk round the lake to the lean-to -----------------------------------------------------
+scatter Pickup_Landmark_Tree_Pine 4 at 42 -28 r=7 seed=51
+scatter Pickup_Landmark_Tree_Birch 3 at 44 -50 r=6 seed=52
+scatter PineTree_Big1_LodGroup 2 at 30 -10 r=5 seed=53
+scatter Pickup_Landmark_Tree_Birch 4 at -46 -47 r=6 seed=54
+scatter Pickup_Landmark_Tree_Pine 5 at -55 -17 r=6 seed=55
+scatter BirchTree_Big1_LodGroup 2 at -41 -31 r=4 seed=56
+scatter Pickup_Landmark_Tree_Pine 3 at -12 -64 r=4 seed=57
+scatter Pickup_Landmark_Tree_Birch 3 at 37 -61 r=5 seed=58
+scatter PineTree_Big2_LodGroup 2 at 23 -7 r=4 seed=59
+scatter "Balboa_Bush_01 Variant" 6 at 41 -40 r=9 seed=60
+scatter "Balboa_BigBush_01 Variant" 4 at -42 -54 r=7 seed=61
+scatter "Balboa_Bush_02 Variant" 5 at -3 -63 r=7 seed=62
+scatter "Balboa_Bush_03 Variant" 4 at 32 -18 r=6 seed=63
+scatter "Balboa_BigBush_02 Variant" 3 at -58 -28 r=6 seed=66
+scatter TreeLog_01 2 at 40 -35 r=6 seed=64
+scatter Tree_Stump 3 at -46 -38 r=6 seed=65
+clear from 13 -53 to 5 -58 r=2 all only=Tree|Bush|Stump|Log
+clear from 5 -58 to -10 -60 r=2 all only=Tree|Bush|Stump|Log
+clear from -10 -60 to -25 -60 r=2 all only=Tree|Bush|Stump|Log
+clear from -25 -60 to -40 -54 r=2 all only=Tree|Bush|Stump|Log
+clear from -40 -54 to -48 -44 r=2 all only=Tree|Bush|Stump|Log
+clear from -48 -44 to -50 -32 r=2 all only=Tree|Bush|Stump|Log
+
+# --- Last year's contestant's lean-to in the woods west of the lake: a tarp on four poles, her diary, her box, berry
+# bushes round it --------------------------------------------------------------------------------------------------------
+clear at -50 -30 r=4
+place ReefHuts_Pillar1 - at -52.1 -31.1 ground
+place ReefHuts_Pillar1 - at -47.9 -31.1 ground
+place ReefHuts_Pillar1 - at -52.1 -28.9 ground sy=0.8
+place ReefHuts_Pillar1 - at -47.9 -28.9 ground sy=0.8
+place ReefHuts_Tarpaulin - at -50 -30 y=2.65 tilt=-8 rot=0,0,0
+place Note_Book diary at -50.5 -30.3 ground yaw=20
+place "Box Small" leantobox at -48.8 -30.6 ground sit yaw=-10
+# Pia's sea chest from the liner (TODO 4c): a crew chest of the line - the chief steward's key ring from the Sunken Liner
+# (rule 2; kept) opens it; nothing in the quest needs it
+place Loot_ChestSmall seachest at -51.2 -30.6 ground sit yaw=15
+place campfire_1 - at -50 -33.5 ground
+scatter Pickup_Landmark_BerryBush 3 at -50 -30 r=7 seed=41
+
+# --- The lake's islet: the last gift (hidden till round two is over) with its chute spread beside it -----------------------
+place "Box Big" supplydrop at -22 -44 ground sit yaw=15
+place ReefHuts_Tarpaulin dropchute at -20.2 -45.2 ground y=0.15 yaw=40 rot=0,0,0
+place Zone_Trigger islet at -22 -44 y=1
+
+# --- The wardens' control room, cut into the south-west peak's east flank: two of Selene's room cells under a slab of
+# the radio tower's floor, rocks over its edges; its door (Selene's sliding leaves) opens on a cutting down to the plain.
+# The frame: the doorway's middle, the cells west of it ----------------------------------------------------------------
+macro pitrow z
+for px -9.5 -4.5 2.5
+brush flatten at $px $z r=2.5 s=20 frames=40 h=6.9
+next
+end
+call pitrow -26
+call pitrow -23.5
+call pitrow -21
+call pitrow -18.5
+call pitrow -16
+brush flatten from -3 -24 to -1 -24 r=3 s=20 frames=100 h=7
+for i 0 9 1
+brush flatten at {-0.5+1.4*$i} -24 r=2.8 s=20 frames=30 h={6.8-0.36*$i}
+next
+clear from -12 -24 to 10 -24 r=5
+clear at -7 -21 r=8
+push at -4 -24 h=7
+call selene_cell -6 3 n=none e=TP_Selene_Int_Room_Entrance
+call selene_cell -6 9 s=none
+place TP_Selene_Int_DoorLargeL hiddendoorL at 0 0 sy=1.051
+place TP_Selene_Int_DoorLargeR hiddendoorR at 0 0 sy=1.051
+place VG_ControlBoard console at -3 7.2 y=0 sit scale=0.48 yaw=180
+place TP_Selene_ComputerRoom_Server01 - at -5.1 -1.6 y=0 sit yaw=90
+place TP_Selene_ComputerRoom_Server02 - at -5.1 0 y=0 sit yaw=90
+place TP_Selene_ComputerRoom_Server01 - at -5.1 1.6 y=0 sit yaw=90
+place Placeable_Table_Basic - at -2.5 -2 y=0 sit
+place Balboa_DecorationPrefabBase_Flatscreen - at -3.2 -2.2 y=2 drop
+place Balboa_DecorationPrefabBase_Flatscreen - at -2.4 -2.2 y=2 drop
+place Balboa_DecorationPrefabBase_Flatscreen - at -1.6 -2.2 y=2 drop
+place Note_Paper wardenlog at -2.5 -1.6 y=2 drop yaw=10
+place RT_RadarScreen - at -5.3 4.6 y=0 sit yaw=90
+place Loot_ChestLarge prizevault at -1 4.4 y=0 sit yaw=-90
+place Zone_Trigger controlroom at -3 3 y=1.5
+macro slab x1 x2 z1 z2
+place RT_Floor - at $x2 $z2 y=4.8 sx={($x2-$x1)/6.04} sz={($z2-$z1)/9}
+end
+call slab -7.5 0.6 -3.6 3
+call slab -7.5 0.6 3 9.6
+place SmallBoulder2 - at 2.4 -4.8 ground scale=0.55
+place SmallBoulder2 - at 2.4 4.8 ground scale=0.55 yaw=180
+pop
+
+# --- The sponsors' gifts: one among the rocks on the northern upland, one in a hollow by the beach trail, one sunk in the
+# lake -------------------------------------------------------------------------------------------------------------------
+place "Box Small" cache1 at -8 58 ground sit yaw=30
+place SmallRock_01 - at -6.8 58.6 ground
+place "Box Small" cache2 at 9 -62 ground sit yaw=-20
+place Loot_SunkenBarrel lakecache at -29 -48 h=-2.3 drop
+
+# --- Shore: the landing on the south beach --------------------------------------------------------------------------------
+place Zone_Trigger shore at 15 -66 y=1
+
+# --- The forest's sound; animals: goats on the northern upland, a turtle in the lake, dolphins off the north coast -------
+place Zone_Sound forest at 0 10 y=10
+place Creature_Goat goats at -10 50 ground
+prop goats creature.count=3
+place Creature_Turtle turtles at -30 -40 h=-1.5
+prop turtles creature.count=1
+place Creature_Dolphin dolphins at 0 92 h=-3
+prop dolphins creature.count=2
+
+# --- Raft's finds in the shallows round the island and in the lake (lib_sea) --------------------------------------------
+call shallows r=96 deep=5 n=1
+call shallows x=-22 z=-44 r=12 deep=3 seed=90
+
+# ===== Settings, story items, notes, behaviours, quest (13 steps) =========================================================
+info title=The Arena
+info author=Custom Islands
+info description=An island built for a contest that still runs on its own: a great canopy of supplies in a meadow, cameras on poles, three rounds of beasts released by wardens who left long ago - and a door in the peak that opens only when the champion falls.
+island on.arrive=message||A green plain under two peaks, a lake, and in a meadow a great canopy on poles with crates under it. On a pole by the beach, a camera turns to follow you.
+
+story wardenpass|Gamewarden's pass|quest:Tangaroa_KeyCard|A gamewarden's pass on a lanyard, from the last gift of the games.
+story prizekey|Prize vault key|quest:Caravan_KeyMayor|The prize vault's key, from the master console.
+
+note rules Rules of the Arena | THE ARENA - RULES\n\n1. The games begin when a contestant steps onto a starting plate.\n2. There are three rounds. Survive each.\n3. The canopy holds supplies for those quick enough.\n4. A gift may fall from the sky for the worthy.\n5. The champion of the final round must fall.\n6. There is no rule six.\n\n- The Gamewardens (who are always watching)
+note diary A contestant's diary | Day 2. The canopy, the boars, the run. Got a knife from the crates.\nDay 3. The hounds came at dusk.\nDay 4. I saw a warden - a man with a pass on a lanyard - walking out of the peak above the lake. There is a DOOR in the rock up there. It only opens when the games end.\nDay 5. The champion is a bear. A BEAR.\nDay 6. If you're reading this, I never got the pass. They drop it in the last gift before the final round - on the islet in the lake.\n- Pia
+note wardenlog Gamewarden's log | ARENA CONTROL - SEASON 19\n\nStatus: running on automatic.\nThe wardens have left. The games run on their own until somebody shuts them down at the master console with a warden's pass.\nThe prize vault opens to the console's key.\n\nWhoever reads this has won. There is nobody left to congratulate you.
+note horncrate Canopy supply crate | The canopy's crate: whatever a contestant can grab in ten seconds - a spear, bandages, food.
+loot horncrate Spear_Scrap*1;HealingSalve*2;Cooked_GenericMeat*2;Rope*2
+prop horncrate loot.refill=0
+prop horncrate if.open=signal|round1
+prop horncrate else.open=message||The crate is chained. Rule three: supplies for those quick enough - after round one.
+prop horncrate on.open=message||Supplies! And somewhere a horn: twenty seconds to round two.\nwait|20\nshow|round2\nsound||event:/crafting/horns/air\nmessage||ROUND TWO - the hounds!
+note supplydrop Supply drop | A crate on the islet under a sky-blue chute: a gamewarden's pass on a lanyard, a water flask, a note: "For the worthy." As you lift the pass, the horn sounds once, long.
+loot supplydrop story:wardenpass*1;PlasticBottle_Water*2
+prop supplydrop loot.refill=0
+prop supplydrop on.open=wait|8\nshow|champion\nshow|finalmusic\nsound||event:/crafting/horns/air\nmessage||THE FINAL ROUND - the champion is in the meadow!
+note prizevault Prize vault | The prize vault: a champion's sword, leather armour, the wardens' plans for their camera lines - and a heap of coins for a crowd that never came.
+loot prizevault Sword_Titanium*1;Equipment_LeatherChest*1;Equipment_LeatherLegs*1;Blueprint_ZiplineTool*1;TradeToken*20
+prop prizevault loot.refill=0
+prop prizevault if.open=has|story:prizekey|1
+prop prizevault else.open=message||The prize vault answers to the master console's key.
+note leantobox Lean-to box | Pia's box under the tarp: a bow she made herself, arrows, string.
+loot leantobox Bow*1;Arrow_Stone*12;Rope*2
+prop leantobox loot.refill=0
+prop seachest obj.name=seachest
+note seachest Pia's sea chest | A crew chest of the shipping line, stencilled P. ANDERSSON - STEWARDESS. Before the games, Pia served on the liner. Inside: her uniform, her savings and the line's emergency kit.
+loot seachest HealingSalve_Good*1;PlasticBottle_Water*2;TradeToken*3;Rope*2
+prop seachest loot.refill=0
+prop seachest if.open=has|story:stewardkey|1
+prop seachest else.open=message||A crew chest of the shipping line, locked with the crew's lock. The chief steward's key ring opened every one of them - on the liner, before she sank.
+note cache1 Sponsor's gift on the upland | A sponsor's gift among the rocks: bandages and good food.
+loot cache1 HealingSalve_Good*1;Cooked_Salmon*2;Berries_Red*3
+prop cache1 loot.refill=0
+note cache2 Sponsor's gift by the trail | A sponsor's gift in a hollow: rope and planks for a shelter.
+loot cache2 Plank*6;Rope*3;Nail*8
+prop cache2 loot.refill=0
+note lakecache Sunk gift | A gift that missed the islet and sank: metal for a better spear.
+loot lakecache MetalIngot*2;Scrap*3;Bolt*2
+prop lakecache loot.refill=0
+
+prop horn tint.color=#d4a017
+prop horn tint.amount=0.85
+prop dropchute obj.name=supplydrop
+prop dropchute beh.hidden=1
+prop dropchute tint.color=#5aa0d8
+prop dropchute tint.amount=0.6
+prop ringzone zone.id=ring
+prop ringzone zone.radius=13
+prop ringzone zone.repeat=never
+prop ringzone zone.message=You step onto a plate. Somewhere a camera clicks.
+prop ringzone on.enter=sound||event:/crafting/horns/air\nshow|round1\nmessage||A horn blares across the plain - ROUND ONE!
+prop round1 obj.name=round1
+prop round1 beh.hidden=1
+prop round1 creature.count=4
+prop round1 creature.respawn=0
+prop round1 on.defeat=signal||round1\nsound||event:/crafting/horns/air\nmessage||The horn: round one is over. The chain on the canopy's crate falls away.
+prop round2 obj.name=round2
+prop round2 beh.hidden=1
+prop round2 creature.count=4
+prop round2 creature.respawn=0
+prop round2 on.defeat=show|supplydrop\nsound||event:/crafting/horns/air\nmessage||The horn: round two is over. Something drops out of the sky onto the lake's islet - a gift for the worthy.
+prop supplydrop obj.name=supplydrop
+prop supplydrop beh.hidden=1
+prop champion obj.name=champion
+prop champion beh.hidden=1
+prop champion creature.count=1
+prop champion creature.size=1.8
+prop champion creature.health=4
+prop champion creature.damage=2
+prop champion creature.respawn=0
+prop champion tint.color=#6a4a2a
+prop champion tint.amount=0.4
+prop champion on.defeat=open|hiddendoor\nhide|finalmusic\nsound||event:/exploring/temperence/selene/gate_open\nmessage||The champion falls. Up in the peak over the lake, a door you never saw slides open.
+prop finalmusic obj.name=finalmusic
+prop finalmusic beh.hidden=1
+prop finalmusic sound.event=event:/music/music_boss
+prop finalmusic sound.volume=0.6
+prop finalmusic zone.radius=40
+prop hiddendoorL obj.name=hiddendoor
+prop hiddendoorL beh.move=0,0,1.3
+prop hiddendoorL beh.moveTime=2
+prop hiddendoorL beh.moveMode=switch
+prop hiddendoorR obj.name=hiddendoor
+prop hiddendoorR beh.move=0,0,-1.3
+prop hiddendoorR beh.moveTime=2
+prop hiddendoorR beh.moveMode=switch
+prop console obj.name=console
+prop console beh.use=Shut the games down with the warden's pass
+prop console if.use=has|story:wardenpass|1
+prop console on.use=message||You swipe the pass. GAMES ENDED, say the screens one after another - and outside, every camera on every pole stops turning. A drawer slides out of the console with a key in it.\ngive||story:prizekey*1\nsignal||gamesoff\nsound||event:/exploring/obstacles/keypad/keypad_selene_correct
+prop console else.use=message||MASTER CONSOLE - WARDEN'S PASS REQUIRED.
+
+prop shore zone.id=shore
+prop shore zone.radius=8
+prop shore zone.message=The arena's shore. A trail leads up onto the plain - past a camera on a pole, watching.
+prop islet zone.id=islet
+prop islet zone.radius=5
+prop islet zone.message=The islet in the lake.
+prop controlroom zone.id=controlroom
+prop controlroom zone.radius=4
+prop controlroom zone.message=The wardens' control room: a wall of screens showing the arena from every pole - and you, from behind.
+prop forest sound.event=event:/amb/pineforest
+prop forest sound.volume=0.5
+prop forest zone.radius=80
+
+quest title=The Games Run On
+quest intro=An island built for a contest, still running on its own. The rules are posted at the meadow's edge. Start at the shore.
+step reach|shore|1|Land on the arena's shore
+step read|Rules of the Arena|1|Read the rules posted at the meadow's edge
+step reach|ring|1|Step onto a starting plate round the great canopy
+step kill|Warthog|4|Round one: survive the boars
+step open|Canopy supply crate|1|Grab the supplies from under the great canopy
+step read|A contestant's diary|1|Find last year's contestant's diary in the woods west of the lake
+step kill|Hyena|4|Round two: the hounds
+step collect|story:wardenpass|1|Swim to the gift on the lake's islet for the warden's pass
+step kill|Bear|1|The final round: the champion
+step reach|controlroom|1|Find the door that opened in the peak
+step read|Gamewarden's log|1|Read the gamewarden's log in the control room
+step collect|story:prizekey|1|Shut the games down at the master console
+step open|Prize vault|1|Open the prize vault
+step blueprint|Blueprint_ZiplineTool|1|Take the zipline tool plans from the prize vault
+quest done=The screens say GAMES ENDED and every camera on the island stops turning. You won - the only contestant in nineteen seasons to walk out through the wardens' door.
+quest reward=MetalIngot*6;HealingSalve_Good*3;Cooked_GenericMeat*4
+
+# --- Raft's vending machine at the arena's gate, from Tangaroa's arcade: Tangaroa's plants for its tokens; three tokens lie about --
+vending gatevend at 4 -34 ground
+place QuestItemPickup_Tangaroa_Token - at 0 -36 ground
+place QuestItemPickup_Tangaroa_Token - at 12 -24 ground
+place QuestItemPickup_Tangaroa_Token - at 28 -28 ground
+
+save The Arena

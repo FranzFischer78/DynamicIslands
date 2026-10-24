@@ -1,0 +1,127 @@
+# Old Mine Islet - a small/medium island of the library (a new theme: caves)
+# A wooded islet around a rock mound with an old mine inside: a timbered portal, rails of beams, ore carts and
+# lanterns - pitch dark further in, where a giant boar has dug in. Quest "Down the Old Mine" (6 steps):
+# the mine, its notice, the miner's head lamp, the rails into the deep tunnel, the beast there and the last ore cart.
+#
+# Built by the recipe player (CIRecipe old_mine_islet) through the editor's own operations.
+include lib_sea
+new
+# (nature: forest: Like Raft's Balboa, a little more wooded - Raft's islands as the generator's Like Raft has them, CIGenLikeRaft)
+gen Trees=0.25 Bushes=0.38 Rocks=0.45 Harvest=0.1 BeachThings=0.3
+gen Seed=1117 Radius=34 Height=10 Roughness=0.45 Peaks=1 Shape=0 Style=3 BeachWidth=0.4 Cliffs=0.3 PeakShape=0.3
+gen SeaFloor=0 Shelf=0.35 Seabed=1
+# (sea: Raft's finds and corals as dense as around Raft's islands - Like Raft 0.5 - the review, 2026-10-03)
+gen Water=0.3 SeaRocks=0.4 SeaFinds=0.5 Sunken=0.2 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# --- The mine's ground: the south plateau levelled under the mound, the yard in front cleared ----------------------
+brush flatten from 22 -18 to -16 -18 r=12 s=20 frames=30
+brush flatten from 22 -18 to 4 -10 r=8 s=20 frames=16
+clear at 2 -19 r=22
+clear at 24 -16 r=8
+
+# --- The mine: Balboa's dead-end cave as the rock mound, its mouth to the east; floor 4.2 m up -----------------
+place BalboaCave_DeadEnd mine at 0 -18 h=11.7 yaw=90
+
+# --- The portal: timber posts and a lintel at the mouth, and timbering further in ------------------------------
+for tx -5 17 11
+place Relay_support_beam_wood - at $tx -24.3 h=1 rot=0,0,-90
+place Relay_support_beam_wood - at $tx -14.6 h=1 rot=0,0,-90
+place Relay_support_beam_wood - at $tx -24.6 h=10 rot=0,0,0 yaw=90
+next
+
+# --- Inside: rails of beams on the floor, ore carts, lanterns on crates --------------------------------------------
+for rx 14 -10 -3.4
+place Beam_Long_01 - at $rx -19.9 h=4.25 rot=0,0,0
+place Beam_Long_01 - at $rx -18.9 h=4.25 rot=0,0,0
+next
+place VP_Wagon02 - at 9 -19.4 h=4.25 sit yaw=90
+place VP_Wagon02 - at -1 -19.4 h=4.25 sit yaw=90
+place VP_Wagon02 orecart at -11 -19.4 h=4.25 sit yaw=90
+# (the near crate 4 m further in and off the south wall: at 12 -23.6 the den's floor doesn't reach under it by the mouth - it stood 1.24 m over the ground let down under the rock, 2026-10-21; its lantern on its top, 0.433 m up)
+place Crate_Big_01 - at 8 -23.2 h=4.2 sit yaw=10
+place Placeable_Lantern_Metal - at 8 -23.2 h=4.65 sit
+place Crate_Big_01 - at 3.5 -15 h=4.2 sit yaw=80
+place Placeable_Lantern_Metal - at 3.5 -15 h=4.65 sit
+place Crate_Big_01 - at -6 -23.6 h=4.2 sit yaw=20
+place Placeable_Lantern_Metal - at -6 -23.6 h=4.65 sit
+place VP_Cable_Roll01 - at 8 -15.2 h=4.2 sit
+place Cableroll_02 - at -3 -24 h=4.2 sit
+# (no ore lying in the tunnels: Raft has its ore under water only - the user, 2026-10-03; the last ore cart holds the mine's ore)
+place Zone_Trigger deep at 0.5 -19.4 h=5.7
+place Creature_Boar burrower at -9 -19.4 h=4.8
+place Zone_Atmosphere minedark at -2 -19.4 h=7.5
+place Zone_Sound minesound at 2 -19.4 h=6
+
+# --- The yard in front: the miner's locker, the notice, a tent and a fire, the spoil heap ------------------------
+place "Balboa_DecorationPrefabBase_SmallLocker" locker at 22.4 -13.2 sit yaw=270
+place Note_Sign notice at 22.5 -24.5 yaw=60
+place Balboa_DecorationPrefabBase_SimpleTent - at 25 -7.5 sit yaw=200
+place campfire_1 - at 22 -8.2 sit
+place VP_RubblePile_Medium02 - at 27 -17 sit yaw=40
+place Cableroll_01 - at 24.5 -26 sit
+place VP_Wagon02 - at 25.5 -12.5 sit yaw=30 tilt=8
+place Zone_Trigger minehead at 22 -19 y=1.5
+
+# --- Settings, notes, behaviours, quest ---------------------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): pines, berries, birches ----------
+scatter "Pickup_Landmark_Tree_Pine" 3 at 0 0 r=23.8 seed=4325 free=5
+scatter "Pickup_Landmark_BerryBush" 3 at 0 0 r=23.8 seed=4335 free=3
+scatter "Pickup_Landmark_Tree_Birch" 3 at 0 0 r=23.8 seed=4345 free=5
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=54 deep=5 n=1
+
+info title=Old Mine Islet
+info author=Custom Islands
+info description=A wooded islet around a rock mound with an old mine inside: timbered tunnels, rails and ore carts - pitch dark further in, where something big has dug in. Bring a light.
+island on.arrive=message||A rock mound with a timbered mine mouth. Rails run into the dark.
+
+note notice Mine notice | ISLET MINE No. 2 - CLOSED\n\nTunnel 3 broke into an old burrow. Something big lives down there now, and it does NOT like lamps going out.\n\nThe last ore cart is still at the end of the line - full. Whoever brings it out keeps half.\n\nTake a head lamp from the locker. - The pit boss
+note locker Miner's locker | A miner's locker: a head lamp with a spare battery, gloves worn through at the fingers, a lunch tin (empty).
+loot locker HeadLight*1;Battery*1;Leather*2
+prop locker loot.refill=0
+note orecart Last ore cart | The last ore cart of Islet Mine No. 2, still full: ore, a pit boss's bonus envelope and the blueprint of the detector they used to find the veins.
+loot orecart Blueprint_MetalDetector*1;MetalOre*6;CopperOre*4;TitaniumOre*2
+prop orecart loot.refill=0
+
+prop minehead zone.id=minehead
+prop minehead zone.radius=6
+prop minehead zone.message=The old mine. Rails disappear into the dark - and claw marks on the timbers.
+prop deep zone.id=deep
+prop deep zone.radius=4
+prop deep zone.message=Something huge grunts in the dark at the end of the line!
+prop burrower creature.count=1
+prop burrower creature.size=1.9
+prop burrower creature.health=4
+prop burrower creature.damage=1.6
+prop burrower creature.respawn=0
+prop burrower creature.zone=deep
+prop burrower tint.color=#3d2f26
+prop burrower tint.amount=0.5
+prop minedark atmo.fog=#050403
+prop minedark atmo.fogAmount=0.85
+prop minedark atmo.light=#3a3020
+prop minedark atmo.lightAmount=0.85
+prop minedark atmo.particles=mist
+prop minedark zone.radius=15
+prop minesound sound.event=event:/amb/cave
+prop minesound sound.volume=0.7
+prop minesound zone.radius=18
+
+quest title=Down the Old Mine
+quest intro=An old mine in a rock mound, closed since a tunnel broke into a burrow. The notice at the mouth says the last ore cart is still down there.
+step reach|minehead|1|Find the old mine
+step read|Mine notice|1|Read the mine notice
+step open|Miner's locker|1|Take the miner's head lamp
+step reach|deep|1|Light the lamp and follow the rails into the dark to the deep tunnel
+step kill|Warthog|1|Face the beast at the end of the line
+step open|Last ore cart|1|Bring out the last ore cart
+step blueprint|Blueprint_MetalDetector|1|Take the metal detector plans from the last ore cart
+quest done=The beast is gone and the last ore cart is yours - half of it, anyway.
+quest reward=MetalIngot*3;Nail*10
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=25 n=1 seed=8851
+prop treasure8851 treasure.loot=TitaniumOre*2
+
+save Old Mine Islet

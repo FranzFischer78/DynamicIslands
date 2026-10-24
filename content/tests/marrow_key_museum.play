@@ -1,0 +1,29 @@
+# Marrow Key Museum (CIPlay marrow_key_museum): the plan Relic of the Seventh Tide's first island, quest "Someone Got
+# Here First". The terrace (3 m) round 0 0 r 20; the museum x -7.5..7.5 z -6..3 (portico z -9..-6, double door at
+# x -1.5..1.5); the desk 6.1 -5.1, the safe 6.7 -3.4, its keypad 6.7 -2; the landing path up x 0 from z -40.
+island Marrow Key Museum
+offset 0 0
+expect step 0
+expect title Someone Got Here First
+wait 3
+expect hidden ambushzone
+walk 0 -26 to 0 -18 to 0 -12 h=3
+zone museum_steps
+expect step 1
+walk 0 -10 to 0 -7.5 to 0 -4 to 3 -3 h=3
+read Curator's report
+expect step 2
+read Exhibit 7 card
+expect step 3
+open Curator's safe
+expect message keypad
+code safekeypad 1111 wrong
+code safekeypad 9427
+open Curator's safe
+expect story journal 1
+expect step 5
+expect shown ambushzone
+zone ambush
+wait 2
+kill Hyena
+expect done

@@ -1,0 +1,27 @@
+# Play test of the plan 'The Lullaby Frequency' (CIPlay plan_lullaby_frequency, in a test world 'CI ...' set to day 8
+# first with CISetDay 8, for Effigy Shoals' day:8 - CISetDay is in DevTestsContent.cs): a story line beside Raft's own
+# (Raft's story on) - each island's frequency comes when the rule before it fires (a quest, a step, a zone, a visit), it
+# is tuned to on the Receiver and played to its end with its own test (the hymn sheet from Effigy Shoals and the tooth
+# from Cradle Reef are carried on); then the Returning Islet (day:2:again), sailed to. Raft's blueprints stay in Raft's
+# own story (story on), so the plan hands none out.
+plan The Lullaby Frequency
+tune cannery
+include hollins_cannery.play
+tune agnes
+include saint_agnes_sanatorium.play
+tune effigy
+include effigy_shoals.play
+tune terraces
+include stillwater_terraces.play
+tune causeway
+include mistlock_causeway.play
+tune commune
+include gannet_cliff_quest.play
+tune cradle
+include cradle_reef.play
+tune mirrors
+include the_listening_mirrors.play
+sail 2
+arrive returning
+include the_returning_islet.play
+plan end

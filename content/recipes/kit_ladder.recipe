@@ -1,0 +1,18 @@
+# Kit check (not content): where Raft's 6 m ladder ends up when turned and raised
+new
+gen Seed=1 Radius=40 Height=4 Shape=4 Roughness=0.1 ObjectDensity=0 Trees=0 Bushes=0 Rocks=0 BeachThings=0 Harvest=0
+gen Hostiles=0 Friendly=0 SeaLife=0 Water=0 SeaRocks=0 SeaFinds=0 Sunken=0
+generate
+place LandmarkLadder_6m l0 at 0 0
+place LandmarkLadder_6m l90 at 10 0 yaw=90
+place LandmarkLadder_6m l180 at 20 0 yaw=180
+place LandmarkLadder_6m lh at 0 10 h=-1.3
+place LandmarkLadder_6m lh90 at 10 10 h=-1.3 yaw=90
+place LandmarkLadder_6m lh5 at 20 10 h=5.2 yaw=90
+where l0
+where l90
+where l180
+where lh
+where lh90
+where lh5
+save CI Ladder Kit

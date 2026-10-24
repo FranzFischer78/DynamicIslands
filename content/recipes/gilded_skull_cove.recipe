@@ -1,0 +1,301 @@
+# Gilded Skull Cove - a themed island of the library, normal size (x1). Inspiration: pirate treasure films (a treasure map
+# torn in three, an X under standing stones, a wreck to dive) - the mood only, never named on the island.
+# Two jungle peaks over a small cove on the north shore - from the sea they look like the brows of a skull, which is what
+# the pirates called the place. The pirate ship Gilded Skull sank in the cove's mouth; her captain, Odile Marrow, tore her
+# treasure map in three and gave a piece to each of the three she trusted: the cook (her tin in the hollow log in her
+# glade west of the camp, where the crew's hogs run wild), the bosun (his stilt lookout on the east peak's shoulder) and
+# the navigator (his chart chest, down with the ship). The captain's camp on the cove's beach: her longboat, a tarp over
+# her map table, a ragged flag; a trail up over the low ground east of it to the saddle between the peaks, where three
+# standing stones keep her hoard, and on along the east peak to the lookout. Quest "The Gilded Skull's Hoard" (7 steps):
+# the captain's letter in the cove, the hogs, the wreck dive, three map pieces, the map table (the verse), the stones on
+# the saddle, the hoard (the detail plank blueprint, a pirate hat, trade coins).
+#
+# Built by the recipe player (CIRecipe gilded_skull_cove) through the editor's own operations.
+include lib_huts
+include lib_sea
+include lib_features
+new
+# (nature: tropical, Like Raft - palms and jungle on the peaks as on Raft's own tropical islands, CIGenLikeRaft)
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=9001 Radius=45 Height=24 Roughness=0.45 Peaks=2 Shape=7 Style=0 BeachWidth=0.5 Cliffs=0.35 PeakShape=0.45 Bays=0.4
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.4 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the camp's pad on the cove's beach (1.8 m), the cook's glade west of it (4 m), the stones' pad on the saddle
+# (6 m), the lookout's pad on the east peak's north-east shoulder (9 m), the trails between them (strokes 4.5 m wide every
+# 1.5 m, smoothed: the camp up onto the low ground east of it, on to the saddle, along the saddle's east ridge and up to
+# the shoulder), the wreck's bed in the cove's mouth (10 m down: on a bed 7.5 m down her side broke the surface) -------
+brush flatten at 1.5 21.5 r=6.5 s=20 frames=70 h=1.8
+brush flatten at -13 22.5 r=6 s=20 frames=60 h=4
+# (camp -> the cook's glade, up the bank at the west peak's foot: the camp's pad had cut a 2.7 m step into it)
+for i 0 4 1
+brush flatten at {-3-$i*1.4} {23.6-$i*0.15} r=4.5 s=20 frames=15 h={1.9+$i*0.52}
+next
+brush smooth from -3 23.6 to -8.6 23 r=4.5 s=10 frames=14
+# (camp -> the low ground east of it, 4.1 m)
+for i 0 4 1
+brush flatten at {5+$i*0.375} {17.5-$i*1.375} r=4.5 s=20 frames=15 h={2.2+$i*0.475}
+next
+brush flatten from 6.5 12 to 7 9.5 r=4.5 s=20 frames=30 h=4.1
+# (the low ground -> the saddle, 6 m)
+for i 0 4 1
+brush flatten at {7-$i*0.875} {9.5-$i*1.25} r=4.5 s=20 frames=15 h={4.1+$i*0.475}
+next
+brush flatten at 0 3 r=6 s=20 frames=70 h=6
+# (the saddle -> along its east ridge -> up to the shoulder, 9 m)
+for i 0 4 1
+brush flatten at {5+$i*1.5} {2+$i*0.25} r=4.5 s=20 frames=15 h={6.05+$i*0.25}
+next
+for i 0 3 1
+brush flatten at {11+$i*0.4} {3-$i*1.3} r=4.5 s=20 frames=15 h={7.1+$i*0.55}
+next
+brush flatten at 11 -4.5 r=5.5 s=20 frames=60 h=9
+brush smooth from 5 17.5 to 7 9.5 r=4.5 s=10 frames=14
+brush smooth from 7 9.5 to 3.5 4.5 r=4.5 s=10 frames=14
+brush smooth from 5 2 to 11 3 r=4.5 s=10 frames=14
+brush smooth from 11 3 to 12.2 -0.9 r=4.5 s=10 frames=14
+# (the pads levelled again after the smoothing reached into them)
+brush flatten at 1.5 21.5 r=5 s=20 frames=40 h=1.8
+brush flatten at -13.5 22.5 r=4.5 s=20 frames=40 h=4
+brush flatten at 0 3 r=5 s=20 frames=40 h=6
+brush flatten at 11 -4.5 r=4.5 s=20 frames=40 h=9
+# (the hoard's scrape under the flat stone, 0.3 m into the saddle's pad; a level spot of beach for the longboat below
+# the camp - on the sloping beach her stern lay buried in the sand)
+brush flatten at 2.4 0.6 r=1.5 s=20 frames=30 h=5.7
+brush flatten at 2.6 28.4 r=2.8 s=20 frames=40 h=1.1
+brush flatten from 0 45 to 0 55 r=7 s=20 frames=80 h=-10
+brush sand at 1.5 21.5 r=6.5 s=20 frames=30
+brush sand at 0 3 r=5.5 s=20 frames=30
+brush sand from -2 23 to -9 22.5 r=1.5 s=20 frames=30
+brush sand from 5 17.5 to 7 9.5 r=1.5 s=20 frames=30
+brush sand from 7 9.5 to 3.5 4.5 r=1.5 s=20 frames=30
+brush sand from 5 2 to 11 3 r=1.5 s=20 frames=30
+brush sand from 11 3 to 12.2 -0.9 r=1.5 s=20 frames=30
+clear at 1.5 21.5 r=9
+clear at -13 22.5 r=7
+clear from -2 23 to -9 22.5 r=2.5
+clear from 5 17.5 to 7 9.5 r=3
+clear from 7 9.5 to 3.5 4.5 r=3
+clear at 0 3 r=8
+clear from 5 2 to 11 3 r=3
+clear from 11 3 to 12.2 -0.9 r=3
+clear at 11 -4.5 r=6.5
+clear from 0 42 to 0 58 r=8
+# (the generator's boulders off the two peaks' steep faces: stuck in a slope they look like they hang in the air; and the
+# one on the beach beside the longboat)
+clear at -12 12 r=14 only=Rock|Boulder above=8.5
+clear at 6 -12 r=14 only=Rock|Boulder above=8.5
+clear at 5.9 29.8 r=2 only=Boulder
+
+# --- The captain's camp on the cove's beach: a tarp on four posts over her map table, the fire, barrels and crates, the
+# water barrel, a ragged flag (Raft's flags show a blank canvas in a world - none is black, and a tint doesn't take on
+# them; the seventh shows a skull and crossbones in the editor); her longboat drawn up on the sand below, her letter on
+# its thwart ------------------------------------------------------------------------------------------------------------
+push at 1.5 21 h=1.8
+# (the posts under the tarp's edges: at z 1.4 they stood 11 cm outside them and the tarp hung on nothing, CIGroundIslands)
+place ReefHuts_Pillar1 - at -2 -1.25 sit
+place ReefHuts_Pillar1 - at -2 1.25 sit
+place ReefHuts_Pillar1 - at 2 -1.25 sit
+place ReefHuts_Pillar1 - at 2 1.25 sit
+place ReefHuts_Tarpaulin - at 0 0 y=2.7 tilt=6 rot=0,0,0
+place MapTable maptable at 0 0 sit centred scale=0.6
+pop
+place campfire_1 - at -1.6 24.6 ground
+place Firewood_1 - at -0.7 25.2 ground
+place Reef_Barrel1 - at 6 22.3 h=3.5 sit drop rot=0,0,0
+place Reef_Barrel1 - at 5 24.6 h=3.5 sit drop rot=0,0,0 yaw=40
+place Crate_Big_01 - at -1.8 18.8 ground yaw=15
+place Placeable_Lantern_Metal - at -1.8 18.8 h=3 sit drop
+place Loot_Barrel campbarrel at 5.2 23 ground
+place Placeable_Flag_07 blackflag at -2.4 21.6 ground yaw=90
+# (the boat set straight - as Raft's scene keeps it, it lay on its side - and set down by its keel on its spot of level
+# beach: by its pivot it sat half in the sand, as the barrels did; the barrels and the letter set straight too - as Raft's
+# scene keeps them the barrels lay on their sides and the letter stood on its edge)
+place RT_PlasticBoat longboat at 2.6 28.4 h=2.5 sit drop rot=0,0,0 yaw=170
+place Note_Paper letter at 2.6 28.4 h=2.5 sit drop rot=0,0,0 yaw=30
+place Zone_Trigger cove at 1.5 24 h=2.5
+# (some palms along the beaches and the low ground: the generator's land came out with half Raft's trees, nearly all bamboo)
+scatter "Pickup_Landmark_Tree_Palm 1" 3 at 15 20 r=6 seed=11
+scatter "Pickup_Landmark_Tree_Palm 2" 3 at -19 33 r=6 seed=12
+scatter "Pickup_Landmark_Tree_Palm 3" 3 at -28 -4 r=7 seed=13
+scatter "Pickup_Landmark_Tree_Palm 4" 3 at -8 -32 r=7 seed=14
+scatter BigPalm2 1 at 19 -22 r=4 seed=15
+scatter BigPalm4 1 at -30 18 r=4 seed=16
+# (and rocks on the low ground instead of the ones cleared off the peaks' faces below, set straight as the generator's)
+scatter SmallBoulder1 3 at -12 -30 r=8 seed=21 rot=0,0,0
+scatter SmallBoulder4 3 at -30 -10 r=6 seed=22 rot=0,0,0
+scatter BigBoulder4_Low 2 at 20 12 r=6 seed=23 rot=0,0,0 scale=0.4-0.6
+scatter SmallBoulder3 2 at 24 -12 r=5 seed=24 rot=0,0,0
+
+# --- The cook's glade west of the camp: the hollow log with her tin by its open end, her pot and a cold fire, fruit
+# trees; the hogs that have the run of it now -------------------------------------------------------------------------
+place TreeLog_02 - at -12.6 21.6 ground yaw=15
+place "Box Small" cookbox at -16.9 22.6 ground yaw=15
+place Placeable_CookingPot - at -11 25 ground yaw=200
+place campfire_1 - at -12.8 24.6 ground
+place Pickup_Landmark_Tree_Mango - at -17.6 26 ground yaw=40
+place Banana_Bush_2 - at -8.8 26.2 ground yaw=120
+place Banana_Bush_2 - at -18 18.8 ground yaw=300
+place Creature_Boar hogs at -14 24 ground
+place Zone_Trigger spring at -13 22.5 h=5
+
+# --- The three standing stones on the saddle between the peaks (the generator's upright boulders, set straight as it sets
+# them - as Raft's scene keeps them they lay on their sides): the north stone, the tall one, the flat one; the hoard
+# hidden in the scrape under the flat one ------------------------------------------------------------------------------
+place BigBoulder4_Low stone1 at -0.6 6.4 ground rot=0,0,0 scale=0.5 yaw=30
+place BigBoulder1_Low stone2 at -3.4 1.8 ground rot=0,0,0 scale=0.45 yaw=65
+place SmallRock_02 stone3 at 2.4 1 ground rot=0,0,0 yaw=90
+place MayorsChest hoard at 2.4 0.6 h=5.7 yaw=180
+place Zone_Trigger stones at 0 3 h=7.2
+
+# --- The bosun's lookout on the east peak's north-east shoulder: a stilt hut, its deck 6.5 m up, a 6 m ladder up its open
+# front (to the north, the cove); his sea chest and spyglass stand inside, his stash under the floor ---------------------
+push at 13.25 -2.75 h=9 yaw=180
+call stilt_hut y=6.5 ladder=none
+place "Box Small" bosunbox at 3.5 3.6 y=6.5 sit yaw=10
+place Placeable_Table_Square_Small - at 1 3.4 y=6.5 sit
+pop
+place LandmarkLadder_6m lookoutladder at 11 -2.62 h=9 yaw=180
+place "Box Small" lookoutbox at 11.8 -5.4 h=9 sit yaw=30
+
+# --- The wreck of the Gilded Skull on her side in the cove's mouth, the navigator's chart chest by her torn side, a sunken
+# barrel, her planks and a crate on the sand; puffer fish round her ------------------------------------------------------
+place BoatStranded wreck at 0 50 ground yaw=180 roll=-25
+place "Box Big" navchest at 4.6 48 ground yaw=20
+place Loot_SunkenBarrel rumbarrel at -4.2 46 h=-5 sit drop rot=0,0,0
+place FL_Plank3 - at 3.6 44.6 ground yaw=40
+place FL_Plank3 - at -3 53 ground yaw=110
+place Crate_Big_02 - at 4 53.5 ground yaw=70
+place Zone_Trigger wreckzone at 0 50 h=-7
+place Creature_PufferFish puffers at 2 47 h=-4
+
+# --- Friendly animals: the camp's hens on the grass east of the camp, off the trail; turtles in the cove; dolphins
+# out at sea off the cove's mouth ----------------------------------------------------------------------------------------
+place Creature_Chicken hens at 12 22 ground
+place Creature_Turtle turtles at -2 38 h=-1.5
+place Creature_Dolphin dolphins at 0 72 h=-3
+
+origin
+where cove
+where letter
+where longboat
+where maptable
+where spring
+where cookbox
+where hogs
+where wreckzone
+where navchest
+where rumbarrel
+where stones
+where stone1
+where stone2
+where stone3
+where hoard
+where lookoutladder
+where bosunbox
+where lookoutbox
+where campbarrel
+where blackflag
+where hens
+
+# --- Settings, story items, notes, behaviours, quest (7 steps) ---------------------------------------------------------
+# --- Raft's finds in the shallows round the island (sand, clay, stones, ores, scrap - every Raft island has them): lib_sea
+call shallows r=60 deep=5
+
+info title=Gilded Skull Cove
+info author=Custom Islands
+info description=Two jungle peaks over a small cove, like the brows of a skull: a pirate captain's camp on the beach, her ship sunk in the cove's mouth, and somewhere on the saddle her hoard. She tore the map in three - find the pieces, read the verse, move the stones and dig.
+island on.arrive=message||Two green peaks over a quiet cove - a longboat drawn up on the sand, a ragged flag on a pole, and the shape of a hull just under the water in the cove's mouth.
+
+story mappiece|Piece of the map|quest:Vasagatan_FourDigitCode|A torn piece of Captain Marrow's treasure map, salt-stained, a third of a verse scrawled on its back.
+story wholemap|Captain Marrow's map|Placeable_PaperBundle|The three pieces laid together: the cove, two peaks, three stones drawn on the saddle like teeth - and the verse that says which stone moves first.
+
+note letter Captain's last letter | To whoever beaches beside my boat.\n\nThe crew wanted the hoard split before we reached port. I said no, and the Gilded Skull went down in the cove's mouth the same night - holed, I think, by one of them.\n\nI tore the map in three and gave a piece to each of the three I trust. Tamsin the cook keeps hers in the hollow log by her spring, where her hogs run wild now. Kell the bosun took his up to his lookout on the east peak. Pell the navigator stayed with the ship; his piece is in his chart chest, under the water.\n\nLay the pieces together on my map table. The verse on the back says which stone to move first. Don't move them in the wrong order.\n\n- Captain Odile Marrow
+note cookbox Cook Tamsin's tin | A tin box wedged into the hollow log, wrapped in sailcloth: a torn piece of map, dried fruit and a recipe for hog stew with the word NEVER underlined twice.
+loot cookbox story:mappiece*1;Banana*2;Mango*2
+prop cookbox loot.refill=0
+note bosunbox Bosun Kell's sea chest | The bosun's sea chest in his lookout: a torn piece of map, rope, a flask (empty) and a tally of every ship he ever watched pass.
+loot bosunbox story:mappiece*1;Rope*3;Nail*6
+prop bosunbox loot.refill=0
+note navchest Navigator Pell's chart chest | The navigator's chart chest, sealed with wax against the sea: the last piece of the map, a brass compass and his dividers.
+loot navchest story:mappiece*1;Compass*1;Scrap*3
+prop navchest loot.refill=0
+note campbarrel Longboat's water barrel | The longboat's barrel: fresh water stoppered in bottles, coconuts, a coil of line.
+loot campbarrel PlasticBottle_Water*2;Coconut*3;Rope*2
+prop campbarrel loot.refill=0
+note lookoutbox Bosun's stash | Under the lookout's floor, a stash the bosun didn't tell the captain about.
+loot lookoutbox Plank*6;Nail*8;Bolt*2
+prop lookoutbox loot.refill=0
+note rumbarrel Sunken rum barrel | A barrel from the Gilded Skull's hold, still sealed - not rum: ship's stores.
+loot rumbarrel Scrap*4;MetalOre*2;Plastic*3
+prop rumbarrel loot.refill=0
+note hoard Captain Marrow's hoard | An iron-bound chest with a grinning gilded skull on its lid: the Gilded Skull's whole share of a dozen prizes, and the ship carpenter's book of plans.
+loot hoard Blueprint_DetailPlank*1;MetalDetector*1;Hat_Pirate*1;TradeToken*12;MetalIngot*4;CopperIngot*3;Glass*3
+prop hoard loot.refill=0
+
+prop maptable obj.name=maptable
+prop maptable beh.use=Lay the three map pieces together
+prop maptable if.use=quest|4\ntake|story:mappiece|3
+prop maptable on.use=message||The torn edges fit. The cove, the two peaks, three stones drawn on the saddle - and on the back the verse, whole at last.\ngive||story:wholemap*1\njournal|Captain Marrow's verse|North stone first, where the gulls sit. Then the tall one that throws the noon shadow. The flat one last - and dig where it lay.\nsound||event:/char/logbook_flip
+prop maptable else.use=message||A chart table with three empty pins. The captain's letter said the map is in three pieces.
+prop stone1 obj.name=stone1
+prop stone1 beh.use=Push the north stone
+prop stone1 if.use=has|story:wholemap|1
+prop stone1 on.use=message||The north stone grinds a hand's width over the sand. Somewhere under your feet, something clicks.\nsignal||stone1\nsound||event:/coll/stoneground
+prop stone1 else.use=message||A heavy stone, half sunk in the sand. Without the map's verse you wouldn't know which one to move.
+prop stone2 obj.name=stone2
+prop stone2 beh.use=Push the tall stone
+prop stone2 if.use=signal|stone1
+prop stone2 on.use=message||The tall stone rocks and settles with a thud you feel in your boots. Another click.\nsignal||stone2\nsound||event:/coll/stoneground
+prop stone2 else.use=message||The tall stone won't move - something under the sand holds it. The verse said which stone comes first.
+prop stone3 obj.name=stone3
+prop stone3 beh.use=Roll the flat stone aside and dig
+prop stone3 beh.move=0,0,1.8
+prop stone3 beh.moveTime=2
+prop stone3 beh.moveMode=switch
+prop stone3 if.use=signal|stone2
+prop stone3 on.use=message||The flat stone rolls aside. You dig where it lay - and your hands hit wood: an iron-bound chest with a gilded skull on its lid.\nopen|stone3\nshow|hoard\nsignal||dug\nsound||event:/crafting/shovel_dig
+prop stone3 else.use=message||The flat stone is held fast. "The flat one last," says the verse.
+prop hoard obj.name=hoard
+prop hoard beh.hidden=1
+
+prop cove zone.id=cove
+prop cove zone.radius=9
+prop cove zone.message=The captain's camp: a longboat on the sand, a tarp over a chart table, a fire long cold.
+prop spring zone.id=spring
+prop spring zone.radius=7
+prop spring zone.message=The cook's spring - and her hogs, grown wild and big, come grunting out of the ferns!
+prop wreckzone zone.id=wreck
+prop wreckzone zone.radius=7
+prop wreckzone zone.message=The Gilded Skull on her side in the sand, a hole in her hull no reef made.
+prop stones zone.id=stones
+prop stones zone.radius=7
+prop stones zone.message=Three standing stones on the saddle between the peaks, the sea on both sides.
+prop hogs creature.count=3
+prop hogs creature.respawn=0
+prop hogs creature.zone=spring
+prop puffers creature.count=2
+prop puffers creature.respawn=0
+prop hens creature.count=3
+prop turtles creature.count=2
+prop dolphins creature.count=2
+
+# --- Raft's special features (the user, 2026-10-05: every Raft feature on at least one island): the crew's own buried takings for Raft's
+# metal detector (the captain's detector is in her hoard) - two more caches the map never showed
+call treasure x=-5 z=0 r=30 n=2 seed=31
+call vinecache x=-14 z=10 r=14 seed=32 chest=cookcache vines=cookvines items=Rope*3;Coconut*3;Bolt*2
+
+quest title=The Gilded Skull's Hoard
+quest intro=A pirate captain's camp in a cove under two jungle peaks, her ship sunk in the cove's mouth. Start at her longboat.
+step read|Captain's last letter|1|Land in the cove and read the letter left in the beached longboat
+step kill|Warthog|3|Drive the cook's runaway hogs away from her spring
+step reach|wreck|1|Dive to the wreck of the Gilded Skull in the cove's mouth
+step collect|story:mappiece|3|Find the three map pieces: the cook's hollow log, the bosun's lookout, the navigator's chart chest
+step collect|story:wholemap|1|Lay the pieces together on the captain's map table
+step reach|stones|1|Climb to the three standing stones on the saddle
+step open|Captain Marrow's hoard|1|Move the stones in the verse's order, dig, and open the hoard
+step blueprint|Blueprint_DetailPlank|1|Take the decorative plank plans from the captain Marrow's hoard
+quest done=The hoard is up and the verse kept its word. Whoever holed the Gilded Skull never found it - you did.
+quest reward=Plank*8;Rope*4;Cooked_Mackerel*3
+
+save Gilded Skull Cove

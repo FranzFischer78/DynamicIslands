@@ -1,0 +1,15 @@
+# lib_selene - macros for rooms and tunnels of Temperance's Selene facility, shared by the library's recipes
+# ("include lib_selene"). A cell is a 6 x 6 m square: in a frame, cell (x, z) spans x..x+6 and z-6..z (its corner
+# at x, z). Walls 4.5 m high, the ceiling at 4.73 m: the walls are drawn 5 % taller to meet it (Selene's own rooms
+# close the gap with edge pieces of the ceiling; left open, the sky showed in a slit along the top of every wall - X7).
+#
+# selene_cell: a room cell with a floor, a ceiling and a piece on each side - s (z-6), n (z), w (x), e (x+6): each
+# TP_Selene_Int_Room_Wall, TP_Selene_Int_Room_Entrance (a doorway) or none (open to the next cell).
+macro selene_cell x z s=TP_Selene_Int_Room_Wall n=TP_Selene_Int_Room_Wall w=TP_Selene_Int_Room_Wall e=TP_Selene_Int_Room_Wall floor=TP_Selene_Int_Room_Floor_Plain ceiling=TP_Selene_Int_Room_Ceiling
+place $floor - at $x $z
+place $ceiling - at $x $z
+place $s - at $x $z sy=1.051
+place $n - at {$x+6} {$z-6} yaw=180 sy=1.051
+place $w - at {$x+6} $z yaw=90 sy=1.051
+place $e - at $x {$z-6} yaw=270 sy=1.051
+end

@@ -1,0 +1,13 @@
+# Guide pictures of Highpine Island (CIPlay highpine_island_pics): Raft's camera, morning, calm
+island Highpine Island
+offset 0 0
+hour 10
+weather Calm
+at -20 30
+wait 3
+picture highpine_island_island 0 60 -150 0 10 10
+picture highpine_island_bridge 0 30 6 0 23 30
+picture highpine_island_peaks -10 14 -20 0 20 30
+picture highpine_island_cabin -42 7 -44 -48 5 -32
+picture highpine_island_pier 44 5 -96 30 2 -85
+picture highpine_island_wreck 28 -5 -108 36 -7 -116

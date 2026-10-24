@@ -1,0 +1,14 @@
+# Guide pictures of The Clockwork City (CIPlay clockwork_city_pics): Raft's camera, midday, calm. Points as in its recipe
+# ("offset").
+island The Clockwork City
+offset 0.5882 -0.3322
+hour 11
+weather Calm
+at -3 38 h=21
+wait 3
+picture clockwork_city_island 120 90 -140 15 10 0
+picture clockwork_city_plaza 10 28 50 -3 21 34
+picture clockwork_city_harbour -20 22 -78 -44 14 -52
+picture clockwork_city_gearworks 60 22 0 40 14 20
+picture clockwork_city_observatory 36 34 -30 20 30 -12
+picture clockwork_city_tower 92 34 22 80 30 40

@@ -1,0 +1,12 @@
+# Guide pictures of Glacier Mouth (CIPlay glacier_mouth_pics): Raft's camera, midday, calm
+island Glacier Mouth
+# RESIZE 10-24: the recipe moved this island's old content by 0 -24.8; the points below are in the old frame
+offset 0 24.8
+hour 11
+weather Calm
+at 0 -28
+wait 3
+picture sl12_glacier_mouth_island 22 +14 -36 0 +6 10
+picture sl12_glacier_mouth_ringwave -12 +5 1 -12 0 9
+picture sl12_glacier_mouth_depot -16 +3 -16 -6 +2 -6
+storespot 10 -4

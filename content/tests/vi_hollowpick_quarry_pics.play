@@ -1,0 +1,15 @@
+# Pictures of Hollowpick Quarry (CIPlay vi_hollowpick_quarry_pics; vehicle island): Raft's camera, midday, calm
+island Hollowpick Quarry
+offset 0 0
+hour 11
+weather Calm
+at 0 0
+wait 3
+picture vi_hollowpick_quarry_overview 42 36 -42 0 3 0
+picture vi_hollowpick_quarry_digger 13 +4 7 2 +1.5 2
+picture vi_hollowpick_quarry_wagons 8 +7 -37 6 +0 -18
+picture vi_hollowpick_quarry_lift 27 +3 -8 17.5 +3 -2
+picture vi_hollowpick_quarry_crane 22 +4 -30 8 +3 -38
+picture vi_hollowpick_quarry_office -7 +2 -22 -16 +2 -15
+picture vi_hollowpick_quarry_chkwest 0 +9 -4 -20 +5 8
+picture vi_hollowpick_quarry_chkpowder -13 +3 1 -21.5 +0.5 8

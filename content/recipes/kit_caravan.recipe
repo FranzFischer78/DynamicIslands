@@ -1,0 +1,16 @@
+# Kit check (not content): Caravan Town's trailers, bridges, stairways, pipes, air pocket
+new
+gen Seed=1 Radius=60 Height=4 Shape=4 Roughness=0.1 ObjectDensity=0 Trees=0 Bushes=0 Rocks=0 BeachThings=0 Harvest=0
+gen Hostiles=0 Friendly=0 SeaLife=0 Water=0 SeaRocks=0 SeaFinds=0 Sunken=0
+generate
+brush flatten at 0 0 r=60 s=20 frames=80
+place CaravanHubBridge2 b2 at 0 0 y=4
+place CaravanHubBridge1 b1 at 12 0 y=4
+place CaravanHubBridge3 b3 at 24 0 y=4
+place Stairway_1 st1 at -12 0
+place Stairway_3 st3 at -12 -12
+place Caravan_Blue_01 c1 at -24 0
+place Caravan_Yellow_01 c2 at -24 0 y=2.75
+place CaravanBarebones1 cb at -24 -12
+place Exterior_CaravanStairs cs at -24 -20
+place Ramp rp at -12 -24

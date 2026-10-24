@@ -1,0 +1,79 @@
+# lib_huts - macros for shanty huts of Raft's reef hut pieces, shared by the library's recipes ("include lib_huts")
+#
+# stilt_hut: a hut on four posts, its floor of Raft's wooden floor blocks 4.5 x 4.5 m at deck height (y, the floor's top),
+# patchwork walls of reef hut walls on three sides (the front, -z, open: its door), a thatched hip roof. The posts (Raft's
+# reef hut pillars, 4.8 m, stretched to fit) stand on the floor and go up into the roof: it rests on them and on the
+# walls, never floating over them (the user, 2026-10-03). In a frame whose floor is the ground or the sea floor under it
+# (flat under the hut: a post on lower ground would hang in the air): the posts stand on it; the hut spans
+# x 0..4.5, z 0..4.5. w1..w6 pick each wall piece (ReefHuts_Wall2/3, ReefHuts_PlasticWall1/4 - not Wall1/Wall5: they are
+# sheets that lie flat) or none. ladder: Raft's building ladder up the open front, on the ground (2.42 m: for decks of
+# about 2.4-2.8 m), or none (a hut over water reached from a walkway).
+macro stilt_hut y=2.6 w1=ReefHuts_Wall2 w2=ReefHuts_Wall3 w3=ReefHuts_PlasticWall1 w4=ReefHuts_Wall2 w5=ReefHuts_Wall3 w6=ReefHuts_PlasticWall1 ladder=Block_Ladder foot=0
+# (foot: the pillars reach this far below the frame, for a hut on a slope)
+place ReefHuts_Pillar3 - at 0.15 0.15 y={0-$foot} sy={($y+2.98+$foot)/4.815}
+place ReefHuts_Pillar3 - at 4.35 0.15 y={0-$foot} sy={($y+2.98+$foot)/4.815}
+place ReefHuts_Pillar3 - at 0.15 4.35 y={0-$foot} sy={($y+2.98+$foot)/4.815}
+place ReefHuts_Pillar3 - at 4.35 4.35 y={0-$foot} sy={($y+2.98+$foot)/4.815}
+for fx 0.75 3.75 1.5
+for fz 0.75 3.75 1.5
+place Block_Floor_Wood - at $fx $fz y=$y
+next
+next
+# (the back wall, z 4.5; the left, x 0; the right, x 4.5 - each two pieces)
+place $w1 - at 1.15 4.45 y=$y
+place $w2 - at 3.35 4.45 y=$y
+place $w3 - at 0.05 1.15 y=$y yaw=90
+place $w4 - at 0.05 3.35 y=$y yaw=90
+place $w5 - at 4.45 1.15 y=$y yaw=90
+place $w6 - at 4.45 3.35 y=$y yaw=90
+place $ladder - at 2.25 -0.12 ground
+# (the roof: Raft's thatch hip roof on the walls' tops (2.9 m over the deck) - four corners, a straight piece on each side
+# (pivot on its eave, rising inwards), a pyramid in the middle one level (1.21 m) up)
+place Block_Roof_Corner_Thatch - at 0.75 0.75 y={$y+2.85} yaw=270
+place Block_Roof_Corner_Thatch - at 3.75 0.75 y={$y+2.85} yaw=180
+place Block_Roof_Corner_Thatch - at 0.75 3.75 y={$y+2.85}
+place Block_Roof_Corner_Thatch - at 3.75 3.75 y={$y+2.85} yaw=90
+place Block_Roof_Straight_Thatch - at 2.25 0 y={$y+2.85} yaw=180
+place Block_Roof_Straight_Thatch - at 2.25 4.5 y={$y+2.85}
+place Block_Roof_Straight_Thatch - at 0 2.25 y={$y+2.85} yaw=270
+place Block_Roof_Straight_Thatch - at 4.5 2.25 y={$y+2.85} yaw=90
+place Block_Roof_Thatch_Pyramid - at 2.25 2.25 y={$y+4.06}
+end
+
+# boardwalk: a walkway of Raft's wooden floor blocks n long (along +x) and wide blocks across at deck height (y, the
+# floor's top) over the frame's floor, on reef hut posts down both long sides every 3 m and at its ends, stretched from
+# the floor up into the deck's underside (never hanging under it - the user, 2026-10-03). Spans x 0..n*1.5, z
+# 0..wide*1.5. rs / rn: a rail along its south (z 0) / north side - Raft's rope fence, or none (where huts or the quay
+# open onto it).
+macro boardwalk n=4 wide=1 y=2.6 rs=Block_Wall_Fence_Rope rn=Block_Wall_Fence_Rope
+for bx 0.75 {$n*1.5-0.75} 1.5
+for bz 0.75 {$wide*1.5-0.75} 1.5
+place Block_Floor_Wood - at $bx $bz y=$y
+next
+place $rs - at $bx 0 y=$y
+place $rn - at $bx {$wide*1.5} y=$y
+next
+for px 0.1 {$n*1.5-1.6} 3
+place ReefHuts_Pillar3 - at $px 0.1 y=0 sy={($y-0.05)/4.815}
+place ReefHuts_Pillar3 - at $px {$wide*1.5-0.1} y=0 sy={($y-0.05)/4.815}
+next
+place ReefHuts_Pillar3 - at {$n*1.5-0.1} 0.1 y=0 sy={($y-0.05)/4.815}
+place ReefHuts_Pillar3 - at {$n*1.5-0.1} {$wide*1.5-0.1} y=0 sy={($y-0.05)/4.815}
+end
+
+
+# floors (Raft's wooden buildings, from The Frontier): Raft's wooden floor blocks over w x d cells from the frame's corner, their tops at y (5-10 cm over a levelled pad)
+macro floors w=2 d=2 y=0.1
+for fx 0.75 {$w*1.5-0.75} 1.5
+for fz 0.75 {$d*1.5-0.75} 1.5
+place Block_Floor_Wood - at $fx $fz y=$y
+next
+next
+end
+# corners: Raft's wooden pillars at a w x d building's four corners, standing on its floor and up into its roof
+macro corners w=2 d=2 y=0.1
+place Block_Pillar_Wood - at 0 0 y=$y
+place Block_Pillar_Wood - at {$w*1.5} 0 y=$y
+place Block_Pillar_Wood - at 0 {$d*1.5} y=$y
+place Block_Pillar_Wood - at {$w*1.5} {$d*1.5} y=$y
+end

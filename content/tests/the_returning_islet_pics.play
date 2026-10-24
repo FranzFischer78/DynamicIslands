@@ -1,0 +1,11 @@
+# Guide pictures of The Returning Islet (CIPlay the_returning_islet_pics): Raft's camera, dusk, fog - the hut from the
+# beach, and the table set for four
+island The Returning Islet
+offset 0 0
+hour 19
+weather Calm
+at 0 -14
+wait 3
+picture sl1_returning_island 0 22 -55 0 3 0
+picture sl1_returning_hut 3 4 -9 0 4 0
+picture sl1_returning_table -1.4 6.7 -1.6 0 5.6 0.6

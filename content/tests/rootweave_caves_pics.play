@@ -1,0 +1,10 @@
+# Guide pictures of Rootweave Caves (CIPlay rootweave_caves_pics): Raft's camera, midday, calm
+island Rootweave Caves
+offset 0 0
+hour 11
+weather Calm
+at 0 -70
+wait 3
+picture sl11_rootweave_caves_island 60 50 -130 0 15 0
+picture sl11_rootweave_caves_fungushall 0 3 -48 0 2 -60
+storespot 0 -70

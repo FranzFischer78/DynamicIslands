@@ -1,0 +1,39 @@
+# Play test of the plan 'Raft 2 - The Drowned Frontier' (CIPlay plan_raft2, in a test world 'CI ...'): the story from
+# its start without Raft's islands - the first island's coordinates come at the start, each one after it once the one
+# before is done; each is tuned to on the Receiver and played to its end with its own test.
+plan Raft 2 - The Drowned Frontier
+expect chain beacon unlocked
+expect chain RadioTower locked
+tune beacon
+include frontier_beacon.play
+expect chain beacon done
+expect chain ferry unlocked
+tune ferry
+include saltmarsh_ferry.play
+expect chain ferry done
+tune cinder
+include cinderfall.play
+expect chain cinder done
+tune archive
+include sunken_archive.play
+expect chain archive done
+tune harbor
+include hightide_harbor.play
+expect chain harbor done
+tune graveyard
+include iron_graveyard.play
+expect chain graveyard done
+tune spire
+include storm_spire.play
+expect chain spire done
+tune whiteout
+include whiteout_reach.play
+expect chain whiteout done
+tune gate
+include drowned_gate.play
+expect chain gate done
+tune frontier
+include the_frontier.play
+expect chain frontier done
+expect blueprints
+plan end

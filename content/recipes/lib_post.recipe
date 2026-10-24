@@ -1,0 +1,64 @@
+# lib_post - macros for the Coastal Post's buildings, shared by the recipes of the plan The Last Post ("include lib_post")
+#
+# posthall: a hall of Raft's Tier 3 blocks in a frame (push at its -x -z corner with h= or y=): metal floor plates w x d
+# cells of the 1.5 m grid, walls all round (the front, z 0, has a door in its second cell), pillars at the four corners
+# and a hipped roof resting on walls and pillars. w at least 3. al: the alias of its walls (tint them with prop al
+# tint.color=...).
+macro posthall w=3 d=3 al=hallwall
+for fx 0.75 {$w*1.5-0.75} 1.5
+for fz 0.75 {$d*1.5-0.75} 1.5
+place Block_Floor_Tier3 - at $fx $fz y=0.05
+next
+next
+for fx 0.75 {$w*1.5-0.75} 1.5
+place Block_Wall_Tier3 $al at $fx {$d*1.5} y=0.2
+next
+for fz 0.75 {$d*1.5-0.75} 1.5
+place Block_Wall_Tier3 $al at 0 $fz y=0.2 yaw=90
+place Block_Wall_Tier3 $al at {$w*1.5} $fz y=0.2 yaw=90
+next
+place Block_Wall_Tier3 $al at 0.75 0 y=0.2
+place Block_Wall_Door_Tier3 $al at 2.25 0 y=0.2
+for fx 3.75 {$w*1.5-0.75} 1.5
+place Block_Wall_Tier3 $al at $fx 0 y=0.2
+next
+place Block_Pillar_Tier3 - at 0 0 y=0.2
+place Block_Pillar_Tier3 - at {$w*1.5} 0 y=0.2
+place Block_Pillar_Tier3 - at 0 {$d*1.5} y=0.2
+place Block_Pillar_Tier3 - at {$w*1.5} {$d*1.5} y=0.2
+roof $w $d at 0 0 y=0.2
+end
+#
+# openhall: a roof on posts (a shelter, a waiting room, a colonnade): floor plates w x d cells, Tier 3 pillars at every
+# corner of the edge cells, a hipped roof on them. In a frame as posthall.
+macro openhall w=2 d=2
+for fx 0.75 {$w*1.5-0.75} 1.5
+for fz 0.75 {$d*1.5-0.75} 1.5
+place Block_Floor_Tier3 - at $fx $fz y=0.05
+next
+next
+for fx 0 {$w*1.5} 1.5
+place Block_Pillar_Tier3 - at $fx 0 y=0.2
+place Block_Pillar_Tier3 - at $fx {$d*1.5} y=0.2
+next
+for fz 1.5 {$d*1.5-1.5} 1.5
+place Block_Pillar_Tier3 - at 0 $fz y=0.2
+place Block_Pillar_Tier3 - at {$w*1.5} $fz y=0.2
+next
+roof $w $d at 0 0 y=0.2
+end
+#
+# mailsack: Raft's reef shipping container, shrunk to a canvas mail sack on the ground or a floor (al: its alias, tinted
+# by the recipe)
+macro mailsack x=0 z=0 yaw=0 al=sacks
+place Reef_Container $al at $x $z sit yaw=$yaw scale=0.15
+end
+#
+# pier: a plank pier of Raft's Tier 3 floor plates two cells wide, from z1 to z2 (z1 > z2, heading -z) at x, deck height
+# h above the sea; save stands posts under it into the sea floor
+macro pier x=0 z1=0 z2=-12 h=1.4
+for pz $z1 $z2 -1.5
+place Block_Floor_Tier3 - at {$x-0.75} $pz h=$h
+place Block_Floor_Tier3 - at {$x+0.75} $pz h=$h
+next
+end

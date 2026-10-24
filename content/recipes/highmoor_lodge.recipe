@@ -1,0 +1,446 @@
+# Highmoor Lodge - a themed island, normal size (x1)
+# Inspiration: snowbound-hotel horror films (a mountain lodge closed for the winter, a caretaker alone with a typewriter
+#   and a boiler that must be vented, music in an empty ballroom, a hedge maze in the snow) - the mood only, never named.
+# Island type: Shape 0 (Round), Style 1 (snowy). One snowy hill: the lodge on a terrace on its north shelf, the hedge maze
+#   on the levelled lowland west of it, a jetty and the drive up from the shore.
+# The lodge closed for the winter with one caretaker to keep the boiler vented. In spring the drive was buried, the house
+# cold, the boiler groaning - and the caretaker gone, his typed pages all over the house. The last one says his boiler
+# room key is in his coat at the heart of the maze, where a white bear walked in during the storm and never came out.
+# Quest "The Winter Book" (7 steps): the manager's ledger up the drive, six pages (a "find pages" step), the maze, the bear
+# at its heart, the key in the caretaker's coat, the boiler house, three valves in order and his strongbox.
+# PAGES: step 2 counts every note read on this island (6 = the ledger + five typed pages). The loot boxes have NO note on
+# purpose: a chest with a note adds a page when opened and would finish the step early.
+#
+# Built by the recipe player (CIRecipe highmoor_lodge) through the editor's own operations.
+include lib_huts
+include lib_sea
+new
+# (nature: snowy, Like Raft's Temperance - a few pines and drifts, near-bare)
+gen Trees=0.08 Bushes=0.15 Rocks=0.25 Harvest=0.05 BeachThings=0.3
+gen Seed=9006 Radius=45 Height=20 Roughness=0.35 Peaks=1 Shape=0 Style=1 BeachWidth=0.4 Cliffs=0.2 PeakShape=0.3
+gen SeaFloor=0 Shelf=0.4 Seabed=1
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.4 Hostiles=0
+generate
+
+# hedgex / hedgez: a 4 m run of the maze's evergreen hedge - three young snowy firs (Temperance's pine at 0.13: Balboa's
+# bushes are autumn orange, and tint doesn't take on them) and an invisible wall along them (trees have no collider low
+# down) - from (x, z) along +x / along +z, on the frame's floor
+macro hedgex x z
+place Helper_Wall - at {$x+2} $z y=0
+place TP_PineTreeSnowy - at {$x+0.67} $z y=0 sit scale=0.13
+place TP_PineTreeSnowy - at {$x+2} $z y=0 sit scale=0.13 yaw=120
+place TP_PineTreeSnowy - at {$x+3.33} $z y=0 sit scale=0.13 yaw=240
+end
+macro hedgez x z
+place Helper_Wall - at $x {$z+2} y=0 yaw=90
+place TP_PineTreeSnowy - at $x {$z+0.67} y=0 sit scale=0.13 yaw=60
+place TP_PineTreeSnowy - at $x {$z+2} y=0 sit scale=0.13 yaw=180
+place TP_PineTreeSnowy - at $x {$z+3.33} y=0 sit scale=0.13 yaw=300
+end
+
+# --- Terrain: a pad on the hill's north shelf (3.4 m) for the lodge, its wings and the boiler house, cut into the hill's
+# flank behind them; the west lowland levelled at 4.5 m for the maze; the drive's slope down to the jetty eased -----------
+brush flatten from -9 31 to 12 31 r=5 s=20 frames=80 h=3.4
+brush flatten from -9 26 to 12 26 r=5 s=20 frames=80 h=3.4
+brush flatten from -9 21.5 to 12 21.5 r=4.5 s=20 frames=100 h=3.4
+brush flatten from -41 -12 to -11 -12 r=6 s=20 frames=100 h=4.5
+brush flatten from -41 -4 to -11 -4 r=6 s=20 frames=100 h=4.5
+brush flatten from -41 4 to -11 4 r=6 s=20 frames=100 h=4.5
+brush flatten from -41 10 to -11 10 r=5 s=20 frames=80 h=4.5
+brush smooth from 4.5 34 to 3 42 r=4 s=10 frames=12
+brush smooth from -10 18 to -24 12 r=5 s=10 frames=12
+clear from -9 27 to 12 27 r=8
+clear from -41 -2 to -11 -2 r=16
+clear from 4.5 34 to 3 44 r=3
+clear at 15 31 r=6
+
+# --- The lodge on its terrace: two storeys of Raft's solid wooden walls (6 x 4 cells, 9 x 6 m) on floors of Raft's
+# blocks, its corner posts up into a wooden hip roof on the upper walls; the front door a gap in the front wall (Raft's
+# door walls stay shut on islands); the lobby and the lounge downstairs, the stair in the back left corner, the guest rooms
+# upstairs (room 9 behind a partition). Frame: x along the front, z from the front (the drive) to the back --------------
+push at 10 33 h=3.45 yaw=180
+call floors w=6 d=4
+# (the ground floor's walls: windows, the front door at x 4.5-6, the way into the kitchen at the back x 1.5-3, the way into
+# the ballroom on the right z 1.5-3)
+place Block_Wall_Window_Tier3 - at 0.75 0 y=0.1
+place Block_Wall_Window_Tier3 - at 2.25 0 y=0.1
+place Block_Wall_Tier3 - at 3.75 0 y=0.1
+place Block_Wall_Window_Tier3 - at 6.75 0 y=0.1
+place Block_Wall_Window_Tier3 - at 8.25 0 y=0.1
+place Block_Wall_Tier3 - at 0.75 6 y=0.1
+place Block_Wall_Tier3 - at 3.75 6 y=0.1
+place Block_Wall_Tier3 - at 5.25 6 y=0.1
+place Block_Wall_Tier3 - at 6.75 6 y=0.1
+place Block_Wall_Tier3 - at 8.25 6 y=0.1
+place Block_Wall_Window_Tier3 - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Tier3 - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Window_Tier3 - at 0 3.75 y=0.1 yaw=90
+place Block_Wall_Tier3 - at 0 5.25 y=0.1 yaw=90
+place Block_Wall_Tier3 - at 9 0.75 y=0.1 yaw=90
+place Block_Wall_Tier3 - at 9 3.75 y=0.1 yaw=90
+place Block_Wall_Tier3 - at 9 5.25 y=0.1 yaw=90
+# (the upper floor on the walls, with the stair's well over the back left corner; the stair up to it)
+for fx 2.25 8.25 1.5
+for fz 0.75 5.25 1.5
+place Block_Floor_Wood - at $fx $fz y=2.52
+next
+next
+place Block_Floor_Wood - at 0.75 0.75 y=2.52
+place Block_Floor_Wood - at 0.75 5.25 y=2.52
+# (the stair along the left wall, its foot 1.5 m from the back wall, up towards the front to the landing at z 0-1.5; the
+# well over it)
+place Block_Stair_Tier3 stair at 0.75 3 y=0.1 sit centred yaw=180
+# (the upper storey's walls: windows all round, room 9's partition with its doorway)
+place Block_Wall_Window_Tier3 - at 0.75 0 y=2.52
+place Block_Wall_Tier3 - at 2.25 0 y=2.52
+place Block_Wall_Window_Tier3 - at 3.75 0 y=2.52
+place Block_Wall_Window_Tier3 - at 5.25 0 y=2.52
+place Block_Wall_Tier3 - at 6.75 0 y=2.52
+place Block_Wall_Window_Tier3 - at 8.25 0 y=2.52
+place Block_Wall_Tier3 - at 0.75 6 y=2.52
+place Block_Wall_Window_Tier3 - at 2.25 6 y=2.52
+place Block_Wall_Tier3 - at 3.75 6 y=2.52
+place Block_Wall_Window_Tier3 - at 5.25 6 y=2.52
+place Block_Wall_Tier3 - at 6.75 6 y=2.52
+place Block_Wall_Window_Tier3 - at 8.25 6 y=2.52
+place Block_Wall_Tier3 - at 0 0.75 y=2.52 yaw=90
+place Block_Wall_Window_Tier3 - at 0 2.25 y=2.52 yaw=90
+place Block_Wall_Tier3 - at 0 3.75 y=2.52 yaw=90
+place Block_Wall_Tier3 - at 0 5.25 y=2.52 yaw=90
+place Block_Wall_Tier3 - at 9 0.75 y=2.52 yaw=90
+place Block_Wall_Window_Tier3 - at 9 2.25 y=2.52 yaw=90
+place Block_Wall_Tier3 - at 9 3.75 y=2.52 yaw=90
+place Block_Wall_Window_Tier3 - at 9 5.25 y=2.52 yaw=90
+place Block_Wall_Tier3 - at 6 0.75 y=2.52 yaw=90
+place Block_Wall_Tier3 - at 6 3.75 y=2.52 yaw=90
+place Block_Wall_Tier3 - at 6 5.25 y=2.52 yaw=90
+for lv 0 1 1
+place Block_Pillar_Tier3 - at 0 0 y={0.1+$lv*2.42}
+place Block_Pillar_Tier3 - at 9 0 y={0.1+$lv*2.42}
+place Block_Pillar_Tier3 - at 0 6 y={0.1+$lv*2.42}
+place Block_Pillar_Tier3 - at 9 6 y={0.1+$lv*2.42}
+next
+roof 6 4 at 0 0 y=2.52 wood
+# (downstairs: the front desk with the manager's ledger and the clock behind it, a rug; the lounge with the fireplace on
+# the front wall, two armchairs and the typewriter table with page one)
+place "Counter Left" - at 6 3.4 y=0.1 sit yaw=180
+place "Counter Mid" - at 7 3.4 y=0.1 sit yaw=180
+place "Counter Right" - at 8 3.4 y=0.1 sit yaw=180
+place Note_Book ledger at 7 3.75 y=1.17 drop yaw=8 rot=0,0,0
+place "VG_DecorationPrefabBase_Clock Variant" - at 7 5.88 y=1.6 yaw=180
+place Placeable_Rug_Rectangle - at 5.25 1.6 y=0.1 yaw=90
+place Placeable_Lantern_Fireplace - at 3.75 0.45 y=0.1 sit
+place "VG_DecorationPrefabBase_Armchair Variant" - at 2.6 1.8 y=0.1 sit yaw=140
+place "VG_DecorationPrefabBase_Armchair Variant" - at 1.7 0.9 y=0.1 sit yaw=110
+place Placeable_Table_Basic - at 3.4 4.6 y=0.1 sit yaw=90
+place Tangaroa_OfficeKit_Keyboard - at 3.4 4.4 y=0.84 drop yaw=0
+place Note_Papers page1 at 3.0 4.9 y=0.84 drop yaw=20 rot=0,0,0
+place Note_Papers page2 at 8.3 3.6 y=1.17 drop yaw=-30 rot=0,0,0
+# (upstairs: room 9 on the right behind the partition - the bed with page three, the wardrobe; a guest room on the left)
+place Placeable_Bed_Wood - at 7.5 4.6 y=2.52 sit yaw=90
+place Note_Papers page3 at 7.4 4.5 y=3.1 drop yaw=40 rot=0,0,0
+place Placeable_Wardrobe - at 8.3 1.0 y=2.52 sit yaw=270
+place Placeable_Bed_Wood - at 3.6 4.65 y=2.52 sit yaw=90
+place Zone_Trigger lodge at 5.25 -3 y=1
+place Pickup_Landmark_Plastic3_Land - at 4.3 2.6 y=0.4 drop yaw=83
+place Pickup_Landmark_Plank_Land - at 4.8 2.3 y=2.82 drop yaw=157
+
+# --- The kitchen wing behind the lodge (in the lodge's frame: 4 x 3 cells, one storey, a wooden roof): the bench and the stove, the pantry, page
+# four on the counter, two rats; its way in from the lodge at x 1.5-3, the boiler house's door on its right ---------------
+push at 0 6
+call floors w=4 d=3
+place Block_Wall_Tier3 - at 0.75 4.5 y=0.1
+place Block_Wall_Window_Tier3 - at 2.25 4.5 y=0.1
+place Block_Wall_Tier3 - at 3.75 4.5 y=0.1
+place Block_Wall_Tier3 - at 5.25 4.5 y=0.1
+place Block_Wall_Tier3 - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Window_Tier3 - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Tier3 - at 0 3.75 y=0.1 yaw=90
+place Block_Wall_Tier3 - at 6 0.75 y=0.1 yaw=90
+place Block_Wall_Tier3 - at 6 3.75 y=0.1 yaw=90
+call corners w=4 d=3
+roof 4 3 at 0 0 y=0.1 wood
+place TangaroaKitchen_Bench5 - at 4.6 4.4 y=0.1 sit
+place "VG_DecorationPrefabBase_Stove Variant" - at 0.6 3.8 y=0.1 sit yaw=90
+place Placeable_Cupboard_Large pantry at 0.4 1.5 y=0.1 sit yaw=90
+place Note_Papers page4 at 3.2 4.05 y=1.12 drop yaw=15 rot=0,0,0
+place Creature_Rat kitchenrats at 3 2 y=0.3
+place "Pickup_Landmark_Scrap 3_Land" - at 2.2 3.1 y=0.4 drop yaw=240
+place Pickup_Landmark_Plank_Land - at 4.6 1.3 y=0.4 drop yaw=5
+pop
+
+# --- The ballroom on the lodge's right (in the lodge's frame: 5 x 4 cells, a wooden roof): the stage, chairs pushed to the walls, the piano,
+# page five on the stage, music from nowhere; its way in from the lobby -----------------------------------------------------
+push at 9 0
+call floors w=5 d=4
+place Block_Wall_Window_Tier3 - at 0.75 0 y=0.1
+place Block_Wall_Window_Tier3 - at 2.25 0 y=0.1
+place Block_Wall_Tier3 - at 3.75 0 y=0.1
+place Block_Wall_Window_Tier3 - at 5.25 0 y=0.1
+place Block_Wall_Window_Tier3 - at 6.75 0 y=0.1
+place Block_Wall_Tier3 - at 0.75 6 y=0.1
+place Block_Wall_Tier3 - at 2.25 6 y=0.1
+place Block_Wall_Tier3 - at 3.75 6 y=0.1
+place Block_Wall_Tier3 - at 5.25 6 y=0.1
+place Block_Wall_Tier3 - at 6.75 6 y=0.1
+place Block_Wall_Tier3 - at 7.5 0.75 y=0.1 yaw=90
+place Block_Wall_Window_Tier3 - at 7.5 2.25 y=0.1 yaw=90
+place Block_Wall_Window_Tier3 - at 7.5 3.75 y=0.1 yaw=90
+place Block_Wall_Tier3 - at 7.5 5.25 y=0.1 yaw=90
+call corners w=5 d=4
+roof 5 4 at 0 0 y=0.1 wood
+place VG_LoungeStage - at 3.75 4.6 y=0.1 sit
+place Placeable_Piano - at 5.95 3.45 y=0.61 sit yaw=200
+place Note_Papers page5 at 3.2 4.8 y=0.61 drop yaw=-10 rot=0,0,0
+place VG_LoungeChair - at 1 0.6 y=0.1 sit yaw=10
+place VG_LoungeChair - at 2 0.6 y=0.1 sit yaw=-5
+place VG_LoungeChair - at 5.5 0.6 y=0.1 sit
+place VG_LoungeChair - at 6.6 0.6 y=0.1 sit yaw=15
+place VG_LoungeChair - at 0.5 2.6 y=0.1 sit yaw=80
+place VG_LoungeChair - at 1.2 3.5 y=0.1 sit yaw=95 scale=0.85
+place Zone_Sound ballroommusic at 3.75 3 y=1.5
+place Pickup_Landmark_Plastic3_Land - at 3.0 2.2 y=0.4 drop yaw=319
+pop
+
+# --- The boiler house behind the lodge's right half, across an alley from the kitchen (in the lodge's frame: 2 x 2 cells of Raft's blocks, a wooden roof): its door a wall piece that slides
+# aside on the caretaker's key; the boiler, its pipes and gauge, the three valve wheels on the boiler's face (red, brass,
+# black), the caretaker's cot and strongbox; the boiler's groan ------------------------------------------------------------
+push at 7 8
+call floors w=3 d=3
+place Block_Wall_Tier3 - at 0.75 4.5 y=0.1
+place Block_Wall_Tier3 - at 2.25 4.5 y=0.1
+place Block_Wall_Tier3 - at 3.75 4.5 y=0.1
+place Block_Wall_Tier3 - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Tier3 - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Tier3 - at 0 3.75 y=0.1 yaw=90
+place Block_Wall_Tier3 - at 4.5 0.75 y=0.1 yaw=90
+place Block_Wall_Tier3 - at 4.5 2.25 y=0.1 yaw=90
+place Block_Wall_Tier3 - at 4.5 3.75 y=0.1 yaw=90
+place Block_Wall_Tier3 - at 2.25 0 y=0.1
+place Block_Wall_Tier3 - at 3.75 0 y=0.1
+place Block_Wall_Tier3 boilerdoor at 0.75 -0.15 y=0.1
+call corners w=3 d=3
+roof 3 3 at 0 0 y=0.1 wood
+place "VG_DecorationPrefabBase_Engine Variant" lodgeengine at 2.25 3.2 y=0.1 sit
+# (scenery: the old engine by the valve wheels - the ready piece's lock taken off)
+prop lodgeengine beh.use=
+prop lodgeengine if.use=
+prop lodgeengine else.use=
+prop lodgeengine on.use=
+place TP_Selene_DoorCrankWheel valvered at 1.2 1.62 y=1.3 rot=0,0,0
+place TP_Selene_DoorCrankWheel valvebrass at 2.25 1.62 y=1.3 rot=0,0,0
+place TP_Selene_DoorCrankWheel valveblack at 3.3 1.62 y=1.3 rot=0,0,0
+place "VG_DecorationPrefabBase_Pipe_Monitor Variant" - at 2.25 1.64 y=2.05
+place Loot_ChestLarge strongbox at 4 0.7 y=0.1 sit yaw=270
+place Zone_Sound boilersound at 2.25 2.25 y=1.5
+place Zone_Trigger boilerroom at 2.25 1 y=1
+pop
+# (the lodge's frame ends)
+pop
+
+# --- The hedge maze on the levelled west lowland: 24 x 24 m of evergreen hedges on a 4 m grid, the way in on its south
+# side, a loop and four dead ends on the way to the heart - an 8 x 8 m square with the caretaker's bench and a lamp post,
+# where the white bear waits; snow and fog inside -------------------------------------------------------------------------
+push at -14 10 h=4.55 yaw=180
+call hedgex 0 0
+call hedgex 4 0
+call hedgex 8 0
+call hedgex 16 0
+call hedgex 20 0
+call hedgex 0 24
+call hedgex 4 24
+call hedgex 8 24
+call hedgex 12 24
+call hedgex 16 24
+call hedgex 20 24
+for mz 0 20 4
+call hedgez 0 $mz
+call hedgez 24 $mz
+next
+call hedgez 16 4
+call hedgez 20 4
+call hedgez 8 8
+call hedgez 16 8
+call hedgez 20 8
+call hedgez 4 12
+call hedgez 8 12
+call hedgez 16 12
+call hedgez 20 12
+call hedgez 12 16
+call hedgez 12 20
+call hedgex 4 4
+call hedgex 8 4
+call hedgex 12 4
+call hedgex 8 8
+call hedgex 12 8
+call hedgex 4 16
+call hedgex 8 16
+call hedgex 16 16
+call hedgex 4 20
+call hedgex 8 20
+call hedgex 12 20
+call hedgex 16 20
+place Floorlamp_01 - at 11.3 -0.8 y=0 sit
+place Floorlamp_01 - at 16.7 -0.8 y=0 sit
+place Tangaroa_OutdoorFurniture_Bench mazebench at 12 11 y=0 sit
+place Floorlamp_01 - at 13.6 11.2 y=0 sit
+place TP_SnowDrift02 - at 2 2 y=0 sit yaw=30
+place TP_SnowDrift02 - at 22 22 y=0 sit yaw=200
+place TP_SnowDrift02 - at 9.6 9.6 y=0 sit yaw=110
+place Zone_Trigger maze at 14 -2 y=1
+place Zone_Trigger mazeheart at 12 12 y=1
+place Zone_Atmosphere mazefog at 12 12 y=2
+place Creature_PolarBear mazebear at 13 14 y=0.2
+pop
+
+# --- The jetty on the north beach and the drive up to the lodge's door, its lamp posts; the box at the jetty's end; the
+# snowcat shed on the shelf east of the drive; the lodge's old skiff and a barrel 4 m down off the jetty; snow and wind --
+push at 2.25 41 h=-2.7 yaw=270
+call boardwalk n=7 wide=1 y=4.3
+place "Box Small" jettybox at 9.6 0.75 y=4.3 sit yaw=15
+pop
+place Floorlamp_02 - at 2.6 39 ground
+place Floorlamp_02 - at 6.6 36.2 ground
+place SnowmobileShedMesh - at 16 31 ground yaw=270
+place TP_SnowVehicle01 - at 16 31 ground yaw=270
+place TP_SnowShovel02 - at 13 27.6 ground yaw=40
+place "Box Small" shedbox at 13 34.6 ground yaw=-20
+place RT_PlasticBoat - at 10 52 h=-4.2 sit yaw=30 roll=60
+place Loot_SunkenBarrel sunkbarrel at 11.6 50.8 h=-4.2 sit
+place Zone_Atmosphere snowfall at 0 0 y=8
+place Zone_Sound wind at 0 0 y=8
+
+# --- Animals: two goats on the hill's south slope, dolphins off the north shore --------------------------------------------------------
+place Creature_Goat goats at 6 -22 ground
+prop goats creature.count=2
+place Creature_Dolphin dolphins at 0 64 h=-3
+prop dolphins creature.count=2
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): pines, flowers, berries ----------
+scatter "Pickup_Landmark_Tree_Pine" 3 at 0 0 r=31.5 seed=4200 free=5
+scatter "Pickup_Landmark_Flower_White" 2 at 0 0 r=31.5 seed=4210 free=3
+scatter "Pickup_Landmark_Flower_Blue" 2 at 0 0 r=31.5 seed=4211 free=3
+scatter "Pickup_Landmark_BerryBush" 3 at 0 0 r=31.5 seed=4220 free=3
+
+# --- Raft's finds in the shallows round the island (sand, clay, stones, ores, scrap - every Raft island has them): lib_sea
+call shallows r=60 deep=5
+
+# ===== Settings, story items, notes, behaviours, quest (7 steps) ==========================================================
+info title=Highmoor Lodge
+info author=Custom Islands
+info description=A mountain lodge on a snowy island, closed for the winter with one caretaker to keep the boiler vented. In spring he was gone, his typed pages all over the house, music playing in the empty ballroom - and his key at the heart of the hedge maze, where a white bear walked in and never came out.
+island on.arrive=message||A snowy hill with a big wooden lodge on its shoulder, every window dark. Somewhere inside, faintly, music is playing.
+
+story boilerkey|Boiler room key|quest:Caravan_KeyInfirmary|The boiler house key on a brass tag, from the caretaker's coat.
+
+note ledger Manager's ledger | HIGHMOOR LODGE - CLOSED FOR THE WINTER\n\nCaretaker: H. Brand, engaged for the season.\nDuties: vent the boiler EVERY MORNING, valves in their order; keep the drive clear; keep out of the maze after dark.\nI left him the typewriter. He said he'd finally write his book.\n\n(added in spring) The drive was buried, the house cold, the boiler groaning like an animal. No Brand. His pages are all over the house. I've touched nothing. - A. Lindqvist, manager
+note page1 Typed page, chapter one | THE WINTER BOOK - by H. Brand\n\nChapter one. The lodge closes on the first snow, and the caretaker stays alone with the house and the boiler, which must be vented every morning, or it will-
+note page2 Typed page, chapter four | Chapter four. Tonight he hears the ballroom's music again, though the power has been off for a week. At dawn he vents the boiler: red, then brass, then black. The order matters. It always matters.
+note page3 Typed page, chapter nine | Chapter nine. Room 9 is occupied. The ledger says it is empty. The caretaker knocked. Someone inside knocked back.
+note page4 Typed page, chapter eleven | Chapter eleven. A white bear came down off the peak in the storm and walked into the maze. It has not come out. The caretaker's coat is in there, on the bench at the heart, with his keys in the pocket. He has decided to go in after it.
+note page5 Typed page, chapter twelve | Chapter twelve. No more chapters.\n\nIf anyone reads this: the boiler house key is in my coat, on the bench at the maze's heart. Vent the boiler - red, brass, black - before the pressure takes the whole house with it. - H. B.
+note mazebench Caretaker's coat | A heavy coat frozen stiff on the bench, as if somebody took it off to sit down and never put it back on. In the pocket: a key on a brass tag.
+loot mazebench story:boilerkey*1;Wool*2;Leather*1
+prop mazebench loot.refill=0
+note strongbox Caretaker's strongbox | The caretaker's strongbox under his cot: his wages, a greenhouse catalogue he marked up all winter, the lodge's spare fire grate - and the record that was on the ballroom's gramophone.
+loot strongbox Blueprint_Cropplot_Small_Tier3*1;Placeable_Lantern_Fireplace*1;Wool*4;Leather*3;Cassette_Classical*1
+prop strongbox loot.refill=0
+prop strongbox if.open=signal|vented
+prop strongbox else.open=message||The strongbox sits against the boiler's flank, too hot to touch - the whole room shakes. Vent the boiler first.
+loot pantry Cooked_GenericMeat*2;Raw_Potato*3;Jar_Honey*1
+prop pantry loot.refill=0
+loot jettybox Rope*3;Plank*5;Nail*6
+prop jettybox loot.refill=0
+loot shedbox Bolt*3;Scrap*3;BioFuel*1
+prop shedbox loot.refill=0
+loot sunkbarrel Scrap*3;MetalOre*2;Plastic*2
+prop sunkbarrel loot.refill=0
+
+prop boilerdoor obj.name=boilerdoor
+prop boilerdoor beh.use=Unlock the boiler house
+prop boilerdoor beh.move=1.5,0,0
+prop boilerdoor beh.moveTime=1.5
+prop boilerdoor beh.moveMode=switch
+prop boilerdoor if.use=has|story:boilerkey|1
+prop boilerdoor on.use=message||The key turns stiffly. The door slides aside on heat and noise - the boiler is hammering, its needle deep in the red.\nopen|boilerdoor\nsound||event:/raft/door/door_unlock_key
+prop boilerdoor else.use=message||Locked, and hot to the touch. The caretaker kept the key on him.
+prop valvered obj.name=valvered
+prop valvered tint.color=#9a2a22
+prop valvered tint.amount=0.6
+prop valvered beh.use=Turn the red valve
+prop valvered on.use=message||Steam screams out of the red valve's pipe. The needle drops a little.\nsignal||v1\nsound||event:/exploring/temperence/selene/handle_spin
+prop valvebrass obj.name=valvebrass
+prop valvebrass tint.color=#b08a3a
+prop valvebrass tint.amount=0.6
+prop valvebrass beh.use=Turn the brass valve
+prop valvebrass if.use=signal|v1
+prop valvebrass on.use=message||The brass valve coughs and roars. The needle falls past the middle.\nsignal||v2\nsound||event:/exploring/temperence/selene/handle_spin
+prop valvebrass else.use=message||The needle jumps - the whole boiler bangs. Wrong valve! "Red, then brass, then black."
+prop valveblack obj.name=valveblack
+prop valveblack tint.color=#1a1a1a
+prop valveblack tint.amount=0.6
+prop valveblack beh.use=Turn the black valve
+prop valveblack if.use=signal|v2
+prop valveblack on.use=message||The black wheel turns, the last steam goes up the stack with a long sigh - and the boiler falls quiet. Somewhere in the lodge, the music stops.\nsignal||vented\nhide|boilersound\nhide|ballroommusic\nsound||event:/exploring/temperence/selene/handle_spin
+prop valveblack else.use=message||The needle jumps - the whole boiler bangs. Wrong valve! "Red, then brass, then black."
+prop boilersound obj.name=boilersound
+prop boilersound sound.event=event:/raft/engine/boiler
+prop boilersound sound.volume=0.7
+prop boilersound zone.radius=10
+prop ballroommusic obj.name=ballroommusic
+prop ballroommusic sound.event=event:/exploring/elevator/elevator_music
+prop ballroommusic sound.volume=0.45
+prop ballroommusic zone.radius=9
+
+prop lodge zone.id=lodge
+prop lodge zone.radius=7
+prop lodge zone.message=Highmoor Lodge. The door is unlocked. Inside, a clock ticks, and far off in the house a band plays to nobody.
+prop maze zone.id=maze
+prop maze zone.radius=5
+prop maze zone.message=The hedge maze: walls of frozen green, taller than you, the snow inside unmarked - but for one line of very large footprints.
+prop mazeheart zone.id=mazeheart
+prop mazeheart zone.radius=5
+prop mazeheart zone.message=The heart of the maze: a bench, a coat - and the white bear, rising from the snow behind it!
+prop boilerroom zone.id=boilerroom
+prop boilerroom zone.radius=2.5
+prop boilerroom zone.message=The boiler hammers like a fist on a door. Three valves on its face: red, brass, black.
+prop mazebear creature.count=1
+prop mazebear creature.size=1.2
+prop mazebear creature.health=3
+prop mazebear creature.respawn=0
+prop mazebear creature.zone=mazeheart
+prop kitchenrats creature.count=2
+prop kitchenrats creature.respawn=0
+prop mazefog atmo.fog=#c8d2da
+prop mazefog atmo.fogAmount=0.4
+prop mazefog atmo.particles=snow
+prop mazefog zone.radius=16
+prop snowfall atmo.fog=#d0d8de
+prop snowfall atmo.fogAmount=0.2
+prop snowfall atmo.particles=snow
+prop snowfall zone.radius=45
+prop wind sound.event=event:/amb/temperance
+prop wind sound.volume=0.5
+prop wind zone.radius=45
+
+quest title=The Winter Book
+quest intro=A lodge closed for the winter with one man to look after it. He isn't here any more - but his pages are. Start up the drive.
+step read|Manager's ledger|1|Climb the drive to the lodge and read the ledger on the front desk
+step pages||6|Read the six pages of the lodge's winter: the ledger and the caretaker's five typed pages
+step reach|maze|1|Find the way into the hedge maze west of the lodge
+step kill|Polar bear|1|Survive what waits at the heart of the maze
+step collect|story:boilerkey|1|Take the boiler house key from the caretaker's coat
+step reach|boilerroom|1|Unlock the boiler house behind the lodge
+step open|Caretaker's strongbox|1|Vent the three valves in the order of his pages - and open his strongbox
+step blueprint|Blueprint_Cropplot_Small_Tier3|1|Take the small crop plot plans from the caretaker's strongbox
+quest done=The boiler sighs and goes cold, and the music in the ballroom stops. The winter book has its last chapter - you wrote it.
+quest reward=Plank*6;Wool*3;Cooked_GenericMeat*2
+
+# --- A Raft store down the hill south of the lodge: the gift shop, open all winter (Raft's goods, and plans the crew missed) --
+store giftshop at 2 -30 ground
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=35 n=1 seed=8846
+prop treasure8846 treasure.loot=TitaniumOre*2
+
+save Highmoor Lodge

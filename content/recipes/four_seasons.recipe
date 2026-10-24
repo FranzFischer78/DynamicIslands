@@ -1,0 +1,430 @@
+# Four Seasons - a new island of the library, seven times the size (x7)
+# A forested atoll cut into four islets by four channels, each islet stuck in its own season - winter on the north,
+# spring on the east, summer on the south, autumn on the west - and in the lagoon the weather-house on its stone piers,
+# where the year's wheel that kept them turning has stopped. Each season keeps a token behind a different kind of task.
+# Quest "The Year's Wheel" (24 steps in 6 chapters): the weather-house; winter (a fight and a climb up an ice spire);
+# spring (a catch); summer (a dive to a sunken bell, air under the coral); autumn (boars, then bells rung in the rhyme's
+# order); the turning of the wheel.
+#
+# Built by the recipe player (CIRecipe four_seasons) through the editor's own operations.
+include lib_huts
+include lib_sea
+new
+# (nature: forest, Like Raft - birch and pine round the ring; each islet dressed for its season)
+gen Trees=0.21 Bushes=0.38 Rocks=0.42 Harvest=0.1 BeachThings=0.3
+gen Seed=9224 Radius=119 Height=14 Roughness=0.4 Peaks=4 Shape=1 Style=3 BeachWidth=0.4 Cliffs=0.2 PeakShape=0.3
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the four channels cut through the ring (north-east, north-west, south-east, south-west; 4 m deep); pads
+# for the shepherdess's cottage (spring), the diver's hut (summer) and the barn (autumn); the reef's floor off the summer
+# islet (7 m down) ---------------------------------------------------------------------------------------------------------
+brush flatten from 45 55 to 75 85 r=5 s=20 frames=300 h=-4
+brush flatten from -55 55 to -85 85 r=5 s=20 frames=300 h=-4
+brush flatten from 40 -50 to 70 -80 r=5 s=20 frames=300 h=-4
+brush flatten from -55 -50 to -85 -80 r=5 s=20 frames=300 h=-4
+brush flatten at 80 7 r=5 s=20 frames=200 h=6
+brush flatten at -40 -80 r=5 s=20 frames=200 h=4
+brush flatten at -86 0 r=6 s=20 frames=200 h=5
+brush flatten at -25 -50 r=9 s=20 frames=300 h=-7
+clear at 80 7 r=7
+clear at -40 -80 r=7
+clear at -86 0 r=8
+clear at 0 78 r=5
+
+# --- The weather-house in the lagoon: a deck on stone piers 2 m over the water, two huts on it (Maren's almanac on its
+# lectern in the west one, her locker in the east one), the year's wheel on the deck between them (its turning twin
+# hidden), her chest, her last page (hidden till the wheel turns), a weather vane; the jetty south with a boat ------------
+for px -6 6 12
+for pz -1 11 12
+place RT_GroundPillar - at $px $pz h=2 sy=4
+next
+next
+place RT_Floor weatherdeck at 6.04 11 h=2 sx=2 sz=1.333
+push at -5.5 0.5 h=2.05
+call stilt_hut y=0.1 ladder=none
+place Placeable_OpenBook - at 2.25 3.6 y=0.1 sit
+place Note_Book almanac at 2.25 3.6 y=1.2 drop yaw=10
+place Pickup_Landmark_Plastic3_Land - at 1.1 1.8 y=0.4 drop yaw=65
+pop
+push at 1 0.5 h=2.05
+call stilt_hut y=0.1 ladder=none
+place Locker - at 3.6 3.6 y=0.1 sit yaw=180
+place Loot_ChestSmall keeperlocker at 1.2 3.6 y=0.1 sit yaw=180
+place "Pickup_Landmark_Scrap 1_Land" - at 2.8 1.6 y=0.4 drop yaw=190
+pop
+place UT_WaterChallengeWheel1 wheel at 0 8.6 h=2.05 sit scale=0.35 rot=90,0,0
+place UT_WaterChallengeWheel1 wheelturning at 0 8.6 h=2.05 sit scale=0.35 rot=90,0,0
+place Loot_ChestLarge keeperchest at 4.2 9.6 h=2.05 sit yaw=180
+place Note_Paper lastpage at -3.5 9.6 h=2.6 drop yaw=20
+place Antenna_pole - at 5.4 10.4 h=2.05 sit
+place RT_WindMill - at 5.4 10.4 h=8.3 scale=0.3
+place Zone_Trigger wheelroom at 0 9.8 h=3.5
+push at -0.75 -1 h=-3 yaw=90
+call boardwalk n=5 wide=1 y=5.05
+pop
+place RT_PlasticBoat - at 3.5 -6 h=0.3 yaw=10
+place Zone_Trigger weatherhouse at 0 -4 h=3.5
+
+# --- WINTER (the north islet): snow drifts and snowy pines, the winter sky (and its thaw, hidden); the frost shrine at
+# the landing with its verse; the ice spire, a tower of posts with ladders beside it up to a deck at its top (the winter
+# token's box), the frost bear's den at its foot; a box at the landing ----------------------------------------------------
+for k 0 7 1
+place TP_SnowDrift01 - at {-10+22*cos(45*$k)} {92+12*sin(45*$k)} ground sit yaw={50*$k}
+next
+place TP_PineTreeSnowy - at 12 95 ground sit
+place TP_PineTreeSnowy - at -38 88 ground sit
+place RT_PillarThick - at 0 79.5 ground sit sy=0.4
+place RT_PillarThick - at 2 79.5 ground sit sy=0.4
+place RT_PillarThick - at 0 81.5 ground sit sy=0.4
+place RT_PillarThick - at 2 81.5 ground sit sy=0.4
+place Block_Roof_Wood_Pyramid - at 1 80.5 y=2.5 sx=1.4 sz=1.4
+place Note_Sign frostverse at 1 79 ground sit yaw=180
+place Zone_Trigger winter at 1 78 y=1.5
+place "Box Small" winterbox at 4 77 ground sit yaw=20
+place TP_IcePillar01 - at -20 94 ground centred sit scale=2
+place TP_IcePillar02 - at -26 90 ground centred sit
+place TP_IcePillar02 - at -15 99 ground centred sit scale=0.8
+place RT_PillarThick - at -12.6 93.2 y=0
+place RT_PillarThick - at -12.6 93.2 y=6
+place RT_PillarThick - at -12.6 94.8 y=0
+place RT_PillarThick - at -12.6 94.8 y=6
+place LandmarkLadder_6m - at -12.3 94 y=0 yaw=270
+place LandmarkLadder_6m - at -12.3 94 y=6.6 yaw=270
+place RT_Floor icedeck at -12.3 96 y=12.1 sx=0.9 sz=0.45
+place Loot_ChestSmall wintertoken at -15 94 y=12.2 drop yaw=90
+place Zone_Trigger icecrown at -15 94 y=13.5
+place Zone_Trigger den at -16 84 y=1.5
+place Creature_PolarBear frostbear at -22 82 ground
+place Zone_Atmosphere wintersky at -10 90 y=10
+place Zone_Atmosphere wintersky at 30 88 y=10
+place Zone_Atmosphere winterturned at -10 90 y=10
+place Zone_Atmosphere winterturned at 30 88 y=10
+
+# --- SPRING (the east islet): hibiscus and young birches, berries, the spring sky (and its summer, hidden); the
+# shepherdess's cottage with her gift box, the pen with its gate open and her note on it; the lambs loose all over ----------
+push at 77.75 4.75 h=6.05
+call stilt_hut y=0.6
+place Loot_ChestSmall springtoken at 3.4 3.5 y=0.6 sit yaw=180
+place Pickup_Landmark_Plastic3_Land - at 1.4 1.7 y=0.9 drop yaw=310
+pop
+line Balboa_DecorationPrefabBase_Fence_Mid from 84 2 to 84 14 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from 84 14 to 92 14 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from 92 14 to 92 2 step=2.98
+place RT_Pillar - at 86 1.6 ground sit sy=0.45
+place Note_Paper shepherdnote at 86 1.5 y=1 yaw=180
+place Zone_Trigger spring at 80 7 y=1.5
+place Creature_Goat lambs at 88 40 ground
+place Placeable_Flower_Hibiscus - at 74 -6 ground sit
+place Placeable_Flower_Hibiscus - at 90 -10 ground sit
+place Placeable_Flower_Hibiscus - at 86 26 ground sit
+place BirchTree_Small1 - at 76 20 ground sit
+place BirchTree_Small1 - at 92 -20 ground sit
+place Pickup_Landmark_BerryBush - at 82 -14 ground
+place Pickup_Landmark_Flower_White - at 79 16 ground
+place Zone_Atmosphere springsky at 85 10 y=10
+place Zone_Atmosphere springsky at 80 -35 y=10
+place Zone_Atmosphere springturned at 85 10 y=10
+place Zone_Atmosphere springturned at 80 -35 y=10
+
+# --- SUMMER (the south islet): palms and mangoes, watermelons, the summer sky (and its autumn gold, hidden); the diver's
+# hut by the lagoon with his log on its post and a box under it; the reef off the islet - corals, the sunken summer bell
+# on its stone with the summer token's chest by it, two pockets of air under the coral, turtles ----------------------------
+push at -42.25 -82.25 h=4.05
+call stilt_hut y=1.2
+place Pickup_Landmark_Plank_Land - at 1.3 3.0 y=1.5 drop yaw=15
+place Pickup_Landmark_Plastic3_Land - at 3.0 1.5 y=1.5 drop yaw=228
+pop
+place RT_Pillar - at -37 -79 ground sit sy=0.6
+place Note_Board diverlog at -37 -79.3 y=0.6 yaw=180
+place "Box Small" diverbox at -40 -83 ground sit yaw=20
+place Zone_Trigger summer at -40 -78 y=1.5
+scatter "Pickup_Landmark_Tree_Palm 1" 2 at -15 -95 r=8 seed=2401
+place Pickup_Landmark_Tree_Mango - at 5 -90 ground
+place Pickup_Landmark_WatermelonLandmark - at -28 -88 ground
+place Pickup_Landmark_WatermelonLandmark - at -24 -91 ground
+place Zone_Atmosphere summersky at -20 -90 y=10
+place Zone_Atmosphere summersky at 20 -85 y=10
+place Zone_Atmosphere summerturned at -20 -90 y=10
+place Zone_Atmosphere summerturned at 20 -85 y=10
+scatter TableCoral_1 6 at -25 -50 r=8 wet seed=2402
+scatter CylinderCoral_1 4 at -25 -50 r=8 wet seed=2403
+place BigBoulder3_Low - at -25 -50 h=-7 sit scale=0.12
+place TangaroaBucket summerbell at -25 -50 h=-4.5 drop scale=3 rot=180,0,0
+place Loot_ChestSmall summertoken at -23.5 -50 h=-7 sit yaw=90
+place Zone_Trigger reef at -25 -50 h=-5
+place Zone_Trigger reefair1 at -20 -47 h=-5.5
+place Zone_Atmosphere reefbubbles1 at -20 -47 h=-5.5
+place Zone_Trigger reefair2 at -30 -53 h=-5.5
+place Zone_Atmosphere reefbubbles2 at -30 -53 h=-5.5
+place Creature_Turtle turtles at -25 -50 h=-3
+
+# --- AUTUMN (the west islet): bare trees, fallen logs, the orchard of mangoes, watermelons and scarecrows, the autumn sky
+# (and its first frost, hidden); the barn with the harvest rhyme on its door and the autumn token's sheaf (hidden till the
+# bells are rung); four harvest bells on posts by the field; hens; the boars wait in the orchard ---------------------------
+push at -88.25 -2.25 h=5.05
+call stilt_hut y=0.4
+place Loot_ChestSmall autumntoken at 2.25 3.5 y=0.4 sit yaw=180
+place "Pickup_Landmark_Scrap 3_Land" - at 1.2 1.5 y=0.7 drop yaw=101
+pop
+place Note_Sign rhyme at -85.8 -2.6 y=0 sit yaw=180
+place Zone_Trigger autumn at -86 -4 y=1.5
+place Creature_Chicken hens at -80 -6 ground
+place Pickup_Landmark_MangoTree - at -82 18 ground
+place Pickup_Landmark_MangoTree - at -78 24 ground
+place Pickup_Landmark_MangoTree - at -87 26 ground
+place Zone_Trigger orchard at -82 22 y=1.5
+place Creature_Boar boars at -76 30 ground
+place DeadTree1 - at -92 -30 ground sit yaw=30
+place DeadTree2 - at -70 40 ground sit yaw=120
+place TreeLog_01 - at -90 12 ground sit yaw=40
+place Pickup_Landmark_WatermelonLandmark - at -80 -22 ground
+place Pickup_Landmark_WatermelonLandmark - at -76 -25 ground
+place Placeable_Scarecrow - at -78 -20 ground yaw=90
+macro harvestbell name x z
+place RT_Pillar - at $x $z ground sit sy=0.55
+place TangaroaBucket $name at $x $z y=1.93 scale=1.2 rot=180,0,0
+end
+call harvestbell bellplough -88 -16
+call harvestbell bellsow -84 -16
+call harvestbell bellreap -80 -16
+call harvestbell bellstore -76 -16
+place Zone_Atmosphere autumnsky at -85 0 y=10
+place Zone_Atmosphere autumnsky at -80 -45 y=10
+place Zone_Atmosphere autumnturned at -85 0 y=10
+place Zone_Atmosphere autumnturned at -80 -45 y=10
+
+# --- The sea round the ring: dolphins in the lagoon, a sunk crate in the north-east channel ------------------------------
+place Creature_Dolphin dolphins at 20 -10 h=-3
+place Loot_SunkenBarrel channelcrate at 60 70 h=-3 drop
+
+# --- Raft's finds in the shallows round the ring and in the lagoon (lib_sea) ------------------------------------------------
+call shallows r=139 deep=5 n=2
+
+# ===== Settings, story items, notes, behaviours, quest (24 steps, 6 chapters) =============================================
+info title=Four Seasons
+info author=Custom Islands
+info description=An atoll whose four islets each stand in a different season - snow, blossom, high summer, harvest - stuck since the weather-keeper's wheel stopped. Each season keeps a token behind its own kind of task. Lay all four in the year's wheel and the seasons turn again.
+island on.arrive=message||A ring of islands round a lagoon - and it is snowing on the northern one, the eastern one is pink with blossom, the southern one shimmers in summer heat, and the western one is all gold and falling leaves.
+
+story token|Season token|Placeable_Utopia_LightBottleWhite|A token of one season - a snowflake of glass, a blossom of silk, a sunburst of brass, a sheaf of gold wire.
+story yearseed|Seed of the year|Seed_Birch|A seed that fell out of the year's wheel when it turned: it will grow in any season.
+
+note almanac Maren's almanac | THE ALMANAC OF THE WEATHER-HOUSE\n\nFor sixty years I turned the year's wheel on every quarter-day, and the islets took their seasons in turn.\n\nIf you are reading this, I have stopped turning it, and each islet is stuck in its own season. The wheel will turn again for whoever lays the four tokens in it:\nWINTER's, at the top of the ice spire - the frost bear sleeps at its foot.\nSPRING's, with the shepherdess - she lost her lambs.\nSUMMER's, under the sunken bell on the reef.\nAUTUMN's, for whoever rings the harvest bells in the order of the rhyme.\n\nMy locker has what you'll need for the lambs.\n- Maren
+note keeperlocker Weather-keeper's locker | Maren's locker: oilskins, a barometer - and a net launcher with its canisters, labelled FOR THE LAMBS.
+loot keeperlocker NetGun*1;NetCanister*6;Rope*2
+prop keeperlocker loot.refill=0
+note frostverse The frost shrine's verse | (cut into the shrine's stone)\n\nAt the top of the ice the winter sleeps;\nat the foot of the ice the white bear keeps.\nClimb past the one to wake the other.
+note wintertoken Winter's token | At the top of the ice spire, in a box of ice: a snowflake of glass that never melts.
+loot wintertoken story:token*1;Wool*2
+prop wintertoken loot.refill=0
+note shepherdnote The shepherdess's note | (pinned to the pen's open gate)\n\nMy three lambs broke out when the blossom came and won't come home. Net them and they'll trot back to the pen.\nThe spring's token is in my box on the step - it's yours when they're home.\n- Liv
+note springtoken Spring's token | The shepherdess's box: a blossom of silk that smells of spring - and cheese.
+loot springtoken story:token*1;Cooked_GenericMeat*2
+prop springtoken loot.refill=0
+prop springtoken if.open=quest|11
+prop springtoken else.open=message||Liv's box. Her note: it's yours when the lambs are home.
+note diverlog The diver's log | SUMMER REEF - DIVER'S LOG\n\nThe summer bell sank in a squall; it's on the reef, eight metres, on a stone. The token is in a box under it.\nAir under the coral overhangs - two of them, between here and the bell.\nTurtles everywhere. They don't mind company.
+note summertoken Summer's token | Under the sunken bell: a box with a sunburst of brass in it, warm even down here.
+loot summertoken story:token*1;CopperOre*1
+prop summertoken loot.refill=0
+note rhyme The harvest rhyme | (painted on the barn door)\n\nFirst we plough, then we sow,\nthen we reap the golden row,\nlast we store it, safe and sound -\nring the year the right way round.
+note autumntoken Autumn's token | In the barn, where the bells' ringing shook it loose from the rafters: a sheaf of gold wire.
+loot autumntoken story:token*1;Seed_Pine*2
+prop autumntoken loot.refill=0
+prop autumntoken obj.name=autumntoken
+prop autumntoken beh.hidden=1
+note lastpage Maren's last page | (it fell out of the wheel's hub as it turned)\n\nYou did it. The north is thawing, the east is ripening, the south is turning gold and the west has its first frost. Next quarter-day, turn it again - or don't. The islets will take their seasons as they come.\n\nMy chest is yours. Plant something.\n- Maren
+note keeperchest Weather-keeper's chest | Maren's chest: the plans for her planting beds - small and medium - seeds of every season, a coat for winter and a hat for summer.
+loot keeperchest Blueprint_Cropplot_Small_Tier3*1;Blueprint_Cropplot_Medium_Tier3*1;Seed_Strawberry*4;Seed_Watermelon*4;Seed_Mango*3;Seed_Birch*3;Equipment_LeatherChest*1;Hat_Fishing*1
+prop keeperchest loot.refill=0
+prop keeperchest if.open=signal|turned
+prop keeperchest else.open=message||Maren's chest. A tag on it: WHEN THE WHEEL TURNS.
+note diverbox Diver's box | A box under the diver's hut: a mask, fins, dried fish.
+loot diverbox Cooked_Herring*2;Rope*2;Plastic*2
+prop diverbox loot.refill=0
+note channelcrate Sunk crate | A crate in a channel between the islets: the keeper's supplies that never arrived.
+loot channelcrate MetalOre*2;Scrap*3;Nail*6
+prop channelcrate loot.refill=0
+note winterbox Winter landing box | A box at the winter landing: blankets and a flask.
+loot winterbox Wool*2;PlasticBottle_Water*2
+prop winterbox loot.refill=0
+
+prop bellplough obj.name=bellplough
+prop bellplough beh.use=Ring the PLOUGH bell
+prop bellplough on.use=message||PLOUGH - a deep, dull clang.\nsignal||b1\nsound||event:/exploring/obstacles/bicyclebell
+prop bellsow obj.name=bellsow
+prop bellsow beh.use=Ring the SOW bell
+prop bellsow if.use=signal|b1
+prop bellsow on.use=message||SOW - a lighter note.\nsignal||b2\nsound||event:/exploring/obstacles/bicyclebell
+prop bellsow else.use=message||A sour note - the leaves shiver off the trees. "Ring the year the right way round."
+prop bellreap obj.name=bellreap
+prop bellreap beh.use=Ring the REAP bell
+prop bellreap if.use=signal|b2
+prop bellreap on.use=message||REAP - bright as a sickle.\nsignal||b3\nsound||event:/exploring/obstacles/bicyclebell
+prop bellreap else.use=message||A sour note - the leaves shiver off the trees. "Ring the year the right way round."
+prop bellstore obj.name=bellstore
+prop bellstore beh.use=Ring the STORE bell
+prop bellstore if.use=signal|b3\n!signal|rung
+prop bellstore on.use=message||STORE - and the four notes run together into a chord. In the barn, something falls from the rafters with a soft chink.\nsignal||rung\nshow|autumntoken\nsound||event:/exploring/obstacles/bicyclebell
+prop bellstore else.use=message||A sour note - the leaves shiver off the trees. "Ring the year the right way round."
+prop wheel obj.name=wheel
+prop wheel beh.use=Lay the four season tokens in the year's wheel
+prop wheel if.use=quest|21\ntake|story:token|4
+prop wheel on.use=message||Snowflake, blossom, sunburst, sheaf - each into its socket on the rim. The wheel shudders and begins to turn. Out across the lagoon the seasons slide round: the north islet's snow turns to mist and thaw, the east's blossom to summer green, the south's heat to autumn gold, the west's falling leaves to the first frost. A page drops out of the wheel's hub, and a seed.\nsignal||turned\nhide|wheel\nshow|wheelturning\nhide|wintersky\nshow|winterturned\nhide|springsky\nshow|springturned\nhide|summersky\nshow|summerturned\nhide|autumnsky\nshow|autumnturned\nshow|lastpage\ngive||story:yearseed*1\nsound||event:/exploring/utopia/waterwheel_rotate
+prop wheel else.use=message||The year's wheel, stopped, four empty sockets on its rim. Maren's almanac says what goes in them.
+prop wheelturning obj.name=wheelturning
+prop wheelturning beh.hidden=1
+prop wheelturning beh.spin=15
+prop wheelturning beh.spinOwn=1
+prop lastpage obj.name=lastpage
+prop lastpage beh.hidden=1
+prop wintersky obj.name=wintersky
+prop wintersky atmo.fog=#d8e4ee
+prop wintersky atmo.fogAmount=0.2
+prop wintersky atmo.light=#c8d8f0
+prop wintersky atmo.lightAmount=0.25
+prop wintersky atmo.particles=snow
+prop wintersky zone.radius=45
+prop winterturned obj.name=winterturned
+prop winterturned beh.hidden=1
+prop winterturned atmo.fog=#c8d0c8
+prop winterturned atmo.fogAmount=0.15
+prop winterturned atmo.particles=mist
+prop winterturned zone.radius=45
+prop springsky obj.name=springsky
+prop springsky atmo.fog=#e8f0e0
+prop springsky atmo.fogAmount=0.08
+prop springsky atmo.light=#e8ffd8
+prop springsky atmo.lightAmount=0.2
+prop springsky atmo.particles=fireflies
+prop springsky zone.radius=45
+prop springturned obj.name=springturned
+prop springturned beh.hidden=1
+prop springturned atmo.light=#fff4c8
+prop springturned atmo.lightAmount=0.2
+prop springturned zone.radius=45
+prop summersky obj.name=summersky
+prop summersky atmo.fog=#f8f0d8
+prop summersky atmo.fogAmount=0.06
+prop summersky atmo.light=#fff0b0
+prop summersky atmo.lightAmount=0.3
+prop summersky zone.radius=45
+prop summerturned obj.name=summerturned
+prop summerturned beh.hidden=1
+prop summerturned atmo.fog=#e8c890
+prop summerturned atmo.fogAmount=0.12
+prop summerturned atmo.light=#ffb060
+prop summerturned atmo.lightAmount=0.25
+prop summerturned zone.radius=45
+prop autumnsky obj.name=autumnsky
+prop autumnsky atmo.fog=#e0b070
+prop autumnsky atmo.fogAmount=0.15
+prop autumnsky atmo.light=#ffa040
+prop autumnsky atmo.lightAmount=0.3
+prop autumnsky atmo.particles=mist
+prop autumnsky zone.radius=45
+prop autumnturned obj.name=autumnturned
+prop autumnturned beh.hidden=1
+prop autumnturned atmo.fog=#d8e0e8
+prop autumnturned atmo.fogAmount=0.15
+prop autumnturned atmo.particles=snow
+prop autumnturned zone.radius=45
+
+prop weatherhouse zone.id=weatherhouse
+prop weatherhouse zone.radius=8
+prop weatherhouse zone.message=The weather-house on its islet in the lagoon: a vane that doesn't turn, a lectern with an almanac, a great wheel standing still.
+prop wheelroom zone.id=wheelroom
+prop wheelroom zone.radius=2
+prop wheelroom zone.repeat=1
+prop wheelroom zone.message=The year's wheel: taller than you, four empty sockets on its rim.
+prop winter zone.id=winter
+prop winter zone.radius=8
+prop winter zone.message=Winter: snow to your knees, a little stone shrine - and in the middle of the islet, a spire of ice.
+prop den zone.id=den
+prop den zone.repeat=never
+prop den zone.radius=8
+prop den zone.message=The foot of the ice spire - and the white bear that keeps it, ice in its fur, rising out of the snow.
+prop frostbear creature.count=1
+prop frostbear creature.size=1.6
+prop frostbear creature.health=3
+prop frostbear creature.respawn=0
+prop frostbear creature.zone=den
+prop frostbear tint.color=#a8c8e8
+prop frostbear tint.amount=0.4
+prop icecrown zone.id=icecrown
+prop icecrown zone.radius=3
+prop icecrown zone.message=The top of the ice spire. The whole atoll below you, four seasons at once.
+prop spring zone.id=spring
+prop spring zone.radius=8
+prop spring zone.message=Spring: blossom, birdsong, a cottage with an empty pen - and lambs, bouncing away from you through the flowers.
+prop lambs creature.count=3
+prop lambs creature.size=0.7
+prop summer zone.id=summer
+prop summer zone.radius=8
+prop summer zone.message=Summer: hot sand, palms, a diver's hut - and the reef glittering under the lagoon.
+prop reef zone.id=reef
+prop reef zone.radius=8
+prop reef zone.message=The reef: corals, turtles - and on a stone, a great bronze bell upside down.
+prop reefair1 zone.id=reefair1
+prop reefair1 zone.radius=2.5
+prop reefair1 zone.repeat=1
+prop reefair1 zone.air=1
+prop reefair2 zone.id=reefair2
+prop reefair2 zone.radius=2.5
+prop reefair2 zone.repeat=1
+prop reefair2 zone.air=1
+prop reefbubbles1 atmo.particles=bubbles
+prop reefbubbles1 zone.radius=3
+prop reefbubbles2 atmo.particles=bubbles
+prop reefbubbles2 zone.radius=3
+prop autumn zone.id=autumn
+prop autumn zone.radius=9
+prop autumn zone.message=Autumn: gold leaves falling, a barn, a field with scarecrows and four bells on posts.
+prop orchard zone.id=orchard
+prop orchard zone.radius=10
+prop orchard zone.repeat=never
+prop orchard zone.message=The orchard - and the boars have found the windfalls!
+prop boars creature.count=3
+prop boars creature.respawn=0
+prop boars creature.zone=orchard
+prop turtles creature.count=3
+prop hens creature.count=3
+prop dolphins creature.count=2
+
+quest title=The Year's Wheel
+quest intro=An atoll stuck in four seasons at once, and in its lagoon a weather-house with a stopped wheel. Maren's almanac is on the lectern.
+# Chapter 1 - the weather-house
+step reach|weatherhouse|1|Row out to the weather-house in the lagoon
+step read|Maren's almanac|1|Read Maren's almanac
+step open|Weather-keeper's locker|1|Open the weather-keeper's locker
+# Chapter 2 - winter
+step reach|winter|1|Land on the winter islet
+step read|The frost shrine's verse|1|Read the verse on the frost shrine
+step kill|Polar bear|1|Face the frost bear at the foot of the ice spire
+step reach|icecrown|1|Climb the ice spire
+step collect|story:token|1|Take winter's token from the box of ice
+# Chapter 3 - spring
+step reach|spring|1|Land on the spring islet
+step read|The shepherdess's note|1|Read the shepherdess's note on the pen gate
+step catch|Goat|3|Net the three runaway lambs
+step collect|story:token|2|Take spring's token from the shepherdess's box
+# Chapter 4 - summer
+step reach|summer|1|Land on the summer islet
+step read|The diver's log|1|Read the diver's log
+step reach|reef|1|Dive to the reef (breathe under the coral overhangs)
+step collect|story:token|3|Take summer's token from under the sunken bell
+# Chapter 5 - autumn
+step reach|autumn|1|Land on the autumn islet
+step read|The harvest rhyme|1|Read the harvest rhyme on the barn door
+step kill|Warthog|3|Drive the boars out of the orchard
+step collect|story:token|4|Ring the harvest bells in the rhyme's order and take autumn's token
+# Chapter 6 - the turning
+step reach|wheelroom|1|Bring the four tokens back to the wheel room in the weather-house
+step collect|story:yearseed|1|Lay the four tokens in the year's wheel
+step read|Maren's last page|1|Read the page that fell out of the wheel
+step open|Weather-keeper's chest|1|Open Maren's chest
+quest done=The year's wheel turns and the four islets slide round into their next seasons. Maren's atoll keeps time again.
+quest reward=Seed_Strawberry*3;Seed_Watermelon*3;Rope*3
+
+save Four Seasons

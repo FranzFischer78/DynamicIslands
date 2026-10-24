@@ -1,0 +1,40 @@
+# Tracker's Rise (CIPlay trackers_rise): the meadow round 0 4, the tower at -14 -12, the gully round 24 24 with Burr's
+# cage and the satchel, the anchor box -6 -14, the llamas round -6 14, Ranger log 5 at 2 -4.
+island Tracker's Rise
+# RESIZE 10-24: the recipe moved this island's old content by 17.7 -7.6; the points below are in the old frame
+offset -17.7 7.6
+expect step 0
+expect title Tracks
+zone meadow
+expect step 1
+read Tracking guide
+expect step 2
+open Tower chest
+wait 3
+expect step 3
+zone gully
+expect step 4
+use burrcage
+expect story burr 1
+expect hidden burrcage
+expect step 5
+open Ranger's satchel
+open Fisher's locker
+open Overgrown chest
+wait 2
+expect item Shovel 1
+expect step 7
+expect hidden mapcase
+use maptable
+expect story mappiece 0
+expect shown mapcase
+open Oda's map case
+wait 3
+expect step 9
+open Zipline anchor box
+wait 3
+expect step 10
+catch Llama 1
+expect step 11
+read Ranger log 5
+expect done

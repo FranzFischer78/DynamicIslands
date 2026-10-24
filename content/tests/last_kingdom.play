@@ -1,0 +1,163 @@
+# Play test of The Last Kingdom (CIPlay last_kingdom, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The town on the north coast at 2 m (the quay along z 177, the cross at 8 158, the guildhall 14.5..25 x 160.5..171, the
+# inn 14.5..25 x 145.5..156, the warehouse -10..2 x 163.5..172.5); the toll bridge -27..-18 x 149..150.5; the mill
+# -72.5..-62 x 95.5..106 (3 m), the barley at -78 125, the farm at -55 145 (the barn -58.5..-48 x 135.5..146); the forest
+# gate at -20.5 110.5; the woodcutter -8 106, the wolves 2 98, the hermit 14 80, the glade 26 98; the shrine -30 45; the
+# lake round -75 5 (the chapel -81..-69 x 2..8, 9 m down), the landing -54 12, the castle road's foot -63 -14; the castle
+# court at 40 m (the gate at -45.5 -50, the winch in the south tower -43 -57, the kitchens -34..-22 x -61.5..-52.5, the vault
+# -36..-30 x -44..-38 at 35 m, the keep -21..-15 x -59..-41 with the throne room at 43 m and the battlements at 46 m).
+island The Last Kingdom
+offset 1.1429 -0.9608
+expect step 0
+expect title The Empty Throne
+wait 5
+expect animals Goat 3
+expect animals Llama 3
+at -2 175 h=3.5
+zone harbour
+expect step 1
+at 8 154 h=3.5
+read The herald's proclamation
+expect step 2
+at -3 168 h=3.5
+zone warehouse
+kill Tangaroa rat
+expect step 3
+open Guildhall chest
+expect story writ 1
+expect step 4
+open Poulterer's crate
+catch Chicken 3
+expect step 5
+open Innkeeper's thanks
+expect step 6
+at -16.5 146 h=3.5
+use tollpost
+wait 3
+at -28.5 149.75 h=3.5
+zone tollbridge
+expect step 7
+at -64 100 h=4.5
+zone mill
+expect step 8
+read The miller's ledger
+expect step 9
+use hopper
+expect message mill must turn first
+at -60.5 108 h=4.5
+use sluicelever
+expect shown millwheelturn
+use hopper
+expect story seal 1
+expect step 10
+at -78 125 h=4
+zone barley
+kill Warthog
+expect step 11
+at -60 148 h=4
+catch Goat 3
+expect step 12
+open Farmer's chest
+expect story forestkey 1
+expect step 13
+at -24 106 h=5.5
+use forestlock
+wait 7
+at -14 108 h=5.5
+zone forestgate
+expect step 14
+at -8 103 h=6.5
+read The woodcutter's warning
+expect step 15
+at 2 98 h=8.5
+zone wolfden
+kill Hyena
+expect step 16
+at 14 78 h=13.5
+zone hermithut
+expect step 17
+read The hermit's riddle
+expect step 18
+at 26 101 h=11.5
+use oakfox
+expect message Nothing
+use oakowl
+expect story seal 2
+expect step 19
+zone glade
+kill Bear
+expect step 20
+at -30 45 h=9.5
+zone forestshrine
+expect step 21
+at -54 12 h=2.5
+zone lakeshore
+expect step 22
+read The ferryman's chart
+expect step 23
+at -78 1 h=-7
+zone drownedchapel
+expect step 24
+kill Angler fish
+expect step 25
+at -79 4 h=-6
+open The chapel's reliquary
+expect story seal 3
+expect step 26
+at -63 -14 h=3.5
+zone castlepath
+expect step 27
+at -51 -50 h=41.5
+zone castlegate
+expect step 28
+at -44.5 -57 h=41.5
+use winch
+wait 6
+at -30 -47.5 h=41.5
+read The steward's confession
+expect step 29
+at -31 -57 h=41.5
+zone kitchens
+kill Rat
+at -33 -46 h=36.5
+zone vaultstair
+wait 2
+expect step 31
+use seallocks
+expect story seal 0
+wait 3
+at -33 -40 h=36.5
+open The crown's chest
+expect story crown 1
+expect step 32
+expect shown beast
+at -18 -50 h=41.5
+kill Mama bear
+expect step 33
+at -18 -50 h=44.5
+zone throneroom
+expect step 34
+read King Aldric's will
+expect step 35
+use throne
+expect shown coronation
+expect step 36
+at -18 -56 h=47.5
+zone battlements
+expect step 37
+expect shown charter
+at -19.5 -57 h=44.5
+read The royal charter
+expect step 38
+open The royal treasury
+expect step 39
+at 8 154 h=3.5
+expect shown peoplesgift
+open The people's gift
+expect done
+open Woodpile box
+open Forest shrine box
+open Castle pantry box
+open Box at the ford
+open Sunk crate
+open Sunk barrel in the lake

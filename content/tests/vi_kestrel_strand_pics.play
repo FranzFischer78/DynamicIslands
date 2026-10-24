@@ -1,0 +1,12 @@
+# Pictures of Kestrel Strand (CIPlay vi_kestrel_strand_pics; vehicle island): Raft's camera, midday, calm
+island Kestrel Strand
+offset 0 0
+hour 11
+weather Calm
+at 0 0
+wait 3
+picture vi_kestrel_strand_overview 31 28 -31 0 3 0
+picture vi_kestrel_strand_plane 19 +5 -6 6 +1.5 4
+picture vi_kestrel_strand_shelter -5 +2 -3 -13.5 +1.5 3.5
+picture vi_kestrel_strand_dinghy 10 +3 -19 4 +0.5 -24
+picture vi_kestrel_strand_chkskid -4 +3 6 -4 +0.3 -4

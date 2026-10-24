@@ -1,0 +1,40 @@
+# Play test of Crane Yard (CIPlay crane_yard, in a test world 'CI ...'). Points as in its recipe.
+island Crane Yard
+expect step 0
+expect title Lights On
+
+# Up the pier's ladder from the sea, along the pier into the yard
+climb 19 -3.15 h=0.3
+expect stand 16 -1 h=5.66
+walk 18 0 to 10 0 to 2 0 h=6.6 below=10
+zone yard
+expect step 0
+read Foreman's whiteboard
+expect step 1
+
+# The spotlight without its parts; up the scaffold tower's ladder
+use spotlight
+expect message missing its lens
+climb 6 -7.15 h=5.9
+expect stand 4 -6 h=11.7
+
+# The collapsed deck: the angler fish, three crates with the spotlight's parts
+kill Angler fish
+expect step 2
+openat 26 -7
+openat 30.5 4.5
+openat 33 -1.5
+expect story part 3
+expect step 3
+
+# The spotlight fixed: its beam, the buoy and the lockbox
+expect hidden lockbox
+use spotlight
+expect message blazes on
+expect story part 0
+expect shown beam
+expect shown buoy
+expect shown lockbox
+open Foreman's lockbox
+expect item Placeable_RhinoSharkTrophy 1
+expect done

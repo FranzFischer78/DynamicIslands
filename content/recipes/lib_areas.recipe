@@ -1,0 +1,101 @@
+# lib_areas: the story islands' extra areas (10-24) - a ridge or hill, a cave in its own rock, a roofless ruin, a plane
+# wreck - so a big island has something to find all over it and its quest can lead the player across it. Each macro
+# shapes its own ground and clears the plants under what it builds.
+#
+# ar_ridge: a ridge from x1 z1 to x2 z2, h m over the sea along its line, a peak h+top m at its middle, smoothed, its
+# ground painted by its slope (rock faces, grass tops), its plants cleared (the caller puts plants back with ar_plants_<style> x z r over the ridge's middle,
+# r = half its length + r). r: half its width.
+macro ar_ridge x1=0 z1=0 x2=30 z2=0 h=12 top=6 r=9
+set mx {($x1+$x2)/2}
+set mz {($z1+$z2)/2}
+brush flatten from $x1 $z1 to $x2 $z2 r=$r s=20 frames=700 h=$h
+brush flatten at $mx $mz r={$r*0.8} s=20 frames=500 h={$h+$top}
+brush smooth from $x1 $z1 to $x2 $z2 r={$r*1.7} s=6 frames=90
+brush auto from $x1 $z1 to $x2 $z2 r={$r*1.8} s=10 frames=25
+clear from $x1 $z1 to $x2 $z2 r={$r*2}
+end
+#
+# the plants put back on a ridge (Raft's own kinds of each style, about Raft's density for the area)
+macro ar_plants_tropical x=0 z=0 r=20 seed=1
+scatter "Pickup_Landmark_Tree_Palm 3" 3 at $x $z r=$r seed=$seed free=3
+scatter "Pickup_Landmark_Tree_Palm 4" 3 at $x $z r=$r seed={$seed+1} free=3
+scatter Bamboo_1 4 at $x $z r=$r seed={$seed+2} free=2
+scatter Pickup_Landmark_Tree_Mango 2 at $x $z r=$r seed={$seed+3} free=3
+scatter Bush 8 at $x $z r=$r seed={$seed+4} free=1
+scatter Bush2 5 at $x $z r=$r seed={$seed+5} free=1
+scatter SmallBoulder2 4 at $x $z r=$r seed={$seed+6} free=2
+scatter SmallBoulder4 4 at $x $z r=$r seed={$seed+7} free=2
+scatter BigBoulder1_Low 2 at $x $z r=$r seed={$seed+8} free=3
+end
+macro ar_plants_desert x=0 z=0 r=20 seed=1
+scatter SmallBushyTree_1 3 at $x $z r=$r seed=$seed free=3
+scatter SmallBushyTree_2 3 at $x $z r=$r seed={$seed+1} free=3
+scatter CaravanIsland_YellowGrass 10 at $x $z r=$r seed={$seed+2} free=1
+scatter CaravanIsland_BrownGrass 10 at $x $z r=$r seed={$seed+3} free=1
+scatter DesertFern_02 4 at $x $z r=$r seed={$seed+4} free=1
+scatter CaravanIsland_SmallRock_1 6 at $x $z r=$r seed={$seed+5} free=2
+scatter BigSharpRock_5 2 at $x $z r=$r seed={$seed+6} free=3
+end
+macro ar_plants_snowy x=0 z=0 r=20 seed=1
+scatter TP_PineTreeSnowy 2 at $x $z r=$r seed=$seed free=4
+scatter TP_BigRock03 3 at $x $z r=$r seed={$seed+1} free=3
+scatter TP_SmallRock01 3 at $x $z r=$r seed={$seed+2} free=2
+end
+#
+# ar_cave: Raft's bear-cave rock as a hump on a pad h m over the sea at x z, its mouth to +z (yaw=0) or -z (yaw=180),
+# a passage dug 20 m out from the mouth; inside, a small chest and a lamp on the floor (h+0.45). The caller puts a tzone
+# in it (x, z+5 for yaw 0 / z-5 for yaw 180). al: the rock, chest: the chest's alias.
+macro ar_cave x=0 z=0 h=2 yaw=0 al=caverock chest=cavechest
+set cs {cos($yaw)}
+brush flatten at $x $z r=14 s=20 frames=80 h=$h
+brush flatten from {$x-$cs} {$z+21*$cs} to {$x-$cs} {$z+6*$cs} r=4.5 s=20 frames=60 h={$h+0.4}
+clear at $x $z r=19
+clear from {$x-$cs} {$z+20*$cs} to {$x-$cs} {$z+26*$cs} r=4
+place BalboaCave_Bear $al at $x $z h={$h+4.95} yaw=$yaw
+place Loot_ChestSmall $chest at {$x-2.5*$cs} {$z+5*$cs} h={$h+0.45} sit yaw={60+$yaw}
+place Placeable_Lantern_Metal - at {$x+2.6*$cs} {$z+4*$cs} h={$h+0.45} sit
+end
+#
+# ar_ruin: a roofless stone house w x d blocks (1.5 m) on a pad h m over the sea at x z, turned yaw: its door in the
+# front (-z) wall, the back wall's middle and one side wall's end fallen, the stones lying round it; a table inside
+# (the caller's note goes on it: the table's top is at local 1.5 1.5 y=1.05 for w=3 d=2). al: its walls.
+macro ar_ruin x=0 z=0 h=3 yaw=0 w=3 d=2 al=ruin
+brush flatten at {$x} {$z} r={$w*1.5+4} s=20 frames=300 h=$h
+clear at $x $z r={$w*1.5+4}
+push at {$x-($w*0.75)*cos($yaw)-($d*0.75)*sin($yaw)} {$z+($w*0.75)*sin($yaw)-($d*0.75)*cos($yaw)} h=$h yaw=$yaw
+for fx 0.75 {$w*1.5-0.75} 1.5
+for fz 0.75 {$d*1.5-0.75} 1.5
+place Block_Floor_Tier3 $al at $fx $fz y=0.05
+next
+next
+place Block_Wall_Door_Tier3 $al at 0.75 0 y=0.05
+for fx 2.25 {$w*1.5-0.75} 1.5
+place Block_Wall_Tier3 $al at $fx 0 y=0.05
+next
+place Block_Wall_Window_Tier3 $al at 0.75 {$d*1.5} y=0.05
+place Block_Wall_Tier3 $al at {$w*1.5-0.75} {$d*1.5} y=0.05
+for fz 0.75 {$d*1.5-0.75} 1.5
+place Block_Wall_Tier3 $al at 0 $fz y=0.05 yaw=90
+next
+place Block_Wall_Tier3 $al at {$w*1.5} 0.75 y=0.05 yaw=90
+place SmallBoulder2 - at {$w*1.5+1.4} {$d*1.5-0.3} y=0 sit yaw=30 scale=0.6
+place SmallBoulder4 - at {$w*0.75} {$d*1.5+1.6} y=0 sit yaw=80 scale=0.6
+place SmallBoulder1 - at -1.6 1 y=0 sit yaw=10 scale=0.5
+place Placeable_Table_Basic - at 1.5 1.5 y=0 sit yaw=0
+pop
+prop $al tint.color=#5b5650
+prop $al tint.amount=0.55
+end
+#
+# ar_plane: a crashed plane on a pad h m over the sea at x z, nose to yaw, tipped on one wing, its broken wing and tail
+# lying behind it; a crate of what the pilot carried beside the door (crate: its alias).
+macro ar_plane x=0 z=0 h=3 yaw=0 al=plane crate=planecrate
+set s {sin($yaw)}
+set c {cos($yaw)}
+brush flatten at $x $z r=15 s=20 frames=350 h=$h
+clear at $x $z r=16
+place Airplane $al at $x $z h={$h+1.3} rot=4,$yaw,-9 scale=0.8
+place WingBroken - at {$x-7*$s+5*$c} {$z-7*$c-5*$s} ground sit yaw={$yaw+40}
+place BackWingBroken - at {$x-11*$s-2*$c} {$z-11*$c+2*$s} ground sit yaw={$yaw+110}
+place Loot_Crate $crate at {$x+4*$c} {$z-4*$s} ground sit yaw={$yaw+15}
+end

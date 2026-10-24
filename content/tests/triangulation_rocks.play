@@ -1,0 +1,60 @@
+# Triangulation Rocks (CIPlay triangulation_rocks): the camp at 3 m round 0 -2; the orders, the camp chest, the vines,
+# relay 1 and its boars, the fuel cache, relay 2 and its locker, relay 3's lever refused before its code, a wrong code,
+# the code, the lever, the locker.
+island Triangulation Rocks
+offset 0 0
+expect step 0
+expect title Three Bearings
+zone survey_camp
+expect step 1
+read Survey orders
+expect step 2
+open Survey camp
+wait 3
+expect step 3
+expect item Machete 1
+use cleftvines
+expect hidden cleftvines
+zone relay_1
+expect step 4
+kill Warthog
+expect animals Warthog 0
+expect step 5
+use relay1
+expect story bearing1 1
+expect step 6
+open Fuel cache
+wait 3
+expect step 7
+zone relay_2
+use relay2
+expect story bearing2 1
+expect step 8
+open Relay 2 locker
+wait 3
+expect step 9
+zone relay_3
+use relay3
+expect story fixed 0
+code relay3pad 1111 wrong
+code relay3pad 2417
+expect story unlock3 1
+expect step 10
+use relay3
+expect story fixed 1
+expect step 11
+zone westridge
+expect step 12
+read Survey plane's card
+open Survey plane's crate
+wait 3
+expect story surveyseal 1
+expect step 13
+read Surveyor's field book
+expect step 14
+open Instrument chest
+wait 3
+expect step 15
+open Relay 3 locker
+wait 3
+expect done

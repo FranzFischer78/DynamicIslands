@@ -1,0 +1,148 @@
+# Signalstack Rock - the first island of the library's plan The Frozen Horizon (storyline SL12, chapter 1: The Fragments)
+# A basalt stack in a grey sea, snow on every ledge: a relay hut on the shelf at its foot (the radio log and the
+# Receiver's plans on the desk), a path cut up the stack's side to its top, where the relay mast stands - one of its two
+# masts bent over by the ice, Raft's antennas lying broken round it. Snow falls here and on the Floelane only: the cold
+# begins. Quest "The Fragments" (8 steps): the shelf, the relay log, the Receiver's plans, the mast top, the antenna's
+# plans, the fourth fragment.
+#
+# Built by the recipe player (CIRecipe signalstack_rock) through the editor's own operations. Points (metres over the
+# sea): the shelf at 2.5 m round 0 -14 (the hut x -4..0.5, z -18..-15); the path up the east side in steps of 1 m; the
+# top at 9 m round 0 3, the masts on it.
+include lib_sea
+include lib_huts
+include lib_frozen
+include lib_verdance
+new
+gen Trees=0 Bushes=0.1 Rocks=0.45 Harvest=0.1 BeachThings=0.15
+gen Seed=12101 Radius=30 Height=12 Roughness=0.5 Peaks=1 Shape=0 Style=1 BeachWidth=0.15 Cliffs=0.75 PeakShape=0.6
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.3 Sunken=0.2 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+
+# --- Terrain: the shelf at 2.5 m, a path up the stack's east side, its top at 9 m -----------------------------------
+brush flatten at 0 -14 r=7 s=20 frames=200 h=2.5
+brush flatten from 5 -12 to 6.5 -10 r=2 s=20 frames=60 h=3
+brush flatten from 6.5 -10 to 8 -8 r=2 s=20 frames=60 h=3.5
+brush flatten from 8 -8 to 8.5 -6 r=2 s=20 frames=60 h=4
+brush flatten from 8.5 -6 to 9 -4 r=2 s=20 frames=60 h=4.5
+brush flatten from 9 -4 to 8.5 -2 r=2 s=20 frames=60 h=5
+brush flatten from 8.5 -2 to 8 0 r=2 s=20 frames=60 h=5.5
+brush flatten from 8 0 to 7.5 1.5 r=2 s=20 frames=60 h=6
+brush flatten from 7.5 1.5 to 7 3 r=2 s=20 frames=60 h=6.5
+brush flatten from 7 3 to 6 4.5 r=2 s=20 frames=60 h=7
+brush flatten from 6 4.5 to 5 6 r=2 s=20 frames=60 h=7.5
+brush flatten from 5 6 to 4 5.5 r=2 s=20 frames=60 h=8
+brush flatten from 4 5.5 to 3 5 r=2 s=20 frames=60 h=8.5
+brush flatten at 0 3 r=4.5 s=20 frames=200 h=9
+origin
+clear at 0 -14 r=7
+clear at 0 3 r=4.5
+clear from 5 -12 to 8 -8 r=2
+clear from 8 -8 to 9 -4 r=2
+clear from 9 -4 to 8 0 r=2
+clear from 8 0 to 7 3 r=2
+clear from 7 3 to 5 6 r=2
+clear from 5 6 to 3 5 r=2
+
+# --- The relay hut on the shelf: the desk, the radio log, the Receiver's plans --------------------------------------
+push at -4 -18 h=2.5
+call hut w=3 d=2 y=0.1
+place Placeable_Table_Basic - at 3.4 2.2 y=0.1 sit yaw=90
+place Note_Paper relaylog at 3.2 1.8 y=0.1 drop yaw=20
+place Loot_Chest relaydesk at 1.2 2.4 y=0.1 sit yaw=180
+place Placeable_Lantern_Metal - at 3.6 2.6 y=0.1 drop
+pop
+place Zone_Trigger shelfzone at 0 -12 ground y=1
+place Loot_Chest relaystores at 2.5 -15 ground sit yaw=200
+place TP_Moontown_SealedCrate01 - at 3.8 -16.4 ground sit yaw=15
+place TP_Moontown_SealedCrate02 - at -5.5 -12 ground sit yaw=80
+place TP_SnowDrift02 - at -6 -15 ground sit yaw=40
+place TP_SnowDrift03 - at 4 -11 ground sit yaw=110
+place Note_Sign shelfsign at 4.5 -12.5 ground sit yaw=210
+
+# --- The relay mast on the top: one mast standing, one bent over by the ice; broken antennas; the mast box ---------
+place RT_PillarThick mast at 0 4.5 ground
+place RT_PillarThick mast at 0 4.5 ground y=6
+place RT_PillarThick bentmast at 2 2 ground rot=0,30,62 sy=1.2
+place Placeable_Reciever_Antenna - at -2.5 1.5 ground sit rot=0,40,80
+place Placeable_Reciever_Antenna - at -3.2 5.6 ground y=0.7 rot=75,120,0
+place TP_Icicles04 - at 0.6 4.5 ground y=5
+place TP_Icicles02 - at -0.35 4.6 ground y=5.4 yaw=90
+place Loot_Chest mastbox at -1.6 4.8 ground sit yaw=90
+place Note_Paper fragment4 at -1.6 2.6 ground drop yaw=60
+place Zone_Trigger mastzone at 0 3 ground y=1
+place TP_SnowDrift03 - at 2.5 0.5 ground sit yaw=10
+# REDO 10-24: the mast's three guy clamps were torn off by the ice (shelf stores, a chest on the path ledge, a drift
+#     chest on the top); fitted on the mast winch, the junction box comes free (it was hidden in the ice)
+place Loot_ChestSmall ledgechest at 9.6 -3.5 ground sit yaw=180
+place Loot_ChestSmall driftchest at -3.2 4.2 ground sit yaw=100
+call crank x=-0.5 z=-0.8 yaw=180 alias=mastwinch
+prop mast tint.color=#40464c
+prop mast tint.amount=0.5
+prop bentmast tint.color=#40464c
+prop bentmast tint.amount=0.5
+
+# --- Snow, things to gather -----------------------------------------------------------------------------------------
+call snowfall x=0 z=-4 r=40 al=snow
+scatter VP_CoralDigitate01 4 at -20 18 r=3 seed=12111 wet free=1
+scatter VP_CoralBulb04 3 at -20 18 r=3 seed=12112 wet free=1
+scatter SeaVine3_klump 4 at -20 18 r=6 seed=12113 wet free=1
+call shallows x=0 z=0 r=40 deep=6 n=1 seed=12120
+
+# --- Settings, notes, behaviours, quest -----------------------------------------------------------------------------
+# the generator's rocks that floated over the slope (ground check, 2026-10-23)
+clear at -15.7 -1.27 r=1.5 only=TP_BigRock
+
+info title=Signalstack Rock
+info author=Custom Islands
+info description=A basalt stack in a grey sea, snow on every ledge: a relay hut on its shelf and a mast on its top, one half bent over by the ice. Fragments of a call from the north come in here. The first island of The Frozen Horizon.
+island on.arrive=message||Snow on every ledge. A relay mast on the stack's top - half of it bent flat by the ice.
+
+note relaylog Relay log: fragments | SIGNALSTACK RELAY - LOG\n\nDay 1: a call from the north, band 500. Three words, then static.\nDay 2: "...floes... open in the..."\nDay 3: "...whale..." - just that.\nDay 4: the mast iced up and bent in the night. I wrote the fourth fragment on a slip and pinned it under the mast box. If you can read this, take the Receiver's plans from the desk. Listen north.
+note shelfsign Relay shelf | SIGNALSTACK RELAY\nPath to the mast: east side, mind the ice.
+note relaydesk Relay desk | The relay operator's desk drawer: the Receiver's plans, a spare coil of wire, a mug frozen to the bottom.
+note relaystores Relay stores | The relay's stores: pine cones for the stove's spring planting, planks, rope.
+note mastbox Mast box | The mast's junction box, iced shut and knocked open: the antenna's plans, taped inside the lid.
+note fragment4 Fragment 4 | (a slip in the operator's hand)\n\n"...north... past the white sea... the Whale... do not wait for spring."\n\nUnder it: "The floes are on 700."
+loot relaydesk Blueprint_Reciever*1;Scrap*2;Rope*1
+prop relaydesk loot.refill=0
+loot relaystores Seed_Pine*2;Plank*10;Rope*3;story:clamp*1
+prop relaystores loot.refill=0
+loot mastbox Blueprint_Antenna*1;Scrap*2;CopperIngot*1
+prop mastbox loot.refill=0
+prop mastbox obj.name=mastbox
+prop mastbox beh.hidden=1
+note ledgechest Ledge chest | A chest roped to the path's ledge: a guy clamp, bent, and a flare.
+loot ledgechest story:clamp*1;Rope*2
+prop ledgechest loot.refill=0
+note driftchest Drift chest | Half under a drift on the top: the third guy clamp and a frozen tin of nails.
+loot driftchest story:clamp*1;Nail*6
+prop driftchest loot.refill=0
+story clamp|Guy clamp|Placeable_Lantern_Metal|One of the relay mast's three guy clamps, torn off by the ice.
+story mastfixed|Mast rigged|Placeable_Lantern_Metal|The mast's guys are clamped again; the junction box came free.
+prop mastwinch obj.name=mastwinch
+prop mastwinch beh.use=Fit the guy clamps and wind the mast winch
+prop mastwinch if.use=take|story:clamp|3
+prop mastwinch on.use=give||story:mastfixed*1\nshow|mastbox\nmessage||The guys tighten, the mast groans upright an inch - and the junction box drops out of its ice.
+prop mastwinch else.use=message||The winch spins free: the mast's three guy clamps are gone. One in the shelf stores, one on the path's ledge, one in a drift up here.
+
+prop shelfzone zone.id=shelf
+prop shelfzone zone.radius=6
+prop shelfzone zone.message=The relay shelf. Footprints in the snow, a day old or a year.
+prop mastzone zone.id=mast_top
+prop mastzone zone.radius=4
+prop mastzone zone.message=The stack's top. The wind from the north smells of ice.
+
+quest title=The Fragments
+quest intro=A relay rock in the snow. Somebody was listening here. Land on the shelf.
+step reach|shelf|1|Land on the relay shelf
+step read|Relay log: fragments|1|Read the relay log
+step blueprint|Blueprint_Reciever|1|Take the Receiver's plans from the relay desk
+step reach|mast_top|1|Climb the path to the mast on the stack's top
+step collect|story:clamp|3|Find the mast's three guy clamps (shelf, path ledge, top)
+step collect|story:mastfixed|1|Fit the clamps on the mast winch
+step blueprint|Blueprint_Antenna|1|Take the antenna's plans from the mast box
+step read|Fragment 4|1|Read the fourth fragment
+quest done=North, past the white sea, there is a Whale. The floes call on 700.
+quest reward=MetalIngot*2;Rope*3
+
+save Signalstack Rock

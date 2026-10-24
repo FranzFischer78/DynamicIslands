@@ -1,0 +1,113 @@
+# Play test of Primeval Park (CIPlay primeval_park, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The dock on the bay's south shore (30 -19..-4, deck 1.6 m), the welcome arch at 30 -25; the visitor centre's terrace
+# (7 m) at the crescent's middle, its block x -18..-6 z -6.5..11.5 (the lobby's door in its front's west half), the
+# maintenance shed at its west end (x -35..-24.5 z 5.5..16); the boar paddock (x -20..4 z 29..45, 5 m) and the keeper's
+# hut (8..12.5 43..47.5, floor 6.1 m); the river ride's channel (50 -21 to 60 -58) and its station (59.5-62.5 -63..-57);
+# the power house's yard (31..49 -60..-44, 6.5 m); the aviary on the south horn's hilltop (0 -45, 12 m; the keeper's
+# platform 18 m); the show lagoon at the bay's head (24 22, 12 m deep) with its feeding platform (6.5..17 21..24, 1.5 m);
+# the great gate across the north horn (-12 56), the Queen's valley behind it, the keeper lodge at 2 84.
+island Primeval Park
+offset -1.155 0.7575
+expect step 0
+expect title Welcome to Primeval Park
+wait 5
+expect animals Llama 2
+expect animals Goat 3
+expect animals Turtle 2
+expect animals Dolphin 3
+
+# Chapter 1 - arrival: the dock, the notice under the arch, the kiosk; the visitor centre and the engineer's report
+walk 31 -33 to 31 -23 h=1.1
+zone dock
+expect step 1
+read Evacuation notice
+expect step 2
+open Dock kiosk box
+at -14 -12 h=7.5
+walk -16.5 -11 to -16.5 -3 h=7
+zone visitorcentre
+expect step 3
+read Chief engineer's report
+expect step 4
+expect shown mapoff
+open Gift shop crate
+open Restaurant fridge
+
+# Chapter 2 - the power: the shed's fuse; the ironbacks and the boar keeper's fuse; the river ride's sunk boat; the master
+# switch (the great gate's panel still wants the card and the key)
+open Maintenance shed box
+expect story fuse 1
+expect step 5
+at -4 36 h=5.5
+zone boarpaddock
+kill Warthog
+expect step 6
+at 10.25 45.5 h=6.3
+open Boar keeper's locker
+expect story fuse 2
+expect step 7
+at 61 -68 h=2.5
+walk 61 -67 to 61 -61 h=2.1
+zone river
+expect step 8
+at 60.3 -52 h=-1
+open Sunken tour boat's box
+expect story fuse 3
+expect step 9
+at 40 -40 h=7
+walk 40 -41 to 40 -45.5 h=6.5
+use masterswitch
+expect story gatecard 1
+expect step 10
+expect shown parklights
+expect shown mapon
+expect hidden mapoff
+
+# Chapter 3 - the aviary and the lagoon
+at 0 -45 h=18.5
+zone aviary
+expect step 11
+kill Screecher
+expect step 12
+read Aviary keeper's notes
+expect step 13
+open Aviary keeper's locker
+at 10 22.5 h=2
+zone lagoonshow
+expect step 14
+kill Angler fish
+expect step 15
+at 25 18.5 h=-9
+open Box on the lagoon floor
+expect story queenkey 1
+expect step 16
+open Sunk feed barrel
+
+# Chapter 4 - the Queen: the gate's panel, her valley, the keeper lodge
+at 0 49 h=6
+use gatepanel
+expect message the great gate sinks
+wait 9
+walk 0 50 to -12 51 to -12 60 to -12 66 h=9.6
+zone queengate
+expect step 17
+kill Mama bear
+expect step 18
+read Founder's farewell
+expect step 19
+open Founder's vault
+wait 3
+expect done
+# Raft's story machinery: the feed chest in the dog cage in the paddock's corner - refused while the cage is chained; the
+# bolt cutters from the keeper's tool chest; the cage opens and the chest with it. The camera on the keeper's hut sweeps
+open Boar keeper's feed chest
+expect message cage is chained shut
+use feedcage
+expect message Bolt cutters would get through
+open Keeper's tool chest
+expect story raft-Vasagatan_BoltCutter 1
+use feedcage
+expect hidden feedcage
+open Boar keeper's feed chest
+expect item Leather 2
+expect spinsown paddockcam

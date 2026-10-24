@@ -1,0 +1,224 @@
+# Big Top Atoll - a new island of the library, twice the size (x2)
+# A travelling circus wintering on a sandy desert atoll: the big top on the ring's broad south side, painted wagons in a
+# circle beside it, the menagerie's broken pens at the west end, a practice rig for the trapeze on the east ring - and
+# the escape artist's trick trunk on the lagoon's floor. A storm broke the pens the night before the circus sailed: the
+# llamas and goats are loose round the ring, two hyenas got out of the last cage, and the ringmaster's whip is missing.
+# Quest "The Round-Up" (10 steps): a round-up with the net launcher, the hyenas, a climb, a dive, the cash box.
+#
+# Built by the recipe player (CIRecipe big_top_atoll) through the editor's own operations.
+include lib_sea
+include lib_features
+new
+# (nature: desert, Like Raft - acacias, cacti and scrub round the ring; the circus ground cleared)
+gen Trees=0.38 Bushes=0.5 Rocks=0.55 Harvest=0.25 BeachThings=0.3
+gen Seed=9208 Radius=63 Height=6 Roughness=0.3 Peaks=1 Shape=1 Style=2 BeachWidth=0.8 Cliffs=0 PeakShape=0.2
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the circus ground along the ring's south side (x -32..32, z -48..-41, 2.5 m), painted sand; the rig's two
+# pads on the east ring; the trunk's hollow on the lagoon's floor west of the rig (6 m down) --------------------------------
+for gz -48 -41 3.5
+brush flatten from -32 $gz to 32 $gz r=3.5 s=20 frames=120 h=2.5
+next
+brush smooth from -36 -37 to 36 -37 r=3 s=10 frames=12
+brush smooth from -34 -51.5 to 34 -51.5 r=3 s=10 frames=12
+brush sand from -32 -44 to 32 -44 r=7 s=20 frames=20
+brush flatten at 44 -6 r=2.5 s=20 frames=80 h=4
+brush flatten at 44 6 r=2.5 s=20 frames=80 h=4
+brush flatten at 28 0 r=5 s=20 frames=150 h=-6
+brush smooth at 28 0 r=8 s=10 frames=10
+clear from -34 -44 to 34 -44 r=9
+clear from 44 -8 to 44 8 r=4
+clear at 28 0 r=7
+
+# --- The big top: Caravan Town's great roof on its pillars; inside, a sand ring of wooden curbs, benches round it, the
+# little stage on the west side with the ringmaster's cash box; the notice at the entrance on the east, flags --------------
+place Pillars bigtoptent at -10 -44 h=2.2
+place Roof bigtoptent at -10 -44 h=2.2
+for i 0 13 1
+place Relay_Fence_wood - at {-10+4*cos(25.714*$i)} {-44+4*sin(25.714*$i)} ground yaw={90-25.714*$i}
+next
+for b 45 135 45
+place Bench_01 - at {-10+6.5*cos($b)} {-44+6.5*sin($b)} ground sit yaw={90-$b}
+next
+for b 225 315 45
+place Bench_01 - at {-10+6.5*cos($b)} {-44+6.5*sin($b)} ground sit yaw={90-$b}
+next
+place VG_LoungeStage stage at -16.8 -44 ground sit yaw=90
+place Loot_ChestSmall cashbox at -16.8 -44 y=0.9 drop yaw=90
+place Note_Board notice at -0.5 -40.5 ground yaw=90
+place Placeable_Flag_03 - at -0.5 -38 ground
+place Placeable_Flag_05 - at -0.5 -50 ground
+place Zone_Trigger bigtop at -10 -44 y=1.5
+place Zone_Sound calliope at -10 -44 y=3
+
+# --- The wagons in a circle east of the big top round their fire pit (the strongman's with his box, the cook's with her
+# barrel); the menagerie wagon at the east end, its chest beside it ------------------------------------------------------
+place Caravan_Blue_01 - at 21 -44 ground sit yaw=90
+place Caravan_Green_01 - at 17.5 -37.9 ground sit yaw=30
+place Caravan_Yellow_01 - at 10.5 -37.9 ground sit yaw=-30
+place Caravan_Green_02 - at 7 -44 ground sit yaw=-90
+place Caravan_Yellow_01 - at 10.5 -50.1 ground sit yaw=210
+place Caravan_Blue_01 - at 17.5 -50.1 ground sit yaw=150
+place campfire_1 - at 14 -44 ground sit
+place "Box Small" strongbox at 22.8 -46.5 ground sit yaw=20
+place Loot_Barrel cookbarrel at 6 -41 ground sit
+place CaravanBarebones1 - at 30 -44 ground sit yaw=90
+place Loot_Chest menagerie at 32.8 -42 ground sit yaw=270
+
+# --- The menagerie's pens at the west end: broken fences, three cages with their doors open, feed boxes; the hyenas wait
+# for whoever comes near ----------------------------------------------------------------------------------------------------
+line Balboa_DecorationPrefabBase_Fence_Mid from -33 -38.5 to -21 -38.5 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from -33 -38.5 to -33 -47 step=2.98
+place Balboa_DecorationPrefabBase_Fence_EndBroken - at -21 -47 ground yaw=0
+place Balboa_DecorationPrefabBase_Fence_EndBroken - at -25 -48.5 ground yaw=10
+place UT_DogCage_Medium02 - at -30 -44 ground sit yaw=90
+place UT_DogCage_Medium02 - at -26.5 -44 ground sit yaw=90
+place UT_DogCage_Medium02 - at -23 -44 ground sit yaw=80
+place "VG_DecorationPrefabBase_WoodenBoxes_ShortRect Variant" - at -30 -40.5 ground sit
+place Zone_Trigger cages at -27 -43 y=1.5
+place Creature_Hyena hyenas at -28 -47 ground
+
+# --- The loose beasts round the ring: two llamas on the west, one on the north, two goats on the east near the rig -----
+place Creature_Llama llamas1 at -48 0 ground
+place Creature_Llama llamas2 at 8 50 ground
+place Creature_Goat goats at 46 24 ground
+
+# --- The practice rig on the east ring: two masts of the radio tower's thick pillars (12 m) 12 m apart, a scaffold
+# platform on each with rails, the wire of two beams between them, two ladders up the south mast's west face, the safety
+# net under the wire; Mirela's note on the south platform, a box on the north one -----------------------------------------
+place RT_PillarThick - at 44 -6 h=4
+place RT_PillarThick - at 44 -6 h=10
+place RT_PillarThick - at 44 6 h=4
+place RT_PillarThick - at 44 6 h=10
+place LandmarkLadder_6m - at 43.7 -6 h=4 yaw=90
+place LandmarkLadder_6m - at 43.7 -6 h=10.6 yaw=90
+place Scaffolding_2x2m - at 44.9 -6 h=16
+place Scaffolding_2x2m - at 44.9 6 h=16
+place RT_Fence - at 46 -7.5 h=17 yaw=90
+place RT_Fence - at 44.4 -7.1 h=17
+place RT_Fence - at 46 7.5 h=17 yaw=270
+place RT_Beam - at 44.9 -5 h=16.9 yaw=90
+place RT_Beam - at 44.9 0.8 h=16.9 yaw=90
+place FishingNets_02 - at 44.9 0 ground sx=3 sz=8
+place Note_Paper artistnote at 45.3 -6.4 h=17.5 drop yaw=30
+place "Box Small" rigbox at 45.2 6.3 h=17.05 sit yaw=15
+place Zone_Trigger trapeze at 44.9 -6 h=18
+
+# --- The lagoon: Mirela's trunk on the floor west of the rig; a sunk prop crate; the circus's dolphins;
+# palms on the ring; the heat -----------------------------------------------------------------------------------------------
+place Loot_ChestLarge trunk at 28 0 h=-6 sit yaw=60
+place Loot_SunkenBarrel propcrate at -12 8 h=-1 drop
+place Creature_Dolphin dolphins at 0 0 h=-2
+scatter "Pickup_Landmark_Tree_Palm 2" 1 at 10 46 r=4 seed=801
+scatter "Pickup_Landmark_Tree_Palm 4" 1 at -46 -14 r=4 seed=802
+place Zone_Atmosphere heat at 0 -10 y=10
+
+# --- Raft's special features (lib_features; the user, 2026-10-10: every Raft feature on more than one island): the
+# last cage past the wagons, chained, a chest in it (bolt cutters in the keeper's tool chest out on the atoll); a claw
+# game at the big top's door that takes a trade token (one in the ticket box by the south rope) and drops its prize chest
+call cagecache x=26.5 z=-49.2 yaw=0 alias=lastcage sig=btcage chest=lastcagechest items=Leather*3;Rope*2 title="Chest in the last cage" kx=0 kz=0 kr=44 seed=381 keychest=btcutterchest keytitle="Keeper's tool chest" keyitems=Rope*2
+prop lastcage on.use=message||The cutters bite through the chain and the cage door swings open. Whatever lived in here, it left its keeper's chest behind.\nhide|\nsignal||btcage
+place Claw_ControlBoard clawgame at 2.5 -40.2 ground sit yaw=180
+prop clawgame obj.name=clawgame
+prop clawgame if.use=!signal|btclaw\ntake|TradeToken|1
+prop clawgame on.use=message||The token clinks into the slot, the claw swings, dips - and drops a prize chest down the chute!\nsignal||btclaw\nshow|clawprize
+prop clawgame else.use=message||WIN A PRIZE - ONE TOKEN. One prize a season. The ticket box by the south rope keeps the tokens.
+place Loot_Chest clawprize at 3.9 -40.2 ground sit yaw=180
+prop clawprize obj.name=clawprize
+prop clawprize note.title=Claw game prize
+prop clawprize beh.hidden=1
+loot clawprize TradeToken*3;Rope*2;Leather*1
+place Loot_ChestSmall ticketbox at 3.2 -49 ground sit yaw=0
+prop ticketbox obj.name=ticketbox
+note ticketbox Ticket box | Tokens for the claw game. One per child, ringmaster's orders.
+loot ticketbox TradeToken*1
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): pineapples, melons, flowers ----------
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=44.1 seed=4142 free=3
+scatter "Pickup_Landmark_WatermelonLandmark" 6 at 0 0 r=44.1 seed=4152 free=3
+scatter "Pickup_Landmark_Flower_Yellow" 4 at 0 0 r=44.1 seed=4162 free=3
+scatter "Pickup_Landmark_Flower_Red" 4 at 0 0 r=44.1 seed=4163 free=3
+
+# --- Raft's finds in the shallows round the ring and in the lagoon (lib_sea) ------------------------------------------------
+call shallows r=83 deep=5 n=1
+
+# ===== Settings, story items, notes, behaviours, quest (10 steps) =========================================================
+info title=Big Top Atoll
+info author=Custom Islands
+info description=A circus wintering on a sandy atoll: the big top, painted wagons, a trapeze rig - and the whole menagerie loose after a storm. Net the llamas and goats, deal with the hyenas, and find the ringmaster's whip where the escape artist hid it.
+island on.arrive=message||A great striped roof on a sandy ring, painted wagons in a circle - and llamas trotting along the beach as if they owned it.
+
+story whip|Ringmaster's whip|quest:Utopia_Cable|A long black whip with a brass handle that unscrews: there's a key inside.
+
+note notice Ringmaster's notice | CIRCUS ALBANI - NOTICE TO THE COMPANY\n\nWe sail for the first show at dawn. The storm broke the menagerie's pens last night: three llamas and two goats are loose round the ring, and the hyena cage is EMPTY. Keep clear of the cages.\n\nWhoever stays behind: the net launcher is in the menagerie wagon's chest. Net the beasts and they'll trot home to the pens.\n\nAlso: I have lost my whip. If anyone sees Mirela, ask her where she put it. She is NOT funny.\n- Albani, Ringmaster
+note menagerie Menagerie wagon | The menagerie wagon's chest: feed scoops, halters, a whistle - and the net launcher with its canisters.
+loot menagerie NetGun*1;NetCanister*8;Rope*2
+prop menagerie loot.refill=0
+note artistnote The escape artist's note | (tied to the rig's rail with a ribbon)\n\nAlbani - yes, I took your whip. You said nobody could get out of my trunk in under a minute. I did it in forty seconds, and then I put your whip in it, locked it, and threw it in the lagoon.\n\nIt's on the bottom, just west of the rig. Swim for it like a real performer.\n- Mirela the Unchained
+note trunk Mirela's trick trunk | The escape artist's trunk, chained and locked - but its back panel slides, as every trick trunk's does. Inside: the ringmaster's whip, coiled, and a dry bag of her rope.
+loot trunk story:whip*1;Rope*3
+prop trunk loot.refill=0
+prop trunk tint.color=#8a2a2a
+prop trunk tint.amount=0.5
+note cashbox Ringmaster's cash box | Albani's cash box: the takings of a whole season, his plans for the cook's little planters, a captain's hat he never wore.
+loot cashbox TradeToken*10;Blueprint_Cropplot_Small_Tier3*1;Hat_Captain*1;Cooked_GenericMeat*2
+prop cashbox loot.refill=0
+prop cashbox if.open=has|story:whip|1
+prop cashbox else.open=message||A brass cash box with a small keyhole. The key, the company says, is in the ringmaster's whip.
+note strongbox Strongman's box | The strongman's box: iron weights, a jar of liniment, rope.
+loot strongbox MetalIngot*1;HealingSalve*1;Rope*2
+prop strongbox loot.refill=0
+note cookbarrel Cook's barrel | The cook wagon's barrel: flour gone hard, but the tins are good.
+loot cookbarrel Cooked_GenericMeat*2;Raw_Potato*3;PlasticBottle_Water*1
+prop cookbarrel loot.refill=0
+note rigbox Rig box | A box on the rig's north platform: chalk, tape, spare rope.
+loot rigbox Rope*3;Plastic*2
+prop rigbox loot.refill=0
+note propcrate Sunk prop crate | A crate of props that fell off the boat: juggling clubs, a rubber chicken, nails.
+loot propcrate Nail*8;Plank*3;Scrap*2
+prop propcrate loot.refill=0
+
+prop bigtop zone.id=bigtop
+prop bigtop zone.radius=8
+prop bigtop zone.message=The big top: a sand ring, benches, a little stage with a cash box on it - and nobody.
+prop cages zone.id=cages
+prop cages zone.radius=6
+prop cages zone.repeat=never
+prop cages zone.message=The menagerie's cages, doors hanging open - and a laugh behind you that isn't a person's.
+prop hyenas creature.count=2
+prop hyenas creature.respawn=0
+prop hyenas creature.zone=cages
+prop trapeze zone.id=trapeze
+prop trapeze zone.radius=2
+prop trapeze zone.message=The rig's platform, twelve metres up. Far below in the lagoon, something red on the sand.
+prop llamas1 creature.count=2
+prop llamas2 creature.count=1
+prop goats creature.count=2
+prop dolphins creature.count=3
+prop heat atmo.fog=#f0e4c8
+prop heat atmo.fogAmount=0.06
+prop heat atmo.light=#fff0d0
+prop heat atmo.lightAmount=0.15
+prop heat zone.radius=45
+prop calliope sound.event=event:/raft/radio/cassette/cassette05
+prop calliope sound.volume=0.3
+prop calliope zone.radius=14
+
+quest title=The Round-Up
+quest intro=A circus wintering on an atoll, its menagerie loose. The ringmaster left a notice at the big top.
+step reach|bigtop|1|Walk into the big top
+step read|Ringmaster's notice|1|Read the ringmaster's notice
+step open|Menagerie wagon|1|Take the net launcher from the menagerie wagon's chest
+step catch|Llama|3|Net the three runaway llamas
+step catch|Goat|2|Net the two runaway goats
+step kill|Hyena|2|Deal with the two hyenas from the empty cage
+step reach|trapeze|1|Climb the practice rig to the trapeze platform
+step read|The escape artist's note|1|Read the note tied to the rig's rail
+step collect|story:whip|1|Dive to the escape artist's trunk for the ringmaster's whip
+step open|Ringmaster's cash box|1|Open the ringmaster's cash box with the key in the whip
+quest done=Every beast back in its pen, the whip found, the takings counted. Somewhere at sea, Albani's circus is one ringmaster's grin richer.
+quest reward=Cooked_GenericMeat*3;Rope*3;Plank*4
+
+save Big Top Atoll

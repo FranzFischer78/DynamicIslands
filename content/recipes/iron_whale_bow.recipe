@@ -1,0 +1,233 @@
+# The Iron Whale - Bow - the fifth island of the library's plan The Frozen Horizon (storyline SL12, chapter 5: Boarding the Whale)
+# The front half of a huge icebreaker, the Iron Whale, broken in two and thrown up on a pressure ridge of the pack: her
+# rust-red hull (radio tower rooms tinted rust, three long rooms on the lower deck, the mess and galley above, the open
+# foredeck with the mast), her prow on the ice. The water plant and the cargo office on the lower deck, the cargo hatch
+# down to her flooded engine decks (the next island); the crew mess with its vending machine and a safe, the galley; a
+# zipline from the mast's crow's nest to the crane out on the ice. Quest "Boarding the Whale" (10 steps): the ramp, the
+# crew roster, the water tank's plans, the zipline to the crane, the water pipe's plans, the captain's log, the electric
+# purifier's plans (galley), the mess safe (keypad; the code is in the log), the large storage's plans (cargo office:
+# opening it uncovers the cargo hatch), the cargo hatch (the plan's done-when).
+#
+# Built by the recipe player (CIRecipe iron_whale_bow) through the editor's own operations. Points (metres over the
+# sea): the ridge at 4 m (x -14..20, z -3..12); the ramp up its south face from 1 m at -4.5 -30; the lower deck's floor at
+# 4 m, its three rooms x -6..0, 0..6, 6..12 (z 0..9; the door at -4.5 0); the upper deck at 7 m (the mess x -6..0, the
+# galley x 0..6, the open foredeck x 6..12 with the mast at 10 4.5); the crow's nest at 12 m; the crane at 34 -8.
+include lib_features
+include lib_sea
+include lib_rt
+include lib_ni34
+include lib_frozen
+# RESIZE 10-24: Radius 50 -> 90 (Height 5 -> 6), the island grows round the old content, which stays where it was.
+new
+gen Trees=0 Bushes=0.05 Rocks=0.3 Harvest=0.05 BeachThings=0.2
+gen Seed=12501 Radius=90 Height=6 Roughness=0.4 Peaks=2 Shape=1 Style=1 BeachWidth=0.3 Cliffs=0.3 PeakShape=0.5
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+
+# --- Terrain: the pressure ridge at 4 m, the ramp up its south face, the crane's ice at 1.5 m -------------------------
+brush flatten from -10 4.5 to 16 4.5 r=8 s=20 frames=300 h=4
+brush flatten from -4.5 -30 to -4.5 -24 r=2.5 s=20 frames=60 h=1
+brush flatten from -4.5 -24 to -4.5 -18 r=2.5 s=20 frames=60 h=2
+brush flatten from -4.5 -18 to -4.5 -12 r=2.5 s=20 frames=60 h=3
+brush flatten from -4.5 -12 to -4.5 -4 r=2.5 s=20 frames=60 h=4
+brush flatten at 34 -8 r=7 s=20 frames=200 h=1.5
+brush flatten at 13.7 39.7 r=5 s=8 frames=40
+origin
+clear at 13.7 39.7 r=6
+clear from -10 4.5 to 16 4.5 r=8
+clear from -4.5 -30 to -4.5 -3 r=3
+clear at 34 -8 r=7
+
+# --- The ramp: the crew roster on a board by the gangway -----------------------------------------------------------
+place Zone_Trigger rampzone at -4.5 -10 ground y=1
+place Note_Sign roster at -2.2 -6 ground sit yaw=200
+place TP_SnowDrift02 - at -9 -14 ground sit yaw=40
+place TP_SnowDrift03 - at 0 -20 ground sit yaw=120
+
+# --- The lower deck: the water plant (west), the cargo hatch (middle), the cargo office (east, in the bow) -------------
+push at 0 4.5 h=4
+call rt_storey a=whalehull f1=RT_WallDoor1 f2=RT_WallWindowBroken l2=RT_WallWindow2 r1=RT_Wall1 r2=RT_WallDoor1 r3=RT_Wall1
+place Placeable_WaterTank - at -5.2 3.4 sit yaw=90
+place Placeable_WaterTank - at -5.2 1.4 sit yaw=90
+place RT_Pipe - at -3 4.2 y=2.2
+place RT_PipeDownStraight - at -1 4.2 y=0.1
+place Loot_Chest waterplant at -1.2 3.5 sit yaw=180
+place Placeable_Lantern_Metal - at -3 -3.8 drop
+pop
+push at 6 4.5 h=4
+call rt_storey a=whalehull l1=none l2=none l3=none f1=RT_WallWindowBroken f2=RT_Wall1 r1=RT_Wall1 r2=RT_WallDoor1 r3=RT_Wall1
+place TangaroaHatchRoom_Hatch cargohatch at -3 1.5 y=0.05 yaw=0
+place Zone_Trigger hatchzone at -3 1.5 y=1
+place TP_Moontown_SealedCrate01 - at -5.2 3.8 sit yaw=10
+place TP_Moontown_SealedCrate02 - at -1 -3.6 sit yaw=80
+place QuestItemPickup_Tangaroa_Token - at -0.8 3.8 y=0.05
+pop
+push at 12 4.5 h=4
+call rt_storey a=whalehull l1=none l2=none l3=none b1=RT_WallWindow2 f2=RT_WallWindow2 r2=RT_WallWindowBroken
+place "Table Office" - at -2 3.4 sit yaw=180
+place Loot_ChestLarge cargooffice at -4.5 3.6 sit yaw=180
+place Placeable_Storage_Medium - at -0.8 -3.6 sit yaw=0
+pop
+
+# --- The prow: rust plates closing the bow on the ice ------------------------------------------------------------
+place RT_Wall1 whalehull at 15 0.75 h=4 yaw=-56
+place RT_Wall1 whalehull at 15 8.25 h=4 yaw=56
+
+# --- The upper deck: the crew mess (vending machine, the captain's table and log, the safe and its keypad), the galley,
+# the open foredeck with the mast ------------------------------------------------------------------------------------
+push at 0 4.5 h=7
+call rt_storey a=whalehull f1=RT_WallWindow1 f2=RT_WallWindow1 r1=RT_Wall1 r2=RT_WallDoor1 r3=RT_Wall1
+place RT_Floor whalehull at 0 4.5 y=3
+place Placeable_Table_Basic - at -4 0 sit yaw=90
+place Placeable_Table_Basic - at -4 2 sit yaw=90
+place Placeable_Chair_Basic - at -5 1 sit yaw=90
+place Note_Book captainslog1 at -4 0 y=0.9 drop yaw=20
+place Loot_Chest messsafe at -5.4 3.8 sit yaw=90
+place RT_PowerBox messpad at -5.95 2.6 y=1.2 yaw=90
+place QuestItemPickup_Tangaroa_Token - at -1 -3.6 y=0.05
+pop
+vending messvend at -3 8.3 h=7 yaw=180
+push at 6 4.5 h=7
+call rt_storey a=whalehull l1=none l2=none l3=none f1=RT_WallWindow1 f2=RT_Wall1 r1=RT_Wall1 r2=RT_WallDoor1 r3=RT_Wall1
+place RT_Floor whalehull at 0 4.5 y=3
+place Placeable_CookingStand_Food_Two - at -5 3.2 sit yaw=180
+place Placeable_Cupboard_Medium - at -3 4 sit yaw=180
+place Loot_Chest galley at -1 3.6 sit yaw=180
+place QuestItemPickup_Tangaroa_Token - at -4 -3.6 y=0.05
+pop
+push at 12 4.5 h=7
+place RT_Floor whalehull at 0 4.5
+call rt_railing y=0 fm=none
+place Zone_Trigger foredeck at -3 0 y=1
+place QuestItemPickup_Tangaroa_Token - at -1 3.5 y=0.05
+pop
+call ladders x=9.75 z=-0.3 h=4 n=2 yaw=180
+prop whalehull tint.color=#5a2a22
+prop whalehull tint.amount=0.55
+
+# --- The mast, its crow's nest and the zipline to the crane on the ice -----------------------------------------------
+place RT_PillarThick whalemast at 10 4.5 h=7
+place RT_PillarThick whalemast at 10 4.5 h=13
+place RT_Floor whalemast at 10 4.5 h=11.75
+# (a plank floor on the nest where the zipline lands: the zipline check holds it by a collider under its floor)
+place Block_Floor_Tier3 whalemast at 10.5 4.5 h=11.95
+prop whalemast tint.color=#40464c
+prop whalemast tint.amount=0.5
+call ladders x=10 z=3.95 h=7 n=2 yaw=180
+# (its floor 0.5 m east of the mast, on the crow's nest: right over the mast the check's ray started inside the pillar and found only the
+# mast's foot 5 m down; the crow's nest 0.15 m lower so the floor's ray starts over it, 2026-10-23)
+place ZiplinePath_Landmark mastzip at 16.22 3.53 h=13.35
+zipto mastzip 34 -8
+place UT_ElectricityIsland_Crane02 crane at 37 -6 ground sit scale=0.45 yaw=200
+place Zone_Trigger cranezone at 34 -8 ground y=1
+place Loot_Chest cranebox at 31 -10 ground sit yaw=40
+place TP_SnowDrift02 - at 38 -11 ground sit yaw=10
+
+# --- The sea: two reefs at the ridge foot, snow ----------------------------------------------------------------------
+scatter VP_CoralDigitate01 4 at -54 36 r=4 seed=12511 wet free=1
+scatter VP_CoralBulb04 3 at -54 36 r=4 seed=12512 wet free=1
+scatter VP_CoralDigitate01 3 at 50.4 50.4 r=4 seed=12513 wet free=1
+scatter SeaVine3_klump 4 at 50.4 50.4 r=5 seed=12514 wet free=1
+call shallows x=0 z=0 r=90 deep=6 n=1 seed=12520
+call snowfall x=4 z=0 r=55 al=snow
+
+# --- DISCOVERIES 10-24 (optional, no quest needs them): camp + note; BoatStranded + chest; hatch with a chest; buried treasure; viewpoint ---
+place campfire_1 - at 13.7 39.7 ground sit
+place Balboa_DecorationPrefabBase_SimpleTent - at 16.7 41.7 ground sit yaw=297
+place "Box Small" - at 11.7 42.2 ground sit
+place Note_Paper dnote at 11.7 42.2 ground y=0.7 drop yaw=20
+note dnote Survey note | ICE SURVEY, SHEET 4\n\nPressure ridge moving 2 m a day, east.\nCrack under the tent this morning. Moved camp.\nThe sea under the ice is warmer than it should be.
+place BoatStranded dvan at -13.7 -39.7 ground yaw=57
+prop dvan tint.color=#5a6670
+prop dvan tint.amount=0.5
+place Loot_ChestSmall dwreckchest at -17.7 -36.7 ground sit yaw=357
+note dwreckchest Driver's box | The driver's box under the seat: bolts, glass and a scrap of leather.
+loot dwreckchest Bolt*2;Glass*2;Leather*2
+prop dwreckchest loot.refill=0
+# RESIZE 10-24 retest: the hatch on the flat ground west of the bow (its first spot is under water)
+call hatchcache x=-61 z=12 r=4 seed=12591 alias=dhatch chest=dhatchchest items=MetalIngot*2;Wool*3;Bolt*2
+call vinecache x=12 z=61 r=15 seed=12593 chest=dvinechest vines=dvines items=Rope*3;Wool*2;Bolt*3
+call treasure x=32.6 z=-26.4 r=15 n=1 seed=12592
+prop treasure12592 treasure.loot=TitaniumOre*2;MetalOre*2
+# REDO 10-24 TREASURE2: a second buried treasure on the far side for the detector + shovel
+call treasure x=-30 z=-30 r=18 n=1 seed=12642
+prop treasure12642 treasure.loot=TitaniumOre*1;MetalOre*2;TradeToken*2
+place Zone_Trigger dview at 41.2 8 ground
+prop dview zone.id=iron_whale_bow_view
+prop dview zone.radius=7
+prop dview zone.repeat=never
+prop dview zone.message=The Iron Whale's bow stands up on the ridge, black against the ice, her broken end towards the sea.
+
+# --- Settings, notes, behaviours, quest -------------------------------------------------------------------------------
+# the generator's rocks that floated over the slope (ground check, 2026-10-23)
+clear at 1.39 34.25 r=1.5 only=TP_BigRock
+
+info title=The Iron Whale - Bow
+info author=Custom Islands
+info description=The front half of a huge icebreaker thrown up on a pressure ridge: a rust-red hull to walk through, a crew mess with a vending machine and a safe, a zipline from the mast to the crane on the ice, and a cargo hatch down to her flooded stern. The fifth island of The Frozen Horizon.
+island on.arrive=message||A ship's bow on a ridge of ice, rust-red, as tall as a house - the Iron Whale. Her stern is gone.
+
+story messcode|The mess safe's code|Placeable_Lantern_Metal|You typed the captain's code into the mess safe's keypad.
+
+note roster Iron Whale: crew roster | ICEBREAKER IRON WHALE - CREW ROSTER\n\nCaptain: H. Brask\nMate: J. Lunde\nEngineers: 4 (aft)\nCook: P. Skarre\nDeck: 9\n\nAll hands to the aft decks when the ridge takes her. - posted by the mate, day 1 of the ice
+note waterplant Water plant | The water plant's locker: the water tank's plans, fittings, a frozen gauge.
+note cranebox Crane box | The crane driver's box on the ice: the water pipe's plans and a spanner.
+note captainslog1 Captain's log, day 1 | CAPTAIN'S LOG - IRON WHALE\n\nDay 1 of the ice. The pack closed round us in the night and the ridge lifted the bow clear of the water. She will break, I think, aft of the funnel.\nThe mess safe (code 4127) holds the vault's charts and the crew's pay. The vault, the Coldhold, wants its charts back. Let it wait.\nAll hands aft. - H. Brask
+note galley Galley locker | The galley's locker: the electric purifier's plans - the cook kept them by the kettle.
+note messsafe Mess safe | The mess safe: the crew's pay in tokens, the Coldhold's charts in oilcloth.
+note cargooffice Cargo office | The cargo office's big chest: the plans for large storage, the manifest - and under the chest, the cargo hatch's bolt.
+loot waterplant Blueprint_WaterTank*1;Bolt*2;Plastic*4
+prop waterplant loot.refill=0
+loot cranebox Blueprint_Pipe_Water*1;Scrap*3;MetalIngot*1
+prop cranebox loot.refill=0
+loot galley Blueprint_ElectricPurifier*1;CircuitBoard*1;Plastic*3
+prop galley loot.refill=0
+loot messsafe TradeToken*6;MetalIngot*3;CopperIngot*2
+prop messsafe loot.refill=0
+loot cargooffice Blueprint_Storage_Large*1;Plank*8;Nail*12
+prop cargooffice loot.refill=0
+
+prop rampzone zone.id=ramp
+prop rampzone zone.radius=5
+prop rampzone zone.message=The ramp of packed ice up to her side. Somebody cut steps in it, long ago.
+prop cranezone zone.id=crane
+prop cranezone zone.radius=5
+prop cranezone zone.message=The crane on the ice. The zipline hums behind you.
+prop foredeck zone.id=foredeck
+prop foredeck zone.radius=3
+prop hatchzone obj.name=hatchzone
+prop hatchzone zone.id=hatch
+prop hatchzone zone.radius=2
+prop hatchzone zone.message=The cargo hatch: under it, black water and the smell of oil. The Whale's stern is down there.
+prop hatchzone beh.hidden=1
+prop cargooffice on.open=show|hatchzone\nmessage||Under the cargo chest: the hatch's bolt. The hatch to the lower holds is open now.
+
+prop messpad obj.name=messpad
+prop messpad beh.use=Type the mess safe's code
+prop messpad lock.code=4127
+prop messpad on.use=sound||event:/exploring/obstacles/keypad/keypad_correct\nmessage||The keypad beeps and the mess safe's bolt slides back.\nsignal||messcode\ngive||story:messcode*1
+prop messpad else.use=message||The safe wants the captain's code. Her log is on the mess table.
+prop messsafe obj.name=messsafe
+prop messsafe if.open=signal|messcode
+prop messsafe else.open=message||The safe is locked. The keypad beside it wants a code.
+
+quest title=Boarding the Whale
+quest intro=A ship's bow on a ridge of ice. Climb the ramp to her side.
+step reach|ramp|1|Climb the ice ramp to the Whale's side
+step read|Iron Whale: crew roster|1|Read the crew roster by the gangway
+step blueprint|Blueprint_WaterTank|1|Take the water tank's plans from the water plant
+step reach|crane|1|Climb the mast and ride the zipline to the crane on the ice
+step blueprint|Blueprint_Pipe_Water|1|Take the water pipe's plans from the crane box
+step read|Captain's log, day 1|1|Read the captain's log in the mess
+step blueprint|Blueprint_ElectricPurifier|1|Take the electric purifier's plans from the galley
+step open|Mess safe|1|Open the mess safe (the code is in the log)
+step blueprint|Blueprint_Storage_Large|1|Take the large storage's plans from the cargo office
+step reach|hatch|1|Go down the cargo hatch
+quest done=Under the hatch: black water and the Whale's broken stern. Her captain is down there.
+quest reward=MetalIngot*3;CopperIngot*2;Rope*3
+
+# RESIZE 10-24 retest: the bigger island's generator rocks that floated over slopes (ground check)
+clear at -71.27 0.96 r=1.5 only=TP_BigRock
+clear at -30.24 -61.34 r=1.5 only=TP_BigRock
+
+save The Iron Whale - Bow

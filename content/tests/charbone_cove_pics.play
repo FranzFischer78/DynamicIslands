@@ -1,0 +1,23 @@
+# Guide pictures of Charbone Cove (CIPlay charbone_cove_pics): Raft's camera, morning, calm
+island Charbone Cove
+offset 0 0
+hour 9
+weather Calm
+at 40 7
+wait 3
+picture ni7b_charbone_cove_island 60 26 -50 0 4 0
+picture ni7b_charbone_cove_camp -4 9 -14 -4 4 5
+picture ni7b_charbone_cove_cave 46 5 4 30 3 8
+picture ni7b_charbone_cove_wreck 17 +2.2 -56 8 +0.8 -62
+# Close side pictures at the ground of every structure (feet in view)
+picture ni7b_charbone_cove_s_palisade -4 +1.3 9 -4 +0.6 17.5
+picture ni7b_charbone_cove_s_spit_w -7 +1.3 -2 -7 +0.4 2.5
+picture ni7b_charbone_cove_s_spit_n 4 +1.3 4 0 +0.4 7.5
+picture ni7b_charbone_cove_s_tikis_s -4 +1.3 -9 -4 +1 -3
+picture ni7b_charbone_cove_s_tikis_n -4 +1.3 5 -4 +1 10
+picture ni7b_charbone_cove_s_tent_w -6 +1.3 3 -10.5 +0.6 6
+picture ni7b_charbone_cove_s_tent_n 2 +1.3 8 2 +0.6 12.5
+picture ni7b_charbone_cove_s_cages -4.2 +1.3 7.5 -4.2 +0.5 12.3
+picture ni7b_charbone_cove_s_chest -7 +1.2 -3.5 -9 +0.3 -1
+picture ni7b_charbone_cove_s_cavemouth 46 +1.5 4 38 +1 6
+picture ni7b_charbone_cove_s_hoard 31 +1.2 8 27 +0.4 10

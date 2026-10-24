@@ -1,0 +1,18 @@
+# Guide pictures of The Clockwork Orchard (CIPlay clockwork_orchard_pics): Raft's camera, midday, calm; the pumps started
+# in the diagram's order first (the cogs turning, the fountain running, the workshop's shutter down)
+island The Clockwork Orchard
+hour 12
+weather Calm
+at 0 -14
+wait 3
+open Inventor's toolbox
+use pineapplepump
+use mangopump
+use bananapump
+wait 4
+picture clockwork_orchard_island 46 34 -48 0 6 0
+picture clockwork_orchard_orchard -24 17 -24 2 9 4
+picture clockwork_orchard_pump -14 12.5 -4 -19 10.5 0
+picture clockwork_orchard_fountain 4 12.5 5 0 10 0
+picture clockwork_orchard_workshop 8 5 -46 0 4 -33
+picture clockwork_orchard_levers 0 6 -47 0 3.5 -35

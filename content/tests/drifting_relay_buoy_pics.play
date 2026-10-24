@@ -1,0 +1,9 @@
+# Guide pictures of Drifting Relay Buoy (CIPlay drifting_relay_buoy_pics): Raft's camera, midday, calm
+island Drifting Relay Buoy
+offset 0 0
+hour 11
+weather Calm
+at 0 0
+wait 3
+picture sl14_drifting_relay_buoy_island 20 14 -30 4 1 0
+picture sl14_drifting_relay_buoy_buoy 7 3 -5 12 1.5 0

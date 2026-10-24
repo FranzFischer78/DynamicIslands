@@ -1,0 +1,71 @@
+# Play test of the plan 'The End of the Ocean' (CIPlay plan_end_of_ocean, in a test world 'CI ...'): no Raft story, no
+# random islands; each stop is tuned to on the Receiver (or sailed to) and played to its end with its own test; the
+# Engine Court's inner crank brings the Command Well, its lever ends the court; then the relay buoy, sailed to.
+plan The End of the Ocean
+tune beacon
+include beacon_saddle.play
+sail 3
+tune reefmachine
+include reefmachine_atoll.play
+# optional reuse room (an item from an earlier island)
+open Pipe store
+wait 3
+expect item TitaniumOre 2
+expect chain triangle unlocked
+tune triangle
+include triangulation_rocks.play
+# optional reuse room (an item from an earlier island)
+use surveykennel
+expect hidden surveykennel
+open Kennel chest
+wait 3
+expect item TitaniumOre 3
+expect chain static unlocked
+tune static
+include static_shoals.play
+# optional reuse room (an item from an earlier island)
+open Spotter plane's crate
+wait 3
+expect item TitaniumOre 2
+tune breakwater
+include outer_breakwater.play
+# optional reuse room (an item from an earlier island)
+open Smugglers' chest
+wait 3
+expect item TitaniumOre 2
+expect chain locks unlocked
+tune locks
+include current_locks.play
+# optional reuse room (an item from an earlier island)
+open Old canal chest
+wait 3
+expect item TitaniumOre 2
+tune stormworks
+include stormworks.play
+# optional reuse room (an item from an earlier island)
+open Ore cave chest
+wait 3
+expect item TitaniumOre 3
+tune spire
+include cooling_spire.play
+# optional reuse room (an item from an earlier island)
+open Cellar chest
+wait 3
+expect item TitaniumOre 2
+tune court
+include engine_court.play
+# optional reuse room (an item from an earlier island)
+open Courier plane's crate
+wait 3
+expect item TitaniumOre 2
+expect chain well unlocked
+tune well
+include the_command_well.play
+expect blueprints
+sail 12
+# (a "sailing" rule fires at 12 km, then comes by chance 0.3-1.8 km of sailing later)
+wait 3
+sail 2
+arrive buoy
+include drifting_relay_buoy.play
+plan end

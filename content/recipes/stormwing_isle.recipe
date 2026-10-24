@@ -1,0 +1,102 @@
+# Stormwing Isle - a new island of the library (ROADMAP 3d NI8), large, with no quest - a flying one
+# A big green island that floats 45 m over the sea - and somebody built an airfield on it. A strip of bare rock runs
+# east to west across its middle, red beacons turning at both ends; one small plane still stands at the west end, ready to
+# roll, and another overshot the east end and lies broken where the ground falls away, a wing and a propeller blade
+# thrown off. A big frame of pillars in the north-west was the hangar. North of the strip a cave in a hump of rock, its
+# mouth to the strip, where the pilots kept their stores. Mist drifts over the edges. Nothing leads up: build stairs or
+# pillars from the raft. Nothing hostile.
+#
+# Built by the recipe player (CIRecipe stormwing_isle) through the editor's own operations. Points (metres over the
+# island's own water line; in the world it all floats 45 m higher): the strip from -28 -6 to 28 -6 (9 m, 12 m wide); the
+# beacons at -31 -6 and 31 -6; the standing plane at -20 -6; the crashed plane at 35.5 2; the hangar at -20 20 (pad 9 m,
+# r 11); the cave rock at 10 16 (pad 9 m, floor 9.45 m, the mouth south at z 0, the passage to -5).
+include lib_huts
+include lib_features
+include lib_ni8
+new
+# (nature: a flying island - palms and bushes on its top, nothing of the sea)
+gen Trees=0.18 Bushes=0.28 Rocks=0.4 Harvest=0.2 BeachThings=0
+gen Seed=7804 Radius=46 Height=12 Roughness=0.4 Peaks=1 Shape=0 Style=0 BeachWidth=0.1 Cliffs=0.7 PeakShape=0.4
+gen Water=0 SeaRocks=0 SeaFinds=0 Sunken=0 Hostiles=0 Friendly=0 SeaLife=0
+generate
+elevation 45
+
+# ===== The ground: the strip, the hangar's pad, the cave ==================================================================
+brush flatten from -28 -6 to 28 -6 r=6 s=20 frames=220 h=9
+brush flatten at -20 20 r=11 s=20 frames=160 h=9
+brush flatten from -20 -6 to -20 14 r=5 s=20 frames=120 h=9
+# (the pad out to the hangar frame's corners: its posts stand up to 11.4 m out, where the r=11 pad fell to 5 m and left
+# the corner posts in the air)
+brush flatten from -27.5 13.5 to -27.5 26.5 r=4 s=20 frames=80 h=9
+brush flatten from -11.5 13.5 to -11.5 26.5 r=4 s=20 frames=80 h=9
+brush flatten from -27 26.8 to -12 26.8 r=4 s=20 frames=80 h=9
+brush flatten from -27 13 to -12 13 r=4 s=20 frames=80 h=9
+brush smooth from -30 -6 to 30 -6 r=9 s=5 frames=30
+brush rock from -28 -6 to 28 -6 r=5 s=20 frames=40
+# (a dead-flat pad for the standing plane - the smoothing rounded the strip's edge under its south float)
+brush flatten at -20 -6 r=6 s=20 frames=150 h=9
+brush grass at -20 20 r=11 s=10 frames=20
+call ni8cave x=10 z=16 h=9 yaw=180 al=caverock
+clear from -32 -6 to 32 -6 r=7
+clear at -20 20 r=12
+clear at 35.5 2 r=7.5
+
+# ===== The airfield: the beacons, the standing plane, the crashed one with its wing and blade thrown off ================
+place TP_RotatingRedLight - at -31 -6 ground sit
+place TP_RotatingRedLight - at 31 -6 ground sit
+# (rot=0,0,0: Raft's copy of the plane leans 20 degrees - set as it came, one float stood in the air and the tail on the
+# ground; level, both floats rest on the pad, sunk 0.1 m)
+place Airplane standplane at -20 -6 h=8.9 sit rot=0,0,0 yaw=90
+# (the crashed one belly-down on the flat shelf past the strip's end, its floats sunk 0.55 m in the turf)
+place Airplane crashplane at 35.5 2 h=1.95 sit rot=0,0,0 yaw=165
+place WingBroken - at 30 3 drop rot=0,20,170
+place PropellerBlade - at 26 -1.5 drop rot=0,30,90
+place Loot_ChestSmall pilotchest at 31.5 -3.5 ground sit yaw=250
+place Note_Paper flightlog at 30.5 -4.5 ground sit yaw=40
+place Note_Sign stripsign at -26 -0.6 ground yaw=180
+
+# ===== The hangar: the frame of pillars, crates and the mechanics' chest under it =====================================
+place Pillars hangar at -20 20 ground sit yaw=90
+place Crate_Big_01 - at -23 17 ground yaw=12
+place Crate_Big_01 - at -23 15.6 ground yaw=80
+place Loot_Crate hangarcrate at -17 18 ground sit yaw=20
+place Loot_Barrel fuelbarrel at -16 22.5 ground
+place Placeable_Lantern_Metal - at -18 23 ground sit
+
+# ===== The cave: the pilots' stores, nests by its mouth ================================================================
+place Loot_Chest storeschest at 7.5 11 h=9.45 sit yaw=60
+place Placeable_Lantern_Metal - at 12.6 12 h=9.45 sit
+place Bird_Nest - at -4 30 ground sit
+place Bird_Nest - at 28 14 ground sit yaw=120
+
+# ===== Things to gather: fruit trees, berry bushes, flowers; mist over the edges ========================================
+scatter "Pickup_Landmark_Tree_Mango" 2 at 0 20 r=30 seed=7860 free=5
+scatter "Pickup_Landmark_Tree_Palm 2" 3 at 10 -25 r=12 seed=7861 free=5
+scatter "Pickup_Landmark_BerryBush" 3 at -10 -25 r=18 seed=7862 free=3
+scatter "Pickup_Landmark_Flower_White" 3 at 0 -25 r=20 seed=7863 free=2
+call ni8air x=0 z=0 h=8 al=edgemist fog=#c8d4e0 fa=0.08 light=#ffffff la=0.1 parts=mist r=48
+call hives x=-20 z=-25 r=12 n=2 seed=7864
+call dirt x=20 z=-25 r=14 n=3 seed=7865
+call treasure x=-5 z=-25 r=10 n=1 seed=7866
+
+# ===== Settings, notes, loot (no quest) ===================================================================================
+info title=Stormwing Isle
+info author=Custom Islands
+info description=A big green island floating 45 m over the sea with an old airfield on it - a rock strip with turning beacons, one plane ready to roll and one crashed off the end, a hangar frame and the pilots' stores in a cave. Build your way up from the raft. No quest - nothing hostile.
+
+note stripsign Sign at the strip | STORMWING FIELD\nLand into the wind. The strip ends where the island does.
+note flightlog The flight log | STORMWING FIELD\n\nNobody believes there's a field up here until they see it from the water.\nMac came in too fast in the gale and went off the east end. The wing went over the edge.\nThe other plane runs. Fuel for one flight, maybe two.\nStores are in the cave north of the strip.
+note pilotchest Pilot's chest | The pilot's chest, thrown from the wreck: rope, a bolt, a battery, his leather jacket.
+loot pilotchest Rope*2;Bolt*2;Battery*1;Equipment_LeatherChest*1
+prop pilotchest loot.refill=0
+note hangarcrate Hangar crate | A crate in the hangar: metal, hinges, bolts, plastic.
+loot hangarcrate MetalIngot*3;Hinge*2;Bolt*3;Plastic*3
+prop hangarcrate loot.refill=0
+note fuelbarrel Barrel in the hangar | A barrel in the hangar: copper ore, glass, scrap.
+loot fuelbarrel CopperOre*2;Glass*2;Scrap*3
+prop fuelbarrel loot.refill=0
+note storeschest The pilots' stores | The pilots' stores in the cave: planks, rope, nails, cooked meat, feathers.
+loot storeschest Plank*6;Rope*3;Nail*10;Cooked_GenericMeat*2;Feather*3
+prop storeschest loot.refill=0
+
+save Stormwing Isle

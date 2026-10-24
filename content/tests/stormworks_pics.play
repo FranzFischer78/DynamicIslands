@@ -1,0 +1,14 @@
+# Guide pictures of Stormworks (CIPlay stormworks_pics): Raft's camera, midday, calm - the island's own smoke
+island Stormworks
+offset 0 0
+hour 11
+weather Calm
+at 0 -16.7
+wait 3
+picture sl14_stormworks_island 76.5 54.4 -145.4 0 8 0
+picture sl14_stormworks_hall -4.9 12 -14.1 1.1 10 -0.1
+picture sl14_stormworks_rod 22.5 16 13.1 31.5 16 24.1
+picture sl14_stormworks_ridge 26 18 38 16 14 62
+picture sl14_stormworks_cave -54 9 34 -56 6 12
+picture sl14_stormworks_ruin 18 9 -76 8 4 -64
+picture sl14_stormworks_plane 40 10 -24 56 4 -36

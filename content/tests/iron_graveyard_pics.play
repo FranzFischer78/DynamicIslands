@@ -1,0 +1,11 @@
+# Guide pictures of The Iron Graveyard (CIPlay iron_graveyard_pics): Raft's camera, midday, calm
+island The Iron Graveyard
+hour 11
+weather Calm
+at 6 -62
+wait 3
+picture iron_graveyard_yard 6 18 -112 -2 3 -70
+picture iron_graveyard_hulls -26 7 -66 0 3 -82
+picture iron_graveyard_crane 10 6 -58 -4 6 -70
+picture iron_graveyard_mesa 10 18.5 -30 -6 9 -60
+picture iron_graveyard_machinery -31 +3 -57 -21 3 -66

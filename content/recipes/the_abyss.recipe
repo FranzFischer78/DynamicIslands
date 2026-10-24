@@ -1,0 +1,205 @@
+# The Abyss - an island of the library's plan The Abyss Expedition (its end)
+# A ring of black sea stacks around a trench that falls away 42 m into the dark: the expedition's raft moored over its
+# edge, its air line running down to three air pockets (Raft's own, from under Caravan Town) - a container on a shelf,
+# a gas tank on a ledge, a shack on the floor - and on the floor the lair of the Abyssal Angler. Quest "The Bottom of
+# the Abyss" (17 steps, in four chapters): the raft - the leader's log, the camp chest, the valve wrench, the air valve
+# (a journal page); the dive - the container, the gas tank, the shack; the lair - the Abyssal Angler (a journal page when
+# it dies), its brood, the hoard; the way up - the raft, the log read once more.
+# The journal's pages (the log, the chest's and the hoard's tags, the valve, the angler) are steps of their own.
+#
+# Built by the recipe player (CIRecipe the_abyss) through the editor's own operations. Its play test:
+# content\tests\the_abyss.play.
+include lib_sea
+include lib_features
+new
+# (nature: volcanic: Like Raft's desert, with little scrub on the ash - Raft's islands as the generator's Like Raft has them, CIGenLikeRaft)
+gen Trees=0.19 Bushes=0.3 Rocks=0.42 Harvest=0.2 BeachThings=0.3
+gen Seed=9101 Radius=80 Height=30 Roughness=0.6 Peaks=3 Shape=3 Style=4 Cliffs=0.6
+gen Water=0.5 SeaRocks=0.6 SeaFinds=0.5 Sunken=0.5 Hostiles=0 Friendly=0 SeaLife=0.4
+generate
+
+# --- The trench: a bowl 36 m across with a shaft in it 42 m deep; a shelf 12 m down on its east wall (under the raft),
+# a ledge 18 m down on its north wall, the floor at the bottom --------------------------------------------------------
+brush lower at 2 -5 r=18 s=20 frames=26
+brush lower at 2 -5 r=9 s=20 frames=14
+brush flatten from 13.3 -5 to 13.3 -11 r=5 s=20 frames=20
+brush flatten from 13.3 -5 to 13.3 1 r=5 s=20 frames=20
+brush flatten from 2 3.5 to -3 3.5 r=3.5 s=20 frames=20
+brush flatten from 2 3.5 to 7 3.5 r=3.5 s=20 frames=20
+brush flatten at 2 -5 r=7 s=20 frames=30
+
+# --- The expedition's raft, moored over the trench's east edge: 6 x 5 of Raft's foundations at the surface ----------
+for fx 14.75 22.25 1.5
+for fz -8 -2 1.5
+place Block_Foundation - at $fx $fz h=0.13
+next
+next
+
+# --- On deck: the air pump, cable reels, lamps on posts, the leader's table and log, the camp chest, the sail, a tent,
+# the anchor and a receiver ------------------------------------------------------------------------------------------
+push at 14 -5 h=0.13
+place Pump - at 1.6 0.9 sit
+place Pump_Handle - at 1.6 0.9 y=1.1 sit
+place Cableroll_01 - at 1.4 -1.2 sit
+place Cableroll_02 - at 2.3 -1.5 sit
+place Block_Pillar_Wood - at 0.25 3.5
+place Placeable_Lantern_Metal - at 0.25 3.5 y=2.37 sit
+place Block_Pillar_Wood - at 0.25 -3.5
+place Placeable_Lantern_Metal - at 0.25 -3.5 y=2.37 sit
+place Placeable_Table_Basic - at 3.6 -2.4 sit yaw=90
+place Note_Paper leaderlog at 3.6 -2.4 y=0.74 sit
+place Loot_Chest campchest at 5.5 -2.9 sit
+place Placeable_Sail - at 3.6 2.0 sit
+place Balboa_DecorationPrefabBase_SimpleTent - at 7 1.6 sit yaw=270
+place Placeable_Anchor_Stationary - at 7.6 -2.3 sit yaw=90
+place Placeable_Reciever_Antenna - at 8.4 3.3 sit
+place Zone_Trigger camp at 4.5 0 y=1
+pop
+
+# --- The air line: up from the first pocket's roof through the raft's edge, its valve wheel at the top ---------------
+place RT_PipeDownStraight airline at 14.2 -5 h=-6.6 sit centred tilt=90 sy=3.85
+place TP_Selene_DoorCrankWheel airvalve at 14.83 -5 h=1.43 rot=0,0,0 yaw=90
+
+# --- The air pockets: Raft's own from under Caravan Town - the container on the shelf, the gas tank on the ledge, the
+# shack on the floor. Their air - a zone where a diver breathes, and bubbles rising - comes when the valve is open ---
+place AirPocket_3 - at 12.95 -5 centred sit y=0
+place AirPocket_2 - at 2 4.8 centred sit y=0 yaw=90
+place AirPocket_1 - at -0.3 -5 centred sit y=0 yaw=90
+place Zone_Trigger pocket1 at 12.95 -5 y=3
+place Zone_Atmosphere pocketair1 at 12.95 -5 y=6
+place Zone_Trigger pocket2 at 2 4.8 y=3
+place Zone_Atmosphere pocketair2 at 2 4.8 y=6
+place Zone_Trigger pocket3 at -0.3 -5 y=2.5
+place Zone_Atmosphere pocketair3 at -0.3 -5 y=5
+place VP_AirPocket_Buoy divebuoy at 2 -5 h=-0.5
+
+# --- The lair on the floor: the hoard under a red light, the expedition's floodlights, the angler and its brood -------
+place Loot_ChestLarge lairhoard at 4.6 -5 sit y=0 yaw=270
+place TP_RotatingRedLight lairlight at 4.6 -5 y=1.93 sit
+place RT_Floodlight - at 3.6 -1.8 sit y=0 yaw=160
+place RT_Floodlight - at 3.6 -8.2 sit y=0 yaw=20
+place Creature_AnglerFish abyssal at 3 -5 y=6
+place Creature_AnglerFish brood at 1 -3 y=9
+place Zone_Trigger lair at 2 -5 y=3
+place Zone_Atmosphere lairdark at 2 -5 y=8
+
+# --- Settings, notes, behaviours, quest ------------------------------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): mangoes, pineapples, palms ----------
+scatter "Pickup_Landmark_Tree_Mango" 6 at 0 0 r=56.0 seed=4321 free=5
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=56.0 seed=4331 free=3
+scatter "Pickup_Landmark_Tree_Palm 3" 6 at 0 0 r=56.0 seed=4341 free=5
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=100 deep=5 n=2
+
+info title=The Abyss
+info author=Custom Islands
+info description=A ring of black sea stacks around a trench that falls away into the dark: the expedition's raft moored over its edge, its air line running down to the air pockets in the trench - and at the bottom, the lair of the thing the expedition came to find. The Abyss Expedition's end.
+island on.arrive=message||Black stacks around a circle of dark water - a trench, falling away to nothing. A raft is moored over its edge, its lamps still lit.
+
+story abysswrench|Valve wrench|quest:Balboa_BrunosTool_Wrench|The expedition's valve wrench: the air line's valve won't turn without it.
+note leaderlog Expedition leader's log | THE ABYSS - LAST CAMP\n\nWe found it. The trench goes down further than our lines - and something lives at its bottom, something with a light that is not a fish's.\nThe air pockets are down in the trench: the container on the shelf, the tank on the ledge, the shack on the floor. Their valve is here at the raft's edge - rusted fast, it takes the wrench in the chest. Open it and they fill.\nWe went down without them. If you read this, don't.
+note campchest Camp chest | The expedition's camp chest: the valve wrench, a spare tank, ropes.
+loot campchest story:abysswrench*1;OxygenBottle*2;Rope*4
+prop campchest loot.refill=0
+note lairhoard Lair hoard | What the expedition found at the bottom of the Abyss - and everything the lair's owner ever dragged down.
+loot lairhoard Blueprint_HeadLight_Advanced*1;Blueprint_BackpackAdvanced*1;Head_AnglerFish*1;TitaniumIngot*4;MetalIngot*8;CopperIngot*6
+prop lairhoard loot.refill=0
+
+prop airvalve obj.name=airvalve
+prop airvalve beh.use=Open the air line's valve
+prop airvalve if.use=take|story:abysswrench|1
+prop airvalve on.use=message||The wrench bites and the wheel turns. The pump hisses - far below, one by one, the air pockets swell with air, and bubbles rise out of the dark.\nshow|airpockets\nsignal||airon\njournal|The air line's valve|The valve is open. The container on the shelf, the tank on the ledge, the shack on the floor: air all the way down. Breathe at each one.\nsound||event:/exploring/obstacles/varuna/garagedoor_open
+prop airvalve else.use=message||The valve wheel is rusted fast. The expedition had a wrench for it - in the camp chest?
+
+prop pocket1 zone.id=pocket1
+prop pocket2 zone.id=pocket2
+prop pocket3 zone.id=pocket3
+prop pocket1 zone.message=Air! The container on the shelf is full of it.
+prop pocket2 zone.message=Air - the gas tank on the ledge breathes out.
+prop pocket3 zone.message=The shack on the floor still holds air.
+prop pocket1 zone.radius=4.5
+prop pocket2 zone.radius=4
+prop pocket3 zone.radius=4
+prop pocket1 zone.repeat=1
+prop pocket2 zone.repeat=1
+prop pocket3 zone.repeat=1
+prop pocket1 zone.air=1
+prop pocket2 zone.air=1
+prop pocket3 zone.air=1
+prop pocketair1 atmo.particles=bubbles
+prop pocketair2 atmo.particles=bubbles
+prop pocketair3 atmo.particles=bubbles
+prop pocketair1 zone.radius=4
+prop pocketair2 zone.radius=4
+prop pocketair3 zone.radius=4
+prop pocket1 obj.name=airpockets
+prop pocket2 obj.name=airpockets
+prop pocket3 obj.name=airpockets
+prop pocketair1 obj.name=airpockets
+prop pocketair2 obj.name=airpockets
+prop pocketair3 obj.name=airpockets
+prop pocket1 beh.hidden=1
+prop pocket2 beh.hidden=1
+prop pocket3 beh.hidden=1
+prop pocketair1 beh.hidden=1
+prop pocketair2 beh.hidden=1
+prop pocketair3 beh.hidden=1
+
+prop camp zone.id=camp
+prop camp zone.radius=7
+prop camp zone.message=The expedition's raft, moored over the trench: a tent, lamps, an air pump - and a line going down into the dark.
+prop lair zone.id=lair
+prop lair zone.radius=12
+prop lair zone.message=The bottom of the Abyss. The light that is not a fish's turns towards you.
+prop lairdark atmo.fog=#020408
+prop lairdark atmo.fogAmount=0.85
+prop lairdark atmo.light=#101820
+prop lairdark atmo.lightAmount=0.9
+prop lairdark zone.radius=16
+prop brood creature.count=3
+prop brood creature.respawn=0
+prop brood creature.zone=lair
+prop abyssal creature.count=1
+prop abyssal creature.size=3.2
+prop abyssal creature.health=12
+prop abyssal creature.damage=3
+prop abyssal creature.respawn=0
+prop abyssal creature.zone=lair
+prop abyssal tint.color=#1a1426
+prop abyssal tint.amount=0.6
+prop abyssal on.defeat=journal|The Abyssal Angler|The light that was not a fish's has gone out. The thing the expedition came to find lies on the floor of the Abyss - and its brood is still in the dark.
+
+quest title=The Bottom of the Abyss
+quest intro=The expedition's last stop: a trench among black sea stacks. Their raft is still moored over it.
+step reach|camp|1|Board the expedition's raft, moored over the trench
+step read|Expedition leader's log|1|Read the expedition leader's log on the table
+step pages||1|Keep the leader's warning in your journal
+step open|Camp chest|1|Open the expedition's camp chest
+step collect|story:abysswrench|1|Take the valve wrench - the air line's valve won't turn without it
+step pages||2|Copy the camp chest's list into your journal
+step pages||3|Turn the air line's valve with the wrench and log it in your journal
+step reach|pocket1|1|Dive to the container on the shelf and breathe
+step reach|pocket2|1|Sink to the gas tank on the ledge, 18 m down
+step reach|pocket3|1|Down to the shack on the floor - the last air before the lair
+step reach|lair|1|Face the light that is not a fish's at the bottom of the Abyss
+step pages||4|Kill the Abyssal Angler and write its end into your journal
+step kill|Angler fish|4|Finish off its brood - not one angler left in the lair
+step open|Lair hoard|1|Open what the lair kept
+step blueprint|Blueprint_HeadLight_Advanced|1|Take the advanced headlamp plans from the lair hoard
+step blueprint|Blueprint_BackpackAdvanced|1|Take the advanced backpack plans from the lair hoard
+step pages||5|Write the hoard into your journal - the expedition's answer
+step reach|camp|1|Climb the air line back up - the pockets still breathe on the way - and haul yourself aboard the expedition's raft
+step read|Expedition leader's log|1|Read the leader's log once more - its question has an answer now
+quest done=The Abyss is quiet. The expedition's question has its answer - and the deep has given up its hoard. The Abyss Expedition is done.
+quest reward=MetalIngot*8;Nail*30;OxygenBottle*2
+
+# Buried treasure (one of the story line's last islands): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=40 n=1 seed=8815
+prop treasure8815 treasure.loot=TitaniumOre*3
+
+# the generator's rocks that floated over the slope (VI4 ground check, 2026-10-24)
+clear at 11.2 14.98 r=1.5 only=BigSharpRock
+clear at 26.74 -41.24 r=1.5 only=CaravanIsland_SmallRock
+clear at 40.78 -18.27 r=1.5 only=BigSharpRock
+
+save The Abyss

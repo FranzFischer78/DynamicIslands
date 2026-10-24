@@ -1,0 +1,164 @@
+# Kingsrest Isle - a new island of the library (ROADMAP 3d NI8), large, with no quest
+# A big green island of hills. On a hill in the west stands a castle's ruin: a ring of crumbled stone walls with four
+# stubby towers and a gate to the south, a ramp climbing to it, the lord's wooden hall and a well in the courtyard. In the
+# south-east lies a village of thatched huts round a fire, a well and a tiki pole. In the north two rocky peaks hold the
+# island's holy places - a wooden idol between fire baskets on the west peak, a ring of marble columns round a statue
+# on the east one - and a rope bridge hangs between them; the east peak is reached only over it. Monsters: a bear in
+# the north woods, warthogs in the south, screechers round the peaks.
+#
+# Built by the recipe player (CIRecipe kingsrest_isle) through the editor's own operations. Points: the castle hill at
+# -40 10 (12 m, r 18), its walls at r 13, the gate south at -40 -3, the ramp from -40 -30 (3 m) to -40 -6 (12 m); the
+# hall x -43.75..-36.25, z 9..13.5 (floor 12.1 m, door south); the village at 35 -40 (3 m, r 18), four huts along z
+# -36..-33 from x 24 to 48, the fire at 35 -44; the west peak's top at 6 40 and the east peak's at 36 40 (both 22 m, r 10);
+# the path up the west peak from 6 -6 (4 m) to 6 31; the bridge from 13.5 40 to 28.5 40 (deck 22 m, sagging 1.5 m).
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+include lib_ni8
+new
+# (nature: tropical, Like Raft - palms and bushes, the peaks bare rock)
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=7803 Radius=90 Height=12 Roughness=0.4 Peaks=2 Shape=0 Style=0 BeachWidth=0.5 Cliffs=0.35 PeakShape=0.45
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== The ground: the castle hill and its ramp, the village, the two peaks, the saddle, the path up the west peak ======
+brush flatten at -40 10 r=18 s=20 frames=220 h=12
+for i 0 24 1
+brush flatten at -40 {-30+$i} r=2.8 s=20 frames=30 h={3+$i*9/24}
+next
+brush smooth at -40 10 r=22 s=5 frames=30
+brush grass at -40 10 r=12 s=10 frames=20
+brush rock at -40 10 r=18 s=6 frames=20
+brush flatten at 35 -40 r=18 s=20 frames=120 h=3
+# (level pads for the two wells: their decks rest flat on the ground, the pipe buried)
+brush flatten at -33 3 r=4.5 s=20 frames=150 h=11.9
+brush flatten at 46 -46 r=4.5 s=20 frames=150 h=3.1
+brush grass at 35 -40 r=16 s=10 frames=20
+brush sand at 35 -44 r=5 s=20 frames=20
+brush flatten from 19.5 40 to 22.5 40 r=3 s=20 frames=200 h=10
+brush flatten at 6 40 r=10 s=20 frames=300 h=22
+brush flatten at 36 40 r=10 s=20 frames=300 h=22
+# (the path: two passes of strokes 1 m apart, on into the peak's top; no smoothing - on this narrow ridge a smooth
+# stroke pulled it 5 m under its heights and left a wall at z 29-33)
+for pp 1 2 1
+for i 0 37 1
+brush flatten at 6 {-6+$i} r=3.2 s=20 frames=120 h={4+$i*18/37}
+next
+brush flatten from 6 31 to 6 35 r=3.2 s=20 frames=120 h=22
+next
+brush rock at 6 40 r=11 s=20 frames=40
+brush rock at 36 40 r=11 s=20 frames=40
+clear at -40 10 r=18
+clear from -40 -30 to -40 -5 r=3.5
+clear at 35 -40 r=18
+clear at 6 40 r=10
+clear at 36 40 r=10
+clear from 6 -9 to 6 34 r=4.5
+
+# ===== The castle: the ring of crumbled walls with the gate south, four stubby towers, fire baskets at the gate =========
+# (straight stone blocks with a flat foot, sunk 2 m or more under the lowest ground of their footprint, outer slope
+# included - the boulder bulges of the first build read as rocks hovering over the slope; walls 10.2 m close the ring)
+for wi 0 6 1
+set wa {315+45*$wi}
+place RT_GroundPillar castlewall at {-40+13*cos($wa)} {10+13*sin($wa)} h=7.4 sit yaw={atan2(-sin($wa),cos($wa))} sx=0.75 sy={(9.2+0.8*abs(sin($wa*3)))/3} sz=4.25
+next
+for a 45 315 90
+place RT_GroundPillar castletower at {-40+13.5*cos($a)} {10+13.5*sin($a)} h=7.3 sit sx=1.58 sy=4.33 sz=1.58
+next
+place Placeable_Lantern_FireBasket - at -43 -4.5 ground sit
+place Placeable_Lantern_FireBasket - at -37 -4.5 ground sit
+place Note_Sign gatesign at -44 -7 ground yaw=180
+
+# ===== The lord's hall in the courtyard: a wooden cabin, door south; his table, book and chest; the well ================
+push at -43.75 9 h=12
+call cabin w=5 d=3 al=hallwall
+place Placeable_Table_Basic - at 3.75 2.6 y=0.1 sit
+place Note_Book lordsbook at 3.75 2.6 y=0.84 sit yaw=20
+place Loot_Chest lordschest at 6.6 3.6 y=0.1 sit yaw=270
+place Placeable_Bed_Basic - at 1.15 3 y=0.1 sit yaw=90
+pop
+place Well - at -33 3 ground y=-1.8 sit
+place Loot_Barrel castlebarrel at -48 4 ground
+
+# ===== The village in the south-east: four thatched huts, the fire, a tiki pole, the well, a barrel ====================
+for hx 24 43.5 6.5
+push at $hx -36 h=3
+call ni8hut w=3 d=2 al=huts
+pop
+next
+place Loot_Chest headmanchest at 34.2 -33.8 h=3.1 sit yaw=180
+place campfire_1 - at 35 -44 ground
+place Placeable_TikiPole_Complete - at 30 -46 ground sit yaw=10
+place Placeable_TikiPole_Complete - at 40 -46 ground sit yaw=350
+place Well - at 46 -46 ground y=-1.8 sit
+place Loot_Barrel villagebarrel at 23 -42 ground
+line Block_Wall_Fence_Plank from 22 -50 to 30 -50 step=1.5 ground
+place Note_Paper villagenote at 33 -43 ground sit yaw=30
+
+# ===== The holy places on the peaks: the idol on the west peak, the column ring round the statue on the east; the bridge =
+place Balboa_DecorationPrefabBase_Doll_R idol at 4 42 ground sit scale=2.4 yaw=180
+place Placeable_Lantern_FireBasket - at 2.4 42 ground sit
+place Placeable_Lantern_FireBasket - at 5.6 42 ground sit
+place Note_Sign peaksign at 9 37 ground yaw=270
+call ni8temple x=36 z=40 h=22 al=templecolumns roofal=templeroof
+# (the slab's corners stand out past the ring: a post under each, so the roof rests on posts at its corners too)
+for cx -1 1 2
+for cz -1 1 2
+place RT_PillarThick templecolumns at {36+4.2*$cx} {40+4.2*$cz} h=22 sy=0.483 sx=0.3 sz=0.3
+next
+next
+prop templecolumns tint.color=#e8e2d4
+prop templeroof tint.color=#e8e2d4
+place TangaroaFounderStatue statue at 36 40 h=22 sit scale=0.55 yaw=270
+place UT_EndRoom_Pot02 - at 34 42.5 h=22 sit
+place Loot_Chest offeringchest at 37.5 37.6 h=22 sit yaw=270
+call ni8air x=36 z=40 h=23 al=templeair fog=#d8d8e8 fa=0.1 light=#fff4d0 la=0.25 parts=mist r=8
+call hangbridge x1=13.5 z1=40 h1=22 x2=28.5 z2=40 h2=22 sag=1.5 pb=2
+
+# ===== The sea: Raft's finds in the shallows, dolphins ===================================================================
+call shallows r=105 deep=5 n=1 seed=7850
+place Creature_Dolphin dolphins at 70 -80 h=-3
+
+# ===== Monsters: a bear in the north woods, warthogs in the south, screechers round the peaks ===========================
+place Creature_Bear bear at -25 55 ground
+place Creature_Boar hogs at -5 -55 ground
+place Creature_StoneBird screechers at 21 40 h=34
+
+# ===== Raft's features: wild bees, dirt, a buried tin, a chest under vines ==============================================
+call hives x=-10 z=-20 r=24 n=3 seed=7851
+call dirt x=10 z=-30 r=20 n=4 seed=7852
+call treasure x=60 z=20 r=14 n=1 seed=7853
+call vinecache x=-60 z=-40 r=14 seed=7854 items=Rope*3;Nail*10;CopperOre*2
+
+# ===== Settings, notes, loot (no quest) ===================================================================================
+info title=Kingsrest Isle
+info author=Custom Islands
+info description=A big green island with a ruined castle on its west hill, a village of thatched huts, an idol and a ring of marble columns on two rocky peaks and a rope bridge hanging between them. A bear, warthogs and screechers. No quest.
+
+note gatesign Stone by the gate | KINGSREST\nThe king's peace holds inside these walls.\nThe walls have not held for a long time.
+note lordsbook The lord's book | KINGSREST\n\nThe last of the masons left with the spring boats. The towers will not go higher now.\nThe village keeps the fire and the old idol on the west peak. I keep the hall.\nWe hung a bridge to the east peak where the white stones stand. One crossing at a time.\nThe bear in the north woods is older than the castle. Leave him be.
+note lordschest The lord's chest | The lord's chest: iron, leather, a little copper, his good rope.
+loot lordschest MetalIngot*2;Leather*3;CopperIngot*1;Rope*3
+prop lordschest loot.refill=0
+note castlebarrel Barrel in the courtyard | A barrel in the courtyard: planks, nails, stone.
+loot castlebarrel Plank*4;Nail*8;Stone*4
+prop castlebarrel loot.refill=0
+note villagenote The villagers' notice | Fire at dusk. Water from the well, not the sea.\nGifts for the white stones go over the bridge. Nobody takes them back.\nThe pigs in the south woods bite.
+note headmanchest Headman's chest | The headman's chest: seeds, bait, wool, a sweep net.
+loot headmanchest Seed_Mango*2;FishingBait_Simple*3;Wool*2;SweepNet*1
+prop headmanchest loot.refill=0
+note villagebarrel Barrel in the village | A barrel by the huts: clay, sand, plastic.
+loot villagebarrel Clay*3;Sand*3;Plastic*3
+prop villagebarrel loot.refill=0
+note peaksign Sign by the idol | THE CROSSING TO THE WHITE STONES\nOne at a time.
+note offeringchest Offering chest | Gifts left for the white stones: titanium, silver algae, copper, honey.
+loot offeringchest TitaniumOre*2;SilverAlgae*2;CopperIngot*2;HoneyComb*2
+prop offeringchest loot.refill=0
+prop hogs creature.count=2
+prop screechers creature.count=2
+prop dolphins creature.count=2
+
+posts off
+save Kingsrest Isle

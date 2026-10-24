@@ -1,0 +1,39 @@
+# lib_gravity - shared pieces of the plan The Gravity Sea's islands ("include lib_gravity"): the Halvard Institute's
+# wooden huts (the same plan above and below, so a sky island's house and its sunken root match) and the air pockets of
+# the sunken roots. A recipe that calls hut includes lib_huts first (floors, corners).
+#
+# hut: a wooden hut of w x d cells (1.5 m) from the frame's corner (push to place it): floor blocks, walls round it with
+# a door in the south wall's first cell (x 0.75, z 0), pillars at the four corners and a hipped roof standing on them.
+# w and d at least 2.
+macro hut w=2 d=2 y=0.1
+call floors w=$w d=$d y=$y
+place Block_Wall_Door_Wood - at 0.75 0 y=$y
+for fx 2.25 {$w*1.5-0.75} 1.5
+place Block_Wall_Wood - at $fx 0 y=$y
+next
+for fx 0.75 {$w*1.5-0.75} 1.5
+place Block_Wall_Wood - at $fx {$d*1.5} y=$y
+next
+for fz 0.75 {$d*1.5-0.75} 1.5
+place Block_Wall_Wood - at 0 $fz y=$y yaw=90
+place Block_Wall_Wood - at {$w*1.5} $fz y=$y yaw=90
+next
+call corners w=$w d=$d y=$y
+roof $w $d at 0 0 y=$y wood
+end
+#
+# airpocket: an air pocket on the ground at x z (Raft's air pocket, its trigger zone with air and bubbles): zone id,
+# alias for the zone (al) and its bubbles (bub), its radius r
+macro airpocket x=0 z=0 id=air al=air bub=airbub r=2.5 msg="An air pocket - breathe."
+place AirPocket_1 - at $x $z ground y=0.05 scale=0.6
+place Zone_Trigger $al at $x $z ground y=1.6
+place Zone_Atmosphere $bub at $x $z ground y=1.2
+prop $al obj.name=$al
+prop $al zone.id=$id
+prop $al zone.radius=$r
+prop $al zone.repeat=1
+prop $al zone.air=1
+prop $al zone.message=$msg
+prop $bub atmo.particles=bubbles
+prop $bub zone.radius=3
+end

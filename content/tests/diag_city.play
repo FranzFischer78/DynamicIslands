@@ -1,0 +1,11 @@
+# Dev aid: does the city's ground line up with its objects in a world? (CIPlay diag_city)
+island The Drowned Metropolis
+where Note_Board
+where LandmarkLadder_6m
+where UT_Set_Tower01
+expect stand -41 -33 h=99
+expect stand -27.2 -42.7 h=99
+expect stand -22 -50 h=99
+expect stand -8.2 -59.7 h=99
+expect stand -50 -60 h=99
+expect stand -36.2 -69.7 h=99

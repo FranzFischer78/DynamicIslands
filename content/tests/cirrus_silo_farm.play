@@ -1,0 +1,40 @@
+# Cirrus Silo Farm (CIPlay cirrus_silo_farm): the plan The Rainmakers' second island, quest "The Seed Silos"
+# The silos x -8..8 z 12..20 (3 m), silo three at 8 12 (its hatch at 8 8.6, the cage at 12.6 12), the farmhouse at
+# -24..-19.5 z -17..-14, the pen x 12..24 z -14..-6 (the tool chest at 12 -4), the farm gate at 0 -28.
+island Cirrus Silo Farm
+offset 0 0
+expect step 0
+expect title The Seed Silos
+wait 5
+expect animals Goat 3
+expect hidden silostore
+walk 0 -34 to 0 -28 to 0 -22
+zone farm_gate
+expect step 1
+open Farm tool chest
+expect item NetGun 1
+catch Goat 3
+expect step 2
+read Farmer Teo's letter to his daughter
+expect step 3
+use silohatch
+expect message locked
+open Farmhouse drawer
+expect story silokey 1
+use silohatch
+expect story silohatch 1
+expect shown silostore
+expect step 4
+open Teo's seed box
+expect message NOT THE COMPANY'S
+open Silo 3 store
+wait 3
+expect item Blueprint_MotorWheel 1
+expect item Blueprint_SteeringWheel 1
+expect step 7
+use teocage
+expect survivor rainmakers_teo
+expect story silokey 0
+open Teo's seed box
+expect item Seed_Pineapple 3
+expect done

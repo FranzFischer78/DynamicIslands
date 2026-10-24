@@ -1,0 +1,103 @@
+# Ringstone Hill - a new medium island of the library (ROADMAP 3d NI7b), no quest
+# A green round hill over a sandy shore, and on its top a ring of nine standing stones round a fallen altar stone -
+# nobody knows who raised them. Under the hill on the south shore the rock is hollow: a cave with a bear in it, and
+# what it dragged in. The stones' keeper had a cabin on the west slope and a plank jetty off the west beach; his boat
+# lies wrecked on the sea floor beyond it. Goats graze the hill; a screecher circles the stones. Mind the bear.
+#
+# Built by the recipe player (CIRecipe ringstone_hill) through the editor's own operations. Points: the hilltop (14 m, r 9
+# round 0 6), the ring r 7 round it, the altar stone at 0 6; the cave rock round 8 -26 (scale 0.85), its floor 2 m, its
+# mouth south at about 8 -40; the bear's chest at 10.1 -30.3 (2.05 m), the bear at 7.2 -31.1; the keeper's cabin x
+# -27..-22.5, z -3..0 (4 m, its door south at -24.75 -3), his box at -26 -0.6; the jetty's root on the west beach at -42 2
+# (1.35 m), the jetty x -42..-57 at z 0.5..3.5 (deck 1.5 m); the wreck at -56 26 on the sea floor; the goats at 14 16.
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+include lib_ni7b
+new
+# (nature: a grassy hill - Raft's tropical, trees on the lower slopes)
+gen Trees=0.25 Bushes=0.3 Rocks=0.4 Harvest=0.28 BeachThings=0.3
+gen Seed=7714 Radius=48 Height=16 Roughness=0.35 Peaks=1 Shape=0 Style=0 BeachWidth=0.6 Cliffs=0.25 PeakShape=0.5
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.4 Sunken=0.4 Hostiles=0 Friendly=0.2 SeaLife=0.2
+generate
+
+# ===== Terrain: the hilltop; the cave's ground and its way to the south beach; the cabin's shelf; the jetty's root =======
+brush flatten at 0 6 r=10 s=20 frames=120 h=14
+brush smooth at 0 6 r=22 s=6 frames=30
+brush flatten at 0 6 r=9 s=20 frames=80 h=14
+brush grass at 0 6 r=18 s=20 frames=30
+brush flatten at 8 -26 r=12 s=20 frames=100 h=1.6
+brush flatten from 8 -38 to 8 -47 r=4.5 s=20 frames=60 h=2
+brush sand from 8 -40 to 8 -48 r=4 s=20 frames=20
+brush flatten at -24.5 -1.5 r=6 s=20 frames=80 h=4
+brush flatten at -42 2 r=3 s=20 frames=60 h=1.35
+brush smooth from -30 -1 to -41 2 r=4 s=10 frames=40
+brush rock at 22 -10 r=7 s=20 frames=20
+brush flatten at -56 26 r=10 s=20 frames=150 h=-7
+brush smooth at -56 26 r=14 s=6 frames=30
+clear at 0 6 r=12
+clear at 8 -26 r=16
+clear from 8 -40 to 8 -48 r=4
+clear at -24.5 -1.5 r=7
+clear from -30 -1 to -44 2 r=3
+
+# ===== The ring of standing stones, the altar stone, the screecher over them ==============================================
+call stonering x=0 z=6 r=7 n=9 s=0.38
+place SmallBoulder2 altar at 0 6 ground sit scale=0.3 yaw=90
+place Creature_StoneBird screecher at 0 6 h=18
+
+# ===== The cave under the hill: Balboa's bear cave, its mouth south; the bear and its chest ================================
+place BalboaCave_Bear hillcave at 8 -26 h=5.87 yaw=180 scale=0.85
+place Loot_ChestSmall bearchest at 10.1 -30.3 h=2.05 sit yaw=150
+place Creature_Bear bear at 7.2 -31.1 h=2.1
+
+# ===== The keeper's cabin on the west slope, his fire and woodpile =========================================================
+push at -27 -3 h=4
+call cabin w=3 d=2 al=keeperwall
+place Bed_Simple - at 3.0 2.0 y=0.1 sit yaw=90
+place "Box Small" keeperbox at 1 2.4 y=0.1 sit yaw=10
+pop
+place campfire_1 - at -24.5 -6 ground sit
+for fw 0 3 1
+place Firewood_1 - at -21.4 {-2.6+0.6*$fw} ground sit yaw={90+25*$fw}
+next
+
+# ===== The jetty off the west beach, a crate at its head; the keeper's boat wrecked beyond it ============================
+push at -42 2 yaw=180
+call jetty n=8 h=1.5
+pop
+place Loot_Crate jettycrate at -55.5 0.8 h=1.5 sit yaw=10
+call wreck x=-56 z=26 yaw=140 roll=22 tilt=4 sink=1.4 al=keeperboat seed=7741 where=wet
+place Loot_ChestSmall wreckchest at -52 22 ground sit yaw=40
+
+# ===== The rest: fruit, hives, dirt, a treasure; goats on the hill; Raft's finds in the shallows; turtles =================
+scatter "Pickup_Landmark_Tree_Mango" 2 at -14 18 r=10 seed=7742 free=5
+scatter "Pickup_Landmark_BerryBush" 4 at 0 0 r=30 seed=7743 free=3
+call hives x=0 z=0 r=30 n=2 seed=7744
+call dirt x=0 z=0 r=34 n=3 seed=7745
+call treasure x=0 z=0 r=32 n=1 seed=7714
+place Creature_Goat goats at 14 16 ground
+prop goats creature.count=2
+call shallows r=72 deep=5 n=2 seed=774
+place Creature_Turtle turtles at 40 40 h=-2
+prop turtles creature.count=2
+
+info title=Ringstone Hill
+info author=Custom Islands
+info description=A green hill crowned with a ring of nine standing stones, a bear's cave hollowed under it, a keeper's cabin on the slope and his plank jetty off the west beach - his boat lies wrecked beyond it. Goats on the hill, a screecher over the stones. No quest - an island to explore.
+
+note keeperbox Keeper's box | His box under the window: candle ends, rope, and a list of the stones' names, all crossed out.
+loot keeperbox Rope*3;Nail*8;Plank*6;Feather*3
+prop keeperbox loot.refill=0
+note bearchest Chest in the cave | Dragged in under the hill. Claw marks all over the lid.
+loot bearchest MetalIngot*2;Hinge*2;Bolt*3;Scrap*3
+prop bearchest loot.refill=0
+note jettycrate Crate on the jetty | Left for the boat that never came back.
+loot jettycrate Plank*6;Rope*2
+prop jettycrate loot.refill=0
+note wreckchest The keeper's sea chest | Thrown clear when his boat went down.
+loot wreckchest CopperIngot*2;Glass*2;Battery*1;Scrap*2
+prop wreckchest loot.refill=0
+
+save Ringstone Hill

@@ -1,0 +1,121 @@
+# Lantern Spire - a new island of the library, small, a flying one
+# A small rocky island that floats 60 m over the sea, a lantern hut on its flat top and the sky keeper's beacon - gone
+# dark. Nothing leads up: players build stairs or pillars up from the raft. A ladder goes down the north flank to a
+# ledge where the keeper kept his lamp oil and the birds nest. The island the Lockkeeper's Isle brings when its main
+# quest is done (its "Islands it brings" rule); it also comes on its own.
+# Quest "The Light in the North" (5 steps): climb on to the top, read the sky keeper's log, fetch the oil from the
+# ledge, light the beacon (it shows where his key hangs), open the sky keeper's chest.
+#
+# Built by the recipe player (CIRecipe lantern_spire) through the editor's own operations. Points (metres over the
+# island's own water line; in the world it all floats 60 m higher): the flat top (5 m, r 9 round 0 0); the lantern hut
+# x -2.25..0.75, z 1..4, open to the south; the beacon at 4 3; the ledge on the north flank x 0..4, z 10.5 (2.5 m),
+# its ladder at x 2 against the face at z 9.15.
+include lib_huts
+include lib_ni34
+new
+# (nature: a small flying rock - a few plants on the top, nothing of the sea)
+gen Trees=0.05 Bushes=0.2 Rocks=0.4 Harvest=0.05 BeachThings=0
+gen Seed=9172 Radius=22 Height=11 Roughness=0.45 Peaks=1 Shape=0 Style=3 BeachWidth=0.1 Cliffs=0.7 PeakShape=0.5
+gen Water=0 SeaRocks=0 SeaFinds=0 Sunken=0 Hostiles=0 Friendly=0 SeaLife=0
+generate
+elevation 60
+
+# ===== Terrain: the flat top at 5 m, the ledge on the north flank at 2.5 m ===============================================
+brush flatten at 0 0 r=9 s=20 frames=80 h=5
+brush flatten at -4 4 r=5 s=20 frames=40 h=5
+brush flatten from 0 7 to 4 7 r=1.8 s=20 frames=80 h=5
+brush flatten from 0 10.5 to 4 10.5 r=1.6 s=20 frames=80 h=2.5
+brush grass at 0 0 r=8 s=20 frames=20
+clear at 0 0 r=10
+clear from 0 10.5 to 4 10.5 r=2.5
+
+# ===== The lantern hut: three walls, the keeper's log on the table, the sky keeper's chest ================================
+push at -2.25 1 h=5
+call floors w=2 d=2 y=0.1
+place Block_Wall_Wood - at 0.75 3 y=0.1
+place Block_Wall_Wood - at 2.25 3 y=0.1
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 3 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 3 2.25 y=0.1 yaw=90
+call corners w=2 d=2
+roof 2 2 at 0 0 y=0.1 wood
+place Placeable_Table_Basic - at 0.9 1.9 y=0.1 sit
+place Note_Book skylog at 0.7 1.9 y=1.1 drop yaw=20
+place Placeable_Lantern_Metal - at 1.2 1.9 y=1.1 drop
+place Loot_Chest skychest at 2.2 2.4 y=0.1 sit yaw=180
+pop
+
+# ===== The beacon: the keeper's fire basket at the top's edge, a wood pile, a bench to watch the sea =====================
+place Placeable_Lantern_FireBasket beacon at 4 3 h=5 sit
+place Firewood_1 - at 5.5 1.2 ground sit yaw=30
+place Bench_01 - at 1 -4 ground sit yaw=180
+place Note_Sign welcome at 3 -3 h=5 sit yaw=180
+place Placeable_Flag_03 - at 5.2 4.6 ground sit yaw=200
+place Loot_Crate topcrate at -3.8 -0.6 ground sit yaw=15
+place Crate_Big_01 - at -3.4 4.8 ground sit yaw=80
+place SmallBoulder3 - at 6.6 -2.2 ground scale=0.35 yaw=40
+place SmallBoulder1 - at -6.2 -3.4 ground scale=0.3 yaw=110
+place SmallBoulder2 - at -5.5 2.5 ground scale=0.25 yaw=200
+place Zone_Trigger summit at 0 0 h=6
+
+# ===== The ladder down to the ledge: the keeper's oil box, the nests ======================================================
+call ladders x=2 z=9.15 h=2.5 n=1 yaw=0
+place "Box Small" oilbox at 3.6 10.6 h=2.5 sit yaw=10
+place Bird_Nest - at 0.4 10.7 h=2.5 sit
+place Bird_Nest - at 1.2 11 h=2.5 sit yaw=120
+place SmallBoulder4 - at 4.6 11.4 ground scale=0.25 yaw=60
+place Zone_Trigger ledge at 2 10.5 h=3.5
+
+# --- Things to gather on the top: flowers, berry bushes ----------------------------------------------------------------
+scatter "Pickup_Landmark_Flower_White" 2 at 0 0 r=8 seed=7201 free=2
+scatter "Pickup_Landmark_Flower_Blue" 1 at 0 0 r=8 seed=7203 free=2
+scatter "Pickup_Landmark_BerryBush" 3 at 0 0 r=8 seed=7202 free=2
+
+# ===== Settings, story items, notes, behaviours, quest (5 steps) ==========================================================
+info title=Lantern Spire
+info author=Custom Islands
+info description=A rock floating 60 m over the sea, a lantern hut on its top and the sky keeper's beacon - gone dark. Build your way up from the raft, find the keeper's oil and light the beacon again. The Lockkeeper's Isle brings it when its main quest is done; it also comes on its own.
+island on.arrive=message||High over the water, a rock hangs in the air - a little hut on its top, and a beacon that has gone dark.
+
+story lampoil|Lamp oil|BioFuel|The sky keeper's last can of lamp oil, from the ledge under the rock.
+story skykey|Sky keeper's key|quest:Caravan_KeyMayor|A brass key on a nail under the hut's eave - only seen in the beacon's light.
+
+note welcome To whoever gets up here | (a board by the hut, the paint flaking)\n\nYou climbed. Good. Now keep the light burning - the boats down there steer by it.\n- Tomas, sky keeper
+note skylog Sky keeper's log | Day 212. The oil in the basket is gone. The last can is on the ledge under the north lip - down the ladder, mind the birds.\n\nDay 213. My brother Aldo on the island to the south will see the light go out and think the worst. He always does.\n\nDay 214. Hung the chest key on its nail where only the beacon shows it. Whoever lights the beacon has earned what is in the chest.
+note oilbox Keeper's oil box | A box on the ledge: the last can of lamp oil, rope and a bundle of feathers the birds left.
+loot oilbox story:lampoil*1;Rope*2;Feather*3
+note topcrate Supply crate | The sky keeper's supplies, hauled up a rope a plank at a time.
+loot topcrate Plank*4;Plastic*3;Scrap*2;Rope*1
+prop topcrate loot.refill=0
+prop oilbox loot.refill=0
+note skychest Sky keeper's chest | The sky keeper's chest: his savings, his tools, his spyglass - and a map with a ring drawn round a low green island in the south.
+loot skychest TradeToken*10;MetalIngot*4;CopperIngot*2;Bolt*4;Hinge*2;Binoculars*1;Placeable_Lantern_Metal*1
+prop skychest loot.refill=0
+prop skychest if.open=has|story:skykey|1
+prop skychest else.open=message||The sky keeper's chest is locked. His log says where the key hangs: only the beacon shows it.
+
+prop beacon obj.name=beacon
+prop beacon beh.use=Pour in the oil and light the beacon
+prop beacon if.use=take|story:lampoil|1
+prop beacon on.use=message||The beacon flares up - and in its light something glints under the hut's eave: a brass key on a nail.\ngive||story:skykey*1\nsound||event:/raft/radar/lever
+prop beacon else.use=message||The beacon's basket is dry. The keeper's last oil is on the ledge under the north lip.
+
+prop summit zone.id=summit
+prop summit zone.radius=8
+prop summit zone.message=The top of Lantern Spire. Far below, the sea - and your raft, very small.
+prop ledge zone.id=ledge
+prop ledge zone.radius=3
+prop ledge zone.message=The ledge under the north lip: bird nests, a box - and a long, long way down to the sea.
+
+quest title=The Light in the North
+quest intro=An island in the air, a little hut on its top and a beacon gone dark. Get up there.
+step reach|summit|1|Build your way up to the floating rock and climb on to its top
+step read|Sky keeper's log|1|Read the sky keeper's log in the lantern hut
+step open|Keeper's oil box|1|Climb down the ladder to the ledge under the north lip and find the keeper's oil
+step collect|story:skykey|1|Pour the oil into the beacon and light it
+step open|Sky keeper's chest|1|Open the sky keeper's chest in the hut
+quest done=The light in the north burns again. Somewhere to the south, an old lockkeeper is looking up.
+quest reward=Plank*12;Rope*4;Nail*8
+
+save Lantern Spire

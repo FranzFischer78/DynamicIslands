@@ -1,0 +1,10 @@
+# Guide pictures of Gullsong Bazaar (CIPlay gullsong_bazaar_pics): Raft's camera, midday, calm. Points as in its recipe ("offset").
+island Gullsong Bazaar
+offset 0.0248 -0.7349
+hour 11
+weather Calm
+at 0 30 h=2
+wait 3
+picture gullsong_bazaar_island 30 24 50 0 0 8
+picture gullsong_bazaar_boardwalk 9 6 24 0 1.5 10
+picture gullsong_bazaar_merchant 8 5 -10 0 1.5 -4

@@ -1,0 +1,34 @@
+# Ada's Round (CIPlay adas_round; in the plan after The Franking Works): quest "Ada's Round"
+island Ada's Round
+offset 0 0
+expect step 0
+expect title Ada's Round
+expect hidden pigeonbox
+expect hidden attic
+expect hidden adanote
+zone garden_gate
+expect step 1
+read Ada's diary
+expect step 2
+use atticdoor
+expect message padlocked
+use dovecote
+expect story pigeonsflown 1
+expect shown pigeonbox
+expect step 3
+open Pigeon box
+wait 3
+expect story attickey 1
+expect step 4
+use atticdoor
+expect hidden atticdoor
+expect shown attic
+expect shown adanote
+open Attic
+wait 3
+expect item Blueprint_TitaniumTools 1
+expect item Blueprint_BackpackAdvanced 1
+expect item Blueprint_ZiplineToolElectric 1
+expect step 8
+read Ada's note to the next postman
+expect done

@@ -1,0 +1,225 @@
+# Saint Agnes Sanatorium - the second island of the library's plan The Lullaby Frequency (SL1, horror), twice the size
+# A seaside sanatorium on a wooded headland: the day room wing with a grand piano alone in it, Ward C behind a locked
+# door, a long open veranda of patients' cots on posts under a wooden roof, the hydrotherapy house with its basin, mist
+# on the lawn, an old vending machine by the gate. Quest "Admitted With the Song" (12 steps): the gate, the admissions
+# book, Nurse Edda's rota, the piano (it plays by itself after that and shows the music box), the Ward C key, Ward C,
+# the three bed charts, the hydrotherapy house, the drain crank, four pale roaches, Doctor Vell's cabinet, his last entry.
+#
+# Built by the recipe player (CIRecipe saint_agnes_sanatorium) through the editor's own operations.
+include lib_sea
+include lib_features
+include lib_sl1
+include lib_huts
+new
+# (nature: forest headland, Like Raft: Trees 0.3, Bushes 0.28, Rocks 0.43)
+gen Trees=0.3 Bushes=0.28 Rocks=0.43 Harvest=0.25 BeachThings=0.3
+gen Seed=1202 Radius=63 Height=14 Roughness=0.35 Peaks=1 Shape=0 Style=3 PeakShape=0.35 Cliffs=0.15 BeachWidth=0.5
+gen Water=0.5 SeaRocks=0.45 SeaFinds=0.5 Sunken=0.3 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the sanatorium's terrace at 6 m, the lawn and the drive up from the south beach -------------------------
+brush flatten from -18 -4 to 16 -4 r=14 s=20 frames=150 h=6
+brush flatten from -2 6 to -2 14 r=8 s=20 frames=80 h=6
+brush flatten from 0 -16 to 0 -26 r=10 s=16 frames=80 h=6
+brush smooth from 0 -28 to 0 -50 r=5 s=6 frames=30
+origin
+clear from -20 -4 to 16 -4 r=15
+clear from -2 4 to -2 16 r=8
+clear from 0 -14 to 0 -50 r=4
+clear at 9 -17 r=6
+
+# --- The day room wing: 12 x 6 m of white metal walls under a wooden roof, the piano alone in it ---------------------
+push at -15 -6 h=6
+call shed w=8 d=4 door=3
+place Tangaroa_BallroomKit_GrandPiano piano at 9 3.8 y=0.6 sit drop yaw=90
+place Loot_ChestSmall musicbox at 9 3.8 y=2.8 sit drop yaw=90
+place "Table Office" admitdesk at 2 4.9 y=1.2 sit drop yaw=0
+place Note_Paper admissions at 2 4.9 y=2.2 sit drop yaw=10
+place "Table Office" nursedesk at 1.5 1.2 y=1.2 sit drop yaw=180
+place Note_Paper rota at 1.5 1.2 y=2.2 sit drop yaw=-15
+for cx 1.5 6 1.5
+place Placeable_Chair_Wood - at $cx 2.6 y=0.8 sit drop yaw=0
+next
+place Zone_Atmosphere dayroomdim at 6 3 y=1.2
+pop
+
+# --- Ward C: its own wing east of the drive, the door locked; three beds and their charts -----------------------------
+push at 3 -6 h=6
+call shed w=6 d=4 door=2
+place Block_Wall_Tier3 wardcdoor at 3.75 0 y=0.2
+place Placeable_Bed_Basic - at 1.5 4.4 y=0.6 sit drop yaw=90
+place Placeable_Bed_Basic - at 4.5 4.4 y=0.6 sit drop yaw=90
+place Placeable_Bed_Basic - at 7.5 4.4 y=0.6 sit drop yaw=90
+place Note_Paper bed4 at 1.5 4.4 y=1.4 sit drop yaw=5
+place Note_Paper bed7 at 4.5 4.4 y=1.4 sit drop yaw=-8
+place Note_Paper bed9 at 7.5 4.4 y=1.4 sit drop yaw=12
+place Zone_Trigger wardczone at 4.5 2.5 y=1
+place Zone_Atmosphere wardcdark at 4.5 3 y=1.2
+pop
+
+# --- The veranda: an open deck of cots on posts under a wooden roof, south of the day room --------------------------
+push at -15 -12.5 h=6
+call floors w=8 d=2 y=0.6
+for px 0 12 3
+place Block_Pillar_Wood - at $px 0 y=0 sy=0.24
+place Block_Pillar_Wood - at $px 3 y=0 sy=0.24
+place Block_Pillar_Wood - at $px 0 y=0.6
+place Block_Pillar_Wood - at $px 3 y=0.6
+next
+roof 8 2 at 0 0 y=0.6 wood
+for bx 1.5 10.5 3
+place Placeable_Bed_Basic - at $bx 1.6 y=1.2 sit drop yaw=0
+next
+pop
+
+# --- The hydrotherapy house north of the wings: the basin of murky water, the drain crank, Doctor Vell's cabinet ------
+push at -5 6 h=6
+call shed w=5 d=4 door=1
+for wx 3 4.5 1.5
+for wz 2.25 3.75 1.5
+place Block_Floor_Tier3 basinwater at $wx $wz y=0.32
+next
+next
+prop basinwater tint.color=#2f5a5c
+prop basinwater tint.amount=0.75
+place WaterPipe_Long_2 drainpipes at 6.6 1 y=0.3 sit drop yaw=90
+place TP_Selene_DoorCrankWheel crank at 0.5 3 y=1.4 yaw=90
+place Loot_Chest vellcabinet at 6.6 5.2 y=0.6 sit drop yaw=180
+place "Table Office" velltable at 1.5 5.1 y=1.2 sit drop yaw=0
+place Note_Paper vellentry at 1.5 5.1 y=2.2 sit drop yaw=20
+place Zone_Trigger hydrozone at 3.75 1.2 y=1
+place Zone_Trigger drainzone at 3.75 3 y=1
+place Creature_Roach roaches at 4.5 4.5 y=0.6
+pop
+
+# --- The gate on the drive, the vending machine by it, the mist on the lawn -------------------------------------
+place Block_Pillar_Wood - at -2.4 -30 ground
+place Block_Pillar_Wood - at 2.4 -30 ground
+place Placeable_Lantern_Metal - at -2.4 -30 ground y=2.8 sit drop
+place Placeable_Lantern_Metal - at 2.4 -30 ground y=2.8 sit drop
+place Zone_Trigger gatezone at 0 -30 ground y=1
+vending agnesvend at 9 -17 ground yaw=270
+place QuestItemPickup_Tangaroa_Token - at 6 -20 ground
+place QuestItemPickup_Tangaroa_Token - at -6 -18 ground
+place QuestItemPickup_Tangaroa_Token - at -18 -16 ground
+place QuestItemPickup_Tangaroa_Token - at 14 -2 ground
+place Zone_Atmosphere lawnmist at 0 -20 ground y=2
+place Zone_Sound lullaby at -6 -2 ground y=2
+
+# --- Things to gather -------------------------------------------------------------------------------------------------
+scatter "Pickup_Landmark_Tree_Mango" 2 at 0 0 r=48 seed=1221 free=5
+scatter "Pickup_Landmark_Flower_Yellow" 3 at 0 0 r=48 seed=1222 free=4
+call dirt x=22 z=18 r=10 n=3 seed=1223
+call shallows x=-50 z=-30 r=30 deep=5 n=1
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Saint Agnes Sanatorium
+info author=Custom Islands
+info description=A sanatorium on a wooded headland: a day room with a grand piano, a locked ward, a veranda of empty cots and a hydrotherapy house nobody has drained. The second island of The Lullaby Frequency.
+island on.arrive=message||White walls in the trees, and mist lying on the lawn. From inside, faintly, a piano.
+
+story pianoplayed|The piano played|Placeable_Lantern_Metal|You touched the day room's piano. It has not stopped playing since.
+story wardckey|Ward C key|Placeable_Lantern_Metal|The key to Ward C, left with the music in the piano's music box.
+story chart|Bed chart read|Note_Paper|One of Ward C's bed charts, read.
+story drained|Basin drained|Placeable_Pipe_Water|The hydrotherapy basin is drained.
+
+note admissions Admissions book | ADMISSIONS - ST AGNES\n\nWard A: fevers, two.\nWard B: the drowned-and-saved, five.\nWard C: ADMITTED WITH THE SONG. Eleven this month. All from the Hollin coast. All humming.\n\nDr Vell asks that Ward C be kept locked after dark.
+note rota Nurse Edda's rota | ROTA - Edda\n\nMon-Thu nights: Ward C.\nFri: off (thank God).\n\nNote for the day staff: I've left the key to Ward C with the music. You know where. Nobody goes in after 3. NOBODY.
+note bed4 Bed 4 chart | BED 4. Male, 30s, net-mender.\nHears: water running UNDER the floor.\nHums: constantly. Sleeps: no.
+note bed7 Bed 7 chart | BED 7. Female, 60s, chapel cleaner.\nHears: a chapel bell, far off, wet.\nHums: at 3:12 exactly.
+note bed9 Bed 9 chart | BED 9. Girl, 9.\nHears: \"Mother, in the water.\"\nDrew the same picture forty times: a light hanging over teeth.\n\nUnder the chapel of water - Dr V.
+note vellentry Vell - final entry | Final entry.\n\nThe basin drained, the pipes gave up their roaches, and under them nothing. The song does not come from the patients. It comes THROUGH them.\n\nThe song is a lure. Not for us - for it.\n\nThe Quiet Choir think they can listen to it safely. They're building mirrors. God help them.
+note musicbox Music box | A tin music box on the piano's lid, its comb still turning. Tied to the key: a tag - WARD C.
+loot musicbox story:wardckey*1
+prop musicbox loot.refill=0
+prop musicbox obj.name=musicbox
+prop musicbox beh.hidden=1
+note vellcabinet Doctor Vell's cabinet | Doctor Vell's cabinet: his instruments, a battery for the ward lamps, and salves.
+loot vellcabinet Battery*1;HealingSalve*2;MetalIngot*3;Bolt*2
+prop vellcabinet loot.refill=0
+
+prop piano obj.name=piano
+prop piano beh.use=Play the piano
+prop piano if.use=!signal|ag_piano
+prop piano on.use=signal||ag_piano\nplaysound||event:/raft/piano|0.6|loop|near\nshow|musicbox\ngive||story:pianoplayed*1\nmessage||You press one key. The piano answers with a whole tune - the lullaby - and a little music box rises on its lid.
+prop piano else.use=message||The piano keeps playing by itself.
+
+prop wardcdoor obj.name=wardcdoor
+prop wardcdoor beh.use=Unlock Ward C
+prop wardcdoor if.use=has|story:wardckey|1
+prop wardcdoor on.use=hide|\nmessage||The Ward C key turns. The door swings in on three beds and a smell of salt.
+prop wardcdoor else.use=message||WARD C - KEEP LOCKED AFTER DARK. The door is locked.
+prop wardczone zone.id=ward_c
+prop wardczone zone.radius=3
+prop wardczone zone.message=Ward C. Three beds, three charts. The window is painted over.
+prop wardcdark atmo.fog=#141a20
+prop wardcdark atmo.fogAmount=0.55
+prop wardcdark atmo.light=#2a3038
+prop wardcdark atmo.lightAmount=0.6
+prop wardcdark zone.radius=5
+prop dayroomdim atmo.fog=#3a4046
+prop dayroomdim atmo.fogAmount=0.35
+prop dayroomdim atmo.light=#5a6066
+prop dayroomdim atmo.lightAmount=0.35
+prop dayroomdim zone.radius=6
+prop bed4 if.read=!signal|ag_bed4
+prop bed4 on.read=signal||ag_bed4\ngive||story:chart*1
+prop bed7 if.read=!signal|ag_bed7
+prop bed7 on.read=signal||ag_bed7\ngive||story:chart*1
+prop bed9 if.read=!signal|ag_bed9
+prop bed9 on.read=signal||ag_bed9\ngive||story:chart*1
+
+prop hydrozone zone.id=hydro
+prop hydrozone zone.radius=2.5
+prop hydrozone zone.message=The hydrotherapy house. The basin is full of still, dark water, and a crank wheel waits on the wall.
+prop crank obj.name=crank
+prop crank beh.use=Turn the drain crank
+prop crank if.use=!signal|ag_drained
+prop crank on.use=signal||ag_drained\nhide|basinwater\nshow|drainzone\ngive||story:drained*1\nsound||event:/amb/wreck_creaks\nmessage||The crank squeals round. The basin gurgles empty - and the drain pipes start to rattle.
+prop basinwater obj.name=basinwater
+prop drainzone obj.name=drainzone
+prop drainzone beh.hidden=1
+prop drainzone zone.id=drain
+prop drainzone zone.radius=4
+prop drainzone zone.repeat=never
+prop drainzone zone.message=Pale roaches pour out of the drained pipes!
+prop roaches creature.count=4
+prop roaches creature.respawn=0
+prop roaches creature.zone=drain
+prop roaches creature.size=1.4
+prop roaches tint.color=#e8e4d0
+prop roaches tint.amount=0.6
+
+prop gatezone zone.id=gate
+prop gatezone zone.radius=5
+prop gatezone zone.message=SAINT AGNES - REST AND SEA AIR. The gate is open.
+prop lawnmist atmo.fog=#c8ccd0
+prop lawnmist atmo.fogAmount=0.3
+prop lawnmist atmo.light=#b0b6bc
+prop lawnmist atmo.lightAmount=0.2
+prop lawnmist atmo.particles=mist
+prop lawnmist zone.radius=20
+prop lullaby sound.event=event:/exploring/elevator/elevator_music
+prop lullaby sound.volume=0.25
+prop lullaby zone.radius=26
+
+quest title=Admitted With the Song
+quest intro=A sanatorium on the headland, its gate open. Go up the drive to the gate.
+step reach|gate|1|Go up the drive to the gate
+step read|Admissions book|1|Read the admissions book in the day room
+step read|Nurse Edda's rota|1|Read Nurse Edda's rota
+step collect|story:pianoplayed|1|Play the piano in the day room
+step collect|story:wardckey|1|Take the Ward C key from the music box
+step reach|ward_c|1|Unlock Ward C and go in
+step collect|story:chart|3|Read the charts of beds 4, 7 and 9
+step reach|hydro|1|Go to the hydrotherapy house north of the wings
+step collect|story:drained|1|Turn the crank to drain the basin
+step kill|Roach|4|Deal with the roaches from the pipes
+step open|Doctor Vell's cabinet|1|Open Doctor Vell's cabinet
+step read|Vell - final entry|1|Read Doctor Vell's final entry
+quest done="Not for us - for it." The charts point to the sea in the east, where the Choir's effigies stand. They will not show on the Receiver yet - the song needs more nights.
+quest reward=TitaniumIngot*1;MetalIngot*4;CopperIngot*2;Battery*1
+
+# --- Raft's vehicles (VI4, 2026-10-23): parked on open ground, clear of paths and quest objects ---
+place VP_Forklift - at -3.5 -25 ground sit yaw=0
+save Saint Agnes Sanatorium

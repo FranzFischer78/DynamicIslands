@@ -1,0 +1,161 @@
+# Play test of The Frontier (CIPlay the_frontier, in a test world 'CI ...'). Points as in its recipe: the harbour's quay
+# (deck 2.6 m) out over the basin, the lower town on the shelf (2.5 m): the harbour office, the square, the forge and its
+# yard; the net store sunk off the quay's end (6 m down); the road up the north face - the first ramp from the east shelf
+# to the lower terrace (12.5 m), the second to the middle terrace (23.6 m), the third to the mesa (34.7 m); the upper town:
+# the reservoir, the farm store, the grower's house and the goat pen, the builders' tower (top deck 44.5 m), the archive,
+# the horn's tower (top deck 39.6 m), the Corps' hall; the lift behind it down to the cove (2.5 m) and the vault sunk in
+# the cove (5 m down).
+island The Frontier
+expect step 0
+expect title Almost Home
+wait 5
+# (the island's friendly animals as it arrives: hens in the lower town and by the grower's house, turtles in the harbour,
+# dolphins off the north shore - checked here, not at the end: in a long story sea creatures don't always last)
+expect animals Chicken 5
+expect animals Turtle 2
+expect animals Dolphin 2
+
+# Chapter 1 - arrival: along the quay to the shelf, the welcome board, the harbour office, the square
+walk 4 91 to 0 96 to 0 118.75 h=2.6
+zone harbour
+expect step 1
+walk 0 118.75 to 0 96 to 4 91.5 h=2.5
+read Welcome board
+expect step 2
+walk 4 91.5 to -12 88 to -15 86.25 to -18.5 86.25 h=2.6 below=5
+open Harbour office locker
+expect step 3
+walk -14 87.5 to 6 89 to 22 89 to 28 86 h=2.5
+zone square
+expect step 4
+
+# Chapter 2 - the lower town: the smith's note in the forge, the dogs in its yard, the netmaker's note on the quay, the
+# dive for the smiths' key, the forge chest
+walk 28 86 to 50 86 to 72 84 to 82 76 to 80 68 to 66 68 to 62 66 to 61.75 61.5 h=2.6 below=5
+read Smith's note
+expect step 5
+walk 61.75 61.5 to 63 61.75 to 67 61.5 to 72 59 h=2.5 below=5
+zone forgeyard
+kill Hyena
+expect step 6
+walk 2 92 to 0 96 to 0 106 h=2.6
+read Netmaker's note
+expect step 7
+at 7 134.6 h=-4.6
+open Net store crate
+expect story wardenkey 1
+expect step 8
+at 61 62.5 h=3.8
+open Forge chest
+expect story wardenkey 0
+expect story hornreed 1
+expect step 9
+
+# Chapter 3 - the farms' water: up the road - the first ramp, across the lower terrace, the second ramp, across the middle
+# terrace, the third ramp onto the mesa - opening the terraces' crates on the way; the reservoir, its bear and note, the
+# sluice, the farm store
+walk 68 69 to 72 74 to 56 75 to 38 75 to 30 74.6 h=12.5
+open Lower terrace crate
+walk 30 74.6 to 4 74.6 to 1 70 h=12.5
+walk 1 70 to -2 66.4 to -20 66.4 to -31 65 h=23.6
+walk -31 64 to -27 56 to -6 54.6 to 2 53 h=23.6
+open Middle terrace crate
+walk 2 53 to 20 51.4 to 35 51 to 38 46 to 37 38 h=34.7
+open Upper terrace crate
+expect story valvewheel 3
+walk 37 38 to 32 30 to 2 29 to -10 31.5 h=34.7
+zone reservoir
+expect step 10
+kill Bear
+expect step 11
+read Reservoir keeper's note
+expect step 13
+expect hidden wheels
+use sluice
+expect message thunders down the pipe
+expect shown wheels
+expect story valvewheel 0
+expect story waterpass 1
+expect step 14
+walk -10 31.5 to -3.75 28.5 to -3.75 24 h=34.8 below=37
+open Farm store
+expect story seal 1
+expect step 15
+
+# Chapter 4 - the upper town: the grower's note, the goats, the grower's chest; the builder's board, up the builders'
+# tower, the seal press; the archive and its seal
+walk -3.75 28.5 to -26 26 to -37.75 25.5 to -37.75 28.5 h=34.8 below=37
+read Grower's note
+expect step 16
+open Net box
+expect item NetGun 1
+catch Goat 2
+expect step 17
+open Grower's chest
+expect step 18
+walk -37.75 25 to -26 24 to -20 19 to 0 17 to 12.5 17.5 h=34.7
+read Builder's note
+expect step 19
+climb 16.75 17.38 h=34.8
+expect stand 17.25 18.75 h=37.22 below=39
+at 18.25 16.75 h=45.6
+where
+expect stand 18.25 16.75 h=44.48 below=46
+zone buildertop
+expect step 20
+at 18.25 16.75 h=45.6
+reach Builders' tower crate
+open Builders' tower crate
+expect story sealtool 1
+expect step 21
+walk 14 15 to 26 15 to 29 16.25 to 30.9 16.25 h=34.8 below=37
+zone archive
+expect step 22
+use archivepress
+expect story sealtool 0
+expect story seal 2
+expect step 23
+
+# Chapter 5 - the hall: its doors and plaque, the signal horn on its tower, the doors opened with the three seals, the
+# commander's last order
+walk 28 16.25 to 28 12 to 40 12 to 46 7.75 h=34.7
+zone hall
+expect step 24
+read Hall door plaque
+expect step 25
+climb 40.75 17.38 h=34.8
+expect stand 41.25 18.75 h=37.22 below=39
+at 41.6 17.4 h=40.7
+use horn
+expect message long, long, short
+expect story hornreed 0
+expect story seal 3
+expect step 26
+at 46 7 h=35.8
+walk 46 7.75 to 51.5 7.75 blocked
+use halldoor
+expect story seal 0
+wait 3
+walk 46 7.75 to 49 7.75 to 52 7.75 h=34.8 below=40
+zone hallinside
+expect step 27
+read Commander's last order
+expect step 28
+
+# Chapter 6 - the end: out of the hall's back door onto the lift's platform, the lift down to the cove, the dive to the
+# vault, the angler, the vault (and the lift back up)
+walk 52 7.75 to 52 9 to 56.5 9 to 57.2 7.75 to 60.5 7.75 h=34.8 below=37
+use liftdown
+expect message stops at the cove
+expect step 29
+at 86 7.5 h=-3.6
+zone vault
+expect step 30
+kill Stingray
+expect step 31
+open Corps' vault
+expect shown halllights
+expect done
+at 72 7.5 h=3.6
+use liftup
+expect message stops behind the hall

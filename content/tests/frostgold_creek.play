@@ -1,0 +1,72 @@
+# Play test of Frostgold Creek (CIPlay frostgold_creek, in a test world 'CI ...'). Points as in its recipe: the town on the
+# south shore at 2.8 m (main street along z -44, the boardwalk z -42..-40.5; the assay office x 15.5..26, z -38..-27.5, in
+# from its veranda's west end and through its door at 20.8 -34.5; the general store x 28.5..34.5, z -36.5..-32, its door
+# at 30.75 -36.5); the creek up the valley (its floor 2 m) from x -6 at the coast to the pool at -2 6; Abbie's cabin x
+# -14..-11, z -3..0, its doorway at -11 -2.25; the trail from the town's east end (36 -30) up to the mine's ledge (9 m),
+# the gallery north from 22 -4; the trail from the cabin up beside the falls to the saddle (-8 21, 10 m)
+island Frostgold Creek
+offset 0.1572 0.9596
+expect step 0
+expect title Stake the Claim
+expect animals Chicken 3
+expect animals Goat 3
+expect animals Turtle 2
+wait 5
+
+# Into Frostgold up the street; the assay notice; the scales want five nuggets; the store, the saloon, the claim jumpers
+walk 18 -55 to 18 -48 to 18 -44 h=2.8
+zone frostgold
+expect step 1
+read Assay office notice
+expect step 2
+walk 13 -36.3 to 17 -36.3 to 20.8 -36.3 to 20.8 -32.5 h=2.9 below=6
+use scales
+expect message five nuggets
+walk 30.75 -41 to 30.75 -34 h=2.9 below=5
+open General store crate
+open Saloon box
+open Claim jumpers' box
+
+# Up the creek's valley to Abbie's cabin; her letter; the three sluice boxes' nuggets
+walk 5 -38 to 4.5 -28 to 3 -16 to 1.5 -10 h=2.1
+walk -8.5 -2.25 to -12.5 -2.25 h=2.1 below=4
+read Abbie Starling's letter
+expect step 3
+open Lower sluice box
+open Middle sluice box
+open Upper sluice box
+expect story nugget 3
+expect step 4
+
+# Up the trail to the old mine; the white bear; the box at the back of the gallery
+walk 36 -30 to 32.9 -24 to 29.8 -18 to 26.6 -12 to 25 -9 to 23 -6 h=9
+zone mine
+expect step 5
+kill Polar bear
+expect step 6
+walk 22 -6 to 22 5 to 22 22 h=9 below=15
+open Box at the back of the mine
+expect story nugget 4
+
+# The fifth nugget in the creek pool under the falls
+zone pool
+open Box in the creek pool
+expect story nugget 5
+expect step 7
+
+# The scales take the five nuggets: the assay slip
+use scales
+expect story nugget 0
+expect story assayslip 1
+expect step 8
+
+# Up beside the falls to the saddle: the strongbox is chained; the slip on the claim post; the strongbox
+walk -9 0 to -9 8 to -9 15 to -8.5 18.5 h=10
+zone claimpost
+expect step 9
+open Abbie's strongbox
+expect message stake the claim first
+use claimpost
+open Abbie's strongbox
+expect item Blueprint_ZiplineBase 1
+expect done

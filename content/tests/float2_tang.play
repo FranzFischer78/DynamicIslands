@@ -1,0 +1,9 @@
+# FLOAT2: Tangaroa Remade deck south edge (round 3b, ledge just under the deck)
+island Tangaroa Remade
+hour 11
+weather Calm
+at 60 -4
+wait 3
+picture f2_tang_edge 68 3.6 -12 66 2.3 -17.5
+picture f2_tang_edge2 84 3.6 -16 70 2 -17.5
+picture f2_tang_edge3 68 2 -24 68 2 -17.5

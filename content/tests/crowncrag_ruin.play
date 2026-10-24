@@ -1,0 +1,28 @@
+# Play test of Crowncrag Ruin (CIPlay crowncrag_ruin, in a test world 'CI ...'). No quest: up the path to the castle
+# court, the lookout's ladder and chest, the cellar hatch, the cottage's box, the north cave's chest, the rats and the
+# screecher. Points as in its recipe.
+island Crowncrag Ruin
+offset 0 0
+expect animals Rat 3
+expect animals Screecher 1
+expect animals Chicken 3
+expect animals Turtle 2
+wait 3
+kill Rat
+kill Screecher
+# From the village up the path, through the gate into the court
+walk 1 -15 to 4.5 -12 to 8 -9 to 10 -4 to 10 2 h=10
+# Up the lookout's ladder, its chest
+climb 7.75 7.8 h=10
+expect stand 7.75 8.75 h=12.52 below=14
+open Chest on the lookout
+# The cellar hatch
+use cellarhatch
+open Under the hatch
+# Into the middle cottage, its box
+walk -12 -14 to -12 -12 to -12 -10 h=3.6 below=5
+open Cottager's box
+# Into the north cave
+walk -13 44 to -13 38 to -13 33 h=2.1 below=3
+open Chest in the north cave
+dig

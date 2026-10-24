@@ -1,0 +1,15 @@
+# Guide pictures of Raft Row Bazaar (CIPlay raft_row_bazaar_pics): Raft's camera, midday, calm; the lashed market between the towers
+# offset 0 0 is a placeholder: phase 2 sets it from the recipe's save log (PLAY_FORMAT: Coordinates).
+island Raft Row Bazaar
+offset 0 0
+hour 11
+weather Calm
+at 0 24.8
+wait 3
+picture sl13_raft_row_bazaar_island 55 32 -60.2 0 3 24.8
+# the traders' vans by the causeway
+picture sl13_raft_row_bazaar_vehicles 0 10 70.8 0 2 45.8
+picture sl13_raft_row_bazaar_hill -10 22 -34 -10 14 -64
+picture sl13_raft_row_bazaar_burnt -44 9 -12 -58 4 -28
+picture sl13_raft_row_bazaar_caravans 36 9 -22 54 3 -42
+picture sl13_raft_row_bazaar_cave 62 9 30 64 6 2

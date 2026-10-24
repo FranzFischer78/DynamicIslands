@@ -1,0 +1,93 @@
+# Mourner's Deep - a new medium island of the library (ROADMAP 3d NI7b), no quest - a sunken one
+# From the raft only darker water. Dive, and a drowned graveyard lies on the island's back eight metres down: two rows of
+# headstones with plank markers, a broken fence, dead trees standing grey in the gloom, an unlit lantern - and the
+# gravedigger's shack, its door open, an air pocket trapped under its roof. His funeral boat lies wrecked on the slope.
+# Anglerfish hunt in the murk; a pufferfish guards the boat. Things to bring up: the shack's box, the grave goods, sunken
+# barrels, sea finds, kelp.
+#
+# Built by the recipe player (CIRecipe mourners_deep) through the editor's own operations. Points (metres over the
+# island's own water line; in the world it all lies 13 m lower, under the sea): the graveyard's ground (5 m, r 14 round
+# 0 0); the headstones in rows at z 3 and 7 from x -10 to -2.8, the fence along z 10 and x -12; the shack x 2..6.5, z
+# -7..-4 (its door south at 4.25 -7), its box at 3.2 -4.6, the air pocket in it at 4.8 -5.3; the grave goods at
+# -6 5; the funeral boat at -15 15 (3.5 m).
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+include lib_ni7b
+new
+# (nature: a sunken island - no land plants but the dead trees, Raft's sea finds instead)
+gen Trees=0 Bushes=0 Rocks=0.35 Harvest=0 BeachThings=0
+gen Seed=7713 Radius=34 Height=8 Roughness=0.35 Peaks=1 Shape=0 Style=0 BeachWidth=0.1 Cliffs=0.3 PeakShape=0.3
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.4 Sunken=0.5 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+elevation -13
+
+# ===== The graveyard's ground, the boat's ledge; sand and rock =============================================================
+brush flatten at 0 0 r=14 s=20 frames=80 h=5
+brush flatten at -15 15 r=7 s=20 frames=60 h=3.5
+brush seabed at 0 0 r=18 s=20 frames=30
+brush rock at 10 8 r=6 s=20 frames=20
+clear at 0 0 r=16
+clear at -15 15 r=8
+
+# ===== The graves: two rows of headstones and markers, the broken fence, a lantern, the grave goods =======================
+call graves x=-10 z=3 yaw=90 n=4 gap=2.4
+call graves x=-10 z=7 yaw=90 n=3 gap=2.4
+call grave x=-2.8 z=7.6 yaw=200 s=0.09
+line Block_Wall_Fence_Plank from -12 10 to -3 10 step=1.5
+line Block_Wall_Fence_Plank from -12 1 to -12 8.5 step=1.5
+place Placeable_Lantern_Basic - at -1 4.5 ground sit
+place Loot_ChestSmall gravegoods at -6 5 ground sit yaw=20
+
+# ===== The dead trees ======================================================================================================
+place DeadTree1 - at 7 7 ground yaw=30
+place DeadTree3 - at -10 -6 ground yaw=150
+place DeadTree2 - at 9 -9 ground yaw=260
+place DeadTree_TreeStumps_1 - at -4 -3 ground
+
+# ===== The gravedigger's shack: a bench, his box; the air pocket under the roof ===========================================
+push at 2 -7 h=5
+call cabin w=3 d=2 al=shackwall
+place Bench_01 - at 1.2 2.4 y=0.1 sit yaw=0
+place "Box Small" shackbox at 1.2 2.4 y=0.1 sit yaw=180
+pop
+place AirPocket_1 - at 4.8 -5.3 h=5.1 sit scale=0.6
+call airpocket x=4.8 z=-5.3 id=shackair al=shackair bub=shackbub r=2.2 msg="Air - trapped under the shack's roof. Breathe."
+
+# ===== The funeral boat on the slope, barrels; corals, kelp; the murk; anglerfish and a pufferfish ========================
+call wreck x=-15 z=15 yaw=200 roll=14 tilt=4 sink=2.8 al=funeralboat seed=7731 where=any
+place Loot_SunkenBarrel - at 6 2 ground sit
+place Loot_SunkenBarrel - at -13 -2 ground sit
+macro reefhead x z seed
+scatter CauliCoral 2 at $x $z r=3 seed=$seed free=1
+scatter TableCoral_1 1 at $x $z r=3 seed={$seed+1} free=1
+scatter SpineCoral_2 2 at $x $z r=3 seed={$seed+2} free=1
+end
+call reefhead 14 -2 7732
+call reefhead -4 -16 7735
+scatter SeaVine3 16 at 0 0 r=26 seed=7738 free=2
+scatter SeaVine3_klump 5 at 0 0 r=26 seed=7739 free=3
+place Zone_Atmosphere gloom at 0 0 h=8
+prop gloom atmo.fog=#0b2a33
+prop gloom atmo.fogAmount=0.5
+prop gloom zone.radius=30
+place Creature_AnglerFish anglers at 0 0 h=9
+prop anglers creature.count=2
+place Creature_PufferFish puffers at -15 15 h=7
+prop puffers creature.count=1
+call shallows x=0 z=0 r=40 deep=8 n=1 seed=773
+
+info title=Mourner's Deep
+info author=Custom Islands
+info description=Darker water, and eight metres down a drowned graveyard: headstones in rows, a broken fence, grey dead trees and the gravedigger's shack with air trapped under its roof. His funeral boat lies wrecked on the slope. Anglerfish in the murk. No quest - an island to dive.
+
+note shackbox Gravedigger's box | A spade's worn head, a lantern wick, a little bag of coins for the boatman, and his good rope.
+loot shackbox Rope*3;Scrap*2;Bolt*2;Hinge*1
+prop shackbox loot.refill=0
+note gravegoods Grave goods | Left with the dead, as was the custom here. They won't mind.
+loot gravegoods MetalIngot*2;CopperIngot*2;Glass*3;Battery*1
+prop gravegoods loot.refill=0
+
+save Mourner's Deep

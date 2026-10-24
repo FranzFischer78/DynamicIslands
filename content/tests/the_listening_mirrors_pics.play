@@ -1,0 +1,12 @@
+# Guide pictures of The Listening Mirrors (CIPlay the_listening_mirrors_pics): the quarry from the sea, the mirrors on
+# the rim, the Choir's chapel, the flooded pit with the crane
+island The Listening Mirrors
+offset 0 0
+hour 18
+weather Calm
+at 0 -60
+wait 3
+picture sl1_mirrors_island 0 40 -110 0 8 4
+picture sl1_mirrors_dishes -10 16 -14 -26 13 -4
+picture sl1_mirrors_chapel 8 14 -22 20 11 -9
+picture sl1_mirrors_pit -6 16 -10 6 2 18

@@ -1,0 +1,288 @@
+# The Kraken's Wake - a themed island, three times the size (x3, much of it under water). Inspiration: sea-monster
+# legends and films (a squadron dragged down ship by ship along a reef - the monster's wake - a shore battery that never
+# got its gun, and the lair where the wake ends) - the mood only, never named on the island.
+# Pine islets on a shallow reef plateau (2.5 m down) that runs south-west to north-east (Shape 2, Style 3, stretched):
+# the southern row of three - the first islet (-88 -29) with the lookout, the second (-12 -21) with the fishers' hut, the
+# last (62 -6) with the harpoon battery - and two more islets north of them. Along the reef's south side runs the wake: a
+# furrow torn in the reef, deepening from 8 m to 21 m, with the five wrecks in it, and at its end, south-east of the last
+# islet, the trench (30 m) where the plateau falls away into the deep.
+# Quest "The Wake" (10 steps): the lookout, the fisherfolk's warning, the first wreck, four pages of the admiral's log,
+# three harpoon gun parts, the battery, the gunner's log, the harpoon armed and the dive into the trench, the Kraken and
+# its brood, the admiral's sea chest.
+include lib_huts
+include lib_sea
+new
+gen Trees=0.21 Bushes=0.38 Rocks=0.42 Harvest=0.1 BeachThings=0.3
+gen Seed=9018 Radius=78 Height=14 Roughness=0.4 Peaks=1 Shape=2 Style=3 BeachWidth=0.4 Cliffs=0.4 PeakShape=0.35 Stretch=2.4 StretchAngle=30
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.25 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== The land and the reef ============================================================================================
+# (flatten dabs from one depth to another along a line - the wake's furrow)
+macro dabs x1 z1 h1 x2 z2 h2 n=10 r=8
+for i 0 $n
+brush flatten at {$x1+($x2-$x1)*$i/$n} {$z1+($z2-$z1)*$i/$n} r=$r s=20 frames=25 h={$h1+($h2-$h1)*$i/$n}
+next
+end
+# (the wake: a furrow along the reef's south side, each wreck's bed deeper than the last; the trench at its end)
+call dabs -72 -52 -8 -42 -54 -10 n=8
+call dabs -42 -54 -10 -10 -52 -13 n=8
+call dabs -10 -52 -13 22 -48 -17 n=8
+call dabs 22 -48 -17 52 -44 -21 n=8
+call dabs 52 -44 -21 64 -39 -30 n=4 r=7
+brush flatten from 62 -40 to 94 -24 r=7 s=20 frames=80 h=-30
+brush rock from 62 -40 to 94 -24 r=9 s=20 frames=40
+# (the lookout's pad on the first islet, the hut's on the second's south shore, the battery's on the last)
+brush flatten at -86 -30 r=5 s=20 frames=40 h=4.6
+brush flatten at -6 -32 r=5.5 s=20 frames=40 h=1.5
+brush flatten at 66 -12 r=6 s=20 frames=40 h=5
+clear at -86 -30 r=6
+clear at -6 -32 r=6
+clear at 66 -12 r=7
+clear from -74 -52 to -42 -54 r=11
+clear from -42 -54 to -10 -52 r=11
+clear from -10 -52 to 22 -48 r=11
+clear from 22 -48 to 52 -44 r=11
+clear from 52 -44 to 94 -24 r=11
+
+# ===== The first islet: the lookout, the fisherfolk's warning at its foot ===============================================
+# (a deck on four timber legs 6 m up, a ladder up its north side, plank rails; the flag; a box on the deck)
+place Relay_support_beam_wood - at -88.3 -32.3 h=4.6 rot=0,0,-90 sx=0.676
+place Relay_support_beam_wood - at -83.7 -32.3 h=4.6 rot=0,0,-90 sx=0.676
+place Relay_support_beam_wood - at -88.3 -27.7 h=4.6 rot=0,0,-90 sx=0.676
+place Relay_support_beam_wood - at -83.7 -27.7 h=4.6 rot=0,0,-90 sx=0.676
+place Relay_Floor_deck - at -83.37 -27.37 h=10.95
+place LandmarkLadder_6m lookoutladder at -86 -27.1 h=4.6 yaw=180
+place Block_Wall_Fence_Plank - at -87.8 -32.6 h=11.1 yaw=0
+place Block_Wall_Fence_Plank - at -86 -32.6 h=11.1 yaw=0
+place Block_Wall_Fence_Plank - at -84.2 -32.6 h=11.1 yaw=0
+place Block_Wall_Fence_Plank - at -88.6 -31.8 h=11.1 yaw=90
+place Block_Wall_Fence_Plank - at -88.6 -30 h=11.1 yaw=90
+place Block_Wall_Fence_Plank - at -88.6 -28.2 h=11.1 yaw=90
+place Block_Wall_Fence_Plank - at -83.37 -31.8 h=11.1 yaw=90
+place Block_Wall_Fence_Plank - at -83.37 -30 h=11.1 yaw=90
+place Block_Wall_Fence_Plank - at -83.37 -28.2 h=11.1 yaw=90
+place Block_Wall_Fence_Plank - at -87.9 -27.37 h=11.1 yaw=0
+place Block_Wall_Fence_Plank - at -84.2 -27.37 h=11.1 yaw=0
+place Placeable_Flag_06 - at -84.2 -31.7 h=11.1 yaw=0
+place "Box Small" lookoutbox at -87.6 -29 h=11.1 sit yaw=20
+place Zone_Trigger lookout at -86 -30 h=12.2
+place Note_Sign warning at -86 -25 ground yaw=180
+
+# ===== The second islet: the fishers' hut on its south shore, nets, the hens ============================================
+push at -8.25 -34.25 h=1.5
+call stilt_hut y=1.2
+place "Box Small" fisherbox at 3.6 3.6 y=1.2 sit yaw=15
+pop
+place Creature_Chicken hens at -12 -24 ground
+
+# ===== The wake: five wrecks in the furrow along the reef, each deeper; the debris of the squadron between them ========
+# --- Wreck 1, the Sparrowhawk (8 m), rolled on her side -------------------------------------------------------------
+place BoatStranded sparrowhawk at -72 -52 ground sit yaw=80 roll=30 scale=0.8
+place "Box Big" captain1 at -66 -55 ground sit yaw=30
+place Zone_Trigger wreck1zone at -72 -52 h=-3.5
+# --- Wreck 2, the Grey Heron (10 m), on her side; her gunner's chest ------------------------------------------------
+place BoatStranded greyheron at -42 -54 ground sit yaw=95 roll=88 scale=1.1
+place "Box Big" captain2 at -36 -58 ground sit yaw=-20
+place Loot_ChestSmall gunner1 at -47 -58.5 ground sit yaw=60
+# --- Wreck 3, the Corsair (13 m), upright, her bow buried; the harpoon barrel lying beside her ---------------------
+place BoatStranded corsair at -10 -52 ground sit yaw=85 tilt=-12 scale=1.2
+place "Box Big" captain3 at -3 -57 ground sit yaw=10
+place Loot_ChestSmall gunner2 at -16 -57 ground sit yaw=-40
+place UT_Harpoon_Barrel - at -4 -46.5 ground rot=90,30,0
+# --- Wreck 4, the Tern (17 m), rolled far over ----------------------------------------------------------------------
+place BoatStranded tern at 22 -48 ground sit yaw=75 roll=-70
+place "Box Big" captain4 at 28 -52.5 ground sit yaw=15
+place Loot_ChestSmall gunner3 at 16 -53 ground sit yaw=-10
+# --- The flagship Sovereign on the trench's lip (21 m): her snapped mast and flag lying in the sand; the admiral's chest
+place BoatStranded sovereign at 52 -44 ground sit yaw=65 tilt=6 scale=1.5
+place BoatLandmark_Flag - at 44 -38.5 ground rot=0,40,84
+place MayorsChest seachest at 47 -50.5 ground sit yaw=200
+# --- The squadron's debris along the wake: masts, planks, crates, barrels, kelp; two barrels to open ------------------
+place FL_Pillar - at -57 -50 h=-8.6 rot=88,20,0 scale=2
+place FL_Pillar - at -27 -57 h=-11.2 rot=86,-30,0 scale=2
+place FL_Pillar - at 6 -46 h=-14.6 rot=89,50,0 scale=2
+place Log - at -52 -55 ground sit yaw=30
+place Log - at 38 -49 ground sit yaw=-20
+place FL_Plank1 - at -60 -55 ground sit yaw=10
+place FL_Plank2 - at -33 -49 ground sit yaw=70
+place FL_Plywood - at -20 -50 ground sit yaw=40
+place FL_Plank1 - at 2 -54 ground sit yaw=-30
+place FL_Plywood - at 34 -44 ground sit yaw=15
+place Crate_Big_01 - at -48 -50 ground sit yaw=20
+place Crate_Big_01 - at 12 -46 ground sit yaw=-50
+place Reef_Barrel1 - at -25 -53 ground sit
+place Reef_Barrel4 - at 30 -46 ground sit
+place Loot_SunkenBarrel wakebarrel1 at -55 -53 ground sit yaw=30
+place Loot_SunkenBarrel wakebarrel2 at 8 -51 ground sit yaw=-60
+place SeaVine3 - at -63 -49 ground sit
+place SeaVine3 - at -30 -51 ground sit
+place seavine_tongue - at -14 -48 ground sit
+place SeaVine3 - at 16 -45 ground sit
+place seavine_tongue - at 42 -47 ground sit
+# (the reef's giant clams and silver algae beside the wake; puffer fish round wrecks 2 and 3)
+place Pickup_Landmark_GiantClam - at -64 -43 ground
+place Pickup_Landmark_GiantClam - at -46 -44 ground
+place Pickup_Landmark_GiantClam - at -24 -43 ground
+place Pickup_Landmark_GiantClam - at 2 -40 ground
+place Pickup_Landmark_GiantClam - at 18 -38 ground
+place Pickup_Landmark_GiantClam - at 36 -36 ground
+place Pickup_Landmark_SilverAlgae - at -54 -42 ground
+place Pickup_Landmark_SilverAlgae - at -6 -41 ground
+place Pickup_Landmark_SilverAlgae - at 28 -37 ground
+place Creature_PufferFish puffers at -26 -53 h=-8
+place Zone_Sound creaks at -10 -52 h=-8
+
+# ===== The last islet: the harpoon battery facing the trench ===========================================================
+# (Utopia's harpoon platform on the islet's south-east rock, its deck 3 m up; two of Raft's ladders up its north side;
+# the gun on its deck - its barrel carried by a stub of post inside the base; the gunner's log on a board at its foot)
+place UT_HarpoonTower_Platform - at 68 -12 h=5.89
+place Block_Ladder - at 66.3 -11.2 h=5 yaw=180
+place Block_Ladder - at 66.3 -11.2 h=6.2 yaw=180
+place UT_Harpoon_Base - at 66.3 -13 h=8.59
+place Block_Pillar_Wood - at 66.3 -13 h=8.03 sy=0.46
+place UT_Harpoon_Barrel harpoon at 66.3 -13 h=9.59 yaw=135
+place Note_Board gunnerlog at 61.5 -10 h=5 yaw=200
+place Zone_Trigger battery at 65 -10 h=6.5
+
+# ===== The trench: the brood's eggs glowing on its floor; the Kraken and its brood, hidden until the gun is armed =====
+place UT_LightBottle03 - at 78 -31 h=-30 sit
+place UT_LightBottle03 - at 79.5 -30 h=-30 sit yaw=40
+place UT_LightBottle03 - at 77 -29.5 h=-30 sit yaw=-30
+place UT_LightBottle03 - at 80.5 -32 h=-30 sit yaw=80
+place UT_LightBottle03 - at 78.5 -33 h=-30 sit yaw=10
+place UT_LightBottle03 - at 76.5 -32 h=-30 sit yaw=-70
+place Creature_AnglerFish kraken at 80 -28 h=-23
+place Creature_AnglerFish brood at 76 -33 h=-26
+place Zone_Trigger lair at 72 -34 h=-18
+place Zone_Atmosphere trenchdark at 78 -30 h=-22
+place Zone_Sound trenchsound at 78 -30 h=-20
+
+# ===== The friendly animals, Raft's finds in the shallows ==============================================================
+place Creature_Turtle turtles at 40 30 h=-1.5
+place Creature_Dolphin dolphins at 0 60 h=-1.5
+call shallows r=120 deep=5 n=1
+prop hens creature.count=3
+prop turtles creature.count=2
+prop dolphins creature.count=2
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): birches, flowers, berries ----------
+scatter "Pickup_Landmark_Tree_Birch" 6 at 0 0 r=54.6 seed=4164 free=5
+scatter "Pickup_Landmark_Flower_Blue" 4 at 0 0 r=54.6 seed=4174 free=3
+scatter "Pickup_Landmark_Flower_White" 4 at 0 0 r=54.6 seed=4175 free=3
+scatter "Pickup_Landmark_BerryBush" 6 at 0 0 r=54.6 seed=4184 free=3
+
+# ===== Settings, story items, notes, behaviours, quest (10 steps) =========================================================
+info title=The Kraken's Wake
+info author=Custom Islands
+info description=A chain of pine islets along a reef, and on the reef's seaward side five wrecks in a line, each one deeper than the last: an admiral's squadron, pulled down one by one. The fisherfolk call it the wake. At its end, off the last islet, a trench - and what made the wake.
+island on.arrive=message||A line of pine islets on a reef. In the clear water beside them, the dark shapes of ships - one, two, three - going down into the blue.
+
+story logpage|Page of the admiral's log|quest:Vasagatan_FourDigitCode|A page of Admiral Brandt's log, from one of her captains' chests.
+story harpoonpart|Harpoon gun part|quest:Utopia_Harpoon|A part of the harpoon gun meant for the battery on the last islet.
+
+note warning Fisherfolk's warning | (carved into a board, the letters worn)\n\nDON'T FOLLOW THE WRECKS.\n\nFive ships came through the reef channel in my grandfather's day - the admiral's squadron - and something took them one after another, each a little further on, each a little deeper, all the way to the deep. We call the line of them the wake.\n\nThe gunners carried the parts of a harpoon gun for the battery on the last islet. They never got there.\n\nIf you are fool enough: the parts are in the gunners' chests, the battery is on the last islet, and the thing lives where the wake ends.
+note gunnerlog Battery gunner's log | HARPOON BATTERY - GUNNER'S LOG\n\nThe squadron came through at dawn. I watched them from here, one after another, the sea opening under them.\nI had no gun - only the mount. The parts were on the ships.\nWhoever brings them: lock the three parts in, lay the barrel on the trench, and when the light comes up out of the deep - you'll know what to do.
+note captain1 Sparrowhawk's captain's chest | The Sparrowhawk's captain's chest: a page of the admiral's log, copied for every captain: "Day 1. Into the reef channel at first light. Five ships, the harpoon battery's gun in pieces among the gunners."
+loot captain1 story:logpage*1;Rope*3;Nail*6
+prop captain1 loot.refill=0
+note captain2 Grey Heron's captain's chest | The Grey Heron's captain's chest and a log page: "Day 1, noon. The Sparrowhawk is gone. Something pulled her under by the bow - no reef, no storm."
+loot captain2 story:logpage*1;Scrap*3;Bolt*2
+prop captain2 loot.refill=0
+note captain3 Corsair's captain's chest | The Corsair's captain's chest and a log page: "Day 1, dusk. The Heron next. A light came up out of the water before she went, like a lantern on a pole."
+loot captain3 story:logpage*1;CopperIngot*2;Plank*4
+prop captain3 loot.refill=0
+note captain4 Tern's captain's chest | The Tern's captain's chest and a log page: "Day 2. We are making for the battery on the last islet. If we can mount the gun - the Tern is gone. The Sovereign alone. The trench is ahead."
+loot captain4 story:logpage*1;MetalIngot*2;Glass*2
+prop captain4 loot.refill=0
+note gunner1 Grey Heron's gunner's chest | A gunner's chest, wrapped in oilcloth: the harpoon gun's breech.
+loot gunner1 story:harpoonpart*1;Bolt*2
+prop gunner1 loot.refill=0
+note gunner2 Corsair's gunner's chest | A gunner's chest: the harpoon gun's firing spring, greased and whole.
+loot gunner2 story:harpoonpart*1;Scrap*2
+prop gunner2 loot.refill=0
+note gunner3 Tern's gunner's chest | A gunner's chest: the harpoon itself, barbed, with its line coiled beside it.
+loot gunner3 story:harpoonpart*1;Rope*3
+prop gunner3 loot.refill=0
+note seachest Admiral's sea chest | Admiral Brandt's sea chest: her sword, her squadron's pay, the salvage plans she meant to use on the wrecks of other people's fleets - and, wedged in its lid, a tooth as long as your arm.
+loot seachest Blueprint_Recycler*1;Head_AnglerFish*1;Hat_Sailor*1;TitaniumIngot*4;TradeToken*12
+prop seachest loot.refill=0
+prop seachest if.open=signal|krakendead
+prop seachest else.open=message||The sea chest is pinned under the Sovereign's fallen rigging - and something in the trench below is watching you try.
+note lookoutbox Lookout box | The lookout's box: a spyglass with a cracked lens, rope, dried fish.
+loot lookoutbox Rope*2;Cooked_Herring*2;Plank*4
+prop lookoutbox loot.refill=0
+note fisherbox Fishers' box | The fishers' box: lines, hooks, a jar of bait.
+loot fisherbox FishingBait_Advanced*2;Rope*2;Nail*6
+prop fisherbox loot.refill=0
+note wakebarrel1 Barrel in the wake | A barrel in the wake, from one of the squadron's holds: ship's stores.
+loot wakebarrel1 Scrap*3;MetalOre*2;Plastic*2
+prop wakebarrel1 loot.refill=0
+note wakebarrel2 Barrel in the deep wake | A barrel deeper down the wake: shot and iron.
+loot wakebarrel2 MetalOre*3;Bolt*2;Scrap*2
+prop wakebarrel2 loot.refill=0
+
+prop harpoon obj.name=harpoon
+prop harpoon beh.use=Lock the three parts into the harpoon gun and lay it on the trench
+prop harpoon if.use=quest|6\ntake|story:harpoonpart|3
+prop harpoon on.use=message||Breech, spring, harpoon - the gun locks together and swings out over the trench. The water there darkens - and far below, a light comes up, and another, and another.\nsignal||armed\nshow|kraken\nshow|brood\nsound||event:/exploring/utopia/harpoon_fire\nwait|2\nsound||event:/exploring/utopia/harpoon_impact
+prop harpoon else.use=message||A harpoon gun's mount with nothing on it. The warning said the parts are in the gunners' chests along the wake.
+prop kraken obj.name=kraken
+prop kraken beh.hidden=1
+prop kraken creature.count=1
+prop kraken creature.size=2.5
+prop kraken creature.health=4
+prop kraken creature.damage=2.5
+prop kraken creature.respawn=0
+prop kraken tint.color=#3a1a3a
+prop kraken tint.amount=0.6
+prop kraken on.defeat=signal||krakendead\nmessage||The great light goes out in the trench. Something huge sinks out of sight, slowly, into the dark - and the Sovereign's rigging sags off her admiral's chest.
+prop brood obj.name=brood
+prop brood beh.hidden=1
+prop brood creature.count=3
+prop brood creature.size=1.1
+prop brood creature.respawn=0
+
+prop lookout zone.id=lookout
+prop lookout zone.radius=4
+prop lookout zone.message=From the lookout you can see the whole wake: ship after ship along the reef, going down into the blue.
+prop wreck1zone zone.id=wreck1
+prop wreck1zone zone.radius=9
+prop wreck1zone zone.message=The Sparrowhawk, first of the wake, on her side in the sand. Her bow is crushed as if in a fist.
+prop battery zone.id=battery
+prop battery zone.radius=6
+prop battery zone.message=The harpoon battery on the last islet: a mount, a platform - and below it, the water going black.
+prop lair zone.id=lair
+prop lair zone.radius=12
+prop lair zone.message=The trench where the wake ends. Lights in the dark below - many lights.
+prop puffers creature.count=3
+prop puffers creature.respawn=0
+prop trenchdark atmo.fog=#04080e
+prop trenchdark atmo.fogAmount=0.85
+prop trenchdark atmo.light=#0c1420
+prop trenchdark atmo.lightAmount=0.85
+prop trenchdark zone.radius=22
+prop trenchsound sound.event=event:/amb/underwater
+prop trenchsound sound.volume=0.7
+prop trenchsound zone.radius=25
+prop creaks sound.event=event:/amb/wreck_creaks
+prop creaks sound.volume=0.5
+prop creaks zone.radius=40
+
+quest title=The Wake
+quest intro=A line of wrecks along a reef, each one deeper than the last. The fisherfolk left a warning at the lookout on the first islet.
+step reach|lookout|1|Climb the old lookout on the first islet of the chain
+step read|Fisherfolk's warning|1|Read the warning carved at the lookout's foot
+step reach|wreck1|1|Dive to the first wreck of the wake
+step collect|story:logpage|4|Collect four pages of the admiral's log from the captains' chests along the wake
+step collect|story:harpoonpart|3|Salvage the three harpoon gun parts from the gunners' chests
+step reach|battery|1|Reach the harpoon battery on the last islet
+step read|Battery gunner's log|1|Read the gunner's log on the battery
+step reach|lair|1|Arm the harpoon gun and dive into the trench where the wake ends
+step kill|Angler fish|4|Face the Kraken and its brood in the trench
+step open|Admiral's sea chest|1|Open the admiral's sea chest on the flagship at the trench's lip
+quest done=The wake is ended. Whatever lived in the trench lives there no longer, and the admiral's squadron rests in a line along the reef, all five ships accounted for.
+quest reward=Rope*6;MetalIngot*6;OxygenBottle*2
+
+save The Kraken's Wake

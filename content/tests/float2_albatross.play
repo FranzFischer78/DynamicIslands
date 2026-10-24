@@ -1,0 +1,11 @@
+# FLOAT2 close side pictures (coordinator check, not for the guide): the control tower's base all round
+island Albatross Field
+offset -1.7063 -0.0567
+hour 15
+weather Calm
+at -55 -30
+wait 3
+picture f2_alb_tower_s -10 6.5 37 -10 4.6 50
+picture f2_alb_tower_n -15 6.5 63 -10 4.6 50
+picture f2_alb_tower_w -23 6.5 50 -10 4.6 50
+picture f2_alb_tower_e 3 6.5 47 -10 4.6 50

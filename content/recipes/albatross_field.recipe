@@ -1,0 +1,341 @@
+# Albatross Field - a themed island, three times the size (x3). Inspiration: Pacific war films (a coral atoll airfield: a
+# runway, hangars, a control tower, a fuel dump on the next islet, fighters lost in the lagoon, a flight that never came
+# home) - the mood only, never named on the island.
+# A ring of palm-grown land round a lagoon (Shape 1, Style 0), cut by two passes into a great western islet and an
+# eastern one: the coral runway along the west side (north-south, the flight comes in from the south), two hangars at its
+# south end, the operations hut, the control tower and the power bunker at its north end, the barracks along the north
+# shore; the fuel dump on the eastern islet across the north pass; a fighter ditched in the lagoon, a bomber on the outer
+# reef to the north.
+include lib_rt
+include lib_relay
+include lib_sea
+new
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=9017 Radius=78 Height=5 Roughness=0.3 Peaks=1 Shape=1 Style=0 BeachWidth=0.8 Cliffs=0 PeakShape=0.2
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.35 SeaFinds=0.5 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== The land: the passes, the runway, the pads for the buildings, the hollows for the wrecks =========================
+# (the north pass and the south-east pass: the ring cut to the sea floor, the eastern islet a swim or a wade away)
+brush flatten from 24 42 to 24 70 r=4.5 s=20 frames=60 h=-1.6
+brush flatten from 38 -28 to 60 -50 r=4.5 s=20 frames=60 h=-1.6
+# (the runway: rolled coral along the west side, 88 m by 12, its south end where the flight comes in)
+brush flatten from -55 -44 to -55 44 r=7 s=20 frames=60 h=4.3
+brush sand from -55 -44 to -55 44 r=6 s=20 frames=60
+# (the hangars' aprons at the runway's south end, the field's buildings at its north end, the barracks on the north shore)
+brush flatten at -36 -46 r=10 s=20 frames=60 h=4.3
+brush flatten at -16 -52 r=9 s=20 frames=60 h=4.3
+brush flatten from -46 50 to -6 52 r=8 s=20 frames=60 h=4.3
+# (and all round the control tower: at the brush's soft edge its south wall stood 1.2 m over the ground, CIFloatingSweep)
+brush flatten at -10 49 r=8 s=20 frames=60 h=4.3
+brush flatten from -37 44 to -20 44 r=4 s=20 frames=40 h=4.3
+brush flatten at 7 57 r=8 s=20 frames=60 h=4.3
+brush flatten from -46 57 to -30 57 r=6 s=20 frames=60 h=4.3
+brush flatten at 56 0 r=7 s=20 frames=60 h=4.3
+brush flatten at 40 46 r=4 s=20 frames=40 h=4.3
+brush flatten at 30 -56 r=4 s=20 frames=40 h=4.3
+# (the ditched fighter's hollow in the lagoon, 8 m down; the bomber's on the outer reef to the north, 12 m down)
+brush flatten at 5 0 r=9 s=20 frames=60 h=-8
+brush flatten at -5 86 r=9 s=20 frames=60 h=-12
+clear from -55 -46 to -55 46 r=8
+clear at -36 -46 r=10
+clear at -16 -52 r=9
+clear from -48 50 to -4 52 r=9
+clear at 7 57 r=8
+clear from -46 57 to -30 57 r=6
+clear at 56 0 r=7
+clear at 40 46 r=4
+clear at 30 -56 r=4
+
+# ===== The runway: four lamps along its east edge, south to north (each lit in turn: its bulb shown), the windsock ======
+place RT_Floodlight lamp1 at -50 -36 h=5 drop yaw=180
+place RT_Floodlight lamp2 at -50 -12 h=5 drop yaw=180
+place RT_Floodlight lamp3 at -50 12 h=5 drop yaw=180
+place RT_Floodlight lamp4 at -50 36 h=5 drop yaw=180
+place VP_Spotlight_LightBulb lamp1light at -50 -36 h=6.2 drop
+place VP_Spotlight_LightBulb lamp2light at -50 -12 h=6.2 drop
+place VP_Spotlight_LightBulb lamp3light at -50 12 h=6.2 drop
+place VP_Spotlight_LightBulb lamp4light at -50 36 h=6.2 drop
+place Placeable_Flag_05 - at -62.5 28 ground yaw=90
+place Zone_Trigger strip at -55 -24 h=5.5
+
+# ===== The hangars at the runway's south end: Caravan's great roof on its pillars, rusted; a wrecked fighter, the bench,
+# the store, barrels, the toolbox; screechers on the roofs ==============================================================
+place Pillars hangar at -36 -46 h=4.3 yaw=90
+place Roof hangar at -36 -46 h=4.3 yaw=90
+place Pillars hangar at -16 -52 h=4.3 yaw=90
+place Roof hangar at -16 -52 h=4.3 yaw=90
+place Airplane - at -37 -47 h=5.6 rot=8,140,4 scale=0.8
+place WingBroken - at -31.5 -43 ground yaw=40
+place PropellerBlade - at -33 -50.5 h=4.4 rot=0,30,90
+place Workbench - at -42 -40 ground yaw=90
+place "VG_DecorationPrefabBase_WorkshopStorage_1 Variant" - at -42.5 -44 ground yaw=90
+place TP_Moontown_Barrel01 - at -29.5 -39.5 ground
+place TP_Moontown_Barrel01 - at -28.8 -40.4 ground
+place "Box Small" hangarbox at -41.6 -41.6 ground yaw=90
+place Creature_StoneBird gulls at -30 -50 h=15
+place Zone_Trigger hangars at -27 -48 h=6
+
+# ===== The field's buildings at the runway's north end: the operations hut, the control tower, the power bunker ======
+# (the operations hut: a relay house, its door on the veranda facing the lagoon; inside the chart table with the
+# commander's order on it, the flight board on the north wall, his footlocker. Varuna's site office has no inside)
+push at -20.5 53 h=4.4 yaw=0
+call relay_house
+place Pickup_Landmark_Plastic3_Land - at -5 -8.2 y=0.3 drop yaw=158
+place "Pickup_Landmark_Scrap 4_Land" - at -9.5 -6.3 y=0.3 drop yaw=12
+pop
+# (the chart table's mesh lies 12.6 m south of its pivot (x0.45: 5.7 m): the pivot north of the table)
+place MapTable maptable at -27.6 53.2 h=4.3 scale=0.45
+place Note_Paper order at -27.4 47.6 h=6.5 drop yaw=20
+# (the flight board hung on the north wall's plain half, its back against the wall: 10 cm off it, it read as floating)
+place VP_Whiteboard - at -25.75 52.93 h=6.1 yaw=180
+place Loot_Chest footlocker at -30.0 44.0 h=5 drop yaw=90
+# (the control tower: a base room and the glass cab on it, a railing on its roof; outside stairs up to a deck at the
+# cab's east door; in the cab the radio set, a microphone, a chair, its lamps lit when there's power)
+push at -10 50 h=4.35 yaw=0
+call rt_storey f1=RT_WallDoor1
+place "Pickup_Landmark_Scrap 1_Land" - at -3 1.8 y=0.3 drop yaw=244
+pop
+push at -10 50 h=7.35 yaw=0
+call rt_storey b1=RT_WallWindow1 b2=RT_WallWindow1 f1=RT_WallWindow1 f2=RT_WallWindow1 l1=RT_WallWindow1 l2=RT_WallWindow1 l3=RT_WallWindow1 r1=RT_WallWindow1 r2=RT_WallDoor1 r3=RT_WallWindow1
+pop
+push at -10 50 h=10.35 yaw=0
+call rt_storey b1=none b2=none f1=none f2=none l1=none l2=none l3=none r1=none r2=none r3=none
+call rt_railing y=0
+pop
+place Relay_Floor_deck - at -4.77 52.6 h=7.2
+place Relay_support_beam_wood - at -5.0 47.6 h=4.3 rot=0,0,-90 sx=0.31
+place Relay_support_beam_wood - at -5.0 52.4 h=4.3 rot=0,0,-90 sx=0.31
+place Relay_stairs_30_tall - at -7.4 59.0 h=4.35
+place Placeable_Reciever radio at -13.6 52.8 h=7.4 yaw=0
+place Balboa_DecorationPrefabBase_Microphone - at -11.6 53.2 h=7.4 yaw=180
+place "Chair Office" - at -12.4 51.4 h=7.4 yaw=0
+place RT_CommRadio - at -15.2 48 h=7.4 yaw=90
+place Stairwell_CeilingLamp towerlights at -13 49 h=10.3
+place Stairwell_CeilingLamp towerlights at -13 52 h=10.3
+place Zone_Trigger tower at -13 50 h=9
+# (the power bunker: one concrete room with a slab roof, its door facing the runway; the generator,
+# the cable hub and cables, its lamps lit when it runs)
+push at -40 54 h=4.35 yaw=90
+call rt_storey f1=RT_WallDoor1
+pop
+push at -40 54 h=7.35 yaw=90
+call rt_storey b1=none b2=none f1=none f2=none l1=none l2=none l3=none r1=none r2=none r3=none
+pop
+place Generator generator at -39 57.6 h=4.35 yaw=90
+place UT_ElectricCableHub01 cablehub at -36.2 58.8 h=5.3 yaw=-90
+# (scenery: the bunker generator's cable hub; the generator is the lock - the ready piece's lock taken off)
+prop cablehub beh.use=
+prop cablehub if.use=
+prop cablehub else.use=
+prop cablehub on.use=
+place VP_Cable_Floor01 - at -37.2 56.2 h=4.4 yaw=0
+place Stairwell_CeilingLamp bunkerlamps at -40 55.6 h=7.3
+place Stairwell_CeilingLamp bunkerlamps at -40 58.6 h=7.3
+place Zone_Trigger powerbunker at -40.5 57 h=5.8
+
+# ===== The barracks and the mess tent on the north shore ===============================================================
+push at 12 62 h=4.4 yaw=0
+call relay_house
+place Pickup_Landmark_Plastic3_Land - at -5.6 -8.2 y=0.3 drop yaw=93
+place Pickup_Landmark_Plank_Land - at -6.2 -3.4 y=0.3 drop yaw=301
+pop
+place "VG_DecorationPrefabBase_BunkBed Variant" - at 3.4 60 h=4.32 yaw=90
+place "VG_DecorationPrefabBase_BunkBed Variant" - at 3.4 56.8 h=4.32 yaw=90
+place "VG_DecorationPrefabBase_BunkBed Variant" - at 3.4 53.6 h=4.32 yaw=90
+place Loot_Chest barrackschest at 7.2 60.6 h=4.6 drop yaw=180
+place Balboa_DecorationPrefabBase_SimpleTent - at -3 63 ground yaw=200
+place "Box Small" messbox at -1.4 61.6 ground yaw=20
+
+# ===== The fuel dump on the eastern islet: stacks of drums, two still full, a no-smoking sign ==========================
+for i 0 4
+place Balboa_DecorationPrefabBase_ToxicBarrel fueldrums at {53+0.8*$i} -2.2 ground
+place Balboa_DecorationPrefabBase_ToxicBarrel fueldrums at {53+0.8*$i} -1.4 ground
+next
+place Loot_Barrel drum1 at 58.4 1.6 ground
+place Loot_Barrel drum2 at 59.6 2.8 ground
+place Sign_04 - at 55 3.6 h=5.4 yaw=180
+prop fueldrums tint.color=#4a5a3a
+prop fueldrums tint.amount=0.6
+prop drum1 tint.color=#4a5a3a
+prop drum1 tint.amount=0.6
+prop drum2 tint.color=#4a5a3a
+prop drum2 tint.amount=0.6
+
+# ===== Two old gun pits: Utopia's harpoon guns as anti-aircraft guns, ringed with rubble ===============================
+place UT_Harpoon_Base guns at 40 46 h=4.3
+place UT_Harpoon_Barrel guns at 40 46 h=4.65
+place VP_RubblePile_Small01 rubble at 40 49 ground yaw=0
+place VP_RubblePile_Small01 rubble at 43 45 ground yaw=90
+place UT_Harpoon_Base guns at 30 -56 h=4.3 yaw=200
+place UT_Harpoon_Barrel guns at 30 -56 h=4.65 yaw=200
+# (north of the gun: south of it the pit's edge falls away and the pile sank under the ground there)
+place VP_RubblePile_Small01 rubble at 31 -52.5 ground yaw=0
+place VP_RubblePile_Small01 rubble at 27 -55 ground yaw=90
+prop guns tint.color=#6a4a3a
+prop guns tint.amount=0.6
+prop rubble tint.color=#c8b898
+prop rubble tint.amount=0.5
+
+# ===== Under water: the fighter ditched in the lagoon, 8 m down; the bomber on the outer reef, 12 m down ===============
+place Airplane - at 5 0 h=-6.6 rot=-8,60,4
+place WingBroken - at 10 -3.5 ground yaw=110
+place "Box Small" cockpitbox at 2.2 2.4 ground yaw=30
+place Zone_Trigger ditchedzone at 5 0 h=-6
+place Airplane - at -5 86 h=-9.2 rot=6,200,-10 scale=1.4
+place "Box Big" reefplane at -1 83 ground yaw=40
+
+# ===== Nature: palms, bamboo, bushes and rocks on the ring away from the field (Raft's tropical density) ==============
+scatter "Pickup_Landmark_Tree_Palm 3" 6 at 60 18 r=9 seed=31
+scatter "Pickup_Landmark_Tree_Palm 3" 6 at 60 -18 r=9 seed=32
+scatter "Pickup_Landmark_Tree_Palm 3" 5 at 6 -61 r=9 seed=33
+scatter "Pickup_Landmark_Tree_Palm 3" 4 at 38 56 r=7 seed=34
+scatter BigPalm2 4 at -4 -64 r=8 seed=35
+scatter BigPalm2 3 at 64 0 r=6 seed=36
+scatter Bush 12 at 58 0 r=16 seed=37
+scatter Bush2 8 at 6 -60 r=10 seed=38
+scatter Banana_Bush_2 6 at 36 52 r=8 seed=39
+scatter Bush 8 at -62 0 r=6 seed=40
+scatter SmallBoulder1 10 at 58 0 r=16 seed=41
+scatter SmallBoulder4 8 at 8 -60 r=10 seed=42
+scatter BigBoulder1_Low 4 at 40 -58 r=8 seed=43
+scatter SmallBoulder1 6 at 36 54 r=8 seed=44
+
+# ===== Friendly animals, Raft's finds in the shallows ===================================================================
+place Creature_Turtle turtles at -10 -20 h=-2.5
+place Creature_Dolphin dolphins at 90 -10 h=-3
+place Creature_Chicken hens at 16 56 ground
+call shallows r=90 deep=5 n=3
+clear at 5 0 r=9 all only=Pickup_Landmark_(Sand|Clay|Rock|Iron|Copper|Scrap|Giant)
+
+where order
+where footlocker
+where radio
+where generator
+where cockpitbox
+where drum1
+where drum2
+where lamp1
+
+# ===== Settings, story items, notes, behaviours, quest (11 steps) =========================================================
+info title=Albatross Field
+info author=Custom Islands
+info description=A coral atoll with a wartime airfield on it: a runway, rusting hangars, a control tower, a fuel dump on the next islet and a fighter in the lagoon. The field closed with one flight still out on patrol. The commander's last order says what to do if anyone keeps the field after him.
+island on.arrive=message||A ring of palm islets round a lagoon - and on the widest, a long white runway, hangars, a tower. A windsock still flaps. No planes.
+
+story avgas|Drum of aviation fuel|BioFuel|A drum of aviation spirit from the fuel dump on the east islet.
+story crystal|Radio crystal|CircuitBoard|The tower radio's spare crystal, from the ditched fighter's cockpit box.
+story landingorder|Flight's request|Placeable_Radio|"Long Patrol, four aircraft, fuel for ten minutes - request runway lights, south to north."
+story runwaylit|Lit runway|Placeable_Lantern_Basic|The runway is lit, all four lamps, south to north.
+story power|Generator running|Battery|The power bunker's generator is running: lights in the bunker and up in the tower's cab.
+
+note order Commander's last order | ALBATROSS FIELD - LAST ORDER\n\nThe squadron is withdrawn. The field closes at dawn.\n\nOne flight is still out: four aircraft on the long patrol, overdue, fuel low.\n\nIf anyone keeps this field after we've gone: the generator is in the power bunker at the north end. Aviation spirit in the fuel dump on the east islet - two drums will run it.\n\nThe tower radio's spare crystal went into the lagoon with Lt. Ruiz when her fighter ditched. Raise the flight. They will ask for lights. Light the runway south to north - they come in from the south.\n\nThe footlocker in this hut is for whoever brings them home.\n\n- Maj. C. Vale
+note drum1 Full fuel drum | A full drum of aviation spirit, its bung wired shut - still good.
+loot drum1 story:avgas*1;Scrap*2
+prop drum1 loot.refill=0
+note drum2 Second full fuel drum | Another full drum, under a tarp at the back of the dump.
+loot drum2 story:avgas*1;Plastic*2
+prop drum2 loot.refill=0
+note cockpitbox Lt. Ruiz's cockpit box | The ditched fighter's cockpit box: the tower's spare radio crystal (she was flying it to the tower when the engine quit), a flare, a kneeboard full of call signs.
+loot cockpitbox story:crystal*1;Placeable_Firework*1
+prop cockpitbox loot.refill=0
+note footlocker Commander's footlocker | Major Vale's footlocker: the field's radio and aerial plans, his flying helmet, his binoculars, spare batteries for the tower - and a photograph of four aircraft over the runway.
+loot footlocker Blueprint_Reciever*1;Blueprint_Antenna*1;Hat_Pilot*1;Binoculars*1;Battery*2
+prop footlocker loot.refill=0
+prop footlocker if.open=has|story:runwaylit|1
+prop footlocker else.open=message||The footlocker is padlocked, a tag on the lock: FOR WHOEVER BRINGS THEM HOME.
+note hangarbox Hangar toolbox | A mechanic's toolbox: spanners, bolts, a can of oil.
+loot hangarbox Bolt*4;Nail*8;Scrap*3
+prop hangarbox loot.refill=0
+note barrackschest Barracks chest | A barracks chest: blankets, a razor, letters home tied with string.
+loot barrackschest Wool*3;Rope*2;Leather*1
+prop barrackschest loot.refill=0
+note messbox Mess tent box | The mess tent's box: tins of meat, coffee, coconuts from the palms.
+loot messbox Cooked_GenericMeat*2;Coconut*3;PlasticBottle_Water*2
+prop messbox loot.refill=0
+note reefplane Bomber's cargo box | The bomber's cargo box on the reef: spare parts and metal.
+loot reefplane MetalIngot*3;Bolt*3;Scrap*4;Glass*2
+prop reefplane loot.refill=0
+
+prop generator obj.name=generator
+prop generator beh.use=Fill the generator with the two drums and start it
+prop generator if.use=quest|4\ntake|story:avgas|2
+prop generator on.use=message||The generator coughs, catches and settles to a roar. Lights come on in the bunker - and up in the tower's cab.\nsignal||power\ngive||story:power*1\nshow|bunkerlamps\nshow|towerlights\nsound||event:/exploring/obstacles/tangaroa/generator_on
+prop generator else.use=message||The generator's tank is dry. The order said two drums from the fuel dump on the east islet.
+prop bunkerlamps obj.name=bunkerlamps
+prop bunkerlamps beh.hidden=1
+prop towerlights obj.name=towerlights
+prop towerlights beh.hidden=1
+prop radio obj.name=radio
+prop radio beh.use=Fit the crystal and call the flight
+prop radio if.use=has|story:crystal|1\nsignal|power
+prop radio on.use=message||The crystal clicks home and the set warms up. Through the static, faint and far: "Albatross tower, this is Long Patrol. Four aircraft. Fuel for ten minutes. Request runway lights, south to north..."\ngive||story:landingorder*1\nsound||event:/raft/radar/radar_on
+prop radio else.use=message||The radio is dead: it needs power from the bunker, and its crystal went into the lagoon.
+prop lamp1 obj.name=lamp1
+prop lamp1 beh.use=Switch on the first runway lamp (south end)
+prop lamp1 if.use=has|story:landingorder|1
+prop lamp1 on.use=message||The south lamp blazes along the runway.\nshow|lamp1light\nsignal||l1\nsound||event:/raft/radar/button
+prop lamp1 else.use=message||A runway lamp. Nobody is asking for lights - yet.
+prop lamp2 obj.name=lamp2
+prop lamp2 beh.use=Switch on the second runway lamp
+prop lamp2 if.use=signal|l1
+prop lamp2 on.use=message||The second lamp comes on.\nshow|lamp2light\nsignal||l2\nsound||event:/raft/radar/button
+prop lamp2 else.use=message||South to north, the order said - start at the south end.
+prop lamp3 obj.name=lamp3
+prop lamp3 beh.use=Switch on the third runway lamp
+prop lamp3 if.use=signal|l2
+prop lamp3 on.use=message||The third lamp comes on.\nshow|lamp3light\nsignal||l3\nsound||event:/raft/radar/button
+prop lamp3 else.use=message||South to north, the order said - the lamps in order.
+prop lamp4 obj.name=lamp4
+prop lamp4 beh.use=Switch on the last runway lamp (north end)
+prop lamp4 if.use=signal|l3
+prop lamp4 on.use=message||The north lamp blazes. For a moment, nothing. Then engines - four of them, low, from the south. Four shapes skim the runway, waggle their wings over the tower, and climb away into the sunset. When you look again, the sky is empty.\nshow|lamp4light\ngive||story:runwaylit*1\nsound||event:/exploring/obstacles/tangaroa/cockpit_fly
+prop lamp4 else.use=message||South to north, the order said - the lamps in order.
+prop lamp1light obj.name=lamp1light
+prop lamp1light beh.hidden=1
+prop lamp2light obj.name=lamp2light
+prop lamp2light beh.hidden=1
+prop lamp3light obj.name=lamp3light
+prop lamp3light beh.hidden=1
+prop lamp4light obj.name=lamp4light
+prop lamp4light beh.hidden=1
+
+prop strip zone.id=strip
+prop strip zone.radius=12
+prop strip zone.message=Albatross Field: a runway of rolled coral, rusting hangars, a tower with its windows intact. Gulls - no, screechers - on the hangar roofs.
+prop hangars zone.id=hangars
+prop hangars zone.radius=12
+prop hangars zone.message=The screechers lift off the hangar roofs, screaming, and come for you!
+prop powerbunker zone.id=powerbunker
+prop powerbunker zone.radius=4
+prop powerbunker zone.message=The power bunker: a big generator, cold, and cables running out under the sand towards the tower.
+prop ditchedzone zone.id=ditched
+prop ditchedzone zone.radius=8
+prop ditchedzone zone.message=Lt. Ruiz's fighter on the lagoon floor, nose down in the sand, her canopy open.
+prop tower zone.id=tower
+prop tower zone.radius=4
+prop tower zone.message=The tower's glass cab: the whole atoll below, the runway, the lagoon - and a radio set, waiting.
+prop gulls creature.count=3
+prop gulls creature.respawn=0
+prop gulls creature.zone=hangars
+
+quest title=Long Patrol
+quest intro=An atoll airfield, closed the night one flight didn't come home. The commander left an order in the operations hut. Start on the runway.
+step reach|strip|1|Land on the coral runway
+step read|Commander's last order|1|Read the commander's last order in the operations hut
+step kill|Screecher|3|Drive the screechers off the hangar roofs
+step collect|story:avgas|2|Fetch two full drums from the fuel dump on the east islet
+step collect|story:power|1|Take the drums to the power bunker and start the generator
+step reach|ditched|1|Dive to the fighter that ditched in the lagoon
+step collect|story:crystal|1|Take the radio crystal from her cockpit box
+step reach|tower|1|Climb the control tower to the radio
+step collect|story:landingorder|1|Fit the crystal and raise the lost flight on the radio
+step collect|story:runwaylit|1|Light the four runway lamps, south to north
+step open|Commander's footlocker|1|Open the commander's footlocker - it's for whoever brings them home
+step blueprint|Blueprint_Reciever|1|Take the Receiver plans from the commander's footlocker
+step blueprint|Blueprint_Antenna|1|Take the antenna plans from the commander's footlocker
+quest done=Four aircraft came home over Albatross Field - or something did. The runway lamps burn on, and the order is carried out.
+quest reward=MetalIngot*8;Glass*6;CircuitBoard*2
+
+save Albatross Field

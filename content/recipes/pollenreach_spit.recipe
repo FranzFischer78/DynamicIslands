@@ -1,0 +1,197 @@
+# Pollenreach Spit - the first island of the library's plan The Last Green World (SL11, Verdance)
+# A long sandy spit dusted yellow with pollen that drifts in the air: a Seedkeepers' research skiff lies beached on its
+# side on the south beach, its crew's shelter (a roof on posts) beside it, sample jars on the dunes, palms at the root of
+# the spit and yellow and white flowers in the dune grass. Quest "The Pollen Trail" (7 steps): the skiff, its log, the
+# Receiver plans in the cabin, three pollen samples on the dunes, the sample case at the skiff, the antenna plans in the mast locker, and the
+# Seedkeepers' leaflet: "Verdance. The last green world."
+#
+# Built by the recipe player (CIRecipe pollenreach_spit) through the editor's own operations. Points (metres over the
+# sea; content frame push 0 -21.5, spread 1.8 in the RESIZE 10-24 rework): the skiff beach at 1.2 m round 0 -46.8, the
+# shelter round -16.2 -48.6, the leaflet board at 3.6 25.2.
+include lib_sea
+include lib_features
+include lib_huts
+include lib_verdance
+include lib_ni7a
+include lib_ni8
+# RESIZE 10-24: Radius 46 -> 85 (Height 8 -> 8), the old content moved 0 -21.5 as one frame (push) so its sea side stays at the coast; the island grows behind it.
+new
+# RESIZE 10-24 rework: the bigger island was a flat empty sand plain - now dune hills at Raft's density, the quest
+# spread out over it (x z * 1.8 in the old frame; the skiff beach at the new south shore)
+gen Trees=0.28 Bushes=0.3 Rocks=0.35 Harvest=0.3 BeachThings=0.4
+gen Seed=11011 Radius=85 Height=14 Roughness=0.4 Peaks=2 Shape=0 Style=0 PeakShape=0.4 Cliffs=0.2 BeachWidth=0.22
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.4 Sunken=0.2 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+push at 0 -21.5
+
+# --- Terrain: the skiff beach and the shelter's pad on the south shore; the dune top ---------------------------------
+brush flatten from -18 -46.8 to 14.4 -46.8 r=6 s=20 frames=200 h=1.2
+brush flatten at -13.5 -45.9 r=4 s=20 frames=200 h=1.2
+brush flatten at 3.6 21.6 r=6 s=20 frames=120
+brush sand from -18 -46.8 to 18 -46.8 r=8 s=10 frames=30
+pop
+brush flatten at 20.8 25.6 r=5 s=8 frames=40
+origin
+clear at 20.8 25.6 r=6
+push at 0 -21.5
+clear from -21.6 -46.8 to 18 -46.8 r=7
+clear at 3.6 23.4 r=4
+
+# --- The beached skiff, its shelter (roof on corner posts) with the cabin chest; the mast locker -------------------
+place BoatStranded skiff at 5.4 -50.4 ground sit yaw=80
+prop skiff tint.color=#c9c2a8
+prop skiff tint.amount=0.35
+push at -16.2 -48.6 h=1.2
+call shelter w=2 d=2 y=0.1
+place Loot_Chest cabinchest at 1.5 2.2 y=0.1 sit yaw=180
+place "Box Small" - at 0.7 0.8 y=0.1 sit
+place Note_Paper skifflog at 0.7 0.8 y=0.8 drop yaw=15
+pop
+place Loot_Crate mastlocker at 13.5 -42.3 ground sit yaw=200
+# REDO 10-24: the skiff's sample case (the island's machine): the three jars go in, its needle points to Verdance
+place "Box Big" - at -10.5 -47.5 ground sit yaw=10
+place RT_CommRadio samplecase at -10.5 -47.5 ground y=1.6 drop yaw=190
+place Zone_Trigger skiffzone at 0 -45 ground
+call pollen x=0 z=-18 r=46 al=pollenair
+
+# --- Three sample jars on the dunes; the Seedkeepers' leaflet on a board at the dune top ----------------------------
+# (the three jars stand in the island's areas, AREAS 10-24 below)
+place Note_Sign leaflet at 3.6 25.2 ground sit yaw=180
+
+# --- Flowers, coconuts, the shallows -------------------------------------------------------------------------------
+scatter Pickup_Landmark_Flower_Yellow 12 at 0 -7.2 r=40 seed=11012 free=2
+scatter Pickup_Landmark_Flower_White 8 at 0 7.2 r=36 seed=11013 free=2
+call shallows x=0 z=21.5 r=107 deep=5 n=2 seed=11014
+pop
+
+# --- AREAS 10-24 (explore rule: no dead space, the quest crosses the island) ----------------------------------------
+#     South: the skiff beach, the shelter and the mast locker. West: the Seedkeepers' old sample station, a ring of fallen
+#     wall on the hillside (jar 1). East: a castaway's raft washed up on the beach (jar 2). North-east: a dune ridge with
+#     a cave under it (jar 3 at its mouth, a stash inside). The leaflet board on the high dune in the middle.
+clear from 18 60 to 52 64 r=15
+brush raise from 18 60 to 52 64 r=13 s=20 frames=12
+call ni8cave x=34 z=50 h=3.0 yaw=180 al=dunecave
+place Loot_ChestSmall dcavechest at 36.5 45 h=3.45 sit yaw=200
+place Placeable_Lantern_Metal - at 31.4 46 h=3.45 sit
+place "Box Small" pollen3 at 29 26 ground sit yaw=250
+brush flatten at -52 30 r=10 s=20 frames=80
+clear at -52 30 r=11
+call ringwall x=-52 z=30 r=6 a0=20 da=45 n=6 len=4.5 hgt=2.6
+place "Box Small" pollen1 at -52 30 ground sit yaw=20
+place Placeable_Table_Basic - at -50 32 ground sit yaw=70
+brush flatten at 64 -6 r=7 s=20 frames=200 h=2.7
+clear at 64 -6 r=8
+for fx 61.75 64.75 1.5
+for fz -8.25 -5.25 1.5
+place FL_Foundation2 castraft at $fx $fz h=2.9 yaw=0
+next
+next
+place campfire_1 - at 64.75 -5.25 h=2.9 sit
+place Bed_Simple - at 63.2 -7.4 h=2.9 sit yaw=90
+place "Box Small" pollen2 at 64.6 -8.0 h=2.9 sit yaw=110
+for ga 0 315 45
+brush grass at {50*cos($ga)} {50*sin($ga)} r=18 s=20 frames=20
+next
+brush grass at 30 40 r=20 s=20 frames=20
+
+# the three jars, pollen-yellow
+prop pollen1 tint.color=#e8c830
+prop pollen1 tint.amount=0.7
+prop pollen2 tint.color=#e8c830
+prop pollen2 tint.amount=0.7
+prop pollen3 tint.color=#e8c830
+prop pollen3 tint.amount=0.7
+
+# --- DISCOVERIES 10-24 (optional, no quest needs them): camp + note; Caravan_Green_01 + chest; hatch cache; dirt spots; viewpoint ---
+place campfire_1 - at 20.8 25.6 ground sit
+place Balboa_DecorationPrefabBase_SimpleTent - at 23.8 27.6 ground sit yaw=247
+place "Box Small" - at 18.8 28.1 ground sit
+place Note_Paper dnote at 18.8 28.1 ground y=0.7 drop yaw=20
+note dnote Ranger's camp note | OUTER CAMP 3\n\nWe stopped here on the way in. The birds go quiet past the ridge.\nThe Seedkeepers say the green is waking up. Oda says it is hungry.\nKeep the fire small and the machete close.
+place Caravan_Green_01 dvan at -33.4 -20.1 ground yaw=7
+prop dvan tint.color=#5a6b3a
+prop dvan tint.amount=0.5
+place Loot_ChestSmall dwreckchest at -37.4 -17.1 ground sit yaw=307
+note dwreckchest Overgrown chest | A chest the green has half swallowed: rope, nails and an old machete's whetstone.
+note dcavechest Dune cave stash | A Seedkeeper's dry box in the cave: rope, nails and a jar of seeds.
+loot dcavechest Rope*2;Nail*6;Seed_Flower_Red*2
+prop dcavechest loot.refill=0
+loot dwreckchest Rope*3;Nail*8;Stone*3
+prop dwreckchest loot.refill=0
+# no machete yet in this storyline (it comes on Riverfork Delta / Steamvent Harbour): a hatch, not vines
+call hatchcache x=34.1 z=-18.9 r=15 seed=11101 alias=dhatch chest=dhatchchest items=Rope*3;Nail*10;Leather*2
+# no metal detector yet (it comes later in the storyline): dirt spots for the shovel instead of a buried treasure
+call dirt x=-25.6 z=29.4 r=15 n=3 seed=11102
+place Zone_Trigger dview at -4.3 11.2 ground
+prop dview zone.id=pollenreach_spit_view
+prop dview zone.radius=7
+prop dview zone.repeat=never
+prop dview zone.message=Yellow dust hangs over the whole island, and the skiff on the beach looks very small.
+
+# --- FILL 10-24 (RESIZE rework): the bigger island's whole area at Raft-like density - trees, bushes, rocks; free= keeps them
+#     off the quest's objects and paths
+scatter "Pickup_Landmark_Tree_Palm 1" 10 at 0 0 r=74 seed=11191 free=5
+scatter "Pickup_Landmark_Tree_Palm 2" 10 at 0 0 r=74 seed=11192 free=5
+scatter "Pickup_Landmark_Tree_Palm 4" 6 at 0 0 r=74 seed=11193 free=5
+scatter "Pickup_Landmark_Tree_Mango" 6 at 0 0 r=74 seed=11194 free=5
+scatter "Balboa_Bush_01 Variant" 30 at 0 0 r=74 seed=11195 free=2.5
+scatter "Balboa_Bush_03 Variant" 30 at 0 0 r=74 seed=11196 free=2.5
+scatter CaravanIsland_SmallRock_1 14 at 0 0 r=74 seed=11197 free=3 ground y=-0.6
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=74 seed=11198 free=3
+scatter "Pickup_Landmark_Flower_Red" 8 at 0 0 r=74 seed=11199 free=2
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Pollenreach Spit
+info author=Custom Islands
+info description=A sandy spit dusted yellow with pollen, a research skiff beached on its side and sample jars on the dunes. The first island of The Last Green World.
+island on.arrive=message||The sand here is yellow. Not sand - pollen, drifting off the dunes in the wind. And a boat on its side on the beach.
+
+story sealed|Sample case reading|Placeable_Lantern_Metal|The sample case read the three jars: the pollen comes from the west - Verdance.
+story pollen|Pollen sample|Placeable_Lantern_Metal|A Seedkeepers' sample jar of yellow pollen, labelled VERDANCE - DRIFT 4.
+
+note skifflog Skiff log: following the pollen | SKIFF LOG - SEEDKEEPERS' SURVEY\n\nDay 9. The pollen thickens every mile west. It is not from any tree we know.\nDay 11. Ran aground on a spit gold with it. The radio set and the aerial are packed in the cabin chest and the mast locker.\nDay 12. Three jars of the drift kept for the lab. If anyone finds this: follow the pollen. It comes from Verdance.
+note leaflet Seedkeepers' leaflet | THE SEEDKEEPERS\n\nVERDANCE. The last green world.\n\nForests, rivers, animals - everything the flood took, kept alive on one land. When the water stops rising, Verdance will green the world again.\n\nRanger station: tune 700.
+note cabinchest Skiff cabin | The skiff's cabin chest: a Receiver's plans in a dry bag.
+note mastlocker Mast locker | The mast locker: the aerial's plans, wrapped round the broken mast.
+loot cabinchest Blueprint_Reciever*1;Battery*1;Scrap*3
+prop cabinchest loot.refill=0
+loot mastlocker Blueprint_Antenna*1;Rope*3;Plank*6
+prop mastlocker loot.refill=0
+
+prop samplecase obj.name=samplecase
+prop samplecase beh.use=Put the jars in the sample case
+prop samplecase if.use=take|story:pollen|3
+prop samplecase on.use=message||The case hums. Three needles shiver - and all swing the same way: west, to the green on the horizon.\ngive||story:sealed*1\nshow|mastlocker
+prop samplecase else.use=message||Three empty slots, each labelled DRIFT. The case wants three pollen jars.
+prop mastlocker obj.name=mastlocker
+prop mastlocker beh.hidden=1
+prop pollen1 obj.name=pollen1
+prop pollen1 beh.use=Take the pollen sample
+prop pollen1 on.use=give||story:pollen*1\nhide|\nmessage||A jar of yellow dust. It glitters.
+prop pollen2 obj.name=pollen2
+prop pollen2 beh.use=Take the pollen sample
+prop pollen2 on.use=give||story:pollen*1\nhide|\nmessage||A jar of yellow dust. It glitters.
+prop pollen3 obj.name=pollen3
+prop pollen3 beh.use=Take the pollen sample
+prop pollen3 on.use=give||story:pollen*1\nhide|\nmessage||A jar of yellow dust. It glitters.
+
+prop skiffzone zone.id=skiff
+prop skiffzone zone.radius=7
+prop skiffzone zone.message=A research skiff, beached on its side. SEEDKEEPERS on the bow.
+
+quest title=The Pollen Trail
+quest intro=Yellow dust on the sea for days - and here a whole spit of it. Go to the beached skiff.
+step reach|skiff|1|Go to the beached skiff
+step read|Skiff log: following the pollen|1|Read the skiff's log
+step blueprint|Blueprint_Reciever|1|Take the Receiver plans from the cabin chest
+step collect|story:pollen|3|Gather the three pollen sample jars on the dunes
+step collect|story:sealed|1|Put the three jars in the skiff's sample case
+step blueprint|Blueprint_Antenna|1|Take the antenna plans from the mast locker
+step read|Seedkeepers' leaflet|1|Read the Seedkeepers' leaflet on the dune top
+quest done=Verdance. The last green world. The ranger station's band is 700.
+quest reward=Plank*8;Rope*3;Coconut*2
+
+# a rock that floated over the slope (ground check, 2026-10-24)
+clear at -25.71 5.74 r=1.5 only=CaravanIsland_SmallRock all
+
+save Pollenreach Spit

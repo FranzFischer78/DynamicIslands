@@ -1,0 +1,7 @@
+# Pillarbox Pier on its own (CIPlay pillarbox_pier_solo): the Ferry Master's dead letter taken at The Dead Letter Office
+# first, then the island's test
+island The Dead Letter Office
+offset 0 0
+read Dead letter: Ferry Master
+expect story dl_ferry 1
+include pillarbox_pier.play

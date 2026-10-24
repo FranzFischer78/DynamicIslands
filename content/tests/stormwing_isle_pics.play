@@ -1,0 +1,14 @@
+# Guide pictures of Stormwing Isle (CIPlay stormwing_isle_pics): Raft's camera, morning, calm (heights from the island's
+# own water line)
+island Stormwing Isle
+offset 0 0
+hour 9
+weather Calm
+at -24 -6
+wait 3
+picture ni8_stormwing_isle_island 0 20 -110 0 0 0
+picture ni8_stormwing_isle_strip -34 14 -10 20 9 -6
+picture ni8_stormwing_isle_crash 22 13 -12 34 9 -1
+picture ni8_stormwing_isle_hangar -6 14 2 -20 12 20
+picture ni8_stormwing_isle_cave 11 13 -12 10 12 16
+picture ni8_stormwing_isle_below 0 -30 -70 0 0 0

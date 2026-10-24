@@ -1,0 +1,389 @@
+# Aurelis - a themed island, five times the size (x5, much of it under water)
+# Inspiration: sunken-city legends and films (a city of sea-priests swallowed by its volcano's caldera: drowned temples
+#   and canals, a gate of three crystals with a guardian, a throne hall holding a breath of air, and the city that rises
+#   again when the crown comes home) - the mood only, never named on the island.
+# Island type: Shape 1 (Atoll), Style 4 (volcanic). A ring of black volcanic hills - the caldera's rim - round a shallow
+#   lagoon; in the lagoon's middle a blue hole dug in three terraces (14, 18 and 22 m down) holds the streets of Aurelis:
+#   the agora, the harbour temple, a canal and its bridge, the inner basin behind a tide sluice, and the great tower in
+#   the middle with the throne hall at its foot behind a gate of three crystals.
+# An archaeologist's expedition camps on the west rim. The tablet in the watch temple on the rim's highest point (south)
+# tells how the last sea-priests locked the city's heart behind a gate of three crystals hidden in three shrines - and
+# promises that whoever brings the drowned throne's crown back to the altar will see Aurelis rise to meet it.
+# Quest "Aurelis Rising" (21 steps, 4 chapters): the rim - camp, journal, dive locker, temple, tablet, ruins box (6), the
+# drowned streets - agora, basket, urn, three crystals, the expedition's lost barrel, the sluice (8), the gate, its
+# guardian and the throne hall (4), the crown returned and the city rising (3) - head light and canteen blueprints, a
+# bronze diving helmet, titanium.
+#
+# Built by the recipe player (CIRecipe aurelis) through the editor's own operations.
+include lib_selene
+include lib_sea
+new
+# (nature: volcanic - scrub and a few trees on the rim, black sand)
+gen Trees=0.2 Bushes=0.3 Rocks=0.5 Harvest=0.25 BeachThings=0.3
+gen Seed=9022 Radius=100 Height=22 Roughness=0.55 Peaks=2 Shape=1 Style=4 BeachWidth=0.3 Cliffs=0.6 PeakShape=0.5
+gen SeaFloor=0 Shelf=0.5 Seabed=1
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.3 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the blue hole in the lagoon's middle (round 0 15): its floor 22 m down within 12 m of the middle, a terrace
+# at 18 m out to 22 m, another at 14 m out to 32 m; the canal 4 m deeper across the 18 m terrace; the inner basin dug
+# off the hole's north side; the watch temple's pad on the south rim's top (19 m), the camp's on the west rim (6.5 m) ---
+brush flatten at 0 15 r=8 s=20 frames=200 h=-22
+for a 0 315 45
+brush flatten at {9*cos($a)} {15+9*sin($a)} r=6 s=20 frames=150 h=-22
+next
+for a 0 330 30
+brush flatten at {17*cos($a)} {15+17*sin($a)} r=6 s=20 frames=150 h=-18
+next
+for a 0 340 20
+brush flatten at {27*cos($a)} {15+27*sin($a)} r=6.5 s=20 frames=150 h=-14
+next
+for a 0 345 15
+brush smooth at {34*cos($a)} {15+34*sin($a)} r=4 s=10 frames=10
+next
+brush flatten from 12 4 to 20 24 r=2.5 s=20 frames=120 h=-22
+brush flatten at 0 44 r=6 s=20 frames=150 h=-18
+# (the throne hall's floor, last: the terraces' strokes run over it)
+for gz -6 12 3
+brush flatten from -8 $gz to 8 $gz r=3 s=20 frames=250 h=-22.2
+next
+brush flatten from 0 36 to 0 41 r=3 s=20 frames=100 h=-14
+brush flatten at 0 -78 r=6 s=20 frames=120 h=19
+brush flatten at -57 22 r=7 s=20 frames=120 h=6.5
+clear at 0 15 r=36
+clear at 0 44 r=8
+clear at 0 -78 r=8
+clear at -57 22 r=9
+clear from -50 22 to -57 22 r=3
+
+# ===== CHAPTER 1 - THE RIM ================================================================================================
+# --- The expedition camp on the west rim: two tents, the chart table with the archaeologist's journal, the dive locker,
+# a compressor, the camp box; the boat on the lagoon shore below ---------------------------------------------------------
+place Balboa_DecorationPrefabBase_SimpleTent - at -60 25 ground yaw=90
+place Balboa_DecorationPrefabBase_SimpleTent - at -59 31 ground yaw=80
+place Placeable_Table_Basic - at -56 22 ground sit
+place Note_Book journal at -56 22 y=1.2 drop yaw=20
+place Locker divelocker at -54 25.5 ground sit yaw=180
+place Pump - at -53.5 19 ground sit
+place Pump_Handle - at -53.5 19 y=0.05
+place "Box Small" campbox at -58 19.5 ground sit yaw=15
+place RT_PlasticBoat - at -48 22 h=0.3 yaw=95
+place Zone_Trigger camp at -57 22 y=1.5
+
+# --- The watch temple on the rim's highest point: eight marble columns under a slab roof, the altar (with a hollow for a
+# crown), the sea-priests' tablet; its zone, and the altar's own (hidden until the crown is taken); a box in the ruins -
+for a 0 315 45
+place Pillar_01 templecolumns at {4*cos($a)} {-78+4*sin($a)} h=19 sit
+place RT_PillarThick - at {4*cos($a)} {-78+4*sin($a)} h=19 sy=0.483 sx=0.3 sz=0.3
+next
+place RT_Floor templecolumns at 4.4 -73.6 h=21.9 sx=1.457 sz=0.978
+place UT_EndRoom_Table altar at 0 -78 h=19 sit scale=0.4
+place Note_Sign tablet at 2.4 -80 h=19 sit yaw=200
+place Zone_Trigger watchtemple at 0 -78 h=20
+place Zone_Trigger altarzone at 0 -78 h=20.2
+place "Box Small" rimbox at 6.5 -72.5 ground sit yaw=30
+place Pillar_01 - at 7 -76 ground y=0.55 rot=0,0,88
+
+# ===== CHAPTER 2 - THE DROWNED STREETS ====================================================================================
+# --- The agora on the 18 m terrace: standing and fallen columns, two bronze statues (one fallen), market baskets and urns -
+place Pillar_01 - at -15 22 ground sit
+place Pillar_01 - at -9 22 ground sit
+place Pillar_01 - at -15 30 ground sit
+place Pillar_01 - at -9 31 h=-18 rot=0,30,90
+place Pillar_01 - at -16 27 h=-17.6 rot=0,-20,90
+place TangaroaFounderStatue agorastatue at -12 26 ground sit
+place TangaroaFounderStatue agorastatue at -7 27 h=-17.5 rot=0,60,90 scale=0.8
+place UT_MarketBasket01 basket at -10 24 ground sit
+place UT_EndRoom_Pot02 urn at -14 24.5 ground sit
+place UT_EndRoom_Pot03 - at -13.5 28.5 ground sit
+place UT_MarketBasket01 - at -9.5 28.5 ground sit yaw=40
+place Zone_Trigger agora at -12 26 h=-16
+
+# --- The harbour temple's shrine on the 14 m terrace west: a ring of columns, two pedestals, the first crystal's box and a
+# glowing bottle by it -------------------------------------------------------------------------------------------------------
+for a 0 300 60
+place Pillar_01 - at {-26+3.2*cos($a)} {12+3.2*sin($a)} ground sit
+next
+place Pillar_04 - at -26 13.4 ground sit
+place Pillar_04 - at -26 10.6 ground sit
+place Loot_ChestSmall crystal1box at -26 12 ground sit yaw=90
+place UT_LightBottle02 - at -24.6 12 ground sit
+
+# --- The canal across the 18 m terrace east, Temperance's stone bridge over it, the second crystal's box on its floor
+# under the bridge; puffer fish in the canal -----------------------------------------------------------------------------
+place TP_Moontown_Bridge canalbridge at 16 14 h=-18 sit scale=0.4 yaw=22
+place Loot_ChestSmall crystal2box at 16 14 h=-21 drop yaw=22
+place Creature_PufferFish puffers at 18 18 h=-20
+
+# --- The tide sluice: a wall of the radio tower's walls across the inner basin's mouth on the hole's north side, its
+# middle two pieces the bronze gate that sinks into the floor when the wheel is turned; the third crystal's box in the
+# basin's shrine (sealed till then) ---------------------------------------------------------------------------------------
+for c 0 1 1
+place RT_Wall1 sluicewall at -3 37.5 h={-14.2+3*$c}
+place RT_Wall1 sluicewall at 6 37.5 h={-14.2+3*$c}
+place RT_Wall1 sluicegate at 0 37.5 h={-14.2+3*$c}
+place RT_Wall1 sluicegate at 3 37.5 h={-14.2+3*$c}
+next
+place TP_Selene_DoorCrankWheel sluicewheel at 4.5 37.3 h=-12 yaw=180
+place Zone_Trigger sluice at 0 34 h=-12
+for a 0 300 60
+place Pillar_01 - at {2.8*cos($a)} {45+2.8*sin($a)} ground sit
+next
+place Loot_ChestSmall crystal3box at 0 45 ground sit
+
+# --- The drowned tower in the hole's middle: three of Varuna's concrete pipes standing on each other (white), from the
+# floor to just under the surface; the crystal gate on its south side - Selene's entrance gate, three sockets that light
+# when the crystals are set - and the throne hall behind it: two of Selene's cells, the golden throne, the crown's box,
+# a pocket of old air under the ceiling; the guardian waits by the gate -------------------------------------------------
+place VP_ConcretePipe02 tower at 0 15 h=-22 rot=90,0,0 scale=2
+place VP_ConcretePipe02 tower at 0 15 h=-13.74 rot=90,0,0 scale=2
+place VP_ConcretePipe02 tower at 0 15 h=-5.48 rot=90,0,0 scale=2 sz=2.2
+push at 0 2 h=-22
+call selene_cell -3 6 n=none s=none
+call selene_cell -3 0 n=none
+place TP_SeleneEntranceGate crystalgate at 0 6.5 yaw=180
+place UT_LightBottle01 socketlights at -2.2 7 y=4.2
+place UT_LightBottle01 socketlights at 0 7 y=4.6
+place UT_LightBottle01 socketlights at 2.2 7 y=4.2
+place "VG_DecorationPrefabBase_Armchair Variant" thronechair at 0 -4.4 y=0 sit scale=1.5
+place Loot_ChestSmall throne at 0 -2.6 y=0 sit
+place Zone_Trigger thronehall at 0 1.5 y=2
+place Zone_Trigger thronehallair at 0 -3 y=4.2
+place Zone_Atmosphere thronebubbles at 0 -3 y=4
+pop
+place Zone_Trigger gate at 0 10 h=-19
+place Creature_AnglerFish guardian at 6 10 h=-19
+
+# ===== CHAPTER 4 - RISING ===================================================================================================
+# --- The risen crown of the tower, hidden until the crown lies on the altar: a fourth pipe on the drowned tower's top
+# rising 7 m out of the water, a ladder up its side, a platform with rails, two columns and the treasury chest; a burst of
+# bubbles round it -------------------------------------------------------------------------------------------------------
+place VP_ConcretePipe02 risenpipe at 0 15 h=-0.93 rot=90,0,0 scale=2
+place LandmarkLadder_6m risenladder at 0 12.35 h=0.5 yaw=180
+place RT_Floor risenfloor at 2.8 17.8 h=7.33 sx=0.927 sz=0.622
+place RT_Fence risenrails at -1.3 17.8 h=7.38
+place RT_Fence risenrails at 0.2 17.8 h=7.38
+place RT_Fence risenrails at 1.7 17.8 h=7.38
+place RT_Fence risenrails at 2.8 16.3 h=7.38 yaw=90
+place RT_Fence risenrails at 2.8 14.8 h=7.38 yaw=90
+place RT_Fence risenrails at -2.8 16.3 h=7.38 yaw=90
+place RT_Fence risenrails at -2.8 14.8 h=7.38 yaw=90
+place Pillar_01 risencolumns at -2 17 h=7.38 sit
+place Pillar_01 risencolumns at 2 17 h=7.38 sit
+place MayorsChest treasury at 0 16.3 h=7.38 sit yaw=180
+place Zone_Atmosphere risebubbles at 0 15 h=-1
+
+# ===== The rest ==============================================================================================================
+# --- The expedition's lost barrel, clams and silver algae among the streets, volcanic vents, the caldera's light and sound;
+# turtles and rays over the streets, goats on the east rim ----------------------------------------------------------------
+place Loot_SunkenBarrel expbarrel at 22 -6 h=-13 drop
+scatter Pickup_Landmark_GiantClam 6 at 0 15 r=30 wet seed=301
+scatter Pickup_Landmark_SilverAlgae 4 at 0 15 r=30 wet seed=302
+place Zone_Atmosphere vents at -6 8 h=-21
+place Zone_Atmosphere vents at 9 25 h=-17
+place Zone_Atmosphere vents at -19 3 h=-13
+place Zone_Atmosphere calderalight at 0 15 h=-10
+place Zone_Sound deepsound at 0 15 h=-12
+place Creature_Turtle turtles at -20 30 h=-8
+place Creature_Stingray rays at 20 0 h=-9
+place Creature_Goat goats at 66 0 ground
+prop goats creature.count=3
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): mangoes, pineapples, flowers ----------
+scatter "Pickup_Landmark_Tree_Mango" 6 at 0 0 r=70.0 seed=4361 free=5
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=70.0 seed=4371 free=3
+scatter "Pickup_Landmark_Flower_Black" 4 at 0 0 r=70.0 seed=4381 free=3
+scatter "Pickup_Landmark_Flower_Red" 4 at 0 0 r=70.0 seed=4382 free=3
+
+# --- Raft's finds in the shallows round the rim and over the lagoon (lib_sea) ---------------------------------------------
+call shallows r=118 deep=5 n=1
+
+# ===== Settings, story items, notes, behaviours, quest (21 steps, 4 chapters) =============================================
+info title=Aurelis
+info author=Custom Islands
+info description=A ring of black islets round a deep lagoon - the rim of a fallen volcano - and on the lagoon's floor the drowned city of Aurelis: temples, canals, a great tower, a gate of three crystals and a guardian before it. Bring the drowned throne's crown back to the altar on the rim, and the city will rise to meet it.
+island on.arrive=message||Black islets in a ring round water too blue and too deep. Under the surface, white shapes - columns, steps, roofs - and in the middle, the top of a tower just below the waves.
+
+story crystal|Sea-priests' crystal|Placeable_Utopia_LightBottleWhite|One of the three crystals of the gate of Aurelis, faintly glowing.
+story crown|Crown of Aurelis|Hat_Mayor|The crown of the drowned throne: green gold, light as a leaf.
+story priestkey|Treasury key|quest:Utopia_KeyPhase1|The sea-priests' treasury key, left on the altar when the city rose.
+
+note journal Archaeologist's journal | AURELIS - FIELD JOURNAL, Dr. T. Marlowe\n\nThe legend was true: a city of sea-priests in a volcano's heart, swallowed when the caldera fell in. Its streets lie under the lagoon, fourteen to twenty-two metres down.\n\nThe tablet in the watch temple on the rim tells the rest. The last sea-priests locked the city's heart - a throne hall at the foot of the great tower - behind a gate of three crystals, and hid the crystals in three shrines: the harbour temple, under the canal bridge, and in the inner basin behind the tide sluice.\n\nThe gate has a guardian. The throne hall still holds a pocket of old air. The throne holds a crown.\n\nBring the crown back to the watch temple's altar, the tablet says, "and Aurelis will rise to meet it." I'm no longer sure that's poetry.
+note tablet Tablet of the sea-priests | (carved in the old script; Dr. Marlowe's translation pinned beside it)\n\nWe, the last sea-priests, lock the heart of Aurelis behind the gate of three crystals, and set a guardian before it.\nWhoever brings the crown of the drowned throne to this altar, Aurelis will rise to meet -\nand the treasury of the priests will be theirs.
+note divelocker Expedition dive locker | The expedition's dive locker: spare air, a head lamp, fins with a broken strap.
+loot divelocker OxygenBottle*2;HeadLight*1;Rope*2
+prop divelocker loot.refill=0
+note crystal1box Harbour temple shrine | A marble box in the harbour temple's shrine: the first crystal, glowing faintly blue.
+loot crystal1box story:crystal*1;TradeToken*2
+prop crystal1box loot.refill=0
+note crystal2box Box under the canal bridge | A box wedged under the canal bridge: the second crystal, wrapped in a priest's sash.
+loot crystal2box story:crystal*1;SilverAlgae*2
+prop crystal2box loot.refill=0
+note crystal3box Inner basin shrine | The inner basin's shrine, sealed for a thousand years: the third crystal.
+loot crystal3box story:crystal*1;TradeToken*2
+prop crystal3box loot.refill=0
+prop crystal3box if.open=signal|sluiceopen
+prop crystal3box else.open=message||The shrine's lid is sealed by the water's weight - the inner basin is shut off. The tide sluice's wheel is by the gate.
+note throne Crown on the drowned throne | On the drowned throne, under a pocket of old air: a crown of green gold, light as a leaf.
+loot throne story:crown*1
+prop throne loot.refill=0
+prop throne on.open=show|altarzone\nmessage||The crown is yours. Far above, on the rim, the altar waits for it.
+note treasury Treasury of Aurelis | The sea-priests' treasury, in the air for the first time in a thousand years: coins and pearls, titanium bars stamped with a wave, a diving helmet of beaten bronze, and the priests' own plans - a lamp that burns under water, a flask that keeps water sweet.
+loot treasury Blueprint_HeadLight*1;Blueprint_Canteen*1;Hat_Diving*1;TitaniumIngot*4;TradeToken*20;SilverAlgae*6
+prop treasury loot.refill=0
+prop treasury if.open=has|story:priestkey|1
+prop treasury else.open=message||The treasury's lid has a keyhole shaped like a wave. The key was on the altar.
+note campbox Camp box | The expedition's camp box: tins, rope, a spare mask.
+loot campbox Cooked_GenericMeat*2;Rope*3;Plank*4
+prop campbox loot.refill=0
+note rimbox Rim ruins box | A box in the ruins on the rim: a pilgrim's offering never made.
+loot rimbox Clay*4;Stone*4;TradeToken*2
+prop rimbox loot.refill=0
+note basket Agora market basket | A market basket on the agora's paving, its weave turned to stone: shells, pearls, a bronze weight.
+loot basket TradeToken*3;CopperOre*2
+prop basket loot.refill=0
+note urn Agora urn | An urn in the agora, sealed with pitch: oil long gone, coins at the bottom.
+loot urn TradeToken*4;Glass*2
+prop urn loot.refill=0
+note expbarrel Expedition's lost barrel | A barrel the expedition dropped on the first dive: tools and spare line.
+loot expbarrel Rope*3;Scrap*3;MetalOre*2
+prop expbarrel loot.refill=0
+
+prop sluicewheel obj.name=sluicewheel
+prop sluicewheel beh.use=Turn the tide sluice's wheel
+prop sluicewheel on.use=message||The wheel turns stiffly - and with it, slowly, the round sluice gate sinks into the floor. The inner basin is open.\nopen|sluicegate\nsignal||sluiceopen\nsound||event:/exploring/temperence/selene/handle_spin
+prop sluicegate obj.name=sluicegate
+prop sluicegate beh.move=0,-6.2,0
+prop sluicegate beh.moveTime=4
+prop sluicegate beh.moveMode=switch
+prop crystalgate obj.name=crystalgate
+prop crystalgate beh.use=Set the three crystals in the gate
+prop crystalgate beh.move=0,-5.6,0
+prop crystalgate beh.moveTime=4
+prop crystalgate beh.moveMode=switch
+prop crystalgate if.use=quest|16\ntake|story:crystal|3
+prop crystalgate on.use=message||One, two, three: the crystals lock into their sockets and blaze blue. The gate shudders and sinks into the floor.\nshow|socketlights\nopen|crystalgate\nsound||event:/exploring/temperence/selene/gate_open
+prop crystalgate else.use=message||A bronze gate with three empty sockets, each the shape of a crystal.
+prop socketlights obj.name=socketlights
+prop socketlights beh.hidden=1
+prop altar obj.name=altar
+prop altar beh.use=Lay the crown of Aurelis on the altar
+prop altar if.use=quest|19\ntake|story:crown|1
+prop altar on.use=message||You set the crown on the altar. The ground shivers under the temple - and out in the lagoon the water heaves and boils white around the tower. When it clears, the tower's crown stands above the waves, a platform on its top - and on the altar, where the crown was, lies a key shaped like a wave.\nshow|risen\nsignal||risen\ngive||story:priestkey*1\nsound||event:/exploring/temperence/ravine_collapse
+prop altar else.use=message||An altar on the rim, a hollow in its top the size of a crown.
+prop risenpipe obj.name=risen
+prop risenpipe beh.hidden=1
+prop risenfloor obj.name=risen
+prop risenfloor beh.hidden=1
+prop risenladder obj.name=risen
+prop risenladder beh.hidden=1
+prop risenrails obj.name=risen
+prop risenrails beh.hidden=1
+prop risencolumns obj.name=risen
+prop risencolumns beh.hidden=1
+prop treasury obj.name=risen
+prop treasury beh.hidden=1
+prop risebubbles obj.name=risen
+prop risebubbles beh.hidden=1
+prop risebubbles atmo.particles=bubbles
+prop risebubbles zone.radius=10
+
+prop templecolumns tint.color=#e8e2d4
+prop templecolumns tint.amount=0.5
+prop tower tint.color=#e8e2d4
+prop tower tint.amount=0.5
+prop risenpipe tint.color=#e8e2d4
+prop risenpipe tint.amount=0.5
+prop agorastatue tint.color=#4a6a5a
+prop agorastatue tint.amount=0.6
+prop sluicegate tint.color=#8a6a3a
+prop sluicegate tint.amount=0.6
+prop canalbridge tint.color=#e8e2d4
+prop canalbridge tint.amount=0.4
+prop thronechair tint.color=#c8a040
+prop thronechair tint.amount=0.6
+prop crystalgate tint.color=#8a6a3a
+prop crystalgate tint.amount=0.5
+prop camp zone.id=camp
+prop camp zone.radius=8
+prop camp zone.message=The expedition's camp on the rim: tents, a compressor, a dive locker - and the lagoon below, full of white ruins.
+prop watchtemple zone.id=watchtemple
+prop watchtemple zone.radius=7
+prop watchtemple zone.message=The watch temple on the rim's highest islet: an altar, a tablet - and the whole drowned city below you.
+prop altarzone zone.id=altar
+prop altarzone zone.radius=4
+prop altarzone obj.name=altarzone
+prop altarzone beh.hidden=1
+prop altarzone zone.message=The altar of the watch temple. The crown is heavy in your hands now.
+prop agora zone.id=agora
+prop agora zone.radius=12
+prop agora zone.message=The agora of Aurelis: a plaza of white stone, fallen statues, baskets of shells - eighteen metres down.
+prop sluice zone.id=sluice
+prop sluice zone.radius=6
+prop sluice zone.message=A wall across the inner basin, a round bronze gate in it, and a wheel.
+prop gate zone.id=gate
+prop gate zone.radius=10
+prop gate zone.message=The crystal gate at the tower's foot - and the guardian uncoiling from the shadow of the arch!
+prop thronehall zone.id=thronehall
+prop thronehall zone.radius=6
+prop thronehall zone.message=The throne hall: a dome of white stone, a golden throne - and under the dome's top, a shining pocket of air.
+prop thronehallair zone.id=thronehallair
+prop thronehallair zone.radius=3.5
+prop thronehallair zone.repeat=1
+prop thronehallair zone.air=1
+prop thronebubbles atmo.particles=bubbles
+prop thronebubbles zone.radius=3
+prop guardian creature.count=1
+prop guardian creature.size=2.4
+prop guardian creature.health=4
+prop guardian creature.damage=2
+prop guardian creature.respawn=0
+prop guardian creature.zone=gate
+prop guardian tint.color=#4a6a5a
+prop guardian tint.amount=0.5
+prop puffers creature.count=3
+prop puffers creature.respawn=0
+prop rays creature.count=2
+prop turtles creature.count=2
+prop vents atmo.particles=bubbles
+prop vents zone.radius=4
+prop calderalight atmo.fog=#0c3a40
+prop calderalight atmo.fogAmount=0.45
+prop calderalight atmo.light=#3aa0b0
+prop calderalight atmo.lightAmount=0.35
+prop calderalight zone.radius=50
+prop deepsound sound.event=event:/amb/underwater
+prop deepsound sound.volume=0.5
+prop deepsound zone.radius=50
+
+quest title=Aurelis Rising
+quest intro=A drowned city in a volcano's caldera, an expedition camp on the rim and a temple with an old promise carved on it. Start at the camp.
+# Chapter 1 - the rim
+step reach|camp|1|Land at the expedition camp on the caldera's rim
+step read|Archaeologist's journal|1|Read the archaeologist's journal
+step open|Expedition dive locker|1|Gear up from the expedition's dive locker
+step reach|watchtemple|1|Climb to the watch temple on the rim's highest islet
+step read|Tablet of the sea-priests|1|Read the sea-priests' tablet by the altar
+step open|Rim ruins box|1|Search the temple ruins for a pilgrim's offering box
+# Chapter 2 - the drowned streets
+step reach|agora|1|Dive into the caldera to the drowned agora
+step open|Agora market basket|1|Sift a stone market basket on the agora's paving
+step open|Agora urn|1|Break the pitch seal on an agora urn
+step collect|story:crystal|1|Take the first crystal from the harbour temple's shrine
+step collect|story:crystal|2|Find the second crystal under the canal bridge
+step open|Expedition's lost barrel|1|Recover the barrel the expedition lost on its first dive
+step reach|sluice|1|Find the tide sluice and turn its wheel to open the inner basin
+step collect|story:crystal|3|Take the third crystal from the inner basin's shrine
+# Chapter 3 - the gate
+step reach|gate|1|Find the crystal gate at the foot of the drowned tower
+step kill|Angler fish|1|Face the gate's guardian
+step reach|thronehall|1|Set the three crystals in the gate and swim into the throne hall
+step collect|story:crown|1|Take the crown from the drowned throne (breathe under the dome)
+# Chapter 4 - rising
+step reach|altar|1|Carry the crown back up to the watch temple's altar
+step collect|story:priestkey|1|Lay the crown on the altar - and watch Aurelis rise
+step open|Treasury of Aurelis|1|Swim to the risen tower and open the sea-priests' treasury
+quest done=The tower of Aurelis stands in the air again for the first time in a thousand years, its treasury open to the sky. The rest of the city sleeps on below - but now it has a way back up.
+quest reward=OxygenBottle*2;MetalIngot*8;Glass*8
+
+save Aurelis

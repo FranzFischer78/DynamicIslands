@@ -1,0 +1,86 @@
+# Play test of Keel & Mast (CIPlay keel_and_mast, in a test world 'CI ...'). Points as in its recipe: the yard at 2 m
+# (x -42..-6, z -2..12); Brandvold's house at -38 6; the drying shed at -13 9; the ship at -24 2, her aft deck 7 m at
+# z 9..12, the scaffold x -21.5..-18.5, z 9..12 (6.9 m), its ladder at -20 8.8; the east beach's plank at 10 -50; the
+# drying rack at -66 2; the spar at -30 -40 (7 m down); the sail loft at 14 -62; the launching rhyme at -28 -3
+island Keel & Mast
+expect step 0
+expect title The Second Wind
+expect animals Chicken 3
+expect animals Goat 3
+expect animals Dolphin 2
+expect hidden strakes
+expect hidden mast
+expect hidden afloat
+wait 5
+
+# The yard: the letter, the nail barrel; the three planks - the shed, the east beach, the drying rack (and its bear)
+walk -12 3 to -18 4 h=2
+zone yard
+expect step 0
+read Brandvold's letter
+expect step 1
+open Nail barrel
+use plank1
+expect story plank 1
+use plank2
+expect story plank 2
+zone dryingrack
+use plank3
+expect story plank 3
+expect step 2
+kill Bear
+expect step 3
+
+# Up the scaffold onto her deck: the strakes fitted
+walk -17 7 to -19.5 8.2 h=2
+climb -20 8.8 h=2
+climb -20 8.8 h=4.42
+climb -20 8.8 h=6.84
+expect stand -20.75 10.5 h=6.9 below=8
+zone hull
+expect step 3
+use ship
+expect shown strakes
+expect story mark 1
+expect step 4
+
+# The mast spar on the bay's floor; stepped
+zone mastwreck
+expect step 5
+open Sunk tool chest
+use mastspar
+expect story mast 1
+expect step 6
+use maststep
+expect shown mast
+expect story mark 2
+expect step 7
+
+# The loft key from the coat; the sail from the loft; bent on
+open Brandvold's coat
+expect story loftkey 1
+expect step 8
+open Sail loft chest
+expect step 9
+use rigging
+expect shown sail
+expect story mark 3
+expect step 10
+
+# The rhyme; the chocks in its order - she slides into the bay; aboard her afloat; the slip board; the gift
+read The launching rhyme
+expect step 11
+use chockmid
+expect message settles back
+use chockfore
+use chockaft
+use chockmid
+wait 12
+expect shown afloat
+expect shown nameboard
+zone afloat
+expect step 12
+read The slip board
+expect step 13
+open The shipwright's gift
+expect done

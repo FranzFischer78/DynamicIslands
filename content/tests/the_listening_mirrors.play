@@ -1,0 +1,122 @@
+# The Listening Mirrors (CIPlay the_listening_mirrors): The Lullaby Frequency's finale, quest "The Last Frequency" (31
+# steps). Needs the Lantern-Mother's tooth: run cradle_reef first in the same world (the pit's altar takes it). Points as in the recipe:
+# landing 0 -62, the rim 10 m round 0 4, mirror 1 at -26 -4 (its receiver -23.4 -4, the treasury -23 -0.6), the
+# control hut -16..-11.5 x -22..-17.5 (keypad 4312), the chapel 16..23.5 x -12..-6, Wren's cage 11 -10, the bell
+# 25.5 -10, the crane lever 13.6 14, the cab tower 20 2 (floor 5 m over the rim), the sluice grate 0 -12 on the road
+# down, the pit's edge and altar 0 2, the pit's floor 0 16 (-9 m), the quarry's top 0 46.
+island The Listening Mirrors
+offset 0 0
+expect step 0
+expect title The Last Frequency
+wait 3
+expect hidden mirror1rx2
+expect hidden treasury
+expect hidden lure
+expect hidden bosszone
+
+# Area A, the rim
+zone rim_landing
+expect step 1
+read Quarry Foreman's board
+expect step 2
+at -22 -6 h=10
+read Mirror 1 log
+expect step 3
+use mirror1rx
+expect message receiver is dead
+use generator
+expect story power 1
+expect step 4
+use mirror1rx
+expect story hum 1
+expect step 5
+at -23 12 h=10
+read Mirror 2 log
+expect step 6
+at -13 -23.5 h=10
+code hutkeypad 1234 wrong
+code hutkeypad 4312
+expect hidden hutdoor
+expect step 7
+at -13.75 -19 h=10
+use fuse
+expect story fuse 1
+expect step 8
+storespot -6 -25
+
+# Area B, the Choir chapel
+at 19.75 -14 h=10
+zone chapel
+expect step 9
+wait 2
+read The Listener's sermon
+expect step 10
+kill Hyena
+expect step 11
+use cagekey
+expect story cagekey 1
+at 12.5 -12 h=10
+open Wren's bundle
+expect message key first
+use wrencage
+expect survivor lullaby_wren
+open Wren's bundle
+expect step 12
+read Wren's warning
+expect step 13
+at 21.5 -8 h=10
+open Reliquary
+# (step 14, take the rope, is done as the reliquary opens: straight on to 15)
+expect story bellrope 1
+expect step 15
+at 24 -10 h=10
+use chapelbell
+expect story bellrung 1
+expect shown mirror1rx2
+expect step 16
+
+# Area C, the crane
+zone crane_base
+expect step 17
+use cranelever
+expect shown hookdown
+expect step 18
+zone crane_cab
+expect step 19
+read Crane operator's note
+expect step 20
+use claw
+expect hidden sluicegate
+expect shown lure
+expect story fuse 0
+expect step 21
+at 0 -9.5
+use lure
+expect story lure 1
+expect step 22
+
+# Area D, the pit
+zone pit_edge
+expect step 23
+use pitaltar
+expect story tooth 0
+expect step 24
+wait 2
+kill Angler fish
+expect step 25
+zone pit_floor
+expect step 26
+read The last hymn
+expect step 27
+at -22 -4 h=10
+use mirror1rx2
+expect hidden lullabyzone
+expect shown treasury
+expect step 28
+open Choir treasury
+expect shown pimdrawing
+expect step 29
+read Pim's drawing
+expect step 30
+zone quarry_top
+expect done

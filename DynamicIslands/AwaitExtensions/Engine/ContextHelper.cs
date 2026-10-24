@@ -24,8 +24,9 @@ namespace Redcode.Awaiting.Engine
         /// </summary>
         internal static bool IsMainThread => Thread.CurrentThread.ManagedThreadId == MainThreadID;
 
+        // Must be called on the main thread; the mod calls it from Start() (see RoutineHelper.CreateInstance)
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-		private static void SaveContext()
+		internal static void SaveContext()
 		{
             MainThreadID = Thread.CurrentThread.ManagedThreadId;
             UnitySynchronizationContext = SynchronizationContext.Current;

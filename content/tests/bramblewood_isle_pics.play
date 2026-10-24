@@ -1,0 +1,11 @@
+# Guide pictures of Bramblewood Isle (CIPlay bramblewood_isle_pics): Raft's camera, morning, calm
+island Bramblewood Isle
+offset 0 0
+hour 9
+weather Calm
+at -6 -38
+wait 3
+picture ni_bramblewood_isle_island 60 26 -60 0 4 0
+picture ni_bramblewood_isle_cabin -6 6 -24 -12 5 -12
+picture ni_bramblewood_isle_jetty 8 5 -50 -6 1.5 -48
+picture ni_bramblewood_isle_den 5 6 56 5 5 28

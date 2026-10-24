@@ -1,0 +1,44 @@
+# Play test of Radio Tower Remade (CIPlay radio_tower_remade, in a test world 'CI ...'). Points as in its recipe: the
+# dock (1.45 m) below the tower on the south terrace (2.7 m), its decks at 9, 16 and 23 m, the radio room on the top
+# deck's north half, the old shark cage on the seabed south-west.
+island Radio Tower Remade
+expect step 0
+expect title Back on the Air
+
+# From the dock up the beach to the tower's foot: the keeper's note
+walk 0 -35 to 0 -27 to 0 -24 h=2.6
+zone landing
+expect step 1
+read Keeper's note
+expect step 2
+
+# The battery bank, from the cage locker in the old shark cage
+open Cage locker
+expect story battery 1
+expect step 3
+
+# Old Beak on the roof
+zone roof
+expect message doesn't share
+expect step 4
+kill Screecher
+expect step 5
+
+# Up the tower's three ladders, across the top deck into the radio room
+climb 0.5 -22.6 h=2.7
+climb -2.5 -22.6 h=9
+climb 0.5 -22.6 h=16
+expect stand -1 -20 h=23.06
+walk 0.5 -20 to 0.5 -15 to 0.5 -10.5 h=23.1
+zone radioroom
+expect step 6
+
+# The radio on the air: the locker opens
+use radio
+expect message talks again
+expect shown onairlights
+expect story battery 0
+open Radio room locker
+wait 3
+expect item Blueprint_Reciever 1
+expect done

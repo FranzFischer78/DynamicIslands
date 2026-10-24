@@ -1,0 +1,20 @@
+# Guide pictures of The Drowned Metropolis (CIPlay drowned_metropolis_pics): Raft's camera and water at midday, calm;
+# the skyline, the ferry, the Harbour Tower's penthouse, the sunken offices, the pit, the Meridian Tower's deck
+island The Drowned Metropolis
+hour 11
+weather Calm
+at -48 -31
+wait 2
+picture drowned_metropolis_island 55 58 -105 -8 6 -18
+picture drowned_metropolis_ferry -70 7 -10 -50 3 -30
+at -24 -50 h=12.5
+wait 2
+picture drowned_metropolis_harbour -18 15 -42 -50 20 -50
+picture drowned_metropolis_penthouse -50.5 22.9 -51 -57 22 -48
+at 8 -36 h=1
+wait 2
+picture drowned_metropolis_offices 8 -5 -40 6 -10 -28
+picture drowned_metropolis_pit 10 -7 -30 20 -14 -42
+at 52 -2 h=9.5
+wait 2
+picture drowned_metropolis_deck 44 13 -10 60 8 2

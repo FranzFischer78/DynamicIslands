@@ -1,0 +1,249 @@
+# Whiteout Reach - an island of the library's plan Raft 2: The Drowned Frontier (station Eight of the Frontier Corps)
+# A wide snowfield round a central hill: the Corps' winter camp on the hill's north-east shoulder (11.5 m) - two of
+# Temperance's domes (the mess, the commander's), the boiler house, the snowmobile shed, the camp's store -, the radio
+# hut on the summit (21 m), the supply ship Kestrel stranded in the ice of the north shore, and a crevasse cut into the
+# hill's west flank where the polar bear matriarch has her den. Quest "Do Not Come in Winter" (20 steps): the camp, the
+# commander's order, the mess locker, the Kestrel and her manifest, the snowmobile shed and its bear, the store key, three
+# boiler parts (the store, back to the Kestrel for her flooded hold, the survey pack in the den - past the matriarch),
+# the boiler lit, the radio's crystal, the two goats netted, the radio hut's last transmission, the
+# commander's chest.
+#
+# Built by the recipe player (CIRecipe whiteout_reach) through the editor's own operations.
+include lib_sea
+include lib_rt
+include lib_features
+new
+# (nature: snowy: a few pines and snow drifts over Raft's near-bare Temperance; Rocks 0.25 gave 2.5 per 1000 m2 against Raft's 1.1)
+gen Trees=0.08 Bushes=0.15 Rocks=0.15 Harvest=0.05 BeachThings=0.3
+gen Seed=8108 Radius=100 Height=22 Roughness=0.4 Peaks=2 Shape=0 Style=1
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.4 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the camp's shelf (11.5 m), the summit levelled for the radio hut (21 m), the crevasse cut into the hill's
+# west flank with the den at its end (4 m) -----------------------------------------------------------------------------
+brush flatten from 2 34 to 28 34 r=13 s=20 frames=80 h=11.5
+brush flatten from 0 33 to 30 33 r=10 s=20 frames=60 h=11.5
+brush flatten at 26 21 r=8 s=20 frames=60 h=11.5
+brush flatten at 2 -2 r=6.5 s=20 frames=60 h=21
+brush flatten from -42 5 to -20 5 r=2.6 s=20 frames=60 h=4
+brush flatten at -17 5 r=5 s=20 frames=60 h=4
+origin
+clear from 0 34 to 30 34 r=15
+clear at 2 -2 r=8
+clear from -42 5 to -16 5 r=6
+# the Corps strongroom's pad east of the commander's dome (T-4c2), after origin so the land centre stays put
+brush flatten at 37 31 r=7 s=20 frames=60 h=11.5
+clear at 37 31 r=8
+
+# --- The camp: the mess dome, the commander's dome, the boiler house between them, the snowmobile shed with its
+# snow vehicles, the store (Raft's wooden walls under a wooden roof) ---------------------------------------------------
+# (the domes in the shelf's level middle, their doors to the boiler house: on its sloping edge their legs showed)
+place TP_Igloo_Small messdome at 4 36 ground
+place TP_Igloo_Small_1 commandersdome at 24 37 ground
+place TP_ElectricalBuilding boiler at 14 26.5 ground yaw=180
+place Table_Common_01 - at 3 35.5 ground yaw=90
+place Note_Paper commandersorder at 3 35.5 h=13.4 sit drop yaw=15
+place Locker messlocker at 7.4 35 ground yaw=270
+place Loot_Chest commanderschest at 24 38.5 ground yaw=180
+place SnowmobileShedMesh shedhut at 27 21 ground yaw=-90
+place "Box Small" shedcrate at 27.5 20 ground yaw=20
+place Zone_Trigger shed at 25 21 h=13
+place Creature_PolarBear shedbear at 29 17 h=12
+place TP_SnowVehicle01 - at 20 19 ground yaw=15
+place TP_SnowDrift02 - at 17 17 ground yaw=40
+push at -2.5 23.5 h=11.5
+for fx 0.75 2.25 1.5
+for fz 0.75 2.25 1.5
+place Block_Floor_Wood - at $fx $fz y=0.2
+next
+next
+place Block_Wall_Wood - at 0.75 0 y=0.2
+place Block_Wall_Wood - at 2.25 0 y=0.2
+place Block_Wall_Wood - at 0.75 3 y=0.2
+place Block_Wall_Wood - at 0 0.75 y=0.2 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.2 yaw=90
+place Block_Wall_Wood - at 3 0.75 y=0.2 yaw=90
+place Block_Wall_Wood - at 3 2.25 y=0.2 yaw=90
+place Block_Pillar_Wood - at 0 0 y=0.2
+place Block_Pillar_Wood - at 3 0 y=0.2
+place Block_Pillar_Wood - at 0 3 y=0.2
+place Block_Pillar_Wood - at 3 3 y=0.2
+roof 2 2 at 0 0 y=0.2 wood
+place "Box Big" storecrate at 0.9 0.9 y=0.2 sit yaw=10
+pop
+place Zone_Trigger camp at 15 34 h=13
+
+# --- The Corps strongroom (T-4c2): a radio tower room east of the commander's dome, its keycard door to the west (to
+# the camp). Raft's own check: the Corps keycard from the beacon keeper's strongbox (Frontier Beacon, rule 1), kept.
+# The room x 34..40, z 26.5..35.5; nothing in the quest needs it
+push at 34 31 h=11.55 yaw=180
+call rt_storey r2=RT_WallDoor1
+place RT_Floor - at 0 4.5 y=3.05
+place PlantationDoor strongdoor at 0 -0.28 sit yaw=90
+place Loot_Chest strongvault at -2 -1.8 sit yaw=270
+place "Box Big" - at -5.3 3.6 sit yaw=10
+pop
+
+# --- The radio hut on the summit: a radio tower room, its door to the camp, the radio and its last log ----------------
+push at 5 -2 h=21.05
+call rt_storey b2=RT_WallDoor1 f1=RT_WallWindow1 l2=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3.05
+place "Table Office" radiodesk at -3 -3.4 sit
+place RT_CommRadio hutradio at -3 -3.4 y=0.95 sit drop
+place Note_Paper radiolog at -2.4 -3.3 y=1.2 sit drop yaw=20
+place Zone_Trigger radiohut at -3 0 y=1.5
+pop
+
+# --- The supply ship Kestrel, stranded in the ice of the north shore, bow up the beach; ice round her ---------------
+place BoatStranded kestrelhull at 25 93 ground yaw=180 roll=6
+place TP_IcePillar04_Snow - at 19 96 ground
+place TP_IcePillar04_Snow - at 31 99 ground yaw=60
+place TP_SnowDrift01 - at 22 86 ground yaw=20
+place Zone_Trigger kestrel at 25 90 h=3
+place Note_Paper manifest at 25 92 h=12 sit drop yaw=40
+# (her hold's crate, broken out on the sea floor by her stern - 2.5 m down, a level spot: CISeaSpots)
+place "Box Big" holdcrate at 29 101.5 ground yaw=25
+
+# --- The crevasse in the hill's west flank: ice in its walls, the matriarch's den at its end ----------------------------
+place TP_StalagmiteCluster03_Snow - at -26 8.2 ground yaw=30
+place TP_StalagmiteCluster01_Snow - at -21 1.5 ground yaw=200
+# (the two pillars at the foot of the den's north and south walls, half in them: at -14 9 and -13.5 0.5 they stood in
+# the walls themselves, set down on the den's floor at their foot and their middles under the wall - the south one
+# 9 m, CIGroundIslands; the walk in to the survey pack passes between them)
+place TP_IcePillar01 - at -14.8 8.5 ground
+place TP_IcePillar02 - at -15.3 2 ground yaw=40
+place Zone_Trigger icecaves at -36 5 h=5
+place Zone_Atmosphere crevasse at -24 5 h=6
+place Creature_PolarBear matriarch at -17 5 h=4.5
+place "Box Big" denpack at -14.5 5.5 ground yaw=70
+
+# --- Friendly animals (placed: the generator's Friendly and SeaLife are whole numbers - the 0.2 and 0.3 above gave none;
+# the user, 2026-10-03: "add some friendly animals to some of the islands"): goats on the south snowfield -
+place Creature_Goat goats at -30 -40
+prop goats creature.count=2
+
+# --- Settings, story items, notes, behaviours, quest (20 steps) --------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): pines, flowers, berries ----------
+scatter "Pickup_Landmark_Tree_Pine" 6 at 0 0 r=70.0 seed=4367 free=5
+scatter "Pickup_Landmark_Flower_White" 4 at 0 0 r=70.0 seed=4377 free=3
+scatter "Pickup_Landmark_Flower_Blue" 4 at 0 0 r=70.0 seed=4378 free=3
+scatter "Pickup_Landmark_BerryBush" 6 at 0 0 r=70.0 seed=4387 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=120 deep=5 n=3
+
+info title=Whiteout Reach
+info author=Custom Islands
+info description=Station Eight of the Frontier Corps: the winter camp on a snowy hill, its boiler cold and its domes empty, a supply ship frozen in the north shore's ice and a polar bear matriarch in a crevasse. The eighth island of Raft 2: The Drowned Frontier.
+island on.arrive=message||Snow to the horizon, domes on a hill's shoulder, a ship's hull locked in the ice of the north shore. A sign by the shore: DO NOT COME IN WINTER.
+
+story storekey|Store key|quest:Temperance_SeleneGateKey|The camp store's key, dropped in the snowmobile shed.
+story heatpart|Boiler part|quest:Temperance_ReactorKey|One of the camp boiler's three missing parts.
+story radiocrystal|Radio crystal|quest:Utopia_Cable|The radio's tuning crystal, from the boiler's warm drawer.
+
+note commandersorder Commander's order | FRONTIER CORPS - STATION EIGHT - STANDING ORDER\n\nThe boiler is down: three parts gone. Nobody winters here without it.\n\nWe strip the camp and go on to the Drowned Gate before the sea closes. The radio's crystal stays in the boiler's warm drawer - whoever brings the heat back gets the Gate's frequency.\n\nThe store key is in the snowmobile shed. Mind the bear.
+note messlocker Mess dome locker | The mess dome's locker: tinned stew, a frozen thermos - and a note from the quartermaster: the spare boiler parts went aboard the supply ship Kestrel before she froze in at the north shore.
+loot messlocker Raw_Beet*2;Rope*2;Scrap*2
+prop messlocker loot.refill=0
+note manifest Ship's manifest | The Kestrel's manifest: ...boiler parts, three crates - one landed to the camp store, one still in the hold (she's broken open astern), one taken by the survey team into the crevasse on the hill's west side...
+note storecrate Camp store | The camp store: blankets, rope - and one of the boiler's parts in its crate.
+loot storecrate story:heatpart*1;Wool*3;Rope*2
+prop storecrate loot.refill=0
+prop storecrate if.open=has|story:storekey|1
+prop storecrate else.open=message||The camp store is locked. The commander's order said the key is in the snowmobile shed.
+note shedcrate Shed box | A box in the snowmobile shed, gnawed: the store key on a nail above it.
+loot shedcrate story:storekey*1;Scrap*3
+prop shedcrate loot.refill=0
+# the Corps strongroom (T-4c2): the door keeps Raft's check (the Corps keycard) and says where the card is
+prop strongdoor obj.name=strongdoor
+prop strongdoor else.use=message||The strongroom's reader glows red: CORPS KEYCARD ONLY. Every station keeper carried one - the beacon keeper at Station One locked his in a strongbox in his hut.
+prop strongdoor on.use=hide|\nshow|strongvault\nmessage||The reader blinks green and the door swings away. Behind it: the camp's strongroom chest, stocked for the crossing.
+prop strongvault obj.name=strongvault
+prop strongvault note.title=Corps strongroom chest
+prop strongvault beh.hidden=1
+loot strongvault TitaniumIngot*3;MetalIngot*4;Bolt*6;Battery*2;Cooked_Salmon*3
+prop strongvault loot.refill=0
+note holdcrate Kestrel's hold crate | A crate broken out of the Kestrel's hold, on the sea floor by her stern: a boiler part, sealed in wax.
+loot holdcrate story:heatpart*1;Plastic*3
+prop holdcrate loot.refill=0
+note denpack Survey pack | The survey team's pack in the matriarch's den: a boiler part, a torn map of the crevasses.
+loot denpack story:heatpart*1;Leather*2
+prop denpack loot.refill=0
+note radiolog Last transmission | (the radio's log, the last entry) ...to anyone on this frequency: the Corps holds the Drowned Gate. The sea wall still stands. Come through the locks - and bring a crowbar for the pump house.
+note commanderschest Commander's chest | The commander's chest: what the Corps couldn't carry - batteries, titanium, warm clothes.
+loot commanderschest Battery_Advanced*2;TitaniumIngot*3;Wool*6;CopperIngot*3
+prop commanderschest loot.refill=0
+prop commanderschest if.open=signal|heat
+prop commanderschest else.open=message||The commander's chest is frozen shut. Get the boiler going.
+
+prop boiler obj.name=boiler
+prop boiler beh.use=Fit the three parts and light the boiler
+prop boiler if.use=take|story:heatpart|3
+prop boiler on.use=message||The parts fit, the burner catches - pipes tick and steam as the heat runs out to the domes. The warm drawer slides open: the radio's crystal.\nsignal||heat\ngive||story:radiocrystal*1\nsound||event:/raft/engine/controller_on
+prop boiler else.use=message||The boiler is missing three parts. The commander's order said where they went.
+# (the summit radio: Raft's radio wants power or a battery - this one the crystal from the boiler's drawer)
+prop hutradio obj.name=hutradio
+prop hutradio beh.use=Fit the crystal and use the radio
+prop hutradio if.use=has|story:radiocrystal|1
+prop hutradio else.use=message||The set is dead: its tuning crystal is gone. The commander's order said where it was kept.
+prop hutradio on.use=message||The crystal clicks home. Static... then the Corps' frequency, a voice on a loop: the Drowned Gate holds, the sea wall still stands.\nsignal||radio
+
+prop camp zone.id=camp
+prop camp zone.radius=14
+prop camp zone.message=The Corps' winter camp: two domes, a boiler house, a snowmobile shed - every door rimed with frost.
+prop kestrel zone.id=kestrel
+prop kestrel zone.radius=10
+prop kestrel zone.message=The supply ship Kestrel, frozen into the shore ice - broken open at her stern.
+prop shed zone.id=shed
+prop shed zone.radius=4
+prop shed zone.message=Something big has been sleeping in the snowmobile shed - and it's waking up!
+prop icecaves zone.id=icecaves
+prop icecaves zone.radius=8
+prop icecaves zone.message=A crevasse cut deep into the hill - blue ice in its walls, bones on its floor.
+prop radiohut zone.id=radiohut
+prop radiohut zone.radius=5
+prop radiohut zone.message=The radio hut on the summit: a set on a desk, its log still open.
+prop shedbear creature.count=1
+prop shedbear creature.respawn=0
+prop shedbear creature.zone=shed
+prop matriarch creature.count=1
+prop matriarch creature.size=1.5
+prop matriarch creature.health=3
+prop matriarch creature.respawn=0
+prop matriarch creature.zone=icecaves
+prop crevasse atmo.fog=#a8c8e0
+prop crevasse atmo.fogAmount=0.35
+prop crevasse atmo.light=#9ab8d8
+prop crevasse atmo.lightAmount=0.3
+prop crevasse atmo.particles=snow
+prop crevasse zone.radius=14
+
+quest title=Do Not Come in Winter
+quest intro=A frozen camp of the Frontier Corps, its boiler cold. Station Eight: start at the camp on the hill.
+step reach|camp|1|Reach the Corps' winter camp on the hill
+step read|Commander's order|1|Read the commander's order in the mess dome
+step open|Mess dome locker|1|Open the mess dome's locker
+step reach|kestrel|1|Find the supply ship Kestrel in the north shore's ice
+step read|Ship's manifest|1|Read the Kestrel's manifest on her deck
+step reach|shed|1|Go back up the hill to the snowmobile shed for the store key
+step kill|Polar bear|1|Drive the polar bear out of the snowmobile shed
+step collect|story:storekey|1|Find the camp store's key in the shed
+step open|Camp store|1|Unlock the camp store with the key
+step collect|story:heatpart|1|Take the first boiler part from its crate
+step reach|kestrel|1|Back down to the Kestrel - the manifest says a part is still in her hold
+step collect|story:heatpart|2|Dive by the Kestrel's stern for the second
+step reach|icecaves|1|Find the crevasse in the hill's west side
+step kill|Polar bear|1|Face the polar bear matriarch in her den
+step collect|story:heatpart|3|Take the third part from the survey team's pack
+step collect|story:radiocrystal|1|Fit the parts to the camp's boiler and light it
+step catch|Goat|2|The camp is warm again - net the two goats on the south snowfield
+step reach|radiohut|1|Climb to the radio hut on the summit
+step read|Last transmission|1|Read the radio's last transmission
+step open|Commander's chest|1|Open the commander's chest
+quest done=The camp is warm again and the radio has the Corps' last call: they hold the Drowned Gate. The sea wall still stands - one more station, and then the Frontier.
+quest reward=Wool*6;Plank*8;Battery*2
+
+# Buried treasure (one of the story line's last islands): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=50 n=1 seed=8801
+prop treasure8801 treasure.loot=TitaniumOre*3
+
+save Whiteout Reach

@@ -1,0 +1,106 @@
+# Play test of Heart of Fire (CIPlay heart_of_fire, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The village on the north-west lowland (2.5 m, -82..-40 84..110), the wreck in the bay (-110 100, 9 m down); the lava
+# tube's mouth on the Ember's south flank (-35 -70, 16.5 m), its gallery north into the mountain; the pale temple on
+# its east shoulder (terrace 12 m, -6..10 -38..-22, the sanctum at -4.8..-2.4 -31.5..-28.5); the Mother's spring
+# (-3 42, 7.5 m); the pass (12 -12, 6.5 m); the Green Mother's summit (30 40, 60 m).
+island Heart of Fire
+offset 0 0
+expect step 0
+expect title The Bloomstone
+wait 5
+expect animals Goat 3
+expect animals Turtle 2
+expect animals Dolphin 2
+
+# Chapter 1 - the ash shore: the village and its boars, the pry bar; the wreck, her log
+at -66 90 h=3.5
+walk -66 91 to -61 95 h=2.6
+zone village
+expect step 1
+read The elders' carving
+expect step 2
+kill Warthog
+expect step 3
+open Elders' gift
+expect message It is not yours yet
+open Canoe house box
+expect story prybar 1
+expect step 4
+open Village store box
+open Fishers' box
+open Beached barrel
+at -110 95 h=-4
+zone wreck
+expect step 5
+read Navigator's log
+expect step 6
+
+# Chapter 2 - the three shards: the hold; the lava tube's beetles, its chamber and ember pot; the temple's braziers
+open Navigator's hold
+expect story shard 1
+expect step 7
+open Wreck's galley barrel
+at -35 -76 h=17.5
+walk -35 -76 to -35 -69 h=16.5
+zone lavatubes
+expect step 8
+kill Roach
+expect step 9
+open Tubes' chamber chest
+expect story shard 2
+expect step 10
+open Ember pot
+expect story livecoal 1
+expect step 11
+open Side tunnel cache
+at 8 -30 h=13
+zone obsidiantemple
+expect step 12
+read The temple's carving
+expect step 13
+use brazier3
+expect message It won't catch
+use brazier1
+use brazier2
+use brazier3
+expect shown flame3
+wait 4
+open Sanctum chest
+expect story shard 3
+expect step 14
+open Temple offering box
+
+# Chapter 3 - the mending: the spring, the song, the bowl; the pass and the Cinderwraith; the summit
+at -3 47 h=8.5
+zone motherspring
+expect step 15
+read The Mother's song
+expect step 16
+use motherbowl
+expect story bloomstone 1
+expect step 17
+expect shown springglow
+open Box by the basin
+at 12 -16 h=8
+zone saddle
+expect step 18
+kill Screecher
+expect step 19
+open Cairn box
+at 30 36 h=61
+zone mothersummit
+expect step 20
+
+# Chapter 4 - bloom: the Bloomstone on the Mother's stone, the island green; home to the village
+use summitaltar
+expect story seedpod 1
+expect step 21
+expect shown green
+expect hidden ash
+at -60 91 h=3.5
+zone homecoming
+expect step 22
+read The elders' welcome
+expect step 23
+open Elders' gift
+expect done

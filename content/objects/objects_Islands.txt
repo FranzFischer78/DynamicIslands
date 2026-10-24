@@ -1,0 +1,22 @@
+# Raft's objects the randomizer builds with (CIMeasureProps, raft=1.1.01)
+# prop	<name>	<scene>	<size x,y,z>	<centre x,y,z>	<bottom below the pivot>	<solid colliders>   (at the scale the object spawns with)
+# cave	<name>	<axis of the passage 0=x 2=z>	<floor above the pivot>	<headroom>	<width>	<open at +axis>	<open at -axis>	<a point in the passage, from the pivot>	<room from it towards +axis>	<and towards -axis> (99 = open)
+prop	CaveVine1	29#Landmark_Big#Cresent	0.595,6.242,0.953	-0.003,-3.112,0.005	-6.234	0
+prop	CaveVine2	29#Landmark_Big#Cresent	0.901,2.547,4.356	-0.004,-1.206,2.063	-2.479	0
+prop	CaveVine3	29#Landmark_Big#Cresent	0.609,3.421,1.676	-0.064,-1.681,-0.022	-3.391	0
+prop	Parabol_1	29#Landmark_Big#Cresent	1.216,2.017,1.02	0,1.008,-0.153	0	2
+prop	Parabol_2	29#Landmark_Big#Cresent	1.491,2.129,1.47	-0.012,1.062,-0.021	-0.002	2
+prop	Parabol_2_Model	30#Landmark_Big#Twin peak	1.491,2.129,1.47	-0.012,1.062,-0.021	-0.002	0
+prop	Parabol_3_Model	30#Landmark_Big#Twin peak	1.498,2.493,1.397	0.007,1.204,-0.159	-0.043	0
+prop	ReefHuts_PlasticWall1	32#Landmark_Big#	2.035,2.843,0.151	-0.077,1.422,0.041	0	1
+prop	ReefHuts_Tarpaulin	30#Landmark_Big#Twin peak	4.349,0,2.346	-0.04,0,0	0	1
+prop	ReefHuts_Wall2	30#Landmark_Big#Twin peak	2.047,2.94,0.188	0.081,1.437,0.03	-0.032	1
+prop	TP_Moontown_SealedCrate01_Clean	29#Landmark_Big#Cresent	0.978,0.761,0.892	0,0.379,0.008	-0.001	1
+prop	TP_Moontown_TarpCrate01_Clean	29#Landmark_Big#Cresent	1.743,1.314,1.407	-0.001,0.642,-0.001	-0.015	1
+prop	TinyCoral	29#Landmark_Big#Cresent	0.383,0.515,0.404	-0.022,0.257,0	0	0
+prop	TradingPost_Register	28#Landmark_Big#OG	0.526,0.419,0.525	-0.001,0.209,0.01	-0.001	0
+prop	TradingPost_Register_Dollar1	28#Landmark_Big#OG	0.121,0.173,0.013	0.004,0.083,-0.003	-0.004	0
+prop	TradingPost_Register_Dollar2	28#Landmark_Big#OG	0.121,0.172,0.01	-0.002,0.083,-0.001	-0.003	0
+prop	TradingPost_Register_Dollar3	28#Landmark_Big#OG	0.12,0.172,0.013	-0.003,0.083,-0.003	-0.003	0
+prop	TradingPost_Register_Lever	28#Landmark_Big#OG	0.164,0.249,0.275	0,-0.042,0.137	-0.167	0
+prop	VP_MetalCrate05	29#Landmark_Big#Cresent	2.247,2.352,2.332	0,1.176,0	0	1

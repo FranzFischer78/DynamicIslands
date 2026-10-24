@@ -1,0 +1,80 @@
+# Gullwing Bay - a new medium island of the library (ROADMAP 3d NI4), no quest
+# A green island folded round a deep bay that opens north. A fishing boat went down in the bay and lies on the bottom
+# among her barrels, pufferfish round her; a plank jetty runs out into the bay from its south beach. In the west
+# headland a cave goes into the rock, and boars root in the palms. A monster island: mind the boars and the puffers.
+# Fruit, honey, dirt to dig, a treasure buried, Raft's finds in the shallows.
+#
+# Built by the recipe player (CIRecipe gullwing_bay) through the editor's own operations. Points: the bay (8 m deep,
+# r 20 round 0 34, open to the north); the wreck on its bottom at -6 34; the jetty's root on the bay's south beach at
+# 6 13 (1.35 m), the jetty z 13..31 at x 4.5..7.5 (deck 1.5 m), its crate at 7.2 29.5; the cave rock round -30 -4, its
+# floor 2 m, its mouth north at -31 12, the chest inside at -32.5 1; the boars at 20 -20.
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+new
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=7412 Radius=55 Height=9 Roughness=0.35 Peaks=1 Shape=0 Style=0 BeachWidth=0.6 Cliffs=0.3 PeakShape=0.4
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0.2 SeaLife=0.2
+generate
+
+# ===== Terrain: the bay, its beach; the jetty's root; the cave rock's ground and its passage north =========================
+brush flatten at 0 34 r=20 s=20 frames=200 h=-8
+brush flatten from 0 44 to 0 70 r=14 s=20 frames=120 h=-8
+brush seabed at 0 34 r=20 s=20 frames=30
+brush sand from -14 14 to 14 14 r=4 s=20 frames=30
+brush flatten at 6 12 r=3 s=20 frames=60 h=1.35
+brush flatten at -30 -4 r=13 s=20 frames=100 h=1.6
+brush flatten from -31 16 to -31 2 r=4.5 s=20 frames=60 h=2
+clear at 6 12 r=4
+clear at -30 -4 r=17
+clear from -31 12 to -31 20 r=4
+
+# ===== The wreck on the bay's bottom, pufferfish round her ================================================================
+call wreck x=-6 z=34 yaw=40 roll=-14 tilt=4 sink=2.8 al=fishingboat seed=7512
+place Loot_ChestSmall wreckchest at -2 30 ground sit yaw=20 roll=-6
+place Creature_PufferFish puffers at -6 34 h=-5
+prop puffers creature.count=2
+
+# ===== The jetty out into the bay, its crate and nets =====================================================================
+push at 6 13 yaw=-90
+call jetty n=10 h=1.5 d=10
+pop
+place Loot_Crate jettycrate at 7.2 29.5 h=1.5 sit yaw=10
+place FishingNets_02 - at 4.8 29 h=1.5 sit yaw=60
+
+# ===== The cave in the west headland, a chest inside ======================================================================
+place BalboaCave_Bear headlandcave at -30 -4 h=6.55
+place Loot_ChestSmall cavechest at -32.5 1 h=2.05 sit yaw=60
+place Placeable_Lantern_Metal - at -27.4 0 h=2.05 sit
+
+# ===== Things to gather: palms, mangoes, pineapples, melons; hives, dirt, a treasure; boars; Raft's finds ==================
+scatter "Pickup_Landmark_Tree_Palm 2" 4 at 0 -10 r=36 seed=7522 free=6
+scatter "Pickup_Landmark_Tree_Mango" 3 at 0 -10 r=36 seed=7532 free=6
+scatter "Pickup_Landmark_PineappleLandmark" 3 at 0 -10 r=36 seed=7542 free=4
+scatter "Pickup_Landmark_WatermelonLandmark" 2 at 0 -10 r=36 seed=7552 free=4
+call hives x=0 z=-10 r=30 n=2 seed=7562
+call dirt x=0 z=-10 r=32 n=4 seed=7572
+call treasure x=0 z=-10 r=32 n=1 seed=7412
+place Creature_Boar boars at 20 -20 ground
+prop boars creature.count=3
+call shallows r=78 deep=5 n=2 seed=752
+place Creature_Dolphin dolphins at 0 70 h=-3
+prop dolphins creature.count=2
+
+info title=Gullwing Bay
+info author=Custom Islands
+info description=A green island folded round a deep bay where a fishing boat lies wrecked on the bottom, a plank jetty out into the bay, a cave in the west headland - and boars in the palms. No quest - an island to explore.
+
+note wreckchest The fishing boat's chest | Thrown clear when she went down. Her skipper's things: tools, a battery, wet rope.
+loot wreckchest Battery*1;MetalIngot*2;Bolt*2;Rope*2
+prop wreckchest loot.refill=0
+note jettycrate Crate on the jetty | The day's catch never collected - and the bait for the next.
+loot jettycrate Raw_Herring*2;Raw_Pomfret*2;FishingBait_Simple*3;Rope*2
+prop jettycrate loot.refill=0
+note cavechest Chest in the headland cave | Kept dry in the cave: somebody's store.
+loot cavechest Glass*3;Plastic*4;Nail*10;Leather*2
+prop cavechest loot.refill=0
+
+save Gullwing Bay

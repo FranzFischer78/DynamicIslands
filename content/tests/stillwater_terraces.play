@@ -1,0 +1,53 @@
+# Stillwater Terraces (CIPlay stillwater_terraces): The Lullaby Frequency's fifth island, quest "The Planting Song".
+# Terraces at 3, 7, 11 m (centres z -38, -22, -6) and the altar's 15 m (z 12), a path up the middle (x 0); the paddies'
+# water either side (|x| 1.5..13.5, z centre +-3); the statue sets on z 5 (st_a), -1 (st_b), -17 (st_c); the Bell stones
+# at 16.5 -42, -16.5 -26, 16.5 -10, the stand at 2.8 -10; the altar platform x -4.5..4.5, z 8..12.5 (2.42 m up).
+island Stillwater Terraces
+offset 0 0
+expect step 0
+expect title The Planting Song
+wait 3
+expect shown st_a
+expect hidden st_b
+expect hidden st_c
+expect hidden altarstair
+walk 0 -56 to 0 -44 to 0 -40 h=3
+zone paddy1
+expect step 1
+read Planting song
+expect step 2
+use bellstone1
+walk 0 -40 to 0 -30 to 0 -24 h=7
+zone paddy2
+expect hidden st_a
+expect shown st_b
+expect step 3
+use bellstone2
+use bellstand
+expect message Three hollows
+use bellstone3
+expect story bellstone 3
+# (step 5, not 4: the stand is inside paddy 3's zone, so using it on the way already counts the climb)
+expect step 5
+walk 0 -24 to 0 -14 to 0 -8 h=11
+zone paddy3
+expect shown st_c
+expect hidden st_b
+expect shown terracefog
+expect step 5
+use bellstand
+expect story bellsset 1
+expect shown altarstair
+expect step 6
+kill Bear
+expect step 7
+walk 0 -4 to 0 4.5 h=15
+read Monk's confession
+expect step 8
+open Offering box
+expect item FishingRod_Metal 1
+expect step 9
+zone altar
+expect hidden st_c
+expect shown st_b
+expect done

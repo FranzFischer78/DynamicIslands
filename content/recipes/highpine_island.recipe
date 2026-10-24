@@ -1,0 +1,147 @@
+# Highpine Island - a new island of the library (ROADMAP 3d NI5), large, with no quest
+# A big green island with two rocky peaks in its north half and a rope bridge hanging between them over the saddle.
+# A path climbs the west peak from the west hills; the east peak is reached only over the bridge, and a zipline runs from
+# it down to the east beach. A woodcutter's cabin in the south-west, a plank pier out into the sea on the south shore,
+# a boat lying wrecked on the sea floor beyond it. A bear den in the east woods, set by hand (the generator
+# found no spot for one). Monsters: a bear in
+# the east woods, hyenas in the west hills, screechers round the peaks, warthogs in the south.
+#
+# Built by the recipe player (CIRecipe highpine_island) through the editor's own operations. Points: the west peak's top
+# at -20 30, the east peak's at 20 30 (both 24 m, flat r 13); the saddle between them x -6..6 (13 m); the bridge x -8.75..8.75
+# along z 30 (deck 23-24 m, sagging); the path up the west peak from -72 30 (4 m) to -28 30; the zipline from 24 30 to the east beach
+# at 78 18; the cabin x -50..-45.5, z -34..-31 (pad 4 m, door south); the pier from 30 -80 out to 30 -98 (deck 1.8 m);
+# the wreck at 36 -116 (sea floor 9 m down).
+include lib_huts
+include lib_sea
+include lib_features
+new
+# (nature: tropical, Like Raft - palms and bushes, the peaks bare rock)
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=9355 Radius=95 Height=16 Roughness=0.4 Peaks=2 Shape=0 Style=0 BeachWidth=0.5 Cliffs=0.35 PeakShape=0.45
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0 Caves=false
+generate
+
+# ===== The ground: the two peaks, the saddle, the path up the west peak, the cabin's pad, the pier's landing, the
+# sea floor under the pier and the wreck ===================================================================================
+brush flatten at -20 30 r=15 s=20 frames=400 h=24
+brush flatten at 20 30 r=15 s=20 frames=400 h=24
+brush flatten from -13 30 to -8.5 30 r=4 s=20 frames=300 h=24
+brush flatten from 13 30 to 8.5 30 r=4 s=20 frames=300 h=24
+brush flatten from 0 14 to 0 46 r=5 s=20 frames=220 h=13
+# the cliff edges under the sagging deck cut back, so no rock pokes up through the planks
+brush flatten from -5.5 30 to 5.5 30 r=1.5 s=20 frames=200 h=17
+for i 0 14 1
+brush flatten at {-72+$i*3} 30 r=4 s=20 frames=200 h={4+$i*1.45}
+next
+brush flatten at -47.75 -32.5 r=5 s=20 frames=80 h=4
+brush flatten from 30 -68 to 30 -80 r=4 s=20 frames=120 h=1.65
+brush flatten from 30 -86 to 30 -100 r=5 s=20 frames=120 h=-2.5
+brush flatten at 36 -116 r=10 s=20 frames=80 h=-9
+clear at -20 30 r=15
+clear at 20 30 r=15
+clear from -72 30 to -28 30 r=4
+clear at -47.75 -32.5 r=6
+clear from 30 -70 to 30 -100 r=5
+clear at 78 18 r=4
+clear at 46.5 -4 r=5
+
+# ===== The rope bridge between the peaks: two plank spans (17.5 m) on the tops, thick posts at its ends ================
+place CaravanHubBridge3 bridge at -4.38 30 h=22.8 sit yaw=90
+place CaravanHubBridge3 bridge at 4.38 30 h=22.8 sit yaw=270
+for bx -7 7 14
+place RT_PillarThick bridgeposts at $bx 28.7 ground sy=0.5
+place RT_PillarThick bridgeposts at $bx 31.3 ground sy=0.5
+next
+prop bridge tint.color=#8a6a44
+prop bridgeposts tint.color=#6b4f32
+place Note_Sign peaksign at -27 32 ground yaw=270
+
+# ===== The east peak: the lookout's cache, the zipline down to the east beach ============================================
+place Loot_Chest peakchest at 23 33.5 ground yaw=200
+place ZiplinePath_Landmark zipdown at 25 30 ground
+zipto zipdown 78 18
+
+# ===== The den: Balboa's bear cave in the east woods, its mouth west; the hoard on its floor ============================
+place BalboaCave_Bear den at 55 -5 ground y=4.55 yaw=310
+place Loot_ChestSmall denhoard at 48.2 -0.7 h=6.13 sit yaw=40
+
+# ===== The woodcutter's cabin in the south-west: floor, plank walls, the door south, a hipped roof on its corner posts;
+# bed, table, his book, the chest; logs stacked outside ====================================================================
+push at -50 -34 h=4
+call floors w=3 d=2 y=0.1
+place Block_Wall_Wood - at 0.75 3 y=0.1
+place Block_Wall_Wood - at 2.25 3 y=0.1
+place Block_Wall_Wood - at 3.75 3 y=0.1
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 4.5 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 4.5 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 0.75 0 y=0.1
+place Block_Wall_Wood - at 3.75 0 y=0.1
+call corners w=3 d=2
+roof 3 2 at 0 0 y=0.1 wood
+place Placeable_Bed_Basic - at 1.15 1.6 y=0.1 sit yaw=90
+place Placeable_Table_Basic - at 3.3 1.95 y=0.1 sit
+place Note_Book cutterbook at 3.3 1.95 y=0.84 sit yaw=20
+place Loot_Chest cabinchest at 3.7 0.7 y=0.1 sit yaw=180
+pop
+place Crate_Big_01 - at -44.2 -33 ground yaw=12
+place Loot_Barrel cabinbarrel at -44.4 -30.8 ground
+
+# ===== The pier out into the sea on the south shore: a plank walkway on reef hut posts, a dinghy tied up ===================
+push at 28.5 -80 h=-2.5 yaw=90
+call boardwalk n=12 wide=2 y=4.3
+pop
+place RT_PlasticBoat - at 33.4 -92 h=0.15 yaw=2
+place Loot_Barrel pierbarrel at 30 -72.5 ground
+
+# ===== Under the sea beyond the pier: the wrecked boat on the sea floor, a barrel beside it; Raft's finds in the shallows =
+place BoatStranded wreck at 36 -116 ground sit y=-2.8 yaw=70 roll=14 tilt=4
+place Loot_SunkenBarrel wreckbarrel at 30 -111 ground
+call shallows r=110 deep=5 n=1
+place Creature_Dolphin dolphins at -20 -118 h=-3
+
+# ===== Monsters and animals: a bear in the east woods, hyenas in the west hills, screechers round the peaks, warthogs ====
+place Creature_Bear bear at 36 -2 ground
+place Creature_Hyena hyenas at -58 4 ground
+place Creature_StoneBird screechers at 0 30 h=34
+place Creature_Boar hogs at 2 -50 ground
+
+# ===== Raft's features: wild bees, dirt, a buried tin, a chest under vines ==============================================
+call hives x=-10 z=-20 r=26 n=3 seed=551
+call dirt x=10 z=-30 r=24 n=4 seed=552
+call treasure x=55 z=-35 r=14 n=1 seed=553
+call vinecache x=-60 z=-55 r=14 seed=554 items=Rope*3;Nail*10;CopperOre*2
+
+# ===== Settings, notes, loot (no quest) ===================================================================================
+info title=Highpine Island
+info author=Custom Islands
+info description=A big green island with two rocky peaks and a rope bridge hanging between them, a zipline down to the beach, a woodcutter's cabin, a pier out into the sea and a boat wrecked on the sea floor. Bears, hyenas and screechers. No quest.
+
+note peaksign Bridge sign | THE HIGH CROSSING\nOne at a time. Mind the gusts.\nThe way down from the far peak is the line, not the cliff.
+note cutterbook The woodcutter's book | HIGHPINE\n\nCut the palms on the south slope, never the ones up top - they hold the rock.\nStrung the rope bridge to the east peak this summer. Left a cache on the far side for anyone who dares it.\nThe bear in the east woods took the smoked meat again. The dogs in the west hills follow me home.\nThe Wren went down off the pier in the spring storm. She's still lying out there, nine metres down.
+note cabinchest Woodcutter's chest | The woodcutter's chest: his spare axe head, rope, nails, smoked meat.
+loot cabinchest MetalIngot*1;Rope*3;Nail*10;Cooked_GenericMeat*2
+prop cabinchest loot.refill=0
+note cabinbarrel Barrel by the cabin | A barrel by the woodpile: planks, plastic, scrap.
+loot cabinbarrel Plank*4;Plastic*3;Scrap*2
+prop cabinbarrel loot.refill=0
+note peakchest Lookout's cache | The cache on the east peak, left for whoever crosses the bridge: leather, copper, a bolt or two.
+loot peakchest Leather*3;CopperOre*3;Bolt*2;Hinge*1
+prop peakchest loot.refill=0
+note pierbarrel Barrel at the pier | A barrel at the pier's foot: bait, rope, a sweep net.
+loot pierbarrel FishingBait_Simple*3;Rope*2;SweepNet*1
+prop pierbarrel loot.refill=0
+note wreckbarrel Barrel by the wreck | A barrel from the Wren, still sealed: rope, nails, metal.
+loot wreckbarrel Rope*2;Nail*8;MetalIngot*2
+prop wreckbarrel loot.refill=0
+prop hyenas creature.count=3
+prop screechers creature.count=2
+prop hogs creature.count=2
+prop dolphins creature.count=2
+
+note denhoard Bear den hoard | A chest dragged into the bear's den: leather, rope, nails, a little scrap.
+loot denhoard Leather*2;Rope*2;Nail*6;Scrap*2
+prop denhoard loot.refill=0
+
+save Highpine Island

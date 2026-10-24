@@ -1,0 +1,140 @@
+# Sorting Rock - an island of the library's plan The Last Post (the Coastal Post's route, the fifth stop)
+# A grey rock with a quarried bowl in its top: the Coastal Post's sorting hall in the bowl, a roof on pillars over
+# sorting tables, five parcel scales (Caravan Town's scale model, the scales ready piece) in a row on them; the rates
+# office's chest under the hall roof, Lise's locker by the back wall; the cistern (Utopia's water tank) on the bowl's
+# rim; the landing stair and a short jetty on the south shore; the postal safe buried somewhere on the rock.
+# Quest "Weighed and Sorted" (12 steps): the hall door, the rate chart, the sorter's tool rack (detector and spade), the
+# buried postal safe (the parcel weights), three parcels weighed, the rates office (four water blueprints), Lise's
+# letter in her locker, her reply.
+#
+# Built by the recipe player (CIRecipe sorting_rock) through the editor's own operations.
+include lib_sea
+include lib_features
+include lib_post
+new
+# (nature: a bare rock, Like Raft's rocky islands - few bushes)
+gen Trees=0.12 Bushes=0.15 Rocks=0.5 Harvest=0.15 BeachThings=0.25
+gen Seed=4501 Radius=46 Height=13 Roughness=0.55 Peaks=1 Shape=0 Style=4 PeakShape=0.35 Cliffs=0.55 BeachWidth=0.25
+gen Water=0.5 SeaRocks=0.45 SeaFinds=0.15 Sunken=0.2 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+
+# --- Terrain: the bowl (4 m) in the rock's top, the landing stair down to the south shore (1.5 m) -------------------
+brush flatten at 0 2 r=13 s=20 frames=160 h=4
+brush flatten from 0 -14 to 0 -30 r=4 s=20 frames=100 h=1.6
+brush smooth from 0 -8 to 0 -30 r=5 s=8 frames=30
+brush rock at 0 2 r=15 s=8 frames=30
+origin
+clear at 0 2 r=13
+clear from 0 -10 to 0 -34 r=4
+
+# --- The jetty and the landing ------------------------------------------------------------------------------------------
+call pier x=0 z1=-30 z2=-52 h=1.45
+place Placeable_Lantern_Metal - at 1.2 -51 h=1.6 sit drop
+
+# --- The sorting hall: 6 x 4 cells of roof on pillars, sorting tables, the five scales, the rates office chest --------
+push at -4.5 -2 h=4
+call openhall w=6 d=4
+place Zone_Trigger doorzone at 4.5 0.5 y=0.8
+place "Table Office" - at 1.5 2.6 y=1.3 sit drop yaw=0
+place "Table Office" - at 3.6 2.6 y=1.3 sit drop yaw=0
+place "Table Office" - at 5.7 2.6 y=1.3 sit drop yaw=0
+place "Table Office" - at 7.8 2.6 y=1.3 sit drop yaw=0
+place TangaroaScaleModel scale1 at 1.1 3 y=2.3 sit drop yaw=0
+place TangaroaScaleModel scale2 at 2.6 3 y=2.3 sit drop yaw=0
+place TangaroaScaleModel scale3 at 4.1 3 y=2.3 sit drop yaw=0
+place TangaroaScaleModel scale4 at 5.6 3 y=2.3 sit drop yaw=0
+place TangaroaScaleModel scale5 at 7.4 3 y=2.3 sit drop yaw=0
+place Note_Paper ratechart at 8.3 0.8 y=2 sit drop yaw=-80
+place Placeable_Cupboard_Small - at 8.3 0.8 y=1.3 sit drop yaw=270
+place Loot_Chest ratesoffice at 4.5 5.4 y=1.3 sit drop yaw=180
+place Placeable_Cupboard_Medium liselocker at 1 5.3 y=1.3 sit drop yaw=180
+place Note_Paper lisereply at 2 5.3 y=1.3 sit drop yaw=10
+place Loot_ChestSmall toolrack at 7.6 5.4 y=1.3 sit drop yaw=180
+call mailsack x=0.8 z=0.8 yaw=30 al=sacks
+call mailsack x=1.6 z=1.1 yaw=-50 al=sacks
+pop
+
+# --- The cistern on the bowl's west rim, a rain tank by the hall -----------------------------------------------------
+place UT_WaterTank cistern at -16 6 ground sit yaw=90
+place Placeable_WaterTank - at 7 6 ground sit yaw=180
+
+# --- The buried postal safe, the reefs, a few things to gather -----------------------------------------------------------
+call treasure x=-12 z=-14 r=6 n=1 seed=4511 kind=0
+call dirt x=14 z=-12 r=8 n=2 seed=4512
+scatter "Pickup_Landmark_Flower_Blue" 2 at 0 16 r=14 seed=4513 free=3
+place Creature_Dolphin dolphins at -30 -50 h=-3
+prop dolphins creature.count=2
+call shallows r=62 deep=5 n=2
+
+# --- Settings, notes, behaviours, quest --------------------------------------------------------------------------------
+info title=Sorting Rock
+info author=Custom Islands
+info description=A bare grey rock with the Coastal Post's sorting hall in a quarried bowl: a roof on pillars, sorting tables, five parcel scales in a row and the cistern on the rim. Dig up the postal safe and weigh the parcels. The fifth stop of The Last Post.
+island on.arrive=message||A bare grey rock, a roof on pillars sunk into its top, and on the rim a water tank as big as a house.
+
+prop sacks tint.color=#b8a478
+prop sacks tint.amount=0.75
+prop cistern tint.color=#7d8c8f
+prop cistern tint.amount=0.4
+
+story parcelweights|Parcel weights|Note_Paper|The postal safe's ledger: what each waiting parcel weighs, and which band it goes in.
+story weighed|Weighed parcel|Note_Paper|A parcel weighed into its rate band.
+story lisedelivered|Letter for Lise|Note_Paper|Lise's urgent letter, in her locker at last.
+note ratechart Rate chart | COASTAL POST - PARCEL RATES\n\nUnder 1 kg: band A\n1 - 5 kg: band B\nOver 5 kg: band C\n\nThe weights of parcels waiting are in the postal safe. The safe was buried when the water came - "somewhere on the rock, west of the stair".\n\nThe sorter's tool rack is by the back wall.
+note toolrack Sorter's tool rack | The sorter's tool rack: a metal detector and a spade, for the safe.
+loot toolrack MetalDetector*1;Shovel*1
+prop toolrack loot.refill=0
+prop treasure4511 treasure.loot=story:parcelweights*1;Glass*2;Bolt*2
+macro scaleuse al=scale1
+prop $al obj.name=$al
+prop $al beh.use=Weigh a parcel
+prop $al if.use=has|story:parcelweights|1\n!signal|$al
+prop $al on.use=message||The scales tip, sway and settle - the parcel goes in its band.\nsignal||scales\nsignal||$al\ngive||story:weighed*1
+prop $al else.use=message||Nothing to weigh - or this scale's parcel is weighed already. The parcel weights are in the postal safe.
+end
+call scaleuse al=scale1
+call scaleuse al=scale2
+call scaleuse al=scale3
+call scaleuse al=scale4
+call scaleuse al=scale5
+note ratesoffice Rates office | The rates office's chest, its shutter open now: the water works' plans - the post kept its own cistern.
+loot ratesoffice Blueprint_WaterTank*1;Blueprint_Pipe_Water*1;Blueprint_ElectricPurifier*1;Blueprint_Storage_Large*1;Cooked_Potato*3;Cooked_Beet*2
+prop ratesoffice loot.refill=0
+prop ratesoffice if.open=has|story:weighed|3
+prop ratesoffice else.open=message||The rates office shutter is down. A card on it: "Opens when three parcels are weighed".
+prop liselocker obj.name=liselocker
+prop liselocker beh.use=Put the letter in Lise's locker
+prop liselocker if.use=take|story:dl_lise|1
+prop liselocker on.use=message||The letter goes in. Taped inside the locker door is a note, as if she knew one would come.\ngive||story:lisedelivered*1\nshow|lisereply
+prop liselocker else.use=message||A locker: L. MOBERG. You have nothing for her.
+note lisereply Lise's reply | If a letter has come for me, I'm already gone - to the Narrows, on the telegraph boat, then to Ada's house on the round.\n\nThe weights are in the safe and the safe is in the rock. The cistern is full. Everything is sorted.\n\n- Lise
+prop lisereply obj.name=lisereply
+prop lisereply beh.hidden=1
+
+prop doorzone zone.id=hall_door
+prop doorzone zone.radius=4
+prop doorzone zone.message=The sorting hall: five scales on the tables, and the rates office shutter down.
+
+quest title=Weighed and Sorted
+quest intro=A sorting hall in a rock. Climb up to its door.
+step reach|hall_door|1|Climb up to the sorting hall
+step read|Rate chart|1|Read the rate chart
+step open|Sorter's tool rack|1|Take the metal detector and the spade from the tool rack
+step collect|story:parcelweights|1|Find and dig up the buried postal safe
+step collect|story:weighed|3|Weigh three parcels on the scales
+step open|Rates office|1|Open the rates office chest
+step blueprint|Blueprint_WaterTank|1|Take the water tank plans
+step blueprint|Blueprint_Pipe_Water|1|Take the water pipe plans
+step blueprint|Blueprint_ElectricPurifier|1|Take the electric purifier plans
+step blueprint|Blueprint_Storage_Large|1|Take the large storage plans
+step collect|story:lisedelivered|1|Put Lise's letter in her locker
+step read|Lise's reply|1|Read Lise's note
+quest done=Sorted. Lise's note points on: the telegraph boat to the Narrows.
+quest reward=Cooked_Potato*3;Cooked_Beet*3;Coconut*3
+
+# --- Raft's vehicles (VI4, 2026-10-23): parked on open ground, clear of paths and quest objects ---
+place VP_Forklift - at 9 -5 ground sit yaw=200
+# the generator's rocks that floated over the slope (VI4 ground check, 2026-10-24)
+clear at 39.04 -1.26 r=1.5 only=BigSharpRock
+
+save Sorting Rock

@@ -22,15 +22,17 @@ namespace RuntimeGizmos
 		public ScaleType scaleType = ScaleType.FromPoint;
 
 		//These are the same as the unity editor hotkeys
-		public KeyCode SetMoveType = KeyCode.W;
-		public KeyCode SetRotateType = KeyCode.E;
-		public KeyCode SetScaleType = KeyCode.R;
+		// Number keys: W/E/R/S/Z clashed with the editor camera (WASD) and undo (Ctrl+Z)
+		public KeyCode SetMoveType = KeyCode.Alpha1;
+		public KeyCode SetRotateType = KeyCode.Alpha2;
+		public KeyCode SetScaleType = KeyCode.Alpha3;
 		//public KeyCode SetRectToolType = KeyCode.T;
-		public KeyCode SetAllTransformType = KeyCode.Y;
+		public KeyCode SetAllTransformType = KeyCode.Alpha4;
 		public KeyCode SetSpaceToggle = KeyCode.X;
-		public KeyCode SetPivotModeToggle = KeyCode.Z;
-		public KeyCode SetCenterTypeToggle = KeyCode.C;
-		public KeyCode SetScaleTypeToggle = KeyCode.S;
+		public KeyCode SetPivotModeToggle = KeyCode.P;
+		// (C is the editor camera's "down" - Space / C: it toggled the centre mode at the same time. Custom Islands)
+		public KeyCode SetCenterTypeToggle = KeyCode.None;
+		public KeyCode SetScaleTypeToggle = KeyCode.None;
 		public KeyCode translationSnapping = KeyCode.LeftControl;
 		public KeyCode AddSelection = KeyCode.LeftShift;
 		public KeyCode RemoveSelection = KeyCode.LeftControl;
@@ -81,7 +83,13 @@ namespace RuntimeGizmos
 		//Might be poor on performance if lots of objects are selected...
 		public bool forceUpdatePivotPointOnChange = true;
 
-		public int maxUndoStored = 100;
+		public int maxUndoStored = 50;
+
+		/// <summary>
+		/// Selecting isn't an undo step (Custom Islands): clicks around the island filled the 50 steps and pushed real changes out,
+		/// and counted as unsaved changes. What is selected is not saved with the island either.
+		/// </summary>
+		public static bool RecordSelection = false;
 
 		public bool manuallyHandleGizmo;
 
@@ -120,6 +128,8 @@ namespace RuntimeGizmos
 
 		//We use a HashSet and a List for targetRoots so that we get fast lookup with the hashset while also keeping track of the order with the list.
 		List<Transform> targetRootsOrdered = new List<Transform>();
+		/// <summary>The selected objects (Custom Islands: used by the editor's "Ground" button).</summary>
+		public IList<Transform> SelectedRoots { get { return targetRootsOrdered; } }
 		Dictionary<Transform, TargetInfo> targetRoots = new Dictionary<Transform, TargetInfo>();
 		HashSet<Renderer> highlightedRenderers = new HashSet<Renderer>();
 		HashSet<Transform> children = new HashSet<Transform>();
@@ -162,11 +172,11 @@ namespace RuntimeGizmos
 
 		void Update()
 		{
+			// Undo/redo is handled editor-wide (Ctrl+Z / Ctrl+Y) by EditorInput
+			if (maxUndoStored != UndoRedoManager.maxUndoStored) UndoRedoManager.maxUndoStored = maxUndoStored;
 			if (TabSelector.instance.SelectedTab == TAB.ObjectPlace)
 			{
-				HandleUndoRedo();
-
-				SetSpaceAndType();
+				if (!EditorInput.IsTyping) SetSpaceAndType();
 
 				if (manuallyHandleGizmo)
 				{
@@ -202,13 +212,22 @@ namespace RuntimeGizmos
 				SetLines();
 			}
 
-			if (Input.GetKey(DeleteSelected))
+			if (EditorInput.KeyDown(DeleteSelected) && !EditorInput.IsTyping && !EditorInput.WindowOpen)
 			{
-				for(int i = 0; i < targetRoots.Count; i++)
-				{
-					Destroy(targetRoots.ElementAt(i).Key.gameObject);
-				}
+				DeleteSelection();
 			}
+		}
+
+		/// <summary>
+		/// Deletes the selected objects as an undoable step: they are hidden, not destroyed (hidden objects are not saved).
+		/// The selection is cleared first so nothing hidden stays selected.
+		/// </summary>
+		public void DeleteSelection()
+		{
+			List<GameObject> selected = new List<GameObject>();
+			foreach (Transform t in targetRootsOrdered) if (t != null) selected.Add(t.gameObject);
+			ClearTargets(false);
+			if (selected.Count > 0) UndoRedoManager.Execute(new ObjectVisibilityCommand(selected, false));
 		}
 
 		void OnPostRender()
@@ -346,6 +365,8 @@ namespace RuntimeGizmos
 				else if(pivot == TransformPivot.Center) pivot = TransformPivot.Pivot;
 
 				SetPivotPoint();
+				// (it used to change without a word)
+				global::DynamicIslands.DynamicIslands.Notify("P: turning and scaling around " + (pivot == TransformPivot.Pivot ? "each object's own point" : "the middle of the selection"));
 			}
 
 			if(Input.GetKeyDown(SetCenterTypeToggle))
@@ -360,6 +381,7 @@ namespace RuntimeGizmos
 			{
 				if(space == TransformSpace.Global) space = TransformSpace.Local;
 				else if(space == TransformSpace.Local) space = TransformSpace.Global;
+				global::DynamicIslands.DynamicIslands.Notify("X: the arrows follow " + (space == TransformSpace.Global ? "the world (north, up)" : "the object's own turn"));
 			}
 
 			if(Input.GetKeyDown(SetScaleTypeToggle))
@@ -378,7 +400,7 @@ namespace RuntimeGizmos
 		{
 			if(mainTargetRoot != null)
 			{
-				if(nearAxis != Axis.None && Input.GetMouseButtonDown(0))
+				if(nearAxis != Axis.None && Input.GetMouseButtonDown(0) && !EditorCamera.UsingMouse)
 				{
 					StartCoroutine(TransformSelected(translatingType));
 				}
@@ -594,9 +616,13 @@ namespace RuntimeGizmos
 			{
 				((TransformCommand)transformCommands[i]).StoreNewTransformValues();
 			}
-			CommandGroup commandGroup = new CommandGroup();
-			commandGroup.Set(transformCommands);
-			UndoRedoManager.Insert(commandGroup);
+			// (a click on a handle without a drag: no step - it emptied the redo steps and counted as an unsaved change)
+			if (transformCommands.Any(c => ((TransformCommand)c).Changed))
+			{
+				CommandGroup commandGroup = new CommandGroup();
+				commandGroup.Set(transformCommands);
+				UndoRedoManager.Insert(commandGroup);
+			}
 
 			totalRotationAmount = Quaternion.identity;
 			totalScaleAmount = 0;
@@ -656,21 +682,20 @@ namespace RuntimeGizmos
 	
 		void GetTarget()
 		{
-			if(nearAxis == Axis.None && Input.GetMouseButtonDown(0))
+			if(nearAxis == Axis.None && Input.GetMouseButtonDown(0) && !EditorCamera.UsingMouse)
 			{
 				bool isAdding = Input.GetKey(AddSelection);
 				bool isRemoving = Input.GetKey(RemoveSelection);
 
-				RaycastHit hitInfo; 
-				if(Physics.Raycast(myCamera.ScreenPointToRay(Input.mousePosition), out hitInfo, Mathf.Infinity, selectionMask))
+				// Clicks on the editor's panels are not clicks into the world
+				if (UnityEngine.EventSystems.EventSystem.current != null && UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()) return;
+
+				// Only placed island objects can be selected, always as a whole (never the terrain or a part of a model)
+				Transform target = global::DynamicIslands.Editor.PlacementOptions.PickObject(myCamera.ScreenPointToRay(Input.mousePosition), selectionMask);
+				if(target != null)
 				{
-					Transform target = hitInfo.transform;
-
-					
-
 					if(isAdding)
 					{
-						if (target.GetComponent<Terrain>() != null) { return; }
 						AddTarget(target);
 					}
 					else if(isRemoving)
@@ -679,7 +704,6 @@ namespace RuntimeGizmos
 					}
 					else if(!isAdding && !isRemoving)
 					{
-						if (target.GetComponent<Terrain>() != null) { ClearTargets(); }
 						ClearAndAddTarget(target);
 					}
 				}else{
@@ -698,7 +722,7 @@ namespace RuntimeGizmos
 				if(targetRoots.ContainsKey(target)) return;
 				if(children.Contains(target)) return;
 
-				if(addCommand) UndoRedoManager.Insert(new AddTargetCommand(this, target, targetRootsOrdered));
+				if(addCommand && RecordSelection) UndoRedoManager.Insert(new AddTargetCommand(this, target, targetRootsOrdered));
 
 				AddTargetRoot(target);
 				AddTargetHighlightedRenderers(target);
@@ -713,7 +737,7 @@ namespace RuntimeGizmos
 			{
 				if(!targetRoots.ContainsKey(target)) return;
 
-				if(addCommand) UndoRedoManager.Insert(new RemoveTargetCommand(this, target));
+				if(addCommand && RecordSelection) UndoRedoManager.Insert(new RemoveTargetCommand(this, target));
 
 				RemoveTargetHighlightedRenderers(target);
 				RemoveTargetRoot(target);
@@ -724,7 +748,7 @@ namespace RuntimeGizmos
 
 		public void ClearTargets(bool addCommand = true)
 		{
-			if(addCommand) UndoRedoManager.Insert(new ClearTargetsCommand(this, targetRootsOrdered));
+			if(addCommand && RecordSelection) UndoRedoManager.Insert(new ClearTargetsCommand(this, targetRootsOrdered));
 
 			ClearAllHighlightedRenderers();
 			targetRoots.Clear();
@@ -734,7 +758,7 @@ namespace RuntimeGizmos
 
 		void ClearAndAddTarget(Transform target)
 		{
-			UndoRedoManager.Insert(new ClearAndAddTargetCommand(this, target, targetRootsOrdered));
+			if (RecordSelection) UndoRedoManager.Insert(new ClearAndAddTargetCommand(this, target, targetRootsOrdered));
 
 			ClearTargets(false);
 			AddTarget(target, false);

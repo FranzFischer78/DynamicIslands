@@ -1,0 +1,26 @@
+# plan_end_of_ocean - the library's plan "The End of the Ocean" (storyline SL14): a pulse on every raft's Receiver leads
+# through the stations of the Concord Engine - a beacon, a reef intake, three relays, a static field, the outer wall of a
+# calm circle, its locks, its smelters and its cooling spire - to the engine itself: the Engine Court on the surface and
+# the Command Well under it, where the Ringwave is explained and the player chooses what the engine does next. A relay
+# buoy drifts back every 12 km. No Raft story, no random islands. Every one of Raft's story blueprints is a quest step on
+# the way, in Raft's order.
+#
+# Run it with CIRecipe plan_end_of_ocean (it writes the plan file); the islands are built by their own recipes.
+plan new The End of the Ocean
+plan description A pulse on the Receiver, the same every day, from somewhere in the middle of the sea. Follow it from a beacon on a rocky saddle through the stations of an old machine - a reef intake, three relays, a static field, a wall round a circle of calm water, its locks, its smelters and its cooling spire - to the Concord Engine itself, the Ringwave made real. There, the last choice is yours. Its quest islands are as big as Raft's own big islands.
+plan random off
+plan story off
+plan rule beacon | island:Beacon Saddle | start | receiver:500 | On 500, under the static, a pulse: three beats, a pause, three beats. And a woman's voice, once: "Beacon Saddle. The beacon's lit. Anyone?" | Beacon Saddle | first | quest
+plan rule reefmachine | island:Reefmachine Atoll | km:3 | receiver:600 | On 600 the pulse gets a hum under it, like a pump: a low atoll with iron frames standing in its lagoon - and a pipe as wide as a raft going down into the reef. | Reefmachine Atoll | after:beacon | zone:cage
+plan rule triangle | island:Triangulation Rocks | zone:reefmachine:cage | receiver:700 | With the intake's valve shut, the pulse comes clearer on 700 - and three red lights blink over a group of rocks. | Triangulation Rocks | after:reefmachine | signal:fixed
+plan rule static | island:Static Shoals | signal:triangle:fixed | receiver:800 | The three relays agree: on 800 the pulse is drowned in a roar of static. Something is jamming it, on a shoal of masts. | Static Shoals | after:triangle | quest
+plan rule breakwater | island:Outer Breakwater | day:5 | receiver:900:needs=engine | On 900, the pulse - and the boom of surf on a wall. A long wall of stone in the sea, far off. Bring an engine. | Outer Breakwater | after:static | step:7
+plan rule locks | island:Current Locks | step:breakwater:7 | receiver:1000 | On 1000, past the wall: the grind of gates. A long island cut by a straight canal, three iron gates across it. | Current Locks | after:breakwater | quest
+plan rule stormworks | island:Stormworks | visit:locks | receiver:800 | On 800, the clang of a smelter and thunder that never stops. Smoke over a dark island. | Stormworks | after:locks | quest
+plan rule spire | island:Cooling Spire | quest:stormworks | receiver:700 | A cold hiss on 700, like a kettle - and a pale tower in its own fog, a campfire lit at its foot. | Cooling Spire | after:stormworks | quest
+plan rule court | island:Engine Court | rule:spire | receiver:600 | On 600 the pulse is loud and slow - not a signal any more but a machine turning. The middle of the calm circle. | Engine Court | after:spire | signal:chosen
+plan rule well | island:The Command Well | signal:court:open | receiver:300 | On 300, faint, from under the court: a shaft going straight down, lit from below. | The Command Well | after:court | quest
+plan rule buoy | island:Drifting Relay Buoy | km:12:again | sailing:300 | A light blinking on the water: long, short, short, long. A buoy, off a sand bar - blinking at you. | Drifting Relay Buoy
+plan credits The End of the Ocean | Custom Islands
+plan ending The rings in the heart of the Concord Engine turn the way they were told. Up on the calm circle Hedda watches from her spire, Teo waits with his boat, and Ines has gone home to the Commons with a story to tell.\n\nThe ocean has no end. It has a middle - and in the middle, a choice.\n\nThe end of The End of the Ocean.
+plan save

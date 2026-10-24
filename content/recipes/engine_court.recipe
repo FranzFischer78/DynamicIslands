@@ -1,0 +1,378 @@
+# Engine Court - the ninth island of The End of the Ocean (SL14, finale part 1: the Concord Engine)
+# The centre of the calm circle: a round court of stone at 4 m, three rings of iron walls one inside the other, electric
+# cables from ring to ring, and in the middle the engine's top housing, its roof on thick pillars. The Ringwave is laid in
+# the court floor, big enough to see from the Cooling Spire. Teo, Hedda and Ines each keep watch at one ring; one more
+# maintenance drone guards the inner ring; Teo's store stands by his boat. Quest "The Concord Engine" (28 steps, three
+# areas): the Outer Ring (the plate, Teo, the outer crank, the screechers, the cable in, Hedda, the crew locker, the middle
+# crank), the Inner Ring (the cable in, Ines, the drone bay, the drone in two phases, its log, the keypad - the three
+# bearings and Station 1 - the inner crank, which opens the well under the court), the Choice (the engine's status, the
+# source of the signal, the three ways, one lever of three, the verdict, the engine's gift, three goodbyes, the well stair).
+#
+# Built by the recipe player (CIRecipe engine_court) through the editor's own operations. Points (metres over the sea):
+# the court at 4 m round 0 0 (r 36), the outer ring wall r 30, the middle r 21, the inner r 12 (each with a gate on its
+# north side, +z), the housing x -6..6, z -4.5..4.5 (roof at 6 m), the outer ring's entrance round 0 33, the cable towers
+# at 6 26 and -6 16, the drone bay round 16 0, Teo's store at -16 0, the sand garden and treasure round -6 -14, the well
+# stair at 0 41 (1 m).
+include lib_sea
+include lib_features
+include lib_huts
+include lib_gravity
+include lib_concord
+include lib_areas
+new
+# (nature 10-24: hills and Raft-like trees over the whole island - the coordinator's check after the resize)
+gen Trees=0.4 Bushes=0.4 Rocks=0.55 Harvest=0.3 BeachThings=0.3
+gen Seed=14181 Radius=100 Height=14 Roughness=0.2 Peaks=3 Shape=0 Style=0 PeakShape=0.3 Cliffs=0.4 BeachWidth=0.7
+gen Water=0.3 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.2 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+
+# --- Terrain: the court, its sand garden, the well stair down to the sea on the north -------------------------------------
+brush flatten at 0 0 r=41 s=20 frames=900 h=4
+brush flatten from -12 -33 to 12 -33 r=3 s=20 frames=150 h=4
+brush flatten at 0 41 r=4 s=20 frames=200 h=1
+brush smooth from 0 35 to 0 40 r=3 s=6 frames=40
+brush sand at -6 -14 r=8 s=10 frames=60
+origin
+clear at 0 0 r=36
+clear at 0 41 r=4
+
+# --- The three rings: iron walls in a circle, a gate on the north side of each (hidden by the cranks) --------------------
+macro ringwall r=20 al=ringwall gate=gate
+for a 30 330 30
+push at {$r*sin($a)} {$r*cos($a)} yaw={$a}
+place RT_Wall1 $al at {0.2618*$r} 0 ground sit sx={0.1745*$r}
+pop
+next
+push at 0 $r yaw=0
+place RT_Wall1 $gate at {0.2618*$r} 0 ground sit sx={0.1745*$r}
+pop
+prop $gate obj.name=$gate
+end
+call ringwall r=30 al=rings gate=outergate
+call ringwall r=21 al=rings gate=middlegate
+call ringwall r=12 al=rings gate=innergate
+prop rings tint.color=#4e5358
+prop rings tint.amount=0.6
+for a 0 345 15
+place RT_PillarThick courtposts at {35*sin($a)} {35*cos($a)} ground
+next
+prop courtposts tint.color=#6a6e72
+prop courtposts tint.amount=0.5
+call ringwave x=0 z=0 r=33 al=ringwave
+prop ringwave tint.color=#c8a040
+prop ringwave tint.amount=0.6
+call loopsound x=0 z=0 al=enginehum ev=event:/exploring/temperence/selene/cryotube_engine r=40 vol=0.4 h=2
+call weather x=0 z=0 al=courtair r=45 fog=#b8c4cc fa=0.25 light=#e8e0c8 la=0.3 parts=mist h=4
+
+# --- The engine's housing: walls round it, its door on the north (the housing gate), its roof on thick pillars ------------
+push at 0 0 h=4
+place RT_PillarThick housing at -6 -4.5
+place RT_PillarThick housing at 6 -4.5
+place RT_PillarThick housing at -6 4.5
+place RT_PillarThick housing at 6 4.5
+place RT_Floor housing at 0 4.5 y=6
+place RT_Floor housing at 6 4.5 y=6
+place RT_Wall1 housing at -3 -4.5
+place RT_Wall1 housing at 0 -4.5
+place RT_Wall1 housing at 3 -4.5
+place RT_Wall1 housing at 6 -4.5
+place RT_Wall1 housing at -3 4.5
+place RT_Wall1 housing at 6 4.5
+place RT_Wall1 housinggate at 0 4.5
+place RT_Wall1 housinggate at 3 4.5
+place RT_Wall1 housing at -6 -4.5 yaw=90
+place RT_Wall1 housing at -6 -1.5 yaw=90
+place RT_Wall1 housing at -6 1.5 yaw=90
+place RT_Wall1 housing at 6 -4.5 yaw=90
+place RT_Wall1 housing at 6 -1.5 yaw=90
+place RT_Wall1 housing at 6 1.5 yaw=90
+place UT_WaterChallengeWheel1 enginerings at -3 0 y=0.1 yaw=90
+place UT_WaterChallengeWheel2 enginerings at 0 0 y=0.1 yaw=90
+place UT_WaterChallengeWheel3 enginerings at 3 0 y=0.1 yaw=90
+place Note_Sign enginestatus at -4.5 -3.8 y=0.1 sit yaw=0
+place Note_Sign threeways at 0 -3.8 y=0.1 sit yaw=0
+place "Box Small" - at 4.5 -3.4 y=0.1 sit yaw=10
+place Note_Paper thesource at 4.5 -3.4 y=0.8 drop yaw=20
+pop
+prop housing tint.color=#4e5358
+prop housing tint.amount=0.6
+prop housinggate obj.name=housinggate
+prop housinggate tint.color=#5b4a3c
+prop housinggate tint.amount=0.6
+prop enginerings tint.color=#8a7a5a
+prop enginerings tint.amount=0.5
+call lever x=-3 z=3 yaw=180 al=lever_re
+call lever x=0 z=3 yaw=180 al=lever_off
+call lever x=3 z=3 yaw=180 al=lever_redir
+place Note_Sign leverlabels at 0 2 ground sit yaw=180
+# (the builders' machines, parked between the outer and middle rings since the engine was finished)
+place VP_Excavator - at -18 -18 ground sit yaw=45
+place VP_Forklift - at 18 -18 ground sit yaw=315
+call tzone x=0 z=0 al=housingzone id=housing r=3 msg="The engine's housing. Three great rings stand in a row, still turning very slowly - and three levers under a plate of instructions."
+
+# --- Area A, the Outer Ring: the entrance, the plate, Teo's watch, the outer crank, the screechers, the first cable -------
+call tzone x=0 z=33 al=outerzone id=outer_ring r=5 msg="The Engine Court. Three rings of iron one inside the other - and an iron plate by the gate."
+place Note_Sign concordplate at 3.5 32.5 ground sit yaw=180
+call camp x=-8 z=33 yaw=90 fire=campfire_1
+call notebox x=-4 z=33.5 yaw=160 al=teowatch
+call wheel x=3 z=31 yaw=180 al=outercrank
+place Creature_StoneBird screechers at 0 26 ground y=4
+prop screechers creature.count=4
+prop screechers creature.respawn=0
+prop screechers creature.zone=outer_ring
+push at -0.47 26.22 h=3.9
+call zipdeck y=4.7
+pop
+place ZiplinePath_Landmark zipmiddle at 6 26 h=10.07
+zipto zipmiddle 0 17
+call tzone x=0 z=17 al=middlezone id=middle_ring r=3 msg="The middle ring. A tent against the wall - Hedda's - and a crew locker."
+call camp x=-6 z=16 yaw=200 fire=campfire_1
+call notebox x=3 z=17.5 yaw=200 al=heddawatch
+place Loot_Chest crewlocker at -2.5 18.5 ground sit yaw=180
+call wheel x=2 z=19 yaw=180 al=middlecrank
+
+# --- Area B, the Inner Ring: the second cable, Ines's watch, the drone bay, the drone, its log, the keypad, the inner crank --
+push at -12.47 14.22 h=3.9
+call zipdeck y=4.7
+pop
+place ZiplinePath_Landmark zipinner at -6 14 h=10.07
+zipto zipinner 0 8.5
+call tzone x=0 z=8.5 al=innerzone id=inner_ring r=2.5 msg="The inner ring. Ines's lamp is lit by the wall - and to the east, something hums in a bay."
+call notebox x=3 z=9 yaw=200 al=ineswatch
+place Placeable_Lantern_Metal - at 3 9 ground y=1.2 drop
+call tzone x=16 z=0 al=dronezone id=drone_bay r=3 msg="The drone bay. A maintenance drone lifts off its cradle - and turns its lights on you."
+place "Box Big" - at 17.5 2 ground sit yaw=20
+place Creature_StoneBird_Caravan drone at 16 0 ground y=3
+prop drone creature.count=1
+prop drone creature.respawn=0
+prop drone creature.zone=drone_bay
+prop drone creature.health=6
+prop drone boss.phase=0.5
+prop drone boss.summon=1
+prop drone boss.summonKind=Creature_StoneBird_Caravan
+prop drone tint.color=#8a8f96
+prop drone tint.amount=0.7
+prop drone on.phase=give||story:dronehurt*1\nmessage||The drone shrieks - and a second one lifts off the cradle to help it.
+prop drone on.defeat=signal||drone\ngive||story:dronehurt*1\ngive||story:dronedown*1\nmessage||The drone drops onto its cradle and its lights go out. A paper slides out of its belly.\nsound||event:/exploring/temperence/selene/cryotube_engine
+place Note_Sign dronelog at 17.5 -2 ground sit yaw=270
+call relaymast x=14 z=-6 yaw=270 al=courtpad
+call wheel x=13 z=4 yaw=270 al=innercrank
+
+# --- Area C, the Choice: the verdict notes and the engine's gifts (hidden until a lever is pulled), the goodbyes ----------
+call notebox x=-8 z=4 yaw=90 al=verdict_re
+call notebox x=-8 z=0 yaw=90 al=verdict_off
+call notebox x=-8 z=-4 yaw=90 al=verdict_redir
+place Loot_Chest gift_re at -4 -9 ground sit yaw=0
+place Loot_Chest gift_off at 0 -9 ground sit yaw=0
+place Loot_Chest gift_redir at 4 -9 ground sit yaw=0
+macro hiddenpart al=x
+prop $al obj.name=$al
+prop $al beh.hidden=1
+end
+call hiddenpart al=verdict_re
+call hiddenpart al=verdict_off
+call hiddenpart al=verdict_redir
+call hiddenpart al=gift_re
+call hiddenpart al=gift_off
+call hiddenpart al=gift_redir
+call notebox x=-9 z=-6 yaw=60 al=inesbye
+call notebox x=16 z=-8 yaw=300 al=heddabye
+call notebox x=-16 z=6 yaw=90 al=teobye
+store courtshop at -16 0 ground
+place Placeable_Anchor_Stationary - at -19 -3 ground sit
+
+# --- The well stair: down the north side of the court to the sea, where the Command Well opens -------------------------
+place RT_Stair wellstair at 0 37 ground y=-3 yaw=180 sy=0.68
+call tzone x=0 z=41 al=wellzone id=well_stair r=4 msg="The well stair. Under the calm water, north of the court, a shaft goes straight down - lit."
+
+# --- Planters, the sand garden, the treasure, a reef ring in the calm water ----------------------------------------------
+place Placeable_Cropplot_Medium - at 22 -14 ground sit
+place Placeable_Cropplot_Medium - at 24 -12 ground sit
+place Placeable_Cropplot_Medium - at 26 -10 ground sit
+place Placeable_Cropplot_Medium - at -24 -12 ground sit
+place Placeable_Scarecrow - at -22 -15 ground sit
+scatter "Pickup_Landmark_Rock 1" 4 at -6 -14 r=6 seed=14182 free=2
+call treasure x=-6 z=-14 r=10 n=1 seed=14053
+prop treasure14053 treasure.loot=TitaniumOre*3
+call reef x=71.43 z=-42.86 r=6 seed=14184
+call reef x=-68.57 z=48.57 r=6 seed=14188
+call shallows x=0 z=0 r=114.29 deep=5 n=1 seed=14192
+
+# --- Discoveries: things to find off the quest path (not needed for the quest) ---------------------------------
+call tzone x=-47.8 z=63.7 al=courtview id=courtview r=4 msg="A rise outside the court's walls. From here the court is a perfect circle - and the sea round the island turns slowly with it."
+place Loot_Chest crewlocker at 44.8 -64.5 ground sit yaw=325
+prop crewlocker loot.refill=0
+call notebox x=-59 z=-43.2 yaw=234 al=shiftroster
+call camp x=59.1 z=40.4 yaw=55 fire=campfire_1
+place CaravanBarebones1 - at 8.8 71.5 ground sit yaw=97
+call treasure x=75.5 z=-15.4 r=10 n=1 seed=14193
+
+# --- Areas (10-24: every story island has places all over it and its quest crosses it): the south ridge with its lookout and a
+# buried treasure, the cave in the west shore, the builders' ruined lodge in the north, the courier plane in the east
+call ar_ridge x1=-24 z1=-60 x2=24 z2=-64 h=10 top=7 r=9
+call ar_plants_tropical x=0 z=-62 r=28 seed=14501
+call tzone x=0 z=-62 al=southridge id=courtridge r=7 msg="The top of the south ridge. The court's rings lie below like a target - and the well is its bull's-eye."
+call treasure x=0 z=-62 r=12 n=1 seed=14511
+call ar_cave x=-64 z=8 h=3 yaw=0 al=courtcave chest=courtcavechest
+call tzone x=-64 z=13 al=courtcavezone id=courtcave r=4 msg="A cave in the west shore. Somebody chalked the court's rings on the wall, and a line going down through the middle."
+call ar_ruin x=24 z=60 h=3 yaw=0 al=builderlodge
+call notebox x=26.5 z=55.5 yaw=20 al=builderbook
+call ar_plane x=72 z=8 h=3 yaw=270 al=courierplane crate=couriercrate
+call notebox x=68.5 z=3.5 yaw=70 al=courierlog
+# vine cache placed by hand (scatter found no spot in run25): the chest behind Raft's choppable vines, machete
+place Loot_Chest vinechest14541 at -48 -60 ground sit yaw=0
+prop vinechest14541 obj.name=vinechest14541
+prop vinechest14541 note.title=Behind the vines
+prop vinechest14541 beh.hidden=1
+loot vinechest14541 Bolt*3;Hinge*2;Rope*3
+beside ChoppableVines vinewall14541 vinechest14541 d=1.6
+prop vinewall14541 on.use=hide|
+show|vinechest14541
+message||The machete bites through the vines. Something was hidden behind them.
+call ar_plants_tropical x=-48 z=-60 r=14 seed=14521
+call ar_plants_tropical x=-40 z=56 r=14 seed=14531
+
+# --- Tools in use (10-24: a tool given earlier in the storyline is used again here, for optional finds): the
+# machete from Triangulation Rocks cuts the vines over a hidden chest, and a zipline from the ridge top is the quick way back down
+clear from 0.0 -55.0 to 0 -28 r=2.5
+place ZiplinePath_Landmark ridgezip at 0 -59 ground
+zipto ridgezip 0 -28
+
+# --- Unique layer (10-24): engine_court device - see SL14_progress.md UNIQUE ISLANDS
+place RT_Pillar - at 19.5 56 ground sy=0.4
+place RT_PowerBox builderpad at 19.5 56 ground y=1.25 yaw=180
+prop builderpad obj.name=builderpad
+prop builderpad beh.use=Type the builders' code
+prop builderpad lock.code=358
+prop builderpad on.use=signal||builderscode\ngive||story:builderscode*1\nmessage||The keypad chirps and the builders' strongbox unlatches.\nsound||event:/exploring/obstacles/keypad/keypad_correct
+place Loot_Chest builderbox at 17 56 ground sit yaw=90
+prop builderbox obj.name=builderbox
+prop builderbox if.open=signal|builderscode
+prop builderbox else.open=message||The builders' strongbox. Its keypad wants three numbers.
+prop couriercrate note.title=Courier plane's crate
+story builderscode|Builders' code|Bolt|The builders' strongbox code: the true bearings of the Triangulation rocks, 3-5-8.
+note builderbox Builders' strongbox | The builders' strongbox: the Engine's first drawings, signed by the Concord, and the builders' pay they never spent.
+loot builderbox TitaniumOre*3;CircuitBoard*2;Battery*2;Bolt*4;OxygenBottle*2;Flipper*1
+prop builderbox loot.refill=0
+prop couriercrate if.open=has|story:raft-Tangaroa_KeyCard|1
+prop couriercrate else.open=message||The courier crate has a card slot stamped CONCORD. A keycard would open it.
+loot couriercrate TitaniumOre*2;Rope*3;Nail*10
+prop couriercrate loot.refill=0
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Engine Court
+info author=Custom Islands
+info description=The centre of the calm circle: a round court with three rings of iron, cables from ring to ring and the Concord Engine's housing in the middle. Teo, Hedda and Ines keep watch at the rings. Here the Ringwave is explained - and chosen.
+island on.arrive=message||The calm circle. In its middle, a court of stone with three iron rings - the Ringwave, made real. Something deep inside is turning.
+
+story outer|Outer ring|Hinge|You wound the outer ring's crank on Engine Court.
+story middle|Middle ring|Hinge|You wound the middle ring's crank on Engine Court.
+story unlockinner|Inner ring code|quest:Vasagatan_FourDigitCode|You entered the three bearings and Station 1 on the drone bay's keypad.
+story inner|Inner ring|Hinge|You wound the inner ring's crank. The housing opened - and under the court, the well.
+story choice|The choice|Battery|You chose what the Concord Engine does next.
+story reactivateway|Reactivated|Battery|You woke the Concord Engine: the three waves run again.
+story shutdownway|Shut down|Battery|You shut the Concord Engine down: the calm will end, slowly.
+story redirectway|Redirected|Battery|You turned the Concord Engine's call away from Station 1.
+
+note concordplate Concord plate | THE CONCORD ENGINE - an iron plate by the gate\n\nThe ring is the engine. The three waves are the surface, the deep and the ice.\n\nStation 1 asks. The Engine answers. Where the Engine answers, the sea is calm.\n\nKeep the rings turning. Keep the stations talking. When the stations stop asking, keep the engine on standby - and keep the well shut.
+note teowatch Teo's watch | TEO - in pencil, on a page torn from the Fleet's log\n\nI said I'd wait at the ring and I did. The birds don't like company. The crank by the gate turns the first ring - I didn't dare.\n\nIt's the end of the ocean, this. I'm sure of it now. Nothing after it, just the engine. Go on in.
+note heddawatch Hedda's watch | HEDDA - on the back of her map\n\nMiddle ring. I took the cable in, it held. The crew's locker is here - goo and a battery, they knew someone would have to blow something.\n\nWind the second crank. The inner cable will carry you. Ines is already in there, of course.
+note ineswatch Ines's watch | INES - by her lamp\n\nInner ring. There is a drone in the bay to the east - the Stalker's twin, the same make as the one in the Commons. It is still doing its job.\n\nThe keypad by the bay wants a code. Bearings first, then the station it calls. You have the bearings. The station is the first one.\n\nOn her lamp, in grease pencil: 358 + 1 = 3581.
+note dronelog Drone log | MAINTENANCE DRONE 2 - LOG (last page)\n\nRING CHECK: OUTER OK. MIDDLE OK. INNER OK.\nENGINE: STANDBY.\nSTATION 1 silent.\nCalling.\nCalling.\nCalling.
+note enginestatus Engine status | ENGINE STATUS\n\nRINGS: 3 OF 3 TURNING (STANDBY SPEED)\nSURFACE WAVE: WEAK\nDEEP WAVE: WEAK\nICE WAVE: OFF\nCALM CIRCLE: HOLDING\nSIGNAL: SENDING TO STATION 1 - NO ANSWER SINCE THE FLOOD
+note thesource The source | THE SOURCE - a technician's note\n\nThe pulse every raft hears on its receiver is us. The engine calling Station 1 - the Hadal Commons, at the bottom of the sea - over and over, as it was built to.\n\nThe Commons never answer. The Commons drowned. The engine does not know that. Somebody has to tell it something.
+note threeways Three ways | THREE WAYS - the instructions over the levers\n\nREACTIVATE: full speed. The three waves run again, the calm circle grows, the engine calls louder.\nSHUT DOWN: the rings stop. The calm will fade, the pulse will end, the sea goes back to the sea.\nREDIRECT: the call turns from Station 1 to the rafts. The engine answers whoever is listening.\n\nPull one. The others lock.
+note leverlabels Lever labels | Under the three levers, stamped in iron: REACTIVATE - SHUT DOWN - REDIRECT.
+note verdict_re The verdict | THE VERDICT - REACTIVATE\n\nThe rings sped up until the floor shook. Outside the waves run round the ring again: the surface, the deep, the ice. The calm will grow. The pulse is louder now - and somewhere, rafts will hear it and come.
+note verdict_off The verdict | THE VERDICT - SHUT DOWN\n\nOne by one the rings slowed and stopped. The hum is gone. The calm circle will fade over the weeks; the pulse on the receivers is already silent. The sea goes back to the sea.
+note verdict_redir The verdict | THE VERDICT - REDIRECT\n\nThe middle ring stopped, shuddered and began to turn the other way. The pulse changed: it no longer calls Station 1. It calls the rafts - and it waits for an answer.
+note gift_re Engine's gift | The engine's gift: a locker opened in the floor when the rings sped up.
+note gift_off Engine's gift | The engine's gift: a locker opened in the floor when the rings stopped.
+note gift_redir Engine's gift | The engine's gift: a locker opened in the floor when the ring turned back.
+note inesbye Ines's goodbye | INES\n\nWhatever you pulled, it was a choice someone had to make, and I am glad it was not me. I will go down the well with you as far as the first pocket. After that it is yours.\n\nThe Commons drew the Ringwave for luck. Now I know why.
+note heddabye Hedda's goodbye | HEDDA\n\nI'm going back to the spire. Somebody should watch the ring from up there, whatever it does now. Come by. The store will be open.
+note teobye Teo's goodbye | TEO\n\nNot the end of the ocean, then. Just a machine at the middle of it, and us deciding. I'll stay with my boat a while. Wave if you pass.
+note crewlocker Crew locker | The crew locker: explosive goo and a battery, as Hedda said.
+loot crewlocker ExplosiveGoo*3;Battery*1
+prop crewlocker loot.refill=0
+loot gift_re TitaniumOre*2;Battery*2;Bolt*4
+prop gift_re loot.refill=0
+loot gift_off Seed_Mango*2;Seed_Pineapple*2;Rope*4
+prop gift_off loot.refill=0
+loot gift_redir CopperOre*3;Hinge*2;Scrap*6
+prop gift_redir loot.refill=0
+
+prop outercrank beh.use=Wind the outer ring's crank
+prop outercrank if.use=!signal|outer
+prop outercrank on.use=signal||outer\ngive||story:outer*1\nhide|outergate\nmessage||The crank bites and the outer ring's gate sinks into the floor. Something up on the wall shrieks.\nsound||event:/raft/engine/waterwheel
+prop outercrank else.use=message||The outer ring is open.
+prop middlecrank beh.use=Wind the middle ring's crank
+prop middlecrank if.use=signal|outer\n!signal|middle
+prop middlecrank on.use=signal||middle\ngive||story:middle*1\nhide|middlegate\nmessage||The middle ring's gate sinks. On the tower by Hedda's tent the inner cable hums.\nsound||event:/raft/engine/waterwheel
+prop middlecrank else.use=message||The outer ring first - or this one is open already.
+prop courtpad beh.use=Type the inner ring's code
+prop courtpad lock.code=3581
+prop courtpad on.use=signal||unlockinner\ngive||story:unlockinner*1\nmessage||Three, five, eight - and one. The keypad chirps. By the bay, the inner crank's brake lets go.\nsound||event:/exploring/obstacles/keypad/keypad_correct
+prop innercrank beh.use=Wind the inner ring's crank
+prop innercrank if.use=signal|unlockinner\n!signal|inner
+prop innercrank on.use=signal||inner\nsignal||open\ngive||story:inner*1\nhide|innergate\nhide|housinggate\nmessage||The inner crank turns and the whole court shudders. The housing's door slides down - and far below, north of the court, something heavy opens.\nsound||event:/exploring/utopia/drawbridge/drawbridge_land
+prop innercrank else.use=message||The brake is on - the keypad by the drone bay first.
+prop lever_re beh.use=Pull REACTIVATE
+prop lever_re if.use=!signal|chosen
+prop lever_re on.use=signal||chosen\nsignal||reactivate\ngive||story:choice*1\ngive||story:reactivateway*1\nshow|verdict_re\nshow|gift_re\nmessage||REACTIVATE. The three rings speed up until the floor shakes, and the other two levers lock with a clank.\nsound||event:/exploring/temperence/selene/cryotube_engine
+prop lever_re else.use=message||The levers are locked. The choice is made.
+prop lever_off beh.use=Pull SHUT DOWN
+prop lever_off if.use=!signal|chosen
+prop lever_off on.use=signal||chosen\nsignal||shutdown\ngive||story:choice*1\ngive||story:shutdownway*1\nhide|enginehum\nshow|verdict_off\nshow|gift_off\nmessage||SHUT DOWN. One by one the rings slow and stop. The hum dies, and the other two levers lock with a clank.
+prop lever_off else.use=message||The levers are locked. The choice is made.
+prop lever_redir beh.use=Pull REDIRECT
+prop lever_redir if.use=!signal|chosen
+prop lever_redir on.use=signal||chosen\nsignal||redirect\ngive||story:choice*1\ngive||story:redirectway*1\nshow|verdict_redir\nshow|gift_redir\nmessage||REDIRECT. The middle ring stops, shudders and turns the other way. The other two levers lock with a clank.\nsound||event:/exploring/temperence/selene/cryotube_engine
+prop lever_redir else.use=message||The levers are locked. The choice is made.
+prop enginehum obj.name=enginehum
+
+note crewlocker Crew locker | A crew locker left outside the walls: the last shift's spare parts.
+loot crewlocker CircuitBoard*1;Battery*2;Bolt*4;CopperIngot*2
+note shiftroster Shift roster | SHIFT ROSTER - the last one\n\nRings: Arne, Solveig, Mako.\nDesk: Pia. Lift: Tomas. Well: Halle.\nSpire: Hedda (relief overdue).\nAll other stations: STOOD DOWN.\nNext shift: (blank)
+note courtcavechest Chalk cave chest | A chest under the chalked rings: a builder's tools, wrapped in an oil rag.\n\nChalked on the lid, in Teo's hand: THE TRIANGLE'S TRUE BEARINGS OPEN THE BUILDERS' BOX.
+loot courtcavechest Bolt*3;Hinge*2;MetalIngot*2;Rope*2
+prop courtcavechest loot.refill=0
+note builderbook Builders' day book | BUILDERS' DAY BOOK - the last page\n\nRing three finished. The court is level to a finger's width - the Concord's engineers checked it twice.\nUnder the well there is a stair, and under the stair there is the Engine. We were not allowed down.\nThe lodge roof can wait. Everybody wants to see the Engine start.\n\nOur strongbox takes the true bearings of the Triangulation rocks - not the ones the Concord was sent.
+note courierlog Courier plane log | COURIER PLANE LOG\n\nThe last post for the court: letters for the builders, a parcel for Ines.\nOn the way in, every needle on the panel pointed at the well.\nThe engine died over the east shore. The letters are in the crate.
+quest title=The Concord Engine
+quest intro=Three rings of iron, one inside the other. Go to the outer ring's gate.
+step reach|outer_ring|1|Go to the outer ring's gate
+step read|Concord plate|1|Read the Concord plate by the gate
+step read|Teo's watch|1|Read Teo's watch by his tent
+step collect|story:outer|1|Wind the outer ring's crank
+step kill|Screecher|4|Drive the screechers off the outer ring
+step reach|middle_ring|1|Ride the cable into the middle ring
+step read|Hedda's watch|1|Read Hedda's watch
+step open|Crew locker|1|Open the crew locker
+step collect|story:middle|1|Wind the middle ring's crank
+step reach|inner_ring|1|Ride the cable into the inner ring
+step read|Ines's watch|1|Read Ines's watch by her lamp
+step reach|drone_bay|1|Go to the drone bay
+step collect|story:dronehurt|1|Wound the maintenance drone
+step collect|story:dronedown|1|Bring the drone down
+step read|Drone log|1|Read the drone's log
+step collect|story:unlockinner|1|Type the code on the drone bay's keypad
+step collect|story:inner|1|Wind the inner ring's crank
+step reach|housing|1|Go into the engine's housing
+step read|Engine status|1|Read the engine's status
+step read|The source|1|Read where the signal comes from
+step read|Three ways|1|Read the three ways
+step collect|story:choice|1|Pull one lever: REACTIVATE, SHUT DOWN or REDIRECT
+step read|The verdict|1|Read the verdict
+step open|Engine's gift|1|Open the engine's gift
+step read|Ines's goodbye|1|Read Ines's goodbye
+step read|Hedda's goodbye|1|Read Hedda's goodbye
+step read|Teo's goodbye|1|Read Teo's goodbye
+step reach|courtcave|1|Find the chalked cave in the west shore
+step read|Builders' day book|1|Read the builders' day book at the ruined lodge in the north
+step collect|story:builderscode|1|Type the true bearings into the builders' keypad
+step open|Builders' strongbox|1|Open the builders' strongbox
+step reach|well_stair|1|Go down the well stair on the north side
+quest done=The engine has its answer. Below, north of the court, the Command Well is open - its heart is waiting.
+quest reward=TitaniumOre*2;Battery*2;Rope*4
+
+save Engine Court

@@ -1,0 +1,55 @@
+# Play test of The Lockkeeper's Isle (CIPlay lockkeepers_isle, in a test world 'CI ...'). Points as in its recipe: the
+# landing beach at 0 -33 (0.8 m), the path up to the flat top (3 m); the strongbox shed x 5..8, z 2..5, its door at
+# 7.25 2; the goat pen x 9..18, z -15..-6; the lookout at 0 15 (the sea chest). Three quests (the main one, quest=2 Strays, quest=3 The
+# Keeper's Log), a keypad code lock, and the island the main quest brings (Lantern Spire, near:self:400:north).
+island The Lockkeeper's Isle
+offset 0 0
+expect step 0
+expect title The Keeper's Strongbox
+expect title Strays quest=2
+expect title The Keeper's Log quest=3
+expect step 0 quest=2
+expect step 0 quest=3
+expect animals Goat 2
+expect hidden strongbox
+wait 5
+
+# The landing: the first log page on the mooring post, the keeper's board
+walk 0 -34 to 0 -32.5 h=0.8
+zone landing
+expect step 1
+read Keeper's log, page 1
+expect step 1 quest=3
+read Lockkeeper's Isle
+# Up the path to the top; the keeper's note, his mother's letter (the code); the sea chest locked before the key
+walk 0 -31 to 0 -25 to 0 -19 to -2 -6 h=3
+read Keeper's note
+expect step 2
+read Mother's letter
+expect step 3
+open Keeper's sea chest
+expect step 3
+# The code lock: a wrong code keeps it shut, the right one shows the strongbox
+code keypad 2741 wrong
+expect hidden strongbox
+code keypad 2704
+expect shown strongbox
+expect message strongbox clicks open
+open Keeper's strongbox
+expect step 4
+# Quest 2: the net launcher from the tack chest, the two goats caught
+open Tack chest
+expect item NetGun 1
+catch Goat 2
+expect done quest=2
+# Quest 3: the pen's page and the lookout's page; the main quest's sea chest
+read Keeper's log, page 2
+walk -1 10 to 0 13.5 h=3
+zone lookout
+read Keeper's log, page 3
+expect done quest=3
+open Keeper's sea chest
+expect done
+# The island the main quest brings: Lantern Spire, to the north
+arrive quest-done
+expect title The Light in the North

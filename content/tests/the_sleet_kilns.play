@@ -1,0 +1,40 @@
+# The Sleet Kilns (CIPlay the_sleet_kilns): the plan The Rainmakers' seventh island, quest "Seeding Salt"
+# The kiln yard (3 m) round 0 6 r 28: five kilns at x -20..20 z 2 (Kiln 4's door at 10 -0.7); the smelter house
+# x -3..3 z 14..18.5; salt heaps at -22 18, 22 18, -24 -12; the tram stop at 0 -46, the tramway up x 0 to z -18.
+island The Sleet Kilns
+offset 0 0
+expect step 0
+expect title Seeding Salt
+wait 3
+expect hidden ambushzone
+zone tram_stop
+expect step 1
+read Kiln master's log
+expect step 2
+use scales
+expect message three sacks of salt
+use saltheap1
+use saltheap1
+expect message taken a sack
+use saltheap2
+use saltheap3
+expect story saltsack 3
+use scales
+expect story weighed 1
+expect step 3
+open Kiln store
+expect message locked
+open Kiln 4 door
+expect story storekey 1
+expect step 4
+open Kiln store
+wait 3
+expect item Blueprint_SmelterElectric 1
+expect item Blueprint_BiofuelExtractorAdvanced 1
+expect item Blueprint_AnchorStationaryAdvanced 1
+expect step 8
+expect shown ambushzone
+zone ambush
+wait 2
+kill Hyena
+expect done

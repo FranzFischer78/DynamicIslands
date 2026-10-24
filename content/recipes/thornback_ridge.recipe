@@ -1,0 +1,114 @@
+# Thornback Ridge - the side island of the library's plan The Last Green World (SL11, Verdance), day 6
+# A long thorny ridge of rock and bush, a mango grove in its lee, and a hermit's camp on a ledge halfway up: a shelter,
+# a fire, a chest, a hen run. A boar herd has taken the grove. Quest "The Hermit" (6 steps): the camp, the hermit's
+# journal, four boars, the hermit's chest, one hen for the raft, the hermit's map.
+#
+# Built by the recipe player (CIRecipe thornback_ridge) through the editor's own operations. Points (metres over the
+# sea): the ridge along x -30..30 at z 6, the camp ledge 3 m round -8 -10, the grove round 18 -20, the landing beach 0 -40.
+include lib_sea
+include lib_features
+include lib_huts
+include lib_verdance
+# RESIZE 10-24: Radius 48 -> 60 (Height 14 -> 14), the old content moved 2.5 -6.1 as one frame (push) so its sea side stays at the coast; the island grows behind it.
+new
+gen Trees=0.2 Bushes=0.45 Rocks=0.4 Harvest=0.3 BeachThings=0.3
+gen Seed=11121 Radius=60 Height=14 Roughness=0.45 Peaks=2 Shape=0.4 Style=0 PeakShape=0.5 Cliffs=0.35 BeachWidth=0.5
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.3 Sunken=0.2 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+push at 2.5 -6.1
+
+# --- Terrain: the ridge, the camp ledge, the grove, the landing beach --------------------------------------------
+brush raise from -30 6 to 30 6 r=10 s=20 frames=10
+brush rock from -30 6 to 30 6 r=7 s=10 frames=30
+brush flatten at -8 -10 r=8 s=20 frames=200 h=3
+brush grass at -8 -10 r=8 s=6 frames=30
+brush flatten at 18 -20 r=10 s=20 frames=150 h=1.8
+brush grass at 18 -20 r=10 s=6 frames=30
+brush flatten at 0 -40 r=7 s=20 frames=120 h=1.2
+brush sand at 0 -40 r=9 s=10 frames=30
+pop
+brush flatten at 13.1 23.6 r=5 s=8 frames=40
+origin
+clear at 13.1 23.6 r=6
+push at 2.5 -6.1
+clear at -8 -10 r=7
+clear at 0 -40 r=6
+
+# --- The hermit's camp: shelter, fire, chest, journal, hen run, map ------------------------------------------------
+push at -10 -12 h=3
+call shelter w=2 d=2 y=0.1
+place Loot_Chest hermitchest at 1.5 2.2 y=0.1 sit yaw=180
+place "Box Small" - at 0.7 0.8 y=0.1 sit
+place Note_Paper hermitmap at 0.7 0.8 y=0.8 drop yaw=15
+pop
+place campfire_1 - at -4 -10 ground sit
+place Note_Sign hermitjournal at -6 -6 ground sit yaw=180
+place Zone_Trigger campzone at -6 -9 ground
+place Creature_Chicken hens at -12 -2 ground
+prop hens creature.count=3
+
+# --- The grove and its boar herd; thorns along the ridge --------------------------------------------------------
+place Creature_Boar herd at 18 -20 ground
+prop herd creature.count=4
+prop herd creature.respawn=0
+scatter Pickup_Landmark_Tree_Mango 4 at 18 -20 r=9 seed=11122 free=3
+scatter Pickup_Landmark_BerryBush 3 at -24 -8 r=8 seed=11123 free=2
+call trailbush x=6 z=-4 yaw=30
+call trailbush x=-18 z=0 yaw=120
+scatter Pickup_Landmark_Flower_Red 4 at 4 -30 r=8 seed=11124 free=2
+call shallows x=-2.5 z=6.1 r=75 deep=5 n=2 seed=11125
+pop
+
+# --- DISCOVERIES 10-24 (optional, no quest needs them): camp + note; Caravan_Yellow_01 + chest; vine-hidden chest; viewpoint ---
+place campfire_1 - at 13.1 23.6 ground sit
+place Balboa_DecorationPrefabBase_SimpleTent - at 16.1 25.6 ground sit yaw=357
+place "Box Small" - at 11.1 26.1 ground sit
+place Note_Paper dnote at 11.1 26.1 ground y=0.7 drop yaw=20
+note dnote Lost traveller's note | I came for the seeds like everyone else.\nThe paths move. I am sure of it. I marked this tree twice.\nIf the fire is cold, I went towards the sea.
+place Caravan_Yellow_01 dvan at -21 17 ground yaw=117
+prop dvan tint.color=#7a7040
+prop dvan tint.amount=0.5
+place Loot_ChestSmall dwreckchest at -25 20 ground sit yaw=57
+note dwreckchest Abandoned supplies | The crew's supplies, left behind: plank, rope and a few seeds.
+loot dwreckchest Plank*4;Rope*2;Seed_Pineapple*1
+prop dwreckchest loot.refill=0
+call vinecache x=-5.2 z=26.5 r=15 seed=11211 chest=dvinechest vines=dvines items=Rope*3;Nail*10;Leather*2
+# REDO 10-24 (optional): the hermit buried his savings - the metal detector finds them
+call treasure x=18 z=-20 r=12 n=1 seed=11219
+# REDO 10-24 TREASURE2: a second buried treasure on the far side for the detector + shovel
+call treasure x=-14.4 z=16.0 r=12 n=1 seed=11269
+prop treasure11269 treasure.loot=TitaniumOre*1;MetalOre*2;TradeToken*2
+place Zone_Trigger dview at 15.4 9.3 ground
+prop dview zone.id=thornback_ridge_view
+prop dview zone.radius=7
+prop dview zone.repeat=never
+prop dview zone.message=The thorny ridge runs off like a spine, the mango grove sheltered in its lee.
+
+# --- Settings, notes, quest ---------------------------------------------------------------------------------------
+info title=Thornback Ridge
+info author=Custom Islands
+info description=A thorny ridge with a hermit's camp on a ledge, a mango grove taken by boars, and hens. A side island of The Last Green World.
+island on.arrive=message||A ridge of thorns and rock. Smoke from a ledge halfway up - and grunting from the mango trees below it.
+
+note hermitjournal Hermit's journal | HERMIT'S JOURNAL\n\nDay 400 or so. The boars have the mangoes again. Four of them, big ones.\nThe hens are fine. The hens are always fine.\n\nIf you clear the grove, the chest is yours. I am going down to the Heart to see what the Seedkeepers did.
+note hermitchest Hermit's chest | The hermit's chest: leather, seeds, beets from his patch.
+loot hermitchest Leather*3;Seed_Watermelon*2;Seed_Strawberry*2;Raw_Beet*3
+prop hermitchest loot.refill=0
+note hermitmap Hermit's map | A map scratched on bark: the Heart at the centre, every island round it, and an arrow down through the roots. "The core is under the tree. Do not wake her."
+
+prop campzone zone.id=camp
+prop campzone zone.radius=4
+prop campzone zone.message=The hermit's camp. A warm fire, a journal nailed to a post, hens in the bushes.
+
+quest title=The Hermit
+quest intro=A camp on Thornback Ridge. Find it.
+step reach|camp|1|Climb to the hermit's camp
+step read|Hermit's journal|1|Read the hermit's journal
+step kill|Warthog|4|Drive the four boars out of the mango grove
+step open|Hermit's chest|1|Open the hermit's chest
+step catch|Chicken|1|Catch a hen for the raft
+step read|Hermit's map|1|Read the hermit's map
+quest done=The grove is clear. The hermit's map points at the Heart.
+quest reward=Seed_Mango*2;Feather*3
+
+save Thornback Ridge

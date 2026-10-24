@@ -1,0 +1,10 @@
+# Guide pictures of Saga Drift (CIPlay saga_drift_pics): Raft's camera, midday, calm
+island Saga Drift
+offset 0 0
+hour 11
+weather Calm
+at 0 -40
+wait 3
+picture sl12_saga_drift_island 30 +18 -52 0 +2 0
+picture sl12_saga_drift_street -6 +2 -20 -6 +2 6
+picture sl12_saga_drift_chapel 0 +2.5 28 0 +1.5 36

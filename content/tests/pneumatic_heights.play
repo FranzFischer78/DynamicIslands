@@ -1,0 +1,63 @@
+# Pneumatic Heights (CIPlay pneumatic_heights_solo; in the plan after Parcel Canopy, from day 10): quest "By Tube"
+# (it needs the telegraphist's dead letter from The Dead Letter Office: pneumatic_heights_solo.play reads it first)
+island Pneumatic Heights
+offset 0 0
+expect step 0
+expect title By Tube
+expect hidden capsule1
+expect hidden capsule2
+expect hidden rats
+expect hidden reply
+zone harbour_steps
+expect step 1
+read Exchange instructions
+expect step 2
+use tubehub
+expect message not all turned
+use valve1
+use valve2
+use valve3
+expect story valve 3
+expect step 3
+use tubehub
+expect shown capsule1
+expect step 4
+read Capsule 1
+expect step 5
+open House 4 letterbox
+wait 3
+expect item Blueprint_EngineControls 1
+expect shown rats
+expect step 7
+kill Rat
+expect animals Rat 0
+expect step 8
+use tubeb
+expect shown capsule2
+expect step 9
+read Capsule 2
+expect step 10
+open Exchange vault
+expect message keypad
+code vaultpad 1111 wrong
+code vaultpad 3109
+open Exchange vault
+wait 3
+expect item Blueprint_MetalDetector 1
+expect step 12
+open Festival crate
+wait 3
+expect item Blueprint_Firework 1
+expect step 14
+open Linesman's locker
+wait 3
+expect item Blueprint_ZiplineBase 1
+expect step 16
+use chute
+expect story telegraphdelivered 1
+expect shown reply
+expect step 17
+read Telegraphist's reply
+expect step 18
+zone tower_roof
+expect done

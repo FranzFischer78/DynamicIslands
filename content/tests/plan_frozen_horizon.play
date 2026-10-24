@@ -1,0 +1,36 @@
+# Play test of the plan 'The Frozen Horizon' (CIPlay plan_frozen_horizon, in a test world 'CI ...' set to day 9 first
+# with CISetDay 9, for Squall Shelf's day:9:again): no Raft story, no random islands - each island's WHEN brings the
+# next (a quest, a signal, a rule, a zone, a step, a visit); every stop is tuned to
+# and played to its end with its own test; then the side shelf, sailed to.
+plan The Frozen Horizon
+tune stack
+include signalstack_rock.play
+expect chain leads unlocked
+tune leads
+include the_floelane.play
+expect chain vent unlocked
+tune vent
+include steamvent_harbour.play
+tune sledge
+include orrins_sledge_camp.play
+expect chain bow unlocked
+tune bow
+include iron_whale_bow.play
+expect chain decks unlocked
+tune decks
+include iron_whale_decks.play
+expect chain saga unlocked
+tune saga
+include saga_drift.play
+tune mouth
+include glacier_mouth.play
+expect chain coldhold unlocked
+tune coldhold
+include coldhold_vault.play
+expect chain ark unlocked
+tune ark
+include seed_ark.play
+expect blueprints
+arrive squall
+include squall_shelf.play
+plan end

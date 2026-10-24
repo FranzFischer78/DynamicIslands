@@ -1,0 +1,11 @@
+# Guide pictures of Ranger's Rest (CIPlay rangers_rest_pics): Raft's camera and water at midday
+island Ranger's Rest
+hour 11
+weather Calm
+at 29.5 3.6
+wait 2
+picture rangers_rest_island 55 22 -45 5 9 -5
+picture rangers_rest_cabin 36 15 9 22 11 -2
+picture rangers_rest_tower 28 17 -24 19 13 -12
+picture rangers_rest_inside 18.5 11.9 -4.5 27 11 0
+picture rangers_rest_den 17 +3 -33 -4 5 -27

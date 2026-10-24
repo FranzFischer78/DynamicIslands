@@ -1,0 +1,79 @@
+# Play test of Keeper's Light (CIPlay keepers_light, in a test world 'CI ...'). Points as in its recipe: the jetty east of
+# the landing stack (deck 1.8 m), its stair up to the deck on the stack's top (7.75 m); the bridge south-west to the
+# cottage stack (9.8 m: the cottage, its door to the east), the bridge north to the light stack (8.5 m: the tower, its
+# ladder on the south side, the gallery at 26 m; the oil store's door south, by the bridge's end); the stair from the
+# cottage stack south down onto the cistern's slab (3.96 m), the hatch at 7.9 -18.75 (the water 7 m deep under it).
+island Keeper's Light
+offset 1.2994 -2.9908
+expect step 0
+expect title The Dark Light
+wait 5
+
+# Tied up at the jetty: the box by the stair, up the two flights onto the landing stack
+walk 22.7 -15 to 21.6 -9.6 h=1.8
+reach Landing box
+open Landing box
+walk 21.6 -9.6 to 22.75 -7 to 22.75 6.6 to 21.5 9 to 17 8.5 h=7.75
+zone landing
+expect step 1
+
+# Over the south-west bridge to the cottage: the head keeper's diary on the table, the cupboard
+walk 17 8.5 to 13.83 8.92 to 6.49 -3.36 to 4.4 -2.85 h=9.85
+read Head Keeper Shale's diary
+expect step 2
+walk 4.4 -2.85 to 4.6 -0.9 h=9.85 below=12
+reach Cottage cupboard
+open Cottage cupboard
+
+# Back over the landing stack and north over the other bridge to the light: the assistant keeper's diary in the oil store
+walk 4.6 -0.9 to 4.4 -2.85 to 6.49 -3.36 to 13.83 8.92 to 17.75 11 to 17.75 22.2 to 17.15 24.4 h=8.55 below=12
+reach Oil store crate
+open Oil store crate
+read Keeper Lusk's diary
+expect step 3
+
+# Up the lighthouse's ladders to the gallery: the screechers driven off; the lamp is dry, the horn and the locker wait
+walk 17.15 24.4 to 17.15 22.6 to 14.3 22.6 h=8.5 below=11
+climb 14.3 23.1 h=8.5
+climb 14.3 23.1 h=14.5
+climb 14.3 23.1 h=20.5
+expect stand 13.6 24.6 h=26.03 below=28
+zone lamptop
+kill Screecher
+expect step 4
+use lamp
+expect message bone dry
+use foghorn
+expect message Light the lamp first
+open Lamp room locker
+expect message wired to the foghorn
+expect step 4
+
+# Down to the cistern: back over the bridges, round the cottage, down the stair onto the slab, in at the hatch - the thing
+# comes up; the oil at the bottom; up the ladder again
+walk 17.75 22.2 to 17.75 11 to 13.83 8.92 to 6.49 -3.36 to 6.9 -6.4 to 3.55 -6.7 to 3.55 -8.3 to 3.55 -13.9 to 3.55 -19.6 to 6.4 -19.4 h=3.96
+zone cistern
+kill Angler fish
+expect step 5
+open Iron oil box
+expect story lampoil 1
+climb 7.9 -18.1 h=-2
+expect stand 6.4 -19.4 h=3.96
+
+# Back up to the light with the oil: the lamp, the foghorn, the locker
+walk 6.4 -19.4 to 4.9 -21.3 to 3.55 -21.0 to 3.55 -13.9 to 3.55 -8.3 to 3.55 -6.7 to 6.9 -6.4 to 6.49 -3.36 to 13.83 8.92 to 17.75 11 to 17.75 22.2 to 14.3 22.6 h=8.5
+climb 14.3 23.1 h=8.5
+use lamp
+expect message glugs in
+expect story lampoil 0
+expect shown lamplight
+expect shown beam
+use foghorn
+expect message rolls out over the fog
+open Lamp room locker
+wait 2
+expect item Blueprint_HeadLight 1
+expect done
+
+# The supply boat's barrel under the light stack
+open Supply boat's barrel

@@ -1,0 +1,22 @@
+# The Wandering Sorting Barge (CIPlay wandering_sorting_barge; a side island of The Last Post): quest "The Sorting Barge"
+island The Wandering Sorting Barge
+offset 0 0
+expect step 0
+expect title The Sorting Barge
+expect hidden clerkthanks
+zone barge_deck
+expect step 1
+read Barge clerk's log
+expect step 2
+open Barge strongbox
+expect message locked
+use scales
+expect story bargeweighed 1
+expect shown clerkthanks
+expect step 3
+open Barge strongbox
+wait 3
+expect item Battery 2
+expect step 4
+read Clerk's thanks
+expect done

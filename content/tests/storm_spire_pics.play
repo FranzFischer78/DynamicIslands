@@ -1,0 +1,10 @@
+# Guide pictures of Storm Spire (CIPlay storm_spire_pics): Raft's camera, midday, calm (the island's own grey light)
+island Storm Spire
+hour 11
+weather Calm
+at -32 8
+wait 3
+picture storm_spire_island -62 26 -20 0 20 9
+picture storm_spire_tower -24 14 2 -9 20 9
+picture storm_spire_station -8 37 16 2 35 8
+picture storm_spire_landing -24 6 14 -34 3 7

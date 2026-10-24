@@ -1,0 +1,456 @@
+# Star Fort - a new island of the library, seven times the size (x7)
+# A great star-shaped fortress on a desert table-land: four bastions round a parade ground, a keep with a great gun on its
+# roof, a powder magazine in a pit beside it. Governor Ines Albrecht held Fort Meridian through eleven seasons of the Siege
+# of the Beasts; the garrison is gone, and the island's beasts still come over the walls, bastion by bastion, their
+# leader last.
+# Quest "Hold the Fort" (25 steps in 4 chapters): the gate (the ramp, the governor's order, the gate key, the parade, the
+# first wave), the bastions (north, east, west and south - a wave of a different beast and a commander's locker each),
+# the magazine (the four keys, the gunner's chart, three kegs - one in the flooded sea-cave store - and the shot), the
+# last stand (the great gun, the pack's leader at the gate, the governor's journal and chest).
+#
+# Built by the recipe player (CIRecipe star_fort) through the editor's own operations.
+include lib_selene
+include lib_rt
+include lib_sea
+include lib_features
+new
+# (nature: desert, Like Raft - acacias, cacti and scrub on the slopes and round the fort; the fort's ground cleared)
+gen Trees=0.38 Bushes=0.5 Rocks=0.55 Harvest=0.25 BeachThings=0.3
+gen Seed=9222 Radius=119 Height=28 Roughness=0.35 Peaks=1 Shape=4 Style=2 BeachWidth=0.4 Cliffs=0.75 PeakShape=0.3
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== THE LAND ===========================================================================================================
+# The plateau (the map, seed 9222): flat at 28 m over x -65..70, z -65..65, steep red cliffs all round to a low shore. The
+# fort on it round 5 0: banks 4 m high (32 m) in a four-pointed star - the bastions' points N 5 45, E 50 0, S 5 -45, W -40 0,
+# the curtains' inner corners at 23/-13 x 18/-18 - the gate in the south-east corner (23 -18), the keep in the middle
+# (2..8 x -4.5..4.5, three storeys and the gun on its roof), the magazine in a pit beside it (-8..-2 x -4.5..4.5, 24.5 m).
+# The ramp road from the gate cut down the south-east cliff to the guardhouse at 89 -42 and the landing at 106 -50; the
+# sea-cave store (flooded, 5 m down) at the south cliff's foot, 5 -84.
+
+# --- Terrain: the banks (strokes along the star, the gate's gap left open), the bastions' tops, the ramps up to them from
+# the parade ground; the magazine's pit; the ramp road in two legs; the guardhouse's yard; the sea-cave store's pool --------
+brush flatten from 5 45 to 23 18 r=3 s=20 frames=300 h=32
+brush flatten from 23 18 to 50 0 r=3 s=20 frames=300 h=32
+brush flatten from 50 0 to 27.16 -15.23 r=3 s=20 frames=300 h=32
+brush flatten from 20.23 -22.16 to 5 -45 r=3 s=20 frames=300 h=32
+brush flatten from 5 -45 to -13 -18 r=3 s=20 frames=300 h=32
+brush flatten from -13 -18 to -40 0 r=3 s=20 frames=300 h=32
+brush flatten from -40 0 to -13 18 r=3 s=20 frames=300 h=32
+brush flatten from -13 18 to 5 45 r=3 s=20 frames=300 h=32
+brush flatten at 5 42 r=7 s=20 frames=300 h=32
+for i 0 8 1
+brush flatten at {5+0*$i} {27+1.12*$i} r=2.5 s=20 frames=150 h={28+0.5*$i}
+next
+brush flatten at 47 0 r=7 s=20 frames=300 h=32
+for i 0 8 1
+brush flatten at {32+1.12*$i} {0+0*$i} r=2.5 s=20 frames=150 h={28+0.5*$i}
+next
+brush flatten at 5 -42 r=7 s=20 frames=300 h=32
+for i 0 8 1
+brush flatten at {5+0*$i} {-27+-1.12*$i} r=2.5 s=20 frames=150 h={28+0.5*$i}
+next
+brush flatten at -37 0 r=7 s=20 frames=300 h=32
+for i 0 8 1
+brush flatten at {-22+-1.12*$i} {0+0*$i} r=2.5 s=20 frames=150 h={28+0.5*$i}
+next
+brush flatten from -5 -3 to -5 3 r=5 s=20 frames=400 h=24.5
+for i 0 10 1
+brush flatten at {27+2.8*$i} {-21-2.4*$i} r=3 s=20 frames=150 h={28-1.4*$i}
+next
+for i 0 10 1
+brush flatten at {55+2.6*$i} {-45-0.3*$i} r=3 s=20 frames=150 h={14-1.1*$i}
+next
+brush flatten at 89 -45 r=7 s=20 frames=200 h=2
+brush flatten at 5 -84 r=6 s=20 frames=300 h=-5
+brush sand from -15 0 to 25 0 r=16 s=20 frames=20
+clear at 5 0 r=30
+clear at 5 45 r=8
+clear at 50 0 r=8
+clear at 5 -45 r=8
+clear at -40 0 r=8
+clear from 27 -21 to 55 -45 r=7
+clear from 55 -45 to 81 -48 r=7
+clear at 89 -45 r=8
+clear at 5 -84 r=7
+
+# ===== CHAPTER 1 - THE GATE ===============================================================================================
+# --- The landing jetty, the guardhouse at the ramp road's foot (the guard's chest, a weapons rack), the pack llamas'
+# corral; the gatehouse (stone piers either side of the gap, flags), the bamboo gate, the order and the lock --------------
+place Block_Floor_Wood - at 106.75 -50 h=0.85
+place Block_Floor_Wood - at 108.25 -50 h=0.85
+place Block_Floor_Wood - at 109.75 -50 h=0.85
+place Block_Floor_Wood - at 111.25 -50 h=0.85
+# (the jetty planks rested on nothing: posts down to the sea floor under both edges, 2026-10-23)
+for jx 106.1 111.9 2.9
+place ReefHuts_Pillar3 - at $jx -49.35 h=-5 sy=1.2
+place ReefHuts_Pillar3 - at $jx -50.65 h=-5 sy=1.2
+next
+place Loot_SunkenBarrel sunkbarrel at 113 -53 h=-1.4 drop
+push at 92 -42 h=2
+call rt_storey f1=RT_WallDoor1 r2=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+place Loot_Chest guardchest at -4.5 3 sit yaw=180
+place "VG_DecorationPrefabBase_WorkshopStorage_1 Variant" - at -1.5 3.65 sit yaw=180
+pop
+place Zone_Trigger ramp at 82 -47 y=1.5
+line Relay_Fence_wood from 92 -28 to 102 -28 step=3
+line Relay_Fence_wood from 92 -36 to 102 -36 step=3
+line Relay_Fence_wood from 102 -36 to 102 -28 step=3
+place Creature_Llama llamas at 97 -32 ground
+place RT_GroundPillar - at 20.03 -20.97 h=31
+place RT_GroundPillar - at 20.03 -20.97 h=34
+place Placeable_Flag_05 - at 20.03 -20.97 h=34 drop
+place RT_GroundPillar - at 25.97 -15.03 h=33.35
+place Placeable_Flag_05 - at 25.97 -15.03 h=34 drop
+place UT_MainEntranceDoor fortgate at 23 -18 h=27.6 yaw=-45
+place Note_Sign order at 27.5 -19.5 ground sit yaw=135
+place TP_SeleneEntranceKeyPanel_Base gatelock at 26 -23.5 ground sit yaw=135
+
+# --- The parade ground: the zone inside the gate (the hyenas come over the north bank), a well, the barracks along the
+# west curtain (two radio tower rooms, bunks, a box), hens, the cook house's fire and barrel ------------------------------
+place Zone_Trigger parade at 15 -10 h=29.5
+place Creature_Hyena wave1 at 14 -2 h=28.3
+place Well - at -4 12 ground sit
+push at -16 9 h=28.05
+call rt_storey r2=RT_WallDoor1 l2=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+place "VG_DecorationPrefabBase_BunkBed Variant" - at -4.8 -2.5 sit yaw=90
+place "VG_DecorationPrefabBase_BunkBed Variant" - at -4.8 2.5 sit yaw=90
+pop
+push at -16 0 h=28.05
+call rt_storey r2=RT_WallDoor1 l2=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+place "VG_DecorationPrefabBase_BunkBed Variant" - at -4.8 -2.5 sit yaw=90
+place "VG_DecorationPrefabBase_BunkBed Variant" - at -4.8 2.5 sit yaw=90
+pop
+place "Box Small" barracksbox at -19 -5.5 h=28.05 drop yaw=20
+place Creature_Chicken hens at -6 -12 ground
+place campfire_1 - at -6 -18 ground sit
+place Loot_Barrel cookbarrel at -8 -19.5 ground sit
+
+# ===== CHAPTER 2 - THE BASTIONS ===========================================================================================
+# --- Each bastion's top: a gun (an iron pipe on a wagon), the commander's locker and its box, the zone; the wave that waits
+# for it (the boars come up the east bank, the screechers off the west cliffs, the scarabs up from the sea caves) --------
+# (the north bastion)
+place VP_Wagon01 - at 5 41 h=32 drop yaw=-90
+place VP_ConcretePipe02 ironguns at 5 41 h=33.2 drop rot=0,0,90 scale=0.5
+place Locker - at 2 37 h=32 drop yaw=90
+place Loot_ChestSmall northlocker at 3.2 37 h=32 drop yaw=90
+place Zone_Trigger northbastion at 5 39 h=33.5
+# (the east bastion)
+place VP_Wagon01 - at 46 0 h=32 drop yaw=-0
+place VP_ConcretePipe02 ironguns at 46 0 h=33.2 drop rot=0,90,90 scale=0.5
+place Locker - at 42 3 h=32 drop yaw=180
+place Loot_ChestSmall eastlocker at 42 1.8 h=32 drop yaw=180
+place Zone_Trigger eastbastion at 44 0 h=33.5
+place Creature_Boar wave2 at 58 0 ground
+# (the south bastion)
+place VP_Wagon01 - at 5 -41 h=32 drop yaw=90
+place VP_ConcretePipe02 ironguns at 5 -41 h=33.2 drop rot=0,180,90 scale=0.5
+place Locker - at 8 -37 h=32 drop yaw=270
+place Loot_ChestSmall southlocker at 6.8 -37 h=32 drop yaw=270
+place Zone_Trigger southbastion at 5 -39 h=33.5
+place Creature_Roach wave4 at 5 -53 ground
+# (the west bastion)
+place VP_Wagon01 - at -36 0 h=32 drop yaw=-180
+place VP_ConcretePipe02 ironguns at -36 0 h=33.2 drop rot=0,-90,90 scale=0.5
+place Locker - at -32 -3 h=32 drop yaw=0
+place Loot_ChestSmall westlocker at -32 -1.8 h=32 drop yaw=0
+place Zone_Trigger westbastion at -34 0 h=33.5
+place Creature_StoneBird wave3 at -48 0 ground
+
+# ===== CHAPTER 3 - THE MAGAZINE ===========================================================================================
+# --- The keep: three radio tower storeys (the door south, the governor's study on the second, its door east onto the
+# ladder), the roof with a railing and the great gun on its turntable --------------------------------------------------------
+push at 8 0 h=28.05
+call rt_storey f1=RT_WallDoor1 l2=RT_WallWindow1
+place "VG_DecorationPrefabBase_WorkshopStorage_1 Variant" - at -5 3.65 sit yaw=180
+pop
+push at 8 0 h=31.05
+call rt_storey r2=RT_WallDoor1 l2=RT_WallWindow2 b1=RT_WallWindow1
+place VP_DecorationPrefabBase_Desk - at -3.5 2.6 sit yaw=180
+place Note_Book journal at -3.5 2.6 y=0.8 drop
+place Loot_ChestLarge governorchest at -5 -3 sit yaw=90
+pop
+push at 8 0 h=34.05
+call rt_storey l2=RT_WallWindow1 r2=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+call rt_railing y=3
+place UT_Harpoon_Base greatgun at -3 0 y=3 drop
+place VP_ConcretePipe02 ironguns at -3 0 y=5.1 drop rot=0,0,90 scale=0.75
+place Zone_Trigger keeptop at -3 0 y=4.5
+pop
+place LandmarkLadder_6m - at 8.3 3 h=28.05 yaw=270
+place LandmarkLadder_6m - at 8.3 3 h=34.05 yaw=270
+
+# --- The magazine in its pit beside the keep: steps down, the door (a hinged wall) and the four-key lock; inside the
+# gunner's chart, the racks with two dry kegs, the shot pile, the dark --------------------------------------------------------
+push at -2 0 h=24.5
+call rt_storey f1=none
+place RT_Floor - at 0 4.5 y=3
+place RT_Wall1 magazinedoor at -3 -4.5
+place Note_Board gunnerchart at -3 4.2 y=1.4 yaw=180
+place TP_Moontown_Barrel02 keg1 at -5.2 3.4 sit
+place TP_Moontown_Barrel02 keg2 at -4.3 3.5 sit
+place TP_Moontown_Barrel01 - at -5.3 2.4 sit
+place TP_Moontown_Barrel01 - at -5.2 1.4 sit yaw=50
+place SmallBoulder1 shotpile at -1.2 3 sit scale=0.4
+place Zone_Trigger magazine at -3 0 y=1.5
+place Zone_Atmosphere magazinedark at -3 0 y=2
+pop
+place TP_SeleneEntranceKeyPanel_Base magazinelock at -3.2 -6.2 ground sit yaw=180
+place Block_Ladder - at -5 -9.6 h=24.5
+place Block_Ladder - at -5 -9.6 h=26.92
+
+# --- The sea-cave store at the south cliff's foot: a pool, a Selene cell sunk in it with the sealed cask, air under its
+# ceiling --------------------------------------------------------------------------------------------------------------------
+push at 2 -81 h=-5
+call selene_cell 0 0 n=TP_Selene_Int_Room_Entrance
+place TP_Moontown_Barrel02 keg3 at 3 -4.5 sit
+place Zone_Trigger vaultair at 3 -3 y=3.6
+place Zone_Atmosphere vaultbubbles at 3 -3 y=3.6
+pop
+
+# ===== CHAPTER 4 - THE LAST STAND =========================================================================================
+# --- The gate fight (hidden till the gun fires): the zone inside the gate, the pack's leader outside it, its music --------
+place Zone_Trigger gatefight at 19 -14 h=29.5
+place Creature_MamaBear leader at 32 -26 ground
+place Zone_Sound leadermusic at 20 -15 h=30
+
+# ===== OUTSIDE THE WALLS ==================================================================================================
+place "Box Small" outworkbox at 40 40 ground sit yaw=30
+place SmallBoulder3 - at 38 42 ground sit scale=0.5
+scatter "Pickup_Landmark_Tree_Palm 2" 4 at 96 -42 r=8 seed=3001
+scatter "Pickup_Landmark_Tree_Palm 4" 3 at 60 -70 r=8 seed=3002
+scatter Placeable_Flower_AloeVera 4 at 30 -40 r=6 seed=3003
+place Creature_Dolphin dolphins at 125 -55 h=-2
+place Zone_Atmosphere heat at 80 -40 y=6
+place Zone_Atmosphere heat at -60 60 y=6
+prop ironguns tint.color=#2a2a2e
+prop ironguns tint.amount=0.7
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): flowers, melons, pineapples ----------
+scatter "Pickup_Landmark_Flower_Yellow" 4 at 0 0 r=83.3 seed=4280 free=3
+scatter "Pickup_Landmark_Flower_Red" 4 at 0 0 r=83.3 seed=4281 free=3
+scatter "Pickup_Landmark_WatermelonLandmark" 6 at 0 0 r=83.3 seed=4290 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=83.3 seed=4300 free=3
+
+# --- Raft's story machinery (lib_features; the user, 2026-10-06: every Raft feature on at least one island): the
+# quartermaster kept the north barracks as his strongroom behind one of Tangaroa's keycard doors (in its doorway at -16 9,
+# the floor 28.05 m) - his keycard dropped out on the glacis; a hatch on the parade ground over the garrison's hidden stores
+call keydoor x=-16 z=8.72 h=28.05 yaw=90 alias=qmdoor vault=qmvault vx=-18 vz=7.2 vh=28.05 vyaw=270 items=TradeToken*6;MetalIngot*3;Bolt*4 kx=40 kz=36 kr=14 seed=3101 keychest=qmsatchel keytitle="Quartermaster's satchel" keyitems=Rope*2;Leather*1
+call hatchcache x=14 z=8 r=5 seed=3102 alias=storehatch chest=storehatchchest items=Cooked_GenericMeat*3;PlasticBottle_Water*2;Rope*2
+# --- Raft's finds in the shallows round the island (lib_sea; keep this after the terrain and building lines) ------------
+call shallows r=139 deep=5 n=2
+
+# ===== Settings, story items, notes, behaviours, quest (25 steps, 4 chapters) =============================================
+info title=Star Fort
+info author=Custom Islands
+info description=A great star-shaped fortress on a desert table-land, its garrison gone and its walls still besieged by the island's beasts, bastion by bastion. Take the commanders' keys, open the magazine, fire the great gun - and meet the pack's leader at the gate.
+island on.arrive=message||A red table-land with a fortress on top shaped like a star, a gun on its keep, flags still on the gatehouse. Something howls on the north wall.
+
+story gatekey|Fort gate key|quest:Utopia_KeyEntrance|The fort gate's great iron key.
+story bastionkey|Bastion key|quest:Caravan_KeyMayor|A commander's key, one of the four that open the magazine.
+story powder|Keg of powder|quest:Vasagatan_GasTank|A small keg of dry gunpowder, its bung sealed with wax.
+story shot|Great gun's shot|quest:Vasagatan_Bullet|An iron ball as big as your head.
+
+note order The governor's last order | FORT MERIDIAN - LAST ORDER OF THE GOVERNOR\n\nThe relief ship is here. All hands aboard. I will follow tomorrow.\n\nTo whoever holds this fort after us: the beasts come over the bastions one after another, as they have every season - north, east, west, then up from the south sea caves. Each commander's key is in his locker on his bastion. The four keys open the magazine under the keep.\nThree kegs and a shot fire the great gun. The gun always brings their leader up the ramp. When it falls, the siege is over for the year.\n\nGate key: the guardhouse below.\n- I. Albrecht, Governor
+note guardchest Guardhouse chest | The guard's chest: a lantern, a coil of rope, his dinner - and the fort gate's great iron key.
+loot guardchest story:gatekey*1;Rope*2;Cooked_GenericMeat*1
+prop guardchest loot.refill=0
+note northlocker North commander's locker | The north commander's locker: his telescope, a letter home never sent - and the first bastion key.
+loot northlocker story:bastionkey*1;Glass*1
+prop northlocker loot.refill=0
+note eastlocker East commander's locker | The east commander's locker: boar tusks nailed inside the door, a tin of tobacco - and the second bastion key.
+loot eastlocker story:bastionkey*1;Leather*1
+prop eastlocker loot.refill=0
+note westlocker West commander's locker | The west commander's locker: feathers, a sling, a list of screechers shot (forty-one) - and the third key.
+loot westlocker story:bastionkey*1;Feather*3
+prop westlocker loot.refill=0
+note southlocker South commander's locker | The south commander's locker, damp from the sea: a scarab shell as big as a plate - and the fourth key.
+loot southlocker story:bastionkey*1;Scrap*2
+prop southlocker loot.refill=0
+note gunnerchart The master gunner's chart | THE GREAT GUN - LOADING\n\nThree kegs of powder. Dry ones on the top rack - two left. The third dry keg is sealed in a cask in the sea-cave store under the south cliff (flooded since the spring tide - hold your breath, there's air under its ceiling). Down the ramp road and round under the cliff.\nOne shot from the pile.\nLoad on the keep's roof, fire, and stand by the gate.
+note journal The governor's journal | (on the governor's desk, open at the last page)\n\nEleven seasons. Eleven times the pack came over the walls, eleven times their leader came up the ramp when the gun spoke, eleven times we held.\n\nThey are not cruel. They are hungry, and this was their island first.\n\nIf you held it once - the chest is yours. Then leave the gate open when you go. Let them have it for a season.\n- Ines
+note governorchest The governor's chest | Governor Albrecht's chest: the fort's pay chest, titanium from the gun foundry, the plans for the battery charger that ran the signal lamps, her sword, and dried dates.
+loot governorchest TradeToken*15;TitaniumIngot*4;Blueprint_BatteryCharger*1;Sword_Titanium*1;Cooked_GenericMeat*3
+prop governorchest loot.refill=0
+note barracksbox Barracks box | A soldier's box under a bunk: socks, dice, a letter, rope.
+loot barracksbox Rope*3;Wool*1;Plank*3
+prop barracksbox loot.refill=0
+note cookbarrel Cook house barrel | The cook house barrel: flour gone to stone, but tins and water that kept.
+loot cookbarrel Cooked_GenericMeat*2;PlasticBottle_Water*2;Raw_Potato*2
+prop cookbarrel loot.refill=0
+note sunkbarrel Sunk powder barrel | A barrel that went off the jetty: the powder ruined, the iron hoops good.
+loot sunkbarrel MetalOre*2;Scrap*3;Bolt*2
+prop sunkbarrel loot.refill=0
+note outworkbox Outwork box | A box in the ruined outwork on the glacis: an old sentry's things.
+loot outworkbox Nail*8;Stone*3;Rope*2
+prop outworkbox loot.refill=0
+
+prop gatelock obj.name=gatelock
+prop gatelock beh.use=Unlock the fort gate
+prop gatelock if.use=has|story:gatekey|1\nstate|fortgate|closed
+prop gatelock on.use=message||The great key grinds round. The bamboo gate sinks into the ground with a roar of dust.\nopen|fortgate\nsound||event:/exploring/utopia/door_entrance_open
+prop gatelock else.use=message||The fort gate's lock. The governor's order says where the key is.
+prop fortgate obj.name=fortgate
+prop fortgate beh.move=0,-12.8,0
+prop fortgate beh.moveTime=6
+prop fortgate beh.moveMode=switch
+# (Utopia's entrance door as a ready piece wants Raft's entrance key and goes when used: this gate only sinks when the gate lock takes the great key - the ready piece's settings taken off)
+prop fortgate beh.use=
+prop fortgate if.use=
+prop fortgate else.use=
+prop fortgate on.use=
+prop magazinelock obj.name=magazinelock
+prop magazinelock beh.use=Turn the four bastion keys in the magazine's lock
+prop magazinelock if.use=quest|16\ntake|story:bastionkey|4
+prop magazinelock on.use=message||Four keys, four turns. The magazine door swings in on cold, dry air and the smell of powder.\nopen|magazinedoor\nsound||event:/exploring/boxes/safe_unlock
+prop magazinelock else.use=message||A lock with four keyholes, one for each bastion's commander.
+prop magazinedoor obj.name=magazinedoor
+prop magazinedoor beh.turn=-95
+prop magazinedoor beh.moveTime=2
+prop magazinedoor beh.moveMode=switch
+prop keg1 obj.name=keg1
+prop keg1 beh.use=Take the keg of powder
+prop keg1 if.use=!signal|k1
+prop keg1 on.use=hide|keg1\ngive||story:powder*1\nsignal||k1\nsound||event:/exploring/utopia/wood_pickup
+prop keg2 obj.name=keg2
+prop keg2 beh.use=Take the keg of powder
+prop keg2 if.use=!signal|k2
+prop keg2 on.use=hide|keg2\ngive||story:powder*1\nsignal||k2\nsound||event:/exploring/utopia/wood_pickup
+prop keg3 obj.name=keg3
+prop keg3 beh.use=Take the sealed keg of powder
+prop keg3 if.use=!signal|k3
+prop keg3 on.use=message||The cask is sealed tight - the powder inside is bone dry.\nhide|keg3\ngive||story:powder*1\nsignal||k3\nsound||event:/exploring/utopia/wood_pickup
+prop shotpile obj.name=shotpile
+prop shotpile beh.use=Take a shot for the great gun
+prop shotpile if.use=!signal|shot
+prop shotpile on.use=message||An iron ball as big as your head. Heavy.\ngive||story:shot*1\nsignal||shot\nsound||event:/exploring/utopia/metal_pickup
+prop greatgun obj.name=greatgun
+prop greatgun beh.use=Load and fire the great gun
+prop greatgun if.use=quest|21\ntake|story:powder|3\ntake|story:shot|1
+prop greatgun on.use=message||Powder, wad, shot, rammed home. You touch the fuse and step back - the great gun BOOMS over the whole island and its smoke rolls down over the walls. From far below, at the foot of the ramp, an answer: a roar.\nsound||event:/weapons/dynamite/explode\nshow|gatefight\nshow|leader\nshow|leadermusic\nwait|2\nsound||event:/wildlife/bear/bear_roar
+prop greatgun else.use=message||The great gun, empty. The gunner's chart says: three kegs and a shot.
+prop gatefight obj.name=gatefight
+prop gatefight beh.hidden=1
+prop leader obj.name=leader
+prop leader beh.hidden=1
+prop leader creature.count=1
+prop leader creature.size=2.2
+prop leader creature.health=4
+prop leader creature.damage=2.5
+prop leader creature.respawn=0
+prop leader tint.color=#8a6a4a
+prop leader tint.amount=0.5
+prop leader on.defeat=show|journal\nhide|leadermusic\nmessage||The pack's leader falls in the gateway. Out on the plateau the howling stops. The siege is over for the year.
+prop leadermusic obj.name=leadermusic
+prop leadermusic beh.hidden=1
+prop leadermusic sound.event=event:/music/music_boss
+prop leadermusic sound.volume=0.6
+prop leadermusic zone.radius=40
+prop journal obj.name=journal
+prop journal beh.hidden=1
+
+prop ramp zone.id=ramp
+prop ramp zone.radius=8
+prop ramp zone.message=The foot of the ramp road: a guardhouse, a corral of llamas, and high above, the fort's star-shaped walls.
+prop parade zone.id=parade
+prop parade zone.radius=14
+prop parade zone.repeat=never
+prop parade zone.message=The parade ground - and over the north bastion's bank, the first wave: hyenas, laughing as they come!
+prop wave1 creature.count=4
+prop wave1 creature.respawn=0
+prop wave1 creature.zone=parade
+prop northbastion zone.id=northbastion
+prop northbastion zone.radius=9
+prop northbastion zone.message=The north bastion: a gun, a sentry box, a commander's locker. The plain beyond is empty now.
+prop eastbastion zone.id=eastbastion
+prop eastbastion zone.radius=9
+prop eastbastion zone.repeat=never
+prop eastbastion zone.message=The east bastion - and the second wave comes up the bank: boars, a whole sounder of them!
+prop wave2 creature.count=4
+prop wave2 creature.respawn=0
+prop wave2 creature.zone=eastbastion
+prop westbastion zone.id=westbastion
+prop westbastion zone.radius=9
+prop westbastion zone.repeat=never
+prop westbastion zone.message=The west bastion over the cliffs - and the third wave comes out of the sky. Screechers!
+prop wave3 creature.count=3
+prop wave3 creature.respawn=0
+prop wave3 creature.zone=westbastion
+prop southbastion zone.id=southbastion
+prop southbastion zone.radius=9
+prop southbastion zone.repeat=never
+prop southbastion zone.message=The south bastion over the sea - and up the cliff from the sea caves, clicking, the fourth wave: scarabs!
+prop wave4 creature.count=4
+prop wave4 creature.size=1.3
+prop wave4 creature.respawn=0
+prop wave4 creature.zone=southbastion
+prop wave4 tint.color=#a08a5a
+prop wave4 tint.amount=0.5
+prop magazine zone.id=magazine
+prop magazine zone.radius=4
+prop magazine zone.message=The magazine: racks of kegs, a pyramid of iron shot, a chart on the wall.
+prop vaultair zone.id=vaultair
+prop vaultair zone.radius=2.5
+prop vaultair zone.repeat=1
+prop vaultair zone.air=1
+prop vaultbubbles atmo.particles=bubbles
+prop vaultbubbles zone.radius=3
+prop magazinedark atmo.fog=#0e0a06
+prop magazinedark atmo.fogAmount=0.6
+prop magazinedark atmo.light=#4a3418
+prop magazinedark atmo.lightAmount=0.6
+prop magazinedark zone.radius=9
+prop keeptop zone.id=keeptop
+prop keeptop zone.radius=5
+prop keeptop zone.message=The keep's roof: the great gun on its turntable, and the whole fort laid out round you like a star.
+prop gatefight zone.id=gatefight
+prop gatefight zone.radius=10
+prop gatefight zone.message=The gate - and up the ramp, huge and dusty, comes the pack's leader.
+prop heat atmo.fog=#f0e0c0
+prop heat atmo.fogAmount=0.06
+prop heat atmo.light=#fff0c8
+prop heat atmo.lightAmount=0.15
+prop heat zone.radius=50
+prop llamas creature.count=3
+prop hens creature.count=3
+prop dolphins creature.count=2
+
+quest title=Hold the Fort
+quest intro=A star fort on a desert table-land, besieged by the island's beasts. The governor's last order is nailed to the gate.
+# Chapter 1 - the gate
+step reach|ramp|1|Land and walk to the foot of the ramp road
+step read|The governor's last order|1|Climb to the gate and read the governor's last order
+step collect|story:gatekey|1|Take the gate key from the guardhouse at the ramp's foot
+step reach|parade|1|Unlock the gate and march onto the parade ground
+step kill|Hyena|4|Hold off the first wave from the north bastion
+# Chapter 2 - the bastions
+step reach|northbastion|1|Climb to the north bastion
+step open|North commander's locker|1|Open the north commander's locker
+step reach|eastbastion|1|Climb to the east bastion
+step kill|Warthog|4|Hold off the second wave
+step open|East commander's locker|1|Open the east commander's locker
+step reach|westbastion|1|Climb to the west bastion
+step kill|Screecher|3|Hold off the third wave
+step open|West commander's locker|1|Open the west commander's locker
+step reach|southbastion|1|Climb to the south bastion over the sea
+step kill|Roach|4|Hold off the scarabs from the sea caves
+step open|South commander's locker|1|Open the south commander's locker
+# Chapter 3 - the magazine
+step reach|magazine|1|Turn the four bastion keys and enter the magazine under the keep
+step read|The master gunner's chart|1|Read the master gunner's chart
+step collect|story:powder|3|Take the three kegs of dry powder (one in the flooded sea-cave store)
+step collect|story:shot|1|Take a shot for the great gun
+# Chapter 4 - the last stand
+step reach|keeptop|1|Climb to the great gun on the keep's roof
+step reach|gatefight|1|Fire the great gun - and run down to the gate
+step kill|Mama bear|1|Stand at the gate against the pack's leader
+step read|The governor's journal|1|Read the governor's journal in her study
+step open|The governor's chest|1|Open the governor's chest
+quest done=The siege of the beasts is over for another season. Fort Meridian held - by one defender. When you go, leave the gate open.
+quest reward=TitaniumIngot*2;MetalIngot*4;Cooked_GenericMeat*3
+
+save Star Fort

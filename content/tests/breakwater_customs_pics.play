@@ -1,0 +1,13 @@
+# Guide pictures of Breakwater Customs (CIPlay breakwater_customs_pics): Raft's camera, midday, calm; the breakwater and the customs house from the sea
+# offset 0 0 is a placeholder: phase 2 sets it from the recipe's save log (PLAY_FORMAT: Coordinates).
+island Breakwater Customs
+offset 0 0
+hour 11
+weather Calm
+at 0 -24.8
+wait 3
+picture sl13_breakwater_customs_island 60 30 -114.8 0 3 -24.8
+picture sl13_breakwater_customs_hill 24 18 36 1 14 60
+picture sl13_breakwater_customs_ruin 66 9 16 54 4 30
+picture sl13_breakwater_customs_cave -60 9 48 -62 6 24
+picture sl13_breakwater_customs_boat -46 9 -30 -64 3 -22

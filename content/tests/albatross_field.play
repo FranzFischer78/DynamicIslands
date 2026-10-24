@@ -1,0 +1,83 @@
+# Play test of Albatross Field (CIPlay albatross_field, in a test world 'CI ...'). Points as in its recipe: the runway
+# along the west side (x -55, z -44..44, 4.3 m), its lamps on its east edge (x -50, z -36 -12 12 36, south to north);
+# the hangars at its south end (-36 -46, -16 -52); the operations hut (relay house x -31..-20.5, z 42.5..53), the
+# control tower (x -16..-10, z 45.5..54.5, its cab floor 7.35 m, the stairs up from the north at x -7.96 to the deck at its
+# east door) and the power bunker (x -44.5..-35.5, z 54..60) at the runway's north end; the fuel dump on the eastern
+# islet (56 0) across the north pass; the ditched fighter 8 m down in the lagoon (5 0)
+island Albatross Field
+offset -1.6942 -0.1074
+expect step 0
+expect title Long Patrol
+wait 5
+
+# Land on the runway; the commander's order in the operations hut; his footlocker is locked
+walk -55 -42 to -55 -28 h=4.3
+zone strip
+expect step 1
+read Commander's last order
+expect step 2
+open Commander's footlocker
+expect message FOR WHOEVER BRINGS THEM HOME
+
+# The screechers come off the hangar roofs; the hangar toolbox
+zone hangars
+kill Screecher
+expect step 3
+open Hangar toolbox
+
+# The generator is dry; two drums from the fuel dump on the eastern islet
+use generator
+expect message tank is dry
+open Full fuel drum
+open Second full fuel drum
+expect story avgas 2
+expect step 4
+
+# The power bunker: in through its door, the generator runs - lights in the bunker and the tower's cab
+walk -48 57 to -45.5 58.5 to -41.5 57.5 h=4.4 below=6
+zone powerbunker
+use generator
+expect message coughs, catches
+expect story avgas 0
+expect story power 1
+expect step 5
+expect shown bunkerlamps
+expect shown towerlights
+
+# Dive to the ditched fighter in the lagoon; her cockpit box - the radio crystal
+zone ditched
+expect step 6
+open Lt. Ruiz's cockpit box
+expect story crystal 1
+expect step 7
+
+# Up the tower's stairs to the deck and into the glass cab; the radio raises the flight
+walk -7.96 62 to -7.96 60.5 to -7.96 53.6 h=7.4
+walk -7.96 53.6 to -7.4 49.2 to -11.5 49.2 h=7.4 below=10
+zone tower
+expect step 8
+use radio
+expect message Long Patrol
+expect story landingorder 1
+expect step 9
+
+# The runway lamps: not out of order - then south to north; the flight comes home; the footlocker
+use lamp3
+expect message South to north
+use lamp1
+expect shown lamp1light
+use lamp2
+use lamp3
+use lamp4
+expect shown lamp4light
+expect story runwaylit 1
+expect step 10
+open Commander's footlocker
+wait 3
+expect item Blueprint_Reciever 1
+expect done
+
+# The barracks chest, the mess tent's box, the bomber's cargo box on the outer reef
+open Barracks chest
+open Mess tent box
+open Bomber's cargo box

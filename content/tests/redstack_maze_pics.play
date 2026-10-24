@@ -1,0 +1,13 @@
+# Guide pictures of Redstack Maze (CIPlay redstack_maze_pics): Raft's camera, midday, calm. Points as in its recipe
+# ("offset").
+island Redstack Maze
+offset -0.3026 0.6476
+hour 11
+weather Calm
+at 2.25 -43.75 h=2.6
+wait 3
+picture redstack_maze_island 30 50 -95 26 0 -22
+picture redstack_maze_maze 28 34 -52 28 0 -22
+picture redstack_maze_hut -8 6 -58 8 2 -44
+picture redstack_maze_mouth 19 2.5 -47 19 1 -30
+picture redstack_maze_shrine 30 15 -30 44 9 -9

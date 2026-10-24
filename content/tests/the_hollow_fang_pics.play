@@ -1,0 +1,11 @@
+# Guide pictures of The Hollow Fang (CIPlay the_hollow_fang_pics): Raft's camera, midday, calm
+island The Hollow Fang
+offset 0 0
+hour 11
+weather Calm
+at 0 -50
+wait 3
+picture the_hollow_fang_island 25 30 -120 0 15 0
+picture the_hollow_fang_blades 1 5 -46 0 4.5 -33
+picture the_hollow_fang_word 2 6 -27 0 3 -18
+picture the_hollow_fang_hollow 0 6 -3 0 4 14

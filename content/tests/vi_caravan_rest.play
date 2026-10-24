@@ -1,0 +1,28 @@
+# Caravan Rest (CIPlay vi_caravan_rest): quest "Odo's Rocket" (6 steps)
+# The camp round the well (0 0, 4 m), the camp board at 2.5 -7, Odo's locker at -4.6 1.2, the rocket caravan at 26 12
+# (5 m), the hyena den round 24 -20, the dune cave's chest at -12.5 31 (2.25 m). offset: set in phase 2 from the
+# island's place in the test world.
+island Caravan Rest
+offset 0 0
+expect step 0
+expect title Odo's Rocket
+wait 5
+expect animals Hyena 3
+zone caravan_ring
+expect step 1
+read Camp board
+expect step 2
+kill Hyena
+expect step 3
+use rocket
+expect message empty socket
+open Odo's locker
+expect step 4
+open Chest in the dune cave
+wait 3
+expect story sparkplug 1
+expect step 5
+use rocket
+expect story rocketlit 1
+expect story sparkplug 0
+expect done

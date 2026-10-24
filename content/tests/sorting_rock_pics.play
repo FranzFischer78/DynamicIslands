@@ -1,0 +1,11 @@
+# Guide pictures of Sorting Rock (CIPlay sorting_rock_pics): Raft's camera, midday, calm
+island Sorting Rock
+offset 0 0
+hour 11
+weather Calm
+at 0 -10
+wait 3
+picture sorting_rock_island 40 30 -60 0 5 0
+picture sorting_rock_hall 0 6.5 -8 0 5 1
+picture sorting_rock_scales 0 6 -1 0 5.4 1
+picture sorting_rock_cistern -4 9 -6 -16 7 6

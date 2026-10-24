@@ -1,0 +1,104 @@
+# lib_concord - shared pieces of the plan The End of the Ocean's islands (SL14, the Concord Engine; "include lib_concord")
+# The engine's builders left the same things on every station: relay masts with a disc and a power box, levers and crank
+# wheels on posts, loop-sound zones for the pulse and the static, and the Ringwave - a ring cut by three waves - laid in
+# the ground in iron beams. Air pockets come from lib_gravity (include lib_huts and lib_gravity too).
+#
+# ringwave: the Ringwave inlaid flat on the ground round x z: a ring of 12 iron beams of radius r and three waves across
+# it (each four beams in a zigzag), all under the alias al (one tint line per island)
+macro ringwave x=0 z=0 r=6 al=ringwave y=0
+for a 0 330 30
+place RT_Beam $al at {$x+$r*sin($a)} {$z+$r*cos($a)} ground y={0.02+$y} yaw={$a} sx={0.0873*$r}
+next
+for w -1 1 1
+for s 0 3 1
+place RT_Beam $al at {$x+(-0.675+0.45*$s)*$r} {$z+$w*$r/3} ground y={0.03+$y} yaw={15-30*($s-2*floor($s/2))} sx={0.075*$r}
+next
+next
+end
+#
+# relaymast: a relay mast at x z - a thick pillar (6 m) with a dish on top and, at its foot, the relay's power box on a
+# short post (alias al, its use and keypad set by the island)
+macro relaymast x=0 z=0 yaw=0 al=relay
+place RT_PillarThick - at $x $z ground
+place RT_SatteliteDisc - at $x $z ground y=6 yaw=$yaw scale=0.5
+place TP_RotatingRedLight - at $x $z ground y=7.2
+place RT_Pillar - at {$x+1.4*sin($yaw)} {$z-1.4*cos($yaw)} ground sy=0.4
+place RT_PowerBox $al at {$x+1.4*sin($yaw)} {$z-1.4*cos($yaw)} ground y=1.25 yaw={$yaw+180}
+prop $al obj.name=$al
+end
+#
+# lever: a lever on a short post at x z (alias al)
+macro lever x=0 z=0 yaw=0 al=lever
+place RT_Pillar - at $x $z ground sy=0.4
+place TP_LaserControlPanel_lever $al at $x $z ground y=1.25 scale=3 yaw=$yaw
+prop $al obj.name=$al
+end
+#
+# wheel: a crank wheel on a post at x z (alias al) - the lock cranks, the gate crank, the ring cranks
+macro wheel x=0 z=0 yaw=0 al=wheel
+place RT_Pillar - at $x $z ground sy=0.6
+push at $x $z yaw=$yaw
+place TP_Selene_DoorCrankWheel $al at 0 -0.09 ground y=1.2
+pop
+prop $al obj.name=$al
+end
+#
+# loopsound: a looping sound round x z (radius r) at height h over the ground - the pulse, the static, the engine
+macro loopsound x=0 z=0 al=sound ev=event:/amb/ocean r=20 vol=0.5 h=2
+place Zone_Sound $al at $x $z ground y=$h
+prop $al sound.event=$ev
+prop $al sound.volume=$vol
+prop $al zone.radius=$r
+end
+#
+# weather: an atmosphere zone round x z (radius r): fog colour and amount, light colour and amount, particles
+macro weather x=0 z=0 al=weather r=40 fog=#30343a fa=0.4 light=#a0a8b0 la=0.4 parts=mist h=4
+place Zone_Atmosphere $al at $x $z ground y=$h
+prop $al atmo.fog=$fog
+prop $al atmo.fogAmount=$fa
+prop $al atmo.light=$light
+prop $al atmo.lightAmount=$la
+prop $al atmo.particles=$parts
+prop $al zone.radius=$r
+end
+#
+# tzone: a trigger zone at x z with id, radius and message (alias al)
+macro tzone x=0 z=0 al=zone id=zone r=4 msg="" h=0
+place Zone_Trigger $al at $x $z ground y=$h
+prop $al zone.id=$id
+prop $al zone.radius=$r
+prop $al zone.message=$msg
+end
+#
+# notebox: a note lying on a small box at x z (alias al)
+macro notebox x=0 z=0 yaw=0 al=note
+place "Box Small" - at $x $z ground sit yaw=$yaw
+place Note_Paper $al at $x $z ground y=0.7 drop yaw={$yaw+15}
+end
+#
+# camp: a survivors' camp at x z - a tent, a fire, a crate and a lantern (the tent faces yaw)
+macro camp x=0 z=0 yaw=0 fire=campfire_1
+place Balboa_DecorationPrefabBase_SimpleTent - at $x $z ground sit yaw=$yaw
+place $fire - at {$x+2.6*sin($yaw)} {$z-2.6*cos($yaw)} ground sit
+place "Box Big" - at {$x+2.2*cos($yaw)} {$z+2.2*sin($yaw)} ground sit yaw={$yaw+10}
+place Placeable_Lantern_Metal - at {$x+2.2*cos($yaw)} {$z+2.2*sin($yaw)} ground y=1.2 drop
+end
+#
+# reef: a tight reef in the sea at x z (radius r): corals, a kelp clump, silver algae and seaweed (seed: four in a row)
+macro reef x=0 z=0 r=4 seed=1
+scatter VP_CoralDigitate02 4 at $x $z r=$r seed=$seed wet free=1
+scatter VP_CoralBulb04 3 at $x $z r=$r seed={$seed+1} wet free=1
+scatter LeafCoral_1 3 at $x $z r=$r seed={$seed+2} wet free=1
+scatter "Pickup_Landmark_SilverAlgae" 1 at $x $z r=$r seed={$seed+3} wet
+end
+#
+# zipdeck: a 1.5 x 1.5 m deck on four posts at y over the push's corner, a ladder up its south side - a zipline's near
+# end stands on it (ZiplinePath_Landmark at corner + 6.47, -0.22 and h = push h + y + 1.47)
+macro zipdeck y=2.6
+place ReefHuts_Pillar3 - at 0.15 0.15 y=0 sy={$y/4.815}
+place ReefHuts_Pillar3 - at 1.35 0.15 y=0 sy={$y/4.815}
+place ReefHuts_Pillar3 - at 0.15 1.35 y=0 sy={$y/4.815}
+place ReefHuts_Pillar3 - at 1.35 1.35 y=0 sy={$y/4.815}
+place Block_Floor_Wood - at 0.75 0.75 y=$y
+place Block_Ladder - at 0.75 -0.12 ground
+end

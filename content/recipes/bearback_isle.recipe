@@ -1,0 +1,46 @@
+# Bearback Isle - a new small island of the library (ROADMAP 3d NI3), no quest
+# A small isle that is mostly one great hump of rock - and the rock is hollow: a cave opens north onto the beach, and a
+# bear sleeps in it, on a hoard someone left. A monster island: mind the bear. Rocks and fruit round the hump.
+#
+# Built by the recipe player (CIRecipe bearback_isle) through the editor's own operations. Points: the cave rock
+# (Balboa's bear cave) round 0 4, its floor 2 m, its mouth north at -1 20 on the beach; the hoard's chest inside at
+# -2.5 9 (2.05 m); the bear at 1 10.
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+new
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=7403 Radius=27 Height=3 Roughness=0.35 Peaks=1 Shape=0 Style=0 BeachWidth=0.6 Cliffs=0.2 PeakShape=0.3
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== Terrain: kept under the cave's floor where the rock stands; its passage out to the north beach ====================
+brush flatten at 0 4 r=14 s=20 frames=80 h=1.6
+brush flatten from -1 21 to -1 6 r=4.5 s=20 frames=60 h=2
+brush sand from -1 18 to -1 24 r=4 s=20 frames=20
+clear at 0 4 r=17
+clear from -1 20 to -1 26 r=4
+
+# ===== The cave rock, the hoard inside it, its bear ======================================================================
+place BalboaCave_Bear bearrock at 0 4 h=6.55
+place Loot_ChestSmall hoardchest at -2.5 9 h=2.05 sit yaw=60
+place Placeable_Lantern_Metal - at 2.6 8 h=2.05 sit
+place Creature_Bear bear at 1 10 h=2.1
+
+# ===== Things to gather: mangoes and pineapples round the hump; a buried treasure; Raft's finds in the shallows ============
+scatter "Pickup_Landmark_Tree_Mango" 2 at 0 0 r=22 seed=7413 free=6
+scatter "Pickup_Landmark_PineappleLandmark" 2 at 0 0 r=22 seed=7423 free=4
+call treasure x=0 z=-12 r=8 n=1 seed=7403
+call shallows r=42 deep=5 n=1 seed=743
+
+info title=Bearback Isle
+info author=Custom Islands
+info description=A small isle that is mostly one great hump of rock - hollow, with a cave on the north beach and a bear asleep on a hoard inside. No quest - an island to explore.
+
+note hoardchest Hoard in the bear's cave | A sea chest dragged in here long ago - the bear sleeps on it now.
+loot hoardchest MetalIngot*2;Bolt*3;Hinge*2;Rope*3;CopperIngot*1
+prop hoardchest loot.refill=0
+
+save Bearback Isle

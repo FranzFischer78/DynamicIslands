@@ -1,0 +1,27 @@
+# Hailstone Weir (CIPlay hailstone_weir): the plan The Rainmakers' first island, quest "Day One of the Rain"
+island Hailstone Weir
+offset 0 0
+expect step 0
+expect title Day One of the Rain
+expect shown sluice1
+expect hidden maintcard
+walk 14 -32 to 9 -32 to 1 -32 h=1.7
+zone weir_walk
+expect step 1
+read Weir keeper's log
+expect step 2
+open Pump house locker
+expect message jammed by the flood
+use sluicecrank
+expect story sluiceopen 1
+expect hidden sluice1
+expect shown maintcard
+expect step 3
+open Pump house locker
+wait 3
+expect item Blueprint_Reciever 1
+expect item Blueprint_Antenna 1
+expect step 6
+read Nimbus maintenance card
+expect done
+expect spinsown spillwheel

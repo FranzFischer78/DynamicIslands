@@ -1,0 +1,139 @@
+# Glowfall Isle - a new island of the library (ROADMAP 3d NI8), large, with no quest
+# Something fell out of the sky here. A big green island: in its east half a scorched crater with a low rim, a strange
+# craft lying tipped over in it, its plates and legs strewn along the furrow it ploughed, and a pool in the crater's
+# floor that glows green; a pale light hangs over the pit at night. The west half is thick jungle - bamboo, bananas,
+# monstera and big palms - with a castaway's lean-to. A cave in a rock hump on the south shore, its mouth to the beach.
+# Out at sea one of the craft's plates lies on the sea floor. Monsters: warthogs in the jungle, a bear in the cave, a
+# screecher over the crater.
+#
+# Built by the recipe player (CIRecipe glowfall_isle) through the editor's own operations. Points: the crater at 25 10
+# (floor 2.5 m, r 13; the rim 6 m at r 19, broken where the furrow comes in from the south-east); the furrow from 52 -22
+# to 30 4 (2.5 m); the craft at 25 10, the glowing pool at 19 15; the jungle round -35 -5 (r 30); the lean-to x -40..-35.5,
+# z 20..23 (pad 4 m); the cave rock at -20 -50 (pad 1.6 m, floor 2.05 m, the mouth south at z -66, the passage to -71);
+# the sunken plate at 58 -78 (sea floor 7 m down).
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni8
+new
+# (nature: tropical, Like Raft; the west half jungle - more plants there, set by hand below)
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=7801 Radius=85 Height=12 Roughness=0.4 Peaks=2 Shape=0 Style=0 BeachWidth=0.5 Cliffs=0.3 PeakShape=0.4
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== The ground: the crater with its rim, the furrow, the lean-to's pad, the cave, the sea floor under the plate =======
+brush flatten at 25 10 r=24 s=20 frames=120 h=4
+for a 0 300 30
+brush flatten at {25+19*cos($a)} {10+19*sin($a)} r=5 s=20 frames=80 h=6
+next
+brush flatten at 25 10 r=13 s=20 frames=160 h=2.5
+brush flatten from 52 -22 to 30 4 r=4 s=20 frames=120 h=2.5
+brush smooth at 25 10 r=26 s=6 frames=40
+brush rock at 25 10 r=15 s=20 frames=40
+brush rock from 52 -22 to 30 4 r=4 s=20 frames=30
+brush sand at 25 10 r=21 s=8 frames=20
+brush flatten at -37.75 21.5 r=5 s=20 frames=80 h=4
+brush grass at -35 -5 r=30 s=10 frames=30
+call ni8cave x=-20 z=-50 h=1.6 yaw=180 al=caverock
+brush flatten from -19 -60 to -19 -76 r=4 s=20 frames=60 h=1.8
+brush sand from -19 -64 to -19 -76 r=4 s=20 frames=20
+brush flatten at 58 -78 r=9 s=20 frames=80 h=-7
+clear at 25 10 r=24
+clear from 52 -22 to 30 4 r=5
+clear at -37.75 21.5 r=6
+clear from -19 -60 to -19 -76 r=4
+
+# ===== The crash: the craft tipped over in the crater, its plates, legs and door strewn along the furrow, the glowing
+# pool, glowing shards round it, a pale light over the pit ==================================================================
+place CaravanRocket craft at 25 10 h=1.6 yaw=40 tilt=28 scale=6
+place CaravanRocketDebris_SidePlate - at 33 -2 ground sit yaw=70 scale=4
+place CaravanRocketDebris_Door - at 38 -8 ground sit yaw=15 scale=4
+place CaravanRocketDebris_Leg1 - at 42 -12 ground sit yaw=120 scale=4
+place CaravanRocketDebris_Leg2 - at 47 -17 ground sit yaw=200 scale=4
+place CaravanRocketDebris_Top1 - at 31 18 ground sit yaw=300 scale=4
+place CaravanRocketDebris_Exhaust - at 16 4 ground sit yaw=10 scale=4
+place CaravanRocketDebris_Body1 - at 50 -20 ground sit yaw=45 scale=3
+place TP_SeleneReactor_Water_Radiated glowpool at 19 15 h=3.3 scale=0.3
+place UT_LightBottle01 - at 15 13 ground sit
+place UT_LightBottle03 - at 22 19.5 ground sit
+place UT_LightBottle01 - at 18 20 ground sit
+place UT_LightBottle03 - at 14.5 17 ground sit
+call ni8air x=25 z=10 h=4 al=crashglow fog=#1a3a24 fa=0.2 light=#80ffa0 la=0.35 parts=fireflies r=22
+place Zone_Sound crashhum at 25 10 h=3
+prop crashhum sound.event=event:/amb/wreck_creaks
+prop crashhum sound.volume=0.3
+prop crashhum zone.radius=14
+place Loot_Crate podcrate at 30 15 ground sit yaw=40
+place Note_Paper crashnote at 29.5 14 ground sit yaw=20
+place VP_RubblePile_Small01 - at 21 3 ground
+place VP_RubblePile_Small02 - at 36 -4 ground
+scatter "Pickup_Landmark_Scrap 1_OceanBottom" 4 at 34 -6 r=12 seed=7810 free=2
+
+# ===== The jungle in the west: bamboo, bananas, monstera, big palms, fruit; a castaway's lean-to on its edge ==============
+scatter Bamboo_1 6 at -40 -10 r=24 seed=7811 free=3
+scatter Bamboo_2 6 at -30 0 r=24 seed=7812 free=3
+scatter Bamboo_3 4 at -45 5 r=20 seed=7813 free=3
+scatter Banana_Bush_1 5 at -35 -10 r=26 seed=7814 free=3
+scatter Banana_Bush_2 4 at -25 -20 r=20 seed=7815 free=3
+scatter Monstera_1 8 at -35 -5 r=28 seed=7816 free=2
+scatter Monstera_2 6 at -40 0 r=24 seed=7817 free=2
+scatter BigPalm1 3 at -45 -15 r=22 seed=7818 free=6
+scatter BigPalm3 3 at -25 0 r=16 seed=7819 free=6
+scatter "Pickup_Landmark_Tree_Mango" 2 at -30 -15 r=18 seed=7820 free=5
+scatter "Pickup_Landmark_PineappleLandmark" 3 at -42 0 r=18 seed=7821 free=3
+push at -40 20 h=4
+call floors w=3 d=2 y=0.1
+call corners w=3 d=2 y=0.1
+roof 3 2 at 0 0 y=0.1
+place Placeable_Bed_Basic - at 1.15 1.6 y=0.1 sit yaw=90
+place Loot_Chest leantochest at 3.7 2.2 y=0.1 sit yaw=180
+place Note_Book castawaybook at 3.3 0.9 y=0.1 sit yaw=20
+pop
+place campfire_1 - at -37.75 17 ground
+
+# ===== The cave in the south shore's hump: its hoard, its bear =========================================================
+place Loot_ChestSmall hoardchest at -17.5 -55 h=2.05 sit yaw=240
+place Placeable_Lantern_Metal - at -22.6 -54 h=2.05 sit
+place Creature_Bear bear at -21 -56 h=2.1
+
+# ===== Under the sea: a plate of the craft on the sea floor, a barrel beside it; Raft's finds in the shallows ============
+place CaravanRocketDebris_Body2 seaplate at 58 -78 ground sit yaw=30 roll=20 scale=4
+place Loot_SunkenBarrel platebarrel at 53 -74 ground
+scatter SeaVine3_klump 3 at 58 -78 r=10 seed=7822 wet free=3
+call shallows r=100 deep=5 n=1 seed=7823
+place Creature_Dolphin dolphins at -70 -80 h=-3
+
+# ===== Monsters: warthogs in the jungle, a screecher over the crater (the bear is in the cave) ==========================
+place Creature_Boar hogs at -30 -20 ground
+place Creature_StoneBird screecher at 25 10 h=22
+
+# ===== Raft's features: wild bees, dirt, a buried tin, a chest under vines in the jungle ================================
+call hives x=-30 z=-10 r=24 n=3 seed=7824
+call dirt x=0 z=30 r=24 n=4 seed=7825
+call treasure x=55 z=30 r=14 n=1 seed=7826
+call vinecache x=-50 z=-25 r=14 seed=7827 items=Rope*3;Nail*10;CopperOre*2
+
+# ===== Settings, notes, loot (no quest) ===================================================================================
+info title=Glowfall Isle
+info author=Custom Islands
+info description=A big green island where something fell from the sky: a scorched crater with a strange craft tipped over in it, its plates strewn along the furrow and a pool that glows green. Thick jungle in the west, a cave on the south shore. Warthogs, a bear and a screecher. No quest.
+
+note crashnote Scorched page | IT CAME DOWN ON THE THIRD NIGHT\nA light like a second moon, then the ground shook.\nThe thing in the pit is still warm. The water round it glows and never goes cold.\nI keep away after dark. The birds do too.
+note castawaybook The castaway's book | GLOWFALL\n\nI named this place for the night the sky fell on it.\nBananas and bamboo in plenty in the west. Pigs too - the mean kind.\nThe pit in the east hums when the wind drops. I took a crate from it and left the rest.\nThere's a bear in the rock on the south beach. Don't sleep there.
+note leantochest Castaway's chest | The castaway's chest: rope, bait, seeds from the jungle.
+loot leantochest Rope*2;FishingBait_Simple*3;Seed_Banana*2;Seed_Pineapple*1
+prop leantochest loot.refill=0
+note podcrate Crate from the pit | A crate thrown from the craft, its seals burnt: strange metal, glass, a battery.
+loot podcrate TitaniumOre*2;Glass*3;Battery*1;CopperIngot*2
+prop podcrate loot.refill=0
+note hoardchest Bear's hoard | Whatever the bear dragged in: leather, copper, nails.
+loot hoardchest Leather*3;CopperOre*3;Nail*10
+prop hoardchest loot.refill=0
+note platebarrel Barrel by the plate | A barrel caught under the fallen plate: metal, bolts, rope.
+loot platebarrel MetalIngot*2;Bolt*3;Rope*2
+prop platebarrel loot.refill=0
+prop hogs creature.count=2
+prop dolphins creature.count=2
+
+save Glowfall Isle

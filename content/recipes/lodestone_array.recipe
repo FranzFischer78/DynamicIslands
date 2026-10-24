@@ -1,0 +1,301 @@
+# The Lodestone Array - an island of the library's plan The Gravity Sea (finale part 1, a sky island 35 m over the sea)
+# The Halvard Institute's crown: a rock plate 35 m up, four giant magnet arms round a moat, and in the middle, on its
+# own round platform, the core (Temperance's reactor stack). Each arm is a harpoon tower's platform with its gun on top
+# and two iron poles beside it - the coils. Ziplines run from the landing ring round the four arms; a glass bridge
+# crosses the moat to the core and breaks behind you. A storm hangs over it all, sparks in the air. A Raft store on the
+# landing ring. Quest "Shutting the Crown" (22 steps): the ring, the manual, the screechers, the ring locker, the
+# generator, the coil status board; the four arms and their coils (north, east, south, west - in order; the last shows
+# the "Coils offline" board), the west arm cache; the bridge, the beam (emitter, two mirrors, the core's door panel), the
+# Array's guardian (an iron bear), the core warning, the core cutoff (the core goes dark; a camera) and the core (the
+# plan's done-when, zone core - it brings the Array Root).
+#
+# Built by the recipe player (CIRecipe lodestone_array) through the editor's own operations. Points (metres over the
+# island's own water line; in the world it all floats 35 m higher): the plate at 5 m (r 30 round 0 0); the moat r 9..13
+# at 1 m; the core platform r 9 at 5 m; the arms north 0 24, east 24 0, south 0 -24, west -24 0; the landing ring
+# round 18 -18. Beam: emitter -6.8 -6, mirrors -6 -2 / 6 -2, the door panel 6 4.5 (the_tide_engine's tested layout).
+# (The design's UT_Set_TowerHarpoon is 380 m and Dome_Glass 100 m: the arms are built of a tower's platform and gun,
+# the core of the reactor controls in the open.)
+include lib_huts
+include lib_gravity
+include lib_features
+new
+gen Trees=0 Bushes=0.15 Rocks=0.3 Harvest=0.15 BeachThings=0
+gen Seed=9681 Radius=36 Height=10 Roughness=0.4 Peaks=1 Shape=0 Style=0 BeachWidth=0.1 Cliffs=0.7 PeakShape=0.4
+gen Water=0 SeaRocks=0 SeaFinds=0 Sunken=0 Hostiles=0 Friendly=0 SeaLife=0
+generate
+elevation 35
+
+# --- Terrain: the plate at 5 m, the moat at 1 m, the core platform at 5 m ------------------------------------------
+brush flatten at 0 0 r=30 s=20 frames=200 h=5
+brush flatten at 0 0 r=13 s=20 frames=300 h=1
+brush flatten at 0 0 r=9 s=20 frames=300 h=5
+brush flatten at -6 -5 r=3 s=20 frames=200 h=5
+brush smooth at -21.6 -37.2 r=10 s=20 frames=150
+brush flatten at 6 4.5 r=3 s=20 frames=200 h=5
+brush flatten at -5 4 r=2.5 s=20 frames=200 h=5
+origin
+clear at 0 0 r=28
+
+# --- The four magnet arms: a harpoon tower's platform, its gun on top, two iron poles; a coil control on a post ------
+macro arm x=0 z=0 yaw=0 al=arm ctl=coil cx=0 cz=0
+place UT_HarpoonTower_Platform armdeck at $x $z ground sit yaw=$yaw
+place UT_Harpoon_Base armgun at $x $z ground y=4.5 drop yaw=$yaw
+place UT_Harpoon_Barrel armgun at $x $z ground y=5.5 drop yaw=$yaw
+place RT_PillarThick poles at {$x+3.6*cos($yaw)} {$z-3.6*sin($yaw)} ground sy=1.3
+place RT_PillarThick poles at {$x-3.6*cos($yaw)} {$z+3.6*sin($yaw)} ground sy=1.3
+place Zone_Trigger $al at $cx $cz ground y=1
+place RT_Pillar - at $cx $cz ground sy=0.4
+place TP_LaserControlPanel_lever $ctl at $cx $cz ground y=1.25 scale=3 yaw={$yaw+180}
+end
+call arm x=0 z=24 yaw=0 al=northzone ctl=northcoil cx=-2.5 cz=20
+call arm x=24 z=0 yaw=90 al=eastzone ctl=eastcoil cx=20 cz=2.5
+call arm x=0 z=-24 yaw=180 al=southzone ctl=southcoil cx=2.5 cz=-20
+call arm x=-24 z=0 yaw=270 al=westzone ctl=westcoil cx=-20 cz=-2.5
+prop armdeck tint.color=#5a5f66
+prop armdeck tint.amount=0.6
+prop armgun tint.color=#5a5f66
+prop armgun tint.amount=0.6
+prop poles tint.color=#3c4046
+prop poles tint.amount=0.6
+place Loot_Chest westcache at -21 3 ground sit yaw=90
+
+# --- The ziplines: the landing ring to the north arm, then round the arms ------------------------------------------
+place ZiplinePath_Landmark zipring at 15 -15 h=17.05
+zipto zipring -1 19
+place ZiplinePath_Landmark zipnorth at 1 19 h=17.05
+zipto zipnorth 19 1
+place ZiplinePath_Landmark zipeast at 19 -1 h=17.05
+zipto zipeast 1 -19
+place ZiplinePath_Landmark zipsouth at -1 -19 h=17.05
+zipto zipsouth -19 1
+# (Raft's zipline has no stand: its near end's floor (ZiplineBase_FloorB) is 5.72 m west, 0.97 m north of where it is put and
+# 1.35 m under its h - put "ground" it hung 10-13 m in the air (or, the north line, sank under the plate where Raft's own
+# line ran off the cliff); each line starts at h 15.7 on an iron post down to the plate, 2026-10-20)
+macro zippost x=0 z=0 sy=1.78
+place RT_PillarThick zipposts at $x $z ground sy=$sy
+end
+call zippost x=9.28 z=-14.03 sy=1.77
+call zippost x=-4.72 z=19.97 sy=1.77
+call zippost x=13.28 z=-0.03 sy=2.04
+call zippost x=-6.72 z=-18.03 sy=1.77
+
+# --- The landing ring: the manual, the ring locker, the generator (its lever) and the coil boards; the store ----
+place Zone_Trigger ringzone at 18 -18 ground
+place Note_Sign manual at 21 -16 ground sit yaw=225
+place Loot_Chest ringlocker at 22 -19 ground sit yaw=270
+place "VG_DecorationPrefabBase_EmergencyGenerator Variant" - at 15 -21 ground sit yaw=45
+place RT_Pillar - at 17 -22 ground sy=0.4
+place TP_LaserControlPanel_lever generator at 17 -22 ground y=1.25 scale=3 yaw=0
+place Note_Sign coilstatus at 13 -20 ground sit yaw=180
+place Note_Sign coilsoff at 11 -18 ground sit yaw=180
+store arrayshop at 22 -12 ground
+place Creature_StoneBird screechers at 18 -18 h=16
+
+# --- The glass bridge over the moat to the core platform (it breaks behind you) -------------------------------------
+place VP_GlassBridge bridge at 0 -11 h=5 scale=0.5
+place VP_GlassBridge_Broken bridgebroken at 0 -11 h=5 scale=0.5
+place Zone_Trigger bridgezone at 0 -7.5 h=5.5
+place ZiplinePath_Landmark zipback at 3.5 -5 h=17.05
+zipto zipback 15 -15
+call zippost x=-2.22 z=-4.03 sy=1.78
+prop zipposts tint.color=#3c4046
+prop zipposts tint.amount=0.6
+
+# --- The core platform: the core, its glow, the beam (emitter, two mirrors, the door panel), the guardian, the warning,
+# the cutoff lever; the core zone (shown when the core is dark) --------------------------------------------------------
+place TP_SeleneReactorControls core at 0 2 h=5 sit
+prop core tint.color=#4a6a8a
+prop core tint.amount=0.5
+# (Raft's reactor controls hang from a ceiling in Temperance: a 10.6 m bent pipe from a ring mount down to the claw -
+# put "sit" it stood on its claw tips with nothing holding the ring; it hangs from a beam on two iron posts, 2026-10-20)
+place RT_PillarThick coreframe at -1.6 2 ground sy=1.87
+place RT_PillarThick coreframe at 2.4 2 ground sy=1.87
+place RT_PillarThick coreframe at 2.7 2 h=15.85 rot=0,0,90 sy=0.77
+prop coreframe tint.color=#3c4046
+prop coreframe tint.amount=0.6
+place RT_Floodlight coreglow at 2.5 -0.5 h=5 sit yaw=-45
+place RT_Floodlight coreglow at -2.5 -0.5 h=5 sit yaw=45
+place RT_Floodlight coreglow at 2.5 4.5 h=5 sit yaw=-135
+place RT_Floodlight coreglow at -2.5 4.5 h=5 sit yaw=135
+place TP_LaserEmitter emitter at -6.8 -6 h=5 sit yaw=0
+place TP_MirrorHousing_Rotating mirror1 at -6 -2 h=5 sit yaw=0
+place TP_MirrorHousing_Rotating mirror2 at 6 -2 h=5 sit yaw=270
+place "Box Big" - at 6 5.3 h=5 sit
+place TP_LaserDoorPanel corepanel at 6 4.5 h=5 sit scale=2 yaw=180
+place Note_Sign corewarning at -3 6.5 h=5 sit yaw=180
+place RT_Pillar - at -5 4 h=5 sy=0.4
+place TP_LaserControlPanel_lever cutoff at -5 4 h=6.25 sit scale=3 yaw=180
+place Placeable_Lantern_Metal corecam at 0 -6.5 h=5 sit
+place Zone_Trigger corezone at 0 -2.5 h=5.5
+place Creature_Bear guardian at 0 -4 h=5.2
+place Zone_Trigger guardzone at 0 0 h=5.5
+
+# --- The storm over the Array ----------------------------------------------------------------------------------------
+place Zone_Atmosphere storm at 0 0 h=10
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=The Lodestone Array
+info author=Custom Islands
+info description=The Halvard Institute's crown, 35 m over the sea: four giant magnet arms round a moat, a glass bridge, and the core that tore the islands into the sky. A storm and sparks over it all. The finale's first half of The Gravity Sea.
+island on.arrive=message||Four iron arms round a core, sparking in a storm, 35 m over the sea. Every compass on the raft spins.
+
+story arraypower|Array generator on|Battery|You started the Array's generator: the coils can be worked.
+story coilnorth|North coil off|Bolt|You pulled the north coil's lever.
+story coileast|East coil off|Bolt|You pulled the east coil's lever.
+story coilsouth|South coil off|Bolt|You pulled the south coil's lever.
+story coilwest|West coil off|Bolt|You pulled the west coil's lever.
+story beamset|Beam on the core door|Battery|The beam runs through two mirrors onto the core's door panel.
+story crownoff|Crown shut off|Placeable_Lantern_Metal|You pulled the core cutoff: the Array's crown went dark.
+
+note manual Array operating manual | LODESTONE ARRAY - OPERATING MANUAL\n\n1. Start the generator on the landing ring.\n2. Take the coils off line in order: north, east, south, west. Ride the lines between the arms.\n3. Cross to the core by the glass bridge. The core's door takes the beam (emitter, two mirrors).\n4. The CUTOFF is by the core. It stops the crown - not the root.
+note ringlocker Ring locker | The landing ring's locker: the crew's spare lights, wire and a little food.
+note coilstatus Coil status | COIL STATUS\n\nNORTH - ON\nEAST - ON\nSOUTH - ON\nWEST - ON\n\nField: rising. Do NOT approach the core with the coils on line.
+note coilsoff Coils offline | COIL STATUS\n\nNORTH - OFF\nEAST - OFF\nSOUTH - OFF\nWEST - OFF\n\nField: falling. The core may be approached.
+note westcache West arm cache | The west arm's cache: Halvard's crew's emergency kit.
+note corewarning Core warning | CORE - WARNING\n\nThe cutoff stops the crown. The field below - the ROOT, 35 m under the sea - keeps pulling until its own cutoff is thrown.\nIf the crown goes dark and the root does not, the islands stay up. Throw both.\n\n- E. H.
+loot ringlocker Battery*1;CopperIngot*2;Rope*2;Cooked_Mackerel*2
+prop ringlocker loot.refill=0
+loot westcache TitaniumIngot*2;MetalIngot*3;Battery*1
+prop westcache loot.refill=0
+prop westcache if.open=signal|claw
+prop westcache else.open=message||The west arm's cache is clamped shut while its coil is on line.
+prop coilsoff obj.name=coilsoff
+prop coilsoff beh.hidden=1
+
+prop ringzone zone.id=ring
+prop ringzone zone.radius=6
+prop ringzone zone.message=The landing ring. Screechers rise off the arms!
+prop screechers creature.count=4
+prop screechers creature.respawn=0
+prop screechers creature.zone=ring
+
+prop generator obj.name=generator
+prop generator beh.use=Start the Array's generator
+prop generator if.use=!signal|power
+prop generator on.use=signal||power\ngive||story:arraypower*1\nmessage||The generator coughs and roars. Along the arms, the coil lights flicker.\nsound||event:/exploring/obstacles/keypad/keypad_correct
+prop generator else.use=message||The generator is running.
+
+prop northzone zone.id=north_arm
+prop northzone zone.radius=4
+prop northzone zone.message=The north arm. Its coil hums.
+prop eastzone zone.id=east_arm
+prop eastzone zone.radius=4
+prop eastzone zone.message=The east arm.
+prop southzone zone.id=south_arm
+prop southzone zone.radius=4
+prop southzone zone.message=The south arm.
+prop westzone zone.id=west_arm
+prop westzone zone.radius=4
+prop westzone zone.message=The west arm - the last coil.
+
+prop northcoil obj.name=northcoil
+prop northcoil beh.use=Take the north coil off line
+prop northcoil if.use=signal|power\n!signal|lever
+prop northcoil on.use=signal||lever\ngive||story:coilnorth*1\nmessage||The north coil's hum dies.
+prop northcoil else.use=message||Nothing - the generator on the landing ring is off, or the coil is off already.
+prop eastcoil obj.name=eastcoil
+prop eastcoil beh.use=Take the east coil off line
+prop eastcoil if.use=signal|lever\n!signal|crank
+prop eastcoil on.use=signal||crank\ngive||story:coileast*1\nmessage||The east coil's hum dies.
+prop eastcoil else.use=message||The manual says: north first. Or it is off already.
+prop southcoil obj.name=southcoil
+prop southcoil beh.use=Take the south coil off line
+prop southcoil if.use=signal|crank\n!signal|wire
+prop southcoil on.use=signal||wire\ngive||story:coilsouth*1\nmessage||The south coil's hum dies.
+prop southcoil else.use=message||The manual says: north, then east. Or it is off already.
+prop westcoil obj.name=westcoil
+prop westcoil beh.use=Take the west coil off line
+prop westcoil if.use=signal|wire\n!signal|claw
+prop westcoil on.use=signal||claw\ngive||story:coilwest*1\nshow|coilsoff\nmessage||The last coil dies. The storm's sparks thin out - and back on the landing ring, the status board changes.
+prop westcoil else.use=message||The manual says: north, east, south, then west. Or it is off already.
+
+prop bridge obj.name=bridge
+prop bridgebroken obj.name=bridgebroken
+prop bridgebroken beh.hidden=1
+prop bridgezone zone.id=bridge
+prop bridgezone zone.radius=2.5
+prop bridgezone zone.repeat=never
+prop bridgezone zone.message=Behind you the glass cracks and falls into the moat. The way back is the line by the core.
+prop bridgezone on.enter=hide|bridge\nshow|bridgebroken
+
+prop mirror1 obj.name=mirror1
+prop mirror1 col.mode=box
+prop mirror1 on.use=switch|\nmessage||The mirror grinds round a quarter turn.
+prop mirror2 obj.name=mirror2
+prop mirror2 col.mode=box
+prop mirror2 on.use=switch|\nmessage||The mirror grinds round a quarter turn.
+prop emitter obj.name=emitter
+prop corepanel obj.name=corepanel
+prop corepanel if.laser=!signal|laser
+prop corepanel on.laser=signal||laser\ngive||story:beamset*1\nshow|guardian\nmessage||The core's door panel drinks the beam - and something heavy stirs by the core.
+
+prop guardzone zone.id=core_guard
+prop guardzone zone.radius=8
+# The guardian stays hidden until the beam is set (show|guardian on the core panel), so it can't stand in the beam.
+prop guardian obj.name=guardian
+prop guardian beh.hidden=1
+prop guardian creature.count=1
+prop guardian creature.respawn=0
+prop guardian creature.zone=core_guard
+prop guardian creature.health=8
+prop guardian creature.damage=1.5
+prop guardian creature.size=1.3
+prop guardian boss.phase=0.5
+prop guardian boss.speed=1.3
+prop guardian tint.color=#5a5f66
+prop guardian tint.amount=0.6
+prop guardian on.defeat=signal||guardian\nmessage||The iron bear falls. By the core, a sign and the cutoff lever.
+
+prop core obj.name=core
+prop coreglow obj.name=coreglow
+prop corecam obj.name=corecam
+prop cutoff obj.name=cutoff
+prop cutoff beh.use=Pull the core cutoff
+prop cutoff if.use=signal|laser\nsignal|claw\n!signal|crownoff
+prop cutoff on.use=signal||crownoff\nhide|coreglow\nshow|corezone\ngive||story:crownoff*1\ncamera|corecam|core|6|40\nmessage||The cutoff comes down. The core's glow dims to nothing, the storm's sparks die - but under your feet the rock still pulls at the sea below.
+prop cutoff else.use=message||The cutoff is locked: the coils must be off line and the core's door open to the beam.
+prop corezone obj.name=corezone
+prop corezone beh.hidden=1
+prop corezone zone.id=core
+prop corezone zone.radius=3
+prop corezone zone.message=The core is dark. Far below, 35 m under the sea, the root still hums.
+
+prop storm atmo.fog=#3a4250
+prop storm atmo.fogAmount=0.5
+prop storm atmo.light=#6a7a9a
+prop storm atmo.lightAmount=0.5
+prop storm atmo.particles=embers
+prop storm zone.radius=34
+
+quest title=Shutting the Crown
+quest intro=The Lodestone Array, 35 m over the sea. Land on its ring.
+step reach|ring|1|Land on the Array's landing ring
+step read|Array operating manual|1|Read the Array's operating manual
+step kill|Screecher|4|Drive the screechers off the landing ring
+step open|Ring locker|1|Open the ring locker
+step collect|story:arraypower|1|Start the Array's generator
+step read|Coil status|1|Read the coil status board
+step reach|north_arm|1|Ride the line to the north arm
+step collect|story:coilnorth|1|Take the north coil off line
+step reach|east_arm|1|Ride the line to the east arm
+step collect|story:coileast|1|Take the east coil off line
+step reach|south_arm|1|Ride the line to the south arm
+step collect|story:coilsouth|1|Take the south coil off line
+step reach|west_arm|1|Ride the line to the west arm
+step collect|story:coilwest|1|Take the west coil off line
+step read|Coils offline|1|Read the status board on the landing ring again
+step open|West arm cache|1|Open the west arm's cache
+step reach|bridge|1|Cross the glass bridge to the core
+step collect|story:beamset|1|Bring the beam through the two mirrors to the core's door panel
+step kill|Bear|1|Defeat the Array's iron guardian
+step read|Core warning|1|Read the core warning
+step collect|story:crownoff|1|Pull the core cutoff
+step reach|core|1|Stand by the dark core
+quest done=The crown is dark - but the root, 35 m under the sea, still pulls. The Receiver hears it on band 800.
+quest reward=TitaniumIngot*3;MetalIngot*4;Battery*2;Bolt*4
+
+# Buried treasure (one of the story line's last islands): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=18 n=1 seed=8817
+prop treasure8817 treasure.loot=TitaniumOre*3
+
+save The Lodestone Array

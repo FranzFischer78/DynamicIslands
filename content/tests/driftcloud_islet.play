@@ -1,0 +1,13 @@
+# Play test of Driftcloud Islet (CIPlay driftcloud_islet, in a test world 'CI ...'): a flying island (55 m up; heights
+# count from the island's own water line). No quest: the meadow, the lean-to's chest, down to the nesting ledge and up
+# its ladder. Points as in its recipe.
+island Driftcloud Islet
+offset 0 0
+wait 3
+at 0 -2
+expect height 6
+at -1.5 -0.5 h=6
+open Chest under the lean-to
+at 2 -9.8
+expect height 3.6
+climb 2 -8.15 h=3.6

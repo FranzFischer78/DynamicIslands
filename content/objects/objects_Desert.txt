@@ -1,0 +1,37 @@
+# Raft's objects the randomizer builds with (CIMeasureProps, raft=1.1.01)
+# prop	<name>	<scene>	<size x,y,z>	<centre x,y,z>	<bottom below the pivot>	<solid colliders>   (at the scale the object spawns with)
+# cave	<name>	<axis of the passage 0=x 2=z>	<floor above the pivot>	<headroom>	<width>	<open at +axis>	<open at -axis>	<a point in the passage, from the pivot>	<room from it towards +axis>	<and towards -axis> (99 = open)
+prop	BigBush_1		1.421,1.099,1.308	0.057,0.508,-0.022	-0.042	0
+prop	BigBush_2		1.394,1.216,1.431	0.098,0.566,0.071	-0.042	0
+prop	BigSharpRock_1		24.894,32.407,37.433	0.158,-0.193,-0.28	-16.397	1
+prop	BigSharpRock_2		35.545,31.678,37.46	-0.468,-0.359,-0.417	-16.198	1
+prop	BigSharpRock_3		14.238,21.781,13.677	-0.232,-0.081,-0.447	-10.972	1
+prop	BigSharpRock_5		11.696,6.908,20.525	0.002,0.006,-0.037	-3.448	1
+prop	CaravanIsland_BrownGrass		0,0.817,0.817	0,0.409,0	0	0
+prop	Cactus1A		1.132,2.399,0.987	0.118,1.163,0.15	-0.036	1
+prop	Cactus1B		0.971,2.268,1.275	0.017,1.071,-0.105	-0.062	1
+prop	Cactus2A		1.317,2.79,1.021	-0.027,1.285,0.075	-0.11	1
+prop	Cactus2B		0.963,1.797,1.165	-0.058,0.864,0.002	-0.034	1
+prop	Cactus3A		1.384,2.959,1.199	-0.087,1.348,-0.019	-0.131	1
+prop	Cactus3B		1.679,2.751,1.276	0.014,1.16,-0.099	-0.215	1
+prop	Cactus4A		1.092,1.673,0.525	-0.068,0.814,0.017	-0.022	1
+prop	Cactus4B		1.533,1.558,0.938	-0.166,0.733,-0.004	-0.047	1
+prop	Cactus5A		1.911,0.801,1.554	-0.011,0.282,-0.011	-0.118	1
+prop	Cactus5B		2.406,1.015,1.743	-0.022,0.342,0.08	-0.165	1
+prop	Cactus6		0.834,1.119,0.821	-0.042,0.536,0.048	-0.023	1
+prop	Cactus7		0.607,1.162,0.566	0.022,0.558,0.022	-0.023	1
+prop	DesertFern_01		1.435,1.33,1.423	-0.038,0.665,0.046	0	0
+prop	DesertFern_02		1.45,1.351,1.444	-0.11,0.675,0.047	0	0
+prop	CaravanIsland_GreenGrass		0,0.696,0.696	0,0.348,0	0	0
+prop	SmallBush_1		0.502,0.425,0.462	0.015,0.181,0.003	-0.031	0
+prop	SmallBush_2		0.704,0.533,0.622	-0.03,0.19,0.021	-0.076	0
+prop	SmallBush_3		0.47,0.379,0.436	0.027,0.132,-0.006	-0.058	0
+prop	SmallBush_4		1.122,1.319,1.43	0.013,0.519,-0.007	-0.14	0
+prop	SmallBush_5		1.085,1.258,1.851	0.009,0.407,-0.008	-0.222	0
+prop	SmallBushyTree_1		1.928,2.469,2.285	-0.042,1.182,-0.35	-0.053	1
+prop	SmallBushyTree_2		1.485,2.203,1.816	-0.023,1.053,-0.081	-0.049	1
+prop	SmallBushyTree_3		1.252,1.701,0.975	-0.091,0.788,-0.06	-0.063	1
+prop	CaravanIsland_SmallRock_1		1.945,2.861,2.345	0.008,0.233,0.016	-1.198	1
+prop	CaravanIsland_SmallRock_2		2.518,1.459,2.143	-0.029,0.082,-0.01	-0.648	1
+prop	CaravanIsland_SmallRock_3		3.085,1.75,2.135	0.001,0.044,0.024	-0.831	1
+prop	CaravanIsland_YellowGrass		0,0.673,0.673	0,0.336,0	0	0

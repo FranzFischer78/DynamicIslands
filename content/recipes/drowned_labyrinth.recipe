@@ -1,0 +1,267 @@
+# The Drowned Labyrinth - a themed island, normal size (x1, mostly under water). Inspiration: cave-diving films (a team
+# lost in a flooded cave system, a guideline through the dark, air bells, a way out that is only open for a few breaths)
+# - the mood only, never named on the island.
+# Sandy desert islets on a reef shelf 2.5 m down (Shape 2, Style 2), a dive camp on the largest; under the reef, 19 m
+# down, a labyrinth of Temperance's underwater cave tunnels: the mouth at the bottom of a hole in the reef by a buoy, the
+# first fork (a dead end to the east), the second fork with an air bell, the Hall of Columns (Balboa's bear cave) to the
+# west where an old trader's strongbox and something with a light on its head wait, and from the second fork a short
+# tunnel north to a tide gate that opens on a hole in the reef for forty breaths.
+#
+# The pieces join end to end at their boxes (a Straight runs 10.4 m along its z, its passage at x 3; a CrossT's through
+# passage runs along x at z -4.53 between x -3.42 and 9.42, its stem north at x 3; the bear cave's mouth is at +z 16 of
+# its pivot, its floor 4.05 m lower than the tunnels' pivots - found with kit_labyrinth). The reef covers them all; only
+# the two holes reach down to the mouth and the gate.
+include lib_sea
+new
+gen Trees=0.38 Bushes=0.5 Rocks=0.55 Harvest=0.25 BeachThings=0.3
+gen Seed=9005 Radius=45 Height=5 Roughness=0.3 Peaks=1 Shape=2 Style=2 BeachWidth=0.7 Cliffs=0.1 PeakShape=0.2
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.25 SeaFinds=0.15 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== The holes in the reef: the labyrinth's mouth (by the buoy) and the tide gate's way out ==========================
+brush flatten from 17 6.5 to 17 11.5 r=4.5 s=20 frames=80 h=-19.2
+brush flatten from 4.16 6.5 to 4.16 11.5 r=4.5 s=20 frames=80 h=-19.2
+clear from 17 6 to 17 12 r=5
+clear from 4.16 6 to 4.16 12 r=5
+# (the camp's ground on the largest islet cleared)
+clear at -8.5 16 r=7.5
+
+# ===== The labyrinth (the tunnels' pivots 18.5 m down, their floors at 19) =============================================
+# (the mouth tunnel south from the buoy's hole to the first fork; the first fork; its dead end to the east; the second
+# fork face to face with the first, west of it; the tide gate's tunnel north from the second fork; the Hall of Columns
+# west of the second fork)
+place TP_UnderwaterCaveTunnel_Straight tunnels at 14 4.15 h=-18.5
+place TP_UnderwaterCaveTunnel_CrossT tunnels at 14 -6 h=-18.5
+place TP_UnderwaterCaveTunnel_Straight tunnels at 32.15 -7.53 h=-18.5 yaw=90
+place TP_UnderwaterCaveTunnel_CrossT tunnels at 1.16 -6 h=-18.5
+place TP_UnderwaterCaveTunnel_Straight tunnels at 1.16 4.15 h=-18.5
+place BalboaCave_Bear tunnels at -18.26 -11.6 h=-14.45 yaw=90
+prop tunnels tint.color=#6a5a48
+prop tunnels tint.amount=0.8
+# (the dead end walled up at its far end with fallen blocks of stone - the radio tower's ground blocks, tinted: rocks
+# under the ground are taken out when the island saves; the dark water and the drone of the labyrinth)
+place RT_GroundPillar deadendwall at 32.8 -10.5 h=-16.4 sx=1.5 sz=1.5 yaw=8
+place RT_GroundPillar deadendwall at 32.6 -10.6 h=-14.9 sx=1.5 sy=0.5 sz=1.5 yaw=-6
+prop deadendwall tint.color=#5a4c3e
+prop deadendwall tint.amount=0.85
+place Zone_Atmosphere mazedark at 17 0 h=-17
+place Zone_Atmosphere mazedark at 17 -10.5 h=-17
+place Zone_Atmosphere mazedark at 4.16 -10.5 h=-17
+place Zone_Atmosphere mazedark at -18 -10.5 h=-15
+place Zone_Sound mazesound at 4 -8 h=-16
+
+# ===== The mouth: the buoy over the hole, the line post and a barrel at the bottom ======================================
+place Reef_Buoy - at 17 9.5 h=0.1
+place ReefHuts_Pillar1 linepost at 18.8 7.4 h=-19.2
+place Loot_SunkenBarrel mouthbarrel at 15.2 8.8 h=-18 drop
+place Zone_Trigger entrance at 17 7.5 h=-17
+
+# ===== The first fork: its slate, puffers; the dead end's box ===========================================================
+place Note_Paper fork1slate at 17.6 -9.2 h=-18.8 drop yaw=30
+place Creature_PufferFish puffers at 18 -11 h=-17.5
+place "Box Small" deadendbox at 30.4 -10.4 h=-18 drop yaw=80
+
+# ===== The guideline's lamps along the right way (hidden until the reel is tied off at the mouth) =======================
+place UT_LightBottle01 guidelamps at 16.2 0.5 h=-16.95
+place UT_LightBottle02 guidelamps at 15.0 -9.4 h=-17.6
+place UT_LightBottle03 guidelamps at 6.5 -11.6 h=-17.6
+place UT_LightBottle01 guidelamps at -1.2 -9.6 h=-17.6
+place UT_LightBottle02 guidelamps at -10 -10.8 h=-17.1
+
+# ===== The second fork: the air bell under its roof ======================================================================
+place AirPocket_1 airbellrock at 4.16 -10.5 h=-16.6 scale=0.6
+place Zone_Trigger airbell at 4.16 -10.5 h=-15
+place Zone_Atmosphere airbellbubbles at 4.16 -10.5 h=-15.5
+
+# ===== The Hall of Columns (the bear cave, floor ~18.8 m down, x -34..-2): columns, the trader's strongbox on a ledge, the
+# leader's last slate, an air pocket by the far wall, the tide gate's lever by the far column, the angler ===============
+# (stone columns: the radio tower's ground blocks (pivot on top) stretched tall and tinted sand - the sea's own stone pillars under the
+# ground are taken out when the island saves; the strongbox on a low block by the far wall)
+place RT_GroundPillar columns at -9 -14.6 h=-11.0 sy=2.8
+place RT_GroundPillar columns at -9 -6.6 h=-11.0 sy=2.8
+place RT_GroundPillar columns at -17 -14.8 h=-11.0 sy=2.8
+place RT_GroundPillar columns at -17 -6.3 h=-11.0 sy=2.8
+place RT_GroundPillar columns at -25 -14.6 h=-11.0 sy=2.8
+place RT_GroundPillar columns at -25 -6.6 h=-11.0 sy=2.8
+prop columns tint.color=#b8a888
+prop columns tint.amount=0.6
+place RT_GroundPillar ledge at -30 -12 h=-18.4 sx=0.8 sy=0.4 sz=0.8
+prop ledge tint.color=#b8a888
+prop ledge tint.amount=0.6
+place MayorsChest cache at -30 -12 h=-17.6 drop yaw=90
+place Note_Paper leaderslate at -29.2 -10.6 h=-18.4 drop yaw=60
+place AirPocket_2 airbellrock at -31 -7.5 h=-14.5 scale=0.6
+place Zone_Trigger airbell2 at -31 -7.5 h=-13.5
+place UT_JumpPuzzle_LiftMechanism_Lever tidelever at -26.6 -6.6 h=-16.7 yaw=90
+place Creature_AnglerFish hallguard at -17 -10.5 h=-16
+place Zone_Trigger hall at -17 -10.5 h=-16
+
+# ===== The tide gate: bars across the gate tunnel's north end (they sink into the floor when the lever is pulled); the
+# way out up the hole beyond it (its zone hidden until the lever) ======================================================
+place TP_Selene_Int_Room_Bars tidegate at 1.5 5.0 h=-19.2
+place TP_Selene_Int_Room_Bars tidegate at 1.5 5.0 h=-16.45
+place Zone_Trigger exit at 4.16 9 h=-14
+
+# ===== The divers' camp on the largest islet (round -9.6 16, 11 m across, its top ~5 m) =================================
+place Balboa_DecorationPrefabBase_SimpleTent - at -13 20 ground yaw=150
+place Balboa_DecorationPrefabBase_SimpleTent - at -6.5 21 ground yaw=200
+# (the chart table's mesh lies 12.6 m off its pivot (x0.6): the pivot north of the camp, the table by the tents)
+place MapTable plan at -9.6 25.05 h=4.9 scale=0.6
+place Locker divelocker at -4.6 16.6 ground yaw=-90
+place Pump - at -5.4 13.6 ground yaw=30
+place Pump_Handle - at -5.4 13.6 ground yaw=30
+place Cableroll_01 - at -6.6 13 ground
+place TP_Moontown_Barrel01 - at -4.4 14.6 ground
+place TP_Moontown_Barrel01 - at -4.2 15.4 ground
+place TP_Moontown_Barrel01 - at -5 15 ground
+place Crate_Big_01 - at -12.2 15.4 ground yaw=20
+place Placeable_Lantern_Metal - at -12.2 15.4 h=6.5 drop
+place Placeable_Flag_01 - at -9 11 ground yaw=60
+# (the cairn for the leader: three stones and a wooden marker, looking out over the hole in the reef)
+place SmallBoulder4 - at -2.4 11.4 ground scale=0.4 yaw=10
+place SmallBoulder4 - at -1.8 10.8 ground scale=0.35 yaw=80
+place SmallBoulder4 - at -2.2 10.6 ground scale=0.3 yaw=200
+place Placeable_Sign - at -2.1 11 ground yaw=120
+place RT_PlasticBoat - at 1.4 18 h=0.15 yaw=30
+place "Box Small" campcrate at -11.6 18 ground yaw=40
+place Zone_Trigger camp at -9.6 16 h=6
+
+# ===== The smallest islet's box under a bush ===========================================================================
+place SmallBush_4 - at 21 -1.4 ground
+place "Box Small" isletbox at 21.4 -2.4 ground yaw=30
+
+# ===== Friendly animals on the reef; Raft's finds in the shallows ======================================================
+scatter CaravanIsland_SmallRock_1 4 at 21.6 19.7 r=6 seed=71
+scatter CaravanIsland_SmallRock_2 3 at 9 -25.5 r=8 seed=72
+scatter CaravanIsland_SmallRock_1 3 at -21.6 -11 r=7 seed=73
+place Creature_Turtle turtles at -2 30 h=-1.5
+place Creature_Dolphin dolphins at 40 30 h=-3
+call shallows r=46 deep=5
+# (none down the two holes)
+clear at 17 9 r=5 all only=Pickup_Landmark_(Sand|Clay|Rock|Iron|Copper|Scrap|Giant)
+clear at 4.16 9 r=5 all only=Pickup_Landmark_(Sand|Clay|Rock|Iron|Copper|Scrap|Giant)
+
+where linepost
+where cache
+where tidelever
+where divelocker
+where plan
+where fork1slate
+where leaderslate
+where deadendbox
+where mouthbarrel
+where campcrate
+where isletbox
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): date palms, pineapples, melons ----------
+scatter "Pickup_Landmark_Tree_Palm 2" 2 at 0 0 r=31.5 seed=4528 free=5
+scatter "Pickup_Landmark_Tree_Palm 4" 2 at 0 0 r=31.5 seed=4529 free=5
+scatter "Pickup_Landmark_PineappleLandmark" 3 at 0 0 r=31.5 seed=4538 free=3
+scatter "Pickup_Landmark_WatermelonLandmark" 3 at 0 0 r=31.5 seed=4548 free=3
+
+# ===== Settings, story items, notes, behaviours, quest (7 steps) ==========================================================
+info title=The Drowned Labyrinth
+info author=Custom Islands
+info description=Sandy desert islets on a reef, and under the reef a labyrinth of flooded tunnels: a cave-diving expedition's guideline, the slates they left at the forks, an air bell halfway - and in the hall of columns at its heart, an old trader's strongbox and something with a light on its head.
+island on.arrive=message||White islets on a turquoise reef, a dive camp on the largest - and a buoy bobbing over a dark hole in the reef.
+
+story reel|Guideline reel|Rope|A diver's reel of guideline, its end clip ready to tie off at the labyrinth's mouth.
+
+note plan Dive leader's plan | BLUE LINE EXPEDITION - DIVE PLAN\n\nThe labyrinth runs under the reef from the mouth (the buoy) to a hall of columns where, the fishermen say, a trader hid his strongbox from the tax boats a hundred years ago.\n\n1. Tie a guideline off at the mouth before you go in. The lamps along the line only light when it is tied.\n2. At each fork, read the slate.\n3. Breathe at the air bell halfway.\n4. The hall has a tide gate to the open reef. It only stays open for about forty breaths.\n\nNoor went in alone on day 8. Her reel is still in the locker. Mine too.
+note divelocker Dive locker | The expedition's dive locker: two reels of guideline (one with NOOR on it), spare air, a pair of fins.
+loot divelocker story:reel*1;OxygenBottle*2;Flipper*1
+prop divelocker loot.refill=0
+note fork1slate First fork slate | (scratched into a dive slate)\n\nFORK 1. LEFT = DEAD END, silt, no way through.\nRIGHT - follow the lamps.\nPuffers here. Slow and wide.\n- N.
+note leaderslate Noor's last slate | (a dive slate on the ledge by the strongbox, the writing shaky)\n\nFound it.\nSomething with a light on its head found me.\nGate lever by the far column. Forty breaths, no more.\nIf you read this, I made it out.\n- N.
+note cache Trader's strongbox | The trader's strongbox, its lock long rotted: coins, a bag of silver-green weed dried to dust, rough ore - and a waxed packet of plans for a water flask that never runs dry, or so the trader wrote.
+loot cache Blueprint_Canteen*1;TradeToken*8;SilverAlgae*3;TitaniumOre*2;Glass*4
+prop cache loot.refill=0
+note campcrate Camp crate | The camp's crate: water, dates, rope.
+loot campcrate PlasticBottle_Water*2;Rope*2;Banana*2
+prop campcrate loot.refill=0
+note mouthbarrel Barrel at the mouth | A barrel jammed in the reef by the mouth: what the tide brings into the labyrinth and the labyrinth spits out.
+loot mouthbarrel Scrap*3;Plastic*3;Nail*6
+prop mouthbarrel loot.refill=0
+note deadendbox Dead end box | A box in the silt at the dead end - somebody else took the wrong turn once.
+loot deadendbox SilverAlgae*2;CopperOre*2;MetalOre*2
+prop deadendbox loot.refill=0
+note isletbox Islet box | A box under a bush on the smallest islet: a fisherman's spare tackle.
+loot isletbox FishingBait_Simple*3;Rope*2;Plank*4
+prop isletbox loot.refill=0
+
+prop linepost obj.name=linepost
+prop linepost beh.use=Tie off the guideline at the mouth
+prop linepost if.use=quest|2\ntake|story:reel|1
+prop linepost on.use=message||You tie the reel off on the post and let the line run into the dark. One after another, down the tunnel, small lamps wake along the line - the right way, the way the expedition laid it.\nshow|guidelamps\nsignal||lined\nsound||event:/crafting/hook_impact_reef
+prop linepost else.use=message||An old post at the labyrinth's mouth, worn smooth by guidelines. The dive plan says: tie a line off here before you go in.
+prop guidelamps obj.name=guidelamps
+prop guidelamps beh.hidden=1
+prop tidelever obj.name=tidelever
+prop tidelever beh.use=Pull the tide gate's lever
+prop tidelever on.use=message||The lever grinds over. Somewhere ahead the grate scrapes down into the floor - forty breaths, the slate said.\nopen|tidegate\nshow|exitzone\nsound||event:/exploring/obstacles/varuna/garagedoor_open\nwait|40\nclose|tidegate\nmessage||The tide gate grinds shut.
+prop tidegate obj.name=tidegate
+prop tidegate beh.move=0,-5.8,0
+prop tidegate beh.moveTime=2
+prop tidegate beh.moveMode=switch
+
+prop camp zone.id=camp
+prop camp zone.radius=8
+prop camp zone.message=The dive camp: tents, a compressor, a cairn with a wooden marker - and two reels in the locker.
+prop entrance zone.id=entrance
+prop entrance zone.radius=6
+prop entrance zone.message=The labyrinth's mouth: a black hole in the reef, an old post beside it, the current pulling inwards.
+prop airbell zone.id=airbell
+prop airbell zone.radius=3.5
+prop airbell zone.repeat=1
+prop airbell zone.air=1
+prop airbell zone.message=Air - a bell of it trapped under the rock. Breathe.
+prop airbell2 zone.id=airbell2
+prop airbell2 zone.radius=3.5
+prop airbell2 zone.repeat=1
+prop airbell2 zone.air=1
+prop hall zone.id=hall
+prop hall zone.radius=10
+prop hall zone.message=The Hall of Columns - and between the columns a light that is not one of the lamps, turning towards you.
+prop exit zone.id=exit
+prop exit obj.name=exitzone
+prop exit beh.hidden=1
+prop exit zone.radius=6
+prop exit zone.message=Open water and sunlight through the reef. You're out.
+prop airbellbubbles atmo.particles=bubbles
+prop airbellbubbles zone.radius=3
+prop puffers creature.count=3
+prop puffers creature.respawn=0
+prop hallguard creature.count=1
+prop hallguard creature.size=1.8
+prop hallguard creature.health=3
+prop hallguard creature.damage=1.5
+prop hallguard creature.respawn=0
+prop hallguard creature.zone=hall
+prop mazedark atmo.fog=#082030
+prop mazedark atmo.fogAmount=0.5
+prop mazedark atmo.light=#2a5a6a
+prop mazedark atmo.lightAmount=0.5
+prop mazedark zone.radius=12
+prop mazesound sound.event=event:/amb/underwater
+prop mazesound sound.volume=0.6
+prop mazesound zone.radius=30
+
+quest title=Forty Breaths
+quest intro=A dive camp on a desert reef, and a labyrinth under the reef that one diver went into alone. Start at the camp.
+step read|Dive leader's plan|1|Land at the divers' camp and read the dive plan on the chart table
+step collect|story:reel|1|Take a guideline reel from the dive locker
+step read|First fork slate|1|Dive to the mouth, tie off the line and follow the lamps to the first fork's slate
+step reach|airbell|1|Find the air bell halfway and breathe
+step kill|Angler fish|1|Face the light that waits in the Hall of Columns
+step open|Trader's strongbox|1|Open the old trader's strongbox in the hall
+step blueprint|Blueprint_Canteen|1|Take the canteen plans from the trader's strongbox
+step reach|exit|1|Pull the tide gate's lever and swim out before it shuts
+quest done=Out through the tide gate into the sun. The trader's strongbox is yours - and Noor's reel is still in the dive locker back at camp. Her last slate says she made it out.
+quest reward=OxygenBottle*2;Rope*4;CopperIngot*3
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=30 n=1 seed=8843
+prop treasure8843 treasure.loot=TitaniumOre*2
+
+save The Drowned Labyrinth

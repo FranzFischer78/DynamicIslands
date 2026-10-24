@@ -1,0 +1,319 @@
+# Glasshouse Gardens - a new island of the library, four times the size (x4)
+# A botanist's glasshouses on a flat-topped forest island 24 m high: the Orchid house on the north, the Palm house on the
+# west, the Lily house on the east, and in the middle the Great House, where a giant Titan flower has been budding for
+# thirty years; the gardener's cottage by the gate, the potting shed on the east edge, a stair road up from the cove.
+# Quest "The Titan Blooms" (10 steps): pollen gathered under three conditions - mist, height, darkness - to make the
+# Titan bloom.
+#
+# Built by the recipe player (CIRecipe glasshouse_gardens) through the editor's own operations.
+include lib_rt
+include lib_huts
+include lib_sea
+include lib_features
+new
+# (nature: forest, Like Raft - birch and pine round the plateau's edge, gardens on its top)
+gen Trees=0.21 Bushes=0.38 Rocks=0.42 Harvest=0.1 BeachThings=0.3
+gen Seed=9218 Radius=90 Height=24 Roughness=0.35 Peaks=1 Shape=4 Style=3 BeachWidth=0.4 Cliffs=0.75 PeakShape=0.3 Terraces=0.4
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the gardens' ground levelled at 23.6 m (the plateau's top), lawns painted; the road cut slanting up the
+# south cliff from the cove's beach; the cove's landing --------------------------------------------------------------------
+brush flatten from -36 2 to 40 2 r=12 s=20 frames=150 h=23.6
+brush flatten from 0 -40 to 0 40 r=12 s=20 frames=150 h=23.6
+brush flatten at 9 -36 r=7 s=20 frames=150 h=23.6
+brush flatten at 31 31.5 r=7 s=20 frames=150 h=23.6
+brush grass at 0 0 r=40 s=20 frames=20
+for i 0 42 1
+brush flatten at {-30+38*$i/42} {-61+16*$i/42} r=3.5 s=20 frames=150 h={2+21.6*$i/42}
+next
+brush smooth from -30 -61 to 8 -45 r=3 s=10 frames=6
+brush flatten at -24 -78 r=4 s=20 frames=100 h=1.5
+clear at 0 0 r=45
+clear from -30 -61 to 8 -45 r=4.5
+clear at -24 -78 r=6
+
+# --- The garden gate at the stair road's top (two stone posts and an iron beam, a sign), the gardener's cottage beside
+# it (a radio tower room, its door south): Lind's journal on her desk, her legacy chest, a bookshelf, seed drawers; hens --
+place RT_GroundPillar - at 1 -44 ground sit sy=1
+place RT_GroundPillar - at 7 -44 ground sit sy=1
+place RT_Beam - at 7 -44 h=26.6
+place Balboa_DirectionSign - at 9.5 -43 ground sit yaw=200
+place Zone_Trigger gardengate at 4 -42 y=1.5
+push at 15 -31 h=23.65
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 l2=RT_WallWindow1 b1=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+place "VG_DecorationPrefabBase_Desk Variant" - at -4.5 3.6 y=0 sit yaw=180
+place Note_Book journal at -4.5 3.6 y=0.82 drop yaw=10
+place Loot_ChestLarge legacy at -1.2 3.4 y=0 sit yaw=180
+place "VG_DecorationPrefabBase_Bookshelf Filled 2 Variant" - at -0.8 -0.5 y=0 sit yaw=270
+place TP_Drawer - at -5.2 0 y=0 sit yaw=90
+pop
+place Creature_Chicken hens at 20 -40 ground
+
+# --- The potting shed on the east edge (a radio tower room, its door west): shelves of pots, the chest with Lind's brush;
+# the beetles wait in it -------------------------------------------------------------------------------------------------
+push at 46 4.5 h=23.65 yaw=90
+call rt_storey f1=RT_WallDoor1 f2=RT_Wall1 l2=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+place Placeable_Shelf_Wood - at -3 3.9 y=0 sit yaw=180
+place Flowerpot_01 - at -3.6 3.9 y=1.2 drop
+place Flowerpot_02 - at -3 3.9 y=1.2 drop
+place Flowerpot_03 - at -2.4 3.9 y=1.2 drop
+place Loot_Chest shedchest at -5.2 0 y=0 sit yaw=90
+place Zone_Trigger pottingshed at -3 0 y=1.5
+place Creature_Roach beetles at -3 1 y=0.3
+pop
+
+# --- The Orchid house on the north (two rooms end to end, glass all round, a door on the south): benches of orchids, the
+# misting valve, sprinklers, the ghost orchid on its stand; the mist (hidden till the valve turns) -----------------------------
+push at 0 34.5 h=23.65
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 b1=RT_WallWindow1 b2=RT_WallWindow1 l1=RT_WallWindow1 l2=RT_WallWindow1 l3=RT_WallWindow1 r1=none r2=none r3=none
+place RT_Floor - at 0 4.5 y=3
+pop
+push at 6 34.5 h=23.65
+call rt_storey f1=RT_WallWindow1 f2=RT_WallWindow1 b1=RT_WallWindow1 b2=RT_WallWindow1 r1=RT_WallWindow1 r2=RT_WallWindow1 r3=RT_WallWindow1 l1=none l2=none l3=none
+place RT_Floor - at 0 4.5 y=3
+pop
+place Placeable_Table_Square_Tall - at -3 38.5 h=23.65 sit yaw=90
+place Placeable_Table_Square_Tall - at -1 38.5 h=23.65 sit yaw=90
+place Placeable_Flower_Hibiscus - at -3 38.5 h=24.7 drop
+place Placeable_Flower_Monstera - at -1 38.5 h=24.7 drop
+place Placeable_TangaroaPlant_3 - at 1 38.5 h=23.65 sit
+place Placeable_Sprinkler - at 3 36 h=23.65 sit
+place Placeable_Sprinkler - at -3 33 h=23.65 sit
+place RT_Pillar - at 5.6 33 h=23.65 sy=0.4
+place TP_Selene_DoorCrankWheel mistvalve at 5.35 33 h=24.75 yaw=270
+place Pillar_04 - at 2 33.5 h=23.65 sit
+place Placeable_Flower_Hibiscus orchid at 2 33.5 h=26 drop scale=1.3
+place Zone_Atmosphere mist at 0 34.5 h=25
+
+# --- The Palm house on the west (a room two storeys tall, glass all round, its door east): palms and bananas; the gantry
+# under the roof along its back wall, two ladders up to it; the sago palm's flower spike hung from the roof by it ---------------
+push at -27 5 h=23.65 yaw=270
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 b1=RT_WallWindow1 b2=RT_WallWindow1 l1=RT_WallWindow1 l2=RT_WallWindow1 l3=RT_WallWindow1 r1=RT_WallWindow1 r2=RT_WallWindow1 r3=RT_WallWindow1
+pop
+push at -27 5 h=26.65 yaw=270
+call rt_storey floor=none f1=RT_WallWindow1 f2=RT_WallWindow1 b1=RT_WallWindow1 b2=RT_WallWindow1 l1=RT_WallWindow1 l2=RT_WallWindow1 l3=RT_WallWindow1 r1=RT_WallWindow1 r2=RT_WallWindow1 r3=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+place RT_Floor gantryfloor at 0 4.5 y=1.5 sz=0.2
+pop
+place BigPalm2 - at -25.5 1 h=23.95 centred sit scale=0.3
+place Banana_Bush_1 - at -24.5 3.5 h=23.65 sit
+place Block_Ladder - at -29.55 0.5 h=23.65 yaw=270
+place Block_Ladder - at -29.55 0.5 h=26.07 yaw=270
+place Placeable_Flower_Sunflower palmspike at -31 3.2 h=29.6 scale=2.5 rot=180,0,0
+place Zone_Trigger gantry at -31 4.5 h=29.2
+
+# --- The Lily house on the east (a room with glass all round, its door west): the night lily in a stone bowl among lily
+# pads, the blinds' lever by the door; the blinds and the dark, hidden till drawn -------------------------------------------
+push at 31 28.5 h=23.65 yaw=90
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 b1=RT_WallWindow1 b2=RT_WallWindow1 l1=RT_WallWindow1 l2=RT_WallWindow1 l3=RT_WallWindow1 r1=RT_WallWindow1 r2=RT_WallWindow1 r3=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+place VP_ConcretePipe02 - at -3 1 y=0 sit scale=0.6 rot=0,0,90
+place Placeable_Flower_Rose nightlily at -3 1 y=1.2 drop scale=2
+place TableCoral_2 - at -4.6 -0.5 y=0 sit
+place TableCoral_2 - at -1.4 2.5 y=0 sit
+place TP_LaserControlPanel_lever blindlever at -5.5 -4.3 y=0.9 yaw=180
+place RT_Wall1 blinds at -3 4.2
+place RT_Wall1 blinds at 0 4.2
+place RT_Wall1 blinds at -5.8 -1.5 yaw=90
+place RT_Wall1 blinds at -5.8 1.5 yaw=90
+place RT_Wall1 blinds at -0.2 -1.5 yaw=90
+place RT_Wall1 blinds at -0.2 1.5 yaw=90
+place Zone_Atmosphere lilydark at -3 0 y=1.5
+pop
+
+# --- The Great House in the middle (four rooms in a square, glass all round, a door on the south): the Titan in its bed -
+# the bud, and the bloom with roses round it (hidden till pollinated), its glow and scent; a barrow with a box ------------
+push at 0 4.5 h=23.65
+call rt_storey f1=none f2=none r1=none r2=none r3=none b1=RT_WallWindow1 b2=RT_WallWindow1 l1=RT_WallWindow1 l2=RT_WallWindow1 l3=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+pop
+push at 6 4.5 h=23.65
+call rt_storey f1=none f2=none l1=none l2=none l3=none b1=RT_WallWindow1 b2=RT_WallWindow1 r1=RT_WallWindow1 r2=RT_WallWindow1 r3=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+pop
+push at 0 -4.5 h=23.65
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 b1=none b2=none r1=none r2=none r3=none l1=RT_WallWindow1 l2=RT_WallWindow1 l3=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+pop
+push at 6 -4.5 h=23.65
+call rt_storey f1=RT_WallWindow1 f2=RT_WallWindow1 b1=none b2=none l1=none l2=none l3=none r1=RT_WallWindow1 r2=RT_WallWindow1 r3=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+pop
+place Monstera_2 titanbud at 0 2 h=23.65 sit
+place Placeable_Flower_Hibiscus titanbloom at 0 2 h=23.65 sit scale=2.6
+place Placeable_Flower_Rose titanbloom at -1.6 3.2 h=23.65 sit scale=2
+place Placeable_Flower_Rose titanbloom at 1.6 3.2 h=23.65 sit scale=2
+place Placeable_Flower_Rose titanbloom at 0 0.4 h=23.65 sit scale=2
+place Zone_Atmosphere titanglow at 0 1 h=25
+place Zone_Sound titansound at 0 1 h=25
+place Zone_Trigger greathouse at 0 0 h=25
+place Reef_Wheelbarrow - at 4 -6 h=23.65 sit yaw=30
+place "Box Small" barrowbox at 4 -6.3 h=24.4 drop yaw=20
+
+# --- Round the gardens: the apiary on the west edge, fruit and flowers, birch and pine along the edge, goats ---------------
+place Placeable_BeeHive - at -40 -18 ground sit yaw=90
+place Placeable_BeeHive - at -40 -15 ground sit yaw=90
+place Placeable_BeeHive - at -40 -12 ground sit yaw=90
+place Pickup_Landmark_Tree_Mango - at 20 -20 ground
+place Pickup_Landmark_BerryBush - at -20 -25 ground
+place Pickup_Landmark_BerryBush - at -16 -27 ground
+place Pickup_Landmark_PineappleLandmark - at 24 -14 ground
+place Pickup_Landmark_Flower_Red - at -12 16 ground
+place Pickup_Landmark_Flower_Yellow - at 14 16 ground
+place Pickup_Landmark_Flower_Red - at 18 -8 ground
+scatter Pickup_Landmark_Tree_Birch 2 at -40 30 r=8 seed=1801
+scatter Pickup_Landmark_Tree_Pine 1 at 40 -36 r=6 seed=1802
+place Creature_Goat goats at -30 -35 ground
+
+# --- The cove: the landing, a barrel, a sunk crate of pots off it; dolphins ----------------------------------------------
+push at -24 -80 h=-2 yaw=90
+call boardwalk n=4 wide=1 y=3.6
+pop
+place Loot_Barrel covebarrel at -21 -77 ground sit
+place Loot_SunkenBarrel sunkpots at -20 -90 h=-1 drop
+place Creature_Dolphin dolphins at -10 -105 h=-3
+
+# --- Raft's finds in the shallows round the plateau (lib_sea) -------------------------------------------------------------
+call shallows r=110 deep=5 n=1
+
+# ===== Settings, story items, notes, behaviours, quest (10 steps) =========================================================
+info title=Glasshouse Gardens
+info author=Custom Islands
+info description=A botanist's glasshouses on a terraced forest plateau, and in the Great House a giant Titan flower budding for thirty years. It needs its three cousins' pollen - and each cousin opens only under its own conditions: mist, height, darkness.
+island on.arrive=message||A flat-topped island with glass on its top: long glasshouses flashing in the sun, and one huge one in the middle with something dark and enormous pressed against its panes.
+
+story brush|Pollen brush|PaintBrush|Lind's soft sable brush in a glass tube, for carrying pollen.
+story pollen|Pollen vial|Placeable_Utopia_LightBottleYellow|A stoppered vial of golden pollen, labelled in Lind's hand.
+story titanseed|Titan seed|Seed_Pineapple|A seed as big as a hen's egg, from the Titan's bloom.
+
+note journal Professor Lind's journal | THE TITAN - H. LIND\n\nThirty years in bud. It will bloom only with pollen from its three cousins - and they are sulky things:\n- the ghost orchid opens only in mist: turn the misting valve in the Orchid house;\n- the sago palm flowers up under the Palm house's roof: climb the gantry;\n- the night lily opens only in the dark: draw the Lily house's blinds.\nUse the sable brush (potting shed - mind the beetles, they ate my seedlings).\n\nThree vials to the Titan, and it blooms. I won't see it. You will.
+note shedchest Potting shed chest | The potting shed's chest: trowels, twine, seed packets - and Lind's sable brush in its glass tube.
+loot shedchest story:brush*1;Seed_Flower_Red*2;Rope*2
+prop shedchest loot.refill=0
+note legacy Lind's legacy | Hedda Lind's legacy, for whoever saw the Titan bloom: the plans for her clever planting beds, seeds of everything in her glasshouses, her secateurs and her savings.
+loot legacy Blueprint_Cropplot_Medium_Tier3*1;Seed_Mango*3;Seed_Banana*3;Seed_Flower_Blue*2;Shear*1;TradeToken*8
+prop legacy loot.refill=0
+prop legacy if.open=signal|bloomed
+prop legacy else.open=message||A chest with a pressed flower on its lid and a label: FOR WHOEVER SEES IT BLOOM.
+note barrowbox Barrow box | A box in the gardener's barrow: twine, a trowel, bulbs.
+loot barrowbox Rope*2;Seed_Strawberry*2;Clay*2
+prop barrowbox loot.refill=0
+note covebarrel Cove barrel | A barrel at the landing: glass panes packed in straw, nails.
+loot covebarrel Glass*3;Nail*8;Plank*3
+prop covebarrel loot.refill=0
+note sunkpots Sunk crate of pots | A crate of clay pots that went off the landing: clay, and scrap.
+loot sunkpots Clay*4;Scrap*2;MetalOre*1
+prop sunkpots loot.refill=0
+
+prop mistvalve obj.name=mistvalve
+prop mistvalve beh.use=Turn on the misting valve
+prop mistvalve if.use=!signal|misted
+prop mistvalve on.use=message||Pipes hiss all along the benches and a warm mist rolls through the Orchid house.\nsignal||misted\nshow|mist\nsound||event:/crafting/sprinkler
+prop mistvalve else.use=message||The mist is on.
+prop mist obj.name=mist
+prop mist beh.hidden=1
+prop mist atmo.fog=#e8f0e8
+prop mist atmo.fogAmount=0.45
+prop mist atmo.particles=mist
+prop mist zone.radius=8
+prop orchid obj.name=orchid
+prop orchid beh.use=Brush the ghost orchid's pollen into a vial
+prop orchid if.use=has|story:brush|1\nsignal|misted\n!signal|p1
+prop orchid on.use=message||In the mist the ghost orchid has opened like a pale hand. You brush its pollen into a vial.\ngive||story:pollen*1\nsignal||p1\nsound||event:/crafting/plant_harvest
+prop orchid else.use=message||A ghost orchid, shut tight. Lind: it opens only in mist. (And you need her brush.)
+prop palmspike obj.name=palmspike
+prop palmspike beh.use=Brush the sago palm's pollen into a vial
+prop palmspike if.use=has|story:brush|1\n!signal|p2
+prop palmspike on.use=message||Up on the gantry, under the hot glass, you brush gold off the palm's flower spike.\ngive||story:pollen*1\nsignal||p2\nsound||event:/crafting/plant_harvest
+prop palmspike else.use=message||The sago palm's flower spike. Lind's brush is in the potting shed - or you have its pollen already.
+prop blindlever obj.name=blindlever
+prop blindlever beh.use=Draw the Lily house's blinds
+prop blindlever if.use=!signal|dark
+prop blindlever on.use=message||The blinds rattle down all round the glass. Darkness - and in the stone bowl something pale begins to open.\nsignal||dark\nshow|blinds\nshow|lilydark\nsound||event:/raft/furniture/curtain_close
+prop blindlever else.use=message||The blinds are drawn.
+prop blinds obj.name=blinds
+prop blinds beh.hidden=1
+prop lilydark obj.name=lilydark
+prop lilydark beh.hidden=1
+prop lilydark atmo.fog=#04060a
+prop lilydark atmo.fogAmount=0.75
+prop lilydark atmo.light=#2a3a5a
+prop lilydark atmo.lightAmount=0.8
+prop lilydark atmo.particles=fireflies
+prop lilydark zone.radius=8
+prop nightlily obj.name=nightlily
+prop nightlily beh.use=Brush the night lily's pollen into a vial
+prop nightlily if.use=has|story:brush|1\nsignal|dark\n!signal|p3
+prop nightlily on.use=message||In the dark the night lily has opened, white and wide as a plate. You lean over its stone bowl and brush its pollen into the last vial.\ngive||story:pollen*1\nsignal||p3\nsound||event:/crafting/plant_harvest
+prop nightlily else.use=message||The night lily, closed. Lind: it opens only in the dark. (And you need her brush.)
+prop titanbud obj.name=titanbud
+prop titanbud beh.use=Pollinate the Titan with the three vials
+prop titanbud if.use=quest|8\ntake|story:pollen|3
+prop titanbud on.use=message||You brush the three pollens into the Titan's dark heart. For a moment nothing. Then the bud trembles - and opens, petal after enormous petal, red as a sunset, until it fills the Great House. The air goes sweet and heavy. In its middle, one huge seed.\nhide|titanbud\nshow|titanbloom\nshow|titanglow\nshow|titansound\nsignal||bloomed\ngive||story:titanseed*1\nsound||event:/crafting/plant_plant
+prop titanbud else.use=message||The Titan's bud, dark and heavy, taller than you. Lind: three cousins' pollen.
+prop titanbloom obj.name=titanbloom
+prop titanbloom beh.hidden=1
+prop titanglow obj.name=titanglow
+prop titanglow beh.hidden=1
+prop titanglow atmo.fog=#3a1a20
+prop titanglow atmo.fogAmount=0.12
+prop titanglow atmo.light=#ffb090
+prop titanglow atmo.lightAmount=0.3
+prop titanglow atmo.particles=fireflies
+prop titanglow zone.radius=10
+prop titansound obj.name=titansound
+prop titansound beh.hidden=1
+prop titansound sound.event=event:/wildlife/beehive
+prop titansound sound.volume=0.4
+prop titansound zone.radius=10
+
+prop gardengate zone.id=gardengate
+prop gardengate zone.radius=7
+prop gardengate zone.message=The garden gate: glasshouses on three terraces, a cottage, and the Great House in the middle, dark green shapes pressing against its glass.
+prop pottingshed zone.id=pottingshed
+prop pottingshed zone.radius=5
+prop pottingshed zone.repeat=never
+prop pottingshed zone.message=The potting shed - and the pots are moving. Beetles, green and huge, among the seedlings!
+prop beetles creature.count=3
+prop beetles creature.size=1.2
+prop beetles creature.respawn=0
+prop beetles creature.zone=pottingshed
+prop beetles tint.color=#3a5a2a
+prop beetles tint.amount=0.5
+prop gantry zone.id=gantry
+prop gantry zone.radius=3
+prop gantry zone.message=The gantry under the Palm house's roof: hot, close, and the sago palm's flower spike right beside you.
+prop greathouse zone.id=greathouse
+prop greathouse zone.radius=4
+prop greathouse zone.message=The Great House: and in its bed, taller than a person, the Titan's bud - dark, heavy, waiting.
+prop hens creature.count=3
+prop goats creature.count=2
+prop dolphins creature.count=2
+
+# --- Raft's special features (the user, 2026-10-05: every Raft feature on at least one island): a wild hive among the flowers and the
+# gardener's dirt beds
+call hives x=0 z=0 r=40 n=2 seed=121
+call dirt x=0 z=0 r=40 n=4 seed=122
+# --- Raft's story machinery (the user, 2026-10-06): Lind's sun mirrors - two of Temperance's turning mirrors on the lawns
+# either side of the Great House, and her seed chest south of it with a sun-lock that opens when both are turned
+call mirrors x1=20 z1=-2 yaw1=0 x2=-14 z2=-6 yaw2=90 a1=sunmirror1 a2=sunmirror2 chest=seedchest cx=4 cz=-15 cyaw=0 items=Seed_Flower_Red*3;Glass*3;Pineapple*2 title="Lind's seed chest"
+
+quest title=The Titan Blooms
+quest intro=Glasshouses on a forest plateau, and a giant flower thirty years in bud. Professor Lind's journal is in her cottage by the gate.
+step reach|gardengate|1|Climb the stair road to the garden gate
+step read|Professor Lind's journal|1|Read Professor Lind's journal in her cottage
+step kill|Roach|3|Clear the beetles out of the potting shed
+step open|Potting shed chest|1|Take Lind's pollen brush from the potting shed chest
+step collect|story:pollen|1|Mist the Orchid house and gather the ghost orchid's pollen
+step collect|story:pollen|2|Climb the Palm house's gantry for the sago palm's pollen
+step collect|story:pollen|3|Darken the Lily house and gather the night lily's pollen
+step reach|greathouse|1|Carry the three vials to the Great House
+step collect|story:titanseed|1|Pollinate the Titan and watch it bloom
+step open|Lind's legacy|1|Open Professor Lind's legacy in her cottage
+quest done=The Titan blooms, red as a sunset, filling the Great House with its scent. Thirty years - and you were the one who saw it.
+quest reward=Seed_Flower_Red*3;Mango*3;Rope*2
+
+save Glasshouse Gardens

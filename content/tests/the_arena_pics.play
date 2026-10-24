@@ -1,0 +1,13 @@
+# Guide pictures of The Arena (CIPlay the_arena_pics): Raft's camera, midday, calm. Points as in its recipe ("offset").
+island The Arena
+offset 0.4541 0.9109
+hour 11
+weather Calm
+at 15 -60 h=4
+wait 3
+picture the_arena_horn 42 16 -66 15 5 -38
+picture the_arena_plain 30 45 -95 0 5 -30
+picture the_arena_lake -2 10 -62 -22 1 -44
+picture the_arena_door 12 10 -30 -4 9 -24
+picture the_arena_control -4.6 9.2 -26.4 -7 8.2 -17
+picture the_arena_leanto -44 6 -36 -50 3 -30

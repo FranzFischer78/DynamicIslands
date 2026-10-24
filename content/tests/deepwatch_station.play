@@ -1,0 +1,20 @@
+# Play test of Deepwatch Station (CIPlay deepwatch_station, in a test world 'CI ...'): a sunken island, 16 m under the
+# sea. No quest: the station's locker, the hatch beside it, the submarine's chest, the puffers. Points as in its recipe
+# (heights over the island's own water line).
+island Deepwatch Station
+offset 0 0
+expect animals Puffer fish 3
+wait 3
+kill Puffer fish
+# Through the door into the bunker, its locker
+at -1.5 -9 h=4
+at -1.5 -3 h=4.1
+open Station locker
+# The air pocket in the annex
+at 6 -2 h=4.1
+# The hatch in the sand beside the station
+use stationhatch
+open Under the hatch
+# The submarine's chest
+at -15.5 16 h=3
+open The submarine's chest

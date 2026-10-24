@@ -1,0 +1,56 @@
+# Driftcloud Islet - a new small island of the library (ROADMAP 3d NI6), no quest - a flying one
+# A little green islet that floats 55 m over the sea, drifting like a cloud. Somebody got up there once: a lean-to of
+# planks on four posts shelters a chest, a mango tree and berry bushes grow on the meadow, wild bees hum in a hive, and
+# a ladder goes down the islet's flank to a ledge where the birds nest. Nothing leads up: build stairs or pillars from
+# the raft. Nothing hostile.
+#
+# Built by the recipe player (CIRecipe driftcloud_islet) through the editor's own operations. Points (metres over the
+# island's own water line; in the world it all floats 55 m higher): the meadow (6 m, r 8 round 0 0); the lean-to x
+# -3..0, z 1..4 (floor 6.1 m), its chest at -1.5 3.1; the ledge on the south flank at 2 -9.5 (3.6 m), the ladders at
+# x 2 against the face at z -8.15; the nests on the ledge.
+include lib_huts
+include lib_features
+include lib_ni34
+new
+# (nature: a small flying meadow - a few plants on the top, nothing of the sea)
+gen Trees=0.05 Bushes=0.25 Rocks=0.35 Harvest=0.15 BeachThings=0
+gen Seed=7414 Radius=20 Height=9 Roughness=0.4 Peaks=1 Shape=0 Style=0 BeachWidth=0.1 Cliffs=0.6 PeakShape=0.5
+gen Water=0 SeaRocks=0 SeaFinds=0 Sunken=0 Hostiles=0 Friendly=0 SeaLife=0
+generate
+elevation 55
+
+# ===== Terrain: the meadow on the top, the ledge on the south flank ========================================================
+brush flatten at 0 0 r=8 s=20 frames=80 h=6
+brush flatten from 0 -6 to 4 -6 r=1.8 s=20 frames=80 h=6
+brush flatten from 0 -9.5 to 4 -9.5 r=1.6 s=20 frames=80 h=3.6
+brush grass at 0 0 r=8 s=20 frames=20
+clear at 0 -2 r=10
+
+# ===== The lean-to: a floor of planks, four posts, a roof; the chest under it ==============================================
+push at -3 1 h=6
+call floors w=2 d=2 y=0.1
+call corners w=2 d=2 y=0.1
+roof 2 2 at 0 0 y=0.1 wood
+place Loot_ChestSmall skychest at 1.5 2.1 y=0.1 sit yaw=180
+pop
+
+# ===== The ladder down to the nesting ledge, the nests ======================================================================
+call ladders x=2 z=-8.15 h=3.6 n=1 yaw=180
+place Bird_Nest - at 0.6 -9.8 h=3.6 sit
+place Bird_Nest - at 3.4 -9.6 h=3.6 sit yaw=120
+
+# ===== Things to gather on the meadow: a mango tree, berry bushes, flowers, a hive ===========================================
+place "Pickup_Landmark_Tree_Mango" - at 4 3 ground yaw=40
+scatter "Pickup_Landmark_BerryBush" 2 at 0 0 r=7 seed=7714 free=3
+scatter "Pickup_Landmark_Flower_White" 2 at 0 0 r=7 seed=7724 free=2
+call hives x=0 z=0 r=7 n=1 seed=7734
+
+info title=Driftcloud Islet
+info author=Custom Islands
+info description=A little green islet floating 55 m over the sea - a lean-to with a chest, a mango tree and a wild hive on its meadow, and a ladder down its flank to where the birds nest. Build your way up from the raft. No quest - an island to explore.
+
+note skychest Chest under the lean-to | Whoever climbed up here left this - and never came down for it.
+loot skychest Plank*6;Rope*3;Feather*3;Seed_Mango*2;Glass*2
+prop skychest loot.refill=0
+
+save Driftcloud Islet

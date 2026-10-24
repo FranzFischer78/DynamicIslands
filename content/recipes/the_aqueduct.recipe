@@ -1,0 +1,428 @@
+# The Aqueduct - a new island of the library, four times the size (x4)
+# An old water city on two tropical peaks: the spring house on the south-west peak's shoulder, a flooded cistern below
+# it, an aqueduct striding on stone piers across the lagoon in the valley between the peaks, the sluice house on the
+# lagoon's shore, and on the north-east peak the little city of Aquila round a dry fountain, its castellum where the line
+# ends, its harbour on the east coast.
+# Quest "Water to the City" (15 steps): five valves opened in order along the line, from the source to the city - a climb,
+# a dive, a fight on the arches, a sluice, a locked tower - and the fountain runs again.
+#
+# Built by the recipe player (CIRecipe the_aqueduct) through the editor's own operations.
+include lib_rt
+include lib_huts
+include lib_sea
+new
+# (nature: tropical, Like Raft - jungle on the peaks; the line and the city cleared)
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=9217 Radius=90 Height=32 Roughness=0.4 Peaks=2 Shape=7 Style=0 BeachWidth=0.5 Cliffs=0.3 PeakShape=0.45 Lakes=0.5
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the valley lagoon between the peaks dug 5 m under the sea's level; the spring house's pad on the south-west
+# peak (18 m) and the path up to it from the west beach; the cistern's pit by the lagoon's west end (4 m under the sea);
+# the sluice house's pad on the lagoon's south-east shore; the city's square cut into the north-east peak (16 m); the
+# harbour road from the east beach up to the square in two legs -----------------------------------------------------------
+brush flatten from -12 2 to 8 2 r=8 s=20 frames=300 h=-5
+brush flatten from -12 2 to 8 2 r=8 s=20 frames=300 h=-5
+brush smooth from -12 2 to 8 2 r=12 s=10 frames=5
+brush flatten at -19.5 -14 r=7 s=20 frames=200 h=18
+for i 0 24 1
+brush flatten at {-55+25*$i/24} {-5-23*$i/24} r=3 s=20 frames=150 h={2+10*$i/24}
+next
+for i 0 10 1
+brush flatten at {-30+7*$i/10} {-28+11*$i/10} r=3 s=20 frames=150 h={12+6*$i/10}
+next
+brush smooth from -55 -5 to -30 -28 r=3 s=10 frames=6
+brush flatten at -25 5 r=3 s=20 frames=300 h=-4
+brush flatten at -25 5 r=3 s=20 frames=300 h=-4
+brush flatten at 14 -12 r=5 s=20 frames=150 h=4
+brush flatten at 22 22 r=16 s=20 frames=300 h=16
+brush flatten at 22 22 r=16 s=20 frames=300 h=16
+brush flatten at 22 32 r=7 s=20 frames=300 h=16
+brush flatten at 31 14 r=7 s=20 frames=300 h=16
+brush flatten from 0.4 7.1 to 12 22 r=3.5 s=20 frames=300 h=16
+brush smooth at 22 22 r=20 s=10 frames=4
+brush flatten from 86 22 to 78 24 r=3 s=20 frames=150 h=2.6
+for i 0 28 1
+brush flatten at {78-23*$i/28} {24+14*$i/28} r=3.6 s=20 frames=200 h={3+6*$i/28}
+next
+for i 0 18 1
+brush flatten at {55-17*$i/18} {38-8*$i/18} r=3.6 s=20 frames=200 h={9+7*$i/18}
+next
+brush smooth from 86 22 to 55 38 r=3 s=10 frames=6
+brush flatten at 14 -8 r=6.5 s=20 frames=300 h=4
+brush smooth from 55 38 to 38 30 r=3 s=10 frames=6
+brush sand at 22 22 r=12 s=20 frames=20
+clear from -12 2 to 8 2 r=10
+clear at -19.5 -14 r=8
+clear from -14 -14 to 12 22 r=4
+clear at -25 5 r=5
+clear at 14 -12 r=6
+clear at 22 22 r=15
+clear from 78 24 to 55 38 r=3.5
+clear from 55 38 to 38 30 r=3.5
+clear from -55 -5 to -30 -28 r=3
+clear from -30 -28 to -23 -17 r=3
+clear at 86 22 r=6
+
+# --- The spring house on the south-west peak (a radio tower room, its door east to where the line starts): the water-
+# master's box with the valve key; valve one on the outlet pipe outside the door, the line's start ---------------------------
+push at -19.5 -11 h=18.05 yaw=270
+call rt_storey f1=RT_WallDoor1 f2=RT_Wall1 l2=RT_WallWindow1 r2=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+place Loot_ChestSmall masterbox at -1.2 3.4 y=0 sit yaw=180
+place Zone_Trigger source at -3 0 y=1.5
+pop
+place RT_Pillar - at -13.6 -15.2 h=18 sy=0.4
+place TP_Selene_DoorCrankWheel valve1 at -13.6 -15.45 h=19.1
+place WaterPipe_Out_1 - at -14.2 -15.3 h=18.6
+place Creature_Goat goats at -28 -26 ground
+
+# --- The cistern by the lagoon's west end: a pit flooded to the sea's level, rubble round its rim, ladders down its north
+# wall; valve two on its floor, a pocket of air in its corner, the dark ---------------------------------------------------
+place VP_Rubble_Cement02 - at -20 8 ground sit yaw=90
+place VP_Rubble_Cement02 - at -24 10 ground sit
+for l 0 1 1
+place Block_Ladder - at -25 7.4 h={-1+2.42*$l} yaw=0
+next
+place TP_Selene_DoorCrankWheel valve2 at -25 4 h=-4 sit rot=90,0,0
+place Zone_Trigger cistern at -25 5 h=0.5
+place Zone_Trigger cisternair at -23.8 4 h=-3
+place Zone_Atmosphere cisternbubbles at -23.8 4 h=-3
+place Zone_Atmosphere cisterndark at -25 5 h=-2
+
+# --- The aqueduct: piers of the radio tower's stone blocks every 6 m from the spring house to the castellum (their feet
+# in the lagoon's floor and in the hillsides), the channel on them - a deck of boards 3 m wide at 18 m with low rails -
+# the valve tower on the middle arch over the lagoon (valve three); a ladder up a pier from the water
+place RT_GroundPillar aqueduct at -12.24 -11.57 h=18 sy=8 yaw=-54.2
+place RT_GroundPillar aqueduct at -8.73 -6.70 h=18 sy=8 yaw=-54.2
+place RT_GroundPillar aqueduct at -5.22 -1.84 h=18 sy=8 yaw=-54.2
+place RT_GroundPillar aqueduct at -1.70 3.02 h=18 sy=8 yaw=-54.2
+place RT_GroundPillar aqueduct at 1.81 7.89 h=18 sy=8 yaw=-54.2
+place RT_GroundPillar aqueduct at 5.32 12.75 h=18 sy=8 yaw=-54.2
+place RT_GroundPillar aqueduct at 8.83 17.62 h=18 sy=8 yaw=-54.2
+push at -14.00 -14.00 h=18 yaw=-54.16
+place RT_Floor aqueduct at 6 1.5 y=0 sx=0.993 sz=0.333
+place RT_Floor aqueduct at 12 1.5 y=0 sx=0.993 sz=0.333
+place RT_Floor aqueduct at 18 1.5 y=0 sx=0.993 sz=0.333
+place RT_Floor aqueduct at 24 1.5 y=0 sx=0.993 sz=0.333
+place RT_Floor aqueduct at 30 1.5 y=0 sx=0.993 sz=0.333
+place RT_Floor aqueduct at 36 1.5 y=0 sx=0.993 sz=0.333
+place RT_Floor aqueduct at 42 1.5 y=0 sx=0.993 sz=0.333
+place RT_Fence - at 1.5 1.45 y=0.05
+place RT_Fence - at 1.5 -1.45 y=0.05
+place RT_Fence - at 3.0 1.45 y=0.05
+place RT_Fence - at 3.0 -1.45 y=0.05
+place RT_Fence - at 4.5 1.45 y=0.05
+place RT_Fence - at 4.5 -1.45 y=0.05
+place RT_Fence - at 6.0 1.45 y=0.05
+place RT_Fence - at 6.0 -1.45 y=0.05
+place RT_Fence - at 7.5 1.45 y=0.05
+place RT_Fence - at 7.5 -1.45 y=0.05
+place RT_Fence - at 9.0 1.45 y=0.05
+place RT_Fence - at 9.0 -1.45 y=0.05
+place RT_Fence - at 10.5 1.45 y=0.05
+place RT_Fence - at 10.5 -1.45 y=0.05
+place RT_Fence - at 12.0 1.45 y=0.05
+place RT_Fence - at 12.0 -1.45 y=0.05
+place RT_Fence - at 13.5 1.45 y=0.05
+place RT_Fence - at 15.0 1.45 y=0.05
+place RT_Fence - at 16.5 1.45 y=0.05
+place RT_Fence - at 18.0 1.45 y=0.05
+place RT_Fence - at 18.0 -1.45 y=0.05
+place RT_Fence - at 19.5 1.45 y=0.05
+place RT_Fence - at 19.5 -1.45 y=0.05
+place RT_Fence - at 21.0 1.45 y=0.05
+place RT_Fence - at 21.0 -1.45 y=0.05
+place RT_Fence - at 22.5 1.45 y=0.05
+place RT_Fence - at 22.5 -1.45 y=0.05
+place RT_Fence - at 24.0 1.45 y=0.05
+place RT_Fence - at 24.0 -1.45 y=0.05
+place RT_Fence - at 25.5 1.45 y=0.05
+place RT_Fence - at 25.5 -1.45 y=0.05
+place RT_Fence - at 27.0 1.45 y=0.05
+place RT_Fence - at 27.0 -1.45 y=0.05
+place RT_Fence - at 28.5 1.45 y=0.05
+place RT_Fence - at 28.5 -1.45 y=0.05
+place RT_Fence - at 30.0 1.45 y=0.05
+place RT_Fence - at 30.0 -1.45 y=0.05
+place RT_Fence - at 31.5 1.45 y=0.05
+place RT_Fence - at 31.5 -1.45 y=0.05
+place RT_Fence - at 33.0 1.45 y=0.05
+place RT_Fence - at 33.0 -1.45 y=0.05
+place RT_Fence - at 34.5 1.45 y=0.05
+place RT_Fence - at 34.5 -1.45 y=0.05
+place RT_Fence - at 36.0 1.45 y=0.05
+place RT_Fence - at 36.0 -1.45 y=0.05
+place RT_Fence - at 37.5 1.45 y=0.05
+place RT_Fence - at 37.5 -1.45 y=0.05
+place RT_Fence - at 39.0 1.45 y=0.05
+place RT_Fence - at 39.0 -1.45 y=0.05
+place RT_Fence - at 40.5 1.45 y=0.05
+place RT_Fence - at 40.5 -1.45 y=0.05
+place RT_Fence - at 42.0 1.45 y=0.05
+place RT_Fence - at 42.0 -1.45 y=0.05
+place RT_Pillar - at 19.8 1.2 y=0.05
+place RT_Pillar - at 22.2 1.2 y=0.05
+place RT_Pillar - at 19.8 -1.2 y=0.05
+place RT_Pillar - at 22.2 -1.2 y=0.05
+place RT_Floor - at 22.5 1.5 y=3.05 sx=0.5 sz=0.333
+place TP_Selene_DoorCrankWheel valve3 at 21 1.15 y=1.1
+place WaterPipe_Out_1 - at 20.2 0 y=0.05
+place Zone_Trigger arches at 12 0 y=1.5
+pop
+place LandmarkLadder_6m - at -3.84 -2.84 h=-1.0 yaw=-54.2
+place LandmarkLadder_6m - at -3.84 -2.84 h=5.6 yaw=-54.2
+place LandmarkLadder_6m - at -3.84 -2.84 h=12.2 yaw=-54.2
+place Creature_StoneBird screechers at -1.70 3.02 h=26
+place Loot_SunkenBarrel amphora at -5.89 2.35 h=-4 drop
+
+# --- The sluice house on the lagoon's south-east shore (a radio tower room, its door south): valve four, the pump and
+# its pipes, a box ---------------------------------------------------------------------------------------------------------
+push at 17 -8 h=4.05
+call rt_storey f1=RT_WallDoor1 f2=RT_Wall1 r2=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+place RT_Pillar - at -5.6 1.5 y=0 sy=0.4
+place TP_Selene_DoorCrankWheel valve4 at -5.35 1.5 y=1.1 yaw=90
+place UT_WaterPump - at -2 2.6 y=0 sit scale=0.4
+place WaterPipe_Long_3 - at -4.6 3.6 y=0.4
+place "Box Small" sluicebox at -1 -3.4 y=0 sit yaw=20
+place Zone_Trigger sluice at -3 0 y=1.5
+pop
+place Creature_Turtle turtles at -4 -2 h=-2
+
+# --- The city on the north-east peak: the square round the dry fountain (a basin of stone, a column with the founder's
+# statue, the decree on the plinth, spouts that run when valve five opens), the watch house on its north side, the
+# treasury on its east side (its door a stone slab that sinks), a market stall, the castellum on its west side where the
+# aqueduct ends; mangoes and bananas in the gardens; hens -------------------------------------------------------------------
+for b 0 7 1
+place RT_GroundPillarCap - at {22+2.6*cos(45*$b)} {22+2.6*sin(45*$b)} h=17 sy=0.33 yaw={45*$b}
+next
+place RT_GroundPillar - at 22 22 h=19 sy=1
+place TangaroaFounderStatue - at 22 22 h=19 sit scale=0.4 yaw=180
+place Note_Sign decree at 22 20.75 h=16 sit yaw=180
+place WaterPipe_Out_1 fountainwater at 22 20.75 h=18.5 yaw=180
+place WaterPipe_Out_1 fountainwater at 22 23.25 h=18.5
+place WaterPipe_Out_1 fountainwater at 20.75 22 h=18.5 yaw=270
+place WaterPipe_Out_1 fountainwater at 23.25 22 h=18.5 yaw=90
+place Zone_Atmosphere fountainspray at 22 22 h=17.5
+place Zone_Sound fountainsound at 22 22 h=17.5
+place Zone_Trigger fountain at 22 22 h=17.5
+push at 25 32 h=16.05
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 b1=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+place Loot_Chest watchchest at -1.2 3.4 y=0 sit yaw=180
+place Placeable_Table_Basic - at -4.5 3 y=0 sit
+pop
+push at 31 17 h=16.05 yaw=90
+call rt_storey f1=none f2=RT_Wall1 l2=RT_Wall1 r2=RT_Wall1
+place RT_Floor - at 0 4.5 y=3
+place RT_Wall1 treasurydoor at -3 -4.5
+place Loot_ChestLarge treasurychest at -3 3.4 y=0 sit yaw=180
+place UT_EndRoom_Pot02 - at -5.3 3.6 y=0 sit scale=0.6
+place UT_EndRoom_Pot02 - at -0.7 3.6 y=0 sit scale=0.6
+place Zone_Trigger treasury at -3 1 y=1.5
+pop
+place RestaSunshadeGround - at 15 28 ground
+place Placeable_Table_Basic - at 15 28 ground sit
+place "Box Small" stallbox at 14.3 28.3 h=17 drop yaw=20
+place Pickup_Landmark_Tree_Mango - at 30 30 ground
+place Pickup_Landmark_Tree_Mango - at 14 12 ground
+place Banana_Bush_2 - at 29 12 ground sit
+place Creature_Chicken hens at 18 26 ground
+for c 1 7 1
+place RT_GroundPillar castellum at {12+3.2*cos(45*$c)} {22+3.2*sin(45*$c)} h=22 sy=2 yaw={45*$c}
+next
+place RT_Wall1 castellumdoor at 15.2 20.5 h=16.05 yaw=90
+place RT_Pillar - at 9.7 22 h=16 sy=0.4
+place TP_Selene_DoorCrankWheel valve5 at 9.95 22 h=17.1 yaw=90
+
+# --- Raft's special features (lib_features; the user, 2026-10-10: every Raft feature on more than one island): the
+# cistern under the square's south side: three of Utopia's challenge wheels on posts, turned in the order the tablet
+# gives (middle, west, east), uncover the cistern's chest (hidden)
+place RT_Pillar - at 19.5 10.5 ground sy=0.35
+place RT_Pillar - at 22 10.5 ground sy=0.35
+place RT_Pillar - at 24.5 10.5 ground sy=0.35
+place UT_WaterChallengeWheel1 aqwheelA at 19.5 10.5 ground y=1.05 scale=0.15
+place UT_WaterChallengeWheel2 aqwheelB at 22 10.5 ground y=1.05 scale=0.15
+place UT_WaterChallengeWheel3 aqwheelC at 24.5 10.5 ground y=1.05 scale=0.15
+prop aqwheelA obj.name=aqwheelA
+prop aqwheelB obj.name=aqwheelB
+prop aqwheelC obj.name=aqwheelC
+prop aqwheelB on.use=switch|\nsignal||aqw1\nmessage||The middle wheel turns. Under the square, water starts to talk.
+prop aqwheelA if.use=signal|aqw1
+prop aqwheelA on.use=switch|\nsignal||aqw2\nmessage||The setting-sun wheel turns. The water under your feet runs faster.
+prop aqwheelA else.use=message||It turns a little and stops. The tablet says which wheel comes first.
+prop aqwheelC if.use=signal|aqw2
+prop aqwheelC on.use=switch|\nshow|aqcistern\nmessage||The rising-sun wheel turns - and a slab slides back on a cistern chest.
+prop aqwheelC else.use=message||It will not budge yet. The tablet gives the wheels' order.
+place Note_Sign aqtablet at 22 12.3 ground sit yaw=180
+note aqtablet The cistern tablet | THE CISTERN OF THE SQUARE\n\nAs the water runs, so turn the wheels:\nthe MIDDLE wheel, where it enters;\nthe wheel of the SETTING sun;\nthe wheel of the RISING sun, where it rests.
+place Loot_Chest aqcistern at 22 8.5 ground sit yaw=0
+prop aqcistern obj.name=aqcistern
+prop aqcistern note.title=Cistern chest
+prop aqcistern beh.hidden=1
+loot aqcistern Stone*4;Glass*2;TradeToken*3
+
+# --- The harbour on the east coast: the quay, a barrel on it, the city gate of two stone columns and a beam; palms; dolphins
+push at 86 21.25 h=-13
+call boardwalk n=6 wide=1 y=14.6
+pop
+place Loot_Barrel quaybarrel at 89 22.6 h=1.6 sit
+place RT_GroundPillar - at 81 19 ground sit sy=1.33
+place RT_GroundPillar - at 81 25 ground sit sy=1.33
+place Zone_Trigger citygate at 81 22 y=1.5
+scatter "Pickup_Landmark_Tree_Palm 1" 2 at 76 12 r=6 seed=1701
+scatter "Pickup_Landmark_Tree_Palm 3" 2 at -18 -6 r=4 seed=1702
+place Creature_Dolphin dolphins at 105 22 h=-3
+
+# --- Raft's finds in the shallows round the island (lib_sea) ------------------------------------------------------------
+call shallows r=110 deep=5 n=1
+
+# ===== Settings, story items, notes, behaviours, quest (15 steps) =========================================================
+info title=The Aqueduct
+info author=Custom Islands
+info description=An old water city on two tropical peaks: a spring house, a flooded cistern, an aqueduct striding on arches across the lagoon, and a little stone city with a dry fountain. Open the five valves from source to city, in order - and the fountain runs again.
+island on.arrive=message||Two green peaks, and between them a line of tall stone arches marching across a lagoon from one to the other. On the eastern peak, a little stone city - silent, its fountain dry.
+
+story valvekey|Water-master's valve key|quest:Varuna_MotherlodeKey|A square iron key for the line's valves, on a ring with a brass tag: AQUILA WATER.
+story tally|Water tally|quest:Tangaroa_Token|A bronze tally from an opened valve, stamped with its number.
+story castellumkey|Castellum key|quest:Caravan_KeyInfirmary|The key to the castellum, the city's water tower.
+
+note decree The water-master's decree | (carved on the fountain's plinth)\n\nBY THE WATER-MASTER OF AQUILA\n\nThe line is shut. Whoever opens it opens it from the SOURCE to the CITY, valve by valve, in order:\nONE at the spring house, TWO in the cistern, THREE on the middle arch, FOUR in the sluice house, FIVE in the castellum.\n\nOpen them out of order and the line airlocks.\nWhen the fountain runs, the treasury opens. It is the city's thanks.
+note masterbox Water-master's box | The water-master's box in the spring house: her ledger of flows, a candle - and the valve key on its ring.
+loot masterbox story:valvekey*1;Rope*2
+prop masterbox loot.refill=0
+note watchchest Watch house chest | The watch house's chest: a guard's spear, a lamp - and the castellum's key.
+loot watchchest story:castellumkey*1;Spear_Scrap*1;Rope*2
+prop watchchest loot.refill=0
+note treasurychest The city treasury | Aquila's treasury, dry and cool beside the fountain: the city's coin, the plans for the water-master's canteen, bronze, and a jar of the source's water sealed with wax.
+loot treasurychest TradeToken*12;Blueprint_Canteen*1;CopperIngot*3;MetalIngot*2
+prop treasurychest loot.refill=0
+note quaybarrel Quay barrel | A barrel on the quay: rope, planks, a broken oar.
+loot quaybarrel Rope*2;Plank*5;Nail*6
+prop quaybarrel loot.refill=0
+note stallbox Market stall box | A market stall's box: dried fruit, a few coins, a clay cup.
+loot stallbox Mango*2;Banana*2;Clay*2
+prop stallbox loot.refill=0
+note sluicebox Sluice house box | A box in the sluice house: grease, bolts, an old gasket.
+loot sluicebox Bolt*2;Scrap*2;Plastic*2
+prop sluicebox loot.refill=0
+note amphora Sunk amphora | An amphora in the lagoon's mud under the arches: copper and clay.
+loot amphora CopperOre*2;Clay*3;MetalOre*1
+prop amphora loot.refill=0
+
+prop valve1 obj.name=valve1
+prop valve1 beh.use=Open valve ONE
+prop valve1 if.use=has|story:valvekey|1\n!signal|v1
+prop valve1 on.use=message||The key turns the stem; water gurgles out of the spring into the line. Far below, a pipe knocks.\nsignal||v1\ngive||story:tally*1\nsound||event:/exploring/temperence/selene/handle_spin
+prop valve1 else.use=message||A valve with a square socket. The water-master's key - or it is already open.
+prop valve2 obj.name=valve2
+prop valve2 beh.use=Open valve TWO
+prop valve2 if.use=has|story:valvekey|1\nsignal|v1\n!signal|v2
+prop valve2 on.use=message||Valve two turns under the water; the cistern shudders and starts to drain into the line.\nsignal||v2\ngive||story:tally*1\nsound||event:/exploring/temperence/selene/handle_spin
+prop valve2 else.use=message||It won't budge - the line is dry behind it. From the source to the city, in order.
+prop valve3 obj.name=valve3
+prop valve3 beh.use=Open valve THREE
+prop valve3 if.use=has|story:valvekey|1\nsignal|v2\n!signal|v3
+prop valve3 on.use=message||Valve three, high over the lagoon. Water runs along the channel under your feet towards the east.\nsignal||v3\ngive||story:tally*1\nsound||event:/exploring/temperence/selene/handle_spin
+prop valve3 else.use=message||It won't budge - the line is dry behind it. From the source to the city, in order.
+prop valve4 obj.name=valve4
+prop valve4 beh.use=Open valve FOUR
+prop valve4 if.use=has|story:valvekey|1\nsignal|v3\n!signal|v4
+prop valve4 on.use=message||Valve four. The sluice house fills with the noise of water climbing the east side.\nsignal||v4\ngive||story:tally*1\nsound||event:/exploring/temperence/selene/handle_spin
+prop valve4 else.use=message||It won't budge - the line is dry behind it. From the source to the city, in order.
+prop castellumdoor obj.name=castellumdoor
+prop castellumdoor beh.turn=-95
+prop castellumdoor beh.moveTime=2
+prop castellumdoor beh.moveMode=switch
+prop castellumdoor beh.use=Unlock the castellum
+prop castellumdoor if.use=has|story:castellumkey|1\nstate|castellumdoor|closed
+prop castellumdoor on.use=message||The castellum's door swings in.\nopen|castellumdoor\nsound||event:/raft/door/door_unlock_key
+prop castellumdoor else.use=message||The castellum, the city's water tower. Locked - the watch kept its key.
+prop valve5 obj.name=valve5
+prop valve5 beh.use=Open valve FIVE
+prop valve5 if.use=has|story:valvekey|1\nsignal|v4\n!signal|v5
+prop valve5 on.use=message||The last valve - and the whole city answers: water knocking in every pipe, gurgling in every gutter, and in the square, the fountain coughs, spits and RUNS. Across the square, stone grinds on stone.\nsignal||v5\ngive||story:tally*1\nshow|fountainwater\nshow|fountainspray\nshow|fountainsound\nshow|fountain\nopen|treasurydoor\nsound||event:/exploring/utopia/water_running
+prop valve5 else.use=message||It won't budge - the line is dry behind it. From the source to the city, in order.
+prop fountainwater obj.name=fountainwater
+prop fountainwater beh.hidden=1
+prop fountainspray obj.name=fountainspray
+prop fountainspray beh.hidden=1
+prop fountainspray atmo.particles=bubbles
+prop fountainspray atmo.fog=#d0e8f0
+prop fountainspray atmo.fogAmount=0.1
+prop fountainspray zone.radius=6
+prop fountainsound obj.name=fountainsound
+prop fountainsound beh.hidden=1
+prop fountainsound sound.event=event:/exploring/utopia/water_running
+prop fountainsound sound.volume=0.6
+prop fountainsound zone.radius=14
+prop treasurydoor obj.name=treasurydoor
+prop treasurydoor beh.move=0,-3.2,0
+prop treasurydoor beh.moveTime=4
+prop treasurydoor beh.moveMode=switch
+
+prop citygate zone.id=citygate
+prop citygate zone.radius=8
+prop citygate zone.message=Aquila's harbour gate: two columns, a lintel, a stair road up to the city - and the arches beyond, black against the sky.
+prop source zone.id=source
+prop source zone.radius=6
+prop source zone.message=The source: a spring house over a clear pool, its outlet pipe shut with a valve.
+prop cistern zone.id=cistern
+prop cistern zone.radius=4
+prop cistern zone.message=The cistern: a deep square of dark water. Something turns slowly on its floor - a valve wheel.
+prop cisternair zone.id=cisternair
+prop cisternair zone.radius=2.5
+prop cisternair zone.repeat=1
+prop cisternair zone.air=1
+prop cisternbubbles atmo.particles=bubbles
+prop cisternbubbles zone.radius=3
+prop cisterndark atmo.fog=#0a1a1c
+prop cisterndark atmo.fogAmount=0.5
+prop cisterndark atmo.light=#2a4a50
+prop cisterndark atmo.lightAmount=0.5
+prop cisterndark zone.radius=8
+prop arches zone.id=arches
+prop arches zone.radius=10
+prop arches zone.repeat=never
+prop arches zone.message=Up on the arches - and two screechers drop off the piers at you!
+prop screechers creature.count=2
+prop screechers creature.respawn=0
+prop screechers creature.zone=arches
+prop sluice zone.id=sluice
+prop sluice zone.radius=5
+prop sluice zone.message=The sluice house: pumps, pipes, a valve wheel.
+prop fountain obj.name=fountain
+prop fountain beh.hidden=1
+prop fountain zone.id=fountain
+prop fountain zone.radius=4
+prop fountain zone.message=The fountain of Aquila, running again - and beside it, the treasury's door sunk into the ground.
+prop treasury zone.id=treasury
+prop treasury zone.radius=4
+prop treasury zone.message=The treasury beside the fountain: cool, dry, the sound of water through the wall.
+prop hens creature.count=3
+prop turtles creature.count=2
+prop goats creature.count=3
+prop dolphins creature.count=2
+
+quest title=Water to the City
+quest intro=A stone city with a dry fountain and an aqueduct across the lagoon. The water-master's decree is carved on the fountain.
+step reach|citygate|1|Land at the harbour gate of Aquila
+step read|The water-master's decree|1|Climb to the square and read the decree on the fountain
+step reach|source|1|Climb the west peak to the source
+step collect|story:valvekey|1|Take the valve key from the water-master's box
+step collect|story:tally|1|Open valve one at the spring house
+step reach|cistern|1|Climb down into the flooded cistern
+step collect|story:tally|2|Dive to valve two on the cistern's floor
+step kill|Screecher|2|Fight off the screechers on the arches
+step collect|story:tally|3|Open valve three on the middle arch
+step collect|story:tally|4|Open valve four in the sluice house
+step collect|story:castellumkey|1|Find the castellum's key in the city's watch house
+step collect|story:tally|5|Open valve five in the castellum
+step reach|fountain|1|See the fountain run
+step reach|treasury|1|Go into the treasury beside the fountain
+step open|The city treasury|1|Open the city treasury
+quest done=Water runs from the source to the city again, in every gutter and through the fountain's mouth. Aquila is alive - for as long as somebody keeps the valves.
+quest reward=Mango*3;CopperIngot*2;Rope*3
+
+save The Aqueduct

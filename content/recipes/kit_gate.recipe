@@ -1,0 +1,15 @@
+# Kit check (not content): gate pieces for a bunker front, hatches, a slab of tower floor, rocks to bed them in
+new
+gen Seed=1 Radius=70 Height=4 Shape=4 Roughness=0.1 ObjectDensity=0 Trees=0 Bushes=0 Rocks=0 BeachThings=0 Harvest=0
+gen Hostiles=0 Friendly=0 SeaLife=0 Water=0 SeaRocks=0 SeaFinds=0 Sunken=0
+generate
+brush flatten at 0 0 r=70 s=20 frames=80
+place TangaroaHatchRoom hroom at 0 0 y=3.1
+place TangaroaHatchLadder hladder at 0 -1
+place TP_SeleneEntranceGate sgate at 15 0
+place Hatch hatch at -12 0 sit centred
+place TangaroaHatchRoom_Hatch hlid at -18 0 y=0.2
+place RT_Floor slab at -6 18
+place BigRock_Low3_Sand rock1 at 25 25
+place SmallBoulder2 rock2 at 0 20
+place BigBoulder4_Low rock3 at 8 20

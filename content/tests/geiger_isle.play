@@ -1,0 +1,30 @@
+# Play test of Geiger Isle (CIPlay geiger_isle, in a test world 'CI ...'). No quest: the jetty and its crate, through the
+# gate into the fenced yard, the warning sign, the guard's hut, the crate in the yard, into the bunker and its locker.
+# Points as in its recipe.
+island Geiger Isle
+offset 0 0
+expect animals Hyena 2
+expect animals Rat 3
+expect animals Turtle 2
+wait 3
+kill Hyena
+kill Rat
+kill Roach
+# Along the jetty to its head, the crate
+walk 0 -44 to 0 -50 to 0 -55 h=1.5 below=4
+open Crate on the jetty
+# Up the track, the warning sign by the gate
+walk 0 -38 to 0 -30 h=2.4 below=5
+at -4.5 -23
+read Warning sign
+# Through the gate: the guard's hut, the yard's crate
+walk 0 -21 to -8.75 -18 to -8.75 -15 h=3.3 below=5
+expect stand -8.75 -15 h=3.3 below=5
+open Guard's box
+walk -4 -14 to 2 -13 h=3 below=5
+open Crate in the yard
+# North through the fence's gap into the bunker
+walk 0 4 to -1 10 to -1 16 to -1 26 h=3.1 below=5
+expect stand -1 26 h=3.1 below=5
+open Bunker locker
+dig

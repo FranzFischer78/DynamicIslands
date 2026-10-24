@@ -1,0 +1,15 @@
+# Guide pictures of Saltpan Delta (CIPlay saltpan_delta_pics): Raft's camera, afternoon, calm; the north pan drained
+island Saltpan Delta
+offset 0.822 -0.6864
+hour 15
+weather Calm
+open Foreman's locker
+use crank1
+wait 10
+at -33 40
+wait 3
+picture saltpan_delta_island 25 40 70 -25 0 5
+picture saltpan_delta_pans -8 6 40 -25 0 22
+picture saltpan_delta_pumphouse -22 5 38 -34 3 47
+picture saltpan_delta_line -21 4 -2 -25 1.5 -30
+picture saltpan_delta_jetty -14 5 -48 -26 1.5 -56

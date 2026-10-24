@@ -1,0 +1,11 @@
+# Guide pictures of Ringstone Hill (CIPlay ringstone_hill_pics): Raft's camera, morning, calm
+island Ringstone Hill
+offset 0 0
+hour 9
+weather Calm
+at 0 2
+wait 3
+picture ni7b_ringstone_hill_island 62 28 -50 0 8 0
+picture ni7b_ringstone_hill_stones 0 18 -10 0 14 6
+picture ni7b_ringstone_hill_cave 8 5 -54 8 3 -34
+picture ni7b_ringstone_hill_jetty -40 6 -10 -50 1.5 2

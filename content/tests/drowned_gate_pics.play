@@ -1,0 +1,10 @@
+# Guide pictures of The Drowned Gate (CIPlay drowned_gate_pics): Raft's camera, midday, calm
+island The Drowned Gate
+hour 11
+weather Calm
+at 44 11.69
+wait 3
+picture drowned_gate_wall 77.95 9 -26.98 35.6 3.5 -11.86
+picture drowned_gate_lock 51.84 6.5 -15.42 37.27 3.2 -10.75
+picture drowned_gate_strait 78.95 30 20.45 30.85 0 -10.15
+picture drowned_gate_basin -0.71 7 0.84 35.6 3 -11.86

@@ -1,0 +1,13 @@
+# Guide pictures of Halcyon Cove (CIPlay halcyon_cove_pics): Raft's camera, midday, calm. Points as in its recipe ("offset").
+island Halcyon Cove
+offset 0 0
+hour 11
+weather Calm
+at 0 45 h=4
+wait 3
+picture halcyon_cove_town 0 22 95 0 3 50
+picture halcyon_cove_square 12 7 33 0 4 50
+picture halcyon_cove_tower 12 16 40 0 18 30
+picture halcyon_cove_moon 12 18 18 -4 14 2
+picture halcyon_cove_skywall 80 6 -14 108 8 0
+picture halcyon_cove_booth -4 14.4 -1 -4 13.4 4

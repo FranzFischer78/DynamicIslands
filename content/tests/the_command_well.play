@@ -1,0 +1,57 @@
+# The Command Well (CIPlay the_command_well): elevation -30, the surface at h=30. The deck, the lift order, the first
+# landing's air, the anglers, the dome, the crew's names, the desk, the log, ring 1, the consoles (a fresh world has no
+# choice from the court: FULL refuses, STANDBY answers; inside the plan play the court pulled REACTIVATE, so FULL answers
+# and STANDBY refuses - either way one console sets the rings), the closing note, back to the deck.
+island The Command Well
+offset 0 0
+expect step 0
+expect title The Heart
+expect hidden lastlog
+expect hidden closing_standby
+zone shaft_top
+expect step 1
+read Lift order
+expect step 2
+air shaft_10
+expect step 3
+kill Angler fish
+expect animals Angler fish 0
+expect step 4
+air dome
+expect step 5
+read Crew names
+expect step 6
+use commanddesk
+expect shown lastlog
+expect step 7
+read Last crew's log
+expect step 8
+zone ring_1
+expect step 9
+use console_re
+use console_standby
+expect step 10
+read Closing note
+zone wellridge
+expect step 11
+read Pump house book
+use fusebox
+expect message three empty sockets
+expect step 12
+open Fuse tin
+wait 3
+open Cable cave chest
+wait 3
+open Supply plane's crate
+wait 3
+expect story wellfuse 3
+expect step 13
+use fusebox
+expect story wellfuse 0
+expect shown pumplocker
+open Pump house locker
+wait 3
+expect step 15
+# (no step check here: the shaft top was passed on the way down, so the last step can count at once)
+zone shaft_top
+expect done

@@ -1,0 +1,21 @@
+# Guide pictures of The Bell Stack (CIPlay bell_stack_pics): Raft's camera, afternoon, calm; the bell rung first so the
+# bridge to the cell shows
+island The Bell Stack
+offset -0.7757 -2.2826
+hour 14
+weather Calm
+at 0 -4
+wait 3
+read Chant, first page
+read Chant, second page
+read Chant, third page
+read Chant, fourth page
+read Chant, fifth page
+read Chant, sixth page
+use bell
+wait 2
+picture bell_stack_island 38 26 -40 0 6 0
+picture bell_stack_landing -24 6 -44 -9 3 -32
+picture bell_stack_bridge 10 11 -20 0 7 -11
+picture bell_stack_tower 7 12 -2 0 12 2.5
+picture bell_stack_cell 9 12 14 0 9 26

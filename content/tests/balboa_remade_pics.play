@@ -1,0 +1,10 @@
+# Guide pictures of Balboa Remade (CIPlay balboa_remade_pics): Raft's camera, midday, calm
+island Balboa Remade
+hour 11
+weather Calm
+at 100 3
+wait 3
+picture balboa_remade_island 170 70 60 10 15 -5
+picture balboa_remade_station 104 9 -6 82 5.5 4
+picture balboa_remade_den -40 16 -16 -70 9 -9
+picture balboa_remade_summit 34 56 -4 18 51 -18

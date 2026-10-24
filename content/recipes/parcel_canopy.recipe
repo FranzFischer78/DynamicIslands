@@ -1,0 +1,210 @@
+# Parcel Canopy - an island of the library's plan The Last Post (the Coastal Post's route, the third stop)
+# A jungle hill where the Coastal Post's last mail plane came down: the plane (the pilot island's) on a rock shelf east
+# of the top, a wing torn off below it, its tail section behind a curtain of vines; the pilot Eskil's camp on the south
+# beach, three tree houses on stilts joined by plank walks on the west terrace (the mailbags were carried up there out of
+# the warthogs' reach), the fuel shed in the west woods; Eskil's grave on the hilltop, a propeller blade for its stone.
+# Quest "The Last Mail Flight" (15 steps): the beach, Eskil's notebook, the camp chest (the machete and its blueprint),
+# the tail behind the vines, five mailbags, the warthogs, the cargo hold (fuel tank and fuel pipe blueprints), the radio,
+# the fuel shed (biofuel extractor blueprint), Eskil's letter laid on his grave, the beacon (done-when signal:beacon).
+#
+# Built by the recipe player (CIRecipe parcel_canopy) through the editor's own operations.
+include lib_sea
+include lib_features
+include lib_huts
+include lib_post
+new
+# (nature: a jungle hill, Like Raft's Balboa woods but not as thick)
+gen Trees=0.32 Bushes=0.35 Rocks=0.25 Harvest=0.15 BeachThings=0.12
+gen Seed=4301 Radius=62 Height=16 Roughness=0.45 Peaks=1 Shape=0 Style=0 PeakShape=0.4 Cliffs=0.2 BeachWidth=0.5
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.15 Sunken=0.2 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+
+# --- Terrain: the camp on the south beach, the tree house terrace (west), the plane's shelf (east), the fuel shed -------
+brush flatten at 6 -42 r=6 s=20 frames=80 h=2.4
+brush flatten from -24 30 to 6 30 r=6 s=20 frames=140 h=6
+brush flatten at 20 -4 r=9 s=20 frames=120 h=9
+brush flatten at -27 -13 r=5 s=20 frames=80 h=4
+brush flatten at -2 3 r=5 s=12 frames=60 h=15
+brush smooth from -24 30 to 6 30 r=8 s=6 frames=20
+brush smooth at 20 -4 r=11 s=6 frames=20
+brush rock at 20 -4 r=10 s=6 frames=30
+origin
+clear at 6 -42 r=6
+clear from -24 30 to 6 30 r=6
+clear at 20 -4 r=10
+clear at -27 -13 r=5
+clear at -2 3 r=5
+
+# --- Eskil's camp on the beach: a roof on posts, his table and chest -----------------------------------------------
+place Zone_Trigger beachzone at 4 -50 h=2.5
+push at 3 -45 h=2.4
+call openhall w=2 d=2
+place "Table Office" - at 1.5 2.2 y=1.3 sit drop yaw=0
+place Note_Paper notebook at 1.1 2.2 y=2.4 sit drop yaw=15
+place Loot_Chest campchest at 2.3 0.8 y=1.3 sit drop yaw=0
+pop
+
+# --- The tree houses: three huts on stilts on the west terrace, plank walks between them -------------------------
+push at -22 28 h=6
+call stilt_hut y=2.6 w5=none w6=none
+pop
+push at -17.5 29.5 h=6
+call boardwalk n=4 wide=1 y=2.6
+pop
+push at -11.5 28 h=6
+call stilt_hut y=2.6 w3=none w4=none w5=none w6=none
+pop
+push at -7 29.5 h=6
+call boardwalk n=4 wide=1 y=2.6
+pop
+push at -1 28 h=6
+call stilt_hut y=2.6 w3=none w4=none
+pop
+# the mailbags, carried up out of the warthogs' reach
+place Reef_Container bag1 at -20.6 31.4 h=8.65 sit yaw=20 scale=0.15
+place Reef_Container bag2 at -18.8 30.6 h=8.65 sit yaw=-60 scale=0.15
+place Reef_Container bag3 at -9.4 31.6 h=8.65 sit yaw=80 scale=0.15
+place Reef_Container bag4 at 0.4 31.3 h=8.65 sit yaw=-15 scale=0.15
+place Reef_Container bag5 at 2.2 30.4 h=8.65 sit yaw=50 scale=0.15
+
+# --- The plane on its shelf, the wing torn off below, the tail behind vines, the radio on a crate --------------------
+place Airplane plane at 20 -4 ground sit yaw=35
+place WingBroken - at 12.5 -10 ground sit yaw=70 tilt=8
+place BackWingBroken - at 15 -13 ground sit yaw=10
+place Zone_Trigger tailzone at 27 3 ground
+place ChoppableVines tailvines1 at 23.5 0.5 ground yaw=-55
+place ChoppableVines tailvines2 at 26 -1.5 ground yaw=-55
+place ChoppableVines tailvines3 at 21.5 2.6 ground yaw=-55
+place Loot_Chest cargohold at 28.5 4.5 ground yaw=-55
+place "Box Big" - at 14.5 -2 ground yaw=20
+place Balboa_DecorationPrefabBase_RadioDevice planeradio at 14.5 -2 h=13 drop yaw=20
+place Placeable_Lantern_Metal landinglight at 18.5 -6 h=16 drop
+
+# --- The warthogs in the woods below the terrace ----------------------------------------------------------------
+place Creature_Boar warthogs at -8 -18 ground
+
+# --- The fuel shed in the west woods ----------------------------------------------------------------------------
+push at -29.25 -15.25 h=4
+call openhall w=3 d=3
+place Loot_Chest fuelshed at 2.25 3.6 y=1.3 sit drop yaw=180
+place Balboa_DecorationPrefabBase_ToxicBarrel drums at 0.8 0.9 y=1.3 sit drop
+place Balboa_DecorationPrefabBase_ToxicBarrel drums at 1.7 0.8 y=1.3 sit drop
+place Balboa_DecorationPrefabBase_ToxicBarrel drums at 3.9 3.8 y=1.3 sit drop
+pop
+
+# --- The hilltop: Eskil's grave (a propeller blade), the flowers that come with his letter, the beacon --------------
+place PropellerBlade grave at -4 3 ground sit scale=1.7
+place Placeable_Flower_Rose graveflowers at -4.6 2.2 ground
+place Placeable_Flower_Hibiscus graveflowers2 at -3.3 2.3 ground
+place Antenna_pole beacon at 1.5 4 ground sit
+place Zone_Trigger hilltop at -1 3 ground
+
+# --- Raft's features: a vine-hidden chest in the woods (after the machete), dirt, hives, fruit, the reefs ----------------
+call vinecache x=-20 z=-30 r=10 seed=4321 items=Rope*3;Nail*8;Bolt*2
+scatter "Pickup_Landmark_Tree_Mango" 3 at 0 0 r=45 seed=4311 free=4
+scatter "Pickup_Landmark_PineappleLandmark" 3 at 0 -10 r=40 seed=4312 free=3
+call dirt x=-34 z=8 r=10 n=3 seed=4313
+call hives x=28 z=24 r=10 n=1 seed=4314
+call shallows r=80 deep=5 n=3
+
+# --- Settings, notes, behaviours, quest --------------------------------------------------------------------------------
+info title=Parcel Canopy
+info author=Custom Islands
+info description=A jungle hill where the Coastal Post's last mail plane came down. Its pilot's camp on the beach, mailbags in tree houses, warthogs in the woods, the plane's tail behind the vines - and on the hilltop the pilot himself. The third stop of The Last Post.
+island on.arrive=message||Green hill, white sand - and up on its shoulder something red and white with wings: a plane, nose down in the trees.
+
+prop bag1 tint.color=#b8a478
+prop bag1 tint.amount=0.75
+prop bag2 tint.color=#b8a478
+prop bag2 tint.amount=0.75
+prop bag3 tint.color=#b8a478
+prop bag3 tint.amount=0.75
+prop bag4 tint.color=#b8a478
+prop bag4 tint.amount=0.75
+prop bag5 tint.color=#b8a478
+prop bag5 tint.amount=0.75
+prop drums tint.color=#3d6b4a
+prop drums tint.amount=0.6
+prop plane tint.color=#c8342c
+prop plane tint.amount=0.35
+
+story mailbag|Mailbag|Note_Paper|One of the mail plane's five mailbags, its canvas stencilled COASTAL POST - AIR.
+macro bag al=bag1
+prop $al obj.name=$al
+prop $al beh.use=Take the mailbag
+prop $al on.use=give||story:mailbag*1\nhide|\nmessage||A mailbag, heavy and dry. COASTAL POST - AIR.
+end
+call bag al=bag1
+call bag al=bag2
+call bag al=bag3
+call bag al=bag4
+call bag al=bag5
+
+note notebook Pilot Eskil's notebook | E. BRANDT - MAIL PILOT\n\nEngine quit over the canopy. Put her down in the trees - she held.\n\nMailbags carried up to the tree houses: the warthogs root through anything on the ground. The tail section is grown in with vines; the cargo hold is in the tail. Machete in my camp chest.\n\nFuel shed in the west woods. If the radio still works, I'll light the beacon on the hill so the next plane finds the strip.\n\nI don't think the next plane is coming.
+note campchest Pilot's camp chest | Eskil's camp chest: his machete, its plans, and the last of his food.
+loot campchest Blueprint_Machete*1;Machete*1;Cooked_Potato*2;Coconut*2
+prop campchest loot.refill=0
+prop tailvines1 obj.name=tailvines1
+prop tailvines2 obj.name=tailvines2
+prop tailvines3 obj.name=tailvines3
+prop tailvines1 on.use=hide|\nhide|tailvines2\nhide|tailvines3\nshow|tailzone\nmessage||The machete bites through the vines. Behind them, the plane's tail section and its cargo door.
+prop tailzone zone.id=tail
+prop tailzone zone.radius=4
+prop tailzone zone.message=The tail section: the cargo door hangs open.
+prop tailzone obj.name=tailzone
+prop tailzone beh.hidden=1
+note cargohold Cargo hold | The mail plane's cargo hold: the fuel system's plans, in the mechanic's folder.
+loot cargohold Blueprint_Fueltank*1;Blueprint_Pipe_Fuel*1;MetalIngot*2;Bolt*3
+prop cargohold loot.refill=0
+prop warthogs creature.count=4
+prop warthogs creature.respawn=0
+prop planeradio obj.name=planeradio
+prop planeradio beh.use=Use the plane's radio
+prop planeradio if.use=
+prop planeradio else.use=
+prop planeradio on.use=message||Static... then the Coastal Post's band, a recorded voice: "Pneumatic Heights exchange opens on the tenth day. All mail by tube."\ngive||story:planeradio*1
+note fuelshed Fuel shed | The airstrip's fuel shed: drums, a funnel, and the plans for a biofuel extractor, "for when the avgas runs out".
+loot fuelshed Blueprint_BiofuelExtractor*1;Plank*4;Rope*2
+prop fuelshed loot.refill=0
+prop grave obj.name=grave
+prop grave beh.use=Lay the letter on the grave
+prop grave if.use=take|story:dl_eskil|1
+prop grave on.use=message||You lay the letter under the propeller blade. Someone wrote it to Eskil; now he has it.\ngive||story:eskildelivered*1\nshow|graveflowers\nshow|graveflowers2
+prop grave else.use=message||A propeller blade stuck in the earth. Scratched on it: E. BRANDT, MAIL PILOT.
+prop graveflowers obj.name=graveflowers
+prop graveflowers beh.hidden=1
+prop graveflowers2 obj.name=graveflowers2
+prop graveflowers2 beh.hidden=1
+prop beacon obj.name=beacon
+prop beacon beh.use=Light the beacon
+prop beacon on.use=message||The beacon flares on the hilltop - and on the plane, the landing light comes on.\nsignal||beacon\ngive||story:beaconlit*1\nshow|landinglight
+prop landinglight obj.name=landinglight
+prop landinglight beh.hidden=1
+
+prop beachzone zone.id=beach
+prop beachzone zone.radius=5
+prop beachzone zone.message=A beach with a camp under a roof on posts. The tide has taken the footprints.
+prop hilltop zone.id=hilltop
+prop hilltop zone.radius=4
+
+quest title=The Last Mail Flight
+quest intro=A plane crashed in the canopy. Land on the beach below it.
+step reach|beach|1|Land on the beach
+step read|Pilot Eskil's notebook|1|Read the pilot's notebook in his camp
+step open|Pilot's camp chest|1|Open the pilot's camp chest
+step blueprint|Blueprint_Machete|1|Take the machete plans from the camp chest
+step reach|tail|1|Cut through the vines to the plane's tail section
+step collect|story:mailbag|5|Bring down the five mailbags from the tree houses
+step kill|Warthog|4|Drive off the warthogs in the woods
+step open|Cargo hold|1|Open the cargo hold in the tail
+step blueprint|Blueprint_Fueltank|1|Take the fuel tank plans from the cargo hold
+step blueprint|Blueprint_Pipe_Fuel|1|Take the fuel pipe plans from the cargo hold
+step collect|story:planeradio|1|Use the plane's radio
+step open|Fuel shed|1|Open the fuel shed in the west woods
+step blueprint|Blueprint_BiofuelExtractor|1|Take the biofuel extractor plans from the fuel shed
+step collect|story:eskildelivered|1|Lay Eskil's letter on his grave on the hilltop
+step collect|story:beaconlit|1|Light the beacon on the hilltop
+quest done=The beacon burns over the canopy. Somewhere a Receiver picks up the airstrip's call: the next stop is Pneumatic Heights.
+quest reward=MetalIngot*3;Bolt*4;Scrap*4
+
+save Parcel Canopy

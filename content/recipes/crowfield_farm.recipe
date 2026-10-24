@@ -1,0 +1,107 @@
+# Crowfield Farm - a new island of the library, normal size
+# A small farm on a green round island: the farmhouse (Balboa's log house) and the barn (a relay-station house) on the
+# plain of its north side, the goat pen with its gate open, fields of berry bushes and melons with scarecrows, a windmill
+# on the slope - and three goats loose on the hill.
+# Quest "Three Goats" (5 steps): catch the runaway goats with the farm's net launcher.
+#
+# Built by the recipe player (CIRecipe crowfield_farm) through the editor's own operations.
+include lib_relay
+include lib_sea
+include lib_features
+new
+gen Trees=0.21 Bushes=0.38 Rocks=0.3 Harvest=0.1 BeachThings=0.3
+gen Seed=9105 Radius=45 Height=10 Roughness=0.25 Peaks=1 Shape=0 Style=3 BeachWidth=0.4 Cliffs=0.1 PeakShape=0.3
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the farmyard levelled at 3.2 m on the north plain, the fields on the west plain painted grass ---------------
+for fz 20 34 3.5
+brush flatten from -28 $fz to 18 $fz r=3.5 s=20 frames=80 h=3.2
+next
+brush grass from -28 26 to 18 26 r=10 s=20 frames=20
+brush sand from 0 22 to 0 40 r=1.5 s=20 frames=20
+clear from -28 27 to 18 27 r=10
+
+# --- The farmhouse (the farmer's note by its door, Marta's basket on the table inside), the barn with the tack chest ----
+place Balboa_Shack farmhouse at -12 28 h=2.85
+place Placeable_Table_Basic - at -11 28 h=4.5 drop
+place "Box Small" thanks at -11 28 h=5.5 drop yaw=20
+place Note_Sign farmernote at -19 27 ground sit yaw=270
+push at 15 33 h=3.3
+call relay_house
+place Loot_Chest tackchest at -9 -2 y=0 sit yaw=90
+place Loot_Barrel - at -9 -8.5 y=0 sit
+pop
+
+# --- The goat pen with its gate open, the feed bin; the fields with scarecrows; the windmill on the slope ---------------
+line Balboa_DecorationPrefabBase_Fence_Mid from -27 28 to -18 28 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from -27 35 to -18 35 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from -27 28 to -27 35 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from -18 32 to -18 35 step=2.98
+place "Box Small" feedbin at -25.5 33.5 ground sit
+for fx -26 -14 4
+place Pickup_Landmark_BerryBush - at $fx 20 ground
+place Pickup_Landmark_WatermelonLandmark - at $fx 23 ground
+place Pickup_Landmark_BerryBush - at {$fx+2} 26 ground
+next
+place Placeable_Scarecrow - at -20 21.5 ground yaw=180
+place Placeable_Scarecrow - at -16 25 ground yaw=150
+place Placeable_Scarecrow - at -24 24.5 ground yaw=200
+place RT_WindMill - at 20 16 ground sit yaw=200
+place "Box Small" millbox at 18.5 18 ground sit yaw=10
+place Zone_Trigger farmyard at 0 26 y=1.5
+
+# --- The goats on the hill (to catch), hens in the yard, dolphins outside; Raft's finds in the shallows (lib_sea) ----------
+place Creature_Goat goats at 2 -22 ground
+prop goats creature.count=3
+place Creature_Chicken hens at 6 26 ground
+prop hens creature.count=4
+place Creature_Dolphin dolphins at -40 -50 h=-3
+prop dolphins creature.count=2
+call shallows r=58 deep=5 n=1
+
+# ===== Settings, story items, notes, behaviours, quest (5 steps) ==========================================================
+info title=Crowfield Farm
+info author=Custom Islands
+info description=A small farm on a green island: a barn, a windmill, scarecrows in the fields and an empty goat pen. The farmer had to leave in a hurry and her goats got out. Round them up with the net launcher from the barn.
+island on.arrive=message||Fields and fences on a green hill, a windmill turning, scarecrows with their arms out - and goats, everywhere they shouldn't be.
+
+note farmernote Farmer's note | (pinned to the farmhouse door)\n\nHad to go to the mainland - my sister's having her baby. The goats got out of the pen the morning I left, three of them, and I couldn't catch them in time.\n\nIf you're passing: the net launcher is in the tack chest in the barn. Net the three and they'll go back to the pen by themselves - they know the way.\n\nThere's a basket for you in the farmhouse.\n- Marta
+note tackchest Barn tack chest | The barn's tack chest: halters, a bell - and the farm's net launcher with its canisters.
+loot tackchest NetGun*1;NetCanister*6;Rope*2
+prop tackchest loot.refill=0
+note thanks Marta's basket | Marta's basket on the farmhouse table: a loaf, cheese, jars of jam - and the plans for her clever planters.
+loot thanks Blueprint_Cropplot_Medium_Tier3*1;Seed_Mango*3;Seed_Pineapple*3;Cooked_GenericMeat*3;Egg*4
+prop thanks loot.refill=0
+prop thanks if.open=quest|4
+prop thanks else.open=message||A basket with a cloth over it and a tag: FOR WHOEVER BRINGS THE GOATS HOME.
+note millbox Windmill box | A box at the windmill's foot: grease, spare sail cloth, a mouse.
+loot millbox Rope*2;Plank*4;Wool*2
+prop millbox loot.refill=0
+note feedbin Feed bin | The goats' feed bin: oats and turnips.
+loot feedbin Raw_Potato*3;Seed_Banana*2
+prop feedbin loot.refill=0
+
+prop farmyard zone.id=farmyard
+prop farmyard zone.radius=10
+prop farmyard zone.message=Crowfield Farm: a farmhouse, a barn, a windmill turning - and an empty pen with its gate open.
+
+# --- Raft's special features (the user, 2026-10-05: every Raft feature on at least one island): Raft's dirt spots in the fields and a wild
+# hive by the windmill - dirt for the crop plots the farm's blueprint gives
+call dirt x=0 z=0 r=35 n=6 seed=91
+call hives x=0 z=0 r=35 n=1 seed=92
+
+quest title=Three Goats
+quest intro=A farm on a green island, its goats loose. The farmer left a note on the farmhouse door.
+step reach|farmyard|1|Walk up into the farmyard
+step read|Farmer's note|1|Read the note on the farmhouse door
+step open|Barn tack chest|1|Take the net launcher from the barn's tack chest
+step catch|Goat|3|Net the three runaway goats
+step open|Marta's basket|1|Open Marta's basket in the farmhouse
+quest done=Three goats back in the pen, chewing as if they'd never left. Marta will be glad.
+quest reward=Seed_Mango*2;Raw_Potato*4;Rope*2
+
+# --- A Raft store on the plain: the farm stand (Raft's goods, and plans the crew missed) --
+store farmstand at 0 24 ground
+
+save Crowfield Farm

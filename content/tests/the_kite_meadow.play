@@ -1,0 +1,59 @@
+# The Kite Meadow (CIPlay the_kite_meadow): the plan The Rainmakers' third island, quest "Kites Over the Ridge"
+# The cliff path up from the south beach (0 -60, 3 m) past the crew hut's ledge (7..10 -52..-49, 8 m) and the vines
+# (z -38) to the meadow (20 m); the masts x -25.3..25.3 at z 16; the launch shed x -4.5..4.5 z 24..28.5.
+island The Kite Meadow
+offset 0 0
+expect step 0
+expect title Kites Over the Ridge
+wait 5
+expect animals Warthog 5
+expect shown kitesdown
+expect hidden kitesup
+zone cliff_path
+expect step 1
+read Kite crew roster
+expect step 2
+open Crew hut chest
+wait 3
+expect item Machete 1
+expect item Blueprint_Machete 1
+expect step 4
+expect shown kitevines
+use kitevines
+expect hidden kitevines
+zone upper_meadow
+expect step 5
+kill Warthog
+expect step 6
+read Winch 2 log
+read Winch 7 log
+read Winch 11 log
+expect step 7
+code shedkeypad 123 wrong
+code shedkeypad 419
+expect hidden shedgate
+expect story shedopen 1
+expect step 8
+use shedbell
+expect message Nobody rings it
+open Fuel store
+expect message Start the engine
+use winchengine
+open Winch fuel can
+use winchengine
+expect story kitesup 1
+expect shown kitesup
+expect hidden kitesdown
+expect step 9
+open Fuel store
+wait 3
+expect item Blueprint_Fueltank 1
+expect item Blueprint_Pipe_Fuel 1
+expect step 12
+open Biofuel press
+wait 3
+expect item Blueprint_BiofuelExtractor 1
+expect step 14
+use shedbell
+expect story bellrung 1
+expect done

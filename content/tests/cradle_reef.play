@@ -1,0 +1,39 @@
+# Cradle Reef (CIPlay cradle_reef): The Lullaby Frequency's sunken island, quest "Cradle Song" (7 steps). The home's
+# shelf is flat round -14..12 0 (28 m under the sea); the dormitory spans -15..-6 x -4..2 (air pocket, zone dormitory
+# at -10.5 -1), its cribs with the combs at z -2.4, the matron's table at -6.8 -0.6; the chapel spans 4..8.5 x -3..3 (zone
+# chapel at its door, 6.25 -1; the music box on the altar at 6.25 2.1); the buoy at 14 -14 on its chain of posts.
+island Cradle Reef
+offset 0 0
+expect step 0
+expect title Cradle Song
+wait 3
+expect hidden tooth
+zone buoy
+expect step 1
+zone dormitory
+expect step 2
+at -7.5 -0.6
+read Matron's last letter
+expect step 3
+at -13.8 -1.4
+use comb1
+at -10.8 -1.4
+use comb2
+at -7.8 -1.4
+use comb3
+expect story comb 3
+expect step 4
+at 6.25 -3.5
+zone chapel
+wait 2
+kill Angler fish
+expect step 5
+at 6.25 1
+use musicbox
+expect story comb 0
+expect story boxsong 1
+expect shown tooth
+expect step 6
+use tooth
+expect story tooth 1
+expect done

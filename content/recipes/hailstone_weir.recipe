@@ -1,0 +1,155 @@
+# Hailstone Weir - an island of the library's plan The Rainmakers (Nimbus Works' first station, the first island)
+# A forested island whose river mouth Nimbus Works closed with a concrete weir: two piers of the radio tower's pillar caps
+# standing in the riverbed, thick pillars beside them as the gate hoists, Utopia's drawbridges set
+# upright between them as three sluice gates, a walk across the top. The pump house on the west bank (stone base, a
+# metal hip roof on its corner pillars), the weir keeper's table by the east end. Quest "Day One of the Rain" (5 steps):
+# the weir walk, the keeper's log, the crank that opens sluice one and drains the pump house, its locker (the Receiver's
+# and the antenna's blueprints), the Nimbus maintenance card naming the next station.
+#
+# Built by the recipe player (CIRecipe hailstone_weir) through the editor's own operations.
+include lib_sea
+include lib_features
+new
+# (nature: forest, Like Raft's own: Trees 0.28, Bushes 0.28, Rocks 0.43, Harvest 0.24 - CIGenLikeRaft)
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=9301 Radius=48 Height=22 Roughness=0.5 Peaks=2 Shape=0 Style=3 PeakShape=0.6 Cliffs=0.3 BeachWidth=0.4
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the river cut from the hills to the south shore (its bed 1.5 m under the sea), level banks at the weir
+# (1.6 m, the walk's height) on both sides --------------------------------------------------------------------------
+brush flatten from 0 8 to 0 -62 r=9 s=20 frames=120 h=-1.5
+brush flatten from -20 -24 to -12 -24 r=7 s=20 frames=80 h=1.6
+brush flatten from -18 -33 to -12 -33 r=5 s=20 frames=60 h=1.6
+brush flatten from 12 -32 to 18 -32 r=6 s=20 frames=80 h=1.6
+brush smooth from 0 8 to 0 -62 r=11 s=6 frames=20
+brush grass from -24 -22 to -12 -34 r=9 s=8 frames=40
+brush grass from 12 -26 to 20 -36 r=8 s=8 frames=40
+brush grass from -14 -10 to 14 -10 r=10 s=8 frames=40
+origin
+clear from 0 8 to 0 -62 r=10
+clear from -22 -24 to -11 -34 r=8
+clear at 14 -32 r=7
+
+# --- The weir across the river at z -32: two piers of the radio tower's pillar caps (2.4 m square, their tops at 1.6 m)
+# in the riverbed, the banks' concrete ends beyond them - the three sluices between; a deck of metal floor plates across
+# the top, bank to bank (the plates past the piers are set into the banks) -------------------------------------------
+for p -2.5 2.5 5
+place RT_GroundPillarCap - at $p -32 h=-1.6 sit
+# the gate hoists: thick posts on the riverbed against each pier's upstream face
+place RT_PillarThick - at $p -33.55 h=-1.5 sy=0.9
+next
+for d -11.2 11.2 1.6
+place Block_Floor_Tier3 - at $d -31.6 h=1.62
+place Block_Floor_Tier3 - at $d -32.4 h=1.62
+next
+# the sluice gates: Utopia's drawbridges set upright in the gaps on the upstream side, standing on the riverbed in the
+# piers' grooves, their tops over the deck (sluice one, west, opens)
+place UT_Drawbridge sluice1 at -5 -33.55 h=-1.5 rot=0,0,0
+place UT_Drawbridge sluice2 at 0 -33.55 h=-1.5 rot=0,0,0
+place UT_Drawbridge sluice3 at 5 -33.55 h=-1.5 rot=0,0,0
+place Zone_Trigger weirwalk at 0 -32 h=2.4
+
+# --- The pump house on the west bank: a stone base, Temperance-grey walls, a metal hip roof on its corner pillars ----
+push at -21 -29 h=1.6
+for fx 0.75 3.75 1.5
+for fz 0.75 3.75 1.5
+place Block_Floor_Tier3 - at $fx $fz y=0.05
+next
+next
+place Block_Wall_Tier3 - at 0.75 4.5 y=0.2
+place Block_Wall_Tier3 - at 2.25 4.5 y=0.2
+place Block_Wall_Tier3 - at 3.75 4.5 y=0.2
+place Block_Wall_Tier3 - at 0 0.75 y=0.2 yaw=90
+place Block_Wall_Tier3 - at 0 2.25 y=0.2 yaw=90
+place Block_Wall_Tier3 - at 0 3.75 y=0.2 yaw=90
+place Block_Wall_Tier3 - at 0.75 0 y=0.2
+place Block_Wall_Door_Tier3 - at 2.25 0 y=0.2
+place Block_Wall_Tier3 - at 3.75 0 y=0.2
+place Block_Pillar_Tier3 - at 0 0 y=0.2
+place Block_Pillar_Tier3 - at 4.5 0 y=0.2
+place Block_Pillar_Tier3 - at 0 4.5 y=0.2
+place Block_Pillar_Tier3 - at 4.5 4.5 y=0.2
+roof 3 3 at 0 0 y=0.2
+place Locker pumplocker at 1 3.6 y=0.25 yaw=180
+place "Table Office" pumptable at 3.4 2.6 y=0.54 yaw=90
+place Note_Paper maintcard at 3.4 2.6 y=2 sit drop yaw=80
+pop
+
+# --- The crank wheel on the west pier's post: it lifts sluice one and drains the pump house -------------------------
+call crankcache x=-11 z=-30.2 yaw=90 alias=sluicecrank sig=sluice chest=crankcrate cx=-14 cz=-34 cyaw=0 items=Bolt*2;Rope*2 title="Sluice tool crate"
+
+# --- The weir keeper's table at the east end of the walk, his log on it --------------------------------------------
+place "Table Office" keepertable at 14 -30 ground yaw=0
+place Note_Paper keeperslog at 14 -30 h=8 sit drop yaw=20
+place Placeable_Lantern_Metal - at 13.4 -30 h=8 sit drop
+place "Chair Office" - at 14 -28.8 ground yaw=180
+place "Box Big" - at 16.5 -34 ground yaw=15
+place Placeable_Flag_03 - at 11.5 -35 ground
+
+# --- A water wheel turning in the spillway below the weir (the river side, east bank) ----------------------------
+place UT_WaterChallengeWheel1 spillwheel at 0 -37.5 h=0.3 scale=0.4 rot=90,0,0
+prop spillwheel obj.name=spillwheel
+prop spillwheel beh.spin=20
+prop spillwheel beh.spinOwn=1
+prop spillwheel beh.use=
+prop spillwheel if.use=
+prop spillwheel on.use=message||The spillway wheel turns in the overflow - it drives nothing now but a clattering counter: day 4,012.
+place RT_PillarThick - at -2.2 -37.5 h=-1.5 sy=0.3
+place RT_PillarThick - at 2.2 -37.5 h=-1.5 sy=0.3
+
+# --- Friendly animals and things to gather -------------------------------------------------------------------------
+place Creature_Chicken hens at 18 -26
+prop hens creature.count=2
+place Creature_Dolphin dolphins at 10 -80 h=-3
+prop dolphins creature.count=2
+scatter "Pickup_Landmark_Tree_Mango" 2 at 0 0 r=34 seed=9311 free=5
+scatter "Pickup_Landmark_PineappleLandmark" 3 at 0 0 r=34 seed=9312 free=3
+scatter "Pickup_Landmark_Flower_Red" 2 at 0 0 r=34 seed=9313 free=3
+call dirt x=-20 z=-10 r=10 n=3 seed=9314
+call shallows r=68 deep=5 n=2
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Hailstone Weir
+info author=Custom Islands
+info description=Nimbus Works' first station: a forested island whose river mouth the company closed with a concrete weir - three sluice gates, a pump house on the bank, and the weir keeper's log. The first island of The Rainmakers.
+island on.arrive=message||A green island, a river - and across its mouth a grey concrete weir, three gates shut, water spilling over the top.
+
+story sluiceopen|Sluice one open|Placeable_Pipe_Water|Sluice one of the weir is open; the pump house basement drained.
+
+note keeperslog Weir keeper's log | NIMBUS WORKS - HAILSTONE WEIR - KEEPER'S LOG\n\nDay 1 of the rain that doesn't stop. The seeders upriver kept firing all night. Head office says it will pass.\n\nDay 9. Still raining. The river is over the second mark. I shut all three gates to hold the silt back - now the pump house basement is flooding instead.\n\nDay 14. Sluice one's crank is on the west pier. Open it and the basement drains. The company locker is down there with the Receiver plans - head office wants every station able to hear the maintenance band.\n\nIf you find this: open sluice one, take the plans, and listen.
+note maintcard Nimbus maintenance card | NIMBUS WORKS - MAINTENANCE CARD\n\nStation: Hailstone Weir. Status: running.\n\nNext station on the round: CIRRUS SILO FARM - the seed silos on the grass island.\n\nTune the maintenance band on a Receiver; the silo farm answers on its own frequency.
+prop maintcard obj.name=maintcard
+prop maintcard beh.hidden=1
+note pumplocker Pump house locker | The company locker in the pump house basement, its door swollen from the flood: Nimbus Works' plans for a Receiver and its antenna, in an oilskin wallet.
+loot pumplocker Blueprint_Reciever*1;Blueprint_Antenna*1;Battery*1;Scrap*4;Plank*6
+prop pumplocker loot.refill=0
+prop pumplocker obj.name=pumplocker
+prop pumplocker if.open=signal|sluice
+prop pumplocker else.open=message||The locker stands in a foot of water, its door jammed by the flood. Drain the basement first.
+
+prop sluicecrank on.use=message||The wheel turns with a long groan - sluice one lifts out of the river, the water roars through, and the pump house basement drains with a gurgle.\nsignal||sluice\ngive||story:sluiceopen*1\nhide|sluice1\nshow|maintcard\nshow|crankcrate
+prop sluice1 obj.name=sluice1
+
+prop weirwalk zone.id=weir_walk
+prop weirwalk zone.radius=4
+prop weirwalk zone.message=The weir walk: three sluice gates under your feet, the river held back behind them.
+
+quest title=Day One of the Rain
+quest intro=A weir across a river mouth: Nimbus Works' first station. Walk out onto it.
+step reach|weir_walk|1|Walk out onto the weir
+step read|Weir keeper's log|1|Read the weir keeper's log by the east end
+step collect|story:sluiceopen|1|Turn the crank on the west pier to open sluice one
+step open|Pump house locker|1|Open the locker in the drained pump house
+step blueprint|Blueprint_Reciever|1|Take the Receiver plans from the pump house locker
+step blueprint|Blueprint_Antenna|1|Take the antenna plans from the pump house locker
+step read|Nimbus maintenance card|1|Read the Nimbus maintenance card on the pump house table
+quest done=The maintenance card names the next station: Cirrus Silo Farm. Tune the Receiver to the maintenance band.
+quest reward=Plank*6;Rope*3;Scrap*4
+
+# --- Raft's vehicles (VI4, 2026-10-23): parked on open ground, clear of paths and quest objects ---
+place VP_Forklift - at -14 -22 ground sit yaw=90
+# the generator's rocks that floated over the slope (VI4 ground check, 2026-10-24)
+clear at -27.55 -33.09 r=1.5 only=BigRock_2
+
+save Hailstone Weir

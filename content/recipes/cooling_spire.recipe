@@ -1,0 +1,209 @@
+# Cooling Spire - the eighth island of The End of the Ocean (SL14, the Concord Engine's cooling tower)
+# A pale iron tower four storeys high on a cold island, steam rolling off it, frost on the rocks round its foot: the
+# engine's cooling spire, where the ice wave of the Ringwave was made. Hedda camps at its foot with a trader's store; the
+# ice-rats have the second storey, a polar bear the roof. From the roof a cable runs down south to a lookout on the shore,
+# from where you can see the ring. Quest "The Cold Spire" (15 steps): Hedda's camp, her welcome, the titanium tool plans,
+# the second landing, the rats, the backpack plans, the roof, the polar bear, the electric zipline plans, the cable down
+# to the lookout, what Hedda saw.
+#
+# Built by the recipe player (CIRecipe cooling_spire) through the editor's own operations. Points (metres over the sea):
+# the spire's yard at 3 m round 0 0 (r 12), the spire x -3..3, z -4.5..4.5 (storey floors at 3, 6, 9, its roof at 12),
+# the outside stairs on its east, north and west sides, Hedda's camp round 10 -2, her store at 10 6, the cable from the
+# roof to the lookout at 0 -30 (1 m), the llama pasture round -14 -10, the treasure round 14 -6.
+include lib_sea
+include lib_features
+include lib_huts
+include lib_gravity
+include lib_rt
+include lib_concord
+include lib_areas
+new
+# (nature 10-24: hills and Raft-like trees over the whole island - the coordinator's check after the resize)
+gen Trees=0.3 Bushes=0.4 Rocks=0.55 Harvest=0.3 BeachThings=0.3
+gen Seed=14161 Radius=85 Height=15 Roughness=0.35 Peaks=1 Shape=0 Style=2 PeakShape=0.5 Cliffs=0.6 BeachWidth=0.5
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0.1 SeaLife=0.3
+generate
+
+# --- Terrain: the spire's yard, the camp beside it, the path down to the lookout --------------------------------------
+brush flatten at 4.43 -0.35 r=12 s=20 frames=250 h=3
+brush flatten at 14.43 1.65 r=6 s=20 frames=200 h=3
+brush flatten at -0.41 -57.78 r=4 s=20 frames=200 h=1
+# (the cable cutting: a notch through the hill under the zipline down to the lookout - the line ran through it, 10-24)
+brush flatten from 10 -8 to 6 -26 r=5 s=20 frames=500 h=6
+brush flatten from 6 -26 to 0 -52 r=5 s=20 frames=600 h=2.5
+brush smooth from 10 -8 to 0 -52 r=8 s=6 frames=60
+origin
+clear at 4.43 -0.35 r=12
+clear at 14.43 1.65 r=6
+clear from 10 -8 to 0 -52 r=8
+clear at -0.41 -57.78 r=4
+clear at -2.41 -53.78 r=2
+
+# --- The spire: four storeys of radio tower pieces, open doorways where the outside stairs arrive, a railed roof -------
+push at 7.43 -0.35 h=3.05
+call rt_storey f1=RT_WallDoor1 a=spire
+place Loot_Crate mushcrate at -5 3.5 y=0.1 sit yaw=10
+place "Box Big" - at -1 3.5 y=0.1 sit yaw=-10
+pop
+push at 7.43 -0.35 h=6
+call rt_storey r3=none a=spire
+place Loot_Chest landingchest at -5 3.5 y=0.1 sit yaw=180
+place "Box Small" - at -3.5 3.5 y=0.1 sit yaw=30
+pop
+push at 7.43 -0.35 h=9
+call rt_storey b1=none r1=RT_WallWindow1 r2=RT_WallWindow1 l2=RT_WallWindow1 a=spire
+pop
+push at 7.43 -0.35 h=12
+place RT_Floor spire at 0 4.5
+call rt_railing y=0 lm=none
+place RT_SatteliteDisc - at -1.5 3 y=0.1 scale=0.45 yaw=180
+place Loot_Chest topchest at -4.5 -3.5 y=0.1 sit yaw=0
+pop
+prop spire tint.color=#c9d0d6
+prop spire tint.amount=0.55
+place RT_Stair stair1 at 10.93 -3.35 ground sit yaw=0 sy=0.68
+place RT_Stair stair2 at 8.43 7.15 ground y=3 yaw=270 sy=0.68
+place RT_Stair stair3 at -2.07 5.65 ground y=6 yaw=180 sy=0.68
+prop stair1 tint.color=#c9d0d6
+prop stair1 tint.amount=0.55
+call tzone x=4.43 z=-0.35 al=landing2zone id=landing_2 r=3 h=3.2 msg="The second landing. Something has nested in the insulation - and it has teeth."
+call tzone x=4.43 z=-0.35 al=topzone id=spire_top r=3.5 h=9.2 msg="The top of the Cooling Spire. Steam, wind - and to the south, a ring of iron on the sea."
+
+# --- The cold: fog and steam round the spire, snow on its roof, the cooling hum ------------------------------------------
+call weather x=4.43 z=-0.35 al=steam r=20 fog=#d6e0e6 fa=0.45 light=#c8dcec la=0.4 parts=mist h=4
+call weather x=4.43 z=-0.35 al=snowtop r=8 fog=#e4ecf0 fa=0.35 light=#d8e8f4 la=0.4 parts=snow h=12
+call loopsound x=4.43 z=-0.35 al=coolsound ev=event:/exploring/temperence/selene/cryotube_engine r=24 vol=0.45 h=6
+
+# --- The spire's tenants: ice-rats on the second storey, a polar bear on the roof ---------------------------------------
+place Creature_Rat icerats at 4.43 -0.35 ground y=3.3
+prop icerats creature.count=3
+prop icerats creature.respawn=0
+prop icerats creature.zone=landing_2
+prop icerats tint.color=#dfe8ee
+prop icerats tint.amount=0.5
+place Creature_PolarBear roofbear at 4.43 -0.35 ground y=9.3
+prop roofbear creature.count=1
+prop roofbear creature.respawn=0
+prop roofbear creature.zone=spire_top
+
+# --- The cable down to the lookout on the south shore; what Hedda saw -------------------------------------------------
+place ZiplinePath_Landmark zipdown at 11.15 -3.32 h=13.45
+zipto zipdown -0.41 -55.78
+call tzone x=-0.41 z=-57.78 al=lookzone id=court_view r=4 msg="The lookout. Over the sea to the south: a ring of iron, wider than any island, and three waves cut across it."
+place Note_Sign hedda2 at 1.09 -59.28 ground sit yaw=0
+place Antenna_pole - at -1.91 -59.28 ground sy=0.4
+place Placeable_Flag_02 - at -1.91 -59.28 ground y=2.1
+
+# --- Hedda's camp and her store; the llama pasture -----------------------------------------------------------------------
+call camp x=14.43 z=-2.35 yaw=250 fire=campfire_1
+call notebox x=16.43 z=-0.35 yaw=200 al=hedda1
+place Loot_Chest heddachest at 17.43 -3.35 ground sit yaw=250
+store spireshop at 14.43 5.65 ground
+place Creature_Llama llamas at -27.05 -17.45 ground
+prop llamas creature.count=2
+place Block_Wall_Fence_Plank - at -30.05 -14.45 ground sit
+place Block_Wall_Fence_Plank - at -24.05 -14.45 ground sit
+
+# --- Things to gather; the treasure; a reef and the shallows ------------------------------------------------------------
+scatter "Pickup_Landmark_Iron 1" 2 at -17.69 14.52 r=6 seed=14162 free=2
+scatter Pickup_Landmark_BerryBush 2 at -30.91 7.73 r=5 seed=14163 free=2
+call treasure x=18.43 z=-6.35 r=10 n=1 seed=14052
+prop treasure14052 treasure.loot=TitaniumOre*3
+call reef x=57.95 z=42.5 r=5 seed=14164
+call shallows x=4.43 z=-0.35 r=104.32 deep=5 n=1 seed=14168
+
+# --- Discoveries: things to find off the quest path (not needed for the quest) ---------------------------------
+call tzone x=24.7 z=-35.8 al=spireview id=spireview r=4 msg="A rise with the spire behind you. Its fog rolls down the slope and out over the water - always toward the middle of the sea."
+place Loot_Chest coldstore at -36.8 55.1 ground sit yaw=147
+prop coldstore loot.refill=0
+call notebox x=-60.3 z=-28.9 yaw=245 al=gaugereadings
+place BoatStranded - at 39.2 63.9 ground sit yaw=121 scale=0.7
+
+# --- Areas (10-24: every story island has places all over it and its quest crosses it): the north-east ridge with its lookout and
+# a buried treasure, the cave in the west dunes, the pumpmen's ruined house in the south, the plane in the east
+call ar_ridge x1=4 z1=52 x2=44 z2=36 h=9 top=7 r=9
+call ar_plants_desert x=24 z=44 r=28 seed=14451
+call tzone x=24 z=44 al=neridge id=coolridge r=7 msg="The top of the dune ridge. From here the spire's steam leans south in a straight line, though the wind blows west."
+call treasure x=24 z=44 r=12 n=1 seed=14461
+call ar_cave x=-56 z=16 h=3 yaw=0 al=dunecave chest=dunecavechest
+call tzone x=-56 z=21 al=dunecavezone id=dunecave r=4 msg="A cave in the west dunes, cold as a cellar. Water drips from the roof - the spire's cooling water, come through the rock."
+call ar_ruin x=-8 z=-68 h=3 yaw=0 al=pumphouse
+call notebox x=-5.5 z=-72.5 yaw=20 al=pumpmenlog
+call ar_plane x=52 z=-16 h=3 yaw=20 al=waterplane crate=watercrate
+call notebox x=48.5 z=-21.5 yaw=70 al=waterplanelog
+# vine cache placed by hand (scatter found no spot in run25): the chest behind Raft's choppable vines, machete
+place Loot_Chest vinechest14491 at -56 -56 ground sit yaw=0
+prop vinechest14491 obj.name=vinechest14491
+prop vinechest14491 note.title=Behind the vines
+prop vinechest14491 beh.hidden=1
+loot vinechest14491 Glass*2;Rope*3;Nail*8
+beside ChoppableVines vinewall14491 vinechest14491 d=1.6
+prop vinewall14491 on.use=hide|
+show|vinechest14491
+message||The machete bites through the vines. Something was hidden behind them.
+call ar_plants_desert x=-56 z=-56 r=14 seed=14471
+call ar_plants_desert x=-24 z=60 r=14 seed=14481
+
+# --- Tools in use (10-24: a tool given earlier in the storyline is used again here, for optional finds): the
+# machete from Triangulation Rocks cuts the vines over a hidden chest, and a zipline from the ridge top is the quick way back down
+clear from 20.5 37.3 to 12 17 r=2.5
+place ZiplinePath_Landmark ridgezip at 22 41 ground
+zipto ridgezip 12 17
+
+# --- Unique layer (10-24): cooling_spire device - see SL14_progress.md UNIQUE ISLANDS
+call mirrors x1=20 z1=46 yaw1=200 x2=-12.5 z2=-72 yaw2=20 a1=sunmirror1 a2=sunmirror2 chest=sunchest cx=54.7 cz=-8.5 cyaw=20 items=TitaniumOre*3;Glass*3;Battery*1 title="Sun-locked chest"
+prop sunchest loot.refill=0
+prop dunecavechest if.open=has|story:raft-Vasagatan_BoltCutter|1
+prop dunecavechest else.open=message||The cellar chest is chained shut. Bolt cutters would get through the chain.
+loot dunecavechest Glass*2;Bolt*2;Scrap*3;Rope*1;TitaniumOre*2
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Cooling Spire
+info author=Custom Islands
+info description=A pale iron tower four storeys high, steam rolling off it and frost round its foot: the Concord Engine's cooling spire. Hedda camps at its foot with a store; from its roof a cable runs down to a lookout over the ring.
+island on.arrive=message||A pale tower in its own cold fog, steaming like a kettle. At its foot, a campfire - lit.
+
+note hedda1 Hedda's welcome | HEDDA - on a sheet of the Fleet's paper\n\nYou came after all. Sit by the fire - it's the only warm thing on this rock.\n\nI found the smelter people's tools in the spire and kept them for whoever came next. Take them. The rats on the second floor bite. The bear on the roof is worse. From the roof there's a cable down to the shore - ride it and look south. Then you'll understand why I stopped here.\n\nThe store is mine. Trade if you like.
+note hedda2 What Hedda saw | WHAT HEDDA SAW - painted on a board at the lookout\n\nA ring on the sea, wider than any island.\nThree waves cut across it: the surface, the deep and the ice.\nIt turns. Very slowly. It has turned since before the rafts.\n\nTeo says it is the end of the ocean. Ines says it is a machine like any other. I say: whoever goes there decides what it is.
+note heddachest Hedda's chest | Hedda's chest: titanium tool plans from the smelter crew, wrapped in a scarf.
+note landingchest Second landing | A locker on the second landing, gnawed: an advanced backpack's plans.
+note topchest Spire top | A chest on the spire's roof, frosted shut: an electric zipline handle's plans.
+note mushcrate Cold store | The spire's cold store: mushrooms from the caves under the island, still good.
+loot heddachest Blueprint_TitaniumTools*1;TitaniumOre*1;Rope*2
+prop heddachest loot.refill=0
+loot landingchest Blueprint_BackpackAdvanced*1;Leather*2;Wool*2
+prop landingchest loot.refill=0
+loot topchest Blueprint_ZiplineToolElectric*1;Battery*1;ZiplineTool*1
+prop topchest loot.refill=0
+loot mushcrate CaveMushroom*3
+prop mushcrate loot.refill=0
+
+note coldstore Cold store | A cold store dug into the slope: food kept fresh by the spire's chill.
+loot coldstore Cooked_GenericMeat*2;PlasticBottle_Water*2;Wool*2;Rope*2
+note gaugereadings Steam gauge readings | GAUGE READINGS - a clipboard, damp\n\nCoolant 4 deg. Pressure normal. Engine load: 2 percent.\nCoolant 4 deg. Pressure normal. Engine load: 2 percent.\n(underlined three times) WHY KEEP IT COLD IF IT NEVER RUNS?
+note dunecavechest Cellar chest | A chest in the cold cave, its lid beaded with drips.
+prop dunecavechest loot.refill=0
+note pumpmenlog Pumpmen's log | PUMPMEN'S LOG - in a tin under the fallen wall\n\nThe spire must never run dry. If it does, the Engine runs hot.\nWe never saw the Engine. We only saw the pipe, going south under the sand.\nHedda came through asking about it. We told her what we knew: nothing.\n\nThe pumpmen's chest by the water plane is sun-locked: turn the mirror on the dune ridge and the one at this house, and the light meets on its eye. The steam leans south because the Engine draws it.
+note waterplanelog Water plane log | WATER PLANE LOG\n\nSpare cooling coils for the spire.\nThe steam from the top of it leans south, whatever the wind does. The needle agrees.\nLanded short in the east dunes. The coils are in the crate.\n\nThe pumpmen's sun-locked chest sits by our nose. Their mirrors are on the ridge and at the pump house.
+quest title=The Cold Spire
+quest intro=A steaming tower and a lit campfire at its foot. Go to the camp.
+step reach|hedda_camp|1|Go to the campfire at the spire's foot
+step read|Hedda's welcome|1|Read Hedda's welcome by the fire
+step blueprint|Blueprint_TitaniumTools|1|Take the titanium tool plans from Hedda's chest
+step reach|landing_2|1|Climb the outside stair to the second landing
+step kill|Rat|3|Drive the ice-rats off the second landing
+step blueprint|Blueprint_BackpackAdvanced|1|Take the backpack plans from the landing's locker
+step reach|spire_top|1|Climb to the top of the spire
+step kill|Polar bear|1|Drive the polar bear off the roof
+step blueprint|Blueprint_ZiplineToolElectric|1|Take the electric zipline plans from the chest on the roof
+step read|Pumpmen's log|1|Read the pumpmen's log at the ruined house in the south
+step reach|coolridge|1|Climb the dune ridge in the north-east
+step read|Water plane log|1|Read the log at the plane wreck in the east dunes
+step open|Sun-locked chest|1|Turn both mirrors and open the sun-locked chest by the water plane
+step reach|court_view|1|Ride the cable down to the lookout on the shore
+step read|What Hedda saw|1|Read what Hedda painted at the lookout
+quest done=South over the sea: the ring, turning. The Engine Court is waiting.
+quest reward=TitaniumOre*2;Rope*4;CaveMushroom*2
+
+call tzone x=14.43 z=-2.35 al=campzone id=hedda_camp r=5 msg="Hedda's camp. A fire, a tent, a store - and her handwriting on a sheet by the fire."
+
+save Cooling Spire

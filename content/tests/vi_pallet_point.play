@@ -1,0 +1,26 @@
+# Pallet Point (CIPlay vi_pallet_point; VI1 vehicle island): quest "Last Shift", the five steps in order
+island Pallet Point
+offset 0 0
+expect step 0
+expect title Last Shift
+expect hidden forkcrate
+zone yard
+expect step 1
+read Foreman's notice
+expect step 2
+kill Rat
+expect animals Rat 0
+expect step 3
+use fork
+expect message needs its key
+open Site office locker
+wait 2
+expect story forkkey 1
+use fork
+expect story forksdown 1
+expect shown forkcrate
+expect step 4
+open Crate on the forks
+wait 2
+expect item Battery 1
+expect done

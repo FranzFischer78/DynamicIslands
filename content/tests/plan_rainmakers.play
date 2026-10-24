@@ -1,0 +1,24 @@
+# Play test of the plan 'The Rainmakers' (CIPlay plan_rainmakers, in a test world 'CI ...'): a main story in place of
+# Raft's - each station's frequency comes when the one before is done (its quest), it is tuned to on the Receiver and
+# played to its end with its own test.
+plan The Rainmakers
+tune weir
+include hailstone_weir.play
+tune silos
+include cirrus_silo_farm.play
+tune kites
+include the_kite_meadow.play
+tune fogworks
+include the_fogworks.play
+tune reservoir
+include vaporhold_reservoir.play
+tune array
+include thunderhead_array.play
+tune kilns
+include the_sleet_kilns.play
+tune club
+include the_isobar_club.play
+tune engine
+include the_rain_engine.play
+expect blueprints
+plan end

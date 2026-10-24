@@ -1,0 +1,143 @@
+# The Stair of Hours - an island of the library's plan The Gravity Sea (a sky island, 30 m over the sea)
+# A stepped island whose terraces make a giant sundial: four terraces climbing north, the gnomon (a tall stone slab) in
+# the middle, and on the terraces the hour stones - clock faces laid on stone posts. On the top terrace the Institute's
+# observatory (an open pavilion, its roof on corner posts) and Temperance's telescope beside it, aimed west at the
+# Lodestone Array; at its foot a hatch over the telescope vault. A Raft store on the lowest terrace. Quest "Walking the
+# Hours" (8 steps): hour 1, the sundial instructions, the hours walked in order (3, 7, then 12 shows), the telescope (a
+# camera looks out at the Array; the vault's hatch opens), the three last blueprints and Halvard's last log.
+#
+# Built by the recipe player (CIRecipe stair_of_hours) through the editor's own operations. Points (metres over the
+# island's own water line; in the world it all floats 30 m higher): the terraces at 4 m (round 0 -14), 7 m (0 -5),
+# 10 m (0 3) and 13 m (0 10); the gnomon at 0 -1; the observatory x -2.25..2.25, z 8..12.5; the telescope at 5 10.
+include lib_features
+include lib_huts
+include lib_gravity
+new
+gen Trees=0.06 Bushes=0.3 Rocks=0.3 Harvest=0.25 BeachThings=0
+gen Seed=9661 Radius=32 Height=15 Roughness=0.4 Peaks=1 Shape=0 Style=0 BeachWidth=0.1 Cliffs=0.7 PeakShape=0.3
+gen Water=0 SeaRocks=0 SeaFinds=0 Sunken=0 Hostiles=0 Friendly=0 SeaLife=0
+generate
+elevation 30
+
+# --- Terrain: four terraces climbing north --------------------------------------------------------------------------
+brush flatten at 0 -14 r=9 s=20 frames=200 h=4
+brush flatten at 0 -5 r=7 s=20 frames=200 h=7
+brush flatten at 0 3 r=6 s=20 frames=200 h=10
+brush flatten at 0 10 r=5.5 s=20 frames=200 h=13
+brush grass at 0 -4 r=14 s=20 frames=20
+brush smooth at 24 14 r=10 s=20 frames=150
+origin
+clear at 0 -14 r=8
+clear at 0 -5 r=6
+clear at 0 3 r=5
+clear at 0 10 r=5
+
+# --- The hour stones: clock faces on stone posts, one for each hour walked; the gnomon --------------------------------
+macro hourstone x=0 z=0 al=hour zn=hourzone
+place RT_Pillar - at $x $z ground sy=0.4
+place Clock_02 $al at $x $z ground y=1.2 drop
+place Zone_Trigger $zn at $x {$z-1.2} ground y=1
+end
+call hourstone x=-6 z=-15 al=h1 zn=h1zone
+call hourstone x=6 z=-15 al=h3 zn=h3zone
+call hourstone x=-4.5 z=-6 al=h7 zn=h7zone
+call hourstone x=0 z=6 al=h12 zn=h12zone
+place RT_PillarThick gnomon at -0.35 -1 ground sy=1.4
+place RT_PillarThick gnomon at 0.35 -1 ground sy=1.2
+place RT_PillarThick gnomon at 0 -1.6 ground sy=0.9
+prop gnomon tint.color=#8a8577
+prop gnomon tint.amount=0.6
+place Note_Sign sundial at 3 -12 ground sit yaw=180
+
+# --- The observatory (an open pavilion): Halvard's last log on a table; the telescope beside it, its vault's hatch ----
+push at -2.25 8 h=13
+call floors w=3 d=3 y=0.1
+call corners w=3 d=3 y=0.1
+roof 3 3 at 0 0 y=0.1 wood
+place Placeable_Table_Basic - at 2.25 3.2 y=0.1 sit
+place Note_Paper lastlog at 2.25 3.2 y=1.1 drop yaw=20
+place Placeable_Lantern_Metal - at 1.4 3.2 y=1.1 drop
+# (posts under the roof's edge pieces; the middle post holds its peak)
+place RT_Pillar - at 2.25 2.25 y=0.1 sy=0.75
+place RT_Pillar - at 2.25 0.3 y=0.1 sy=0.75
+place RT_Pillar - at 2.25 4.2 y=0.1 sy=0.75
+place RT_Pillar - at 0.3 2.25 y=0.1 sy=0.75
+place RT_Pillar - at 4.2 2.25 y=0.1 sy=0.75
+pop
+place TP_Telescope telescope at 5.5 10 ground sit scale=0.5 yaw=270
+place TangaroaHatchRoom_Hatch vaulthatch at 5.5 7.6 ground y=0.3
+place Loot_Chest vault at 5.5 7.6 ground sit yaw=180
+place Zone_Trigger arrayview at -60 10 h=40
+
+# --- The Raft store on the lowest terrace ---------------------------------------------------------------------------
+store stairshop at 0 -18 ground
+
+# --- Things to gather ------------------------------------------------------------------------------------------------
+scatter "Pickup_Landmark_PineappleLandmark" 2 at 8 -10 r=4 seed=9671 free=2
+call dirt x=-8 z=-10 r=4 n=2 seed=9672
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=The Stair of Hours
+info author=Custom Islands
+info description=A sky island 30 m up whose terraces make a giant sundial: hour stones, a stone gnomon and the Institute's observatory with a telescope aimed at the Array. A Raft store on its lowest terrace. The eighth island of The Gravity Sea.
+island on.arrive=message||Terraces climbing into the sky like a stair, a stone finger in the middle - a sundial as big as an island.
+
+story sighted|The Array sighted|Placeable_Lantern_Metal|Through Halvard's telescope you saw the Lodestone Array's crown, 35 m over the sea.
+
+note sundial Sundial instructions | THE STAIR OF HOURS\n\nWalk the hours as the shadow walks them: the first, the third, the seventh - then the twelfth shows on the top terrace, and noon is at the telescope.\nThe Institute's telescope looks west, to the Array. The vault under it opens at noon.
+note vault Telescope vault | The telescope vault: Halvard's last plans - titanium tools, a big backpack and an electric zipline - "for the crown".
+note lastlog Halvard's last log | HALVARD - LAST LOG\n\nI see the crown from here: four magnet arms round the core, sparking blue, 35 m over the sea, and the field pulling at everything.\n\nI am too old to climb it. Whoever reads this: shut off the crown first, then dive to the root. Band 1300.\n\n- E. H.
+loot vault Blueprint_TitaniumTools*1;Blueprint_BackpackAdvanced*1;Blueprint_ZiplineToolElectric*1;TitaniumIngot*2;MetalIngot*2
+prop vault loot.refill=0
+prop vault obj.name=vault
+prop vault beh.hidden=1
+
+prop h1zone zone.id=hour_1
+prop h1zone zone.radius=2.5
+prop h1zone zone.message=The first hour.
+prop h3zone zone.id=hour_3
+prop h3zone zone.radius=2.5
+prop h3zone zone.message=The third hour.
+prop h3zone on.enter=show|h7zone
+prop h7zone obj.name=h7zone
+prop h7zone beh.hidden=1
+prop h7zone zone.id=hour_7
+prop h7zone zone.radius=2.5
+prop h7zone zone.message=The seventh hour. Up on the top terrace, the twelfth.
+prop h7zone on.enter=show|h12zone
+prop h12zone obj.name=h12zone
+prop h12zone beh.hidden=1
+prop h12zone zone.id=hour_12
+prop h12zone zone.radius=2.5
+prop h12zone zone.message=Noon. The shadow points at the telescope.
+
+prop arrayview obj.name=arrayview
+prop vaulthatch obj.name=vaulthatch
+prop telescope obj.name=telescope
+prop telescope beh.use=Look through Halvard's telescope
+prop telescope if.use=!signal|sighted
+prop telescope on.use=signal||sighted\ngive||story:sighted*1\nhide|vaulthatch\nshow|vault\nmessage||Far to the west, 35 m over the sea: four magnet arms round a core, sparking blue. At the telescope's foot, the vault's hatch springs open.\ncamera|telescope|arrayview|5|30
+prop telescope else.use=message||The crown is still there, sparking blue in the west.
+
+quest title=Walking the Hours
+quest intro=A sundial as big as an island, 30 m up. Climb to its first hour.
+step reach|hour_1|1|Climb onto the first hour stone's terrace
+step read|Sundial instructions|1|Read the sundial's instructions
+step reach|hour_12|1|Walk the hours - the third, the seventh, then noon on the top terrace
+step collect|story:sighted|1|Look through the telescope
+step blueprint|Blueprint_TitaniumTools|1|Take the titanium tool plans from the telescope vault
+step blueprint|Blueprint_BackpackAdvanced|1|Take the big backpack plans from the telescope vault
+step blueprint|Blueprint_ZiplineToolElectric|1|Take the electric zipline plans from the telescope vault
+step read|Halvard's last log|1|Read Halvard's last log in the observatory
+quest done=The crown is out there, 35 m over the sea. The Receiver finds it on band 1300.
+quest reward=TitaniumIngot*2;MetalIngot*3;Battery*1
+
+# Buried treasure (one of the story line's last islands): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=16 n=1 seed=8816
+prop treasure8816 treasure.loot=TitaniumOre*3
+
+# Animals (reach audit 10-24: a late island of its story line had none)
+place Creature_Goat goats at -18 0 ground
+prop goats creature.count=2
+
+save The Stair of Hours

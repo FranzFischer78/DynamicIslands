@@ -1,0 +1,21 @@
+# Play test of the plan 'The Abyss Expedition' (CIPlay plan_abyss, in a test world 'CI ...'): main story beside Raft's
+# story - each island's coordinates come when the one before is done (its quest, or players reaching it), it is tuned
+# to on the Receiver and played to its end with its own test.
+plan The Abyss Expedition
+tune mine
+include old_mine_islet.play
+tune shelter
+include shelter_atoll.play
+tune sunken
+# (its top is under water: the player swims over it - a visit counts within its land's radius)
+at 0 0
+tune caverns
+include ironreef_caverns.play
+tune wreck
+stand
+tune city
+include drowned_metropolis.play
+tune abyss
+include the_abyss.play
+expect blueprints
+plan end

@@ -1,0 +1,40 @@
+# Play test of Tide Farm (CIPlay tide_farm, in a test world 'CI ...'). Points as in its recipe.
+island Tide Farm
+expect step 0
+expect title The Last Harvest
+
+# From the islet's beach along the planks onto the farm: the notebook on the table
+walk 8 0.4 to 13 0.4 to 18 0.4 h=1.1
+zone farm
+expect step 1
+read Farmer's notebook
+expect step 2
+
+# The glasshouse is locked, the wheel jammed
+walk 21 -0.2 to 22.4 -0.2 to 24.5 -0.2 blocked
+use wheel
+expect message wedged tight
+
+# The tool shed on the islet: the crowbar, the net gun
+walk 18 0.4 to 13 0.4 to 6 0.4 to -2.6 3 h=3.5
+open Tool chest
+expect story crowbar 1
+expect item NetGun 1
+expect step 3
+
+# Two of the runaway chickens
+catch Chicken 2
+expect step 4
+
+# The wheel freed: it turns around its axle, the glasshouse doors slide open, the harvest
+use wheel
+expect message wheel creaks
+expect story crowbar 0
+expect hidden wheel
+expect shown wheelturning
+expect spinsown wheelturning
+wait 2
+walk 21 -0.2 to 22.4 -0.2 to 25 -0.2 h=1.1
+open Glasshouse harvest
+expect item Placeable_Sprinkler 1
+expect done

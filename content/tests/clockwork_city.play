@@ -1,0 +1,99 @@
+# Play test of The Clockwork City (CIPlay clockwork_city, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The harbour stack round -45 -50 (15 m; its quay -50..-41 -64.5..-63, its ladders at -41.75 -61.3, the office x -48..-42,
+# z -50.5..-41.5); the plaza stack round -3 32 (20 m; the Hall of Hours x -9..3, z 20.5..29.5, its door on the north at
+# x -9..-6); the gearworks' platform x 34..46, z 9..33 (12 m; the workshop x 36..45, z 12..18, door west at z 15..18; the
+# vault x 36..45, z 26..32, door west at z 29..32; the counterweight at 39.8 9.3); the undercroft x -32.5..-23.5, z 27..33
+# (floor 7 m under the sea, door west); the observatory x 17..23, z -16.5..-7.5 (28 m, door south); the clock tower
+# x 77..83, z 35.5..44.5 (vault 24 m, clock room 27 m with the balcony on its south side).
+island The Clockwork City
+offset 0.5882 -0.3322
+expect step 0
+expect title Setting the Hour
+wait 5
+expect animals Chicken 3
+expect animals Goat 3
+expect animals Turtle 2
+expect animals Dolphin 2
+expect animals Puffer fish 2
+at -41.75 -55.5 h=16
+zone harbour
+expect step 1
+read The clockmaker's welcome
+expect step 2
+walk -41.75 -55.5 to -46.5 -55 to -46.5 -48 h=15.05
+open Harbourmaster's box
+expect story winder 1
+expect step 3
+use shuttle1
+wait 7
+zone plaza
+expect step 4
+read The city timetable
+expect step 5
+use gong
+expect message Thirty seconds
+at -7.5 32.5 h=21
+walk -7.5 32.5 to -7.5 28 to 1 22 h=20.05
+open First gear's case
+expect story gear 1
+expect step 6
+use hourinside
+use shuttle2
+wait 7
+at 34.8 16.5 h=13
+walk 34.8 16.5 to 38 16.5 h=12.05
+zone gearworks
+kill Rat
+expect step 7
+use counterweight
+expect message RUN
+at 35 10 h=13
+walk 35 10 to 35 30.5 to 38 30.5 h=12.05
+open Second gear's case
+expect story gear 2
+expect step 8
+at -26 31 h=-6
+zone undercroft
+expect step 9
+open Third gear's case
+expect story gear 3
+expect step 10
+at 44 11 h=13.2
+use shuttle3
+wait 7
+walk 20 -18.5 to 18.5 -17.5 to 18.5 -13 h=28.05
+zone observatory
+expect step 11
+kill Screecher
+expect step 12
+read The thief's diary
+expect step 13
+open Thief's stash
+expect story mainspring 1
+expect step 14
+use shuttle4
+wait 7
+zone towerbalcony
+expect step 15
+at 78.5 39 h=28
+zone clockroom
+expect step 16
+use clockheart
+expect story clockkey 1
+expect step 17
+read The founder's plaque
+expect step 18
+use handVI
+expect message Nothing strikes
+use handIII
+expect shown awake
+wait 4
+at 82.4 32.5 h=25
+walk 82.4 32.5 to 78.5 33.5 to 78.5 37 to 80 40 h=24.05
+zone vault
+expect step 19
+open The founder's vault
+expect done
+open Market stall box
+open Platform box
+open Sunk crate of springs

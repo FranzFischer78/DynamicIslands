@@ -1,0 +1,178 @@
+# Coral Runway - a new large island of the library (ROADMAP 3e VI3), a vehicle island with a quest
+# A big, low tropical island of white sand and palms with a coral airstrip down its middle: the island-hopper plane
+# parked at the west end, the fuel truck and its pump by the strip, the baggage carts and a forklift by the hangar
+# store, the radio caravan and the tower hut, a van by the strip. An inland lagoon in the north with a jetty and boats
+# left on it. Warthogs root on the runway. A roofed loft over the
+# hangar apron.
+#
+# Built by the recipe player (CIRecipe vi_coral_runway) through the editor's own operations. Points: the runway (3 m,
+# x -55..45 along z 0, 14 m wide), its lights x -50..40 at z +-7.5; the plane at -48 0; the tower hut x -32..-27.5
+# z 14..17 (door south), the radio inside, the generator at -24 10; the hangar store x -46..-40 z 14..18.5; the
+# mechanic's chest at -40 11; the fuel truck at 10 12 and its pump at 14 11; the lagoon (1.5 m under the sea, r 14 round
+# 20 42), its jetty out north from 20 27, the fuel drums at 25 25; the hangar loft x -40..-34
+# z 19..22 (2.5 m over the apron, roofed), its ladder off the east end at -33.8 19.75.
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+include lib_ni8
+include lib_vi
+new
+# (nature: a low tropical island, white sand and palms, a wide beach)
+gen Trees=0.35 Bushes=0.45 Rocks=0.25 Harvest=0.7 BeachThings=1.00
+gen Seed=8632 Radius=88 Height=5 Roughness=0.2 Peaks=1 Shape=0 Style=0 BeachWidth=1.0 Cliffs=0 PeakShape=0.2
+gen SeaFloor=0 Shelf=0.6 Seabed=2
+gen Water=0.6 SeaRocks=0.3 SeaFinds=0.4 Sunken=0.5 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# ===== Terrain: the runway, the tower and hangar apron, the lagoon ========================================================
+brush flatten from -55 0 to 45 0 r=8 s=20 frames=200 h=3
+brush sand from -55 0 to 45 0 r=7 s=20 frames=30
+brush flatten at -36 14 r=12 s=20 frames=120 h=3
+brush flatten at 12 12 r=5 s=20 frames=60 h=3
+brush flatten at 20 42 r=14 s=20 frames=140 h=-1.5
+brush seabed at 20 42 r=13 s=20 frames=20
+brush flatten at 22 24 r=5 s=20 frames=60 h=1.2
+brush sand at 22 24 r=5 s=20 frames=15
+clear from -55 0 to 45 0 r=9
+clear at -36 14 r=13
+clear at 12 12 r=6
+clear at 20 42 r=15
+clear at 22 24 r=6
+
+# ===== The runway: its lights (dark until the generator runs), the plane at the west end, the warthogs =====================
+for lx -50 40 10
+place Placeable_Lantern_Metal runwaylights at $lx 7.5 ground sit
+place Placeable_Lantern_Metal runwaylights at $lx -7.5 ground sit
+next
+prop runwaylights obj.name=runwaylights
+prop runwaylights beh.hidden=1
+place Airplane hopper at -48 0 ground sit rot=0,0,0 yaw=90
+place Tire_03 - at -42 -4 ground sit
+place Zone_Trigger runway at -10 0 ground y=1
+place Creature_Boar hogs at 20 2 ground
+prop hogs creature.count=4
+prop hogs creature.respawn=0
+
+# ===== The tower hut and its radio, the generator, the radio caravan, the van =============================================
+push at -32 14 h=3
+call cabin w=3 d=2 al=towerhut
+place Placeable_Table_Basic - at 3.2 1.05 y=0.1 sit
+place RT_CommRadio towerradio at 3.2 2.2 y=0.1 sit yaw=270
+place Note_Book striplog at 1 2.2 y=0.1 sit yaw=10
+pop
+place Antenna_pole - at -26 18 ground sit scale=1.5
+place "VG_DecorationPrefabBase_EmergencyGenerator Variant" runwaygen at -24 10 ground sit yaw=180
+place Caravan_Yellow_01 - at -20 17 ground sit yaw=0
+place Van_2 - at -14 11 ground sit yaw=80
+place Sign_03 - at -10 8.5 ground sit yaw=180
+
+# ===== The hangar store, the mechanic's chest, the baggage carts and the forklift =========================================
+push at -46 14 h=3
+call cabin w=4 d=3 al=hangarstore
+place Loot_ChestLarge hangarlocker at 4.5 3.4 y=0.1 sit yaw=180
+place CaravanWorkbench_Tools - at 1 3.4 y=0.1 sit yaw=0
+pop
+place Loot_Chest mechchest at -40 11 ground sit yaw=180
+place VP_Wagon02 - at -48 10 ground sit yaw=90
+place VP_Wagon02 - at -50.5 10 ground sit yaw=92
+place VP_Wagon02 - at -53 10 ground sit yaw=88
+place VP_Forklift - at -36 9 ground sit yaw=250
+place Pallet - at -33 10 ground sit
+
+# ===== The fuel truck and its pump by the strip ============================================================================
+place Van_1 fueltruck at 10 12 ground sit yaw=90
+place "VG_DecorationPrefabBase_Engine Variant" fuelpump at 14.5 11 ground sit yaw=270
+place TP_Moontown_Barrel01 - at 15.5 13.5 ground sit
+
+# ===== The lagoon: its jetty, the boats, the fuel drums and the fuel log on the bank ========================================
+push at 20 27 yaw=-90
+call jetty n=5 h=1.8 d=3
+pop
+place RT_PlasticBoat - at 15.5 33 ground sit rot=0,0,0 yaw=10
+place RT_PlasticBoat - at 25 36 ground sit rot=0,0,0 yaw=200 roll=4
+place BoatMini - at 27 25 ground sit scale=14 yaw=60
+place Loot_Barrel fueldrum at 25 24 ground sit
+place TP_Moontown_Barrel03 - at 26 22.5 ground sit
+place Note_Paper fuellog at 23 22.5 ground sit yaw=40
+place Zone_Trigger lagoonjetty at 20 25 ground y=1
+
+# ===== The hangar loft over the apron: a roofed deck on posts where the pilots slept between flights
+call gantry x=-40 z=19 h=3 n=4 wide=2 al=loftchest
+push at -40 19 h=3
+call corners w=4 d=2 y=2.52
+roof 4 2 at 0 0 y=2.52 wood
+place Bed_Simple - at 3.5 2.2 y=2.52 sit yaw=90
+pop
+
+# ===== Palms, bananas, bushes (not too many); things to gather; Raft's finds in the shallows ================================
+scatter "Pickup_Landmark_Tree_Palm 1" 4 at 0 30 r=60 seed=8701 free=10
+scatter "Pickup_Landmark_Tree_Palm 4" 4 at 0 -30 r=60 seed=8702 free=10
+scatter Banana_Bush_2 3 at -30 40 r=24 seed=8703 free=4
+scatter SmallBush_4 4 at 0 0 r=66 seed=8704 free=6
+scatter "Pickup_Landmark_PineappleLandmark" 3 at 40 30 r=20 seed=8705 free=3
+scatter "Pickup_Landmark_BerryBush" 3 at -20 -40 r=24 seed=8706 free=3
+call hives x=-30 z=40 r=24 n=2 seed=8707
+call dirt x=0 z=-30 r=50 n=3 seed=8708
+call treasure x=0 z=0 r=66 n=2 seed=8632
+call shallows r=110 deep=5 n=2 seed=870
+place Creature_Turtle turtles at 70 -60 h=-2
+prop turtles creature.count=2
+
+info title=Coral Runway
+info author=Custom Islands
+info description=A big, low island of white sand and palms with a coral airstrip down its middle: the island-hopper plane at the west end, the fuel truck by the strip, baggage carts and a forklift at the hangar, the radio caravan and tower hut, and a lagoon with boats left at its jetty.
+
+story runwaylit|Runway lights on|Placeable_Lantern_Metal|The runway generator runs and the strip's lights are lit.
+story radiocall|The tower radio answered|quest:Caravan_BatteryChargerPart|You called on the tower radio. Somebody answered: bring the plane fuel and they will fly.
+story fuelpumped|The plane fuelled|quest:Vasagatan_GasTank|The fuel truck's pump ran and the plane's tanks are full.
+
+note striplog Strip log | CORAL RUNWAY - STRIP LOG\n\nGenerator part out for the night, kept in the mechanic's chest by the hangar. Lights off, so the pigs sleep on the strip. Clear the pigs before you light it.\n\nTower radio runs off the generator. Call in before any flight.\n\nFuel truck is dry - drums are at the lagoon jetty.
+note mechchest Mechanic's chest | The hangar mechanic's chest: the generator part wrapped in a rag, and his tools.
+loot mechchest story:raft-Tangaroa_GeneratorPart*1;Bolt*3;Rope*2;Nail*10
+prop mechchest loot.refill=0
+note fuellog Fuel log | FUEL LOG - LAGOON DRUMS\n\nDrums floated in from the supply boat and rolled up the bank. One drum left, marked AVGAS.\n\nRoll it to the truck. The truck's pump does the rest - and opens the hangar locker, as the mechanic rigged it.
+note fueldrum Fuel drum | The last drum of the island's aviation fuel, marked AVGAS in red.
+loot fueldrum story:raft-Vasagatan_GasTank*1;Plastic*2
+prop fueldrum loot.refill=0
+note hangarlocker Hangar locker | The hangar's locker: the plane's spare landing lights and the plans for them, the pilot's pay.
+loot hangarlocker Blueprint_HeadLight*1;MetalIngot*3;CopperIngot*2;Glass*2
+prop hangarlocker loot.refill=0
+prop hangarlocker obj.name=hangarlocker
+prop hangarlocker beh.hidden=1
+note loftchest Pilot's chest in the loft | The pilot's things under the hangar roof: a logbook, a leather jacket, and goods flown in and never sold.
+loot loftchest Leather*2;MetalIngot*2;CopperIngot*2;Glass*2
+prop loftchest loot.refill=0
+
+prop runwaygen obj.name=runwaygen
+prop runwaygen on.use=message||The generator coughs and hums. Down the strip the runway lights flick on, one pair after another.\nsignal||power\nshow|runwaylights\ngive||story:runwaylit*1
+prop towerradio obj.name=towerradio
+prop towerradio on.use=message||Static, then a voice: "Coral Runway? Nobody has called from there in a year. Fuel her up and we will talk you in."\ngive||story:radiocall*1
+prop fuelpump obj.name=fuelpump
+prop fuelpump on.use=message||The pump thumps, the hose jumps, and the plane's tanks fill. With a clank the hangar locker swings open.\nsignal||engine\nshow|hangarlocker\ngive||story:fuelpumped*1
+
+prop runway zone.id=runway
+prop runway zone.radius=10
+prop runway zone.message=Coral Runway: a white strip down the island, a plane at the end of it, and pigs asleep on the coral.
+prop lagoonjetty zone.id=lagoon_jetty
+prop lagoonjetty zone.radius=6
+prop lagoonjetty zone.message=The lagoon jetty: boats left on the water and drums on the bank.
+
+quest title=Wheels Up
+quest intro=An airstrip on a coral island, its plane parked and dry. Walk out onto the runway.
+step reach|runway|1|Walk out onto the runway
+step read|Strip log|1|Read the strip log in the tower hut
+step kill|Warthog|4|Clear the four warthogs off the runway
+step open|Mechanic's chest|1|Open the mechanic's chest by the hangar
+step collect|story:runwaylit|1|Start the runway generator
+step collect|story:radiocall|1|Call on the tower radio
+step reach|lagoon_jetty|1|Go to the lagoon jetty
+step read|Fuel log|1|Read the fuel log on the bank
+step open|Fuel drum|1|Open the last fuel drum
+step collect|story:fuelpumped|1|Run the fuel truck's pump to fuel the plane
+step open|Hangar locker|1|Open the hangar locker
+step blueprint|Blueprint_HeadLight|1|Take the landing light plans from the hangar locker
+quest done=The plane is fuelled and the tower is listening. Coral Runway is open again - for whoever flies next.
+quest reward=MetalIngot*4;CopperIngot*2;Rope*3;Plastic*4
+
+save Coral Runway

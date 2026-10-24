@@ -1,0 +1,13 @@
+# Guide pictures of Turtlewatch Atoll (CIPlay turtlewatch_atoll_pics): Raft's camera, morning, calm; the lagoon last
+island Turtlewatch Atoll
+hour 9
+weather Calm
+at 3 34
+wait 3
+picture turtlewatch_atoll_island 50 32 -50 0 0 0
+picture turtlewatch_atoll_pens 22 7 1 32 3.5 1
+picture turtlewatch_atoll_hut 8 7 -22 0 6 -30
+picture turtlewatch_atoll_lookout -24 7 10 -31 4 4
+at 0 0 h=-1.5
+wait 2
+picture turtlewatch_atoll_lagoon 6 -1.5 6 0 -3 0

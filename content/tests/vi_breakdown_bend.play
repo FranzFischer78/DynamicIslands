@@ -1,0 +1,26 @@
+# Breakdown Bend (CIPlay vi_breakdown_bend; VI1 vehicle island): quest "Out of Road", the five steps in order
+island Breakdown Bend
+offset 0 0
+expect step 0
+expect title Out of Road
+expect hidden roofbox
+zone camp
+expect step 1
+read Driver's log
+expect step 2
+kill Hyena
+expect animals Hyena 0
+expect step 3
+use stuckvan
+expect message fan belt is gone
+open Spares crate
+wait 2
+expect story fanbelt 1
+use stuckvan
+expect story vanfixed 1
+expect shown roofbox
+expect step 4
+open Driver's roof box
+wait 2
+expect item Battery 1
+expect done

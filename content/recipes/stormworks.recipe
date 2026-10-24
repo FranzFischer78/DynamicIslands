@@ -1,0 +1,201 @@
+# Stormworks - the seventh island of The End of the Ocean (SL14, the Concord Engine's smelter and weather station)
+# A dark rock with a flat top and smoke over it: the iron hall where the engine's parts were smelted, its weather room
+# on the roof, and on the spur behind them a lightning rod. The last crew's three notes tell what the engine was for,
+# what their standby order said - and what the thing they called the Stalker really was. Screechers nest on the spur.
+# Quest "The Works" (14 steps): the smelter hall, note 1, the electric smelter plans, the weather room, note 2, the
+# advanced extractor plans, the screechers, the anchor store, the rod top, note 3.
+#
+# Built by the recipe player (CIRecipe stormworks) through the editor's own operations. Points (metres over the sea):
+# the works plateau at 8 m round 0 0 (r 13), the smelter hall x -3..3, z -4.5..4.5 (its door at the front, z -4.5), the
+# weather room on its roof at 11 m, the roof stair on the east side, the rod spur at 14 m round 16 12, the clay beach and
+# anchor store round 0 -26 at 1 m, the treasure round -10 12.
+include lib_sea
+include lib_features
+include lib_huts
+include lib_gravity
+include lib_rt
+include lib_concord
+include lib_areas
+new
+# (nature 10-24: snowy, so Raft's snowy big-island density - few pines and drifts, rocks spread over the hills)
+gen Trees=0.06 Bushes=0.12 Rocks=0.22 Harvest=0.15 BeachThings=0.3
+gen Seed=14141 Radius=88 Height=22 Roughness=0.45 Peaks=2 Shape=0 Style=1 PeakShape=0.6 Cliffs=0.8 BeachWidth=0.5
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0.1 SeaLife=0.3
+generate
+
+# --- Terrain: the works plateau, the rod spur, the path down to the clay beach -------------------------------------------
+brush flatten at 1.14 -0.09 r=13 s=20 frames=250 h=8
+brush flatten at -11.48 -15.3 r=5.5 s=20 frames=400 h=8
+brush flatten at 30.47 23.09 r=4 s=20 frames=200 h=14
+brush smooth from 11.48 11.48 to 30.47 23.09 r=3 s=6 frames=40
+brush flatten at -0.46 -49.4 r=8 s=20 frames=300 h=1
+brush smooth from 0 -20.67 to -0.46 -47.4 r=4 s=6 frames=40
+brush sand at -0.46 -49.4 r=8 s=10 frames=40
+origin
+clear at 1.14 -0.09 r=13
+clear at 30.47 23.09 r=4
+clear at -0.46 -49.4 r=6
+
+# --- The smelter hall (radio tower pieces, a door at the front) and the weather room on its roof ---------------------------
+push at 4.14 -0.09 h=8.05
+call rt_storey f1=RT_WallDoor1 r2=RT_WallWindow1 l2=RT_WallWindow1 a=hall
+place Placeable_CookingStand_Smelter - at -4.5 3 y=0.1 sit
+place Placeable_CookingStand_Smelter - at -1.5 3 y=0.1 sit
+place Loot_Chest hallchest at -1 -2.5 y=0.1 sit yaw=270
+place Note_Sign worksnote1 at -5.85 0 y=1.2 yaw=90
+place Placeable_Lantern_Metal - at -3 0 y=0.1 sit
+pop
+push at 4.14 -0.09 h=11.05
+call rt_storey f1=none r1=RT_WallWindow1 r2=RT_WallWindow1 r3=RT_WallWindow1 l1=RT_WallWindow1 l2=RT_WallWindow1 l3=RT_WallWindow1 a=hall
+place RT_Floor hall at 0 4.5 y=3
+call rt_railing y=3 fm=none
+place RT_SatteliteDisc - at -3 0 y=3.1 scale=0.4 yaw=180
+place Loot_Chest weatherchest at -1 3 y=0.1 sit yaw=180
+place Note_Paper worksnote2 at -4 3 y=0.1 drop yaw=30
+place Placeable_Table_Basic - at -4 3 y=0.1 sit
+pop
+place RT_Stair roofstair at 7.64 -3.09 ground sit yaw=0 sy=0.68
+prop hall tint.color=#4a4440
+prop hall tint.amount=0.55
+call tzone x=0 z=-15.67 al=hallzone id=smelter_hall r=4 msg="The smelter hall. Cold now - but the iron inside still smells of fire."
+call tzone x=1.14 z=-0.09 al=weatherzone id=weather_room r=3 h=3.2 msg="The weather room, up on the hall's roof: dials, barometers, a dish - every needle stopped on STORM."
+call weather x=1.14 z=-0.09 al=smoke r=30 fog=#3a3330 fa=0.45 light=#b08a6a la=0.35 parts=embers h=6
+call loopsound x=1.14 z=1.91 al=forgesound ev=event:/exploring/temperence/generator r=18 vol=0.35 h=1
+
+# --- The ore bins by the hall; the Ringwave on the plateau ------------------------------------------------------------------
+place Loot_Crate orebin1 at -16.22 7.57 ground sit yaw=10
+place Loot_Crate orebin2 at -16.22 3.57 ground sit yaw=-15
+call ringwave x=-11.48 z=-15.3 r=3 al=ringwave
+prop ringwave tint.color=#8a8577
+prop ringwave tint.amount=0.6
+
+# --- The rod spur: the lightning rod, the screechers' nest, note 3 at the top -----------------------------------------------
+place RT_PillarThick rod at 31.47 24.09 ground
+place Antenna_pole rod at 31.47 24.09 ground y=6 sy=0.8
+place Antenna_cone - at 31.47 24.09 ground y=10.5 scale=0.4
+prop rod tint.color=#6b5a4a
+prop rod tint.amount=0.5
+place Bird_Nest - at 28.97 22.09 ground y=0.25 sit
+place Creature_StoneBird screechers at 28.47 21.09 ground y=4
+prop screechers creature.count=3
+prop screechers creature.respawn=0
+call notebox x=29.47 z=24.59 yaw=200 al=worksnote3
+call tzone x=30.47 z=23.09 al=rodzone id=rod_top r=3 msg="The top of the spur, under the lightning rod. Far off south: a pale tower in cold steam."
+
+# --- The clay beach and the anchor store ---------------------------------------------------------------------------------
+place BoatStranded - at 3.54 -51.4 ground sit yaw=200 scale=0.7
+place Loot_ChestLarge anchorstore at -3.46 -48.4 ground sit yaw=180
+place Placeable_Anchor_Stationary - at -5.46 -49.4 ground sit
+
+# --- Things to gather; the treasure; a reef and the shallows ------------------------------------------------------------
+scatter "Pickup_Landmark_Copper 1" 3 at -18.22 10.57 r=6 seed=14142 free=2
+scatter "Pickup_Landmark_Iron 1" 3 at 15.3 -19.13 r=6 seed=14143 free=2
+scatter "Pickup_Landmark_Scrap 1_Land" 3 at 1.14 -0.09 r=12 seed=14144 free=2
+call dirt x=-0.46 z=-47.4 r=6 n=3 seed=14145
+call treasure x=-18.22 z=16.57 r=16 n=1 seed=14051
+prop treasure14051 treasure.loot=TitaniumOre*3
+call reef x=-61.22 z=-42.09 r=5 seed=14146
+call shallows x=1.14 z=-0.09 r=107.13 deep=5 n=1 seed=14150
+
+# --- Discoveries: things to find off the quest path (not needed for the quest) ---------------------------------
+call tzone x=20.5 z=-39.9 al=stormview id=stormview r=4 msg="A shoulder of the hill, the smelter's smoke below you. The lightning only ever strikes the rod - never anywhere else on the island."
+place Loot_Chest oreheap at -32.5 59.5 ground sit yaw=152
+prop oreheap loot.refill=0
+call notebox x=56.5 z=39.8 yaw=54 al=furnaceletter
+call camp x=-63.6 z=-24.7 yaw=249 fire=campfire_1
+place Van_4 - at 67 -15 ground sit yaw=192
+
+# --- Areas (10-24: every story island has places all over it and its quest crosses it): the north ridge with its lookout and a
+# buried treasure, the ore cave in the west hills, the smelters' ruined bunkhouse in the south, the ore plane in the east
+call ar_ridge x1=-8 z1=64 x2=40 z2=60 h=9 top=7 r=9
+call ar_plants_snowy x=16 z=62 r=28 seed=14401
+call tzone x=16 z=62 al=northridge id=stormridge r=7 msg="The top of the north ridge. Lightning walks along the horizon to the south, always the same strip of sky."
+call treasure x=16 z=62 r=12 n=1 seed=14411
+call ar_cave x=-56 z=12 h=3 yaw=0 al=orecave chest=orecavechest
+call tzone x=-56 z=17 al=orecavezone id=orecave r=4 msg="An ore cave in the west hills. The walls are scored where the works' drills bit in - and stopped."
+call ar_ruin x=8 z=-64 h=3 yaw=0 al=smelthouse
+call notebox x=10.5 z=-68.5 yaw=20 al=smeltroll
+call ar_plane x=56 z=-36 h=3 yaw=300 al=oreplane crate=orecrate
+call notebox x=59.5 z=-41.5 yaw=150 al=oreplanelog
+# vine cache placed by hand (scatter found no spot in run25): the chest behind Raft's choppable vines, machete
+place Loot_Chest vinechest14441 at -56 -56 ground sit yaw=0
+prop vinechest14441 obj.name=vinechest14441
+prop vinechest14441 note.title=Behind the vines
+prop vinechest14441 beh.hidden=1
+loot vinechest14441 MetalIngot*2;CopperIngot*2;Rope*2
+beside ChoppableVines vinewall14441 vinechest14441 d=1.6
+prop vinewall14441 on.use=hide|
+show|vinechest14441
+message||The machete bites through the vines. Something was hidden behind them.
+call ar_plants_snowy x=-56 z=-56 r=14 seed=14421
+call ar_plants_snowy x=48 z=8 r=14 seed=14431
+
+# --- Tools in use (10-24: a tool given earlier in the storyline is used again here, for optional finds): the
+# machete from Triangulation Rocks cuts the vines over a hidden chest, and a zipline from the ridge top is the quick way back down
+clear from 15.4 55.0 to 12 32 r=2.5
+place ZiplinePath_Landmark ridgezip at 16 59 ground
+zipto ridgezip 12 32
+
+# --- Unique layer (10-24): stormworks device - see SL14_progress.md UNIQUE ISLANDS
+call lever x=-51 z=6 yaw=180 al=cellarlever
+prop cellarlever if.use=!signal|cellarbolt
+prop cellarlever else.use=message||The lever is down. Far off, the cellar bolt is drawn.
+prop cellarlever on.use=message||The lever drops with a bang. A rod rattles away through the hill - toward the smelthouse in the south.\nsignal||cellarbolt\ngive||story:cellarpin*1
+call hatchcache x=13 z=-68.5 r=3 seed=14771 alias=cellarhatch chest=cellarchest items=TitaniumOre*3;MetalIngot*4;Battery*1
+prop cellarchest note.title=Storm cellar
+prop cellarhatch if.use=signal|cellarbolt
+prop cellarhatch else.use=message||The cellar hatch is bolted from below. The smelters' roll says the bolt is drawn from the ore cave.
+story cellarpin|Cellar bolt drawn|MetalIngot|The storm cellar's bolt is drawn: the lever by the ore cave dropped it.
+prop orecavechest if.open=has|story:raft-Tangaroa_KeyCard|1
+prop orecavechest else.open=message||The ore chest has a card slot stamped CONCORD. A keycard would open it.
+loot orecavechest MetalOre*4;CopperOre*3;Bolt*2;TitaniumOre*3
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Stormworks
+info author=Custom Islands
+info description=A dark rock with smoke over it: the iron smelter hall where the Concord Engine's parts were cast, a weather room on its roof, a lightning rod on the spur - and the last crew's three notes.
+island on.arrive=message||Smoke over a dark rock, and the smell of a forge. Up on the flat top, an iron hall with a dish on its roof.
+
+note worksnote1 Stormworks note 1 | STORMWORKS - NOTE 1\n\nWhat the engine is for.\n\nThe sea rose and would not stop. The Concord was every station that agreed to try: the beacon, the intake, the relays, the wall, the locks, these works. We cast the rings here. The ring turns the sea - surface, deep and ice - so it stops rising.\n\nIt worked. That is the trouble. It never stops working.
+note worksnote2 Stormworks note 2 | STORMWORKS - NOTE 2\n\nStanding order to the last crew.\n\nKeep the engine on standby. Do not shut it down - nobody knows what the sea does if the ring stops. Do not run it full - nobody knows that either.\n\nThe drone will keep the ring clean. Do not fight the drone.\n\nWe went home anyway.
+note worksnote3 Stormworks note 3 | STORMWORKS - NOTE 3\n\nThe rafts call it the Stalker. It is not a beast.\n\nIt was our maintenance drone: it kept the ring clean of anything that grew on it, or swam into it, or came too close. When the crews left nobody told it to stop.\n\nIt is still cleaning. It thinks you are something growing on the ring.
+note hallchest Smelter hall | The hall's tool chest: an electric smelter's plans, soot in every fold.
+note weatherchest Weather room | The weather room's chest: an advanced extractor's plans and a stopped barometer.
+note anchorstore Anchor store | The anchor store on the clay beach: an advanced anchor's plans, for the ore barges.
+note orebin1 Copper bin | An ore bin, half full of copper.
+note orebin2 Iron bin | An ore bin, half full of iron.
+loot hallchest Blueprint_SmelterElectric*1;MetalIngot*2;Scrap*4
+prop hallchest loot.refill=0
+loot weatherchest Blueprint_BiofuelExtractorAdvanced*1;Battery*1;CircuitBoard*1
+prop weatherchest loot.refill=0
+loot anchorstore Blueprint_AnchorStationaryAdvanced*1;Rope*6;MetalIngot*2
+prop anchorstore loot.refill=0
+loot orebin1 CopperOre*4
+loot orebin2 MetalOre*4
+
+note oreheap Furnace hands' store | The furnace hands' store: ore they never got to smelt.
+loot oreheap MetalOre*4;CopperOre*3;TitaniumIngot*1;Plank*4
+note furnaceletter Furnace hand's letter | A letter, never sent\n\nDear Ma,\nThe works make the iron for the great machine in the middle of the sea. They say when it is finished there will be no more storms.\nWe have made iron for eleven years. The storms are worse.\nYour son, Piet
+note orecavechest Ore cave chest | A drill crew's chest: spare bits, a lamp wick, and ore they never carried out.
+prop orecavechest loot.refill=0
+note smeltroll Smelters' roll | SMELTERS' ROLL - pinned under a stone by the fallen wall\n\nShift 1 to 12, all present. Ore to the furnace, ingots to the pier.\nThe ingots went south on the Concord's barges - every one of them stamped with the same ring.\nThe works closed the day the barges stopped coming.\n\nThe storm cellar under the hatch is bolted; its lever is by the ore cave in the west. We melted the Concord's own ships in here, one by one, to feed the Engine.
+note oreplanelog Ore plane log | ORE PLANE LOG\n\nThe last load: ingots for the Engine, as the Concord ordered.\nThe lightning followed us off the island - it struck the left wing twice.\nDown in the east snow. The ingots are in the crate if anybody still wants them.\n\nThe smelthouse hands keep their best ingots in the storm cellar.
+quest title=The Works
+quest intro=A smelter hall under smoke on a dark rock. Go up to the hall.
+step reach|smelter_hall|1|Go up to the smelter hall
+step read|Stormworks note 1|1|Read the first note in the hall
+step blueprint|Blueprint_SmelterElectric|1|Take the electric smelter plans from the hall's tool chest
+step reach|weather_room|1|Climb up to the weather room on the roof
+step read|Stormworks note 2|1|Read the second note in the weather room
+step blueprint|Blueprint_BiofuelExtractorAdvanced|1|Take the advanced extractor plans from the weather room
+step kill|Screecher|3|Drive the screechers off the rod spur
+step blueprint|Blueprint_AnchorStationaryAdvanced|1|Take the advanced anchor plans from the store on the clay beach
+step reach|stormridge|1|Climb the north ridge and watch the lightning
+step read|Smelters' roll|1|Read the smelters' roll at the ruined smelthouse in the south
+step collect|story:cellarpin|1|Drop the cellar lever by the ore cave in the west hills
+step open|Storm cellar|1|Open the storm cellar under the hatch by the smelthouse
+step reach|rod_top|1|Climb to the top of the rod spur
+step read|Stormworks note 3|1|Read the last note under the lightning rod
+quest done=The Stalker was the engine's drone, still cleaning. South, a pale tower stands in cold steam.
+quest reward=MetalIngot*4;CopperOre*2;Scrap*6
+
+save Stormworks

@@ -1,0 +1,165 @@
+# Vaporhold Reservoir - an island of the library's plan The Rainmakers (Nimbus Works' fifth station)
+# A ring of grassy embankment round a deep reservoir lake. In the lake stands the round valve tower (Temperance's
+# moon-town barrel made into a concrete column, a platform with its roof on pillars), Utopia's glass bridge out to it
+# from the south bank; on the lake floor the drowned pump hall, an air pocket in the rocks by its door. Quest "The Valve
+# Tower" (7 steps): the embankment, the surveyors' case dug up with the metal detector and shovel (the valve wheel), the
+# tower, the valve (the wheel on its spindle opens the pump hall's flood gate), the pump hall, its store (the water
+# blueprints), Dagny Holm's letter to the town.
+#
+# Built by the recipe player (CIRecipe vaporhold_reservoir) through the editor's own operations.
+include lib_sea
+include lib_features
+include lib_huts
+new
+# (nature: an embankment of grass with Bushes Like Raft's own (0.28), few trees, rocks; Harvest 0.2)
+gen Trees=0.15 Bushes=0.28 Rocks=0.43 Harvest=0.2 BeachThings=0.3
+gen Seed=9701 Radius=52 Height=9 Roughness=0.3 Peaks=1 Shape=0 Style=0 PeakShape=0.15 Cliffs=0.2 BeachWidth=0.5
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.3 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the lake dug in the middle (its floor 7 m under the sea), the embankment's crest walk on the south side,
+# a path up to it from the south beach in steps, the south bank's landing at the bridge -------------------------------
+brush flatten at 0 0 r=19 s=20 frames=200 h=-7
+brush flatten at 0 -44 r=5 s=20 frames=50 h=1.5
+brush flatten at 0 -38 r=5 s=20 frames=50 h=3
+brush flatten from -10 -29 to 10 -29 r=5 s=20 frames=80 h=4.5
+brush flatten at 0 -21 r=4 s=20 frames=60 h=4
+brush smooth from 0 -46 to 0 -20 r=4 s=6 frames=20
+brush seabed at 0 0 r=17 s=8 frames=60
+brush flatten at 10 -0.75 r=5 s=20 frames=60 h=-7.02
+origin
+clear at 0 0 r=21
+clear from 0 -46 to 0 -20 r=6
+clear from -12 -29 to 12 -29 r=6
+
+# --- The valve tower: a column in the lake (Temperance's barrel, 3.5 m across, from the lake floor to 4 m), a platform
+# of floor plates on it, four pillars and a metal hip roof; the valve's bare spindle on a post in the middle ------------
+place TP_Moontown_Barrel01_Clean valvecolumn at 0 0 h=-12 sx=5 sz=5 sy=14.3
+prop valvecolumn tint.color=#9da3a6
+push at -2.25 -2.25 h=4
+for fx 0.75 3.75 1.5
+for fz 0.75 3.75 1.5
+place Block_Floor_Tier3 - at $fx $fz y=0
+next
+next
+place Block_Pillar_Tier3 - at 0 0 y=0.15
+place Block_Pillar_Tier3 - at 4.5 0 y=0.15
+place Block_Pillar_Tier3 - at 0 4.5 y=0.15
+place Block_Pillar_Tier3 - at 4.5 4.5 y=0.15
+roof 3 3 at 0 0 y=0.15
+place RT_Pillar valvepost at 2.25 2.25 y=0.05 sy=0.6
+place TP_Selene_DoorCrankWheel valvewheelobj at 2.25 2.16 y=1.25 rot=0,0,0
+pop
+place Zone_Trigger valvetower at 0 0 h=5
+
+# --- The glass bridge from the south bank to the tower (Utopia's) ---------------------------------------------------
+place UT_Set_GlassBridge glassbridge at 0 -11 h=4 yaw=90 scale=0.42
+
+# --- The drowned pump hall on the lake floor, east of the tower: grey walls, its flood gate across the door (facing the
+# tower), the store and Dagny's letter inside; an air pocket in the rocks by the door --------------------------------
+push at 7 -3 h=-7
+for fx 0.75 5.25 1.5
+for fz 0.75 3.75 1.5
+place Block_Floor_Tier3 - at $fx $fz y=0.05
+next
+next
+place Block_Wall_Tier3 - at 0.75 4.5 y=0.2
+place Block_Wall_Tier3 - at 2.25 4.5 y=0.2
+place Block_Wall_Tier3 - at 3.75 4.5 y=0.2
+place Block_Wall_Tier3 - at 5.25 4.5 y=0.2
+place Block_Wall_Tier3 - at 0 0.75 y=0.2 yaw=90
+place Block_Wall_Door_Tier3 - at 0 2.25 y=0.2 yaw=90
+place Block_Wall_Tier3 - at 0 3.75 y=0.2 yaw=90
+place Block_Wall_Tier3 - at 6 0.75 y=0.2 yaw=90
+place Block_Wall_Tier3 - at 6 2.25 y=0.2 yaw=90
+place Block_Wall_Tier3 - at 6 3.75 y=0.2 yaw=90
+place Block_Wall_Tier3 - at 0.75 0 y=0.2
+place Block_Wall_Tier3 - at 2.25 0 y=0.2
+place Block_Wall_Tier3 - at 3.75 0 y=0.2
+place Block_Wall_Tier3 - at 5.25 0 y=0.2
+place Block_Pillar_Tier3 - at 0 0 y=0.2
+place Block_Pillar_Tier3 - at 6 0 y=0.2
+place Block_Pillar_Tier3 - at 0 4.5 y=0.2
+place Block_Pillar_Tier3 - at 6 4.5 y=0.2
+roof 4 3 at 0 0 y=0.2
+place Block_Wall_Fence_Tier3 floodgate at -0.1 2.25 y=0.2 yaw=90
+place Loot_ChestLarge pumpstore at 5.2 2.25 y=0.25 sit yaw=270
+place "Box Big" - at 3 3.6 y=0.25 sit
+place Note_Paper dagnyletter at 3 3.6 y=2 sit drop yaw=15
+place Placeable_Lantern_Metal - at 3 0.8 y=0.25 sit
+pop
+place Zone_Trigger pumphall at 10 -0.75 h=-5.5
+place AirPocket_1 - at 4.5 3.5 h=-7.4 scale=0.6
+
+# --- The embankment walk, the surveyors' marker post and toolbox, the buried case ------------------------------------
+place Zone_Trigger embankmentzone at 0 -29 h=5.5
+place Block_Pillar_Wood - at -9 -29 h=4.5
+place Placeable_Flag_03 - at -8.6 -29.3 h=4.5
+place Loot_Chest surveybox at 8 -29.5 h=4.5 sit yaw=10
+place Note_Paper surveynote at 8.8 -28.6 h=4.6 sit drop yaw=40
+call treasure x=-14 z=-30 r=4 n=1 seed=9711
+
+# --- Things to gather, reefs outside the ring ----------------------------------------------------------------------
+scatter "Pickup_Landmark_PineappleLandmark" 2 at 0 -30 r=40 seed=9712 free=3
+scatter "Pickup_Landmark_Tree_Mango" 1 at 20 20 r=20 seed=9713 free=5
+scatter "Pickup_Landmark_Flower_Blue" 2 at 0 25 r=30 seed=9714 free=3
+call dirt x=20 z=-25 r=8 n=3 seed=9715
+call shallows r=74 deep=5 n=2
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Vaporhold Reservoir
+info author=Custom Islands
+info description=Nimbus Works' fifth station: a ring of grassy embankment round a deep reservoir, a round valve tower in the lake with a glass bridge out to it, and the drowned pump hall on the lake floor. The fifth island of The Rainmakers.
+island on.arrive=message||A green ring of an island, and inside it a still, dark lake - with a tower standing in it and a bridge of glass.
+
+story valvewheel|Valve wheel|Placeable_Lantern_Metal|The valve tower's hand wheel, from the surveyors' buried case.
+story valveopen|Flood gate open|Placeable_Pipe_Water|The valve tower's valve is turned: the pump hall's flood gate is open.
+
+prop treasure9711 treasure.loot=story:valvewheel*1;Glass*3;Bolt*2
+note surveynote Surveyors' note | VAPORHOLD - SURVEY TEAM\n\nThe company wants the valve tower locked off before the inspectors come. Done: we took the hand wheel off the spindle and BURIED it in the survey case, ten paces west of the marker post.\n\nIf you're one of us and you need it back: the detector and the spade are in this box.\n\n- K.
+note surveybox Surveyors' toolbox | The surveyors' toolbox: a metal detector and a spade, left for whoever comes back for the valve wheel.
+loot surveybox MetalDetector*1;Shovel*1;Rope*2
+prop surveybox loot.refill=0
+note pumpstore Pump hall store | The pump hall's store, dry in its sealed chest: Nimbus Works' plans for water tanks, pipes, an electric purifier and a large storage - and tins of food.
+loot pumpstore Blueprint_WaterTank*1;Blueprint_Pipe_Water*1;Blueprint_ElectricPurifier*1;Blueprint_Storage_Large*1;Cooked_GenericMeat*2;PlasticBottle_Water*2
+prop pumpstore loot.refill=0
+prop pumpstore if.open=signal|valve
+prop pumpstore else.open=message||The flood gate is shut across the pump hall's door. The valve tower works it.
+note dagnyletter Dagny's letter to the town | To the town of Vaporhold,\n\nYou will hear that the reservoir failed. It did not. We filled it with seeded water to feed the Rain Engine, and the rain never stopped, and the sea came up over your fields.\n\nThat is my doing. I signed the order. The Engine is on the mountain at the end of the line - if anybody ever gets there, the switch is in the core.\n\nI'm sorry.\n\nDagny Holm, Chief Engineer
+
+prop valvewheelobj beh.hidden=1
+prop valvewheelobj obj.name=valvewheelobj
+prop valvepost obj.name=valvepost
+prop valvepost beh.use=Fit the valve wheel and turn it
+prop valvepost if.use=take|story:valvewheel|1
+prop valvepost on.use=message||The wheel fits the spindle. You lean on it - it turns, and down in the lake something big grinds open.\nshow|valvewheelobj\nhide|floodgate\nsignal||valve\ngive||story:valveopen*1\nsound||event:/exploring/obstacles/keypad/keypad_correct
+prop valvepost else.use=message||The valve's spindle is bare: somebody took the hand wheel off.
+prop floodgate obj.name=floodgate
+
+prop embankmentzone zone.id=embankment
+prop embankmentzone zone.radius=5
+prop embankmentzone zone.message=The embankment's crest: a still reservoir inside the ring, a tower in it, a bridge of glass.
+prop valvetower zone.id=valve_tower
+prop valvetower zone.radius=3
+prop valvetower zone.message=The valve tower: a spindle on a post, its hand wheel gone.
+prop pumphall zone.id=pump_hall
+prop pumphall zone.radius=3
+prop pumphall zone.message=The drowned pump hall: silt, still pumps, a chest - and a letter on a crate.
+
+quest title=The Valve Tower
+quest intro=A reservoir in a ring of grass. Climb the path to the embankment.
+step reach|embankment|1|Climb the path to the embankment's crest
+step collect|story:valvewheel|1|Dig up the surveyors' buried case (the detector and the spade are in their toolbox)
+step reach|valve_tower|1|Cross the glass bridge to the valve tower
+step collect|story:valveopen|1|Fit the valve wheel on its spindle and turn it
+step reach|pump_hall|1|Dive to the drowned pump hall on the lake floor (an air pocket by its door)
+step open|Pump hall store|1|Open the pump hall's store
+step blueprint|Blueprint_WaterTank|1|Take the water tank plans from the pump hall store
+step blueprint|Blueprint_Pipe_Water|1|Take the water pipe plans from the pump hall store
+step blueprint|Blueprint_ElectricPurifier|1|Take the electric purifier plans from the pump hall store
+step blueprint|Blueprint_Storage_Large|1|Take the large storage plans from the pump hall store
+step read|Dagny's letter to the town|1|Read the letter on the crate in the pump hall
+quest done=The water plans are yours, and Dagny's letter says where this ends: the Rain Engine. The next station answers on 1100.
+quest reward=Plank*6;Rope*2;Scrap*4
+
+save Vaporhold Reservoir

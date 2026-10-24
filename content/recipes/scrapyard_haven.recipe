@@ -1,0 +1,253 @@
+# Scrapyard Haven - a very large island of the library (a junk town)
+# A red desert crescent around a shallow bay, and on its shore a junk town: a harbour with a pier and wrecks, a ring of
+# stacked caravans for a wall, a winch that hoists the gate trailer, a market under a bamboo canopy, Caravan Town's raft
+# monument; outside the wall a scrap pit where a hyena pack and its alpha live, and on the west ridge the scrap king's
+# bamboo fortress on stilts. Quest "King of the Scrapyard" (21 steps): the harbour, its notice, the King's wreck, the
+# fisherman's dinghy, the harbour master's lockbox and the gate key; the town - the monument's square, the market and
+# its barrel, the King's tithe pile, the trader's van, the caravan watchtower; the gate, the pit's edge, the scrap pit,
+# the hyenas, the scrapper's note and the pit's sign; the fortress's stilts, the fortress, the scrap king's hoard.
+# Inspired by Raft's Caravan Town and Utopia.
+#
+# Built by the recipe player (CIRecipe scrapyard_haven) through the editor's own operations.
+include lib_sea
+include lib_features
+new
+# (nature: desert, Like Raft but built up: a third of the grass tufts of Raft's wild desert islets - Raft's islands as the generator's Like Raft has them, CIGenLikeRaft)
+gen Trees=0.19 Bushes=0.35 Rocks=0.42 Harvest=0.2 BeachThings=0.3
+gen Seed=3355 Radius=110 Height=14 Roughness=0.4 Peaks=2 Shape=6 Style=2 BeachWidth=0.6 Cliffs=0.3 PeakShape=0.3
+gen SeaFloor=0 Shelf=0.5 Seabed=1
+# (sea: Raft's desert corals and sea vines - Like Raft 0.5, at 0.2 a quarter of them - the review, 2026-10-03)
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.5 Sunken=0.5 Hostiles=0 Friendly=0 SeaLife=0.4
+generate
+
+# --- Terrain: the town's terrace by the bay, the fortress's shelf on the west ridge, the scrap pit in the south ---------
+brush flatten at 15 30 r=23 s=20 frames=90
+brush flatten at -30 -10 r=21 s=20 frames=90
+brush lower at -10 -45 r=10 s=20 frames=5
+brush flatten at -10 -45 r=12 s=20 frames=60
+# (the trail from the town's gate down the shore to the pit, and up onto the fortress's shelf)
+brush smooth from -8 -10 to -21 -10 r=5 s=20 frames=60
+brush smooth from 5 21 to -2 13 r=4 s=20 frames=50
+origin
+
+# --- The scrap king's fortress: Utopia's bamboo stilt house on the west ridge, its stairs turned towards the trail ---
+place UT_Set_Prison - at -30 -10 centred sit yaw=-90
+place Loot_ChestLarge hoard at -20 -10 h=20 drop yaw=90
+place Zone_Trigger fortress at -20 -10 h=20
+# (two ladders up the stilts to its deck, the first from the ground)
+place LandmarkLadder_6m fortressladder at -14.6 -10 h=9 yaw=90
+place LandmarkLadder_6m - at -14.6 -10 h=13.0 yaw=90
+
+# --- The town: a ring of stacked caravans around the terrace (open to the bay), the gate trailer and its winch ------
+macro wallstack a
+place Caravan_Blue_01 - at {13+13*cos($a)} {29+13*sin($a)} ground sit yaw={90-$a}
+place Caravan_Yellow_01 - at {13+13*cos($a)} {29+13*sin($a)} ground sit yaw={90-$a} y=2.75
+end
+macro wallstack2 a
+place Caravan_Green_01 - at {13+13*cos($a)} {29+13*sin($a)} ground sit yaw={90-$a}
+place Caravan_Green_02 - at {13+13*cos($a)} {29+13*sin($a)} ground sit yaw={90-$a} y=2.75
+end
+clear at 13 29 r=17
+call wallstack 100
+call wallstack2 118
+call wallstack 136
+call wallstack2 154
+call wallstack 172
+call wallstack2 190
+call wallstack 208
+call wallstack2 243
+call wallstack 261
+place CaravanBarebones1 gate at {13+13*cos(225)} {29+13*sin(225)} ground sit yaw={90-225}
+place CaravanBarebones1 gate at {13+13*cos(225)} {29+13*sin(225)} ground sit yaw={90-225} y=2.85
+place RT_Pillar - at 7 23.5 ground sit
+place RT_PowerBox winch at 7 23.5 ground y=1.6 yaw=45
+place Zone_Trigger outside at -1 14 y=1.5
+
+# The harbour: a pier into the bay on posts, the harbour master's van and lockbox, the notice, wrecks
+# (a quay level with the town's terrace, a ladder down to the water at its end)
+for jx 27.2 42.8 5.2
+place Relay_Floor_deck - at $jx 27.6 h=4.85
+place Relay_support_beam_wood - at {$jx-5} 22.6 h=-3 rot=0,0,-90 sx=0.84
+place Relay_support_beam_wood - at {$jx-5} 27.4 h=-3 rot=0,0,-90 sx=0.84
+next
+place LandmarkLadder_6m quayladder at 43.1 25 h=-1.6 yaw=90
+place Van_2 harbourvan at 18 20 ground sit yaw=10
+place Loot_Chest lockbox at 21 18.5 ground sit yaw=200
+place Note_Board notice at 21 27.5 ground yaw=90
+place BoatStranded wreck at 40 8 ground yaw=60 tilt=12
+place RT_PlasticBoat dinghy at 45 21 h=0.3 yaw=100
+place Zone_Trigger harbour at 24 25 y=1.5
+place Zone_Trigger wreckzone at 40 8 y=1.5
+
+# Inside the wall: the market under the canopy, the raft monument, a well, a watchtower of three caravans, scrap
+place Pillars - at 15 33 centred sit
+place Roof - at 15 33 centred sit
+place RaftMonument monument at 11 24 ground sit yaw=200
+place Well well at 7 31 ground sit
+place Caravan_Blue_01 - at 8 36 ground sit yaw=20
+place Caravan_Green_02 - at 8 36 ground sit yaw=20 y=2.75
+place Caravan_Yellow_01 - at 8 36 ground sit yaw=20 y=5.5
+place LandmarkLadder_6m - at 9.8 33.7 ground yaw=20
+place Scrap_02 tithe at 17 38 ground sit yaw=30
+place Pallet - at 14 26 ground sit yaw=15
+place MetalSheet_2 - at 17 22 ground sit yaw=80 tilt=70
+place Loot_Barrel barrel at 18 30 ground sit
+place Van3 tradervan at 5 28 ground sit yaw=100
+# (the banner's rope tied to a wooden post at both ends - it hung from nothing, 2026-10-20)
+push at 15 33 ground
+place Banner_01 - at 0 0 ground sit
+place Block_Pillar_Wood - at -2.5 0 ground sy=2.5
+place Block_Pillar_Wood - at 2.32 0 ground sy=2.5
+pop
+# (quest zones at the town's landmarks: the monument's square, the market, the top of the caravan watchtower)
+place Zone_Trigger square at 11 24 y=1.5
+place Zone_Trigger market at 14 34 y=1.5
+place Zone_Trigger lookout at 8 36 y=6
+
+# --- The scrap pit below the ridge: vans, trailer shells and scrap around it - the hyena pack and their alpha --------
+clear at -10 -45 r=14
+place Van_1 pitvan at -15 -41 ground sit yaw=60
+place Van_4 - at -5 -50 ground sit yaw=-30
+place CaravanBarebones1 - at -14 -54 ground sit yaw=20 tilt=8
+place Van_5 - at -16 -49 ground sit yaw=10
+place Scrap_02 - at -6 -40 ground sit yaw=40
+place Scrap_02 - at -14 -38 ground sit yaw=-20
+place MetalSheet_5 pitsign at 0 -45 ground sit yaw=90 tilt=60
+place Creature_Hyena pack at -10 -46 ground
+place Creature_Hyena alpha at -12 -49 ground
+place Zone_Trigger pit at -10 -42 y=1.5
+# (the trail's end above the pit, and the foot of the fortress's stilts)
+place Zone_Trigger pitedge at -9 -28 y=1.5
+place Zone_Trigger stilts at -13 -10 y=1.5
+
+# --- Raft's special features (lib_features; the user, 2026-10-10: every Raft feature on more than one island): the
+# market's dead generator and the radio on its pallet (it calls out a supply drop on the trail once the power is on;
+# the generator part in a mechanic's toolbox in the scrap pit); a lever at the foot of the fortress stilts that draws
+# the bolt of the guards' chest
+call powerradio x=16 z=26.5 yaw=15 alias=scrapgen ralias=scrapradio rx=14 rz=26 rh=8 cache=scrapdrop cx=0 cz=0 cr=70 cseed=371 items=Battery*2;CopperIngot*2 kx=0 kz=0 kr=70 seed=372 toolbox=scraptoolbox
+prop scrapgen else.use=message||The market generator is missing a part. The town mechanic worked out of the scrap pit - his toolbox should still be there.
+prop scrapradio else.use=message||The radio is dead. No power - the market generator first.
+call leverchest x=-11.5 z=-13.5 yaw=90 alias=stiltlever sig=shlever chest=guardchest cx=-11.5 cz=-6.5 cyaw=90 items=Nail*10;Scrap*4;MetalIngot*1 title="Guards' chest"
+prop stiltlever on.use=message||Clunk. Under the stilts a bolt slides back - the guards' chest is open.\nsignal||shlever
+
+# --- Settings, notes, behaviours, quest ---------------------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): date palms, flowers, pineapples ----------
+scatter "Pickup_Landmark_Tree_Palm 2" 4 at 0 0 r=77.0 seed=4209 free=5
+scatter "Pickup_Landmark_Tree_Palm 4" 4 at 0 0 r=77.0 seed=4210 free=5
+scatter "Pickup_Landmark_Flower_Yellow" 4 at 0 0 r=77.0 seed=4219 free=3
+scatter "Pickup_Landmark_Flower_Red" 4 at 0 0 r=77.0 seed=4220 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=77.0 seed=4229 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=130 deep=5 n=3
+
+info title=Scrapyard Haven
+info author=Custom Islands
+info description=A junk town on a desert crescent: a harbour of wrecks, a ring of stacked caravans for a wall, a gate trailer on a winch, a scrap pit with a hyena pack - and on the ridge, the scrap king's bamboo fortress on stilts. Inspired by Raft's Caravan Town and Utopia.
+island on.arrive=message||A red crescent of sand around a bay - and on its shore, a town of stacked caravans and scrap.
+
+story gatekey|Gate key|quest:Caravan_KeyMayor|The winch key of Scrapyard Haven's gate, on a ring with a bottle opener.
+note notice Harbour notice | SCRAPYARD HAVEN - HARBOUR\n\nTraders welcome. The gate has been SHUT since the hyenas got into the scrap pit.\n\nThe harbour master keeps the gate key in his lockbox by his van. Whoever clears the pit can see the King about a reward - his fortress is up on the ridge, and he's been gone a while.
+note lockbox Harbour master's lockbox | The harbour master's lockbox by his van: the gate key, his ledger, a bag of bolts.\n\nThe ledger's last page: "Day 41. Gate shut, the pit lost to the dogs. The King went up to his fortress on day 40 and hasn't come down since. If anyone wants this town back, someone else will have to clear that pit."
+loot lockbox story:gatekey*1;Bolt*6;Rope*2
+prop lockbox loot.refill=0
+note hoard Scrap king's hoard | The scrap king's hoard, on the fortress's deck: everything worth keeping that ever washed up on the crescent.\n\nScratched inside the lid: "Barred the hall and took the back way down to the sea. If you got past my dog, you've earned the rest. The town's yours - keep the gate shut at night. - K."
+loot hoard Blueprint_ZiplineBase*1;Blueprint_ZiplineTool*1;MetalIngot*6;Scrap*10;Battery*2
+prop hoard loot.refill=0
+prop hoard tint.color=#b07a3a
+prop hoard tint.amount=0.4
+# (the town's own papers and signs, on what stands there already - read on the way round)
+note wreck Name board of the Rusty Crown | RUSTY CROWN - CARAVAN TOWN\n\nThe wreck's name board, its paint flaking. Scratched under it: "Ran her up the sand myself. Called the place Haven, called myself King. Nobody argued."
+note dinghy Fisherman's tally | Tally marks scratched along the dinghy's gunwale: fish landed, fish lost. The last row only says:\n\nHYENAS ON THE PIER AGAIN. TOLD THE HARBOUR MASTER. HE SAYS ASK THE KING. THE KING ISN'T ANSWERING.
+note monument Raft monument plaque | CARAVAN TOWN REMEMBERS\n\nThe raft that carried the first caravans here. Bolted to its mast, a newer plate: "...and Scrapyard Haven, built from what the sea gave back. Long live the King."
+note barrel Market barrel | A trader's barrel left under the canopy when the market closed: odds and ends nobody came back for.
+loot barrel Rope*2;Plastic*4;Nail*6
+note tithe King's tithe pile | A heap of the best scrap, a tin sign stuck in the top: THE KING'S TENTH - COLLECTED EVERY THIRD DAY. TOUCH IT AND SWIM HOME.\n\nThe heap is rusting. Nobody has come down from the ridge to collect it in weeks.
+note tradervan Trader's price list | Chalked on the van's side:\n\nWATER - 1 bolt a cup\nFISH - 2 bolts\nROPE - 3 bolts\nSCRAP - NONE. PIT CLOSED (HYENAS)\n\nAll prices double till the gate opens.
+note well Well rota | A board nailed to the well: one bucket a family a day, by the King's order.\n\nThe King's own line has been blank for a month. Someone has written beneath it: "Is he even still up there?"
+note pitvan Scrapper's note | Wedged under the van's wiper: "Came for copper, found dogs. The big one with the bolt collar is the King's old guard dog - he fed it scraps up on the ridge till it bit him. Then it brought friends."
+note pitsign King's pit sign | Painted on a sheet of scrap: KING'S PIT - SCRAPPERS PAY THE KING ONE PIECE IN TEN.\n\nUnder it, in fresher paint: CLOSED.
+
+prop winch obj.name=winch
+prop winch beh.use=Turn the gate winch
+prop winch if.use=has|story:gatekey|1
+prop winch on.use=message||The key turns, the winch clanks - and the gate trailer rises on its chains.\nopen|gate\nsound||event:/exploring/obstacles/varuna/garagedoor_open
+prop winch else.use=message||The winch is locked. The keyhole wants the harbour master's key.
+prop gate obj.name=gate
+prop gate beh.move=0,6,0
+prop gate beh.moveTime=4
+prop gate beh.moveMode=switch
+
+prop harbour zone.id=harbour
+prop harbour zone.radius=9
+prop harbour zone.message=The harbour of Scrapyard Haven: a pier, two wrecks, a van - and a wall of caravans with its gate shut.
+prop fortress zone.id=fortress
+prop fortress zone.radius=6
+prop fortress zone.message=The scrap king's fortress: a bamboo hall on stilts, its door barred from inside. His hoard stands on the deck.
+prop outside zone.id=gate
+prop outside zone.radius=4
+prop outside zone.message=Outside the wall. The trail runs down the shore to the scrap pit - and up to the fortress on the ridge.
+prop pit zone.id=pit
+prop pit zone.radius=10
+prop pit zone.message=The scrap pit. Hyenas pour out from under the vans - and the biggest one wears a collar of bolts.
+prop wreckzone zone.id=wreck
+prop wreckzone zone.radius=5
+prop wreckzone zone.message=A wreck run up on the sand, RUSTY CROWN on her bow. The King came ashore in her - and never sailed again.
+prop square zone.id=square
+prop square zone.radius=3
+prop square zone.message=The town square: Caravan Town's raft monument, a well, and nobody about. The shutters are all down.
+prop market zone.id=market
+prop market zone.radius=3
+prop market zone.message=The market under its bamboo canopy - empty stalls, a barrel left behind, and the King's tithe pile rusting at the back.
+prop lookout zone.id=lookout
+prop lookout zone.radius=3.5
+prop lookout zone.message=From the top of the caravan tower: the whole crescent. The scrap pit below the ridge - and up on it, the King's fortress, no smoke from it.
+prop pitedge zone.id=pitedge
+prop pitedge zone.radius=3
+prop pitedge zone.message=The trail ends above the scrap pit. Laughing from under the vans - the hyenas know you're here.
+prop stilts zone.id=stilts
+prop stilts zone.radius=3
+prop stilts zone.message=The fortress's stilts: two ladders lashed end to end, up to the King's deck.
+prop pack creature.count=3
+prop pack creature.respawn=0
+prop pack creature.zone=pit
+prop alpha creature.count=1
+prop alpha creature.size=2.2
+prop alpha creature.health=5
+prop alpha creature.damage=2
+prop alpha creature.respawn=0
+prop alpha creature.zone=pit
+prop alpha tint.color=#4a3a2a
+prop alpha tint.amount=0.5
+
+quest title=King of the Scrapyard
+quest intro=A junk town on a red crescent of sand, its gate shut since the hyenas came. The harbour's notice board is the place to start.
+step reach|harbour|1|Tie up at the scrapyard's harbour
+step read|Harbour notice|1|Read the notice on the pier
+step reach|wreck|1|Walk down the beach to the wreck of the Rusty Crown
+step read|Fisherman's tally|1|Read the tally scratched on the fisherman's dinghy by the quay
+step open|Harbour master's lockbox|1|Open the lockbox under the harbour master's van
+step collect|story:gatekey|1|Take the gate key on its bottle-opener ring
+step reach|square|1|Walk up into the town square by the raft monument
+step reach|market|1|Go under the canopy into the empty market
+step open|Market barrel|1|Rummage through the barrel the traders left behind
+step read|King's tithe pile|1|Read the tin sign on the King's tithe pile behind the market
+step read|Trader's price list|1|Check the price list chalked on the trader's van
+step reach|lookout|1|Climb the caravan watchtower and look out over the crescent
+step reach|gate|1|Winch the gate open and step outside the wall
+step reach|pitedge|1|Follow the trail down the shore to the edge of the scrap pit
+step reach|pit|1|Go down into the scrap pit
+step kill|Hyena|4|Clear the scrap pit of the hyena pack and its alpha
+step read|Scrapper's note|1|Search the vans in the pit for the last scrapper's note
+step read|King's pit sign|1|Read the painted sign at the pit's edge
+step reach|stilts|1|Climb the ridge to the foot of the fortress's stilts
+step reach|fortress|1|Climb the ladders up to the scrap king's fortress
+step open|Scrap king's hoard|1|Open the scrap king's hoard
+step blueprint|Blueprint_ZiplineBase|1|Take the zipline plans from the scrap king's hoard
+step blueprint|Blueprint_ZiplineTool|1|Take the zipline tool plans from the scrap king's hoard
+quest done=The pit is quiet and the hoard is open. The scrap king never came back - so his crown, of sorts, is yours.
+quest reward=MetalIngot*4;Nail*20;Plastic*10
+
+# the generator's rocks that floated over the slope (VI4 ground check, 2026-10-24)
+clear at 0 52.44 r=1.5 only=BigSharpRock
+
+save Scrapyard Haven

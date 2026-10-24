@@ -1,0 +1,7 @@
+# Pneumatic Heights on its own (CIPlay pneumatic_heights_solo): the telegraphist's dead letter taken at The Dead Letter
+# Office first, then the island's test
+island The Dead Letter Office
+offset 0 0
+read Dead letter: Telegraphist
+expect story dl_telegraph 1
+include pneumatic_heights.play

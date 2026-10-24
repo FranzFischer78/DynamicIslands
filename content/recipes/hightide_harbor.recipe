@@ -1,0 +1,371 @@
+# Hightide Harbor - an island of the library's plan Raft 2: The Drowned Frontier (station Five of the Frontier Corps)
+# A forested crescent round a sheltered bay: a fishing town along its inner shore - a quay and two piers with stilt
+# houses over a dredged shallow, the fish hall on the beach -, the water works on the saddle of the hill behind, a lamp
+# tower of Raft's blocks out on the north horn; the Mary on her mooring at the quay's end, the Heron sunk by the outer
+# buoys. Quest "The Fleet Comes Home" (13 steps): the quay, the harbour master's log, three pages of the fleet's log in the
+# stilt houses, the bears in the fish hall and its office locker's fuse, the works' switch and the valve house, three cans
+# of lamp oil (the valve house, the Mary, the sunken Heron), the screechers on the lamp tower, the lamp, the master's safe
+# (the water plans: pipes, purifier, tank, big storage).
+#
+# Built by the recipe player (CIRecipe hightide_harbor) through the editor's own operations.
+include lib_sea
+include lib_rt
+include lib_huts
+new
+# (nature: forest, Like Raft - Raft's islands as the generator's Like Raft has them, CIGenLikeRaft)
+gen Trees=0.21 Bushes=0.38 Rocks=0.42 Harvest=0.1 BeachThings=0.3
+gen Seed=8105 Radius=80 Height=12 Roughness=0.35 Peaks=2 Shape=6 Style=3 BeachWidth=0.6
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.4 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the dredged shallow in front of the town (1.2 m down, where the quay's, piers' and huts' posts stand), the
+# waterfront street (1.3 m), the fish hall's pad (1.6 m), the path up to the works on the hill's saddle (9.5 m), the lamp
+# tower's pad on the north horn (3 m) -----------------------------------------------------------------------------------
+brush flatten from -14 -16 to -14 16 r=7 s=20 frames=80 h=-1.2
+brush flatten from -9 -16 to -9 16 r=6 s=20 frames=80 h=-1.2
+brush flatten from -1.5 -12 to -1.5 12 r=3 s=20 frames=60 h=1.3
+# (the street up to the decks' height where the quay and the piers start: 0.3 m lower, the walker couldn't step onto them)
+brush flatten from -3 -2.5 to -3 2.5 r=2.6 s=20 frames=60 h=1.38
+brush flatten from -3 8.75 to -3 10.75 r=2.6 s=20 frames=60 h=1.38
+brush flatten from -3 -10.75 to -3 -8.75 r=2.6 s=20 frames=60 h=1.38
+brush flatten from -0.5 -6.5 to 6 -6.5 r=4.5 s=20 frames=60 h=1.6
+brush flatten from 0 -4 to 6.5 -4 r=3 s=20 frames=50 h=1.6
+brush flatten from 0 -9 to 6.5 -9 r=3 s=20 frames=50 h=1.6
+for i 0 10 1
+brush flatten at {1+$i*1.6} {3-$i*0.85} r=2.4 s=20 frames=15 h={1.4+$i*0.8}
+next
+brush smooth from 1 3 to 17 -5.5 r=2.6 s=10 frames=12
+brush flatten at 18 -9 r=7 s=20 frames=60 h=9.5
+brush flatten at -40 48 r=4.5 s=20 frames=50 h=3
+brush smooth at -40 48 r=7 s=10 frames=12
+origin
+clear from -12 -16 to -12 16 r=10
+clear from -1.5 -13 to -1.5 13 r=4
+clear at 2.75 -6.5 r=7
+clear from 1 3 to 17 -5.5 r=3
+clear at 18 -9 r=8
+clear at -40 48 r=6
+
+# --- The quay: three blocks wide, from the street out over the shallow; the harbour master's log on its board, crates,
+# nets drying on the rails ---------------------------------------------------------------------------------------------
+push at -16 -2.25 h=-1.2
+call boardwalk n=8 wide=3 y=2.6
+pop
+place Note_Board masterslog at -8 1.95 h=1.4 yaw=180
+place Crate_Big_01 - at -13.5 -1.4 h=1.4 sit yaw=12
+place Crate_Big_02 - at -12.4 -1.5 h=1.4 sit yaw=80
+place Placeable_Lantern_Metal - at -13.5 -1.4 h=3 sit drop
+place Placeable_Flag_03 - at -4.6 -1.8 h=1.4
+place Zone_Trigger quay at -10 0 h=2.4
+
+# --- The harbour master's stores (T-4c2): a chest chained in a cage at the street's north end - the bolt cutters that
+# open it came from the Saltmarsh ferry (rule 2); nothing in the quest needs it
+place UT_DogCage_Medium02 storescage at -1.5 11.8 ground sit yaw=180
+place Loot_ChestSmall storeschest at -1.5 11.8 ground sit yaw=180
+
+# --- The north pier and its two stilt houses (the netmaker's, the skipper's), fronts onto the pier ----------------------
+push at -16 9 h=-1.2
+call boardwalk n=8 wide=1 y=2.6 rn=none
+pop
+push at -16 10.5 h=-1.2
+call stilt_hut ladder=none
+place "Box Small" netbox at 1 3.6 y=2.6 sit yaw=10
+place Cableroll_01 - at 3.5 3.7 y=2.6 sit
+place Placeable_Lantern_Metal - at 0.6 0.6 y=2.6 sit
+place Pickup_Landmark_Plastic3_Land - at 2.4 1.6 y=2.9 drop yaw=41
+pop
+push at -10 10.5 h=-1.2
+call stilt_hut ladder=none w1=ReefHuts_PlasticWall1 w4=ReefHuts_PlasticWall4
+place "Box Big" skipperchest at 3.4 3.6 y=2.6 sit yaw=-8
+place Crate_Big_02 - at 1 3.7 y=2.6 sit yaw=30
+place Pickup_Landmark_Plank_Land - at 1.0 1.3 y=2.9 drop yaw=113
+pop
+
+# --- The south pier and its two stilt houses (the cook's, the harbour master's), turned to face the pier -----------------
+push at -16 -10.5 h=-1.2
+call boardwalk n=8 wide=1 y=2.6 rs=none
+pop
+push at -11.5 -10.5 h=-1.2 yaw=180
+call stilt_hut ladder=none w2=ReefHuts_PlasticWall4
+place "Box Small" cookcrate at 2.25 3.6 y=2.6 sit yaw=5
+place Table_Common_01 - at 1.1 2.6 y=2.6 sit yaw=90
+place Pickup_Landmark_Plastic3_Land - at 3.2 1.4 y=2.9 drop yaw=275
+pop
+push at -5.5 -10.5 h=-1.2 yaw=180
+call stilt_hut ladder=none w3=ReefHuts_Wall3 w5=ReefHuts_Wall2
+place VG_Safe masterssafe at 3.6 3.7 y=2.6 sit yaw=180
+place "Table Office" - at 1.4 3.4 y=2.6 sit yaw=180
+place "Chair Office" - at 1.4 2.6 y=2.6 sit
+place Placeable_Lantern_Metal - at 1.2 3.4 y=3.4 sit drop
+place Pickup_Landmark_Plastic3_Land - at 3.0 1.4 y=2.9 drop yaw=8
+pop
+
+# --- The fish hall on its pad: Raft's wooden walls, an open doorway to the street, a wooden hip roof on the walls and its
+# corner pillars; gutting tables, crates, the office corner with its locker - and the bears ------------------------------
+push at -1 -9.5 h=1.6
+for fx 0.75 6.75 1.5
+for fz 0.75 5.25 1.5
+place Block_Floor_Wood - at $fx $fz y=0.2
+next
+next
+place Block_Wall_Wood - at 0.75 0 y=0.2
+place Block_Wall_Wood - at 2.25 0 y=0.2
+place Block_Wall_Window_Wood - at 3.75 0 y=0.2
+place Block_Wall_Wood - at 5.25 0 y=0.2
+place Block_Wall_Wood - at 6.75 0 y=0.2
+place Block_Wall_Wood - at 0.75 6 y=0.2
+place Block_Wall_Window_Wood - at 2.25 6 y=0.2
+place Block_Wall_Wood - at 3.75 6 y=0.2
+place Block_Wall_Window_Wood - at 5.25 6 y=0.2
+place Block_Wall_Wood - at 6.75 6 y=0.2
+place Block_Wall_Window_Wood - at 0 0.75 y=0.2 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.2 yaw=90
+place Block_Wall_Wood - at 0 5.25 y=0.2 yaw=90
+for wz 0.75 5.25 1.5
+place Block_Wall_Wood - at 7.5 $wz y=0.2 yaw=90
+next
+place Block_Pillar_Wood - at 0 0 y=0.2
+place Block_Pillar_Wood - at 7.5 0 y=0.2
+place Block_Pillar_Wood - at 0 6 y=0.2
+place Block_Pillar_Wood - at 7.5 6 y=0.2
+place Block_Pillar_Wood - at 0 3 y=0.2
+place Block_Pillar_Wood - at 0 4.5 y=0.2
+roof 5 4 at 0 0 y=0.2 wood
+place Table_Common_01 - at 2.6 3 y=0.2 sit yaw=90
+place Table_Common_01 - at 4.6 3 y=0.2 sit yaw=90
+place Crate_Big_01 - at 1.1 0.9 y=0.2 sit yaw=5
+place Crate_Big_02 - at 2.3 0.9 y=0.2 sit yaw=85
+place Cableroll_01 - at 6.6 0.9 y=0.2 sit
+place Locker fishoffice at 7.05 5.1 y=0.2 sit yaw=270
+place "Table Office" - at 5.9 5.3 y=0.2 sit yaw=180
+place "Chair Office" - at 5.9 4.6 y=0.2 sit
+place Placeable_Lantern_Metal - at 4.6 3 y=1.4 sit drop
+place Zone_Trigger fishhall at 3.75 3 y=1.2
+place Creature_Bear bear at 2.4 4.6 y=0.4
+place Creature_Bear bigbear at 5 1.8 y=0.4
+place "Pickup_Landmark_Scrap 4_Land" - at 3.7 1.5 y=0.5 drop yaw=170
+place Pickup_Landmark_Plank_Land - at 6.2 3.0 y=0.5 drop yaw=60
+pop
+
+# --- The water works on the saddle (9.5 m): two of Raft's water tanks, the switch box (Balboa's emergency generator), a
+# valve house of wooden walls with a roof, the pipe down the hill to the fish hall -------------------------------------
+push at 18 -9 h=9.5
+place Placeable_WaterTank - at -3.5 -2.5 yaw=90
+place Placeable_WaterTank - at -3.5 1 yaw=90
+place EmergencyGenerator worksswitch at -0.5 3.4 yaw=180
+place Zone_Trigger works at 0 0 y=1.5
+pop
+push at 19.5 -13.5 h=9.5
+for fx 0.75 2.25 1.5
+for fz 0.75 2.25 1.5
+place Block_Floor_Wood - at $fx $fz y=0.2
+next
+next
+place Block_Wall_Wood - at 0.75 0 y=0.2
+place Block_Wall_Wood - at 2.25 0 y=0.2
+place Block_Wall_Wood - at 2.25 3 y=0.2
+place Block_Wall_Wood - at 0 0.75 y=0.2 yaw=90
+place Block_Wall_Window_Wood - at 0 2.25 y=0.2 yaw=90
+place Block_Wall_Wood - at 3 0.75 y=0.2 yaw=90
+place Block_Wall_Wood - at 3 2.25 y=0.2 yaw=90
+place Block_Pillar_Wood - at 0 0 y=0.2
+place Block_Pillar_Wood - at 3 0 y=0.2
+place Block_Pillar_Wood - at 0 3 y=0.2
+place Block_Pillar_Wood - at 3 3 y=0.2
+roof 2 2 at 0 0 y=0.2 wood
+place "Box Big" valvechest at 2.2 0.8 y=0.2 sit yaw=0
+place "Pickup_Landmark_Scrap 1_Land" - at 1.0 1.8 y=0.5 drop yaw=322
+pop
+line WaterPipe_Long_2 from 14.5 -10.5 to 6.8 -6.8 follow y=0.12
+
+# --- The lamp tower on the north horn (3 m): three storeys of Raft's floors on its pillars, ladders up through a hole in
+# each floor (a ladder ends where the floor above goes on in front of the climber: south-west hole, then north-east, then
+# south-east), a lantern room with rope rails and a wooden roof on top; the harbour lamp, its light (dark until it
+# is lit), the screechers -------------------------------------------------------------------------------------------------
+push at -41.5 46.5 h=3
+for fx 0.75 2.25 1.5
+for fz 0.75 2.25 1.5
+place Block_Floor_Wood - at $fx $fz y=0.2
+next
+next
+for lv 0 3 1
+place Block_Pillar_Wood - at 0 0 y={0.2+$lv*2.42}
+place Block_Pillar_Wood - at 3 0 y={0.2+$lv*2.42}
+place Block_Pillar_Wood - at 0 3 y={0.2+$lv*2.42}
+place Block_Pillar_Wood - at 3 3 y={0.2+$lv*2.42}
+next
+# (storey 1: the hole south-west; storey 2: north-east; the lantern room: south-east)
+place Block_Floor_Wood - at 2.25 0.75 y=2.62
+place Block_Floor_Wood - at 0.75 2.25 y=2.62
+place Block_Floor_Wood - at 2.25 2.25 y=2.62
+place Block_Floor_Wood - at 0.75 0.75 y=5.04
+place Block_Floor_Wood - at 2.25 0.75 y=5.04
+place Block_Floor_Wood - at 0.75 2.25 y=5.04
+place Block_Floor_Wood - at 0.75 0.75 y=7.46
+place Block_Floor_Wood - at 0.75 2.25 y=7.46
+place Block_Floor_Wood - at 2.25 2.25 y=7.46
+# (a ladder turned 0 has its back to +z - the climber faces +z and steps off onto the floor there; 180: the other way)
+place Block_Ladder - at 0.75 1.38 y=0.2
+place Block_Ladder - at 2.25 1.62 y=2.62 yaw=180
+place Block_Ladder - at 2.25 1.38 y=5.04
+place Block_Wall_Fence_Rope - at 0.75 0 y=7.46
+place Block_Wall_Fence_Rope - at 0 0.75 y=7.46 yaw=90
+place Block_Wall_Fence_Rope - at 2.25 0 y=7.46
+place Block_Wall_Fence_Rope - at 0.75 3 y=7.46
+place Block_Wall_Fence_Rope - at 2.25 3 y=7.46
+place Block_Wall_Fence_Rope - at 0 2.25 y=7.46 yaw=90
+place Block_Wall_Fence_Rope - at 3 0.75 y=7.46 yaw=90
+place Block_Wall_Fence_Rope - at 3 2.25 y=7.46 yaw=90
+roof 2 2 at 0 0 y=7.46 wood
+place Placeable_Lantern_Basic harbourlamp at 0.75 2.25 y=7.46 sit
+place RT_Floodlight lamplight at 0.45 0.75 y=7.46 sit yaw=270
+place Zone_Trigger lamptower at 1.5 1.5 y=8.2
+place Creature_StoneBird lampbirds at 1.5 1.5 y=10.5
+pop
+
+# --- The Mary on her mooring at the quay's end, her deck locker ----------------------------------------------------------
+place RT_PlasticBoat mary at -18.2 3.7 h=-0.3 yaw=95
+place "Box Small" marylocker at -18.2 3.6 h=0.6 sit drop yaw=5
+
+# --- The harbour mouth (3.6 m deep): two posts marking the channel in (1.5 m out of the water); the Heron, sunk on the bar
+# by the southern one - listing, her hull flooded to the deck, a crate from her hold on the sand beside her -------------
+clear at -40 -14 r=11
+place ReefHuts_Pillar3 outerpost at -47 9 ground sy=1.07
+place ReefHuts_Pillar3 outerpost at -47 -11 ground sy=1.07
+place BoatStranded heron at -40 -14 ground yaw=35 roll=-12
+place "Box Big" heronhold at -35.6 -17.2 ground yaw=35
+
+# --- Friendly animals (placed: the generator's Friendly and SeaLife are whole numbers - the 0.2 and 0.3 above gave none;
+# the user, 2026-10-03: "add some friendly animals to some of the islands"): hens by the water works on the saddle, turtles in the bay -
+place Creature_Chicken hens at 21 -4
+prop hens creature.count=3
+place Creature_Turtle turtles at -35 0 h=-1.5
+prop turtles creature.count=2
+
+# --- Settings, story items, notes, behaviours, quest (13 steps) ------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): birches, pines, flowers ----------
+scatter "Pickup_Landmark_Tree_Birch" 6 at 0 0 r=56.0 seed=4454 free=5
+scatter "Pickup_Landmark_Tree_Pine" 6 at 0 0 r=56.0 seed=4464 free=5
+scatter "Pickup_Landmark_Flower_Blue" 4 at 0 0 r=56.0 seed=4474 free=3
+scatter "Pickup_Landmark_Flower_White" 4 at 0 0 r=56.0 seed=4475 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=100 deep=5 n=2
+
+info title=Hightide Harbor
+info author=Custom Islands
+info description=Station Five of the Frontier Corps: a fishing town on stilts round a sheltered bay - its fleet gone out and never come back, its water works dead, bears in the fish hall and its harbour lamp dark. The fifth island of Raft 2: The Drowned Frontier.
+island on.arrive=message||Stilt houses round a bay, a fish hall on the shore, a lamp tower out on the point - all dark. Somewhere a door bangs in the wind.
+
+story fleetpage|Fleet log page|quest:Vasagatan_FourDigitCode|A torn page of Hightide's fleet log, from one of the stilt houses.
+story fuse|Works fuse|quest:Caravan_BatteryChargerPart|The water works' spare fuse, from the fish hall's office locker.
+story workskey|Valve house key|quest:Caravan_KeyInfirmary|The valve house's key, dropped out of the works' switch box when the power came back.
+story lampoil|Lamp oil|quest:Vasagatan_GasTank|A can of the harbour lamp's oil - the lamp takes three.
+story safecode|Safe code|quest:Utopia_DettoCode|The harbour master's safe code, scratched inside the lamp's oil tank.
+
+note masterslog Harbour master's log | HIGHTIDE HARBOR - HARBOUR MASTER'S LOG\n\nThe fleet went out on the spring tide, eleven boats. None came back. I kept the lamp burning for them every night - until the oil ran out.\n\nThe storm tore the fleet's log to pieces; what's left of it is in the stilt houses along the water. The water works died in the same blow: its fuse burned out, and I put the spare in the fish hall's office. The bears have the fish hall now.\n\nThe last oil is where the fleet left it: a can in the valve house up at the works, one in the Mary's locker on her mooring, one in the hold of the Heron, sunk by the outer posts.\n\nLight the lamp and the safe's code is yours - I scratched it inside the oil tank. Everything the Corps left for the next crew is in there.
+note netbox Netmaker's box | The netmaker's box: twine, floats - and a torn page of the fleet's log.\n\n(page 2) ...set out at dawn, eleven hulls, the Corps' station boat leading. The skipper of the Heron said he smelled weather...
+loot netbox story:fleetpage*1;Rope*2
+prop netbox loot.refill=0
+note skipperchest Skipper's sea chest | The Heron's skipper's sea chest, left ashore: oilskins, a compass - and a torn page of the fleet's log.\n\n(page 5) ...the storm came out of the north like a wall. We lost sight of the fleet first, then the lamp...
+loot skipperchest story:fleetpage*1;Plastic*2
+prop skipperchest loot.refill=0
+note cookcrate Cook's crate | The fleet cook's crate: tins, a ladle - and a torn page of the fleet's log.\n\n(page 9) ...the station boat has turned for the Iron Graveyard - they say the breakers there can patch anything. We follow at first light...
+loot cookcrate story:fleetpage*1;Raw_Herring*2
+prop cookcrate loot.refill=0
+
+note fishoffice Fish hall office locker | The fish hall office's locker: the works' spare fuse in a tin, the hall's tally book.
+loot fishoffice story:fuse*1;Rope*2;Raw_Herring*2
+prop fishoffice loot.refill=0
+note valvechest Valve house chest | The valve house's chest: tools, a coil of rope - and a can of lamp oil.
+loot valvechest story:lampoil*1;Bolt*4;Nail*6
+prop valvechest loot.refill=0
+prop valvechest if.open=has|story:workskey|1
+prop valvechest else.open=message||The valve house's chest is locked. Its key hangs in the works' switch box - which needs power.
+note marylocker The Mary's locker | The Mary's deck locker on her mooring: a can of lamp oil, a gutting knife, a photograph of eleven boats.
+loot marylocker story:lampoil*1;Plastic*3
+prop marylocker loot.refill=0
+note heronhold The Heron's hold | The sunken Heron's hold: nets, a drowned radio - and a sealed can of lamp oil.
+loot heronhold story:lampoil*1;Scrap*4
+prop heronhold loot.refill=0
+note masterssafe Harbour master's safe | The harbour master's safe: the Corps' water plans - pipes, purifiers, tanks and stores - and a chart with the Iron Graveyard marked on it.
+loot masterssafe Blueprint_Pipe_Water*1;Blueprint_ElectricPurifier*1;Blueprint_WaterTank*1;Blueprint_Storage_Large*1;Battery*1
+prop masterssafe loot.refill=0
+# the stores cage (T-4c2): Raft's own check (the bolt cutters, kept); the chest opens on its signal
+prop storescage obj.name=storescage
+prop storescage else.use=message||The harbour master's stores, chained in a cage. A tag on the chain: "Cutters with the Saltmarsh ferry's crew - next run." The ferry never came back.
+prop storescage on.use=message||The bolt cutters bite through the chain and the cage door swings open.\nhide|\nsignal||storescage
+prop storeschest obj.name=storeschest
+prop storeschest note.title=Harbour master's stores
+prop storeschest if.open=signal|storescage
+prop storeschest else.open=message||The chest is inside the cage, and the cage is chained shut. The tag says the Saltmarsh ferry's crew had the bolt cutters.
+loot storeschest Cooked_Mackerel*3;Rope*4;Nail*12;MetalIngot*2;Battery*1
+prop storeschest loot.refill=0
+prop masterssafe if.open=has|story:safecode|1
+prop masterssafe else.open=message||The safe's dial won't move. The harbour master's log said the code is inside the lamp's oil tank.
+
+prop worksswitch obj.name=worksswitch
+prop worksswitch beh.use=Fit the fuse and throw the works' switch
+prop worksswitch if.use=take|story:fuse|1
+prop worksswitch on.use=message||The fuse clicks in, the switch thunks over - the pumps rumble, water runs in the pipes, and the switch box's lid drops open: a key on a hook.\nsignal||works\ngive||story:workskey*1
+prop worksswitch else.use=message||The switch box is dead - its fuse burned out. The harbour master's log said the spare is in the fish hall's office.
+prop harbourlamp obj.name=harbourlamp
+prop harbourlamp beh.use=Fill the lamp with the three cans of oil and light it
+prop harbourlamp if.use=take|story:lampoil|3
+prop harbourlamp on.use=message||The oil glugs in, the wick catches - the lamp throws its light out over the harbour mouth. Inside the tank's lid, scratched in the paint: the safe's code.\nshow|lamplight\nsignal||lamp\ngive||story:safecode*1\nsound||event:/exploring/obstacles/tangaroa/generator_placepart
+prop harbourlamp else.use=message||The lamp's tank is dry. It takes three cans of oil.
+prop lamplight obj.name=lamplight
+prop lamplight beh.hidden=1
+
+prop quay zone.id=quay
+prop quay zone.radius=7
+prop quay zone.message=Hightide's quay: empty moorings, a notice board, nets drying on the rails that nobody took in.
+prop works zone.id=works
+prop works zone.radius=7
+prop works zone.message=The water works: tanks, pipes, a switch box - and silence.
+prop fishhall zone.id=fishhall
+prop fishhall zone.radius=4.5
+prop fishhall zone.message=The fish hall - and a bear rising from the gutting tables, a bigger one behind it!
+prop lamptower zone.id=lamptower
+prop lamptower zone.radius=5
+prop lamptower zone.message=The lamp tower's top - and screechers nesting round the cold lamp!
+prop bear creature.count=1
+prop bear creature.respawn=0
+prop bear creature.zone=fishhall
+prop bigbear creature.count=1
+prop bigbear creature.size=1.3
+prop bigbear creature.health=2
+prop bigbear creature.respawn=0
+prop bigbear creature.zone=fishhall
+prop lampbirds creature.count=2
+prop lampbirds creature.respawn=0
+prop lampbirds creature.zone=lamptower
+
+quest title=The Fleet Comes Home
+quest intro=A fishing town on stilts with its fleet lost and its lamp dark. Station Five: start at the quay.
+step reach|quay|1|Tie up at Hightide's quay
+step read|Harbour master's log|1|Read the harbour master's log on the quay's board
+step collect|story:fleetpage|3|Find three torn pages of the fleet's log in the stilt houses
+step kill|Bear|2|Drive the bears out of the fish hall
+step collect|story:fuse|1|Take the works' spare fuse from the fish hall's office locker
+step reach|works|1|Climb to the water works on the hill
+step collect|story:workskey|1|Fit the fuse and throw the works' switch
+step open|Valve house chest|1|Open the valve house's chest with its key
+step collect|story:lampoil|3|Gather three cans of lamp oil: the valve house, the Mary's locker, the sunken Heron's hold
+step reach|lamptower|1|Climb the lamp tower out on the point
+step kill|Screecher|2|Drive the screechers off the lamp tower
+step collect|story:safecode|1|Fill the harbour lamp and light it
+step open|Harbour master's safe|1|Open the harbour master's safe
+step blueprint|Blueprint_Pipe_Water|1|Take the water pipe plans from the harbour master's safe
+step blueprint|Blueprint_ElectricPurifier|1|Take the electric purifier plans from the harbour master's safe
+step blueprint|Blueprint_WaterTank|1|Take the water tank plans from the harbour master's safe
+step blueprint|Blueprint_Storage_Large|1|Take the large storage plans from the harbour master's safe
+quest done=The lamp burns over the harbour mouth again - for a fleet that went on to the Iron Graveyard, the chart in the safe says. The water runs, and the next crew will find the way.
+quest reward=Plank*10;Rope*4;Raw_Herring*4
+
+# --- Raft's vending machine on the street by the quay (its east side, clear of the walkway), from Tangaroa's arcade: Tangaroa's plants for its tokens; three tokens lie about the harbour --
+vending quayvend at 0.3 5.5 ground yaw=270
+place QuestItemPickup_Tangaroa_Token - at -0.5 8 ground
+place QuestItemPickup_Tangaroa_Token - at 20 -4 ground
+place QuestItemPickup_Tangaroa_Token - at 16 28 ground
+
+save Hightide Harbor

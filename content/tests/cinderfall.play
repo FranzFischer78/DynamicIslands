@@ -1,0 +1,51 @@
+# Play test of Cinderfall (CIPlay cinderfall, in a test world 'CI ...'). Points as in its recipe: the camp on the ash
+# plain (3.2 m), the turbine hall's pad (3.45 m), the valves' ledges - the west plateau (10.4 m), the south-east spur
+# (7 m), the north shoulder (16 m) up the ramp. Quest "Pressure", 10 steps: camp, warning, valve 1, valve 2, the nest,
+# the matriarch, valve 3, the hall, its roaches, the store opened.
+island Cinderfall
+expect step 0
+expect title Pressure
+
+# The workers' camp: the engineer's warning on a crate
+walk -10 60 to -10 49 to -11.5 46.2 h=3.2
+zone camp
+expect step 1
+read Engineer's warning
+expect step 2
+
+# The west plateau's valve
+walk -14 44 to -40 34 to -60 24 to -58 10 to -57.5 4 to -55.5 -0.4 h=10.4
+use valve1
+expect message groans shut
+expect story valvetag 1
+expect step 3
+
+# The south-east spur's valve
+walk 12 40 to 26 26 to 34 4 to 32 -18 to 30.5 -25.4 h=7
+use valve2
+expect story valvetag 2
+expect step 4
+
+# Up the ramp to the north shoulder: the stone birds' matriarch, the third valve
+walk 20 32 to 13 27 to 6.4 22.2 to -1 17.3 to -6 14.4 h=16
+zone nest
+expect step 5
+kill Screecher
+expect step 6
+use valve3
+expect story valvetag 3
+expect step 7
+
+# Down to the turbine hall: its roaches, then the plant's store
+walk 1.5 42 to 1.5 37.5 to 1.5 33.5 h=3.6
+zone hall
+expect step 8
+kill Roach
+expect step 9
+walk 1.5 34 to 2.5 31 to 4 29.6 h=3.6 below=6
+reach Plant store
+open Plant store
+wait 5
+expect item Blueprint_Machete 1
+expect item Blueprint_Pipe_Fuel 1
+expect done

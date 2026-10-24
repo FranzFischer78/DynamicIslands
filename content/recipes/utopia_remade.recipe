@@ -1,0 +1,246 @@
+# Utopia Remade - an island of the library's plan Raft Remade (in place of Raft's Utopia) - the end of the voyage
+# Raft's Utopia made anew: the docks on its north beach with Utopia's market stalls, the warden's prison house (Utopia's
+# own prison on its stilts) on the east flats, and on the summit the warden's yard behind a thatch palisade - its gate
+# locked with two keys, his hyena pack and their alpha inside, his table and his chest. Quest "The Warden's Gate"
+# (20 steps, in three chapters as the plan's finale): the docks - Olof's last message, his crate, the empty cage, the
+# fisherman's crate, the market's stores and the trader's stack box (six pages), the dock master's crate and key; the
+# prison house - the clerk's yard, the rats, his desk and key, his crate (nine pages); the summit - the gate unlocked
+# with both keys, the hyenas and their alpha, the warden's table, his pot and his jar (twelve pages) and his chest
+# (Utopia's blueprints: the electric zipline tool, the big backpack, the titanium tools) - its quest-done text is the end of the world plan Raft Remade.
+#
+# Built by the recipe player (CIRecipe utopia_remade) through the editor's own operations.
+include lib_sea
+include lib_rt
+include lib_features
+new
+# (nature and the life under water: as on Raft's island itself - Randomize existing measures them)
+randomize Utopia like Seed=7108 Radius=55 Height=22 Cliffs=0.25 BeachWidth=0.5 Hostiles=0 Friendly=0 SeaLife=0.3 Trees=0.4 Bushes=0.5 Rocks=0.75 Harvest=0.7 Water=0.5
+
+# --- Terrain: the quay on the north beach (1.8 m), the prison house's flats (6 m), the warden's yard on the summit
+# (18 m) and the path from the quay up to its gate ----------------------------------------------------------------------
+brush flatten from -2 45 to 18 45 r=5 s=20 frames=60 h=1.8
+# (the quay's edge up to the pier: the beach fell away under the pier's first plate and stopped a player 0.5 m short)
+brush flatten from 2 49.5 to 11 49.5 r=2.5 s=20 frames=40 h=1.75
+brush flatten at 22 12 r=17 s=20 frames=80 h=6
+brush flatten from 15 29.5 to 29 29.5 r=4.5 s=20 frames=40 h=6
+brush flatten at -6.5 -6.5 r=12 s=20 frames=80 h=18
+for i 0 10 1
+brush flatten at {4-$i*1.05} {41-$i*3.6} r=2.8 s=20 frames=30 h={2.5+$i*1.51}
+next
+brush smooth from 4 41 to -6.5 5 r=3 s=10 frames=20
+origin
+clear from -2 45 to 18 45 r=8
+clear at 22 12 r=20
+clear at -6.5 -6.5 r=15
+# (the open ground before the warden's gate: palms crowded its approach)
+clear at -6.5 8 r=9
+clear from 4 41 to -6.5 5 r=4
+# (the generator's look pieces kept off the summit path by their bodies, not their pivots: a tower's frame stood on it
+# once the generator spaced its pieces wider - SL6, 2026-10-19)
+clear from 4 41 to -6.5 5 r=1.5 body
+clear from -6.5 5 to -6.5 -3.5 r=1.5 body
+clear from 14 44 to 22 31 r=3
+# (no boulders strewn over the sand - Raft's beaches have few)
+clear at 0 0 r=90 only=Rock|Boulder on=sand above=0.2
+
+# --- The docks: a pier of the radio tower's floor plates, Utopia's market on the quay, Olof's message ------------------
+place RT_Floor pier at 6 59 h=1.8
+place RT_Floor - at 12 59 h=1.8
+place UT_CoveredCrate02 olofscrate at 4 44 ground yaw=10
+place Note_Paper olofsmessage at 4 44 h=4.5 sit drop yaw=80
+place UT_CoveredCrate03 marketstores at 14 46 ground yaw=-15
+place UT_CoveredCrate01 fishcrate at 16.5 44 ground yaw=30
+place UT_MarketBasket01 - at 8 43.5 ground
+place UT_MarketBasket03_Banana - at 9.2 43.2 ground
+place UT_MarketCrateSmall02 - at 10.5 44 ground yaw=20
+place UT_MarketStackBox01 stackbox at 1 46 ground yaw=-20
+# (SL9: Utopia's market goods to take - a sack of potatoes to plant, a basket of bananas, a crate of mackerel - and a
+# butler bot still rolling about the quay)
+place "Pickup_Landmark_MarketGood_Banana_Sack" bananas at 6 45 ground yaw=10
+place "Pickup_Landmark_MarketGood_Banana_Basket01" - at 11.8 45.2 ground
+place "Pickup_Landmark_MarketGood_Banana_CrateSmall01" - at 9 43.5 ground yaw=-30
+place Creature_ButlerBot butler at 7 48 ground
+place TangaroaBenchSilver - at 0.5 48 ground yaw=180
+place Tangaroa_OutdoorFurnitureSilver_Table - at 12 48 ground
+place Tangaroa_OutdoorFurnitureSilver_Chair - at 11 48.3 ground yaw=90
+place Tire_01 - at -1 43.5 ground
+place UT_DogCage_Medium02 cage at 18 47.5 ground yaw=200
+place Loot_Crate dockcrate at 9.5 57.2 h=1.8 yaw=15
+place Zone_Trigger docks at 8 46 h=3
+
+# --- The warden's prison house on the east flats: Utopia's prison on its stilts (its mesh 11.4 m east and 33.9 m north
+# of its pivot), the prison clerk's desk out in front of it - where the rats have moved in -----------------------------
+place UT_Set_Prison prisonhouse at 10.6 -21.9 h=6
+place "Table Office" clerksdesk at 22 28.6 ground yaw=180
+place "Chair Office" - at 22 27.5 ground yaw=190
+place UT_MarketCrateSmall01 clerkscrate at 24.5 30.5 ground yaw=40
+place Zone_Trigger clerkyard at 22 29 h=7.2
+place Creature_Rat rats at 23 27 h=6.5
+
+# --- The warden's yard on the summit (18 m): a palisade of thatch walls, its gate in the north side (two leaves that
+# slide aside), his table, his pots, his chest - and his hyenas -----------------------------------------------------
+for wx -13.25 -8.75 1.5
+place Block_Wall_Thatch - at $wx 1 ground
+next
+for wx -4.25 0.25 1.5
+place Block_Wall_Thatch - at $wx 1 ground
+next
+for wx -13.25 0.25 1.5
+place Block_Wall_Thatch - at $wx -14 ground
+next
+for wz -13.25 0.25 1.5
+place Block_Wall_Thatch - at -14 $wz ground yaw=90
+place Block_Wall_Thatch - at 1 $wz ground yaw=90
+next
+place Block_Wall_Thatch gateL at -7.25 1 ground
+place Block_Wall_Thatch gateR at -5.75 1 ground
+place UT_EndRoom_Table wardenstable at -6.5 -9 ground yaw=0
+place UT_EndRoom_Chair - at -8 -11 ground yaw=0
+place UT_EndRoom_Chair - at -5 -11 ground yaw=0
+place UT_EndRoom_Pot01 wardenspot at -12 -12 ground
+place UT_EndRoom_Pot02 - at -1 -12 ground
+place UT_EndRoom_Pot03 wardensjar at -12 -1.5 ground
+place Loot_ChestLarge wardenschest at -6.5 -12.6 ground yaw=0
+place Zone_Trigger yard at -6.5 -3.5 h=19.2
+place Creature_Hyena alpha at -6.5 -6 h=18.5
+place Creature_Hyena pack at -3 -4 h=18.5
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): mangoes, bananas, palms ----------
+scatter "Pickup_Landmark_Tree_Mango" 3 at 0 0 r=38.5 seed=4191 free=5
+scatter "Banana_Bush_2" 3 at 0 0 r=38.5 seed=4201 free=3
+scatter "Pickup_Landmark_Tree_Palm 1" 2 at 0 0 r=38.5 seed=4211 free=5
+scatter "Pickup_Landmark_Tree_Palm 3" 2 at 0 0 r=38.5 seed=4212 free=5
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=75 deep=5 n=2
+
+info title=Utopia Remade
+info author=Custom Islands
+info description=Raft's Utopia made anew - the end of the voyage: docks with Utopia's market, the warden's prison house on its stilts, and on the summit his yard behind a thatch palisade, its gate locked with two keys. His hyenas wait inside. Raft Remade's eighth and last island.
+island on.arrive=message||Docks, market stalls, a prison house on stilts - and on the summit a thatch palisade, its gate shut. Somewhere behind it, hyenas laugh.
+
+story dockkey|Dock master's key|quest:Utopia_KeyEntrance|One of the two keys to the warden's gate - the dock master's.
+story prisonkey|Prison clerk's key|quest:Utopia_KeyPrison|One of the two keys to the warden's gate - the prison clerk's.
+
+note olofsmessage Olof's last message | To whoever comes after us,\n\nThis is Utopia - or what the warden left of it. He took the summit for himself, fenced it with thatch and keeps his hyenas inside. His gate takes two keys: the dock master kept one in his crate at the end of the pier, the prison clerk the other in his desk by the prison house.\n\nWe never got through that gate. Maybe you will. Whatever he hoarded up there - the plans, the tools - it was meant for all of us.\n\n- Olof
+note olofscrate Olof's crate | Olof's covered crate, left for whoever came after: rope, a few planks - "for your raft, not his", chalked on the lid.
+loot olofscrate Rope*2;Plank*4
+prop olofscrate loot.refill=0
+note cage Empty cage | The cage on the quay, its door hanging open: hyena hair on the bars, a gnawed bone - the warden's pack was kept here once.
+loot cage Scrap*2;Rope*1
+prop cage loot.refill=0
+# (scenery: its door hangs open; it wanted bolt cutters - the ready piece's lock taken off)
+prop cage beh.use=
+prop cage if.use=
+prop cage else.use=
+prop cage on.use=
+note fishcrate Fisherman's crate | A fisherman's covered crate: line, hooks, a net half mended - he left in a hurry.
+loot fishcrate Rope*2;Scrap*1
+prop fishcrate loot.refill=0
+note stackbox Trader's stack box | The trader's stack box by the bench: his tally of the last boats in - and one word on the lid, "WARDEN", scratched out.
+loot stackbox Nail*4;Plank*2
+prop stackbox loot.refill=0
+note marketstores Market stores | The market's stores under their cover: what the traders left when the warden took the summit.
+loot marketstores Plank*4;Nail*6
+prop marketstores loot.refill=0
+note dockcrate Dock master's crate | The dock master's crate at the end of the pier: his ledger, his pipe - and one of the keys to the warden's gate.
+loot dockcrate story:dockkey*1;Rope*3;Plank*4
+prop dockcrate loot.refill=0
+note clerksdesk Prison clerk's desk | The prison clerk's desk, gnawed by rats: his lists of prisoners - and the other key to the warden's gate.
+loot clerksdesk story:prisonkey*1;Nail*6;Scrap*3
+prop clerksdesk loot.refill=0
+note clerkscrate Clerk's crate | The crate beside the clerk's desk: his ink, his seal - and the rats' nest of shredded prisoner lists.
+loot clerkscrate Scrap*3;Nail*4
+prop clerkscrate loot.refill=0
+note wardenstable Warden's table | The warden's table: his ledger of everyone who reached Utopia - each name, and what he took from them.
+loot wardenstable Scrap*4;TitaniumIngot*1
+prop wardenstable loot.refill=0
+note wardenspot Warden's pot | A pot in the warden's yard: the hyenas' scraps - and, under them, a bundle of things he took at the docks.
+loot wardenspot Scrap*3;Rope*1
+prop wardenspot loot.refill=0
+note wardensjar Warden's jar | The warden's jar by the palisade: his own last note - "Two keys, two men I trusted. If the gate opens, it wasn't them."
+loot wardensjar Nail*4;TitaniumIngot*1
+prop wardensjar loot.refill=0
+note wardenschest Warden's chest | The warden's chest: everything he took from those who reached Utopia - the plans for an electric zipline, a big backpack, titanium tools.
+loot wardenschest Blueprint_ZiplineToolElectric*1;Blueprint_BackpackAdvanced*1;Blueprint_TitaniumTools*1;TitaniumIngot*3
+prop wardenschest loot.refill=0
+
+prop gateL obj.name=wardensgate
+prop gateL beh.move=-1.6,0,0.3
+prop gateL beh.moveTime=2
+prop gateL beh.moveMode=switch
+prop gateL beh.use=Unlock the warden's gate
+prop gateL if.use=take|story:dockkey|1\ntake|story:prisonkey|1
+prop gateL on.use=message||Both keys turn. The gate's leaves grind aside - and behind them, the hyenas rise.\nopen|wardensgate
+prop gateL else.use=message||The warden's gate has two locks - the dock master's and the prison clerk's. Olof's message said where the keys are.
+prop gateR obj.name=wardensgate
+prop gateR beh.move=1.6,0,0.3
+prop gateR beh.moveTime=2
+prop gateR beh.moveMode=switch
+prop gateR beh.use=Unlock the warden's gate
+prop gateR if.use=take|story:dockkey|1\ntake|story:prisonkey|1
+prop gateR on.use=message||Both keys turn. The gate's leaves grind aside - and behind them, the hyenas rise.\nopen|wardensgate
+prop gateR else.use=message||The warden's gate has two locks - the dock master's and the prison clerk's. Olof's message said where the keys are.
+
+prop docks zone.id=docks
+prop docks zone.radius=8
+prop docks zone.message=Utopia's docks: market stalls, empty baskets - and a cage, its door hanging open.
+prop clerkyard zone.id=clerkyard
+prop clerkyard zone.radius=5
+prop clerkyard zone.message=The prison clerk's desk - and rats boiling out from under the prison house!
+prop yard zone.id=yard
+prop yard zone.radius=7
+prop yard zone.message=The warden's yard. His table, his chest - and his hyenas, the alpha in front.
+prop rats creature.count=3
+prop rats creature.respawn=0
+prop rats creature.zone=clerkyard
+prop alpha creature.count=1
+prop alpha creature.size=1.5
+prop alpha creature.health=5
+prop alpha creature.damage=2
+prop alpha creature.respawn=0
+prop alpha creature.zone=yard
+prop alpha tint.color=#3a2e24
+prop alpha tint.amount=0.6
+prop pack creature.count=2
+prop pack creature.respawn=0
+prop pack creature.zone=yard
+
+quest title=The Warden's Gate
+quest intro=Utopia at last - and its summit fenced off by the warden. Tie up at the docks.
+step reach|docks|1|Tie up at Utopia's docks
+step read|Olof's last message|1|Read Olof's last message on the quay
+step open|Olof's crate|1|Open Olof's covered crate under his message
+step open|Empty cage|1|Look into the empty cage on the quay
+step open|Fisherman's crate|1|Open the fisherman's covered crate by the cage
+step open|Market stores|1|Search the market's stores under their cover
+step pages||6|Check the trader's stack box by the bench: six pages for the journal
+step open|Dock master's crate|1|Walk the pier to the dock master's crate at its end
+step collect|story:dockkey|1|Take the dock master's key - the first of two
+step reach|clerkyard|1|Cross to the prison clerk's desk on the east flats
+step kill|Rat|3|Drive off the rats boiling out from under the prison house
+step open|Prison clerk's desk|1|Search the prison clerk's gnawed desk
+step collect|story:prisonkey|1|Take the prison clerk's key - the second
+step pages||9|Look in the crate beside the clerk's desk: nine pages of Utopia so far
+step reach|yard|1|Climb to the summit and unlock the warden's gate with both keys
+step kill|Hyena|3|Defeat the warden's hyenas and their alpha
+step open|Warden's table|1|Go through the ledger on the warden's table
+step open|Warden's pot|1|Search the pot in the yard's back corner
+step pages||12|Find the warden's jar by the palisade: twelve pages, the last before his chest
+step open|Warden's chest|1|Open the warden's chest
+step blueprint|Blueprint_ZiplineToolElectric|1|Take the electric zipline tool plans from the warden's chest
+step blueprint|Blueprint_BackpackAdvanced|1|Take the advanced backpack plans from the warden's chest
+step blueprint|Blueprint_TitaniumTools|1|Take the titanium tools plans from the warden's chest
+quest done=The warden's chest opens on everything he hoarded: plans for an electric zipline, a big backpack, titanium tools. Below the summit, the docks are quiet, the sea wide open. Olof was right - it was meant for all of you. This is where Raft Remade's voyage ends: from the first radio tower's call to Utopia's last gate. Sail on - the sea has more islands than any map.
+quest reward=TitaniumIngot*2;Plank*10;Rope*4
+
+# --- A Raft store by the market: Utopia's last trader (Raft's goods, and plans the crew missed) --
+store utopiashop at 38 32 ground
+
+# Buried treasure (one of the story line's last islands): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=30 n=1 seed=8806
+prop treasure8806 treasure.loot=TitaniumOre*3
+
+# --- Raft's vehicles (VI4, 2026-10-23): parked on open ground, clear of paths and quest objects ---
+place UT_ElectricityIsland_Crane02 - at -7 44 ground y=-1.0 sit scale=0.3 yaw=200
+save Utopia Remade

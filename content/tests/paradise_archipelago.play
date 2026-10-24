@@ -1,0 +1,155 @@
+# Play test of Paradise Archipelago (CIPlay paradise_archipelago, in a test world 'CI ...'). Points as in its recipe: the
+# marina's waterfront (2.45 m) on the marina key's south-east, its piers south from z -79 (the long one x -73..-71.5, its
+# row x -72.25, the gangway over the yacht's rail onto her aft deck (1.6 m) at z -103), the office (a relay house x -62.5..-52, z -76.5..-66, in
+# from its veranda's south end and through its door at -55.5 -71.3); the boardwalks (decks 2.6 m) - marina to hotel, hotel
+# to water park, water park to villas, villas to lighthouse point, each walked along one plank row; the hotel tower (x
+# 8..14, z -22.5..-13.5, its ground floor 6.1 m, its door at 14 -15) and its fire stair (the first flight x 14..15.5 up to
+# 9.1 m at z -15, the second x 15.5..17 back to the third floor's landing at 12.1 m and room 304's door at 14 -21); the
+# water park's pad (1.8 m); the corner villa (x -8.5..2, z 52.5..63, in from its veranda's south end, its door at -1.5
+# 57.7); the lighthouse (x -54..-48, z 39.5..48.5) and its stair (x -49.5..-42 along z 38..39.5, up to the bar's door at
+# 6.1 m); the casino (floor 3.6 m: the back room x -20..-14 and the yard's pit ladder at -21 -92, the gaming floor x
+# -20..-2, z -105..-96, the counting room's doorway at -6.5 -96, the vault corridor x -14..-8 with the lasers at z -91, the
+# vault north of z -87, the shutter at -2 -100.5); the dock east of the casino key (2.6 m)
+island Paradise Archipelago
+offset -2.022 -4.7242
+expect step 0
+expect title The Job
+expect animals Turtle 2
+expect animals Dolphin 3
+expect hidden getawayzone
+wait 5
+
+# Chapter 1 - the marina: the dogs; out along the long pier and over the gangway onto the yacht; the office's locker
+walk -66 -66 to -66 -72 to -64 -77 h=2.45
+zone marina
+expect step 1
+kill Hyena
+expect step 2
+walk -72.25 -78 to -72.25 -95 to -72.25 -102.8 h=2.6
+walk -72.25 -102.8 to -74.5 -102.8 to -77.5 -103 h=1.6 below=4
+read Planner's briefing
+expect step 3
+open Planner's cabin chest
+expect story crewkey 1
+expect step 4
+walk -53.8 -80 to -53.8 -74 to -53.8 -71.3 to -58 -71.3 h=2.55 below=5
+open Crew's locker
+expect step 5
+open Beach bar box
+open Marina floor barrel
+
+# Chapter 2 - over the boardwalk to the hotel key; up to the hotel; the roaches in its kitchen; room 304; the service box
+walk -52 -63 to -49 -57.5 to -46 -52.5 h=2.45
+walk -44.95 -52.16 to -32.3 -42.8 to -19.64 -33.41 h=2.6
+walk -19.6 -33.4 to -8 -26 to 4 -16 to 16.5 -12 h=6
+walk 17.1 -12.5 to 16.5 -15 to 12 -15 h=6.1 below=8
+zone hotel
+expect step 6
+zone hotelkitchen
+kill Roach
+expect step 7
+walk 14.75 -23.3 to 14.75 -21.5 to 14.75 -16 to 14.75 -15 h=9.1 below=10.5
+walk 16.25 -14.8 to 16.25 -19 to 16.25 -21 to 14.75 -21 to 12 -21 h=12.1 below=14
+read Electrician's notes
+expect step 8
+open Room 304's minibar
+open Electrician's toolbox
+expect story fusepuller 1
+expect step 9
+
+# Over the next boardwalk to the water park; the diver's box in the wave-machine hut; the lifeguard's box
+walk 17 -11 to 19.5 2.5 to 22 15.5 h=2.45
+walk 22.96 16.44 to 29.7 34.7 to 36.45 53.04 h=2.6
+walk 37 55 to 40 64 h=1.8
+zone waterpark
+expect step 10
+open Diver's box
+expect story divemap 1
+expect step 11
+open Lifeguard's box
+
+# Over the boardwalk to the villa key; the corner villa: the dealer's letter, the fridge; the card in its pool
+walk 40 63 to 35 62.5 to 31 64 to 27.5 68 to 24.5 72.2 h=2.45
+walk 23.05 72.47 to 14.5 69.6 to 5.98 66.78 h=2.6
+zone villas
+expect step 12
+walk 5.98 66.78 to 4 60 to 4 52 to 0.2 51 to 0.2 57.7 to -4 57.7 h=2.6 below=5
+read Dealer's letter
+expect step 13
+open Villa fridge
+open Box in the villa pool
+expect story dealercard 1
+expect step 14
+
+# Over the last boardwalk to lighthouse point; up the stair into the bar: the postcard, the cupboard, the till
+walk 0.2 57.7 to 0.2 51 to -12 50 to -18 51.5 to -24 53 h=2.5
+walk -25.06 53.06 to -29.5 49 to -33.98 45.03 h=2.6
+walk -34 45 to -40 38.75 to -41.5 38.75 h=3.1
+walk -41.5 38.75 to -48.7 38.75 h=6.1
+walk -48.7 38.75 to -49.5 40.5 to -51 43 h=6.1 below=8
+zone lighthousebar
+expect step 15
+read Safecracker's postcard
+expect step 16
+open Bar cupboard
+expect story timelockkey 1
+expect step 17
+open Lighthouse bar's till
+
+# Chapter 3 - lights out: the power islet; the breakers out of order, then blue, green, red
+zone powerisle
+expect step 18
+use breaker3
+expect message wrong order
+use breaker1
+use breaker2
+use breaker3
+expect story blackout 1
+expect hidden camlights
+expect step 19
+open Power plant locker
+# (the service tunnel's grate under the marina's third pier; the thing in the tunnel; up the ladder out of the yard's pit
+# into the casino's back room)
+use tunnelgrate
+zone servicetunnel
+expect step 20
+kill Angler fish
+expect step 21
+climb -21 -92 h=-3
+walk -20.6 -91.5 to -17 -91.5 h=3.6 below=5
+zone casinofloor
+expect step 22
+read Pit boss's ledger
+expect step 23
+open Slot machine
+
+# Chapter 4 - the vault: the counting room's rats; the lasers; the card; through; the time lock; the vault
+walk -17 -94 to -15.5 -97.5 to -6.5 -97.5 to -6.5 -93 h=3.6 below=5
+zone countingroom
+kill Tangaroa rat
+expect step 24
+walk -11 -95 to -11 -89 h=3.6 below=5 blocked
+use laserpanel
+expect hidden lasers
+walk -11 -95 to -11 -88.4 h=3.6 below=5
+zone vaultcorridor
+expect step 25
+use timelock
+wait 22
+walk -11 -88.4 to -11 -83 h=3.6 below=5
+zone vault
+expect step 26
+open House gold reserve
+expect step 27
+expect shown getawayzone
+
+# Chapter 5 - the getaway: back through the corridor and out of the shutter to the dock; the postcard; the strongbox
+walk -11 -83 to -9.5 -90 to -9.5 -100.8 to -3 -100.8 to 5 -100.8 to 12 -100.5 h=3.5 below=5
+walk 13 -100.5 to 17 -101.25 to 20 -101.25 h=2.6
+zone getaway
+expect step 28
+read The crew's last postcard
+expect step 29
+open Crew's strongbox
+expect item Blueprint_ZiplineBase 1
+expect done

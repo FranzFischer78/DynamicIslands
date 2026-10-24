@@ -1,0 +1,57 @@
+# Play test of Redstack Maze (CIPlay redstack_maze, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The maze's cells of 6 m (x 10..46, z -42..-6; cell centres x 13 19 25 31 37 43, z -39 -33 -27 -21 -15 -9): the mouth on
+# the south at 19 -42; the route - north to 19 -33, west to 13 -33, north to 13 -21, east to 37 -21, north to 37 -15, the
+# gate at 37 -12, the pool at 37 -9; the shrine deck's ladders at 40.1 -9, the deck 8.5 m; the hut x 0..4.5, z -46..-41.5
+# (deck 1.6 m), the pier along z -44.5..-43 to x 16.5.
+# Quest (10 steps): the hut, the chart, the hut's box, the mouth, the dead end's barrel, the two puffers, the shrine,
+# the pearl, the strongbox, Tamsin's two hens.
+island Redstack Maze
+offset -0.3026 0.6476
+expect step 0
+expect title Before the Tide Turns
+wait 5
+expect animals Chicken 2
+expect animals Turtle 2
+expect animals Dolphin 2
+at 2.25 -43.75 h=2.6
+zone tidehouse
+expect step 1
+read The tide-keeper's chart
+expect step 2
+open Tide-keeper's box
+expect step 3
+open Tide-keeper's strongbox
+expect message pearl-shaped hollow
+use shrinebell
+expect message pearl pays
+walk 2.25 -43.75 to 15.5 -43.75 h=1.6
+zone mazemouth
+expect step 4
+open Barrel in the dead end
+expect step 5
+kill Puffer fish
+expect step 6
+use tidelever
+expect message seventy-five seconds
+use tidelever
+expect message still open
+walk 15.5 -43.75 to 19 -43.75 to 19 -33 h=-1.2
+walk 19 -33 to 13 -33 to 13 -21 h=-1.2
+walk 13 -21 to 37 -21 to 37 -15 h=-1.2
+walk 37 -15 to 37 -8.5 h=-1.2
+zone shrine
+expect step 7
+at 41.6 -9 h=9.5
+walk 41.6 -9 to 43.6 -9 h=8.5
+use heronnest
+expect story heronpearl 1
+expect step 8
+use heronnest
+expect message nest is empty
+use shrinebell
+wait 3
+expect message tide-keeper's landing
+open Tide-keeper's strongbox
+expect step 9
+catch Chicken 2
+expect done

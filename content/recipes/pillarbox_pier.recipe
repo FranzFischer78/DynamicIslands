@@ -1,0 +1,154 @@
+# Pillarbox Pier - an island of the library's plan The Last Post (the Coastal Post's route, the second stop)
+# A low sandy island with palms, and from its south shore a ferry pier of plank plates on posts running ninety metres out
+# to sea, lined with red pillar boxes (Temperance's ice pillars, shrunk and tinted post-box red, a tin cap of Raft's
+# lamp on each), a ferry waiting room on posts at its head; at the land end the pier master's cottage and the sorting
+# shed. Quest "The Ferry Master's Wife" (8 steps): the pier head, the ferry timetable, the dead letter posted in pillar
+# box 7 (the Ferry Master's reply shows), the reply, the waiting room locker (the motor wheel's and the steering wheel's
+# blueprints), the sorting shed (done-when zone:sorting).
+#
+# Built by the recipe player (CIRecipe pillarbox_pier) through the editor's own operations.
+include lib_sea
+include lib_features
+include lib_post
+new
+# (nature: a low sand island with palms, Like Raft's tropical islets)
+gen Trees=0.22 Bushes=0.3 Rocks=0.15 Harvest=0.25 BeachThings=0.4
+gen Seed=4201 Radius=46 Height=5 Roughness=0.3 Peaks=1 Shape=0 Style=0 PeakShape=0.6 Cliffs=0 BeachWidth=0.7
+gen Water=0.6 SeaRocks=0.25 SeaFinds=0.15 Sunken=0.15 Hostiles=0 Friendly=0 SeaLife=0.4
+generate
+
+# --- Terrain: the pier's root on the south shore at 1.4 m, a yard for the cottage and the sorting shed ----------------
+brush flatten from 0 -16 to 0 -34 r=5 s=20 frames=100 h=1.4
+brush flatten at 9 -14 r=7 s=20 frames=80 h=2.2
+brush flatten at -11 -16 r=7 s=20 frames=80 h=2.2
+brush smooth from -16 -14 to 16 -14 r=6 s=6 frames=20
+brush sand from 0 -18 to 0 -36 r=5 s=8 frames=20
+origin
+clear from 0 -14 to 0 -40 r=4
+clear at 9 -14 r=7
+clear at -11 -16 r=7
+
+# --- The pier: two plates wide from the shore out to sea, ninety metres -----------------------------------------------
+call pier x=0 z1=-30 z2=-122 h=1.45
+# the ferry waiting room at the pier head: a wider deck, a roof on posts, benches, the timetable, the locker
+push at -2.25 -127.25 h=1.4
+call openhall w=3 d=3
+place Bench_01 - at 0.8 2.25 y=1.3 sit drop yaw=90
+place Bench_01 - at 3.7 2.25 y=1.3 sit drop yaw=270
+place Note_Paper timetable at 2.25 4.2 y=2 sit drop yaw=0
+place Placeable_Cupboard_Small - at 2.25 4.2 y=1.3 sit drop yaw=180
+place Loot_ChestSmall locker at 3.8 0.6 y=1.3 sit drop yaw=0
+place Zone_Trigger headzone at 2.25 2.25 y=0.8
+pop
+# the pillar boxes along the pier, alternate sides, every ten metres: number 7 takes the Ferry Master's letter
+macro pillarbox al=pbox x=0 z=0 yaw=0
+place TP_IcePillar04_Snow $al at $x $z h=3 sit drop yaw=$yaw scale=0.42
+place Lamp - at $x $z h=4.5 sit drop yaw=$yaw scale=0.9
+end
+call pillarbox al=pbox1 x=1.25 z=-44 yaw=90
+call pillarbox al=pbox2 x=-1.25 z=-54 yaw=-90
+call pillarbox al=pbox3 x=1.25 z=-64 yaw=90
+call pillarbox al=pbox4 x=-1.25 z=-74 yaw=-90
+call pillarbox al=pbox5 x=1.25 z=-84 yaw=90
+call pillarbox al=pbox6 x=-1.25 z=-94 yaw=-90
+call pillarbox al=pbox7 x=1.25 z=-104 yaw=90
+call pillarbox al=pbox8 x=-1.25 z=-114 yaw=-90
+place Note_Paper ferryreply at 1.25 -103 h=3 sit drop yaw=90
+place Placeable_Lantern_Metal - at -1.3 -84 h=3 sit drop
+place Placeable_Lantern_Metal - at 1.3 -122 h=3 sit drop
+
+# --- The pier master's cottage at the land end (door to the south) ---------------------------------------------------
+push at 5.25 -16.25 h=2.2
+call posthall w=3 d=3 al=cottage
+place "Table Office" - at 2.25 3.2 y=1.3 sit drop yaw=0
+place "Chair Office" - at 2.25 2.3 y=1.3 sit drop yaw=0
+place Placeable_Shelf_Small_Basic - at 0.9 1.6 y=1.3 sit drop yaw=90
+place Placeable_Cupboard_Small - at 3.9 1 y=1.3 sit drop yaw=270
+place Note_Paper masterlog at 2.6 3.2 y=2 sit drop yaw=-5
+pop
+
+# --- The sorting shed: an open hall on posts, sorting tables and mail sacks ------------------------------------------
+push at -14 -19.25 h=2.2
+call openhall w=4 d=2
+place "Table Office" - at 3 1.5 y=1.3 sit drop yaw=0
+place "Box Big" - at 1.1 0.9 y=1.3 sit drop yaw=10
+place "Box Small" - at 5 1.2 y=1.3 sit drop yaw=-20
+call mailsack x=4.6 z=2.3 yaw=40 al=sacks
+call mailsack x=1.3 z=2.4 yaw=-70 al=sacks
+place Zone_Trigger sortingzone at 3 1.5 y=0.8
+pop
+
+# --- Nature: things to gather, a turtle and dolphins, the reefs either side of the pier ------------------------------
+scatter "Pickup_Landmark_Tree_Mango" 2 at 0 10 r=28 seed=4211 free=4
+scatter "Pickup_Landmark_PineappleLandmark" 2 at 0 6 r=28 seed=4212 free=3
+call dirt x=4 z=12 r=12 n=3 seed=4213
+call hives x=-6 z=10 r=14 n=1 seed=4214
+place Creature_Dolphin dolphins at 30 -80 h=-3
+prop dolphins creature.count=2
+call shallows r=64 deep=5 n=2
+
+# --- Settings, notes, behaviours, quest --------------------------------------------------------------------------------
+info title=Pillarbox Pier
+info author=Custom Islands
+info description=A low sandy island and its ferry pier, ninety metres of planks lined with red pillar boxes, a waiting room at its head. The ferry never came back - but the Ferry Master is still waiting for a letter. The second stop of The Last Post.
+island on.arrive=message||A long pier runs out from a sandy island, red pillar boxes all along it like a row of buttons.
+
+prop pbox1 tint.color=#b3221c
+prop pbox1 tint.amount=0.85
+prop pbox2 tint.color=#b3221c
+prop pbox2 tint.amount=0.85
+prop pbox3 tint.color=#b3221c
+prop pbox3 tint.amount=0.85
+prop pbox4 tint.color=#b3221c
+prop pbox4 tint.amount=0.85
+prop pbox5 tint.color=#b3221c
+prop pbox5 tint.amount=0.85
+prop pbox6 tint.color=#b3221c
+prop pbox6 tint.amount=0.85
+prop pbox7 tint.color=#b3221c
+prop pbox7 tint.amount=0.85
+prop pbox8 tint.color=#b3221c
+prop pbox8 tint.amount=0.85
+prop cottage tint.color=#d9cfb8
+prop cottage tint.amount=0.5
+prop sacks tint.color=#b8a478
+prop sacks tint.amount=0.75
+
+prop pbox7 obj.name=pbox7
+prop pbox7 beh.use=Post the letter
+prop pbox7 if.use=take|story:dl_ferry|1
+prop pbox7 on.use=message||Delivered. The letter drops into box 7 - and a folded note slides out of the slot below.\ngive||story:ferrydelivered*1\nshow|ferryreply
+prop pbox7 else.use=message||Pillar box 7. "FERRY MASTER - LETTERS ONLY". You have nothing addressed to him.
+prop pbox3 obj.name=pbox3
+prop pbox3 on.use=message||Pillar box 3 is stuffed full of seaweed.
+
+note timetable Ferry timetable | COASTAL POST FERRY - PILLARBOX PIER\n\nDeparts 07:00, 12:00, 17:00 - weather allowing.\n\nUnder it, in pencil: "Last sailing cancelled. Ferry Master waits for post in box 7."
+note ferryreply Ferry Master's reply | You found her letter. Thank you.\n\nMy wife wrote it the morning the water came - she was on the other side, at the sorting rock. She says she got a place on the last boat out and that I should not wait for the ferry.\n\nI waited anyway. Now I know.\n\nThe locker in the waiting room is yours - the ferry's spare wheel plans. Build something that goes where the ferry couldn't.\n\n- Jon, Ferry Master
+prop ferryreply obj.name=ferryreply
+prop ferryreply beh.hidden=1
+note masterlog Pier master's log | Day 1: Ferry out at 07:00, never back.\nDay 3: Still no ferry. Moved the waiting room locker key to the locker itself - nobody here to steal it.\nDay 9: Post sorted in the shed. Nothing for me.\nDay 30: I keep checking box 7.
+note locker Waiting room locker | The ferry's spare parts locker: the motor wheel's and the steering wheel's plans, rolled in oilcloth.
+loot locker Blueprint_MotorWheel*1;Blueprint_SteeringWheel*1;Cooked_Potato*3;Cooked_Beet*2;Coconut*3
+prop locker loot.refill=0
+
+prop headzone zone.id=pier_head
+prop headzone zone.radius=4
+prop headzone zone.message=The pier head: a waiting room on posts, the sea all round, and no ferry.
+prop sortingzone zone.id=sorting
+prop sortingzone zone.radius=5
+prop sortingzone zone.message=The sorting shed: tables, sacks and a chalkboard route - the next stop is the airstrip in the canopy.
+
+quest title=The Ferry Master's Wife
+quest intro=A ferry pier with a row of pillar boxes. Walk out to its head.
+step reach|pier_head|1|Walk out to the head of the pier
+step read|Ferry timetable|1|Read the ferry timetable in the waiting room
+step collect|story:ferrydelivered|1|Post the Ferry Master's letter in pillar box 7
+step read|Ferry Master's reply|1|Read the Ferry Master's reply
+step open|Waiting room locker|1|Open the waiting room locker
+step blueprint|Blueprint_MotorWheel|1|Take the motor wheel plans from the locker
+step blueprint|Blueprint_SteeringWheel|1|Take the steering wheel plans from the locker
+step reach|sorting|1|Go to the sorting shed at the land end of the pier
+quest done=One letter delivered. The sorting shed's chalkboard gives the next stop: Eskil's airstrip in the canopy.
+quest reward=Cooked_Potato*3;Cooked_Beet*2;Plank*4
+
+save Pillarbox Pier

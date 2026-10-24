@@ -1,0 +1,75 @@
+# Play test of Highmoor Lodge (CIPlay highmoor_lodge, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The lodge on the north shelf (floor 3.45 m, its front door at 4.75 33, the upper floor 5.97 m), the kitchen behind it,
+# the ballroom on its west side, the boiler house behind the ballroom (its door at 2.25 25); the jetty on the north beach;
+# the hedge maze on the west lowland (floor 4.55 m, the way in at -28 10, the heart at -26 -2).
+island Highmoor Lodge
+offset -0.6789 -0.0309
+expect step 0
+expect title The Winter Book
+wait 5
+expect animals Goat 2
+expect animals Dolphin 2
+
+# Off the jetty and up the drive to the lodge's door
+walk 1.5 49 to 1.5 42 to 3.5 38 to 4.75 35.5 h=3.4
+zone lodge
+expect step 0
+
+# The lobby: the ledger on the front desk (a page), page two beside it; the lounge's typewriter, page one
+walk 4.75 35.5 to 4.75 32 to 5 30.6 h=3.45 below=5.5
+read Manager's ledger
+expect step 1
+read Typed page, chapter four
+read Typed page, chapter one
+
+# Up the stair along the lounge's left wall (its foot at the back) to the landing at the front, round to room 9 behind the
+# partition upstairs: page three on the bed
+walk 5 30.6 to 8 29 to 9.25 28.1 h=3.45 below=5.5
+walk 9.25 28.1 to 9.25 31.9 to 7.75 32.1 to 6.6 30.75 to 4.6 30.75 to 2.8 29.6 h=5.97 below=8.5
+read Typed page, chapter nine
+
+# Back down; through the back into the kitchen (page four, two rats); through the lobby's side into the ballroom (page five)
+# (down to the stair's foot first, then on: the walker turned for 8 29 a step above the foot now and then and met the
+# landing's floor - the SL6 plan runs, 2026-10-19)
+walk 4.6 30.75 to 6.6 30.75 to 7.75 32.1 to 9.25 31.9 to 9.25 28.1 h=3.45 below=8.5
+walk 9.25 28.1 to 8 29 h=3.45 below=5.5
+walk 8 29 to 7.75 28.3 to 7.75 26 to 7.6 24.6 h=3.45 below=5.5
+read Typed page, chapter eleven
+walk 7.75 26 to 7.75 28.6 to 3 30.75 to 1.5 30.75 to -1 30.75 h=3.45 below=5.5
+read Typed page, chapter twelve
+expect step 2
+# Out of the front door, round the ballroom to the maze on the west lowland; through its turns to the heart
+walk -1 30.75 to 3 30.75 to 4.75 32 to 4.75 35.5 h=3.45 below=5.5
+walk 4.75 35.5 to -9 35 to -12 20 to -28 13.5 h=4.5
+zone maze
+expect step 3
+walk -28 13 to -28 8 to -36 8 to -36 -8 to -28 -8 to -28 -4 h=4.55
+zone mazeheart
+kill Polar bear
+expect step 4
+open Caretaker's coat
+expect story boilerkey 1
+expect step 5
+
+# Back to the boiler house behind the ballroom: the key slides its door aside; the valves - the wrong one first
+walk -28 -4 to -28 -8 to -36 -8 to -36 8 to -28 8 to -28 13 h=4.55
+walk -28 13.5 to -12 20 to -9 26 to 1.4 26 h=3.45
+use boilerdoor
+expect message slides aside on heat and noise
+wait 2
+walk 1.4 26 to 1.6 24.4 h=3.45 below=5.5
+zone boilerroom
+expect step 6
+use valvebrass
+expect message Wrong valve
+use valvered
+use valvebrass
+use valveblack
+expect message the boiler falls quiet
+expect hidden ballroommusic
+open Caretaker's strongbox
+wait 2
+expect done
+
+# (the pantry, the jetty and shed boxes and the barrel off the jetty have no note on purpose - a note would be a page for
+# step 2 - so the play runner, which opens chests by their note's title, leaves them)

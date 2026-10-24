@@ -1,0 +1,19 @@
+# Drifting Relay Buoy (CIPlay drifting_relay_buoy): the sand bar at 1 m round 0 0, the buoy round 12 0; the buoy, the
+# message, the box, the lamp, the answer.
+island Drifting Relay Buoy
+offset 0 0
+expect step 0
+expect title The Relay Buoy
+expect hidden relayanswer
+zone buoy
+expect step 1
+read Relay message
+expect step 2
+open Buoy box
+wait 3
+expect step 3
+use buoylamp
+expect shown relayanswer
+expect step 4
+read Relay answer
+expect done

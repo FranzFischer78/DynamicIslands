@@ -1,0 +1,47 @@
+# Timberline Haul (CIPlay vi_timberline_haul): quest "Down to the Mill" (13 steps)
+# The log landing (0 -62, 2.5 m) and its notice at 3 -57; the logging camp (-30 10, 8 m), the cook's cabin x -24..-19.5
+# z 4..7, the larder at -36 7, the bear round -42 18; the cut block (10 44, 10 m), the tally at 7.2 40.4, the fuel cache
+# at 18 39; the mill yard (20 -22, 6 m), the loader engine at 24 -16, the mill locker at 26.5 -16, the crane lever at
+# 26 -27. offset: set in phase 2.
+island Timberline Haul
+offset 0 0
+expect step 0
+expect title Down to the Mill
+wait 5
+expect animals Bear 1
+expect hidden milllocker
+zone log_landing
+expect step 1
+read Haul boss's notice
+expect step 2
+zone logging_camp
+expect step 3
+read Camp cook's book
+expect step 4
+kill Bear
+expect step 5
+open Cook's larder
+expect step 6
+zone cut_block
+expect step 7
+read Feller's tally
+expect step 8
+use cranelever
+expect message crane runs off the loader
+use loaderengine
+expect hidden milllocker
+open Fuel cache in the cut
+wait 3
+expect story raft-Vasagatan_GasTank 1
+expect step 9
+use loaderengine
+expect story loaderrun 1
+expect shown milllocker
+expect step 10
+open Mill locker
+wait 3
+expect item Blueprint_MotorWheel 1
+expect step 12
+use cranelever
+expect story lastlog 1
+expect done

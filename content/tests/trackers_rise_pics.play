@@ -1,0 +1,24 @@
+# Guide pictures of Tracker's Rise (CIPlay trackers_rise_pics): Raft's camera, midday, calm
+island Tracker's Rise
+# AREAS 10-24: points in the island's own frame (the meadow and tower in the middle, the gully north-east, the hut
+# west, the ridge cave north, the boat wreck east)
+offset 0 0
+hour 11
+weather Calm
+at 17.7 -3.6
+wait 3
+picture sl11_trackers_rise_island 80 +45 -80 10 5 5
+picture sl11_trackers_rise_tower 19.7 10 -3.6 5.7 8 -17.6
+at 40 34
+wait 2
+picture sl11_trackers_rise_gully 40 +4 36 46 4.5 49
+at -36 -18
+wait 2
+picture sl11_trackers_rise_hut -38 +3 -18 -45.5 4.5 -10
+at -9 32
+wait 2
+picture sl11_trackers_rise_cave -9 +3 34 -10 5 52
+at 54 -36
+wait 2
+picture sl11_trackers_rise_boat 54 +4 -38 66 3 -30
+storespot 0 0

@@ -1,0 +1,34 @@
+# Whitecap Depot (CIPlay vi_whitecap_depot): quest "The Fourth Sled" (8 steps)
+# The depot yard (0 -4, 5 m), the log board at 0 -15, the winch lever at -1 9 and the shed locker at -3 8.5; the igloo
+# camp (23 -21, 4 m) with Maren's sled at 19 -16, her box at 21 -18, her note at 24 -19; the polar bear round 23 -26.
+# offset: set in phase 2.
+island Whitecap Depot
+offset 0 0
+expect step 0
+expect title The Fourth Sled
+wait 5
+expect animals Polar bear 1
+expect hidden shedlocker
+zone depot_yard
+expect step 1
+read Depot log
+expect step 2
+use shedlever
+expect message winch is locked
+expect hidden shedlocker
+zone igloo_camp
+expect step 3
+kill Polar bear
+expect step 4
+read Maren's note
+expect step 5
+open Maren's sled box
+wait 3
+expect story shedkey 1
+expect step 6
+use shedlever
+expect story shedopen 1
+expect shown shedlocker
+expect step 7
+open Sled shed locker
+expect done

@@ -1,0 +1,9 @@
+# Guide pictures of The Iron Whale - Bow (CIPlay iron_whale_bow_pics): Raft's camera, midday, calm
+island The Iron Whale - Bow
+offset 0 0
+hour 11
+weather Calm
+at -4.5 -20
+picture sl12_iron_whale_bow_island 14 16 -40 4 6 4
+picture sl12_iron_whale_bow_mess -1 8.6 1 -5 8 3
+picture sl12_iron_whale_bow_zipline 30 +3 -14 10 +8 4

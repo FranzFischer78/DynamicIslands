@@ -1,0 +1,45 @@
+# Play test of Varuna Point Remade (CIPlay varuna_point_remade, in a test world 'CI ...'). Points as in its recipe: the
+# landing on the north-east sand shelf, the ramp up to the site (10 m), the floodlight tower's deck (16.3 m), the four
+# crates on the reef (2 to 7 m down), the deep under the point (11.6 m down).
+island Varuna Point Remade
+expect step 0
+expect title Floodlight Down
+
+# From the landing up the ramp to the construction site: the foreman's log on his desk by the office steps
+walk 44 20 to 40 16 to 38 14 to 32.8 10 to 25 4 to 16 -1 h=10
+zone site
+expect step 0
+read Foreman's log
+expect step 1
+
+# The floodlight's four parts from the crates round the point
+at 40 28.5 h=-2
+open Lens crate
+at 24 28.5 h=-2
+open Bulb crate
+expect step 2
+at 71 -10.5 h=-2
+open Reflector crate
+at 16 -28.5 h=-3
+open Cable crate
+expect story part 4
+expect step 3
+
+# Up the floodlight tower's ladder to its deck; the floodlight lit again
+climb 17.5 -1.6 h=10
+zone lightdeck
+expect step 4
+use floodlight
+expect message hums
+expect story part 0
+
+# The deep under the point: the giant angler, and the foreman's strongbox it guarded
+at 12 26 h=-8
+zone deep
+kill Angler fish
+expect step 5
+open Foreman's strongbox
+wait 5
+expect item Blueprint_WindTurbine 1
+expect item Blueprint_ElectricGrill 1
+expect done

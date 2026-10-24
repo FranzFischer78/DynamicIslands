@@ -1,0 +1,190 @@
+# Breakwater Customs - the first island of the library's plan The City That Never Sank (SL13, Highwater, chapter 1)
+# A low sandy key at the edge of Highwater, the city that lives on the top floors of a drowned metropolis. From its
+# shore a breakwater of concrete slabs on drowned-tower legs runs out to the customs house - a tower's top storey
+# standing out of the sea - and a boom of lashed foundations closes the channel beside it. On the key: the Harbor
+# Authority's watch tower with its spotlight and aerial, palms, the weigh station on the breakwater. Far off on the
+# horizon the city's tallest towers stand out of the sea. Quest "The Rumour Is True" (10 steps): the customs house, the
+# Authority's entry rules, the receiver's plans (the radio desk), the antenna's plans (the watch tower's locker), a
+# trader's permit (weigh your cargo, then stamp the permit), the smuggler's tip behind the boom post.
+#
+# Built by the recipe player (CIRecipe breakwater_customs) through the editor's own operations. Points (metres over
+# the sea): the key 0 0 (r about 40) levelled at 2 round 10 -6; the breakwater slabs at 1 m, x -3..3, z -50.5..-32.5;
+# the customs house x -3..3, z -59.5..-50.5 (floor 1, door on the breakwater side, roof 4); the watch tower x 12..18,
+# z -10.5..-1.5 (floor 2); the boom along z -52 from x -34 to -6; the skyline out at -80 140.
+include lib_features
+include lib_sea
+include lib_rt
+include lib_huts
+include lib_highwater
+include lib_areas
+# RESIZE 10-24: Radius 40 -> 85 (Height 4 -> 4), the old content moved 0 -24.8 as one frame (push) so its sea side stays at the coast; the island grows behind it.
+new
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=13101 Radius=85 Height=4 Roughness=0.25 Peaks=1 Shape=0 Style=0 PeakShape=0.3 Cliffs=0.1 BeachWidth=0.8
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.4 Sunken=0.2 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+push at 0 -24.8
+
+# --- Terrain: the key, levelled for the watch tower; grass sparse (0.1) -----------------------------------------------
+brush flatten at 12 -6 r=10 s=20 frames=300 h=2
+brush grass at 0 0 r=14 s=3 frames=20
+pop
+brush flatten at -34.1 18.9 r=5 s=8 frames=40
+origin
+clear at -34.1 18.9 r=6
+push at 0 -24.8
+clear at 12 -6 r=9
+clear from 0 -30 to 0 -62 r=6
+
+# --- The breakwater: two concrete slabs on drowned-tower legs from the shore out to the customs house -----------------
+push at 3 -37 h=1
+call hw_roof d=12 a=concrete bm=none fm=none
+pop
+push at 3 -46 h=1
+call hw_roof d=12 a=concrete bm=none fm=none
+place "Table Office" - at -4.6 0 y=0.05 sit yaw=90
+place RT_Clipboard permitstamp at -4.6 0 y=0.85 drop yaw=90
+place UT_HookRoom_Weight02 weighscale at -1.6 1.5 y=0.05 sit
+place Note_Sign weighsign at -1.4 -2.6 y=0.05 sit yaw=180
+pop
+
+# --- The customs house: a drowned tower's top storey, its door on the breakwater side, the radio desk ----------------
+push at 3 -55 h=1
+call hw_penthouse d=12 a=concrete f1=RT_Wall1 f2=RT_Wall1 b1=RT_Wall1 b2=RT_WallDoor1
+place "Table Office" - at -4.5 -3 y=0.1 sit yaw=180
+place RT_CommRadio - at -4.5 -3 y=0.9 drop yaw=180
+place Loot_Chest radiodesk at -1.3 -3.4 y=0.1 sit
+place Note_Board entryrules at -5.9 1.5 y=1.2 yaw=90
+place Placeable_Lantern_Metal - at -3 0 y=0.1 drop
+place Zone_Trigger customszone at -3 2 y=0.1
+place RT_Spotlight - at -0.6 -4 y=3.05 sit yaw=200
+place Placeable_Flag_01 - at -5.5 -4 y=3.05 sit
+pop
+
+# --- The boom: Raft's foundations lashed in a line across the channel, a post at each end ---------------------------
+line Block_Foundation from -34 -52 to -6 -52 step=1.5 h=0.35
+place RT_Pillar - at -35.5 -52 ground sy=0.8
+place RT_Pillar boompost at -4.5 -52 ground sy=0.8
+place Note_Paper smugglertip at -4.5 -52 h=0.5 drop yaw=30
+
+# --- The Authority's watch tower on the key: a storey with its locker, the spotlight and aerial on its roof ----------
+push at 18 -6 h=2
+call rt_storey a=concrete f1=RT_WallDoor1 r2=RT_WallWindow1 l2=RT_WallWindow1
+place RT_Floor concrete at 0 4.5 y=3
+call rt_railing y=3
+place Loot_Chest towerlocker at -1.2 3.5 y=0.1 sit yaw=180
+place "Table Office" - at -4.8 3 y=0.1 sit yaw=180
+place RT_Spotlight - at -3 0 y=3.05 sit yaw=160
+place Antenna_pole - at -5 3.5 y=3.05 sit
+pop
+place Note_Sign towersign at 10.5 -12 ground sit yaw=200
+
+# --- Highwater on the horizon; palms and coconuts, the shore's finds, two reefs -------------------------------------
+call hw_skyline x=-80 z=140 a=skyline
+scatter "Pickup_Landmark_Tree_Palm 1" 3 at -8 6 r=20 seed=13102 free=3
+scatter "Pickup_Landmark_Tree_Palm 3" 2 at 8 14 r=12 seed=13103 free=3
+scatter Pickup_Landmark_BerryBush 2 at -14 -6 r=10 seed=13104 free=2
+call shallows x=0 z=24.8 r=119 deep=5 n=2 seed=13105
+call hw_reef x=-22 z=-40 r=5 seed=13106
+call hw_reef x=26 z=-30 r=5 seed=13110
+pop
+
+# --- DISCOVERIES 10-24 (optional, no quest needs them): camp + note; Van_2 + chest; hatch with a chest; buried treasure; viewpoint ---
+place campfire_1 - at -34.1 18.9 ground sit
+place Balboa_DecorationPrefabBase_SimpleTent - at -31.1 20.9 ground sit yaw=177
+place "Box Small" - at -36.1 21.4 ground sit
+place Note_Paper dnote at -36.1 21.4 ground y=0.7 drop yaw=20
+note dnote Squatter's note | Moved out of the tower when the water reached the 30th floor.\nIt's quieter here. No Union men, no Authority men.\nThe city lights still come on at dusk - nobody knows who pays for them.
+place Van_2 dvan at 34.1 -18.9 ground yaw=297
+prop dvan tint.color=#5a5048
+prop dvan tint.amount=0.5
+place Loot_ChestSmall dwreckchest at 30.1 -15.9 ground sit yaw=237
+note dwreckchest Salvage chest | A salvager's chest: copper, bolts and a coil of rope.
+loot dwreckchest CopperIngot*2;Bolt*2;Rope*2
+prop dwreckchest loot.refill=0
+call hatchcache x=18.9 z=34.1 r=4 seed=13191 alias=dhatch chest=dhatchchest items=MetalIngot*2;CopperIngot*2;Bolt*3
+call treasure x=-36.4 z=-14 r=6 n=1 seed=13192
+prop treasure13192 treasure.loot=CopperOre*3;TitaniumOre*1
+place Zone_Trigger dview at -1.7 8.8 ground
+prop dview zone.id=breakwater_customs_view
+prop dview zone.radius=7
+prop dview zone.repeat=never
+prop dview zone.message=From here the drowned city's roofs go on to the horizon, and Highwater's lights come on one by one.
+
+# --- Areas (10-24: every story island has places all over it and its quest crosses it): Signal Hill and its lookout in the north,
+# the keeper's ruined house in the east, the wreckers' cave in the west shore, the smugglers' boat the Authority seized
+call ar_ridge x1=-22 z1=56 x2=24 z2=63 h=9 top=7 r=9
+call ar_plants_tropical x=1 z=60 r=30 seed=13111
+call hw_zone x=1 z=60 al=signalhill id=signal_hill r=7 msg="The top of Signal Hill. South, the breakwater; north and east, the roofs of the drowned city - and on the horizon, Highwater's towers with lights in them."
+call ar_ruin x=54 z=30 h=3 yaw=0 al=keeperhouse
+call hw_note x=56.5 z=25.5 yaw=20 al=keeperlog
+call ar_plants_tropical x=60 z=44 r=12 seed=13121
+call ar_cave x=-62 z=24 h=3 yaw=0 al=wreckcave chest=wreckcavechest
+call hw_zone x=-62 z=38 al=wreckcavezone id=wreckers_cave r=4 msg="A cave in the west shore. Lamps were hung at its mouth once - wreckers' lamps, to pull boats onto the rocks."
+call hw_wreck x=-64 z=-22 h=2 yaw=80 obj=BoatStranded al=seizedboat crate=seizedcrate r=11
+call ar_plants_tropical x=-40 z=50 r=14 seed=13131
+
+# --- Settings, story items, notes, behaviours, quest ------------------------------------------------------------------
+info title=Breakwater Customs
+info author=Custom Islands
+info description=The edge of Highwater, the city on the drowned towers: a breakwater out to a customs house on a tower's top storey, a boom across the channel and the Harbor Authority's watch tower. The first island of The City That Never Sank.
+island on.arrive=message||A breakwater runs out to a building standing in the sea - the top floor of a tower, the rest of it drowned. Beyond it, on the horizon, more towers. The rumour is true.
+
+story weighed|Cargo weighed|Note_Paper|Your cargo, weighed and chalked on the Authority's board.
+story permit|Trader's permit|Note_Paper|A Harbor Authority trader's permit, stamped. Highwater's markets are open to you.
+
+prop concrete tint.color=#9a9a94
+prop concrete tint.amount=0.35
+prop skyline tint.color=#7a8088
+prop skyline tint.amount=0.4
+prop smugglertip obj.name=smugglertip
+prop smugglertip beh.hidden=1
+
+prop weighscale obj.name=weighscale
+prop weighscale beh.use=Weigh your cargo
+prop weighscale if.use=!signal|weighed
+prop weighscale on.use=signal||weighed\ngive||story:weighed*1\nmessage||The beam tips and settles. A clerk's hand has chalked the numbers on the board for years; you chalk your own.
+prop weighscale else.use=message||Your cargo is weighed already.
+prop permitstamp obj.name=permitstamp
+prop permitstamp beh.use=Stamp a trader's permit
+prop permitstamp if.use=signal|weighed\n!signal|permit
+prop permitstamp on.use=signal||permit\ngive||story:permit*1\nshow|smugglertip\nsound||event:/raft/radar/lever\nmessage||THUMP. HARBOR AUTHORITY - TRADER - ADMITTED. As you lift the stamp a folded paper flutters off the desk and blows toward the boom post.
+prop permitstamp else.use=message||No permit without a weighed cargo - the rules say so. Or you have one already.
+
+note entryrules Authority entry rules | HARBOR AUTHORITY - ENTRY RULES\n\n1. Every vessel is weighed. Every cargo is chalked.\n2. Every trader carries a stamped permit.\n3. Water is the Authority's. Filters are the Authority's.\n4. The boom opens at dawn and closes at dusk.\n5. No one sails past Pumpcrown.\n\nWelcome to Highwater. Keep to the rules and the city keeps you dry.
+note weighsign Weigh station | WEIGH STATION\n\nAll cargo on the scale. All numbers on the board.\nThen the permit desk.
+note towersign Watch tower | AUTHORITY WATCH TOWER\nNo entry. The aerial is for official traffic.\n\n(The door is not locked. The guard left for the city a long time ago.)
+note smugglertip Smuggler's tip | Folded small, in a hurry -\n\nYou got your permit. Good. Now forget the Authority's prices.\n\nThe bazaar sells what the Authority says doesn't exist.\n\nRaft Row, on band six hundred. Ask for filters.
+note radiodesk Radio desk | The customs radio desk: the receiver's plans in a drawer, a log of ships turned away.
+note towerlocker Watch tower locker | The watch tower's locker: the aerial's plans, a coil of wire, a cold thermos.
+loot radiodesk Blueprint_Reciever*1;CircuitBoard*1;Coconut*2
+prop radiodesk loot.refill=0
+loot towerlocker Blueprint_Antenna*1;CopperIngot*2;Rope*2
+prop towerlocker loot.refill=0
+
+prop customszone zone.id=customs_house
+prop customszone zone.radius=3
+prop customszone zone.message=The customs house. A radio desk, a board of rules, the sea at every window.
+
+note keeperlog Keeper's log | LIGHTKEEPER'S LOG - the last page\n\nThe Authority took the light off me. A customs house is cheaper than a lighthouse, they said.\nNow they wave boats in to be weighed, and wave the smugglers round the back for a fee.\nThe smugglers use the wreckers' cave in the west shore. I've seen their lamps.
+note wreckcavechest Wreckers' chest | The wreckers' chest: lamp oil, rope, and a dozen stamped permits with no names on them.
+loot wreckcavechest Rope*3;Nail*8;Scrap*3;CopperIngot*1
+prop wreckcavechest loot.refill=0
+note seizedcrate Seized boat's hold | SEIZED BY THE HARBOR AUTHORITY - pending sale.\nThe hold: smuggled glass, plastic sheeting and a crate of nails the Authority forgot to sell.
+loot seizedcrate Glass*3;Plastic*4;Nail*10
+quest title=The Rumour Is True
+quest intro=A city that never sank, the sailors say. Go into the customs house at the end of the breakwater.
+step reach|customs_house|1|Go into the customs house at the end of the breakwater
+step read|Authority entry rules|1|Read the Authority's entry rules
+step blueprint|Blueprint_Reciever|1|Take the receiver's plans from the radio desk
+step blueprint|Blueprint_Antenna|1|Take the antenna's plans from the watch tower's locker
+step collect|story:permit|1|Weigh your cargo and stamp a trader's permit
+step reach|signal_hill|1|Climb Signal Hill north of the breakwater
+step read|Keeper's log|1|Read the lightkeeper's log in his ruined house on the east shore
+step reach|wreckers_cave|1|Find the wreckers' cave in the west shore
+step open|Seized boat's hold|1|Open the hold of the smugglers' boat the Authority seized
+step read|Smuggler's tip|1|Read the smuggler's tip at the boom post
+quest done=The bazaar sells what the Authority says doesn't exist. Raft Row Bazaar - band 600.
+quest reward=Coconut*3;Rope*2
+
+save Breakwater Customs

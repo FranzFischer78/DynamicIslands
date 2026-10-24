@@ -1,0 +1,211 @@
+# Tide Farm - a small/medium island of the library (inspired by Raft's Utopia)
+# A floating farm of Raft's foundations moored to a tiny islet: crop beds, a scarecrow, Utopia's baskets and light
+# bottles, a glasshouse - and a big water wheel that drives its sprinklers, jammed by a crate. Quest "The Last
+# Harvest": the farm, the farmer's notebook, the crowbar from the tool shed, two runaway chickens, the wheel freed and
+# the glasshouse open.
+#
+# Built by the recipe player (CIRecipe tide_farm) through the editor's own operations.
+include lib_sea
+new
+# (nature: a farm: more to harvest than Raft's islands, fewer rocks - Raft's islands as the generator's Like Raft has them, CIGenLikeRaft)
+gen Trees=0.28 Bushes=0.28 Rocks=0.2 Harvest=0.4 BeachThings=0.3
+gen Seed=1013 Radius=11 Height=3.5 Roughness=0.3 Peaks=1 Shape=0 Style=0 BeachWidth=0.8 Cliffs=0 PeakShape=0.2
+gen SeaFloor=1 Seabed=0
+# (sea: Raft's finds and corals as dense as around Raft's islands - Like Raft 0.5 - the review, 2026-10-03)
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.5 Sunken=0.2 Hostiles=0 Friendly=0 SeaLife=0
+generate
+brush lower at 22 0 r=12 s=10 frames=8
+clear at 22 0 r=13
+clear at -2 2 r=4
+# (the shed's ground levelled: on the islet's slope its floor was under the ground on the high side)
+brush flatten at -3.25 5.5 r=3.5 s=20 frames=20
+clear at -3.25 5.5 r=4
+# (the way from the plank walkway up the beach to the shed kept clear of the generator's rocks and driftwood)
+clear from 10 0.75 to 4 0.75 r=2.5
+clear from 4 0.75 to -2 3 r=2.5
+
+# --- The tool shed on the islet: a hut of Raft's planks, a flat roof, the farmer's chest ------------------------
+push at -4 4 y=0.05
+for sx 0 1.5 1.5
+for sz 0 3 1.5
+place Block_Floor_Wood - at $sx $sz
+place Block_Floor_Wood - at $sx $sz y=2.43
+next
+next
+place Block_Wall_Wood - at 0 3.75
+place Block_Wall_Wood - at 1.5 3.75
+place Block_Wall_Wood - at -0.75 0 yaw=90
+place Block_Wall_Wood - at -0.75 1.5 yaw=90
+place Block_Wall_Wood - at -0.75 3 yaw=90
+place Block_Wall_Wood - at 2.25 1.5 yaw=90
+place Block_Wall_Wood - at 2.25 3 yaw=90
+place Block_Wall_Wood - at 1.5 -0.75
+place Loot_Chest toolchest at 1.6 3.1 sit yaw=180
+place "VG_DecorationPrefabBase_Workbench Variant" - at -0.2 2.4 sit yaw=90
+place "Pickup_Landmark_Scrap 2_Land" - at 0.7 0.8 y=0.4 drop yaw=205
+place Pickup_Landmark_Plank_Land - at 1.4 2.0 y=0.4 drop yaw=44
+pop
+place Creature_Chicken chickens at 2 -3
+
+# --- A plank walkway from the islet's beach out to the farm -----------------------------------------------------
+line Block_Floor_Wood from 6 0 to 13 0 step=1.5 h=0.35
+line Block_Floor_Wood from 6 1.5 to 13 1.5 step=1.5 h=0.35
+
+# --- The farm raft: 10 x 8 of Raft's foundations floating at the surface -----------------------------------------
+for fx 13.75 27.25 1.5
+for fz -5.25 5.25 1.5
+place Block_Foundation - at $fx $fz h=0.13
+next
+next
+
+# --- On deck: crop beds, the scarecrow, the water tank, baskets and crates, light bottles on poles, the notebook --
+# (all of it on the deck - a frame whose floor is the foundations' top: set down "on the ground", the crop beds,
+# scarecrow, table and baskets lay 7-10 m down on the sea floor under the farm, found in the review, 2026-10-03)
+push at 0 0 h=0.13
+place Placeable_Cropplot_Large - at 16 -3.5 sit
+place Placeable_Cropplot_Large - at 16 3.5 sit
+place Placeable_Cropplot_Medium - at 17.2 -4.4 sit
+place Placeable_Cropplot_Medium - at 19.5 4 sit
+place Placeable_Scarecrow - at 18 0 sit yaw=90
+place Placeable_WaterTank - at 26 4.5 sit
+place UT_MarketBasket01 - at 14.6 0.8 sit
+place UT_MarketBasket03 - at 15.3 -0.9 sit yaw=40
+place UT_CoveredCrate01 - at 26.5 -4.4 sit yaw=10
+place UT_MarketCrateSmall02 - at 25 -4.8 sit
+place Block_Pillar_Wood - at 14 5.7 h=0.13
+place UT_LightBottle01 - at 14 5.7 h=2.6
+place Block_Pillar_Wood - at 14 -5.7 h=0.13
+place UT_LightBottle02 - at 14 -5.7 h=2.6
+place Placeable_Table_Basic - at 21.5 0 sit
+place Note_Book notebook at 21.5 0 y=0.74 sit
+place Placeable_Chair_Wood - at 21.5 1.2 sit yaw=180
+place Zone_Trigger farm at 18 0 y=1
+
+# --- Dressing: tyre fenders on the sides, flowers along the edges, a hammock, the empty chicken pen, market goods -
+for tx 15.5 25.5 5
+place Tire_01 - at $tx -6.25 h=-0.25 tilt=90
+place Tire_01 - at $tx 6.25 h=-0.25 tilt=90 yaw=180
+next
+place Placeable_Flower_Hibiscus - at 14 -4.8 sit
+place Placeable_Flower_Monstera - at 14 4.6 sit
+place Placeable_Flower_Sunflower - at 17.8 -5.6 sit
+place Placeable_Flower_AloeVera - at 22 -5.6 sit
+place Placeable_Flower_Hibiscus - at 22.5 5.6 sit
+place Block_Pillar_Wood - at 15 2.4 h=0.13
+place Block_Pillar_Wood - at 15 5 h=0.13
+place Placeable_Bed_Hammock - at 15 3.7 h=0.8 yaw=90
+place Block_Wall_Fence_Plank - at 19.6 -4.3 sit
+place Block_Wall_Fence_Plank - at 19.6 -1.7 sit
+place Block_Wall_Fence_Plank - at 20.4 -3 sit yaw=90
+place Placeable_Cropplot_Grass - at 19.6 -3 sit
+place UT_MarketBasket02 - at 20.6 -1.4 sit yaw=30
+place UT_MarketStackBox01 - at 22.6 -1.9 sit yaw=10
+place UT_MarketCrateSmall01 - at 22.4 1.6 sit yaw=-20
+place Placeable_Storage_Medium - at 26.6 2.4 sit yaw=270
+place UT_DreamCatcher01 - at 14 5.7 h=2.4
+place UT_DanglyDecoration02 - at 14 -5.7 h=2.4
+pop
+place Block_Pillar_Wood - at 27.4 -5.7 h=0.13
+place UT_LightBottle03 - at 27.4 -5.7 h=2.6
+
+# --- The glasshouse at the far end: windowed walls, a plank roof, sliding doors, beds and the harvest chest -------
+push at 23 -3 h=0.13
+for gx 0 3 1.5
+for gz 0 4.5 1.5
+place Block_Floor_Wood - at {$gx+0.75} {$gz+0.75} y=2.43
+next
+next
+for gz 0.75 5.25 1.5
+place Block_Wall_Window_Wood - at 4.5 $gz yaw=90
+next
+for gx 0.75 3.75 1.5
+place Block_Wall_Window_Wood - at $gx 0
+place Block_Wall_Window_Wood - at $gx 6
+next
+place Block_Wall_Window_Wood - at 0 0.75 yaw=90
+place Block_Wall_Window_Wood - at 0 5.25 yaw=90
+place Block_Wall_Wood gh1 at 0 2.25 yaw=90
+place Block_Wall_Wood gh2 at 0 3.75 yaw=90
+place Placeable_Cropplot_Small - at 1.5 1 sit
+place Placeable_Cropplot_Small - at 3 1 sit
+place Placeable_Flower_Sunflower - at 3.6 5.2 sit
+place Placeable_Flower_Rose - at 1 5.2 sit
+place Placeable_Sprinkler - at 2.2 3 sit
+place Loot_ChestLarge harvest at 3.6 3 sit yaw=270
+place Pickup_Landmark_Plastic3_Land - at 2.3 4.5 y=0.3 drop yaw=127
+pop
+
+# --- The water wheel on the north side, half in the sea: jammed by a crate; its turning twin hidden ---------------
+place UT_WaterChallengeWheel1 wheel at 20 7.4 h=0.6 tilt=90
+place UT_WaterChallengeWheel1 wheelturning at 20 7.4 h=0.6 tilt=90
+place UT_CoveredCrate02 jam at 21.4 7.3 h=-0.5 tilt=25 yaw=15
+place Relay_support_beam_wood - at 18 6.4 h=-10 rot=0,0,-90 sx=1.13
+place Relay_support_beam_wood - at 22 6.4 h=-10 rot=0,0,-90 sx=1.13
+place Zone_Sound wheelsound at 20 6 h=1
+
+# --- Settings, story item, notes, behaviours, quest -----------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): melons, pineapples ----------
+scatter "Pickup_Landmark_WatermelonLandmark" 3 at 0 0 r=8.0 seed=4358 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 3 at 0 0 r=8.0 seed=4435 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=31 deep=5 n=1
+
+info title=Tide Farm
+info author=Custom Islands
+info description=A floating farm of Raft's foundations moored to a tiny islet: crop beds, a scarecrow, light bottles, a glasshouse - and a big water wheel jammed by a crate. Chickens have run off to the islet. Inspired by Raft's Utopia.
+island on.arrive=message||A farm floats beside a tiny islet - crop beds, a glasshouse, a great wheel standing still.
+
+story crowbar|Crowbar|quest:Vasagatan_Crowbar|A long iron crowbar from the farmer's tool chest.
+
+note notebook Farmer's notebook | TIDE FARM - notes of M. Okonkwo\n\nThe wheel turns with the current and drives the sprinklers and the glasshouse lock. Storm last night: a crate jammed in the paddles and the wheel stopped dead. Glasshouse locked itself, of course.\n\nCrowbar's in the tool shed on the islet - pry the crate out and the wheel will run again.\n\nAnd the chickens got off the raft in the storm. Two of them at least. The net gun is in the tool chest too.\n\nThe harvest's in the glasshouse. Take what you need.
+note toolchest Tool chest | The farmer's tool chest: a crowbar, a net gun and its canisters, and a pair of muddy boots.
+loot toolchest story:crowbar*1;NetGun*1;NetCanister*4
+prop toolchest loot.refill=0
+note harvest Glasshouse harvest | The last harvest of Tide Farm: seeds sorted into jars and labelled in a neat hand.
+loot harvest Placeable_Sprinkler*1;Seed_Strawberry*3;Seed_Pineapple*2;Seed_Mango*2;Watermelon*2
+prop harvest loot.refill=0
+
+prop wheel obj.name=wheel
+prop wheel beh.use=Pry the jammed crate loose
+prop wheel if.use=take|story:crowbar|1
+prop wheel on.use=message||The crate splinters free and drifts away. The wheel creaks, then turns - water splashes over the beds, and the glasshouse doors slide open.\nhide|wheel\nhide|jam\nshow|wheelturning\nshow|wheelsound\nopen|ghdoor\nsound||event:/raft/engine/controller_on
+prop wheel else.use=message||A crate is wedged tight in the paddles. You need something to pry it with.
+prop wheelturning obj.name=wheelturning
+prop wheelturning beh.hidden=1
+prop wheelturning beh.spin=30
+prop wheelturning beh.spinOwn=1
+prop jam obj.name=jam
+prop wheelsound obj.name=wheelsound
+prop wheelsound beh.hidden=1
+prop wheelsound sound.event=event:/raft/engine/waterwheel
+prop wheelsound sound.volume=0.6
+prop wheelsound zone.radius=12
+prop gh1 obj.name=ghdoor
+prop gh1 beh.move=0,0,-1.5
+prop gh1 beh.moveTime=1.5
+prop gh1 beh.moveMode=switch
+prop gh2 obj.name=ghdoor
+prop gh2 beh.move=0,0,1.5
+prop gh2 beh.moveTime=1.5
+prop gh2 beh.moveMode=switch
+
+prop farm zone.id=farm
+prop farm zone.radius=6
+prop farm zone.message=Tide Farm. The beds are dry and the great wheel stands still.
+prop chickens creature.count=3
+
+quest title=The Last Harvest
+quest intro=A floating farm with its wheel stopped and its glasshouse locked. The farmer left a notebook on the table.
+step reach|farm|1|Board the floating farm
+step read|Farmer's notebook|1|Read the farmer's notebook
+step collect|story:crowbar|1|Find the crowbar in the tool shed
+step catch|Chicken|2|Catch two runaway chickens
+step open|Glasshouse harvest|1|Free the water wheel and open the glasshouse
+quest done=The wheel turns, the beds are wet and the chickens are home. The harvest is yours.
+quest reward=Seed_Watermelon*2;Placeable_Scarecrow*1
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=9 n=1 seed=8861
+prop treasure8861 treasure.loot=TitaniumOre*2
+
+save Tide Farm

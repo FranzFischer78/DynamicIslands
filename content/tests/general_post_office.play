@@ -1,0 +1,106 @@
+# The General Post Office (CIPlay general_post_office; the plan's finale after Ada's Round): quest "The Last Post"
+# The plaza (2.5 m) at 0 -20 with the arcade, kiosk and clock tower; the post office hall at -7.5 -12 (10 x 6 cells);
+# the archive terrace (7.2 m) at 0 17 by the first lift at 0 5.5; the roof terrace (11.9 m) at 0 36 by the second lift.
+island The General Post Office
+offset 0 0
+expect step 0
+expect title The Last Post
+expect hidden capsule
+expect hidden lettercrate
+expect hidden adawelcome
+zone square
+expect step 1
+read Notice of closure
+expect step 2
+kill Hyena
+expect animals Hyena 0
+expect step 3
+open Kiosk
+wait 3
+expect step 4
+use frontdoors
+expect message bolted
+use clockcrank
+expect story clockset 1
+expect step 5
+use frontdoors
+expect hidden frontdoors
+zone main_hall
+expect step 6
+read Sorting hall rules
+expect step 7
+use router
+expect message won't throw
+use gposcale1
+use gposcale2
+use gposcale3
+expect story gpoweighed 3
+expect step 8
+use router
+expect story routed 1
+expect shown capsule
+expect step 9
+read Capsule from the vault
+expect story vaultcard 1
+expect step 11
+open Registered mail vault
+expect message bolted
+code vaultpad 1111 wrong
+code vaultpad 1840
+expect story vaultopen 1
+expect step 12
+open Registered mail vault
+wait 3
+expect story arvidkey 1
+expect step 13
+zone stair
+expect step 14
+use gpolift
+wait 6
+expect story liftridden 1
+expect step 15
+read Staff letter: Night porter
+read Staff letter: Head sorter
+read Staff letter: Postman Arvid
+expect story staffletter 3
+expect step 16
+zone archive
+wait 3
+kill Rat
+expect animals Rat 0
+expect step 17
+use claw
+expect message in the cage
+open Arvid's satchel
+expect message still in the cage
+use arvidcage
+expect survivor lastpost_arvid
+open Arvid's satchel
+wait 3
+expect step 18
+use claw
+expect story cratelifted 1
+expect shown lettercrate
+expect step 19
+open Letters of the world
+wait 3
+expect story lastletter 1
+expect step 20
+zone roof
+expect step 21
+kill Screecher
+expect animals Screecher 0
+expect step 22
+use posthorn
+expect message Ada's welcome first
+use semlever
+expect story semaphore 1
+expect shown adawelcome
+expect step 23
+read Ada's welcome
+expect step 24
+use posthorn
+expect story adajoined 1
+expect step 25
+zone flag
+expect done

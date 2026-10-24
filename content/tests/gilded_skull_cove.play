@@ -1,0 +1,72 @@
+# Play test of Gilded Skull Cove (CIPlay gilded_skull_cove, in a test world 'CI ...'). Points as in its recipe: the
+# captain's camp on the cove's beach (1.8 m), the cook's glade west of it (4 m), the trail east and up to the saddle's
+# stones (6 m), along the saddle's east ridge to the lookout's pad on the east peak's shoulder (9 m; the hut's deck 15.5 m,
+# its ladder from the pad), the wreck in the cove's mouth (her bed 10 m down).
+island Gilded Skull Cove
+expect step 0
+expect title The Gilded Skull's Hoard
+wait 3
+
+# Ashore at the captain's camp: the cove, her letter in the longboat
+walk 6 27 to 4 25.5 to 1.5 24.5 h=1.8
+zone cove
+expect step 0
+read Captain's last letter
+expect step 1
+
+# The cook's glade up the bank west of the camp: her hogs come out of the ferns; her tin by the hollow log
+walk 1 23.5 to -3 23.4 to -7 23.2 to -10.5 23 h=4
+zone spring
+kill Warthog
+expect step 2
+open Cook Tamsin's tin
+expect story mappiece 1
+
+# Out to the cove's mouth: the wreck of the Gilded Skull, the navigator's chart chest by her side, the sunken barrel
+at 3 47 h=-5.5
+zone wreck
+expect step 3
+open Navigator Pell's chart chest
+open Sunken rum barrel
+expect story mappiece 2
+
+# Up the trail to the saddle (its stones' zone is passed - counted for its step when it comes) and along its east ridge
+# to the bosun's lookout on the east peak's shoulder; up its ladder: his sea chest, his stash under the floor
+walk 4 23.5 to 5.3 16.2 to 6.7 10.8 to 5.25 7 to 3.5 4.5 h=6
+walk 3.5 4.5 to 6.5 2.3 to 9.5 2.75 to 11.4 1.7 to 11.4 -1.4 h=9
+climb 11 -2.62 h=9
+expect stand 10.5 -5 h=15.5 below=17
+open Bosun Kell's sea chest
+open Bosun's stash
+expect story mappiece 3
+expect step 4
+
+# Back at the camp: the map table takes the three pieces and gives the whole map and its verse (the stones' step, done
+# early on the way up, counts at once)
+use maptable
+expect message torn edges fit
+expect story mappiece 0
+expect story wholemap 1
+walk 4 23.5 to 5.3 16.2 to 6.7 10.8 to 5.25 7 to 3.5 4.5 h=6
+zone stones
+expect step 6
+
+# The stones: the wrong order first (they refuse), then the verse's: north, tall, flat - the hoard comes up
+use stone2
+expect message won't move
+use stone3
+expect message held fast
+expect hidden hoard
+use stone1
+expect message grinds
+use stone2
+expect message settles
+use stone3
+expect message rolls aside
+wait 3
+expect shown hoard
+open Captain Marrow's hoard
+wait 2
+expect item Blueprint_DetailPlank 1
+expect item Hat_Pirate 1
+expect done

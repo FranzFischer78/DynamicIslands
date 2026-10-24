@@ -1,0 +1,431 @@
+# Whalebone Bay - a themed island, three times the size (x3). Inspiration: films and stories of the southern whaling
+# stations (a rusting station in a snowy bay, a little white church, whale catchers sunk at the quay, a harpoon cannon still
+# aimed at the bay) - the mood only, never named on the island.
+# A snowy crescent (Shape 6, Style 1) round a bay that opens to the north-east. The station on a shelf along the bay's
+# south shore (2.3 m, x -13..51): the boiler house and the coal store at its west end, the steam crane and the quay (x
+# 6..10.5, out north to z 19.5) in the middle, the workshop, the flensing plan with its harpoon cannon, the rendering tanks,
+# the old catcher drawn up on the beach at its east end; the barracks on the west shore; the white church on a terrace up
+# the west arm (-19 46, 6 m) and the manager's house above it (-37 32, 10 m); the point at the east horn (60 8, 5 m).
+# The catcher Skua lies 7 m down at the quay's end; the bay's middle is dug to 12 m for the old whale and her calf.
+# Quest "The Last Whale" (14 steps): the quay, the notice board, the manager's house and diary, the bears in the boiler
+# house, three sacks of coal, the steam crane, the sunk catcher hooked (a dive), the payroll lifted, the pastor's register,
+# the firing pin under the altar, the flensing plan, the cannon spiked and the whale's return, the manager's strongbox.
+include lib_relay
+include lib_huts
+include lib_sea
+include lib_features
+new
+gen Trees=0.08 Bushes=0.15 Rocks=0.15 Harvest=0.05 BeachThings=0.3
+gen Seed=9019 Radius=78 Height=30 Roughness=0.45 Peaks=2 Shape=6 Style=1 BeachWidth=0.5 Cliffs=0.4 PeakShape=0.4
+gen SeaFloor=0 Shelf=0.45 Seabed=1
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.2 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== The land ==========================================================================================================
+# (ramps: flatten dabs from one height to another along a line - the trails up to the church, the house and the point)
+macro dabs x1 z1 h1 x2 z2 h2 n=10 r=2.6
+for i 0 $n
+brush flatten at {$x1+($x2-$x1)*$i/$n} {$z1+($z2-$z1)*$i/$n} r=$r s=20 frames=25 h={$h1+($h2-$h1)*$i/$n}
+next
+end
+# (the bay: its middle dug to 12 m for the whales, a hollow 7 m deep at the quay's end for the sunk catcher, the quay's bed)
+brush flatten at 32 40 r=16 s=20 frames=60 h=-12
+brush smooth at 32 40 r=22 s=10 frames=20
+brush flatten at 32 40 r=12 s=20 frames=40 h=-12
+brush flatten from 0 28 to 16 28 r=6 s=20 frames=60 h=-7
+brush flatten from 8.25 9 to 8.25 21 r=4 s=20 frames=40 h=-3
+# (the station's shelves: along the south shore and up the west shore; the beach for the old catcher)
+brush flatten from -12 -2 to 48 -2 r=8 s=20 frames=60 h=2.3
+brush flatten from -12 3 to 48 3 r=7 s=20 frames=60 h=2.3
+brush flatten from -14 6 to -14 30 r=8 s=20 frames=60 h=2.3
+brush flatten at 42 13 r=6 s=20 frames=40 h=0.3
+# (the church's terrace up the west arm, the manager's pad above it, the point at the east horn)
+brush flatten at -19 46 r=9 s=20 frames=60 h=6
+brush flatten at -34 32 r=8 s=20 frames=60 h=10
+brush flatten at 60 8 r=5 s=20 frames=40 h=5
+# (the trails)
+call dabs -12 33 2.3 -16 40 6 n=10 r=3.6
+call dabs -26 41 6 -28 34.5 10 n=10 r=3.4
+call dabs 48 2 2.3 57 7 5 n=8
+# (snow painted back over the cuts)
+brush grass from -12 0 to 48 0 r=10 s=20 frames=30
+brush grass from -14 6 to -14 30 r=9 s=20 frames=30
+# (the station, the trails and the bay cleared of the generator's rocks, drifts and ice)
+clear from -13 0 to 51 0 r=10
+clear from -14 6 to -14 34 r=9
+clear at -19 46 r=10
+clear at -34 32 r=9
+clear at 60 8 r=6
+clear at 22 30 r=30
+clear from -26 41 to -28 34.5 r=3
+clear from 48 2 to 57 7 r=3
+
+# ===== The quay and the steam crane =====================================================================================
+# (the quay: three blocks wide on posts from its bed, its deck 2.45 m, out north from the shelf's edge; the notice board at its
+# root; a barrel and scrap under it)
+push at 10.5 4.5 h=-3 yaw=-90
+call boardwalk n=10 wide=3 y=5.45 rs=none rn=none
+pop
+place Note_Board notice at 4.3 2 h=2.3 yaw=180
+place Zone_Trigger quay at 8.25 12 h=3.5
+place Loot_SunkenBarrel quaybarrel at 12.5 14 ground sit yaw=30
+place "Pickup_Landmark_Scrap 2_OceanBottom" - at 11.5 17 ground
+place "Pickup_Landmark_Scrap 2_OceanBottom" - at 5 13 ground
+place "Pickup_Landmark_Scrap 2_OceanBottom" - at 12 11 ground
+# (the strongbox the crane lifts onto the quay, hidden until it does)
+place "Box Big" liftedbox at 8.25 17 h=2.45 sit yaw=10
+# (Utopia's crane on the shelf at the quay's root, its jib out over the bay; two of Raft's ladders up to its cab's
+# platform (4.4 m over the shelf), its lever on the platform)
+place UT_ElectricityIsland_Crane02 crane at 1 0 h=2.3
+place Block_Ladder - at -1.35 -2.44 h=2.3 yaw=0
+place Block_Ladder - at -1.35 -2.44 h=4.72 yaw=0
+place UT_JumpPuzzle_LiftMechanism_Lever cranelever at -0.4 -1.2 h=8.83 yaw=90
+place Zone_Trigger cranecab at 0.2 -1.4 h=7.8
+
+# ===== The sunk catcher Skua, 7 m down at the quay's end ==============================================================
+place BoatStranded skua at 8 28 h=-3.6 yaw=90
+place "Box Big" sunkbox at 14 25 h=-7 sit yaw=20
+place Zone_Trigger catcherzone at 8.25 23 h=-4
+
+# ===== The station's buildings on the shelf =============================================================================
+# --- The boiler house (Raft's wooden walls 5 x 4 cells, red, its doorway onto the shelf): the boiler, its pipes, the
+# chimney through the roof; the bears ------------------------------------------------------------------------------------
+push at -11 -3.5 h=2.3
+call floors w=5 d=4 y=0.1
+place Block_Wall_Wood stationwall at 0.75 0 y=0.1
+place Block_Wall_Wood stationwall at 2.25 0 y=0.1
+place Block_Wall_Wood stationwall at 3.75 0 y=0.1
+place Block_Wall_Wood stationwall at 5.25 0 y=0.1
+place Block_Wall_Wood stationwall at 6.75 0 y=0.1
+place Block_Wall_Wood stationwall at 0.75 6 y=0.1
+place Block_Wall_Window_Wood stationwall at 2.25 6 y=0.1
+place Block_Wall_Window_Wood stationwall at 5.25 6 y=0.1
+place Block_Wall_Wood stationwall at 6.75 6 y=0.1
+place Block_Wall_Wood stationwall at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood stationwall at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Wood stationwall at 0 3.75 y=0.1 yaw=90
+place Block_Wall_Wood stationwall at 0 5.25 y=0.1 yaw=90
+place Block_Wall_Wood stationwall at 7.5 0.75 y=0.1 yaw=90
+place Block_Wall_Wood stationwall at 7.5 2.25 y=0.1 yaw=90
+place Block_Wall_Wood stationwall at 7.5 3.75 y=0.1 yaw=90
+place Block_Wall_Wood stationwall at 7.5 5.25 y=0.1 yaw=90
+call corners w=5 d=4
+roof 5 4 at 0 0 y=0.1 wood
+place "VG_DecorationPrefabBase_Engine Variant" boiler at 2.5 1.8 y=0.1 sit yaw=0
+place RT_Pipe - at 0.3 1.6 y=-1.4 yaw=0
+place RT_PipeDownStraight - at -0.73 2.2 y=2.0
+place RT_PipeDownStraight - at -0.73 2.2 y=4.2
+place Creature_PolarBear bears at 5.5 3.5 y=0.3
+place Zone_Trigger boilerhouse at 3.75 3 y=1.5
+pop
+# --- The coal store west of it (a lean-to of 2 x 2 cells, open to the shelf): a coal heap, sacks, the last sack -------
+push at -15.5 3 h=2.3
+call floors w=2 d=2 y=0.1
+place Block_Wall_Wood stationwall at 0.75 0 y=0.1
+place Block_Wall_Wood stationwall at 2.25 0 y=0.1
+place Block_Wall_Wood stationwall at 3 0.75 y=0.1 yaw=90
+place Block_Wall_Wood stationwall at 3 2.25 y=0.1 yaw=90
+call corners w=2 d=2
+roof 2 2 at 0 0 y=0.1 wood
+place "Balboa_DecorationPrefabBase_Trash Bag 2" coalsacks at 0.6 0.6 y=0.1 sit yaw=20
+place "Balboa_DecorationPrefabBase_Trash Bag 2" coalsacks at 1.3 0.5 y=0.1 sit yaw=-40
+place "Box Small" coalstore at 2.2 1.2 y=0.1 sit yaw=10
+pop
+place VP_RubblePile_Small03 coal at -17 8 ground yaw=40
+# --- The workshop (3 x 2 cells, its doorway onto the shelf): the bench, the box --------------------------------------
+push at 12 -3.5 h=2.3
+call floors w=3 d=2 y=0.1
+place Block_Wall_Wood stationwall at 0.75 0 y=0.1
+place Block_Wall_Wood stationwall at 2.25 0 y=0.1
+place Block_Wall_Wood stationwall at 3.75 0 y=0.1
+place Block_Wall_Wood stationwall at 0.75 3 y=0.1
+place Block_Wall_Wood stationwall at 3.75 3 y=0.1
+place Block_Wall_Wood stationwall at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood stationwall at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Window_Wood stationwall at 4.5 0.75 y=0.1 yaw=90
+place Block_Wall_Wood stationwall at 4.5 2.25 y=0.1 yaw=90
+call corners w=3 d=2
+roof 3 2 at 0 0 y=0.1 wood
+place Workbench - at 2.25 0.6 y=0.1 sit yaw=180
+place "Box Small" workshopbox at 0.6 2.2 y=0.1 sit yaw=15
+pop
+# --- Raft's special features (lib_features; the user, 2026-10-10: every Raft feature on more than one island): the
+# cooper's workshop padlocked (Vasagatan's padlock door in its doorway), his strongbox behind it; the bolt cutters in a
+# tool chest on the shelf south of the flensing plan
+call keydoor x=14.751 z=-0.5 h=2.4 yaw=0 door=UT_Skyscraber01PadlockDoor key=Vasagatan_BoltCutter alias=workshopdoor vault=workshopvault vx=15.8 vz=-1.3 vh=2.4 vyaw=270 items=MetalIngot*3;Bolt*4;Rope*2 kx=27 kz=-8 kr=4 seed=611 keychest=cutterchest keytitle="Flenser's tool chest" keyitems=Rope*2;Nail*6
+prop workshopdoor on.use=hide|\nshow|workshopvault\nmessage||The cutters bite, the padlock drops into the snow of wood shavings. The cooper kept his strongbox in here.
+prop workshopdoor else.use=message||A company padlock, rusted shut. The flensers kept bolt cutters in their tool chest on the shelf past the flensing plan.
+
+# ===== The flensing plan, the harpoon cannon, the rendering tanks ======================================================
+# (a broad deck on the shelf, plank edges, a slipway down into the bay; the cannon at its seaward edge, aimed at the bay)
+for fx 23.54 34 5.23
+place Relay_Floor_deck - at $fx 7.5 h=2.3
+place Relay_Floor_deck - at $fx 2.27 h=2.3
+next
+line Block_Wall_Fence_Plank from 18.4 -2.9 to 18.4 7.4 step=1.46 h=2.45
+line Block_Wall_Fence_Plank from 34 -2.9 to 34 7.4 step=1.46 h=2.45
+ramp Block_Floor_Wood from 29 7.6 2.4 to 29 15 -1.5 len=1.5 top=0
+ramp Block_Floor_Wood from 30.5 7.6 2.4 to 30.5 15 -1.5 len=1.5 top=0
+ramp Block_Floor_Wood from 32 7.6 2.4 to 32 15 -1.5 len=1.5 top=0
+# (the gun's barrel set on its base; a stub of post inside it carries it - the base has nothing solid)
+place UT_Harpoon_Base - at 22 6.5 h=3.01
+place Block_Pillar_Wood - at 22 6.5 h=2.45 sy=0.48
+place UT_Harpoon_Barrel cannon at 22 6.5 h=4.01
+place Zone_Trigger flensing at 24 4 h=3.6
+place UT_WaterTank tanks at 41 -3.5 h=2.3
+place UT_WaterTank tanks at 41 2 h=2.3
+
+# ===== The old catcher drawn up on the beach past the flensing plan, two ladders up her side ===========================
+place BoatStranded oldcatcher at 42 14 ground sit yaw=90 roll=6
+place Block_Ladder - at 42 10.3 h=0.3 yaw=180
+place Block_Ladder - at 42 10.3 h=1.3 yaw=180
+place "Box Small" catcherbunker at 38.8 14 h=4.6 drop yaw=20
+
+# ===== The barracks and mess on the west shore =========================================================================
+push at -9.5 21 h=2.4 yaw=0
+call relay_house
+pop
+place "VG_DecorationPrefabBase_BunkBed Variant" - at -18.4 18.5 h=2.4 yaw=90
+place "VG_DecorationPrefabBase_BunkBed Variant" - at -18.4 15.3 h=2.4 yaw=90
+place "VG_DecorationPrefabBase_BunkBed Variant" - at -18.4 12.1 h=2.4 yaw=90
+place Locker barrackslocker at -14.8 20.3 h=2.4 yaw=180
+place Table_Common_01 - at -15.5 13.5 h=2.4 yaw=0
+place "Box Small" messbox at -15.5 11.4 h=2.5 sit yaw=10
+place Creature_Chicken hens at -4 6 h=2.6
+
+# ===== The white church on its terrace up the west arm =================================================================
+# (Raft's wooden walls 3 x 7 cells, white: the nave with its doorway in the south end, the stove room in an annex off its
+# north-east corner (a doorway through the east wall); a steeple of two storeys at its south-west corner, a pyramid roof
+# on it. Pews, candelabra, the organ, the register on its lectern, the altar with the box under it; the stove and the coal
+# sack in the annex)
+push at -20.25 41.5 h=6
+call floors w=3 d=7 y=0.1
+place Block_Wall_Wood churchwall at 0.75 0 y=0.1
+place Block_Wall_Wood churchwall at 3.75 0 y=0.1
+place Block_Wall_Wood churchwall at 0.75 10.5 y=0.1
+place Block_Wall_Window_Wood churchwall at 2.25 10.5 y=0.1
+place Block_Wall_Wood churchwall at 3.75 10.5 y=0.1
+for cz 0.75 9.75 1.5
+place Block_Wall_Wood churchwall at 0 $cz y=0.1 yaw=90
+next
+for cz 0.75 8.25 1.5
+place Block_Wall_Wood churchwall at 4.5 $cz y=0.1 yaw=90
+next
+call corners w=3 d=7
+roof 3 7 at 0 0 y=0.1 wood
+place Bench_01 - at 1.1 2 y=0.1 sit yaw=0
+place Bench_01 - at 1.1 3.5 y=0.1 sit yaw=0
+place Bench_01 - at 3.4 2 y=0.1 sit yaw=0
+place Bench_01 - at 3.4 3.5 y=0.1 sit yaw=0
+place Bench_01 - at 3.4 5 y=0.1 sit yaw=0
+place Placeable_Piano - at 1.05 6.4 y=0.1 sit yaw=0
+place Balboa_DecorationPrefabBase_Table - at 2.25 8.5 y=0.1 sit yaw=90
+place Loot_ChestSmall altarbox at 2.25 8.5 y=0.1 sit yaw=180
+place Placeable_Candelabra - at 0.5 9.9 y=0.1 sit
+place Placeable_Candelabra - at 2.25 10.0 y=0.1 sit
+place Placeable_Table_Square_Tall - at 3.9 5.6 y=0.1 sit
+place Note_Book register at 3.9 5.6 y=1.6 drop yaw=200
+pop
+# (the stove room: an annex of 2 x 2 cells on the church's north-east, its doorway from the nave)
+push at -15.75 49 h=6
+call floors w=2 d=2 y=0.1
+place Block_Wall_Wood churchwall at 0.75 0 y=0.1
+place Block_Wall_Wood churchwall at 2.25 0 y=0.1
+place Block_Wall_Wood churchwall at 0.75 3 y=0.1
+place Block_Wall_Wood churchwall at 2.25 3 y=0.1
+place Block_Wall_Wood churchwall at 3 0.75 y=0.1 yaw=90
+place Block_Wall_Window_Wood churchwall at 3 2.25 y=0.1 yaw=90
+call corners w=2 d=2
+roof 2 2 at 0 0 y=0.1 wood
+place "Balboa_DecorationPrefabBase_Old Stove" - at 2.5 0.7 y=0.1 sit yaw=270
+place "Box Small" churchcoal at 2.4 2.35 y=0.1 sit yaw=10
+pop
+push at -21.75 40 h=6
+call floors w=1 d=1 y=0.1
+place Block_Wall_Wood churchwall at 0.75 0 y=0.1
+place Block_Wall_Wood churchwall at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood churchwall at 1.5 0.75 y=0.1 yaw=90
+place Block_Wall_Wood churchwall at 0.75 1.5 y=0.1
+place Block_Floor_Wood - at 0.75 0.75 y=2.6
+place Block_Wall_Wood churchwall at 0.75 0 y=2.6
+place Block_Wall_Wood churchwall at 0 0.75 y=2.6 yaw=90
+place Block_Wall_Wood churchwall at 1.5 0.75 y=2.6 yaw=90
+place Block_Wall_Wood churchwall at 0.75 1.5 y=2.6
+place Block_Roof_Wood_Pyramid - at 0.75 0.75 y=5.0
+pop
+# (the graveyard west of the church: six wooden markers inside a plank fence)
+for gz 44 50 2
+place Placeable_Sign - at -24.4 $gz h=6 yaw=90
+place Placeable_Sign - at -22.8 $gz h=6 yaw=90
+next
+line Block_Wall_Fence_Plank from -25.4 42.8 to -25.4 51.5 step=1.46 h=6
+line Block_Wall_Fence_Plank from -25.4 51.6 to -21.5 51.6 step=1.4 h=6
+line Block_Wall_Fence_Plank from -25.4 42.6 to -21.5 42.6 step=1.4 h=6
+
+# ===== The manager's house above the church: his diary on the table, his strongbox =====================================
+# (Balboa's log house, its porch east over the bay; its floor 10.31 m)
+place Balboa_Shack villahouse at -37 32 h=9.65 yaw=0
+place Placeable_Table_Basic - at -38 33.5 h=11.5 drop yaw=0
+place Note_Book diary at -38 33.5 h=12.5 drop yaw=20
+place Loot_ChestLarge mgrstrongbox at -40.6 30 h=10.31 yaw=90
+place Zone_Trigger villa at -31 30.3 h=11.5
+place Creature_Goat goats at -36 48 ground
+
+# ===== The point at the east horn: a bench and a flagpole; the whales, hidden until the cannon is spiked ===============
+place Bench_01 - at 61 9.5 ground yaw=200
+place Placeable_Flag_07 - at 58.5 6 ground yaw=0
+place Zone_Trigger whalewatchzone at 59.5 8 h=6
+place Creature_Whale whale at 32 42 h=-6
+
+# ===== The snow, the wind, the friendly animals, Raft's finds in the shallows ===========================================
+place Zone_Atmosphere snowfall at 15 15 h=8
+place Zone_Sound wind at 15 10 h=8
+place Creature_Dolphin dolphins at 70 70 h=-3
+call shallows r=85 deep=5 n=1
+prop hens creature.count=3
+prop goats creature.count=2
+prop dolphins creature.count=2
+prop stationwall tint.color=#8a3a2a
+prop stationwall tint.amount=0.5
+prop churchwall tint.color=#e8e4da
+prop churchwall tint.amount=0.6
+prop tanks tint.color=#6a4a3a
+prop tanks tint.amount=0.5
+prop coal tint.color=#202020
+prop coal tint.amount=0.7
+prop coalsacks tint.color=#202020
+prop coalsacks tint.amount=0.8
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): pines, berries, flowers ----------
+scatter "Pickup_Landmark_Tree_Pine" 6 at 0 0 r=54.6 seed=4160 free=5
+scatter "Pickup_Landmark_BerryBush" 6 at 0 0 r=54.6 seed=4170 free=3
+scatter "Pickup_Landmark_Flower_White" 4 at 0 0 r=54.6 seed=4180 free=3
+scatter "Pickup_Landmark_Flower_Blue" 4 at 0 0 r=54.6 seed=4181 free=3
+
+# ===== Settings, story items, notes, behaviours, quest (14 steps) =========================================================
+info title=Whalebone Bay
+info author=Custom Islands
+info description=A whaling station in a snowy bay, left when the whales ran out: a quay with a steam crane, a flensing plan with its harpoon cannon still aimed at the water, a white church on a knoll. The last catcher sank at the quay with the men's pay - and an old whale still comes into the bay with her calf.
+island on.arrive=message||A snowy bay with a whaling station along its shore: red sheds, a crane, a little white church. Out in the bay something breathes - a long, slow breath - and is gone.
+
+story coal|Sack of coal|Stone|A sack of coal for the station's boiler.
+story payroll|Skua's payroll|TradeToken|The season's payroll from the sunk catcher's strongbox - and the key of the manager's strongbox.
+story firingpin|Cannon's firing pin|quest:Vasagatan_Bullet|The harpoon cannon's firing pin, wrapped in a page from a hymn book.
+
+note notice Station notice board | WHALEBONE BAY STATION - NOTICE\n\nThe season is over. The whales are over.\nThe company has no more ships for this bay.\nAll hands to the last catcher, the Skua, sailing Thursday.\nThe station is to be left as it stands.\n\n- H. Solheim, Manager\n\n(scrawled underneath) The Skua sank at the quay with our pay aboard. We went on the supply boat.
+note diary Manager's diary | Thirty years I have run this station. Thirty years of the flensing plan red to the tide line.\n\nThis last season we found nothing but one old cow whale with her calf, and the gunners would not shoot her. Neither would I.\n\nThe Skua went down at the quay in the storm with the men's pay aboard. The steam crane could lift her strongbox if the boiler had coal - there are three sacks left: one in the coal store, one in the bunker of the old catcher on the beach, one in the church's stove room. Mind the bears: they've moved into the boiler house for the warmth.\n\nI have asked Pastor Lund to hide the harpoon cannon's firing pin so no one fires it at her. I ask whoever comes after: spike that cannon for good. Then open my strongbox. The men's pay is theirs - and they are gone.\n\n- Henrik Solheim
+note register Pastor's register | Burials, weddings, christenings - thirty-one years of them.\n\nThe last entry: "The old whale and her calf came into the bay again this morning. I have put the cannon's pin under the altar cloth. Let her come and go. - E. Lund"
+note coalstore Coal store sack | The last sack in the coal store, heavy and black.
+loot coalstore story:coal*1;Stone*3
+prop coalstore loot.refill=0
+note catcherbunker Old catcher's bunker | The beached catcher's bunker hatch: one sack of coal left, and a stoker's shovel.
+loot catcherbunker story:coal*1;Scrap*3
+prop catcherbunker loot.refill=0
+note churchcoal Church stove room sack | A sack of coal by the church's stove, the pastor's winter store.
+loot churchcoal story:coal*1;Placeable_Candlestick*1
+prop churchcoal loot.refill=0
+note liftedbox Skua's strongbox | The Skua's strongbox on the quay, streaming water: the season's payroll in oilcloth, and the key of the manager's strongbox.
+loot liftedbox story:payroll*1;TradeToken*4
+prop liftedbox loot.refill=0
+note altarbox Box under the altar | Under the altar cloth, a small box: the harpoon cannon's firing pin, wrapped in a page torn from the hymn book.
+loot altarbox story:firingpin*1;Placeable_GlassCandle*1
+prop altarbox loot.refill=0
+note mgrstrongbox Manager's strongbox | The manager's strongbox: the men's pay that never reached them, his carving tools and the carpentry shop's patterns for the station's woodwork, and a bear skin he never had the heart to hang.
+loot mgrstrongbox Blueprint_DetailPlank*1;Head_PolarBear*1;MetalIngot*6;Leather*4;Wool*4;TradeToken*10
+prop mgrstrongbox loot.refill=0
+prop mgrstrongbox if.open=has|story:payroll|1\nsignal|spiked
+prop mgrstrongbox else.open=message||His strongbox. Its key went down with the Skua - and the diary asks one thing first: spike the cannon.
+note quaybarrel Barrel under the quay | A barrel under the quay: nails, rivets, a broken harpoon head.
+loot quaybarrel Nail*10;Scrap*3;MetalOre*2
+prop quaybarrel loot.refill=0
+note barrackslocker Barracks locker | A whaler's locker: oilskins, a knitted hat, a tin of tobacco.
+loot barrackslocker Wool*3;Leather*2;Rope*2
+prop barrackslocker loot.refill=0
+note messbox Mess box | The mess's last box: salt fish, hard tack, tea.
+loot messbox Cooked_Herring*3;Raw_Potato*2;PlasticBottle_Water*2
+prop messbox loot.refill=0
+note workshopbox Workshop box | The workshop's box: rivets, hinges, a plane for the woodwork.
+loot workshopbox Bolt*4;Hinge*2;Plank*6
+prop workshopbox loot.refill=0
+
+prop boiler obj.name=boiler
+prop boiler beh.use=Shovel the three sacks into the boiler and fire it
+prop boiler if.use=quest|6\ntake|story:coal|3
+prop boiler on.use=message||The coal catches. Pipes knock and hiss all over the station, the chimney coughs black smoke - and on the quay the steam crane groans awake.\nsignal||steam\nsound||event:/raft/engine/controller_on
+prop boiler else.use=message||A cold boiler. The manager's diary said three sacks of coal are left on the station.
+prop sunkbox obj.name=sunkbox
+prop sunkbox beh.use=Hook the strongbox to the crane's cable
+prop sunkbox if.use=signal|steam
+prop sunkbox on.use=message||You loop the crane's dangling cable through the strongbox's ring and tug it twice. Now the crane.\nsignal||hooked
+prop sunkbox else.use=message||The Skua's strongbox, far too heavy to lift by hand. The crane's cable hangs slack in the water - the crane is cold.
+prop cranelever obj.name=cranelever
+prop cranelever beh.use=Haul in the crane's cable
+prop cranelever if.use=signal|hooked
+prop cranelever on.use=message||The crane hauls, the cable sings - and the Skua's strongbox comes up out of the bay streaming water and swings down onto the quay.\nhide|sunkbox\nshow|liftedbox\nsound||event:/exploring/obstacles/varuna/towercrane/tc_success
+prop cranelever else.use=message||The cable hangs into the water with nothing on it. Something must be hooked to it first - and the crane needs steam.
+prop liftedbox obj.name=liftedbox
+prop liftedbox beh.hidden=1
+prop cannon obj.name=cannon
+prop cannon beh.use=Spike the harpoon cannon for good
+prop cannon if.use=has|story:firingpin|1
+prop cannon on.use=message||You drive the firing pin into the breech sideways and snap it off. The cannon will never fire again. Out in the bay, something vast breathes - and a great dark back rolls up out of the water, and a small one beside it.\nsignal||spiked\nshow|whale\nshow|whalewatch\nsound||event:/crafting/hammer_impact
+prop cannon else.use=message||The harpoon cannon, still aimed at the bay - but it won't fire without its pin, and the pin is hidden. The pastor knew where.
+prop whale obj.name=whale
+prop whale beh.hidden=1
+prop whale creature.count=1
+prop whale creature.respawn=0
+prop whalewatchzone obj.name=whalewatch
+prop whalewatchzone beh.hidden=1
+
+prop quay zone.id=quay
+prop quay zone.radius=8
+prop quay zone.message=The station's quay: a steam crane, a notice board, and at the quay's end the masts of a ship under the water.
+prop villa zone.id=villa
+prop villa zone.radius=8
+prop villa zone.message=The manager's house above the station, its door unlocked, his chair turned to the window and the bay.
+prop boilerhouse zone.id=boilerhouse
+prop boilerhouse zone.radius=6
+prop boilerhouse zone.message=The boiler house is warm - warm enough for the two white bears that have moved in!
+prop cranecab zone.id=cranecab
+prop cranecab zone.radius=3
+prop cranecab zone.message=The crane's cab: levers, a cracked window over the bay, the cable hanging into the water below.
+prop catcherzone zone.id=catcher
+prop catcherzone zone.radius=8
+prop catcherzone zone.message=The Skua on the sea floor at the quay's end, upright as if moored - and her strongbox in the sand by the wheelhouse.
+prop flensing zone.id=flensing
+prop flensing zone.radius=6
+prop flensing zone.message=The flensing plan, scrubbed by thirty winters, and at its end the harpoon cannon, aimed at the bay.
+prop whalewatchzone zone.id=whalewatch
+prop whalewatchzone zone.radius=8
+prop whalewatchzone zone.message=From the point you watch them: the old whale and her calf, slow and easy, all the way round the bay.
+prop bears creature.count=2
+prop bears creature.respawn=0
+prop bears creature.zone=boilerhouse
+prop snowfall atmo.fog=#d0d8de
+prop snowfall atmo.fogAmount=0.2
+prop snowfall atmo.particles=snow
+prop snowfall zone.radius=50
+prop wind sound.event=event:/amb/temperance
+prop wind sound.volume=0.5
+prop wind zone.radius=50
+
+quest title=The Last Whale
+quest intro=A whaling station in a snowy bay, left as it stood. A notice board by the quay says why. Start at the quay.
+step reach|quay|1|Tie up at the whaling station's quay
+step read|Station notice board|1|Read the notice board by the quay
+step reach|villa|1|Climb to the manager's house above the station
+step read|Manager's diary|1|Read the manager's diary
+step kill|Polar bear|2|Drive the bears out of the boiler house
+step collect|story:coal|3|Fetch three sacks of coal: the coal store, the old catcher on the beach, the church's stove room
+step reach|cranecab|1|Fire the boiler and climb into the steam crane's cab
+step reach|catcher|1|Dive to the catcher sunk at the quay's end and hook her strongbox to the crane
+step collect|story:payroll|1|Haul the strongbox up with the crane and open it
+step read|Pastor's register|1|Read the pastor's register in the church
+step collect|story:firingpin|1|Find the cannon's firing pin hidden under the altar
+step reach|flensing|1|Go out onto the flensing plan to the harpoon cannon
+step reach|whalewatch|1|Spike the cannon - and watch the whales from the point
+step open|Manager's strongbox|1|Open the manager's strongbox with the key from the Skua
+quest done=The cannon is spiked, the men's pay is up, and the old whale and her calf have the bay to themselves. Whalebone Bay's last season is over - properly, this time.
+quest reward=Plank*10;Cooked_Herring*4;Rope*4
+
+save Whalebone Bay

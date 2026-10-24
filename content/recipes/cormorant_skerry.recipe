@@ -1,0 +1,53 @@
+# Cormorant Skerry - a new small island of the library (ROADMAP 3d NI3), no quest
+# A cold little skerry in the north: snow in the hollows, a few pines, berry bushes, and the cormorants' nests on its
+# rocks. On the shore somebody hauled up a little boat and turned it over to keep it from the snow - beside it a fire
+# ring and a crate of what they had. Nothing hostile.
+#
+# Built by the recipe player (CIRecipe cormorant_skerry) through the editor's own operations. Points: the boat shelter's
+# pad (2 m, r 4.5 round 5 -9), the upturned boat at 6 -8, the crate beside it at 6 -5.8, the fire ring at 3.5 -10; the nests
+# on the rocks round -4 5 (the top, 5.5 m).
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+new
+# (nature: a snowy skerry - few trees, more rocks, berries for harvest)
+gen Trees=0.12 Bushes=0.25 Rocks=0.5 Harvest=0.2 BeachThings=0.3
+gen Seed=7409 Radius=24 Height=6 Roughness=0.45 Peaks=1 Shape=0 Style=1 BeachWidth=0.4 Cliffs=0.4 PeakShape=0.5
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.45 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== Terrain: the boat shelter's pad on the south shore, the rocky top ===================================================
+brush flatten at 5 -9 r=4.5 s=20 frames=60 h=2
+brush flatten at -4 5 r=3.5 s=20 frames=60 h=5.5
+brush rock at -4 5 r=6 s=20 frames=20
+clear at 5 -9 r=5.5
+clear at -4 5 r=4.5
+
+# ===== The upturned boat, the crate beside it, the fire ring; firewood ==========================================
+place RT_PlasticBoat shelterboat at 6 -8 ground sit centred roll=180 yaw=70
+place Loot_Crate sheltercrate at 6 -5.8 ground sit yaw=20
+place campfire_1 - at 3.5 -10.5 ground sit
+place Firewood_1 - at 2.4 -8.6 ground sit yaw=40
+
+# ===== The cormorants' nests on the top; snow drifts, pines and berries ===================================================
+place Bird_Nest - at -4.5 4 ground sit
+place Bird_Nest - at -2.6 6.2 ground sit yaw=90
+place Placeable_BirdsNest - at -3.6 5.6 ground sit yaw=200
+place TP_SnowDrift01 - at -10 -2 ground sit yaw=30
+place TP_SnowDrift02 - at 9 6 ground sit yaw=150
+scatter "Pickup_Landmark_Tree_Pine" 2 at 0 0 r=18 seed=7419 free=6
+scatter "Pickup_Landmark_BerryBush" 3 at 0 0 r=18 seed=7429 free=3
+call treasure x=0 z=0 r=14 n=1 seed=7409
+call shallows r=40 deep=5 n=1 seed=749
+
+info title=Cormorant Skerry
+info author=Custom Islands
+info description=A cold little skerry where the cormorants nest - snow in the hollows, a few pines, and on the shore a little boat hauled up and turned over, a fire ring and a crate beside it. No quest - an island to explore.
+
+note sheltercrate Crate by the boat | Lashed shut against the weather: wool, a tin of meat, rope, a few nails.
+loot sheltercrate Wool*3;Cooked_GenericMeat*1;Rope*2;Nail*6
+prop sheltercrate loot.refill=0
+
+save Cormorant Skerry

@@ -1,0 +1,9 @@
+# Guide pictures of Pelican Spit (CIPlay pelican_spit_pics): Raft's camera, morning, calm
+island Pelican Spit
+offset 0 0
+hour 9
+weather Calm
+at 10 -4
+wait 3
+picture ni_pelican_spit_island 30 16 -40 4 1 -2
+picture ni_pelican_spit_stage 18 5 -12 32 1.5 -4

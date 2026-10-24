@@ -1,0 +1,51 @@
+# FLOAT2 close side pictures (round 3): Raft's zipline near floors now standing on the ground (Rain Engine x3, Thunderhead,
+# Pendulum), the iron post under Altitude Market's, Stilt Hollow's banner posts and chair, and Utopia's tower end room
+# (look piece); Tangaroa's deck edge is float2_tang
+island The Rain Engine
+hour 11
+weather Calm
+at 0 -20
+wait 3
+picture f2_rain_zipN -5 38 40 3.3 37 35.3
+picture f2_rain_zipE 30 36 2 36.3 35 -2.6
+picture f2_rain_zipS 14 34 -21 20.5 33 -25.5
+picture f2_rain_farN 38 37 9 33 35.3 3.2
+picture f2_rain_farE 17 35 -16 22.5 33.3 -21.5
+picture f2_rain_farS -36 33 8 -30.8 31.3 2.6
+island Thunderhead Array
+hour 11
+weather Calm
+at 0 -30
+wait 3
+picture f2_thunder_zip 8.5 15.6 -4 8.5 14 -13.5
+picture f2_thunder_zipside -1 15.6 -12 8.5 14 -13.5
+island Altitude Market
+hour 11
+weather Calm
+at 0 0
+wait 3
+picture f2_alt_post -3 7 9 5.78 5.6 8.97
+picture f2_alt_post2 5.78 6.8 0 5.78 5.6 8.97
+island Pendulum Isle
+hour 11
+weather Calm
+at 0 0
+wait 3
+picture f2_pend_zip -19 7.8 -6 -26 6.3 0
+picture f2_pend_zip2 -26 7.8 -8 -26 6.3 0
+island Stilt Hollow
+hour 11
+weather Calm
+at 9.5 -12.5
+wait 3
+picture f2_stilt_banner 16.6 8.5 -4 16.6 7.2 3.9
+picture f2_stilt_chair 14 7.8 -3 19.8 6.6 0.8
+picture f2_stilt_posts 16.6 8.5 11 16.6 7.2 3.9
+island Utopia Remade
+hour 11
+weather Calm
+at 8 46
+wait 3
+picture f2_utopia_tower -40 110 -80 -71.5 100 -46.7
+picture f2_utopia_tower2 -100 105 -20 -71.5 100 -46.7
+picture f2_utopia_tower3 -71.5 140 -10 -71.5 100 -46.7

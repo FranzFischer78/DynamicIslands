@@ -1,0 +1,90 @@
+# Play test of Aurelis (CIPlay aurelis, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The camp on the west rim (-57 22, 6.5 m), the watch temple on the south rim's top (0 -78, 19 m); the blue hole in the
+# lagoon (round 0 15): the agora (-12 26, 18 m down), the harbour shrine (-26 12, 14 m), the canal bridge (16 14, its
+# floor 22 m), the sluice wall (z 37.5) and the inner basin's shrine (0 45, 18 m); the tower (0 15), the crystal gate at
+# 0 8.5 and the throne hall behind it (x -3..3, z -4..8, 22 m down); the risen platform 7.3 m up on the tower.
+island Aurelis
+offset 0 0
+expect step 0
+expect title Aurelis Rising
+wait 5
+expect animals Goat 3
+expect animals Turtle 2
+
+# Chapter 1 - the rim: the camp, the journal, the locker (a step) and box; the watch temple, its tablet, the altar refuses; the ruins box (a step)
+at -53.5 22 h=7.5
+walk -54 22 to -57 22 h=6.5
+zone camp
+expect step 1
+read Archaeologist's journal
+expect step 2
+open Expedition dive locker
+expect step 3
+open Camp box
+at 0 -73 h=20
+zone watchtemple
+expect step 4
+read Tablet of the sea-priests
+expect step 5
+use altar
+expect message a hollow in its top
+open Rim ruins box
+expect step 6
+
+# Chapter 2 - the drowned streets: the agora, its basket and urn, the three crystals, the lost barrel (the inner basin's shrine sealed till the sluice opens)
+at -12 26 h=-15
+zone agora
+expect step 7
+open Agora market basket
+expect step 8
+open Agora urn
+expect step 9
+at -24 12 h=-12
+open Harbour temple shrine
+expect story crystal 1
+expect step 10
+at 16 11 h=-19
+open Box under the canal bridge
+expect story crystal 2
+expect step 11
+open Expedition's lost barrel
+expect step 12
+at 0 34 h=-11
+zone sluice
+expect step 13
+use sluicewheel
+wait 5
+at 0 43 h=-15
+open Inner basin shrine
+expect story crystal 3
+expect step 14
+
+# Chapter 3 - the gate, its guardian, the throne hall and the crown
+at 0 11 h=-18
+zone gate
+expect step 15
+kill Angler fish
+expect step 16
+use crystalgate
+expect shown socketlights
+wait 5
+at 0 5 h=-20
+zone thronehall
+expect step 17
+air thronehallair
+open Crown on the drowned throne
+expect story crown 1
+expect step 18
+expect shown altarzone
+
+# Chapter 4 - rising: the crown on the altar, the tower rises, the treasury
+at 0 -75 h=20.5
+zone altar
+expect step 19
+use altar
+expect story priestkey 1
+expect step 20
+expect shown risen
+at 0 15.5 h=7.8
+open Treasury of Aurelis
+expect done

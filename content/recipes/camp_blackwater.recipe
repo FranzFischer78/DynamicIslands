@@ -1,0 +1,302 @@
+# Camp Blackwater - a themed island, twice the size (x2)
+# Inspiration: summer-camp horror films (an empty lake camp after the season ended early: cabins, canoes, an archery range,
+#   a radio still playing, and the one who never left) - the mood only, never named on the island.
+# Island type: Shape 0 (Round), Style 3 (forest). A forested hill with a broad lowland on its north side, and in the
+#   lowland a lake dug down to the sea's level (the generator's Lakes made none here); the camp on the lake's west shore,
+#   the old boathouse on its east shore, the fire lookout up the hill's north flank.
+# The last session went home early: a huge bear from the ridge had been in the kitchens three nights running. The head
+# counselor stayed to close up and to lure it away from the cabins with honey at the old boathouse, then fire a flare from
+# the lookout for the ranger boat. Her last note is still pinned in the boathouse.
+# Quest "The Last Week of Summer" (11 steps): the gate, the counselor's logbook, the honey, the flare pistol, the dock
+# box, the old boathouse, the bait and the Ridge Bear, her last note, the lookout, the flare (her key), her footlocker
+# (canteen blueprint).
+#
+# Built by the recipe player (CIRecipe camp_blackwater) through the editor's own operations.
+include lib_huts
+include lib_relay
+include lib_sea
+new
+# (nature: forest, Like Raft's Balboa - birch and pine round the lake; the camp clearing the recipe's own)
+gen Trees=0.21 Bushes=0.38 Rocks=0.42 Harvest=0.1 BeachThings=0.3
+gen Seed=9012 Radius=63 Height=22 Roughness=0.4 Peaks=2 Shape=0 Style=3 BeachWidth=0.4 Cliffs=0.2 PeakShape=0.35 Lakes=0.6
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the lake dug into the north lowland (3.5 m) down to 2.5 m under the sea's level, its shores smoothed and
+# sanded; the camp's clearing levelled at 3.5 m on its west shore (cut into the hill's foot behind the cabins), a low
+# landing for the canoe dock, a pad for the boathouse on the east shore, the archery range's corner; the trail up the
+# hill's north flank to the lookout eased ----------------------------------------------------------------------------------
+brush flatten from -3 33.5 to 25 33.5 r=5 s=20 frames=150 h=-2.5
+brush flatten from -5 37.5 to 27 37.5 r=5.5 s=20 frames=150 h=-2.5
+brush flatten from -3 41.5 to 25 41.5 r=5 s=20 frames=150 h=-2.5
+brush smooth from -9 38 to 31 38 r=9 s=10 frames=12
+# (the banks eased: a dug lake's edges stand as walls)
+brush smooth from -7 29.5 to 28 29.5 r=3.5 s=10 frames=16
+brush smooth from -7 45.5 to 28 45.5 r=3.5 s=10 frames=16
+brush flatten from -42 26 to -14 26 r=5 s=20 frames=100 h=3.5
+brush flatten from -42 33 to -14 33 r=5 s=20 frames=100 h=3.5
+brush flatten from -42 40 to -16 40 r=5 s=20 frames=100 h=3.5
+brush flatten from -44 44 to -28 44 r=3 s=20 frames=60 h=3.5
+brush flatten at -10.5 37.5 r=3 s=20 frames=80 h=1
+brush smooth from -14 37.5 to -8 37.5 r=3 s=10 frames=12
+brush flatten at 32.5 39.25 r=4 s=20 frames=80 h=3
+brush flatten from -46 22 to -44 30 r=3 s=20 frames=60 h=3.5
+for i 0 10 1
+brush flatten at {-8+$i*0.8} {28-$i*1.6} r=3.5 s=20 frames=20 h={3.6+$i*0.66}
+next
+brush flatten at 0 11 r=4 s=20 frames=60 h=10.4
+brush smooth from -8 28 to 0 12 r=3.5 s=10 frames=12
+brush sand from -6 38 to 30 38 r=10 s=20 frames=30
+clear from -46 34 to -12 34 r=13
+clear from -8 37.5 to 0 37.5 r=3
+clear at 32.5 39.25 r=6
+clear from -8 26.5 to 10 24.5 r=3
+clear from 10 24.5 to 33 27.5 r=3
+clear from 33 27.5 to 35 34 r=3
+clear from 32 33 to 38 30 r=4
+clear from -8 28 to 0 11 r=3
+clear at 0 11 r=5
+clear from -56 36 to -46 35 r=4
+
+# --- The jetty on the west coast and the road in to the camp gate: two posts, a beam across, the camp's banner under it,
+# bear warning signs by the road -------------------------------------------------------------------------------------------
+push at -48 36.75 h=-2.5 yaw=180
+call boardwalk n=6 wide=1 y=4.1
+pop
+place ReefHuts_Pillar3 - at -45 32.6 ground sy=1.1
+place ReefHuts_Pillar3 - at -45 37.4 ground sy=1.1
+place Relay_support_beam_wood - at -45 32.3 y=5.05 yaw=90 sx=0.6
+place Banner_01 - at -45 35 y=5.1 yaw=90
+place BearSign1 - at -47.5 31.5 ground yaw=90
+place "BearSign3 Variant" - at -47.5 39 ground yaw=90
+place Zone_Trigger campgate at -44 35 y=1
+
+# --- The mess hall at the clearing's north-west corner: Balboa's log house; the logbook on a table inside, the pantry and
+# the fridge; on its porch the radio still playing the camp's tape -------------------------------------------------------
+place Balboa_Shack - at -36 41 ground
+# (inside: set down from under its roof onto its floor; the logbook onto the table)
+place Placeable_Table_Basic - at -36 41 h=6 drop yaw=90
+place Note_Book logbook at -36 41.2 h=7 drop yaw=12 rot=0,0,0
+# (the pantry 1.9 m in from the west wall: at -40.5 its west end stood through the wall, over the ground outside)
+place Placeable_Cupboard_Large pantry at -38.6 43.5 h=6 drop
+place Placeable_Fridge fridge at -31 43.6 h=6.5 drop yaw=180
+place Placeable_Radio - at -36 36.2 h=6 drop yaw=180
+place Zone_Sound radio at -36 36.5 y=4.6
+
+# --- Two cabins along the clearing's south side, their verandas to the lake: cabin 1 the head counselor's (her bed, two
+# bunks, her footlocker), cabin 2 the campers' (bunks, a box, a doll on the step) ----------------------------------------
+push at -40 32.5 h=3.55 yaw=270
+call relay_house
+place Placeable_Bed_Wood - at -9.2 -2.2 y=0 sit yaw=90
+place "VG_DecorationPrefabBase_BunkBed Variant" - at -8.8 -6.5 y=0 sit
+place "VG_DecorationPrefabBase_BunkBed Variant" - at -6.5 -9.05 y=0 sit yaw=90
+place Loot_Chest footlocker at -5.4 -1.4 y=0 sit
+place Pickup_Landmark_Plastic3_Land - at -7 -4 y=0.3 drop yaw=41
+pop
+push at -27 32.5 h=3.55 yaw=270
+call relay_house
+place "VG_DecorationPrefabBase_BunkBed Variant" - at -9 -2.5 y=0 sit
+place "VG_DecorationPrefabBase_BunkBed Variant" - at -8.8 -6.5 y=0 sit
+place "VG_DecorationPrefabBase_BunkBed Variant" - at -6.5 -9.05 y=0 sit yaw=90
+place "Box Small" cabinbox at -5.5 -9.4 y=0 sit
+place Balboa_DecorationPrefabBase_Doll_R - at -1.6 -5.3 y=0 sit yaw=90
+place Pickup_Landmark_Plastic3_Land - at -6.8 -4.8 y=0.3 drop yaw=263
+pop
+
+# --- The campfire circle by the lake, log benches round it; the flagpole --------------------------------------------------
+place campfire_1 - at -19 39 ground
+place TreeLog_01 - at -19 41.6 ground
+place TreeLog_01 - at -19 36.4 ground
+place TreeLog_01 - at -21.6 39 ground yaw=90
+place TreeLog_01 - at -16.4 39 ground yaw=90
+place Placeable_Flag_02 - at -24 37 ground
+
+# --- The canoe dock from a low landing out into the lake: two canoes upside down on it, two on the sand, a box at its
+# end; planks off it in the shallows; a sunk canoe and its box in the lake -------------------------------------------------
+# (its lake half two blocks wide, a rail across the step: the upturned canoes are wider than one block - on the 1.5 m dock
+# half of each hung over the water, CIGroundIslands)
+push at -9 37.25 h=-2.5
+call boardwalk n=2 wide=1 y=3.5
+push at 3 0
+call boardwalk n=4 wide=2 y=3.5
+pop
+place Block_Wall_Fence_Rope - at 3 2.25 y=3.5 yaw=90
+place "Box Small" dockbox at 8.4 0.5 y=3.5 sit yaw=10
+# (the canoes set by their middle, not their pivot, which is well off it: the first hung out over the water, its base up to
+# 2.9 m over the lake floor - the ground check, IG2, 2026-10-12)
+place RT_PlasticBoat - at 4.85 1.9 y=3.5 sit centred roll=180 yaw=90
+place RT_PlasticBoat - at 7.85 1.9 y=3.5 sit centred roll=180 yaw=95
+pop
+place RT_PlasticBoat - at -12.5 34.5 ground yaw=20
+place RT_PlasticBoat - at -13 41 ground yaw=-15
+place VP_Rubble_Plank01 - at 0.5 35.4 h=-2.5 sit yaw=30
+place VP_Rubble_Plank01 - at 2 39.8 h=-2.5 sit yaw=-50
+place RT_PlasticBoat - at 8 41.5 h=-2.5 sit yaw=60 roll=100
+place "Box Small" lakebox at 9.8 40.3 h=-2.5 sit yaw=15
+
+# --- The archery range at the clearing's west edge: targets on posts, the equipment shed (two cells of Raft's floor, its
+# walls with a gap for its door, a wooden roof) and the box with the flare pistol -----------------------------------------
+place ReefHuts_Pillar1 - at -47.5 27 ground
+place Placeable_TrophyBoard_Medium - at -47.5 27 y=1.6 yaw=90
+place ReefHuts_Pillar1 - at -47.5 30.5 ground
+place Placeable_TrophyBoard_Medium - at -47.5 30.5 y=1.6 yaw=90
+push at -44.5 22 h=3.55
+call floors w=2 d=1
+place Block_Wall_Wood - at 0.75 0 y=0.1
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 3 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 0.75 1.5 y=0.1
+call corners w=2 d=1
+roof 2 1 at 0 0 y=0.1 wood
+place "Box Small" archeryshed at 0.75 0.75 y=0.1 sit yaw=90
+place "Pickup_Landmark_Scrap 2_Land" - at 1.9 0.75 y=0.4 drop yaw=118
+pop
+
+# --- The old boathouse on the lake's east shore, its open front to the water, one wall smashed in; her last note inside;
+# the bait pile on the shore south of it; the Ridge Bear waiting in the woods behind -------------------------------------
+push at 30.25 41.5 h=-2.5 yaw=90
+call stilt_hut y=6 ladder=none w4=none
+place Note_Paper lastnote at 2.25 3.9 y=6 drop rot=0,0,0 yaw=10
+place Pickup_Landmark_Plank_Land - at 1.2 2.6 y=6.3 drop yaw=77
+place "Pickup_Landmark_Scrap 3_Land" - at 3.3 1.6 y=6.3 drop yaw=330
+pop
+place BearBait baitpost at 31 33 ground
+place Creature_Bear ridgebear at 39 31 ground
+place Zone_Trigger boathouse at 32 37 y=1
+
+# --- The fire lookout up the hill's north flank: four posts, a deck 6.5 m up, a ladder, plank rails, the flare launcher --
+push at 0 11 y=0
+for px -2.4 2.4 4.8
+for pz -2.4 2.4 4.8
+place Relay_support_beam_wood - at $px $pz y=-1 rot=0,0,-90
+next
+next
+place Relay_Floor_deck - at 2.617 2.617 y=6.5
+place LandmarkLadder_6m - at 0 -2.75
+for fx -1.5 1.5 1.5
+place Block_Wall_Fence_Plank - at $fx 2.5 y=6.65
+place Block_Wall_Fence_Plank - at -2.5 $fx y=6.65 yaw=90
+place Block_Wall_Fence_Plank - at 2.5 $fx y=6.65 yaw=90
+next
+place Block_Wall_Fence_Plank - at -1.6 -2.5 y=6.65
+place Block_Wall_Fence_Plank - at 1.6 -2.5 y=6.65
+place Placeable_Firework flarepost at 1.8 1.8 y=6.65 sit
+place Zone_Trigger lookout at 0 0.5 y=7.6
+pop
+
+# --- Mist over the lake, the forest's sound; animals: two goats on the hill, hens by the mess hall, turtles in the lake,
+# dolphins off the north beach --------------------------------------------------------------------------------------------
+place Zone_Atmosphere lakemist at 12 38 y=2
+place Zone_Sound forest at 0 0 y=8
+place Creature_Goat goats at 22 -22 ground
+prop goats creature.count=2
+place Creature_Chicken hens at -30 44.5 ground
+prop hens creature.count=3
+place Creature_Turtle turtles at 18 38 h=-1.5
+prop turtles creature.count=2
+place Creature_Dolphin dolphins at 0 75 h=-3
+prop dolphins creature.count=2
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): pines, birches, berries ----------
+scatter "Pickup_Landmark_Tree_Pine" 6 at 0 0 r=44.1 seed=4565 free=5
+scatter "Pickup_Landmark_Tree_Birch" 6 at 0 0 r=44.1 seed=4575 free=5
+scatter "Pickup_Landmark_BerryBush" 6 at 0 0 r=44.1 seed=4585 free=3
+
+# --- Raft's finds in the shallows round the island and in the lake (lib_sea) --------------------------------------------
+call shallows r=72 deep=5 n=2
+call shallows x=12 z=38 r=14 deep=3 seed=90
+
+# ===== Settings, story items, notes, behaviours, quest (11 steps) ==========================================================
+info title=Camp Blackwater
+info author=Custom Islands
+info description=A summer camp on a forest lake, empty since the season ended early: cabins, canoes, an archery range, a radio still playing the camp song. The head counselor stayed behind to deal with the bear from the ridge. Her last note is in the old boathouse across the lake.
+island on.arrive=message||A wooded island with a lake in its middle and a summer camp on the shore. A radio is playing somewhere - the same tune, over and over.
+
+story honey|Crock of honey|Jar_Honey|A crock of honey from the camp pantry - the counselor's bear bait.
+story flaregun|Flare pistol|Placeable_Firework|The camp's flare pistol, loaded, from the archery shed.
+story lockerkey|Cabin 1 key|quest:Caravan_KeyMayor|The key marked CABIN 1 that hung on the nail by the lookout's flare post.
+
+note logbook Head counselor's logbook | CAMP BLACKWATER - HEAD COUNSELOR'S LOG\n\nThe kids went home early. The bear off the ridge has been in the kitchens three nights running; last night it took the canoe dock apart.\n\nI'm staying to close up.\n\nThe plan: honey from the pantry on the bait pile by the old boathouse across the lake, to draw it away from the cabins. Then up to the fire lookout and fire the flare - the ranger boat watches for it. The flare pistol is in the archery shed.\n\nThe season's cash box and my things are in my footlocker in cabin 1. I keep its key on the nail by the flare post.\n\n- Dana Pike
+note pantry Camp pantry | The pantry: tins, porridge oats, and a big crock of honey with BEAR BAIT - DANA written on its lid.
+loot pantry story:honey*1;Raw_Potato*2;Cooked_GenericMeat*2
+prop pantry loot.refill=0
+note archeryshed Archery shed box | The archery shed's box: bows, a quiver of arrows, and the camp's flare pistol in an oilcloth roll.
+loot archeryshed story:flaregun*1;Bow*1;Arrow_Stone*10
+prop archeryshed loot.refill=0
+note lastnote Dana's last note | (pinned to the boathouse wall)\n\nSet the bait. Heard it coming through the reeds at dusk. It's bigger than they said.\n\nI'm going up to the lookout to fire the flare.\n\nIf this note is still here, I didn't make it up the hill.\n\n- D.
+note footlocker Counselor's footlocker | Dana's footlocker: the season's cash box, her canteen plans from the survival class, a first-aid tin, a leather helmet from the camp's play - and a photo of the whole camp on the dock, the last week of summer.
+loot footlocker Blueprint_Canteen*1;TradeToken*6;Leather*3;HealingSalve_Good*2;Equipment_LeatherHelmet*1
+prop footlocker loot.refill=0
+prop footlocker if.open=has|story:lockerkey|1
+prop footlocker else.open=message||The footlocker is padlocked. Dana's logbook said she kept the key on the nail by the lookout's flare post.
+note cabinbox Cabin 2 box | A camper's box under a bunk: comics, a pocket knife, string.
+loot cabinbox Rope*3;Feather*3;Nail*6
+prop cabinbox loot.refill=0
+note dockbox Dock box | The canoe dock's box: paddles' spare blades, rope, a fishing line.
+loot dockbox Plank*6;Rope*2;FishingBait_Simple*2
+prop dockbox loot.refill=0
+note fridge Mess hall fridge | The mess hall's fridge, warm and smelly: the last of the camp's milk turned, but a few things kept.
+loot fridge Egg*3;Raw_Salmon*2;PlasticBottle_Water*2
+prop fridge loot.refill=0
+note lakebox Sunk canoe's box | A box tied into the sunk canoe: somebody's swimming medal, a tin of plasters, scrap.
+loot lakebox Scrap*3;HealingSalve*1;Plastic*3
+prop lakebox loot.refill=0
+
+prop baitpost obj.name=baitpost
+prop baitpost beh.use=Set the honey on the bait pile
+prop baitpost if.use=quest|6\ntake|story:honey|1
+prop baitpost on.use=message||You smear the honey over the bait pile and back away. For a while there's only the lake lapping - then branches snapping, and something huge shoulders out of the trees.\nshow|ridgebear\nsound||event:/wildlife/bear/bear_roar
+prop baitpost else.use=message||A bait pile, picked clean. Dana's plan was honey from the camp pantry.
+prop ridgebear obj.name=ridgebear
+prop ridgebear beh.hidden=1
+prop ridgebear creature.count=1
+prop ridgebear creature.size=2.2
+prop ridgebear creature.health=4
+prop ridgebear creature.damage=2
+prop ridgebear creature.respawn=0
+prop ridgebear tint.color=#2a2018
+prop ridgebear tint.amount=0.5
+prop flarepost obj.name=flarepost
+prop flarepost beh.use=Fire the flare
+prop flarepost if.use=has|story:flaregun|1
+prop flarepost on.use=message||The flare climbs over the lake and bursts red. A long minute - then far out at sea a ship's horn answers, twice. On the nail by the post hangs a key marked CABIN 1.\nsignal||flare\ngive||story:lockerkey*1\nsound||event:/weapons/firework/launch\nwait|2\nsound||event:/weapons/firework/explode
+prop flarepost else.use=message||A flare launcher bracket with nothing in it. Dana's logbook said the flare pistol is in the archery shed.
+
+prop campgate zone.id=campgate
+prop campgate zone.radius=6
+prop campgate zone.message=CAMP BLACKWATER, says the banner. The road is empty, the radio plays, and a doll sits on a cabin step watching you.
+prop boathouse zone.id=boathouse
+prop boathouse zone.radius=6
+prop boathouse zone.message=The old boathouse, one wall smashed in. Claw marks on the posts, higher than your head.
+prop lookout zone.id=lookout
+prop lookout zone.radius=3
+prop lookout zone.message=The fire lookout. The whole island below you, the lake black in the middle - and far out, the sea.
+prop radio sound.event=event:/raft/radio/cassette/cassette05
+prop radio sound.volume=0.45
+prop radio zone.radius=10
+prop lakemist atmo.fog=#3a4a44
+prop lakemist atmo.fogAmount=0.3
+prop lakemist atmo.particles=mist
+prop lakemist zone.radius=22
+prop forest sound.event=event:/amb/pineforest
+prop forest sound.volume=0.5
+prop forest zone.radius=60
+
+quest title=The Last Week of Summer
+quest intro=A summer camp on a forest lake, empty but for a radio that won't stop playing. The head counselor kept a logbook in the mess hall.
+step reach|campgate|1|Walk in under the camp's banner
+step read|Head counselor's logbook|1|Read the head counselor's logbook in the mess hall
+step collect|story:honey|1|Take the bear bait - a crock of honey - from the pantry
+step collect|story:flaregun|1|Find the flare pistol in the archery range's shed
+step open|Dock box|1|Check the canoe dock the bear took apart - its box is still at the end
+step reach|boathouse|1|Go round the lake to the old boathouse on the far shore
+step kill|Bear|1|Set the bait and face the Ridge Bear when it comes for it
+step read|Dana's last note|1|Read the note pinned inside the old boathouse
+step reach|lookout|1|Climb to the fire lookout on the hill
+step collect|story:lockerkey|1|Fire the flare for the ranger boat and take the key from the nail by the post
+step open|Counselor's footlocker|1|Take her key back down to cabin 1 and open her footlocker
+step blueprint|Blueprint_Canteen|1|Take the canteen plans from the counselor's footlocker
+quest done=The flare has been fired and the ranger boat answered - a whole summer late. The Ridge Bear is gone; whatever happened to Dana, her camp is quiet now.
+quest reward=Plank*8;Rope*4;Raw_Salmon*3
+
+save Camp Blackwater

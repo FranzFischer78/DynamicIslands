@@ -1,0 +1,14 @@
+# Guide pictures of Crane Yard (CIPlay crane_yard_pics): Raft's camera and water at midday
+island Crane Yard
+hour 11
+weather Calm
+at 2 0
+wait 2
+picture crane_yard_island 48 20 -42 4 14 0
+picture crane_yard_crane 20 5 18 -8 40 8
+picture crane_yard_pier 35 7 -17 21 3 -1
+picture crane_yard_tower 15 10 -15 6 9 -5
+picture crane_yard_yard -14 12 -14 2 6 2
+at 30 -8 h=-3
+wait 2
+picture crane_yard_deck 35 -2 -11 28 -4 0

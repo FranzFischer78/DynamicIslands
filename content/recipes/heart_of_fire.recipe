@@ -1,0 +1,532 @@
+# Heart of Fire - a themed island, ten times the size (x10)
+# Inspiration: the island-goddess animated film (a stolen green heart, a burning mountain and its fire demon, the heart
+#   carried home and the island turning green again) merged with volcano-adventure films (lava tubes, a black temple)
+#   - the mood only, never named; the people and their customs are invented, no real culture is pictured.
+# Island type: Shape 7 (Twin peaks), Style 4 (volcanic). Two great peaks: the Ember, a live volcano (south-west, 59 m),
+#   and the Green Mother, a sleeping one (north-east, 63 m), a low pass between them; the burnt village on the broad
+#   lowland of the north-west shore, the navigator's wreck in the bay off it.
+# A navigator stole the Bloomstone, the Green Mother's heart, from her summit shrine. The Ember woke, the island burned to
+# ash and the Cinderwraith - a great bird of black stone and fire - rose out of its crater. The navigator's ship burned in
+# the bay; the stone broke in three. The islanders took their canoes and left. Find the shards, mend the heart, carry it
+# past the Cinderwraith to the Mother - and the island turns green (the ash layer hidden, the green one shown).
+# Quest "The Bloomstone" (24 steps, 4 chapters): the ash shore (6), the three shards (8), the mending and the
+# Cinderwraith (6), the bloom and the homecoming (4) - large and medium crop plot and canteen blueprints, seeds, titanium.
+#
+# Built by the recipe player (CIRecipe heart_of_fire) through the editor's own operations.
+include lib_huts
+include lib_sea
+new
+# (nature: volcanic - the generator's sparse scrub and trees, cut from the start; the ash and green layers the recipe's)
+gen Trees=0.2 Bushes=0.3 Rocks=0.5 Harvest=0.25 BeachThings=0.3
+gen Seed=9025 Radius=142 Height=70 Roughness=0.55 Peaks=2 Shape=7 Style=4 BeachWidth=0.4 Cliffs=0.45 PeakShape=0.6 Bays=0.3
+gen Water=0.5 SeaRocks=0.25 SeaFinds=0.3 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the wreck's hollow in the bay (9 m down); the lava tube's ledge on the Ember's south flank (16.5 m); the
+# black temple's terrace on its east shoulder (12 m); the Mother's spring (7.5 m) with its dry basin; the pass between
+# the peaks; the Green Mother's summit (60 m) and the trail up to it from the spring ----------------------------------------
+brush flatten at -110 100 r=9 s=20 frames=150 h=-9
+brush flatten at -35 -70 r=5 s=20 frames=120 h=16.5
+brush flatten from -35 -71 to -35 -80 r=3.5 s=20 frames=80 h=16.3
+for tz -40 -20 4
+brush flatten from -6 $tz to 12 $tz r=4 s=20 frames=150 h=12
+next
+brush flatten at -3 42 r=6 s=20 frames=120 h=7.5
+brush flatten at -3 42 r=2.2 s=20 frames=60 h=6.8
+brush rock at -3 42 r=6 s=20 frames=20
+brush flatten at 12 -12 r=6 s=20 frames=80 h=6.5
+brush flatten at 30 40 r=7 s=20 frames=200 h=60
+macro trail x1 z1 h1 x2 z2 h2 n
+for i 0 $n 1
+brush flatten at {$x1+($x2-$x1)*$i/$n} {$z1+($z2-$z1)*$i/$n} r=2.6 s=20 frames=40 h={$h1+($h2-$h1)*$i/$n}
+next
+end
+call trail -3 42 8 10 60 16 8
+call trail 10 60 16 35 70 28 10
+call trail 35 70 28 50 50 40 10
+call trail 50 50 40 40 30 50 9
+call trail 40 30 50 22 32 56 8
+call trail 22 32 56 30 40 60 5
+clear from -3 42 to 10 60 r=3
+clear from 10 60 to 35 70 r=3
+clear from 35 70 to 50 50 r=3
+clear from 50 50 to 40 30 r=3
+clear from 40 30 to 22 32 r=3
+clear at 30 40 r=8
+clear from -82 95 to -38 95 r=17
+clear at -35 -70 r=7
+clear at 3 -30 r=12
+clear at -3 42 r=7
+clear at 12 -12 r=8
+
+# ===== CHAPTER 1 - THE ASH SHORE ==========================================================================================
+# --- The burnt village on the lowland by the north-west shore: four huts on posts, the great carved column, the canoe
+# house (Balboa's log house) with the canoes beside it, the fishers' hut by the water, a beached barrel; the ash boars -----
+push at -72 100 h=2.55
+call stilt_hut y=2.6
+pop
+push at -62 104 h=2.55
+call stilt_hut y=2.6
+place "Box Small" villagestore at 2.25 3.6 y=2.6 sit yaw=20
+pop
+push at -52 100 h=2.55
+call stilt_hut y=2.6
+pop
+push at -68 84 h=2.55
+call stilt_hut y=2.6
+pop
+push at -82 96 h=1.9
+call stilt_hut y=2.6
+place "Box Small" fishbox at 2.25 3.6 y=2.6 sit yaw=-15
+pop
+place Pillar_01 - at -58 93 ground sit scale=2
+place Note_Sign eldercarving at -58 91.6 ground sit yaw=180
+place Balboa_Shack canoehouse at -46 89 h=2.2
+place "Box Small" canoebox at -48 89 h=3.5 drop yaw=10
+place Loot_ChestLarge eldersgift at -45 90.5 h=3.5 drop yaw=180
+place RT_PlasticBoat - at -40 83 ground yaw=80
+place RT_PlasticBoat - at -38 86 ground yaw=95
+place Loot_Barrel beachbarrel at -86 104 ground sit
+place campfire_1 - at -60 97 ground
+place Creature_Boar ashboars at -62 96 ground
+place Zone_Trigger village at -60 96 y=1.5
+# (after the bloom: a new carved post with the elders' welcome, the canoes coming home on the bay, the homecoming zone)
+place Pillar_04 welcomepillar at -55 92 ground sit
+place Note_Sign welcomepost at -55 91.2 ground sit yaw=180
+place RT_PlasticBoat canoes at -94 92 h=0.3 yaw=80
+place RT_PlasticBoat canoes at -97 98 h=0.3 yaw=95
+place RT_PlasticBoat canoes at -95 104 h=0.3 yaw=100
+place RT_PlasticBoat canoes at -98 108 h=0.3 yaw=85
+place Zone_Trigger homecoming at -60 96 y=2
+
+# --- The navigator's ship sunk in the bay, 9 m down, burnt black: her log on her deck, her hold's chest (its hatch jammed),
+# her galley barrel ------------------------------------------------------------------------------------------------------
+place BoatStranded wreck at -110 100 h=-9 sit scale=1.2 yaw=30 roll=10
+place Note_Paper navlog at -110 100 h=-2 drop yaw=20
+place "Box Big" wreckhold at -109 103 h=-3 drop yaw=30
+place Loot_SunkenBarrel wreckbarrel at -104 95 h=-8 drop
+place Zone_Trigger wreckzone at -110 100 h=-5
+
+# ===== CHAPTER 2 - THE THREE SHARDS =======================================================================================
+# --- The lava tube in the Ember's south flank: Balboa's bear cave set into the slope, its mouth south onto the ledge, its
+# gallery running into the mountain - the lava's glow and rumble inside, the ember beetles at the mouth, the chamber's
+# chest, the ember pot with its live coal, a side cache -----------------------------------------------------------------
+place BalboaCave_Bear lavatube at -35 -54 h=21.05 yaw=180
+place Loot_ChestSmall tubechest at -35 -42 h=18 drop yaw=180
+place UT_EndRoom_Pot02 emberpot at -33 -48 h=18 drop
+place "Box Small" tubecache at -37.5 -51 h=18 drop yaw=30
+place Zone_Atmosphere tubeglow at -35 -52 h=18
+place Zone_Atmosphere tubeglow at -35 -44 h=18
+place Zone_Sound tubesound at -35 -50 h=18
+place Creature_Roach beetles at -35 -66 h=17
+place Zone_Trigger lavatubes at -35 -68 h=17.5
+
+# --- The black temple on the Ember's east shoulder: a court walled with black stone blocks, the sanctum in its back
+# wall behind a slab door that sinks, three brazier stands of the same stone (east, high, west) with fires that show when lit, the carving
+# over them, an offering box ---------------------------------------------------------------------------------------------
+for bz -37.2 -22.8 2.4
+place RT_GroundPillar obsidian at -6 $bz h=12 sit
+place RT_GroundPillar obsidian at -6 $bz h=15 sit
+next
+for bx -3.6 8.4 2.4
+place RT_GroundPillar obsidian at $bx -38.4 h=12 sit
+place RT_GroundPillar obsidian at $bx -21.6 h=12 sit
+next
+place RT_GroundPillar obsidian at -3.6 -32.7 h=15 sit
+place RT_GroundPillar obsidian at -3.6 -27.3 h=15 sit
+place RT_Floor obsidian at -2.4 -26.1 h=18 sx=0.4 sz=0.867
+place RT_Wall1 sanctumdoor at -2.4 -31.5 h=12 yaw=90
+place Loot_ChestSmall sanctumchest at -3.6 -30 h=12 sit yaw=90
+place RT_GroundPillar brazier1 at 9 -30 h=12 sit sy=0.4
+place campfire_1 flame1 at 9 -30 h=13.2 sit
+place RT_GroundPillar obsidian at 3 -23.4 h=12 sit
+place RT_GroundPillar brazier2 at 3 -23.4 h=15 sit sy=0.4
+place campfire_1 flame2 at 3 -23.4 h=16.2 sit
+place RT_GroundPillar brazier3 at -3.2 -35.6 h=12 sit sy=0.4
+place campfire_1 flame3 at -3.2 -35.6 h=13.2 sit
+place Note_Sign templecarving at 5.5 -25 h=12 sit yaw=90
+place "Box Small" templeoffering at 7.5 -36.5 h=12 sit yaw=20
+place Zone_Trigger obsidiantemple at 3 -30 h=13
+
+# ===== CHAPTER 3 - THE MENDING ============================================================================================
+# --- The Green Mother's spring at her western foot: a dry basin of rock, the Mother's bowl, her song on a stone, fireflies
+# when the stone is mended, a box ----------------------------------------------------------------------------------------
+place UT_EndRoom_Pot01 motherbowl at -3 42 ground sit
+place Note_Sign mothersong at -3 37.6 ground sit yaw=180
+place Zone_Atmosphere springglow at -3 42 y=1.5
+place "Box Small" springbox at 1.5 44.5 ground sit yaw=-20
+place Zone_Trigger motherspring at -3 42 y=1.5
+
+# --- The pass between the peaks: a cairn with a box in it; the Cinderwraith high over it, its fire ----------------------
+place SmallBoulder4 - at 14 -14 ground scale=1.2 yaw=10
+place SmallBoulder4 - at 15.6 -13 ground scale=1 yaw=80
+place SmallBoulder4 - at 12.8 -15.4 ground scale=1 yaw=140
+place "Box Small" cairnbox at 13 -12.6 ground sit yaw=30
+place Zone_Trigger saddle at 12 -12 y=1.5
+place Zone_Atmosphere wraithfire at 12 -12 y=4
+place Creature_StoneBird cinderwraith at 12 -12 h=22
+
+# --- The Green Mother's summit: a ring of stones round her altar stone (moss-grey); the Ember's crater fire -------------
+for a 0 315 45
+place SmallBoulder4 - at {30+4.5*cos($a)} {40+4.5*sin($a)} ground sit scale=0.9 yaw={$a}
+next
+place UT_EndRoom_Table summitaltar at 30 40 h=60 sit scale=0.4
+place Zone_Trigger mothersummit at 30 40 h=61
+place Zone_Atmosphere craterfire at -20 -30 h=55
+
+# ===== THE TWO LAYERS =====================================================================================================
+# --- Ash over the island (dead trees, stumps, ash drifts, heaps; shown at first) and green (palms, banana and monstera,
+# bamboo, flowers, fruit to pick; hidden until the bloom); the ash sky over the island and the green sky ------------------
+place DeadTree1 ash at 101.3 -22.2 ground yaw=91
+place "Pickup_Landmark_Tree_Palm 1" green at 103.8 -20.7 ground yaw=148
+place DeadTree2 ash at 67.7 -85.7 ground yaw=352
+place "Pickup_Landmark_Tree_Palm 2" green at 70.2 -84.2 ground yaw=50
+place DeadTree3 ash at 35.2 102.9 ground yaw=81
+place "Pickup_Landmark_Tree_Palm 3" green at 37.7 104.4 ground yaw=139
+place DeadTree1 ash at -23.0 -75.9 ground yaw=30
+place "Pickup_Landmark_Tree_Palm 4" green at -20.5 -74.4 ground yaw=42
+place DeadTree2 ash at -30.5 44.3 ground yaw=318
+place "Pickup_Landmark_Tree_Palm 1" green at -28.0 45.8 ground yaw=244
+place DeadTree3 ash at -51.5 -75.0 ground yaw=253
+place "Pickup_Landmark_Tree_Palm 2" green at -49.0 -73.5 ground yaw=305
+place DeadTree1 ash at -93.0 23.4 ground yaw=128
+place "Pickup_Landmark_Tree_Palm 3" green at -90.5 24.9 ground yaw=112
+place DeadTree2 ash at 75.2 46.8 ground yaw=121
+place "Pickup_Landmark_Tree_Palm 4" green at 77.7 48.3 ground yaw=179
+place DeadTree3 ash at -85.1 40.6 ground yaw=183
+place "Pickup_Landmark_Tree_Palm 1" green at -82.6 42.1 ground yaw=146
+place DeadTree1 ash at -1.3 101.2 ground yaw=280
+place "Pickup_Landmark_Tree_Palm 2" green at 1.2 102.7 ground yaw=258
+place DeadTree2 ash at -41.9 68.4 ground yaw=69
+place "Pickup_Landmark_Tree_Palm 3" green at -39.4 69.9 ground yaw=285
+place DeadTree3 ash at 84.6 -23.4 ground yaw=318
+place "Pickup_Landmark_Tree_Palm 4" green at 87.1 -21.9 ground yaw=53
+place DeadTree_TreeStumps_1 ash at 4.4 75.9 ground yaw=202
+place BigPalm1 green at 6.9 77.4 ground yaw=120
+place DeadTree_TreeStumps_2 ash at 87.0 61.3 ground yaw=343
+place BigPalm1 green at 89.5 62.8 ground yaw=149
+place DeadTree_TreeStumps_3 ash at 62.4 -44.4 ground yaw=301
+place BigPalm1 green at 64.9 -42.9 ground yaw=73
+place DeadTree_TreeStumps_1 ash at -61.1 52.6 ground yaw=296
+place Banana_Bush_1 green at -58.6 54.1 ground yaw=197
+place DeadTree_TreeStumps_2 ash at 42.3 -95.0 ground yaw=209
+place Banana_Bush_3 green at 44.8 -93.5 ground yaw=327
+place DeadTree_TreeStumps_3 ash at 1.6 -87.6 ground yaw=343
+place Banana_Bush_1 green at 4.1 -86.1 ground yaw=160
+place DeadTree_TreeStumps_1 ash at -5.5 61.7 ground yaw=337
+place Banana_Bush_3 green at -3.0 63.2 ground yaw=329
+place DeadTree_TreeStumps_2 ash at 58.8 -15.4 ground yaw=50
+place Banana_Bush_1 green at 61.3 -13.9 ground yaw=51
+place DeadTree_TreeStumps_3 ash at 14.9 -81.3 ground yaw=348
+place Banana_Bush_3 green at 17.4 -79.8 ground yaw=81
+place TP_SnowDrift02 ash at 71.0 64.3 ground yaw=114
+place Monstera_1 green at 73.5 65.8 ground yaw=105
+place TP_SnowDrift02 ash at -19.1 77.7 ground yaw=106
+place Monstera_2 green at -16.6 79.2 ground yaw=171
+place TP_SnowDrift02 ash at 79.6 -6.7 ground yaw=135
+place Monstera_1 green at 82.1 -5.2 ground yaw=121
+place TP_SnowDrift02 ash at -102.1 43.6 ground yaw=249
+place Monstera_2 green at -99.6 45.1 ground yaw=123
+place TP_SnowDrift02 ash at 33.9 81.2 ground yaw=335
+place Monstera_1 green at 36.4 82.7 ground yaw=145
+place TP_SnowDrift02 ash at -42.8 -86.8 ground yaw=323
+place Monstera_2 green at -40.3 -85.3 ground yaw=24
+place TP_SnowDrift02 ash at 21.7 106.7 ground yaw=143
+place Bamboo_2 green at 24.2 108.2 ground yaw=344
+place TP_SnowDrift02 ash at 12.7 -96.4 ground yaw=169
+place Bamboo_2 green at 15.2 -94.9 ground yaw=33
+place TP_SnowDrift02 ash at 88.5 -43.9 ground yaw=86
+place Bamboo_2 green at 91.0 -42.4 ground yaw=137
+place TP_SnowDrift02 ash at 48.3 -81.6 ground yaw=4
+place Bamboo_2 green at 50.8 -80.1 ground yaw=178
+place TP_SnowDrift02 ash at 30.1 -80.4 ground yaw=215
+place Placeable_Flower_Hibiscus green at 32.6 -78.9 ground yaw=81
+place TP_SnowDrift02 ash at 70.2 91.5 ground yaw=283
+place Placeable_Flower_Hibiscus green at 72.7 93.0 ground yaw=204
+place VP_RubblePile_Small03 ash at -27.7 -96.0 ground yaw=87
+place Placeable_Flower_Hibiscus green at -25.2 -94.5 ground yaw=357
+place VP_RubblePile_Small03 ash at -58.8 21.1 ground yaw=301
+place Placeable_Flower_Hibiscus green at -56.3 22.6 ground yaw=149
+place VP_RubblePile_Small03 ash at -25.5 91.9 ground yaw=84
+place Placeable_Flower_Hibiscus green at -23.0 93.4 ground yaw=249
+place VP_RubblePile_Small03 ash at -25.7 114.6 ground yaw=221
+place Placeable_Flower_Hibiscus green at -23.2 116.1 ground yaw=129
+place DeadTree_TreeStumps_1 ash at 7.8 90.2 ground yaw=272
+place Pickup_Landmark_Flower_Red green at 10.3 91.7 ground yaw=90
+place DeadTree_TreeStumps_1 ash at -55.4 -95.6 ground yaw=134
+place Pickup_Landmark_Flower_Yellow green at -52.9 -94.1 ground yaw=347
+place DeadTree_TreeStumps_1 ash at -48.2 43.9 ground yaw=313
+place Pickup_Landmark_PineappleLandmark green at -45.7 45.4 ground yaw=104
+place DeadTree_TreeStumps_1 ash at -38.4 123.2 ground yaw=109
+place Pickup_Landmark_WatermelonLandmark green at -35.9 124.7 ground yaw=182
+place DeadTree_TreeStumps_1 ash at 104.3 4.6 ground yaw=282
+place Pickup_Landmark_Flower_Red green at 106.8 6.1 ground yaw=137
+place DeadTree_TreeStumps_1 ash at 23.3 92.2 ground yaw=203
+place Pickup_Landmark_Flower_Yellow green at 25.8 93.7 ground yaw=184
+place DeadTree_TreeStumps_1 ash at 97.8 51.7 ground yaw=197
+place Pickup_Landmark_PineappleLandmark green at 100.3 53.2 ground yaw=107
+place Zone_Atmosphere ashsky at -70 90 y=10
+place Zone_Atmosphere greensky at -70 90 y=10
+place Zone_Atmosphere ashsky at -60 20 y=10
+place Zone_Atmosphere greensky at -60 20 y=10
+place Zone_Atmosphere ashsky at 0 -60 y=10
+place Zone_Atmosphere greensky at 0 -60 y=10
+place Zone_Atmosphere ashsky at 30 40 y=10
+place Zone_Atmosphere greensky at 30 40 y=10
+place Zone_Atmosphere ashsky at 70 -20 y=10
+place Zone_Atmosphere greensky at 70 -20 y=10
+place Zone_Atmosphere ashsky at 70 80 y=10
+place Zone_Atmosphere greensky at 70 80 y=10
+
+# --- Animals: goats on the eastern plateau, turtles in the bay, dolphins off the west shore --------------------------------
+place Creature_Goat goats at 75 30 ground
+prop goats creature.count=3
+place Creature_Turtle turtles at -100 80 h=-3
+prop turtles creature.count=2
+place Creature_Dolphin dolphins at -160 60 h=-3
+prop dolphins creature.count=2
+
+# --- Raft's finds in the shallows round the island and over the bay (lib_sea) ---------------------------------------------
+call shallows r=165 deep=5 n=2
+
+# ===== Settings, story items, notes, behaviours, quest (24 steps, 4 chapters) =============================================
+info title=Heart of Fire
+info author=Custom Islands
+info description=Two great peaks over a burnt bay: the Ember, a live volcano with a fire-bird in its crater, and the Green Mother, sleeping, her heart stolen. The island is ash; its people left in their canoes. Find the three shards of the Bloomstone, mend it, carry it past the Cinderwraith - and give the Mother back her heart.
+island on.arrive=message||Grey ash where a jungle should be, dead trees on the slopes of two huge peaks, a burnt village by the bay. Over the western peak, something circles in the smoke.
+
+story prybar|Pry bar|quest:Vasagatan_Crowbar|The canoe builders' pry bar from the canoe house.
+story shard|Shard of the Bloomstone|Placeable_Utopia_LightBottleYellow|A shard of green stone with the sun caught in it - a third of the Green Mother's heart.
+story livecoal|Live coal|Placeable_Lantern_FireBasket|A coal from the lava tubes' glow, still burning in its clay pot.
+story bloomstone|The Bloomstone|Placeable_Utopia_LightBottleWhite|The Green Mother's heart, whole again: green as a leaf, warm as skin.
+story seedpod|The Mother's seed pod|Seed_Palm|A seed pod left on the shrine where the Bloomstone was laid: the island's first fruit.
+
+note eldercarving The elders' carving | (carved round the great post)\n\nWhen the island was young the Green Mother slept on the eastern peak and the Ember slept on the western one. In the Mother's shrine lay the Bloomstone, her heart, and while it lay there the island was green.\n\nA navigator came, Corvan, who wanted a ship that never lacked a wind. He took the Bloomstone.\n\nThe Ember woke. Fire came down the mountain and the green went grey, and the Cinderwraith rose out of the Ember's mouth and has not slept since. Corvan's ship burned in the bay as he ran.\n\nWe took the canoes and went over the sea. If the Bloomstone ever comes home to the Mother, we will come home too.
+note navlog Navigator's log | CORVAN LISLE - LOG\n\nI have it. The Bloomstone, green as a leaf with the sun in it. Already the sails fill with no wind.\n\n...\n\nThe mountain is burning. The bird of fire is over the bay. The stone CRACKED in my hands when the mast came down - three pieces. One is in the hold with me; the hatch is jammed. The bird took one in its claws and dropped it in its black temple on the burning mountain's shoulder. The third fell into the river of fire, and the beetles dragged it into the tubes.\n\nIf anyone reads this: put it back. Put it back.
+note templecarving The temple's carving | (cut into the black stone over the braziers)\n\nLight the three fires as the sun lights them -\ndawn, noon, dusk:\nthe east, the high one, the west -\nand the stone door will open.
+note mothersong The Mother's song | (carved on a stone by the dry basin)\n\nThree that were one, lay them in my bowl.\nCarry my heart over the saddle where the Ember watches.\nLay it on my stone at the top of the world,\nand I will wake.
+note welcomepost The elders' welcome | (freshly carved, the wood still pale)\n\nThe Mother is awake and the island is green. We came home on the morning tide and found her heart in the shrine and the Ember asleep.\n\nWhoever you are - you are one of us now. Our gift is in the canoe house.
+note canoebox Canoe house box | The canoe builders' box: adzes, cord - and a long iron pry bar, for planks that won't come apart.
+loot canoebox story:prybar*1;Rope*3
+prop canoebox loot.refill=0
+note wreckhold Navigator's hold | Corvan's hold, its hatch pried open: charred cargo, salt-stiff charts - and in a box lined with moss, the first shard of the Bloomstone.
+loot wreckhold story:shard*1;Scrap*3;TitaniumOre*1
+prop wreckhold loot.refill=0
+prop wreckhold if.open=has|story:prybar|1
+prop wreckhold else.open=message||The hold's hatch is jammed shut with fire-warped planks. A pry bar would do it.
+note tubechest Tubes' chamber chest | A beetle-gnawed box in the glowing chamber at the tubes' end: the second shard, warm to the touch.
+loot tubechest story:shard*1;CopperOre*2
+prop tubechest loot.refill=0
+note emberpot Ember pot | A clay pot in the lava's glow, a coal burning in it that never goes out.
+loot emberpot story:livecoal*1;Clay*2
+prop emberpot loot.refill=0
+note sanctumchest Sanctum chest | In the black sanctum, where the Cinderwraith dropped it: the third shard of the Bloomstone.
+loot sanctumchest story:shard*1;TradeToken*3
+prop sanctumchest loot.refill=0
+note eldersgift Elders' gift | The elders' gift, in the canoe house: seeds of every tree that grows here, the gardeners' plans for terraced beds, a water gourd that never turns sour - and titanium and coin from Corvan's ship, which the sea gave back.
+loot eldersgift Blueprint_Cropplot_Large_Tier3*1;Blueprint_Cropplot_Medium_Tier3*1;Blueprint_Canteen*1;Seed_Mango*4;Seed_Banana*4;Seed_Palm*4;TitaniumIngot*4;TradeToken*12
+prop eldersgift loot.refill=0
+prop eldersgift if.open=signal|bloomed
+prop eldersgift else.open=message||A chest bound with green cord, a carved leaf on its lid. It is not yours yet.
+note villagestore Village store box | The village store's box, half burnt: rope, stone tools, dried fish.
+loot villagestore Rope*3;Stone*4;Cooked_Herring*2
+prop villagestore loot.refill=0
+note fishbox Fishers' box | The fishers' box: hooks, line, a net with holes burnt in it.
+loot fishbox FishingBait_Simple*3;Rope*2;Plank*4
+prop fishbox loot.refill=0
+note beachbarrel Beached barrel | A barrel from Corvan's ship, washed up on the black sand.
+loot beachbarrel Plank*6;Nail*8;Scrap*2
+prop beachbarrel loot.refill=0
+note wreckbarrel Wreck's galley barrel | The ship's galley barrel: salt pork gone to leather, and scrap.
+loot wreckbarrel Scrap*4;MetalOre*2;Leather*1
+prop wreckbarrel loot.refill=0
+note tubecache Side tunnel cache | A cache in a side tunnel: someone's lamp, and ore they never carried out.
+loot tubecache MetalOre*3;CopperOre*2;BioFuel*1
+prop tubecache loot.refill=0
+note templeoffering Temple offering box | An offering box in the temple: black glass, gold, and a bundle of feathers.
+loot templeoffering TradeToken*4;Feather*4;Glass*2
+prop templeoffering loot.refill=0
+note springbox Box by the basin | A box by the dry basin: a gardener's trowel, seed jars, sealed.
+loot springbox Seed_Banana*2;Seed_Pineapple*2;Clay*3
+prop springbox loot.refill=0
+note cairnbox Cairn box | A box in the cairn on the pass: what travellers left for travellers.
+loot cairnbox HealingSalve*2;PlasticBottle_Water*2;Rope*2
+prop cairnbox loot.refill=0
+
+prop brazier1 obj.name=brazier1
+prop brazier1 beh.use=Light the eastern brazier (dawn)
+prop brazier1 if.use=has|story:livecoal|1
+prop brazier1 on.use=message||The coal catches the oil on the eastern stand. Dawn.\nshow|flame1\nsignal||br1\nsound||event:/crafting/torch
+prop brazier1 else.use=message||A cold brazier stand. You'd need fire - the Ember's own, from the tubes.
+prop brazier2 obj.name=brazier2
+prop brazier2 beh.use=Light the high brazier (noon)
+prop brazier2 if.use=has|story:livecoal|1\nsignal|br1
+prop brazier2 on.use=message||The high brazier blazes. Noon.\nshow|flame2\nsignal||br2\nsound||event:/crafting/torch
+prop brazier2 else.use=message||It won't catch. "As the sun lights them: dawn, noon, dusk."
+prop brazier3 obj.name=brazier3
+prop brazier3 beh.use=Light the western brazier (dusk)
+prop brazier3 if.use=has|story:livecoal|1\nsignal|br2
+prop brazier3 on.use=message||The western brazier flares. Dusk - and with a grinding the stone door of the sanctum sinks into the ground.\nshow|flame3\nopen|sanctumdoor\nsound||event:/exploring/temperence/selene/gate_open
+prop brazier3 else.use=message||It won't catch. "As the sun lights them: dawn, noon, dusk."
+prop flame1 obj.name=flame1
+prop flame1 beh.hidden=1
+prop flame2 obj.name=flame2
+prop flame2 beh.hidden=1
+prop flame3 obj.name=flame3
+prop flame3 beh.hidden=1
+prop sanctumdoor obj.name=sanctumdoor
+prop sanctumdoor beh.move=0,-3,0
+prop sanctumdoor beh.moveTime=3
+prop sanctumdoor beh.moveMode=switch
+prop motherbowl obj.name=motherbowl
+prop motherbowl beh.use=Lay the three shards in the Mother's bowl
+prop motherbowl if.use=quest|16\ntake|story:shard|3
+prop motherbowl on.use=message||The shards slide together in the bowl as if they had never been apart. Light runs through the cracks and is gone - the Bloomstone, whole, green as a leaf. Around the basin, fireflies wake.\ngive||story:bloomstone*1\nshow|springglow\nshow|saddle\nsound||event:/crafting/learn
+prop motherbowl else.use=message||A stone bowl with three hollows, worn smooth. The song carved on the stone beside it says what belongs in it - all three shards.
+prop springglow obj.name=springglow
+prop springglow beh.hidden=1
+prop summitaltar obj.name=summitaltar
+prop summitaltar beh.use=Lay the Bloomstone on the Mother's stone
+prop summitaltar if.use=quest|20\ntake|story:bloomstone|1
+prop summitaltar on.use=message||You lay the heart on the stone. For a breath, nothing. Then the ground sighs under your feet - and green runs down the mountain like water: grass over the ash, palms where the dead trees stood, flowers in the cracks. Across the saddle the Ember's fire sinks and goes out. On the stone, where the Bloomstone lay, there is a seed pod.\nhide|ash\nshow|green\nhide|ashsky\nshow|greensky\nhide|craterfire\nshow|canoes\nshow|welcomepost\nshow|homecoming\nsignal||bloomed\ngive||story:seedpod*1\nsound||event:/crafting/plant_plant
+prop summitaltar else.use=message||The Mother's stone, bare and cold, a hollow on top the size of a heart.
+prop ash obj.name=ash
+prop ash tint.color=#5a5550
+prop ash tint.amount=0.6
+prop obsidian tint.color=#141418
+prop obsidian tint.amount=1
+prop sanctumdoor tint.color=#141418
+prop sanctumdoor tint.amount=1
+prop wreck tint.color=#2a2420
+prop wreck tint.amount=0.6
+prop summitaltar tint.color=#5a6a4a
+prop summitaltar tint.amount=0.4
+prop springglow atmo.fog=#c8f0c0
+prop springglow atmo.fogAmount=0.1
+prop springglow atmo.light=#c8ffb0
+prop springglow atmo.lightAmount=0.35
+prop springglow atmo.particles=mist
+prop springglow zone.radius=8
+prop green obj.name=green
+prop green beh.hidden=1
+prop ashsky obj.name=ashsky
+prop ashsky atmo.fog=#4a3a30
+prop ashsky atmo.fogAmount=0.3
+prop ashsky atmo.light=#ff9a60
+prop ashsky atmo.lightAmount=0.25
+prop ashsky atmo.particles=embers
+prop ashsky zone.radius=50
+prop greensky obj.name=greensky
+prop greensky beh.hidden=1
+prop greensky atmo.fog=#d8ecd8
+prop greensky atmo.fogAmount=0.08
+prop greensky atmo.light=#fff4d0
+prop greensky atmo.lightAmount=0.2
+prop greensky zone.radius=50
+prop craterfire obj.name=craterfire
+prop craterfire atmo.fog=#3a1a10
+prop craterfire atmo.fogAmount=0.35
+prop craterfire atmo.light=#ff5020
+prop craterfire atmo.lightAmount=0.4
+prop craterfire atmo.particles=embers
+prop craterfire zone.radius=30
+prop canoes obj.name=canoes
+prop canoes beh.hidden=1
+prop welcomepost obj.name=welcomepost
+prop welcomepost beh.hidden=1
+# (the carved post apart from its sign: under the sign's alias it was a second note "The elders' welcome")
+prop welcomepillar obj.name=welcomepost
+prop welcomepillar beh.hidden=1
+prop homecoming obj.name=homecoming
+prop homecoming beh.hidden=1
+
+prop village zone.id=village
+prop village zone.radius=14
+prop village zone.message=The burnt village: huts on blackened posts, a great carved column, a canoe house with its doors hanging - and boars, grey with ash, rooting in the cold hearths.
+prop wreckzone zone.id=wreck
+prop wreckzone zone.radius=10
+prop wreckzone zone.message=Corvan's ship on the floor of the bay, black with old fire, her hold's hatch jammed shut.
+prop lavatubes zone.id=lavatubes
+prop lavatubes zone.radius=10
+prop lavatubes zone.message=The lava tubes: round black tunnels lit red from deep inside - and the clicking of beetles, big ones.
+prop obsidiantemple zone.id=obsidiantemple
+prop obsidiantemple zone.radius=10
+prop obsidiantemple zone.message=The black temple: black pillars, three cold brazier stands and a door of grey stone.
+prop motherspring zone.id=motherspring
+prop motherspring zone.radius=8
+prop motherspring zone.message=The Green Mother's spring: a dry basin, a stone bowl with three hollows, words carved on a stone.
+prop saddle obj.name=saddle
+prop saddle beh.hidden=1
+prop saddle zone.id=saddle
+prop saddle zone.radius=14
+prop saddle zone.message=The saddle between the peaks. The Ember's mouth glows above you - and out of it comes the Cinderwraith, a bird of black stone with fire in its cracks!
+prop mothersummit zone.id=mothersummit
+prop mothersummit zone.radius=8
+prop mothersummit zone.message=The top of the world: a ring of stones, the Mother's bare altar, and the whole grey island below.
+prop homecoming zone.id=homecoming
+prop homecoming zone.radius=12
+prop homecoming zone.message=The village - green now, the canoes running up onto the sand, people jumping into the shallows. They are home.
+prop ashboars creature.count=3
+prop ashboars creature.respawn=0
+prop ashboars creature.zone=village
+prop ashboars tint.color=#6a6560
+prop ashboars tint.amount=0.5
+prop beetles creature.count=4
+prop beetles creature.size=1.5
+prop beetles creature.respawn=0
+prop beetles creature.zone=lavatubes
+prop beetles tint.color=#3a1a10
+prop beetles tint.amount=0.6
+prop cinderwraith creature.count=1
+prop cinderwraith creature.size=2
+prop cinderwraith creature.health=2
+prop cinderwraith creature.damage=2
+prop cinderwraith creature.respawn=0
+prop cinderwraith creature.zone=saddle
+prop wraithfire atmo.particles=embers
+prop wraithfire zone.radius=14
+prop tubeglow atmo.fog=#2a0a04
+prop tubeglow atmo.fogAmount=0.5
+prop tubeglow atmo.light=#ff5020
+prop tubeglow atmo.lightAmount=0.5
+prop tubeglow atmo.particles=embers
+prop tubeglow zone.radius=14
+prop tubesound sound.event=event:/amb/cave
+prop tubesound sound.volume=0.7
+prop tubesound zone.radius=20
+
+quest title=The Bloomstone
+quest intro=An island of ash under two great peaks, a burnt village by the bay, and a story carved on a column. Start in the village.
+# Chapter 1 - the ash shore
+step reach|village|1|Land at the burnt village on the bay shore
+step read|The elders' carving|1|Read the story carved round the village's great column
+step kill|Warthog|3|Drive off the ash boars rooting through the village
+step collect|story:prybar|1|Take the canoe builders' pry bar from the canoe house
+step reach|wreck|1|Dive to the navigator's ship sunk in the bay
+step read|Navigator's log|1|Read the navigator's log on the wreck's deck
+# Chapter 2 - the three shards
+step collect|story:shard|1|Pry open the wreck's hold for the first shard of the Bloomstone
+step reach|lavatubes|1|Find the lava tubes in the Ember's south flank
+step kill|Roach|4|Clear the ember beetles out of the tubes
+step collect|story:shard|2|Take the second shard from the glowing chamber at the tubes' end
+step collect|story:livecoal|1|Take a live coal from the ember pot by the lava glow
+step reach|obsidiantemple|1|Climb to the black temple on the Ember's shoulder
+step read|The temple's carving|1|Read the carving over the temple's braziers
+step collect|story:shard|3|Light the braziers in the carving's order and take the third shard from the sanctum
+# Chapter 3 - the mending
+step reach|motherspring|1|Go to the Green Mother's spring at the foot of the eastern peak
+step read|The Mother's song|1|Read the song carved by the dry basin
+step collect|story:bloomstone|1|Lay the three shards in the Mother's bowl
+step reach|saddle|1|Carry the Bloomstone up to the saddle between the peaks
+step kill|Screecher|1|Face the Cinderwraith when it comes down off the Ember
+step reach|mothersummit|1|Climb to the Green Mother's summit
+# Chapter 4 - bloom
+step collect|story:seedpod|1|Lay the Bloomstone on the Mother's stone - and watch the island turn green
+step reach|homecoming|1|Go back down to the village - the canoes are coming home
+step read|The elders' welcome|1|Read the elders' welcome on the new carved post
+step open|Elders' gift|1|Open the elders' gift in the canoe house
+quest done=The Mother is awake, the Ember asleep, and the island green from shore to summit. Its people are home - and so, it seems, are you.
+quest reward=Plank*12;Rope*6;Cooked_Salmon*4
+
+save Heart of Fire
+

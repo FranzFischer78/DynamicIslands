@@ -1,0 +1,54 @@
+# Kit check (not content): Sun Atoll's pieces - Balboa's antenna parts as a measuring mast, Balboa's fence and signs, the
+# projector and its screen, toxic barrels lying, a steel beam, scorched stumps, lead boxes, signs, a ceiling lamp, the notebook
+new
+gen Seed=1 Radius=40 Height=4 Shape=4 Roughness=0.1 ObjectDensity=0 Trees=0 Bushes=0 Rocks=0 BeachThings=0 Harvest=0
+gen Hostiles=0 Friendly=0 SeaLife=0 Water=0 SeaRocks=0 SeaFinds=0 Sunken=0
+generate
+brush flatten at 0 0 r=35 s=20 frames=60
+# row 1 (z 12): the mast - Balboa's antenna pole, dish, supports
+place Antenna_pole pole at -12 12
+place Antenna_dish dish at -12 12 y=6
+place Antenna_support01 sup1 at -12 12 y=2
+place Antenna_support02 sup2 at -6 12 y=2
+place Antenna_support03 sup3 at -2 12 y=2.8
+place Placeable_Reciever_Antenna rant at 4 12
+place VP_Cable_Roll02 reel at 8 12
+# row 2 (z 2): fences and signs
+place Balboa_DecorationPrefabBase_Fence_Mid fence1 at -12 2
+place Balboa_DecorationPrefabBase_Fence_Mid fence2 at -9 2
+place Balboa_DecorationPrefabBase_Fence_Sign fsign at -10.5 2.3 y=1.2
+place VG_SignAuthorized auth at -6 2 y=1.2
+place RT_Signs rtsigns at -2 2 y=1.5
+place Sign_04 sign4 at 2 2 y=1
+place Balboa_DecorationPrefabBase_ToxicBarrel tb0 at 6 2
+place Balboa_DecorationPrefabBase_ToxicBarrel tb1 at 8 2 roll=90
+place Balboa_DecorationPrefabBase_ToxicBarrel tb2 at 10 2 tilt=90
+# row 3 (z -8): the projector, its screen, a steel beam, a stump, lead boxes, the lamp, the notebook
+place "VG_DecorationPrefabBase_Projector Variant" proj at -12 -8 y=1
+place "VG_DecorationPrefabBase_ProjectorScreen Variant" screen at -8 -8 y=2.8
+place VP_SteelBeam02 beam at 0 -8
+place RT_PillarThick stump at 6 -8 sy=0.38
+place "Box Small" leadbox at 9 -8
+place Loot_ChestSmall leadcase at 11 -8
+place Stairwell_CeilingLamp_NoLight lamp at 14 -8 y=3
+place Note_Book nb0 at 16 -8
+place Note_Book nb1 at 17 -8 rot=0,0,0
+prop stump tint.color=#2a2622
+prop stump tint.amount=1
+prop leadbox tint.color=#4a4c50
+prop leadbox tint.amount=0.8
+# row 4 (z -20): footings, broken window walls, sand-tinted drifts, the radiation map, a sign on a post
+place RT_GroundPillar footing at -14 -20 y=1.5
+place RT_GroundPillarCap footcap at -10 -20 y=1.5
+place RT_WallWindowBroken wb0 at -4 -20
+place RT_WallWindowBroken1 wb1 at 0 -20
+place RT_WallWindowBroken2 wb2 at 4.5 -20
+place TP_SnowDrift01 drift1 at 10 -20
+place TP_SnowDrift02 drift2 at 15 -20
+prop drift1 tint.color=#d8bd8c
+prop drift1 tint.amount=1
+prop drift2 tint.color=#d8bd8c
+prop drift2 tint.amount=1
+place RadiationMap_On radmap at 18 -20 y=1.5 yaw=90
+place ReefHuts_Pillar1 signpost at 21 -20
+place Sign_04 sign4b at 21 -20.15 y=2.2

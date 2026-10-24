@@ -1,0 +1,405 @@
+# Halcyon Cove - a themed island, three times the size (x3)
+# Inspiration: the perfect-town-that-is-a-stage-set film (a pastel seaside town built round one man's life, hidden
+#   cameras, rain on cue, a control booth in the "moon", and a painted sky wall out at sea with a door in it) - the mood
+#   only, never named on the island.
+# Island type: Shape 0 (Round), Style 0 (tropical). A gentle round island: the town on the flat plain of its north side
+#   (3 m) by the north beach and its jetty, a hill in the middle with the weather tower on its north slope and the white
+#   dome ("the moon") on its top, and 36 m off the east shore, on a sandbank, the sky wall.
+# Everyone in Halcyon Cove was an actor except one man. One day he took a boat, sailed into the rain the weather tower
+# threw at him, reached the painted horizon, climbed its stair and went out through the door in the sky. The crew turned
+# the lights off and left. The cameras are still hidden round the town; the director's journal is in the moon.
+# Quest "The Door in the Sky" (12 steps): the square, the welcome board, a neighbour's "script", four hidden cameras'
+# tapes, the weather tower, the rain log, the rain switched off (the booth key), the moon, the director's journal, the
+# tapes played (the exit key), the sky wall, the door and what's behind it (crop plot blueprint, a globe of the world).
+#
+# Built by the recipe player (CIRecipe halcyon_cove) through the editor's own operations.
+include lib_rt
+include lib_huts
+include lib_sea
+new
+# (nature: tropical, Like Raft - palms and gardens; the town's lawns and flower beds the recipe's own)
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=9020 Radius=78 Height=14 Roughness=0.25 Peaks=1 Shape=0 Style=0 BeachWidth=0.6 Cliffs=0.1 PeakShape=0.3
+gen SeaFloor=0 Shelf=0.45 Seabed=0
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the town levelled at 3.2 m on the north plain (lawns painted grass, the street and square sand); the
+# weather tower's pad on the hill's north slope (10 m), the moon's on the hilltop (12.5 m), the back lot behind it; the
+# sandbank raised under the sky wall off the east shore ---------------------------------------------------------------
+for tz 36 68 4
+brush flatten from -40 $tz to 40 $tz r=4.5 s=20 frames=120 h=3.2
+next
+brush smooth from -44 70 to 44 70 r=4 s=10 frames=10
+brush smooth from -44 34 to 44 34 r=4 s=10 frames=10
+brush grass from -40 52 to 40 52 r=18 s=20 frames=25
+brush sand from -40 50 to 40 50 r=3.5 s=20 frames=25
+brush sand at 0 50 r=10 s=20 frames=25
+brush sand from -1.5 52 to -1.5 72 r=2 s=20 frames=25
+brush flatten at 0 30 r=5 s=20 frames=100 h=10
+brush flatten at 5.25 25.75 r=4.5 s=20 frames=80 h=9.6
+brush flatten at -4 2 r=9 s=20 frames=120 h=12.5
+brush flatten at -4 -14 r=6 s=20 frames=80 h=9
+for bx 94 116 4
+brush flatten from $bx -22 to $bx 22 r=4.5 s=20 frames=150 h=-2.2
+next
+clear from 105 -26 to 105 26 r=15
+clear from -44 52 to 44 52 r=20
+clear from -1.5 52 to -1.5 76 r=3
+clear at 0 30 r=7
+clear at -4 2 r=11
+clear at -4 -14 r=8
+clear from 0 38 to 0 30 r=3
+clear from 0 30 to -4 10 r=3
+
+# ===== The town ===========================================================================================================
+# --- The square: the founder's statue, benches, lamp posts, flower beds; the welcome board where the jetty's path comes
+# in; the hidden cameras (the statue's shoulder, a hibiscus, the barber's sign, a cafe table) ---------------------------
+place TangaroaFounderStatue - at 0 50 ground sit
+place TangaroaBench - at 0 56 ground yaw=180
+place TangaroaBench - at -6 50 ground yaw=90
+place TangaroaBench - at 6 50 ground yaw=270
+place Floorlamp_02 - at -8 58 ground
+place Floorlamp_02 - at 8 58 ground
+place Floorlamp_02 - at -8 42 ground
+place Floorlamp_02 - at 8 42 ground
+scatter Placeable_Flower_Rose 8 at -5 45 r=2 seed=201
+scatter Placeable_Flower_Sunflower 8 at 5 45 r=2 seed=202
+place Placeable_Flower_Hibiscus - at -6 55.5 ground
+place Placeable_Flower_Hibiscus - at 6.5 55 ground
+scatter Placeable_Flower_Rose 6 at 4 55 r=1.5 seed=203
+place Note_Board welcome at -4 63 ground
+place RT_Camera cam1 at 0.9 50 y=3.9 yaw=200
+place RT_Camera cam2 at -6 55.5 ground sit yaw=150
+place Zone_Trigger square at 0 50 y=1.5
+
+# --- The houses round the street: four of the radio tower's rooms - two north of the street, two south of it (their pastel
+# tints don't take on the tower's concrete: neat white houses) - each with a white picket fence along its lawn; the town hall, the barber's; the
+# neighbour's script on the mint house's porch table ----------------------------------------------------------------------
+push at -14 59.7 h=3.35
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 l2=RT_WallWindow1 r2=RT_WallWindow1 b1=RT_WallWindow1 a=pinkhouse
+place RT_Floor pinkhouse at 0 4.5 y=3
+place Placeable_Cupboard_Medium housecupboard at -5.4 2 y=0 sit yaw=90
+place "VG_DecorationPrefabBase_Sofa Variant" - at -2.5 3.5 y=0 sit yaw=180
+place Pickup_Landmark_Plastic3_Land - at -3.0 -1.2 y=0.3 drop yaw=64
+pop
+push at 26 59.7 h=3.35
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 l2=RT_WallWindow1 r2=RT_WallWindow1 b2=RT_WallWindow1 a=minthouse
+place RT_Floor minthouse at 0 4.5 y=3
+place Placeable_Table_Basic - at -1.5 -6.35 y=0 sit
+place Note_Paper script at -1.5 -6.35 y=2 drop yaw=15
+place Pickup_Landmark_Plastic3_Land - at -4.2 1.8 y=0.3 drop yaw=130
+pop
+push at -14 40.3 h=3.35 yaw=180
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 l2=RT_WallWindow1 r2=RT_WallWindow1 b1=RT_WallWindow1 a=skyhouse
+place RT_Floor skyhouse at 0 4.5 y=3
+place Pickup_Landmark_Plastic6_Land - at -2.5 -1.0 y=0.3 drop yaw=-35
+pop
+push at 32 40.3 h=3.35 yaw=180
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 l2=RT_WallWindow1 r2=RT_WallWindow1 b2=RT_WallWindow1 a=lemonhouse
+place RT_Floor lemonhouse at 0 4.5 y=3
+place TangaroaStoreSign_FloatingFashion - at -3 -4.65 y=3.6 yaw=180
+place Pickup_Landmark_Plastic3_Land - at -4.0 1.5 y=0.3 drop yaw=252
+pop
+push at 15 63 h=3.35
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 l2=RT_WallWindow1 r2=RT_WallWindow1 b1=RT_WallWindow1 b2=RT_WallWindow1 a=townhall
+place RT_Floor townhall at 0 4.5 y=3
+place Placeable_Flag_03 - at -3 0 y=3 sit
+place Pickup_Landmark_Plank_Land - at -1.5 2.5 y=0.3 drop yaw=18
+pop
+push at -26 59.7 h=3.35
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 l2=RT_WallWindow1 r2=RT_WallWindow1 a=barbershop
+place RT_Floor barbershop at 0 4.5 y=3
+place TangaroaStoreSign_SeasideBarber - at -1.5 -4.62 y=2.6 yaw=180
+place TangaroaStoreSign_SeasideBarber_Pole - at -0.3 -4.85 y=0.6 yaw=180
+place RT_Camera cam3 at -0.3 -4.85 y=1.39 sit yaw=180
+place "Chair Office" - at -3 1 y=0 sit
+place "Box Small" barberbox at -5.3 3.6 y=0 sit
+pop
+line Block_Wall_Fence_Plank from -21 52.3 to -13 52.3 step=1.455 sit
+line Block_Wall_Fence_Plank from 19 52.3 to 27 52.3 step=1.455 sit
+line Block_Wall_Fence_Plank from -21 47.7 to -13 47.7 step=1.455 sit
+line Block_Wall_Fence_Plank from 25 47.7 to 33 47.7 step=1.455 sit
+
+# --- The cafe on the square's east side: the burger bar's sign, a sunshade over a table for one (a camera on it), its
+# fridge ------------------------------------------------------------------------------------------------------------------
+place TangaroaStoreSign_ChisBurgers - at 21 45 ground yaw=270
+place TangaroaKitchen_Fridge burgerfridge at 21 41.5 ground sit yaw=270
+place RestaSunshadeGround - at 15.5 45 ground
+place Tangaroa_OutdoorFurniture_Table - at 15.5 45 ground sit
+place Tangaroa_OutdoorFurniture_Chair - at 14.5 45 ground sit yaw=90
+place RT_Camera cam4 at 15.6 45.2 y=0.76 sit yaw=270
+place Tangaroa_OutdoorFurniture_Table - at 15.5 41 ground sit
+place Tangaroa_OutdoorFurniture_Chair - at 14.5 41 ground sit yaw=90
+place Tangaroa_OutdoorFurniture_Chair - at 16.5 41 ground sit yaw=270
+
+# --- The studio lights on poles round the square (the radio tower's floodlights), the jetty on the north beach with a
+# dinghy; the rain over the town (on at first) ------------------------------------------------------------------------------
+place Antenna_pole - at -8 62.5 ground
+place RT_Floodlight studiolights at -8 62.5 y=6.2 yaw=150 scale=1.6
+place Antenna_pole - at 9 37.5 ground
+place RT_Floodlight studiolights at 9 37.5 y=6.2 yaw=-40 scale=1.6
+place Antenna_pole - at -10 37.5 ground
+place RT_Floodlight studiolights at -10 37.5 y=6.2 yaw=40 scale=1.6
+push at -1.5 71 h=-2 yaw=-90
+call boardwalk n=8 wide=1 y=3.6
+pop
+place RT_PlasticBoat - at 1.5 79 h=0.3 yaw=5
+place Zone_Atmosphere rain at 0 50 y=3
+place Zone_Sound rainsound at 0 50 y=3
+
+# ===== The hill ===========================================================================================================
+# --- The weather tower on the hill's north slope: four legs of two of the radio tower's thick pillars each, a deck at 12 m
+# with rails, two ladders up its south side; on the deck three rain makers and the machine's box; the weather man's hut
+# at its foot with his log ----------------------------------------------------------------------------------------------
+place RT_PillarThick - at -1.5 28.5 h=10
+place RT_PillarThick - at 1.5 28.5 h=10
+place RT_PillarThick - at -1.5 31.5 h=10
+place RT_PillarThick - at 1.5 31.5 h=10
+place RT_PillarThick - at -1.5 28.5 h=16
+place RT_PillarThick - at 1.5 28.5 h=16
+place RT_PillarThick - at -1.5 31.5 h=16
+place RT_PillarThick - at 1.5 31.5 h=16
+place RT_Floor - at 1.7 31.7 h=22 sx=0.563 sz=0.378
+place RT_Fence - at 0 31.7 h=22.05
+place RT_Fence - at 1.5 31.7 h=22.05
+place RT_Fence - at 1.7 30 h=22.05 yaw=90
+place RT_Fence - at 1.7 28.5 h=22.05 yaw=90
+place RT_Fence - at -1.7 30 h=22.05 yaw=90
+place RT_Fence - at -1.7 28.5 h=22.05 yaw=90
+place LandmarkLadder_6m - at 0 28.2 h=10
+place LandmarkLadder_6m - at 0 28.2 h=16.4
+place Placeable_Sprinkler - at -1 31 h=22.05 sit yaw=0
+place Placeable_Sprinkler - at 0.2 31.2 h=22.05 sit yaw=20
+place Placeable_Sprinkler - at 0.9 30.6 h=22.05 sit yaw=-20
+place TP_Moontown_SealedCrate02_Clean - at -0.85 29.4 h=22.05 sit
+place RT_PowerBox rainswitch at -1 29.4 h=22.97 sit yaw=180
+place Zone_Trigger weathertower at 0 30 h=23
+push at 3 23.5 h=9.6
+call stilt_hut y=0.5 ladder=none
+place Placeable_Table_Basic - at 2.25 3.4 y=0.5 sit
+place Note_Book weatherlog at 2.25 3.4 y=1.6 drop yaw=10
+place "Pickup_Landmark_Scrap 3_Land" - at 1.1 1.6 y=0.8 drop yaw=95
+pop
+
+# --- The moon on the hilltop: Temperance's dome house tinted pale silver, the booth inside (the console, screens, the
+# director's journal); the back lot behind it - prop crates, a spare "sun", the set's guard dogs ------------------------
+place TP_Igloo_Small_1 moondome at -4 2 h=12.5 sit
+place VG_ControlBoard console at -4 3.5 h=12.6 sit scale=0.45
+place Placeable_Table_Basic - at -4 5.4 h=12.6 sit
+place Balboa_DecorationPrefabBase_Flatscreen - at -4.8 5.4 h=14 drop
+place Balboa_DecorationPrefabBase_Flatscreen - at -4 5.4 h=14 drop
+place Balboa_DecorationPrefabBase_Flatscreen - at -3.2 5.4 h=14 drop
+place "Chair Office" - at -4 1.6 h=12.6 sit
+place Note_Book journal at -2.4 2.6 h=13.6 drop yaw=30
+place Zone_Trigger moon at -4 2 h=14
+place VP_StorageCrate02 - at -7 -14 ground sit yaw=20
+place VP_StorageCrate02 - at -1 -15 ground sit yaw=-10
+place RT_Floodlight - at -4 -11 ground scale=3
+place Creature_Hyena dogs at -4 -17 ground
+place Zone_Trigger backlot at -4 -14 y=1.5
+
+# ===== The sky wall =========================================================================================================
+# --- 36 m off the east shore on the sandbank (2.2 m down): a wall of the radio tower's walls tinted sky blue, ten pieces
+# long (30 m) and six high (18 m); in its third course the door in the sky (one wall piece that swings open on its
+# hinge); a landing on legs at the waterline, the radio tower's stair up to the door; behind it a ledge with the exit
+# sign and the last prop crate; fallen props and a sunk barrel at its foot ----------------------------------------------
+macro skycourse h
+for k 0 4 1
+place RT_Wall1 skywall at 108 {-15+3*$k} h=$h yaw=90
+next
+for k 6 9 1
+place RT_Wall1 skywall at 108 {-15+3*$k} h=$h yaw=90
+next
+end
+macro skyfull h
+for k 0 9 1
+place RT_Wall1 skywall at 108 {-15+3*$k} h=$h yaw=90
+next
+end
+call skyfull -2.2
+call skyfull 0.8
+call skycourse 3.8
+call skyfull 6.8
+call skyfull 9.8
+call skyfull 12.8
+place RT_Wall1 skydoor at 108 0 h=3.8 yaw=90
+place RT_Floor - at 98.5 3 h=-0.2 sx=0.5 sz=0.333
+place RT_PillarThick - at 95.8 0.3 h=-2.2 sy=0.33
+place RT_PillarThick - at 98.2 0.3 h=-2.2 sy=0.33
+place RT_PillarThick - at 95.8 2.7 h=-2.2 sy=0.33
+place RT_PillarThick - at 98.2 2.7 h=-2.2 sy=0.33
+place RT_Stair - at 98.2 2.25 h=-0.2 yaw=180
+place RT_Floor - at 108 3 h=3.8 sx=0.42 sz=0.333
+place RT_PillarThick - at 105.8 0.3 h=-2.2 sy=1
+place RT_PillarThick - at 107.7 0.3 h=-2.2 sy=1
+place RT_PillarThick - at 105.8 2.7 h=-2.2 sy=1
+place RT_PillarThick - at 107.7 2.7 h=-2.2 sy=1
+place RT_Floor - at 111.2 3 h=3.8 sx=0.5 sz=0.333
+place RT_PillarThick - at 108.5 0.3 h=-2.2 sy=1
+place RT_PillarThick - at 110.9 0.3 h=-2.2 sy=1
+place RT_PillarThick - at 108.5 2.7 h=-2.2 sy=1
+place RT_PillarThick - at 110.9 2.7 h=-2.2 sy=1
+place Balboa_DirectionSign - at 110.6 0.5 h=3.85 sit yaw=90
+place "Box Big" lastcrate at 110 1.5 h=3.85 sit yaw=90
+place Zone_Trigger skywallzone at 97 1.5 h=1
+place VP_MovingBox01 - at 104 -6 h=-2 drop yaw=30
+place VP_MovingBox03 - at 105 9 h=-2 drop yaw=-20
+place Loot_SunkenBarrel propbarrel at 103.5 5 h=-1.5 drop
+place Creature_Turtle turtles at 95 -10 h=-1.5
+place Creature_Stingray rays at 104 -12 h=-1.8
+
+# --- Hens on the town's lawns, dolphins off the north beach ---------------------------------------------------------------
+place Creature_Chicken hens at -17 49 ground
+prop hens creature.count=4
+place Creature_Dolphin dolphins at 0 105 h=-3
+prop dolphins creature.count=2
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): palms, bananas, flowers ----------
+scatter "Pickup_Landmark_Tree_Palm 1" 4 at 0 0 r=54.6 seed=4144 free=5
+scatter "Pickup_Landmark_Tree_Palm 3" 4 at 0 0 r=54.6 seed=4145 free=5
+scatter "Banana_Bush_2" 6 at 0 0 r=54.6 seed=4154 free=3
+scatter "Pickup_Landmark_Flower_Red" 4 at 0 0 r=54.6 seed=4164 free=3
+scatter "Pickup_Landmark_Flower_Yellow" 4 at 0 0 r=54.6 seed=4165 free=3
+
+# --- Raft's finds in the shallows round the island and along the sandbank (lib_sea) ------------------------------------
+call shallows r=100 deep=5 n=1
+call shallows x=106 z=0 r=20 deep=4 n=1 seed=90
+
+# ===== Settings, story items, notes, behaviours, quest (12 steps) =========================================================
+info title=Halcyon Cove
+info author=Custom Islands
+info description=A perfect little town on a sunny island - where it rains at 7:42 on cue, the neighbours' notes read like scripts and there are cameras in the flower beds. Everyone here was acting but one man, and one day he sailed out to the horizon and found a wall. The door in it is still there.
+island on.arrive=message||A neat white town on a perfect island: lawns, picket fences, a statue in the square. It's raining on the town - only on the town. The sky over the sea to the east looks... flat.
+
+story tape|Camera tape|quest:Tangaroa_Tape|A tape from one of the hidden cameras, labelled with a number and a day.
+story boothkey|Booth key|quest:Tangaroa_KeyCard|The key to the booth in the "moon", from the rain machine's box.
+story exitkey|Exit key|quest:Utopia_KeyEntrance|A key on a ring marked EXIT, from the director's console.
+
+note welcome Welcome board | WELCOME TO HALCYON COVE!\n\nPopulation: one very happy man.\nHave a perfect day!\n\nToday's weather: sunshine, a light breeze at four, a short shower at 7:42.
+note script Neighbour's script | SCENE 212 - MORNING\n\nNEIGHBOUR (cheerful, waving over the fence): "Morning! And in case I don't see you - good afternoon, good evening and good night!"\n\n(Hold for the laugh. He never laughs.)
+note weatherlog Weather log | RAIN CUES - WEEK 340\n\nMon 7:42 - light shower (sad scene at the jetty).\nWed 7:42 - cloudburst. He's trying to sail again: rain him back to the jetty.\n\nNOTE FROM THE DIRECTOR: keep the rain on until he gives up on the boat. The booth key is in the rain machine's box - only the weather man and I have one.
+note journal Director's journal | Day 10,950. He found the camera in the square today. He looked straight into it.\nDay 10,951. He took the boat. We rained on him, we stormed him. He kept going.\nDay 10,952. He reached the wall. He climbed the stair and stood at the door in the sky for a long time. Then he opened it and went through.\n\nWe turned the lights off.\n\nThe town is yours now, whoever you are. Play the tapes on the console - all four - and it will give you his key.
+note lastcrate The last prop crate | Behind the door in the sky: a narrow platform, a sign that says EXIT - and the last prop crate of Halcyon Cove: a globe of the real world, a toy spaceman, the gardener's plans for the perfect flower beds, and the cast's wages in coins.
+loot lastcrate Blueprint_Cropplot_Small_Tier3*1;Placeable_WorldGlobe*1;Placeable_MajorTom*1;TradeToken*8;Glass*6
+prop lastcrate loot.refill=0
+note housecupboard Town house cupboard | A cupboard full of props: plastic fruit, a clock that's only painted on, real glasses.
+loot housecupboard Glass*3;Plastic*4;Placeable_Flower_Rose*1
+prop housecupboard loot.refill=0
+note barberbox Barber's box | The barber's box: shears, towels, a jar of combs.
+loot barberbox Shear*1;Wool*2;Plastic*2
+prop barberbox loot.refill=0
+note burgerfridge Burger bar fridge | The burger bar's fridge: real food, for once.
+loot burgerfridge Cooked_GenericMeat*2;Raw_Potato*3;Watermelon*1
+prop burgerfridge loot.refill=0
+note propbarrel Sunk prop barrel | A barrel of props washed off the wall's landing: rope, a fake lifebuoy, a real anchor chain.
+loot propbarrel Rope*3;MetalOre*2;Scrap*3
+prop propbarrel loot.refill=0
+
+prop cam1 obj.name=cam1
+prop cam1 beh.use=Pull the camera's tape
+prop cam1 if.use=!signal|cam1
+prop cam1 on.use=message||A camera in the statue's stone shoulder, its red light still on. You prise out the tape: DAY 10,950.\ngive||story:tape*1\nsignal||cam1
+prop cam1 else.use=message||Its tape is gone.
+prop cam2 obj.name=cam2
+prop cam2 beh.use=Pull the camera's tape
+prop cam2 if.use=!signal|cam2
+prop cam2 on.use=message||A lens peering out of the hibiscus. The tape inside: DAY 1.\ngive||story:tape*1\nsignal||cam2
+prop cam2 else.use=message||Its tape is gone.
+prop cam3 obj.name=cam3
+prop cam3 beh.use=Pull the camera's tape
+prop cam3 if.use=!signal|cam3
+prop cam3 on.use=message||Behind the barber's sign, a camera aimed at the chair. The tape: DAY 4,016.\ngive||story:tape*1\nsignal||cam3
+prop cam3 else.use=message||Its tape is gone.
+prop cam4 obj.name=cam4
+prop cam4 beh.use=Pull the camera's tape
+prop cam4 if.use=!signal|cam4
+prop cam4 on.use=message||Under the sunshade, a camera pointed at a table for one. The tape: DAY 10,951.\ngive||story:tape*1\nsignal||cam4
+prop cam4 else.use=message||Its tape is gone.
+prop rainswitch obj.name=rainswitch
+prop rainswitch beh.use=Switch the rain machine off
+prop rainswitch if.use=!signal|rainoff
+prop rainswitch on.use=message||You throw the switch. The sprinklers sigh and stop - and over the town the rain stops dead, mid-drop, as if somebody shut a tap. In the box behind the switch hangs a key.\nhide|rain\nsignal||rainoff\ngive||story:boothkey*1\nsound||event:/raft/radar/lever
+prop rainswitch else.use=message||The rain machine is off. It's sunny over Halcyon Cove - perfectly.
+prop rain obj.name=rain
+prop rain atmo.fog=#7a8590
+prop rain atmo.fogAmount=0.3
+prop rain atmo.light=#9aa4ae
+prop rain atmo.lightAmount=0.3
+prop rain atmo.particles=mist
+prop rain zone.radius=40
+prop rainsound obj.name=rain
+prop rainsound sound.event=event:/amb/rain_ocean
+prop rainsound sound.volume=0.6
+prop rainsound zone.radius=40
+prop console obj.name=console
+prop console beh.use=Play the four tapes
+prop console if.use=quest|9\nhas|story:boothkey|1\ntake|story:tape|4
+prop console on.use=message||The four tapes play on every screen at once: a whole life, from a cradle in the town hall to a man in a little boat, bumping his bow against a painted sky. A drawer slides out of the console - a key on a ring marked EXIT.\ngive||story:exitkey*1\nsound||event:/exploring/relaystation/crt
+prop console else.use=message||A console of tape decks, four empty slots and a keyhole - locked. It wants the booth key from the rain machine's box, and the director's journal says what goes in the slots: all four tapes.
+prop skydoor obj.name=skydoor
+prop skydoor beh.use=Unlock the door in the sky
+prop skydoor beh.turn=-100
+prop skydoor beh.moveTime=2
+prop skydoor beh.moveMode=switch
+prop skydoor if.use=has|story:exitkey|1
+prop skydoor on.use=message||The EXIT key turns. The door in the painted sky swings open - and behind it is more sky, and the sea, going on and on.\nopen|skydoor\nsound||event:/raft/door/door_metal_open
+prop skydoor else.use=message||A door in the sky, painted the same blue as the wall, with a keyhole. It's locked.
+
+prop pinkhouse tint.color=#e8b4c0
+prop pinkhouse tint.amount=0.5
+prop minthouse tint.color=#b4e0c8
+prop minthouse tint.amount=0.5
+prop skyhouse tint.color=#b4d0e8
+prop skyhouse tint.amount=0.5
+prop lemonhouse tint.color=#f0e0a0
+prop lemonhouse tint.amount=0.5
+prop townhall tint.color=#f4f2ea
+prop townhall tint.amount=0.5
+prop barbershop tint.color=#f0c8a8
+prop barbershop tint.amount=0.45
+prop square zone.id=square
+prop square zone.radius=10
+prop square zone.message=Halcyon Cove's square: a statue, flower beds, benches - and it's raining here, only here, from a sky that's blue at the edges.
+prop weathertower zone.id=weathertower
+prop weathertower zone.radius=4
+prop weathertower zone.message=The weather tower: three sprinklers on a platform, pointed at the town, spraying.
+prop moon zone.id=moon
+prop moon zone.radius=5
+prop moon zone.message=Inside the moon: a wall of screens, every one showing the town - and one showing an empty jetty.
+prop skywall tint.color=#9fcbe9
+prop skywall tint.amount=0.7
+prop skydoor tint.color=#9fcbe9
+prop skydoor tint.amount=0.7
+prop moondome tint.color=#d8dce8
+prop moondome tint.amount=0.5
+prop backlot zone.id=backlot
+prop backlot zone.radius=8
+prop backlot zone.message=The back lot behind the moon - and the set's guard dogs, still on duty.
+prop skywallzone zone.id=skywall
+prop skywallzone zone.radius=6
+prop skywallzone zone.message=The horizon. It's a wall - painted blue, with clouds on it - and a stair up its face to a door.
+prop dogs creature.count=2
+prop dogs creature.respawn=0
+prop dogs creature.zone=backlot
+prop turtles creature.count=2
+prop rays creature.count=2
+
+quest title=The Door in the Sky
+quest intro=A perfect little town where it rains on cue. Start in the square - and smile, you may be on camera.
+step reach|square|1|Walk into Halcyon Cove's town square
+step read|Welcome board|1|Read the town's welcome board
+step read|Neighbour's script|1|Read the note left on the porch table of the house east of the square
+step collect|story:tape|4|Find the four hidden cameras round the town and pull their tapes
+step reach|weathertower|1|Climb the weather tower on the hill south of the town
+step read|Weather log|1|Read the weather log in the hut at the tower's foot
+step collect|story:boothkey|1|Switch the rain machine off - its box holds the booth key
+step reach|moon|1|Find the booth inside the "moon" on the hilltop
+step read|Director's journal|1|Read the director's journal
+step collect|story:exitkey|1|Play the four tapes on the booth's console
+step reach|skywall|1|Sail east to the horizon - and find the wall
+step open|The last prop crate|1|Climb the stair, open the door in the sky, and open what waits behind it
+quest done=You walk out through the door in the sky, onto a narrow ledge over the real sea. Behind you, Halcyon Cove is quiet: no rain, no cameras, no script - just a town, and an island, and the way out.
+quest reward=Plastic*10;Coconut*4;Watermelon*2
+
+save Halcyon Cove

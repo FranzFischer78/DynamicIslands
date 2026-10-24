@@ -1,0 +1,42 @@
+# lib_sl1 - macros shared by the islands of the library's plan The Lullaby Frequency ("include lib_sl1")
+#
+# shed: a closed building of Raft's blocks w x d cells of the 1.5 m grid, in a frame whose floor is the deck (push ... h=):
+# floor plates, walls on all four sides, a door gap in the front (z 0) at cell `door` (1..w-2), a pillar at each corner
+# standing on the floor and up into the wooden hip roof, which rests on the walls (2.42 m) - never floating over them.
+# Spans x 0..w*1.5, z 0..d*1.5. wall / floor pick the blocks (metal Tier3 or wood).
+macro shed w=4 d=3 door=1 wall=Block_Wall_Tier3 floor=Block_Floor_Tier3 pillar=Block_Pillar_Wood y=0.2
+for fx 0.75 {$w*1.5-0.75} 1.5
+for fz 0.75 {$d*1.5-0.75} 1.5
+place $floor - at $fx $fz y={$y-0.15}
+next
+next
+for i 0 {$w-1}
+place $wall - at {$i*1.5+0.75} {$d*1.5} y=$y
+next
+for i 0 {$d-1}
+place $wall - at 0 {$i*1.5+0.75} y=$y yaw=90
+place $wall - at {$w*1.5} {$i*1.5+0.75} y=$y yaw=90
+next
+for i 0 {$door-1}
+place $wall - at {$i*1.5+0.75} 0 y=$y
+next
+for i {$door+1} {$w-1}
+place $wall - at {$i*1.5+0.75} 0 y=$y
+next
+place $pillar - at 0 0 y=$y
+place $pillar - at {$w*1.5} 0 y=$y
+place $pillar - at 0 {$d*1.5} y=$y
+place $pillar - at {$w*1.5} {$d*1.5} y=$y
+roof $w $d at 0 0 y=$y wood
+end
+
+# effigy: one effigy of the Quiet Choir - Raft's scarecrow on the sand, turned to face `yaw` (alias groups a set)
+macro effigy x=0 z=0 yaw=0 alias=-
+place Placeable_Scarecrow_Advanced $alias at $x $z ground sit yaw=$yaw
+end
+
+# lamppost: a lamp post of the pilgrims' road - an antenna pole (3.2 m) on the ground, a metal lantern dropped onto its top
+macro lamppost x=0 z=0
+place Antenna_pole - at $x $z ground sy=0.5
+place Placeable_Lantern_Metal - at $x $z ground y=3.4 sit drop
+end

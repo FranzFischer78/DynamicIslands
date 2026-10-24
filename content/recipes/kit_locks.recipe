@@ -1,0 +1,47 @@
+# Kit check (not content): lock gates, levers, a crank wheel, pumps and doors for The Drowned Gate
+new
+gen Seed=1 Radius=70 Height=4 Shape=4 Roughness=0.1 ObjectDensity=0 Trees=0 Bushes=0 Rocks=0 BeachThings=0 Harvest=0
+gen Hostiles=0 Friendly=0 SeaLife=0 Water=0 SeaRocks=0 SeaFinds=0 Sunken=0
+generate
+brush flatten at 0 0 r=70 s=20 frames=80
+# row 1 (z 20): the gates
+place HarborGate hgate at -25 25 y=0 sit centred
+place TP_SeleneEntranceGate sgate at 10 22
+place VP_GarageDoor_Frame gframe at 25 22
+place VP_GarageDoor gdoor at 25 22
+# row 2 (z 0): levers, the crank, pumps
+place UT_JumpPuzzle_LiftMechanism_Lever lever at -30 0
+place TP_Selene_DoorCrank crank at -22 0
+place TP_Selene_DoorCrankWheel wheel at -14 0 y=1.2
+place RT_PowerBox powerbox at -8 0 y=1.2
+place TP_LaserControlPanel lpanel at -4 0 y=1
+place TP_LaserControlPanel_lever lplever at -2 0 y=1
+place UT_WaterPump wpump at 6 0
+place Pump pump at 14 0
+place VP_ConcretePipe01 cpipe at 20 0
+place UT_Generator01 ugen at 32 0
+# row 3 (z -20): doors
+place RT_WallDoor1 rtdoor at -20 -20
+place UT_Skyscraber01PadlockDoorBase padbase at -10 -20
+place UT_Skyscraber01PadlockDoor paddoor at -10 -20
+place UT_Hut_OneWayDoor hutdoor at 0 -20
+place VP_OneWayDoor vpdoor at 8 -20
+place OuterDoorFrame odframe at 16 -20
+place OuterDoorL odl at 16 -20 y=1.2
+place Stairwell_Gate swgate at 24 -20
+# row 4 (z -40): big doors, door leaves in a radio tower doorway
+place UT_MainEntranceDoor utdoor at -30 -40 centred
+place Tangaroa_BayDoor baydoor at -12 -40 centred
+place RT_WallDoor1 rtdoor2 at 0 -40
+place TowerDoorL towerdoor at -0.42 -40 y=0.86
+place RT_Wall1 - at 3 -40
+place RT_WallDoor1 rtdoor3 at 6 -40
+place OuterDoorL outerdoor at 4.89 -40 y=1.24
+# row 5 (z -55): another radio tower door, the engine controls as a lever, boards across a doorway
+place RT_WallDoor2 rtdoor4 at 0 -55
+place Placeable_EngineControls engctl at 6 -55
+place RT_WallDoor1 rtdoor5 at 14 -55
+place FL_Plank1 board at 12.89 -55.05 y=0.5 roll=8
+place FL_Plank1 board at 12.89 -55.05 y=1.2 roll=-6
+place FL_Plank1 board at 12.89 -55.05 y=1.9 roll=5
+place TP_SeleneEntranceGate sgate2 at -15 -55 scale=1.25 yaw=90

@@ -1,0 +1,61 @@
+# Twin Horns - a new small island of the library (ROADMAP 3d NI3), no quest
+# Two horns of rock stand up out of a small isle, a rope bridge hanging between their tops. Ladders go up the west horn
+# by a ledge; a screecher nests on the east horn, on a chest someone carried across. A monster island: mind the bird.
+#
+# Built by the recipe player (CIRecipe twin_horns) through the editor's own operations. Points: the west horn's top
+# (12 m) x -12..-8, z -3..3; the east horn's top (12 m) x 8..12, z -3..3; the bridge from -9 0 to 9 0 (its ends on the tops) (deck 12.1 m,
+# sagging 1.2 m); the ladders' foot at -10 -10 (2 m), ladders at x -10 against the faces at z -8.65 and -5.15 (the ledge
+# at z -6.5, 7 m); the chest on the east top at 10.5 1.5; the nests on both tops.
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+new
+# (nature: a rocky isle - fewer trees, more rocks)
+gen Trees=0.2 Bushes=0.28 Rocks=0.5 Harvest=0.2 BeachThings=0.3
+gen Seed=7404 Radius=27 Height=3 Roughness=0.4 Peaks=1 Shape=0 Style=0 BeachWidth=0.5 Cliffs=0.3 PeakShape=0.3
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.45 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== Terrain: the two horns' tops, the west horn's ledge and the ladders' foot ==========================================
+for hz -3 3 3
+brush flatten from -12 $hz to -8 $hz r=1.8 s=20 frames=120 h=12
+brush flatten from 8 $hz to 12 $hz r=1.8 s=20 frames=120 h=12
+next
+brush flatten from -12 -6.5 to -8 -6.5 r=1.8 s=20 frames=100 h=7
+brush flatten from -12 -10 to -8 -10 r=1.6 s=20 frames=60 h=2
+brush rock at -10 0 r=7 s=20 frames=30
+brush rock at 10 0 r=7 s=20 frames=30
+clear at -10 -2 r=9
+clear at 10 0 r=7
+
+# ===== Ladders up the west horn: from the foot to the ledge, from the ledge to the top ====================================
+call ladders x=-10 z=-8.65 h=2 n=2 yaw=180
+call ladders x=-10 z=-5.15 h=7 n=2 yaw=180
+
+# ===== The rope bridge between the horns' tops ===========================================================================
+call hangbridge x1=-9 z1=0 h1=12.1 x2=9 z2=0 h2=12.1 sag=1.2 pb=0
+
+# ===== The tops: nests, the chest on the east horn, its screecher ========================================================
+place Bird_Nest - at -11 2 h=12 sit
+place Bird_Nest - at 11 -2 h=12 sit yaw=80
+place Bird_Nest - at 9.5 2.4 h=12 sit yaw=200
+place Loot_ChestSmall hornchest at 10.5 1.5 h=12 sit yaw=270
+place Creature_StoneBird screecher at 10 -1 h=14
+
+# ===== Things to gather: palms and pineapples below; Raft's finds in the shallows ========================================
+scatter "Pickup_Landmark_Tree_Palm 4" 2 at 0 0 r=22 seed=7414 free=6
+scatter "Pickup_Landmark_PineappleLandmark" 2 at 0 0 r=22 seed=7424 free=4
+call shallows r=42 deep=5 n=1 seed=744
+
+info title=Twin Horns
+info author=Custom Islands
+info description=Two horns of rock on a small isle, a rope bridge hanging between their tops, ladders up the west one - and a screecher nesting on the east. No quest - an island to explore.
+
+note hornchest Chest on the east horn | Somebody carried this across the bridge. The bird thinks it's an egg.
+loot hornchest Feather*4;Egg*2;Rope*3;Glass*2;Bolt*2
+prop hornchest loot.refill=0
+
+posts off
+save Twin Horns

@@ -1,0 +1,20 @@
+# Squall Shelf (CIPlay squall_shelf): the tent, the stranded note, the bear, the tent cache (the net), the llama, the
+# weather log.
+island Squall Shelf
+# RESIZE 10-24: the recipe moved this island's old content by 0 -17.6; the points below are in the old frame
+offset 0 17.6
+expect step 0
+expect title The Stranded Tent
+zone tent
+expect step 1
+read Stranded note
+expect step 2
+kill Polar bear
+expect step 3
+open Tent cache
+wait 3
+expect step 4
+catch Llama 1
+expect step 5
+read Weather log
+expect done

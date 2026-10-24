@@ -1,0 +1,12 @@
+# Guide pictures of The Sunken Archive (CIPlay sunken_archive_pics): Raft's camera, midday, calm
+island The Sunken Archive
+hour 11
+weather Calm
+at -6 -2
+wait 3
+picture sunken_archive_island 55 40 60 -6 2 -8
+picture sunken_archive_archive 6 6 6 -6 1 -11
+picture sunken_archive_reading -4 2.4 -8.4 -5 1.5 -14
+at -1 -6 h=-3
+wait 2
+picture sunken_archive_stacks -1.5 -3 -6.5 -5 -4.5 -11

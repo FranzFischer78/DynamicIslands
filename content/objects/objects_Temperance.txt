@@ -1,0 +1,221 @@
+# Raft's objects the randomizer builds with (CIMeasureProps, raft=1.1.01)
+# prop	<name>	<scene>	<size x,y,z>	<centre x,y,z>	<bottom below the pivot>	<solid colliders>   (at the scale the object spawns with)
+# cave	<name>	<axis of the passage 0=x 2=z>	<floor above the pivot>	<headroom>	<width>	<open at +axis>	<open at -axis>	<a point in the passage, from the pivot>	<room from it towards +axis>	<and towards -axis> (99 = open)
+prop	TP_AirDuctConnector	55#Landmark_Temperance#	0.766,0.808,0.783	0.383,2.654,0.657	2.25	1
+prop	TP_AirDuctCornerL	55#Landmark_Temperance#	2.735,0.753,2.734	1.367,2.627,1.633	2.25	2
+prop	TP_AirDuctCornerR	55#Landmark_Temperance#	2.734,0.753,2.735	1.633,2.627,1.633	2.25	2
+prop	TP_AirDuctStraight_Vent	55#Landmark_Temperance#	2.92,0.753,0.802	1.46,2.627,0.657	2.25	1
+prop	TP_Moontown_Barrel01_Clean	55#Landmark_Temperance#	0.699,1.135,0.699	0,0.567,0	-0.001	1
+prop	TP_Moontown_Barrel02	55#Landmark_Temperance#	0.707,1.12,0.707	0,0.562,-0.004	0.002	1
+prop	TP_Moontown_Barrel03_Clean	55#Landmark_Temperance#	0.699,1.135,0.699	0,0.567,0	-0.001	1
+prop	TP_Moontown_Barrel04_Clean	55#Landmark_Temperance#	0.707,1.12,0.707	0,0.562,-0.004	0.002	1
+prop	TP_BigRock04_Unclimbable	55#Landmark_Temperance#	30.371,23.176,25.976	-0.118,2.61,-0.588	-8.978	1
+prop	TP_Blowtorch	55#Landmark_Temperance#	0.179,0.438,0.102	0.025,0.219,0	0	0
+prop	TP_Moontown_Bridge	55#Landmark_Temperance#	27.294,7.324,6.267	0.006,3.662,-0.254	0	1
+prop	TP_CabinetCharts01	55#Landmark_Temperance#	1.363,2.224,0.753	0,1.11,0.013	-0.003	1
+prop	TP_CabinetCharts02	55#Landmark_Temperance#	1.363,2.224,0.753	0,1.11,0.013	-0.003	1
+prop	TP_CabinetCharts03	55#Landmark_Temperance#	1.363,2.224,0.753	0,1.11,0.013	-0.003	1
+prop	TP_CabinetCharts04	55#Landmark_Temperance#	1.363,2.224,0.753	0,1.11,0.013	-0.003	1
+prop	TP_CablePoint	55#Landmark_Temperance#	0.81,2.512,0.61	0.051,1.256,0.053	0	0
+prop	TP_CaveTunnel_Room_WeatherStationLadder	55#Landmark_Temperance#	10.57,23.564,12.688	3.078,9.338,-5.35	-2.444	1
+cave	TP_CaveTunnel_Room_WeatherStationLadder	2	-0.16	5.98	8.82	1	0	3.078,1.326,-2.178	14.69	9.52
+prop	TP_CaveTunnel_SurfaceStaircase	55#Landmark_Temperance#	11.003,13.551,25.608	3.002,6.528,-12.804	-0.248	1
+cave	TP_CaveTunnel_SurfaceStaircase	2	7	4.16	8.48	0	1	3.002,7.537,-19.206	10.89	27.61
+prop	TP_ComputerChallenge_Poster_CA	55#Landmark_Temperance#	1.521,2,0.196	0,0.001,0.109	-0.999	0
+prop	TP_ComputerChallenge_Poster_CE	55#Landmark_Temperance#	1.521,2,0.196	0,0.001,0.109	-0.999	0
+prop	TP_ComputerChallenge_Poster_CL	55#Landmark_Temperance#	1.521,2,0.196	0,0.001,0.109	-0.999	0
+prop	TP_ComputerChallenge_Poster_HG	55#Landmark_Temperance#	1.521,2,0.196	0,0.001,0.109	-0.999	0
+prop	TP_ComputerChallenge_Poster_NA	55#Landmark_Temperance#	1.521,2,0.196	0,0.001,0.109	-0.999	0
+prop	TP_ComputerChallenge_Poster_PM	55#Landmark_Temperance#	1.521,2,0.196	0,0.001,0.109	-0.999	0
+prop	TP_ComputerChallenge_Poster_PT	55#Landmark_Temperance#	1.521,2,0.196	0,0.001,0.109	-0.999	0
+prop	TP_ComputerChallenge_Poster_RB	55#Landmark_Temperance#	1.521,2,0.196	0,0.001,0.109	-0.999	0
+prop	TP_ComputerChallenge_Poster_SN	55#Landmark_Temperance#	1.521,2,0.196	0,0.001,0.109	-0.999	0
+prop	TP_ControlRod	55#Landmark_Temperance#	0.204,0.585,0.204	0,-0.091,0	-0.384	0
+prop	TP_CoolingStation_Keysocket	55#Landmark_Temperance#	0.274,0.072,0.206	0,0,0	-0.036	0
+prop	TP_CoolingStation_Monitor	55#Landmark_Temperance#	5.556,2.074,3.13	3.24,1.021,4.906	-0.016	1
+prop	TP_CoolingStation_Monitor_Hatch01	55#Landmark_Temperance#	0.259,0.009,0.11	0.001,-0.004,0.055	-0.009	0
+prop	TP_CoolingStation_Monitor_Hatch02	55#Landmark_Temperance#	0.259,0.009,0.115	0.001,-0.004,-0.058	-0.009	0
+prop	TP_CoolingStation_Monitor_Lever	55#Landmark_Temperance#	0.319,0.372,0.084	0,0.144,0	-0.042	0
+prop	TP_CoolingStation_Monitor_Light	55#Landmark_Temperance#	0.508,0.028,0.054	2.993,0.938,3.904	0.924	0
+prop	TP_DeskLamp	55#Landmark_Temperance#	0.596,0.71,0.289	-0.129,0.355,0	0	0
+prop	TP_Doll_Henry	55#Landmark_Temperance#	1.312,1.917,0.371	-0.081,0.956,0.047	-0.002	3
+prop	TP_Drawer	55#Landmark_Temperance#	2.02,0.91,1.042	0,0.454,0.494	-0.001	2
+prop	TP_ElectricalBuilding	55#Landmark_Temperance#	5.785,3.658,6.163	-0.549,1.823,0.222	-0.006	1
+prop	TP_FileBox01	55#Landmark_Temperance#	0.456,0.429,0.672	0,0.214,0	-0.001	1
+prop	TP_FileBox02	55#Landmark_Temperance#	0.735,0.456,0.729	-0.152,0.227,-0.045	-0.001	1
+prop	TP_FileBox05	55#Landmark_Temperance#	0.575,0.509,0.752	0.043,0.254,-0.056	-0.001	1
+prop	TP_FileBox06	55#Landmark_Temperance#	0.456,0.447,0.672	0,0.222,0	-0.002	1
+prop	TP_FoldingStool	55#Landmark_Temperance#	0.804,0.501,0.551	0,0.253,-0.007	0.002	1
+prop	TP_FoldingTable_Large	55#Landmark_Temperance#	2.612,0.929,1.193	0,0.464,-0.021	-0.001	3
+prop	GameObject	55#Landmark_Temperance#	34.777,23.383,59.094	3,8.666,-30.453	-3.025	1
+prop	TP_IcePillar01	55#Landmark_Temperance#	4.613,6.857,4.613	0,3.413,0	-0.015	1
+prop	TP_IcePillar02	55#Landmark_Temperance#	4.685,5.772,4.685	0,2.886,0	0	1
+prop	TP_IcePillar04_Snow	55#Landmark_Temperance#	1.256,4.141,1.041	0,2.07,0	0	1
+prop	TP_IceShore	55#Landmark_Temperance#	1237.29,87.011,1011.117	146.818,-29.386,155.776	-72.891	1
+prop	TP_IceShore_Small2	58#Landmark_TemperanceSmall#2	342.563,21.473,287.651	-11.275,-9.103,-2.779	-19.84	1
+prop	TP_IceShore_Small3	59#Landmark_TemperanceSmall#3	229.391,38.451,333.603	-2.588,-16.714,-9.581	-35.94	1
+prop	TP_Icicles03	55#Landmark_Temperance#	1.058,0.907,0.214	0,-0.36,0	-0.814	1
+prop	TP_Icicles05	55#Landmark_Temperance#	1.78,1.186,0.289	0,-0.487,0	-1.08	1
+prop	TP_Igloo_Large_1	55#Landmark_Temperance#	21.747,12.08,21.557	0.396,6.023,0.783	-0.018	112
+prop	TP_Igloo_Medium_1	55#Landmark_Temperance#	17.185,7.337,19.314	0.313,3.546,-0.746	-0.123	47
+prop	TP_Igloo_Medium_2	55#Landmark_Temperance#	17.185,7.234,19.314	0.313,3.598,-0.746	-0.019	89
+prop	TP_Igloo_Small	55#Landmark_Temperance#	13.297,8.614,12.009	0.227,4.249,-0.05	-0.058	2
+prop	TP_Igloo_Small_1	55#Landmark_Temperance#	13.297,8.614,11.741	0.227,4.249,-0.184	-0.058	30
+prop	TP_Igloo_Small_2	55#Landmark_Temperance#	13.297,8.614,11.741	0.227,4.249,-0.184	-0.058	37
+prop	TP_Igloo_Small_3	55#Landmark_Temperance#	13.297,8.614,11.741	0.227,4.249,-0.184	-0.058	24
+prop	Keypad	55#Landmark_Temperance#	0.26,0.015,0.384	-0.514,0.943,0.08	0.935	10
+prop	TP_LabBottle01	55#Landmark_Temperance#	0.152,0.267,0.152	0,0.133,0	0	1
+prop	TP_LabBottle02	55#Landmark_Temperance#	0.182,0.32,0.182	0,0.16,0	0	1
+prop	TP_LabBottle03	55#Landmark_Temperance#	0.201,0.389,0.201	0,0.194,0	0	1
+prop	TP_LabBottle04	55#Landmark_Temperance#	0.156,0.405,0.156	0,0.202,0	0	1
+prop	TP_LabBottle05	55#Landmark_Temperance#	0.246,0.275,0.274	0,0.137,0.012	0	1
+prop	TP_LaboratoryMachine_Large01	55#Landmark_Temperance#	2.734,2.719,1.474	-0.082,1.335,-0.013	-0.024	2
+prop	TP_LaboratoryMachine_Large02	55#Landmark_Temperance#	1.114,2.453,1.114	0,1.207,0	-0.019	5
+prop	TP_LaboratoryMachine_Small01	55#Landmark_Temperance#	0.795,0.671,0.951	0,0.336,-0.003	0	1
+prop	TP_LaboratoryMachine_Small02	55#Landmark_Temperance#	0.795,1.309,0.951	-0.007,0.655,-0.017	0	1
+prop	TP_LaboratoryMachine_Small03	55#Landmark_Temperance#	0.789,0.698,0.859	0,0.349,0.009	0	1
+prop	TP_Laptop01	55#Landmark_Temperance#	0.522,0.488,0.547	0,0.244,-0.031	0	1
+prop	TP_Laptop02	55#Landmark_Temperance#	0.522,0.365,0.452	0,0.182,0.016	0	1
+prop	TP_Laptop03	55#Landmark_Temperance#	0.522,0.114,0.452	0,0.057,0.016	0	1
+prop	TP_LaserControlPanel	55#Landmark_Temperance#	0.746,0.437,0.213	0.088,1.335,0.018	1.117	0
+prop	TP_LaserControlPanel_lever	55#Landmark_Temperance#	0.189,0.392,0.389	0.011,0.091,0.103	-0.105	0
+prop	TP_LaserControlPanel_LightRed	55#Landmark_Temperance#	0.061,0.06,0.062	-0.195,1.525,-0.024	1.495	0
+prop	TP_LaserDoorPanel	55#Landmark_Temperance#	0.815,0.653,0.172	0.121,1.78,0.008	1.454	0
+prop	TP_LaserDoorPanel_broken	55#Landmark_Temperance#	0.877,0.64,0.239	0.117,1.773,0.019	1.454	0
+prop	TP_LaserEmitter	55#Landmark_Temperance#	1.535,1.915,0.816	-0.467,-0.807,0.085	-1.764	3
+prop	TP_MirrorHousing_InteractableMirror	55#Landmark_Temperance#	3,4.95,2.97	-1.5,2.425,-4.593	-0.05	4
+prop	TP_MirrorHousing_Rotating	55#Landmark_Temperance#	2.213,4.879,2.213	0,2.44,0	0	5
+prop	TP_MirrorHousing_StaticMirror	55#Landmark_Temperance#	3,4.929,2.97	-1.5,2.435,-4.593	-0.029	3
+prop	TP_RadiationCooling	55#Landmark_Temperance#	11.499,44.831,11.499	0,-6.719,0	-29.134	0
+prop	RadiationMap_Off	55#Landmark_Temperance#	0,1.378,2.845	-0.001,0,0	-0.689	0
+prop	RadiationMap_On	55#Landmark_Temperance#	0,1.378,2.845	-0.001,0,0	-0.689	0
+prop	Ravine_Cave	55#Landmark_Temperance#	56.372,29.143,70.001	-0.133,-11.591,2.255	-26.163	19
+cave	Ravine_Cave	2	-24.32	6.1	8.97	1	0	-0.133,-21.5,19.755	72	7.71
+prop	Ravine_Intact	55#Landmark_Temperance#	56.372,2.594,70.001	-0.133,1.756,2.255	0.459	1
+prop	TP_RotatingRedLight	55#Landmark_Temperance#	0.205,0.205,0.244	0,0,0.113	-0.102	0
+prop	TP_Moontown_SealedCrate02_Clean	55#Landmark_Temperance#	1.593,0.916,1.059	0,0.458,0.009	0	1
+prop	TP_Moontown_SealedCrate03_Clean	55#Landmark_Temperance#	2.057,1.095,1.183	0,0.547,0.008	-0.001	1
+prop	TP_SeleneComputerChallenge_Comp	55#Landmark_Temperance#	1.999,1.644,1	0,0.822,0.166	0	2
+prop	TP_SeleneComputerChallenge_LampGreen	55#Landmark_Temperance#	0.155,0.107,0.048	0.027,1.328,0.002	1.275	0
+prop	TP_SeleneComputerChallenge_LampRed	55#Landmark_Temperance#	0.155,0.107,0.048	0.027,1.176,0.035	1.123	0
+prop	TP_Selene_ComputerGeneric_01	55#Landmark_Temperance#	1.999,1.5,1	0,0.75,0.166	0	1
+prop	TP_Selene_ComputerGeneric_02	55#Landmark_Temperance#	1.999,1.644,1	0,0.822,0.166	0	1
+prop	TP_Selene_ComputerGeneric_03	55#Landmark_Temperance#	1.999,1.5,1	0,0.75,0.166	0	1
+prop	TP_Selene_ComputerGeneric_Fake_CA	55#Landmark_Temperance#	1.999,1.644,1	0,0.822,0.166	0	1
+prop	TP_Selene_ComputerGeneric_Fake_PT	55#Landmark_Temperance#	1.999,1.644,1	0,0.822,0.166	0	1
+prop	TP_Selene_ComputerGeneric_Fake_SN	55#Landmark_Temperance#	1.999,1.644,1	0,0.822,0.166	0	1
+prop	TP_Selene_ComputerRoom_HangingCable01	55#Landmark_Temperance#	1.113,4.874,0.807	0.153,-2.393,0	-4.83	1
+prop	TP_Selene_ComputerRoom_HangingCable02	55#Landmark_Temperance#	0.807,5.65,0.807	0,-2.759,0	-5.584	1
+prop	TP_Selene_ComputerRoom_HangingCable03	55#Landmark_Temperance#	0.885,4.561,0.807	0.005,-2.216,0	-4.496	1
+prop	TP_Selene_ComputerRoom_HangingCable04	55#Landmark_Temperance#	3.307,5.751,0.893	0,-2.764,0.043	-5.639	1
+prop	TP_Selene_ComputerRoom_Server01	55#Landmark_Temperance#	1.291,2.72,1.69	0,1.359,0	-0.001	1
+prop	TP_Selene_ComputerRoom_Server02	55#Landmark_Temperance#	1.291,2.72,1.69	0,1.359,0	-0.001	1
+prop	TP_Selene_ComputerRoom_Server03	55#Landmark_Temperance#	1.291,2.72,1.69	0,1.359,0	-0.001	1
+prop	TP_Selene_CryoChamber	55#Landmark_Temperance#	23.287,9.134,36.64	-0.754,2.075,5.127	-2.492	85
+prop	TP_Selene_DoorCrank	55#Landmark_Temperance#	1.117,3.54,8.406	0.347,1.747,1.608	-0.023	2
+prop	TP_Selene_DoorCrankWheel	55#Landmark_Temperance#	0.889,0.889,0.444	0,0.001,-0.222	-0.443	0
+prop	TP_SeleneEntranceGate	55#Landmark_Temperance#	7.214,5.731,0.725	0,2.7,0.035	-0.166	1
+prop	TP_SeleneEntranceKey_AnimKey	55#Landmark_Temperance#	0.093,0.636,0.333	0,-0.273,0.164	-0.591	0
+prop	TP_SeleneEntranceKeyPanel_AnimIce01	55#Landmark_Temperance#	0.437,0.63,0.243	-0.248,-0.307,0.089	-0.622	0
+prop	TP_SeleneEntranceKeyPanel_AnimIce02	55#Landmark_Temperance#	0.543,0.516,0.294	0.29,0.258,0.065	0	0
+prop	TP_SeleneEntranceKeyPanel_Base	55#Landmark_Temperance#	0.393,0.491,0.131	0,0,0.066	-0.246	0
+prop	TP_SeleneEntranceKeyPanel_IceMelted	55#Landmark_Temperance#	0.659,0.768,0.202	-0.013,0.011,0.086	-0.373	0
+prop	TP_SeleneEntranceKeyPanel_IceUnmelted	55#Landmark_Temperance#	0.65,0.77,0.294	-0.014,0.012,0.107	-0.373	0
+prop	TP_SeleneEntranceKeyPanel_Unlocked	55#Landmark_Temperance#	0.659,0.768,0.202	-0.013,0.011,0.086	-0.373	0
+prop	TP_Selene_Int_DoorFrame	55#Landmark_Temperance#	4.738,3.589,0.547	3,1.693,-0.016	-0.102	1
+prop	TP_Selene_Int_DoorFrame_WithClosedDoor	55#Landmark_Temperance#	4.738,3.589,0.547	3,1.693,-0.016	-0.102	2
+prop	TP_Selene_Int_DoorFrame_WithDoorOneWay	55#Landmark_Temperance#	4.738,3.589,0.547	3,1.693,-0.016	-0.102	1
+prop	TP_Selene_Int_DoorFrame_WithDoorReactorKey	55#Landmark_Temperance#	4.738,3.589,0.547	3,1.693,-0.016	-0.102	1
+prop	TP_Selene_Int_DoorFrame_WithDoorTimer	55#Landmark_Temperance#	4.738,3.589,0.547	3,1.693,-0.016	-0.102	1
+prop	TP_Selene_Int_DoorLargeL	55#Landmark_Temperance#	0.199,3.316,2.429	0,1.748,1.021	0.09	1
+prop	TP_Selene_Int_DoorLargeL_Light01	55#Landmark_Temperance#	0.268,0.713,0.194	0,2.828,0.212	2.472	0
+prop	TP_Selene_Int_DoorLargeR	55#Landmark_Temperance#	0.199,3.316,2.425	0,1.748,-1.024	0.09	1
+prop	TP_Selene_Int_DoorLargeR_light01	55#Landmark_Temperance#	0.268,0.713,0.194	0,2.828,-0.209	2.472	0
+prop	TP_Selene_Int_DoorLight_Green	55#Landmark_Temperance#	0.287,0.541,0.642	-0.011,-0.021,-0.003	-0.291	0
+prop	TP_Selene_Int_DoorLight_Green LAB1	55#Landmark_Temperance#	0.287,0.541,0.642	-0.011,-0.021,-0.003	-0.291	0
+prop	TP_Selene_Int_DoorLight_Red	55#Landmark_Temperance#	0.287,0.541,0.642	-0.011,-0.021,-0.003	-0.291	0
+prop	TP_Selene_Int_DoorLight_Red LAB1	55#Landmark_Temperance#	0.287,0.541,0.642	-0.011,-0.021,-0.003	-0.291	0
+prop	TP_Selene_Int_MainRoom	55#Landmark_Temperance#	38.142,83.191,48	5.019,-25.259,6	-66.855	3
+prop	TP_Selene_Int_Room_Bars	55#Landmark_Temperance#	4.649,2.804,0.247	3.002,1.345,0.052	-0.057	1
+prop	TP_Selene_Int_Room_Ceiling	55#Landmark_Temperance#	6,0,6	3,4.727,-3	4.727	1
+prop	TP_Selene_Int_Room_Ceiling_Corner	55#Landmark_Temperance#	6.006,0.227,6.004	2.997,4.614,-3.002	4.5	1
+prop	TP_Selene_Int_Room_Ceiling_Corner_Double	55#Landmark_Temperance#	6.01,0.227,6.004	3.001,4.614,-3.002	4.5	1
+prop	TP_Selene_Int_Room_Ceiling_Corner_Inverted	55#Landmark_Temperance#	7,0.227,7	-3.5,4.614,3.5	4.5	1
+prop	TP_Selene_Int_Room_Ceiling_Edge	55#Landmark_Temperance#	6,0.227,6	3,4.614,-3	4.5	1
+prop	TP_Selene_Int_Room_Corner	55#Landmark_Temperance#	0.56,4.5,5.799	0.476,2.25,-2.9	0	1
+prop	TP_Selene_Int_Room_Corner_Inverted	55#Landmark_Temperance#	6.2,4.5,6.2	2.9,2.25,-3.1	0	1
+prop	TP_Selene_Int_Room_Entrance	55#Landmark_Temperance#	6,4.59,0.81	3,2.205,-5.998	-0.09	1
+prop	TP_Selene_Int_Room_Floor_Corner	55#Landmark_Temperance#	6,0,6	3,0,-3	0	1
+prop	TP_Selene_Int_Room_Floor_Cross	55#Landmark_Temperance#	6,0,6	3,0,-3	0	1
+prop	TP_Selene_Int_Room_Floor_CrossT	55#Landmark_Temperance#	6,0,6	3,0,-3	0	1
+prop	TP_Selene_Int_Room_Floor_DeadEnd	55#Landmark_Temperance#	6,0,6	3,0,-3	0	1
+prop	TP_Selene_Int_Room_Floor_Plain	55#Landmark_Temperance#	6,0,6	3,0,-3	0	1
+prop	TP_Selene_Int_Room_Floor_Straight	55#Landmark_Temperance#	6,0,6	3,0,-3	0	1
+prop	TP_Selene_Int_Room_Wall	55#Landmark_Temperance#	6,4.5,0	3,2.25,-5.8	0	1
+prop	TP_Selene_Int_Tunnel_Corner	55#Landmark_Temperance#	5.599,3.519,5.532	2.799,1.759,-2.766	0	1
+cave	TP_Selene_Int_Tunnel_Corner	2	0	3.5	10.12	1	0	2.799,0.281,-1.383	7.6	3.94
+prop	TP_Selene_Int_Tunnel_CrossT	55#Landmark_Temperance#	5.599,3.519,6	2.799,1.759,-3	0	1
+cave	TP_Selene_Int_Tunnel_CrossT	2	0	3.5	10.5	1	1	2.799,0.141,-3	8	8
+prop	TP_Selene_Int_Tunnel_Fight_Corner	55#Landmark_Temperance#	5.957,11.015,6.016	-2.979,-1.982,-2.524	-7.49	1
+cave	TP_Selene_Int_Tunnel_Fight_Corner	2	0	3.5	10.13	1	0	-2.799,0.441,-1.326	7.61	4
+prop	TP_Selene_Int_Tunnel_Fight_Entrance	55#Landmark_Temperance#	6,12.063,1.014	3,-1.531,-6.112	-7.563	2
+cave	TP_Selene_Int_Tunnel_Fight_Entrance	2	0.01	3.47	4.6	1	1	3,0.157,-6.366	8	8
+prop	TP_Selene_Int_Tunnel_Fight_Straight	55#Landmark_Temperance#	5.463,10.98,6.052	3.133,-1.965,-2.974	-7.455	1
+cave	TP_Selene_Int_Tunnel_Fight_Straight	2	-7.45	7.39	3.44	1	1	3.136,-7.016,-3	8	8
+prop	TP_Selene_Int_Tunnel_Ladder_Bot	55#Landmark_Temperance#	6.012,7.38,6.361	3.017,3.647,-2.898	-0.043	2
+cave	TP_Selene_Int_Tunnel_Ladder_Bot	2	0	4.11	6	0	1	4.52,0.291,-2.898	2.64	8.36
+prop	TP_Selene_Int_Tunnel_Ladder_Top	55#Landmark_Temperance#	6.023,5.828,5.587	3.011,1.432,-2.794	-1.483	1
+cave	TP_Selene_Int_Tunnel_Ladder_Top	2	0	4.17	6	1	0	3.011,0.383,-1.397	8.02	4.08
+prop	TP_Selene_Int_Tunnel_ReactorStaircase	55#Landmark_Temperance#	25.522,14.907,24.198	24.838,-3.794,-0.5	-11.248	1
+prop	TP_Selene_Int_Tunnel_Stairs	55#Landmark_Temperance#	5.206,7.907,12	2.996,3.706,-6	-0.248	1
+cave	TP_Selene_Int_Tunnel_Stairs	2	3.56	3.94	2.1	0	1	2.996,4.18,-9	6.06	14
+prop	TP_Selene_Int_Tunnel_StairsLong	55#Landmark_Temperance#	5.206,10.828,18	2.996,5.166,-9	-0.248	1
+cave	TP_Selene_Int_Tunnel_StairsLong	2	6.86	3.63	4.65	0	1	2.996,7.313,-13.5	5.55	20
+prop	TP_Selene_Int_Tunnel_Straight	55#Landmark_Temperance#	5.206,3.519,6	3.004,1.759,-3	0	1
+cave	TP_Selene_Int_Tunnel_Straight	2	0	3.5	4.61	1	1	3.004,0.141,-3	8	8
+prop	TP_SeleneReactorChimney	55#Landmark_Temperance#	27.29,20.211,24.047	-6.395,10.105,-5.017	0	3
+prop	TP_SeleneReactorControls	55#Landmark_Temperance#	2.556,10.592,1.723	0.376,5.302,0.011	0.006	1
+prop	TP_SeleneReactorControls_lights	55#Landmark_Temperance#	0.714,1.416,0.511	0.76,1.318,0	0.61	0
+prop	TP_SeleneReactor_Water_Radiated	55#Landmark_Temperance#	23.596,0,23.596	0,0,0	0	1
+prop	TP_SeleneSigns_ControlRoom	55#Landmark_Temperance#	2.349,0.606,0.18	0,0,0.079	-0.303	0
+prop	TP_SeleneSigns_Lab1(lab2)	55#Landmark_Temperance#	2.118,0.606,0.18	0,0,0.079	-0.303	0
+prop	TP_SeleneSigns_Lab2 (lab 1)	55#Landmark_Temperance#	2.118,0.606,0.18	0,0,0.079	-0.303	0
+prop	TP_SeleneSigns_Reactor	55#Landmark_Temperance#	1.818,0.606,0.18	0,0,0.079	-0.303	0
+prop	TP_ServerCrate01	55#Landmark_Temperance#	1.074,2.034,1.5	0,1.015,0	-0.003	1
+prop	TP_ServerCrate02	55#Landmark_Temperance#	1.074,2.034,1.5	0,1.015,0	-0.003	1
+prop	TP_ServerCrate03	55#Landmark_Temperance#	1.074,1.152,1.5	0,0.573,0	-0.003	1
+prop	TP_ServerCrate04	55#Landmark_Temperance#	1.074,1.152,1.5	0,0.573,0	-0.003	1
+prop	TP_Shelf01	55#Landmark_Temperance#	2.716,2.26,0.482	0,1.13,0.194	-0.001	2
+prop	TP_Shelf02	55#Landmark_Temperance#	1.397,1.314,0.477	0,0.656,0.192	-0.001	3
+prop	TP_SmallRock02	55#Landmark_Temperance#	7.219,7.752,6.405	0.132,0.098,0.023	-3.778	1
+prop	SnowBlockParticle	55#Landmark_Temperance#	4.851,2.807,8.017	0.086,-0.041,0.122	-1.445	0
+prop	TP_SnowShovel02	55#Landmark_Temperance#	0.834,1.994,0.211	0,0.996,-0.105	-0.001	1
+prop	TP_SnowVehicle01	55#Landmark_Temperance#	2.55,4.199,4.993	0,2.095,0.055	-0.005	1
+prop	TP_SnowVehicle02	55#Landmark_Temperance#	2.298,3.856,3.416	0.005,1.921,0	-0.007	1
+prop	SnowmobileShedMesh	55#Landmark_Temperance#	7.484,9.487,9.692	-0.082,3.791,1.768	-0.952	1
+prop	TP_StalagmiteCluster01	55#Landmark_Temperance#	2.905,2.313,2.253	-0.118,1.156,0.053	0	1
+prop	TP_StalagmiteCluster02	55#Landmark_Temperance#	4.146,2.219,3.418	0.005,1.112,0.125	0.002	1
+prop	TP_StalagmiteCluster02_Snow	55#Landmark_Temperance#	0.801,0.704,0.66	0.001,0.352,0.024	0.001	1
+prop	TP_StalagmiteCluster03	55#Landmark_Temperance#	3.341,3.384,2.94	-0.149,1.692,-0.02	0	1
+prop	TP_Moontown_Steps01	55#Landmark_Temperance#	14.897,6.736,20.248	-0.857,3.269,0.719	-0.099	1
+prop	TP_Moontown_Steps02	55#Landmark_Temperance#	3.847,4.123,12.632	0.056,2.044,-0.12	-0.018	1
+prop	TP_Moontown_Steps03	55#Landmark_Temperance#	5.315,4.611,13.125	-0.384,2.283,0.274	-0.022	1
+prop	TP_Moontown_Steps04	55#Landmark_Temperance#	7.048,5.744,13.88	-0.461,2.842,-0.094	-0.03	1
+prop	TP_Moontown_Steps05	55#Landmark_Temperance#	4.654,4.468,12.211	-0.069,2.214,-0.184	-0.02	1
+prop	TP_Moontown_TarpCrate02_Clean	55#Landmark_Temperance#	2.736,1.985,2.023	0.001,0.991,0.001	-0.002	1
+prop	TP_Moontown_TarpCrate03_Clean	55#Landmark_Temperance#	4.122,2.52,2.552	0.002,1.258,0	-0.002	1
+prop	TP_TelephoneAntenna	55#Landmark_Temperance#	17.947,28.929,15.545	0,10.337,2.579	-4.127	1
+prop	TP_TelephoneAntenna_NoQuestItem	57#Landmark_TemperanceSmall#1	17.947,28.929,15.545	0,10.337,2.579	-4.127	1
+prop	TP_Telescope	55#Landmark_Temperance#	2.666,6.09,7.899	0,3.045,1.344	0	2
+prop	TMP LAMP	55#Landmark_Temperance#	1.048,1.057,0.956	0.001,-0.519,0.1	-1.047	0
+prop	TP_UnderwaterCaveTunnel_Corner	55#Landmark_Temperance#	12.486,10.417,12.509	2.238,1.645,-5.223	-3.564	1
+cave	TP_UnderwaterCaveTunnel_Corner	2	-0.71	4.61	5.32	1	0	2.238,1.437,-2.096	14.51	5.69
+prop	TP_UnderwaterCaveTunnel_CornerLong	55#Landmark_Temperance#	18.487,12.948,18.509	-0.762,2.044,-8.223	-4.43	1
+cave	TP_UnderwaterCaveTunnel_CornerLong	2	1.09	2.52	7.81	1	0	3.86,2.303,-8.223	20.51	0.64
+prop	TP_UnderwaterCaveTunnel_CrossT	55#Landmark_Temperance#	12.843,12.948,11.9	3.002,2.044,-4.528	-4.43	1
+cave	TP_UnderwaterCaveTunnel_CrossT	0	-0.85	5.78	16.79	1	1	3.002,-0.286,-4.528	14.84	14.84
+prop	TP_UnderwaterCaveTunnel_Straight	55#Landmark_Temperance#	10.958,12.948,10.399	3.002,2.044,-3.527	-4.43	1
+cave	TP_UnderwaterCaveTunnel_Straight	2	-0.01	4.1	3.19	1	1	3.002,0.232,-3.527	12.96	12.96
+prop	TP_UnderwaterCaveTunnel_StraightLong	55#Landmark_Temperance#	9.959,10.672,14.843	2.729,1.685,-5.999	-3.651	1
+cave	TP_UnderwaterCaveTunnel_StraightLong	2	0.66	3.43	3.6	1	1	2.729,1.045,-5.999	16.84	16.84
+prop	TP_WeatherStation	55#Landmark_Temperance#	14.624,48.306,17.174	0,-2.645,1.335	-26.798	162

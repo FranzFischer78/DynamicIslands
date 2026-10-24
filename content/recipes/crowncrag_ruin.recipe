@@ -1,0 +1,141 @@
+# Crowncrag Ruin - a new medium island of the library (ROADMAP 3d NI7), no quest
+# A green island with a crag on its east side, and on the crag the ruin of an old castle: a ring of crumbled stone walls,
+# two broken towers, the gate open to the south, a lookout of planks somebody built in the court, and the castle's
+# cellar hatch. Below the crag a little village of wooden cottages round a well and a fire, a scarecrow over its field, a
+# boat drawn up on the beach. Under the north shore a cave goes into the rock. A monster island: rats in the court and a
+# screecher on the towers. Pines, palms, berries, honey, dirt to dig, a treasure buried, Raft's finds in the shallows.
+#
+# Built by the recipe player (CIRecipe crowncrag_ruin) through the editor's own operations. Points: the castle court
+# (10 m, r 13 round 10 6), its walls in a ring of radius 10.5 with the gate gap at the south (10 -4.5), the towers at
+# 45 and 135 degrees round the court; the lookout x 7..10, z 8..11 (deck 2.52 m over the court), its ladder at 7.75 7.8;
+# the path from the gate down to the village in three steps (8 -9, 4.5 -12, 1 -15); the village (3.5 m, r 13 round -14 -18), the cottages x -25..-20.5 z -23..-20,
+# x -14.25..-9.75 z -11.5..-8.5 and x -11..-6.5 z -27..-24 (doors south), the well at -14 -18, the fire at -16 -24; the cave rock round
+# -12 28, its floor 2 m, its mouth north at -13 44, its chest at -14.5 33; the boat on the south beach at -10 -44.
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+include lib_ni7a
+new
+# (nature: a green island, Raft's tropical mix with some pines)
+gen Trees=0.57 Bushes=0.78 Rocks=0.71 Harvest=0.85 BeachThings=1.00
+gen Seed=7701 Radius=52 Height=12 Roughness=0.35 Peaks=1 Shape=0 Style=0 BeachWidth=0.5 Cliffs=0.4 PeakShape=0.5
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0.2 SeaLife=0.2
+generate
+
+# ===== Terrain: the crag and its court; the path to the village; the village; the cave rock and its passage north ========
+brush flatten at 10 6 r=13 s=20 frames=140 h=10
+brush rock at 10 6 r=18 s=8 frames=20
+brush grass at 10 6 r=9 s=20 frames=20
+brush flatten at -14 -18 r=13 s=20 frames=100 h=3.5
+brush grass at -14 -18 r=12 s=20 frames=20
+brush flatten at 8 -9 r=3.5 s=20 frames=60 h=8.6
+brush flatten at 4.5 -12 r=3.5 s=20 frames=60 h=7.1
+brush flatten at 1 -15 r=3.5 s=20 frames=60 h=5.4
+brush smooth from 10 -6 to -2 -17 r=4 s=10 frames=80
+brush grass from 10 -6 to -2 -17 r=2.5 s=20 frames=15
+brush sand from -24 -40 to 4 -42 r=6 s=20 frames=20
+brush flatten at -12 28 r=13 s=20 frames=100 h=1.6
+brush flatten from -13 46 to -13 30 r=4.5 s=20 frames=60 h=2
+brush sand from -13 42 to -13 48 r=4 s=20 frames=20
+clear at 10 6 r=20
+clear at -14 -18 r=14
+clear from 9 -8 to -2 -16 r=3
+clear at -12 28 r=17
+clear from -13 44 to -13 50 r=4
+
+# ===== The castle: the ring of crumbled walls (the gate gap south), the broken towers, the gate stones =====================
+call ringwall x=10 z=6 r=10.5 a0=315 da=45 n=7 len=7 hgt=3.6
+place BigBoulder1_Low tower at {10+11.5*cos(45)} {6+11.5*sin(45)} ground yaw=45
+place BigBoulder1_Low tower at {10+11.5*cos(135)} {6+11.5*sin(135)} ground yaw=135
+place SmallBoulder3 - at 7.6 -4.6 y=-0.8 sit yaw=20 scale=1.1
+place SmallBoulder3 - at 12.4 -4.6 y=-0.8 sit yaw=200 scale=1.1
+scatter VP_Rubble_Brick02 6 at 10 6 r=10 seed=7711 free=1
+scatter VP_Rubble_Brick04 4 at 10 6 r=10 seed=7712 free=1
+place VP_BrickStack01 - at 15 2 ground sit yaw=30
+
+# ===== In the court: the lookout of planks (its ladder), the cellar hatch, the fire basket, the lookout's chest ===========
+push at 7 8 h=10
+# (four legs from 0.6 m into the court up under the deck)
+place ReefHuts_Pillar3 - at 0.15 0.15 y=-0.6 sy={(2.42+0.6)/4.815}
+place ReefHuts_Pillar3 - at 2.85 0.15 y=-0.6 sy={(2.42+0.6)/4.815}
+place ReefHuts_Pillar3 - at 0.15 2.85 y=-0.6 sy={(2.42+0.6)/4.815}
+place ReefHuts_Pillar3 - at 2.85 2.85 y=-0.6 sy={(2.42+0.6)/4.815}
+call floors w=2 d=2 y=2.52
+call corners w=2 d=2 y=2.52
+place Block_Wall_Fence_Rope - at 0.75 3 y=2.52
+place Block_Wall_Fence_Rope - at 2.25 3 y=2.52
+place Block_Wall_Fence_Rope - at 0 0.75 y=2.52 yaw=90
+place Block_Wall_Fence_Rope - at 0 2.25 y=2.52 yaw=90
+place Block_Wall_Fence_Rope - at 3 0.75 y=2.52 yaw=90
+place Block_Wall_Fence_Rope - at 3 2.25 y=2.52 yaw=90
+place Block_Wall_Fence_Rope - at 2.25 0 y=2.52
+roof 2 2 at 0 0 y=2.52 wood
+place Loot_ChestSmall lookoutchest at 2 2.1 y=2.52 sit yaw=180
+pop
+call ladders x=7.75 z=7.8 h=10 n=1 yaw=180
+call hatchcache x=13 z=10 r=3 seed=7713 alias=cellarhatch chest=cellarchest items=MetalIngot*2;Rope*3;Bolt*2;Hinge*2
+place Placeable_Lantern_FireBasket - at 4 4 ground sit
+place Placeable_Lantern_FireBasket - at 16 4 ground sit
+place Creature_Rat rats at 12 2 ground
+prop rats creature.count=3
+place Creature_StoneBird screecher at {10+11.5*cos(45)} {6+11.5*sin(45)} h=20
+place Bird_Nest - at {10+10*cos(90)} {6+10*sin(90)} h=10 sit yaw=40
+
+# ===== The village: three cottages, the well, the fire and woodpile, the field and its scarecrow, hens ===================
+push at -25 -23 h=3.5
+call cabin w=3 d=2 al=cottage1
+place Bed_Simple - at 3.2 2.0 y=0.1 sit yaw=90
+pop
+push at -14.25 -11.5 h=3.5
+call cabin w=3 d=2 al=cottage2
+place "Box Small" cottagebox at 1 2.2 y=0.1 sit yaw=10
+place Placeable_Table_Basic - at 3.2 1.6 y=0.1 sit
+pop
+push at -11 -27 h=3.5
+call cabin w=3 d=2 al=cottage3
+pop
+place Well - at -14 -18 ground y=-1 sit
+place campfire_1 - at -17 -25 ground sit
+for fw 0 3 1
+place Firewood_1 - at {-20.5+0.6*$fw} -26.5 ground y=0.1 sit yaw={25*$fw}
+next
+place Placeable_Scarecrow - at -4 -16 ground sit yaw=200
+call dirt x=-4 z=-17 r=4 n=3 seed=7714
+line Balboa_DecorationPrefabBase_Fence_Mid from -9 -12 to 1 -12 step=2 follow
+place Creature_Chicken hens at -8 -20 ground
+prop hens creature.count=3
+place RT_PlasticBoat - at -10 -44 ground sit yaw=160 roll=8
+
+# ===== The cave under the north shore, a chest inside ====================================================================
+place BalboaCave_Bear northcave at -12 28 h=6.55
+place Loot_ChestSmall cavechest at -14.5 33 h=2.05 sit yaw=60
+place Placeable_Lantern_Metal - at -9.4 32 h=2.05 sit
+
+# ===== Things to gather: pines and palms, berries, hives, dirt, a treasure; Raft's finds; turtles off the shore ===========
+scatter "Pickup_Landmark_Tree_Pine" 4 at 0 0 r=40 seed=7721 free=6
+scatter "Pickup_Landmark_Tree_Palm 3" 3 at -10 -6 r=40 seed=7722 free=6
+scatter "Pickup_Landmark_BerryBush" 4 at 0 0 r=38 seed=7723 free=3
+call hives x=-10 z=6 r=30 n=2 seed=7724
+call dirt x=-10 z=0 r=34 n=3 seed=7725
+call treasure x=0 z=0 r=38 n=1 seed=7701
+call shallows r=76 deep=5 n=2 seed=771
+place Creature_Turtle turtles at 40 -40 h=-2
+prop turtles creature.count=2
+
+info title=Crowncrag Ruin
+info author=Custom Islands
+info description=A castle crumbled on a green crag - its stone ring, two broken towers, a lookout of planks in the court and the cellar hatch - and below it a village of three cottages round a well. A cave under the north shore. Rats in the ruin, a screecher on the towers. No quest - an island to explore.
+
+note lookoutchest Chest on the lookout | Whoever kept watch from the old walls left his things up here: a spyglass with no glass, rope, nails.
+loot lookoutchest Rope*3;Nail*12;Plank*6;Feather*3
+prop lookoutchest loot.refill=0
+note cottagebox Cottager's box | A box under the window: thread, a knife gone blunt, seeds for the field.
+loot cottagebox Seed_Mango*2;Rope*2;Leather*2;Wool*2
+prop cottagebox loot.refill=0
+note cavechest Chest in the north cave | Hauled up from the beach and hidden in the dark. The lock gave up long ago.
+loot cavechest MetalIngot*2;CopperIngot*1;Scrap*4;Glass*2
+prop cavechest loot.refill=0
+
+save Crowncrag Ruin

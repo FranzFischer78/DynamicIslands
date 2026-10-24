@@ -1,0 +1,355 @@
+# lib_sunken - shared pieces of the plan The Sunken Kingdom's islands ("include lib_sunken"; tower needs lib_rt)
+#
+# tower: a drowned skyscraper's top - n storeys of Raft's radio tower pieces (6 x 9 m, 3 m each, windows on all sides)
+# stacked from h (its foot on the seabed) up, a roof floor with a railing on top (the roof at h + 3n). x z: the frame
+# corner as in rt_storey (the footprint is x-6..x, z-4.5..z+4.5); a: an alias for every wall and floor (to tint them).
+macro tower x=0 z=0 h=-7 n=4 yaw=0 w=RT_WallWindow1 a=-
+for s 0 {$n-1}
+push at $x $z h={$h+3*$s} yaw=$yaw
+call rt_storey b1=RT_Wall1 b2=$w f1=$w f2=RT_Wall1 l1=RT_Wall1 l2=$w l3=RT_Wall1 r1=RT_Wall1 r2=$w r3=RT_Wall1 a=$a
+pop
+next
+push at $x $z h={$h+3*$n} yaw=$yaw
+place RT_Floor $a at 0 4.5
+pop
+end
+#
+# mastbridge: a fallen antenna mast laid as a footbridge from x1 to x2 along z (at h): a deck of stone floor blocks on
+# two antenna poles as stringers, rope rails on both sides (x1 < x2; the gap at most 12 m)
+macro mastbridge x1=0 x2=9 z=0 h=5
+ramp Block_Floor_Tier3 from {$x1+0.75} $z $h to {$x2-0.75} $z $h len=1.5 top=0
+place Antenna_pole - at $x1 {$z-0.55} y={$h-0.45} rot=0,0,-90 sy={($x2-$x1)/6.32}
+place Antenna_pole - at $x1 {$z+0.55} y={$h-0.45} rot=0,0,-90 sy={($x2-$x1)/6.32}
+ramp Block_Wall_Fence_Rope from {$x1+0.75} {$z-0.75} $h to {$x2-0.75} {$z-0.75} $h len=1.5 top=-0.1
+ramp Block_Wall_Fence_Rope from {$x1+0.75} {$z+0.75} $h to {$x2-0.75} {$z+0.75} $h len=1.5 top=-0.1
+end
+#
+# mastbridgez: the same footbridge along z, from z1 to z2 at x (z1 < z2)
+macro mastbridgez z1=0 z2=9 x=0 h=5
+ramp Block_Floor_Tier3 from $x {$z1+0.75} $h to $x {$z2-0.75} $h len=1.5 top=0
+place Antenna_pole - at {$x-0.55} $z1 y={$h-0.45} rot=90,0,0 sy={($z2-$z1)/6.32}
+place Antenna_pole - at {$x+0.55} $z1 y={$h-0.45} rot=90,0,0 sy={($z2-$z1)/6.32}
+ramp Block_Wall_Fence_Rope from {$x-0.75} {$z1+0.75} $h to {$x-0.75} {$z2-0.75} $h len=1.5 top=-0.1
+ramp Block_Wall_Fence_Rope from {$x+0.75} {$z1+0.75} $h to {$x+0.75} {$z2-0.75} $h len=1.5 top=-0.1
+end
+#
+# buoychain: the marker buoy over a sunken island - a chain of antenna poles from the seabed at x z straight up to the
+# surface (n poles of 5.2 m), the buoy on top (h: the surface over the island's own water line = the island's depth)
+# and a zone at the buoy (id; zal its alias)
+macro buoychain x=0 z=0 h=20 n=3 al=buoy zal=buoyzone id=surface_buoy
+for k 0 {$n-1}
+place Antenna_pole - at $x $z ground y={$k*5.2} sy=0.82
+next
+place Reef_Buoy $al at $x $z h=$h
+place Zone_Trigger $zal at $x $z h={$h-1}
+prop $al obj.name=$al
+prop $zal zone.id=$id
+prop $zal zone.radius=4
+end
+#
+# ringwave: the Pelagic Network's sign, a ring cut by three wavy lines, built upright of tinted water pipes (four big
+# curves for the ring, 2 m across times s/2; three zigzag lines of short pipes across it), standing at x z h facing yaw;
+# al: one alias for all its pipes (tinted rust red here)
+macro ringwave x=0 z=0 h=0 yaw=0 s=2 al=ringwave
+push at $x $z h={$h+$s} yaw=$yaw
+place WaterPipe_BigCurve_1 $al at 0 0 y=0 rot=0,0,0 scale=$s
+place WaterPipe_BigCurve_1 $al at 0 0 y=0 rot=0,0,90 scale=$s
+place WaterPipe_BigCurve_1 $al at 0 0 y=0 rot=0,0,180 scale=$s
+place WaterPipe_BigCurve_1 $al at 0 0 y=0 rot=0,0,270 scale=$s
+for wy -0.45 0.25 0.35
+place WaterPipe_Short_1 $al at {-0.87*$s} 0 y={$wy*$s} rot=0,0,30 scale={$s/2}
+place WaterPipe_Short_1 $al at {-0.433*$s} 0 y={($wy+0.25)*$s} rot=0,0,-30 scale={$s/2}
+place WaterPipe_Short_1 $al at 0 0 y={$wy*$s} rot=0,0,30 scale={$s/2}
+place WaterPipe_Short_1 $al at {0.433*$s} 0 y={($wy+0.25)*$s} rot=0,0,-30 scale={$s/2}
+next
+pop
+prop $al tint.color=#8a2a1c
+prop $al tint.amount=0.7
+end
+#
+# coralwall: reef growing up a tower wall - coral pieces stacked against a wall face from the seabed up (x z: the foot,
+# n pieces in a row on the seabed along the foot, yaw: the wall's facing), each one on the ground
+macro coralwall x=0 z=0 n=4 yaw=0 seed=1
+for c 0 {$n-1}
+place LeafCoral_1 - at {$x+0.6*$c-0.9} $z ground yaw={$yaw+40*$c} scale=0.8
+place TinyCoral - at {$x+0.6*$c-0.6} {$z+0.5} ground yaw={$yaw+90*$c}
+next
+end
+#
+# airpocketat: airpocket (lib_gravity) at an exact height h (inside a building, on a floor that is not the terrain)
+macro airpocketat x=0 z=0 h=0 id=air al=air bub=airbub r=2.5 msg="An air pocket - breathe."
+place AirPocket_1 - at $x $z h={$h+0.05} scale=0.6
+place Zone_Trigger $al at $x $z h={$h+1.6}
+place Zone_Atmosphere $bub at $x $z h={$h+1.2}
+prop $al obj.name=$al
+prop $al zone.id=$id
+prop $al zone.radius=$r
+prop $al zone.repeat=1
+prop $al zone.air=1
+prop $al zone.message=$msg
+prop $bub atmo.particles=bubbles
+prop $bub zone.radius=3
+end
+#
+# labfloor: a floor of stone floor blocks (1.5 m, their tops at y) filling an rt_storey frame (x -6..0, z -4.5..4.5)
+# except the hatch cell x -1.5..0, z 3..4.5 (a ladder comes up there); fa: an alias for the blocks
+macro labfloor y=0 fa=-
+for fz -3.75 2.25 1.5
+place Block_Floor_Tier3 $fa at -5.25 $fz y=$y
+place Block_Floor_Tier3 $fa at -3.75 $fz y=$y
+place Block_Floor_Tier3 $fa at -2.25 $fz y=$y
+place Block_Floor_Tier3 $fa at -0.75 $fz y=$y
+next
+place Block_Floor_Tier3 $fa at -5.25 3.75 y=$y
+place Block_Floor_Tier3 $fa at -3.75 3.75 y=$y
+place Block_Floor_Tier3 $fa at -2.25 3.75 y=$y
+end
+#
+# labstorey: one storey (3 m) of the leaning lab tower - two rt_storey frames side by side (x -6..6, z -4.5..4.5, one
+# room 12 x 9 m), shifted 0.3 m east per storey s (the 6-degree lean, stepped), its floor at h0 + 3s. Floors of stone
+# blocks (labfloor) on a thick pillar from the floor below (pil=1; 0 on the lowest storey, it rests on the seabed); the
+# hatch with its ladder up in the west frame's north-east corner (lad=0 on the roof storey); w: the window piece
+# (RT_WallWindowBroken on the flooded floors: swim in); door: the east wall's middle piece
+macro labstorey s=0 h0=-14.7 w=RT_WallWindow1 door=RT_Wall1 pil=1 lad=1 a=labwalls fa=labfloors
+push at {0.3*$s} 0 h={$h0+3*$s}
+call rt_storey floor=none b1=RT_Wall1 b2=$w f1=$w f2=RT_Wall1 l1=RT_Wall1 l2=$w l3=RT_Wall1 r1=none r2=none r3=none a=$a
+call labfloor y=0 fa=$fa
+pop
+push at {6+0.3*$s} 0 h={$h0+3*$s}
+call rt_storey floor=none b1=$w b2=RT_Wall1 f1=RT_Wall1 f2=$w l1=none l2=none l3=none r1=RT_Wall1 r2=$door r3=RT_Wall1 a=$a
+call labfloor y=0 fa=$fa
+place Block_Floor_Tier3 $fa at -0.75 3.75 y=0
+pop
+for p 1 $pil
+place RT_PillarThick - at {0.3*$s} 0 h={$h0+3*$s-3} sy=0.5
+next
+for l 1 $lad
+place Block_Ladder_Tier3 - at {0.3*$s-0.75} 4.2 h={$h0+3*$s} sy=1.23
+next
+end
+#
+# labroof: the leaning tower's roof (floor blocks, the hatch open for the ladder from below; a railing round it)
+macro labroof s=8 h0=-14.7 fa=labfloors
+push at {0.3*$s} 0 h={$h0+3*$s}
+call labfloor y=0 fa=$fa
+call rt_railing y=0 rm=none
+pop
+push at {6+0.3*$s} 0 h={$h0+3*$s}
+call labfloor y=0 fa=$fa
+place Block_Floor_Tier3 $fa at -0.75 3.75 y=0
+call rt_railing y=0 lm=none
+pop
+place RT_PillarThick - at {0.3*$s} 0 h={$h0+3*$s-3} sy=0.5
+end
+#
+# caisson: a concrete caisson standing on the seabed - a hollow box of stone walls w x w cells (1.5 m) round x z (its
+# centre), lv storeys of 2.42 m from h0 (the seabed) up, capped with floor blocks on the walls' top (the cap's top at
+# h0 + 2.42 lv + 0.215); a: an alias for walls and cap (tinted concrete grey)
+macro caisson x=0 z=0 w=2 h0=-8 lv=4 a=caisson
+push at {$x-$w*0.75} {$z-$w*0.75} h=$h0
+for k 0 {$lv-1}
+for i 0 {$w-1}
+place Block_Wall_Tier3 $a at {$i*1.5+0.75} 0 y={$k*2.42}
+place Block_Wall_Tier3 $a at {$i*1.5+0.75} {$w*1.5} y={$k*2.42}
+place Block_Wall_Tier3 $a at 0 {$i*1.5+0.75} y={$k*2.42} yaw=90
+place Block_Wall_Tier3 $a at {$w*1.5} {$i*1.5+0.75} y={$k*2.42} yaw=90
+next
+next
+for cx 0.75 {$w*1.5-0.75} 1.5
+for cz 0.75 {$w*1.5-0.75} 1.5
+place Block_Floor_Tier3 $a at $cx $cz y={$lv*2.42+0.215}
+next
+next
+pop
+prop $a tint.color=#8d8f8a
+prop $a tint.amount=0.6
+end
+#
+# stonehouse: a Commons house of stone blocks, w x d cells (1.5 m) in a frame (push to place it, its floor at the frame's
+# 0): floor blocks, walls round it with a door in the front (z 0) at cell 0, a window in every cell of the back
+# wall (z d*1.5) with a lantern on the floor behind each (the lit windows), a flat roof of floor blocks on the walls'
+# top (2.42). a: an alias for the walls and the roof (tinted dark stone). w and d at least 2.
+macro stonehouse w=2 d=2 a=houses
+for fx 0.75 {$w*1.5-0.75} 1.5
+for fz 0.75 {$d*1.5-0.75} 1.5
+place Block_Floor_Tier3 $a at $fx $fz y=0
+place Block_Floor_Tier3 $a at $fx $fz y=2.635
+next
+next
+place Block_Wall_Door_Tier3 $a at 0.75 0 y=0
+for fx 2.25 {$w*1.5-0.75} 1.5
+place Block_Wall_Tier3 $a at $fx 0 y=0
+next
+for i 0 {$w-1}
+place Block_Wall_Window_Tier3 $a at {$i*1.5+0.75} {$d*1.5} y=0
+place Placeable_Lantern_Metal - at {$i*1.5+0.75} {$d*1.5-0.45} y=0 sit
+next
+for fz 0.75 {$d*1.5-0.75} 1.5
+place Block_Wall_Tier3 $a at 0 $fz y=0 yaw=90
+place Block_Wall_Tier3 $a at {$w*1.5} $fz y=0 yaw=90
+next
+prop $a tint.color=#3d4146
+prop $a tint.amount=0.6
+end
+#
+# ladtower: a small stone tower 3 x 3 m round x z (2 x 2 cells), lv storeys of 2.42 m from h0 (the ground) up, a door in
+# the south wall's first cell at the foot, a ladder up the inside in the north-east cell, a deck on top (its top at
+# h0 + 2.42 lv + 0.215) open over the ladder, a rope railing round the deck; a: an alias for walls and deck
+macro ladtower x=0 z=0 h0=0 lv=3 a=towers
+push at {$x-1.5} {$z-1.5} h=$h0
+for k 0 {$lv-1}
+place Block_Wall_Tier3 $a at 2.25 0 y={$k*2.42}
+place Block_Wall_Tier3 $a at 0.75 3 y={$k*2.42}
+place Block_Wall_Tier3 $a at 2.25 3 y={$k*2.42}
+place Block_Wall_Tier3 $a at 0 0.75 y={$k*2.42} yaw=90
+place Block_Wall_Tier3 $a at 0 2.25 y={$k*2.42} yaw=90
+place Block_Wall_Tier3 $a at 3 0.75 y={$k*2.42} yaw=90
+place Block_Wall_Tier3 $a at 3 2.25 y={$k*2.42} yaw=90
+place Block_Ladder_Tier3 - at 2.25 2.8 y={$k*2.42} yaw=180
+next
+place Block_Wall_Door_Tier3 $a at 0.75 0 y=0
+for k 1 {$lv-1}
+place Block_Wall_Tier3 $a at 0.75 0 y={$k*2.42}
+next
+place Block_Floor_Tier3 $a at 0.75 0.75 y={$lv*2.42+0.215}
+place Block_Floor_Tier3 $a at 2.25 0.75 y={$lv*2.42+0.215}
+place Block_Floor_Tier3 $a at 0.75 2.25 y={$lv*2.42+0.215}
+place Block_Wall_Fence_Rope - at 0.75 0 y={$lv*2.42+0.215}
+place Block_Wall_Fence_Rope - at 2.25 0 y={$lv*2.42+0.215}
+place Block_Wall_Fence_Rope - at 0.75 3 y={$lv*2.42+0.215}
+place Block_Wall_Fence_Rope - at 0 0.75 y={$lv*2.42+0.215} yaw=90
+place Block_Wall_Fence_Rope - at 0 2.25 y={$lv*2.42+0.215} yaw=90
+place Block_Wall_Fence_Rope - at 3 0.75 y={$lv*2.42+0.215} yaw=90
+pop
+prop $a tint.color=#6e6a64
+prop $a tint.amount=0.55
+end
+#
+# stonelamp: a survey lamp - a lantern on a stone post (stacked rock) at x z, on the ground (also under water)
+macro stonelamp x=0 z=0 al=-
+place SmallRock_02 - at $x $z ground sit scale=0.45 sy=0.9
+place Antenna_pole - at $x $z ground y=0.5 sy=0.4
+place Placeable_Lantern_Metal $al at $x $z ground y=3 sit drop
+end
+#
+# --- The Sunken Kingdom's extra areas (10-24): every story island has places all over it and its quest crosses it.
+# The same shapes as lib_areas (SL14), kept here so the plan has no other library to need. Each macro shapes its own
+# ground (a pad at a fixed h, so nothing hangs on unknown terrain) and clears the plants under what it builds.
+#
+# sk_ridge: a ridge from x1 z1 to x2 z2, h m along its line, a peak h+top m at its middle, smoothed, painted by slope; r:
+# half its width. The caller puts plants back (sk_plants on land, sk_reef under water).
+macro sk_ridge x1=0 z1=0 x2=30 z2=0 h=8 top=5 r=8
+set mx {($x1+$x2)/2}
+set mz {($z1+$z2)/2}
+brush flatten from $x1 $z1 to $x2 $z2 r=$r s=20 frames=700 h=$h
+brush flatten at $mx $mz r={$r*0.8} s=20 frames=500 h={$h+$top}
+brush smooth from $x1 $z1 to $x2 $z2 r={$r*1.7} s=6 frames=90
+brush auto from $x1 $z1 to $x2 $z2 r={$r*1.8} s=10 frames=25
+clear from $x1 $z1 to $x2 $z2 r={$r*2}
+end
+#
+# sk_plants: Raft's tropical plants put back over an area (about Raft's density, not a jungle)
+macro sk_plants x=0 z=0 r=20 seed=1
+scatter "Pickup_Landmark_Tree_Palm 3" 3 at $x $z r=$r seed=$seed free=3
+scatter "Pickup_Landmark_Tree_Palm 4" 2 at $x $z r=$r seed={$seed+1} free=3
+scatter Bamboo_1 3 at $x $z r=$r seed={$seed+2} free=2
+scatter Pickup_Landmark_Tree_Mango 1 at $x $z r=$r seed={$seed+3} free=3
+scatter Bush 6 at $x $z r=$r seed={$seed+4} free=1
+scatter Bush2 4 at $x $z r=$r seed={$seed+5} free=1
+scatter SmallBoulder2 3 at $x $z r=$r seed={$seed+6} free=2
+scatter BigBoulder1_Low 2 at $x $z r=$r seed={$seed+8} free=3
+end
+#
+# sk_cave: Raft's bear-cave rock on a pad h m up at x z, its mouth to +z (yaw=0) or -z (yaw=180), a passage dug out
+# from the mouth; inside, a small chest and a lamp. The caller's zone goes at x, z+5 (yaw 0) / z-5 (yaw 180).
+macro sk_cave x=0 z=0 h=2 yaw=0 al=caverock chest=cavechest
+set cs {cos($yaw)}
+brush flatten at $x $z r=14 s=20 frames=80 h=$h
+brush flatten from {$x-$cs} {$z+21*$cs} to {$x-$cs} {$z+6*$cs} r=4.5 s=20 frames=60 h={$h+0.4}
+clear at $x $z r=19
+clear from {$x-$cs} {$z+20*$cs} to {$x-$cs} {$z+26*$cs} r=4
+place BalboaCave_Bear $al at $x $z h={$h+4.95} yaw=$yaw
+place Loot_ChestSmall $chest at {$x-2.5*$cs} {$z+5*$cs} h={$h+0.45} sit yaw={60+$yaw}
+place Placeable_Lantern_Metal - at {$x+2.6*$cs} {$z+4*$cs} h={$h+0.45} sit
+end
+#
+# sk_ruin: a roofless stone house 3 x 2 blocks on a pad h m up at x z (door in the -z wall, the back and one side
+# fallen, the stones round it, a table inside). The caller's note goes on a box at x+2.5 z-4.5 (in front of the door).
+macro sk_ruin x=0 z=0 h=3 al=ruin
+brush flatten at $x $z r=8.5 s=20 frames=300 h=$h
+clear at $x $z r=8.5
+push at {$x-2.25} {$z-1.5} h=$h
+for fx 0.75 3.75 1.5
+for fz 0.75 2.25 1.5
+place Block_Floor_Tier3 $al at $fx $fz y=0.05
+next
+next
+place Block_Wall_Door_Tier3 $al at 0.75 0 y=0.05
+place Block_Wall_Tier3 $al at 2.25 0 y=0.05
+place Block_Wall_Tier3 $al at 3.75 0 y=0.05
+place Block_Wall_Window_Tier3 $al at 0.75 3 y=0.05
+place Block_Wall_Tier3 $al at 3.75 3 y=0.05
+place Block_Wall_Tier3 $al at 0 0.75 y=0.05 yaw=90
+place Block_Wall_Tier3 $al at 0 2.25 y=0.05 yaw=90
+place Block_Wall_Tier3 $al at 4.5 0.75 y=0.05 yaw=90
+place SmallBoulder2 - at 5.9 2.7 y=0 sit yaw=30 scale=0.6
+place SmallBoulder4 - at 2.25 4.6 y=0 sit yaw=80 scale=0.6
+place SmallBoulder1 - at -1.6 1 y=0 sit yaw=10 scale=0.5
+place Placeable_Table_Basic - at 1.5 1.5 y=0 sit yaw=0
+pop
+prop $al tint.color=#5b5650
+prop $al tint.amount=0.55
+end
+#
+# sk_plane: a crashed plane on a pad h m up at x z, nose to yaw, tipped on one wing, its broken wing and tail behind it,
+# a crate beside the door. With yaw=60 the caller's note box goes at x-5 z+5.5.
+macro sk_plane x=0 z=0 h=3 yaw=60 al=plane crate=planecrate
+set s {sin($yaw)}
+set c {cos($yaw)}
+brush flatten at $x $z r=15 s=20 frames=350 h=$h
+clear at $x $z r=16
+place Airplane $al at $x $z h={$h+1.3} rot=4,$yaw,-9 scale=0.8
+place WingBroken - at {$x-7*$s+5*$c} {$z-7*$c-5*$s} ground sit yaw={$yaw+40}
+place BackWingBroken - at {$x-11*$s-2*$c} {$z-11*$c+2*$s} ground sit yaw={$yaw+110}
+place Loot_Crate $crate at {$x+4*$c} {$z-4*$s} ground sit yaw={$yaw+15}
+end
+#
+# sk_wreck: one of Raft's vehicles (VEHICLES.md) left on a pad h m up at x z, turned yaw, a crate of its load beside
+# it at x+6 z (the caller's note box goes at x+6 z-4)
+macro sk_wreck x=0 z=0 h=2 yaw=0 v=Van_4 al=wreck crate=wreckcrate scale=1
+brush flatten at $x $z r=11 s=20 frames=300 h=$h
+clear at $x $z r=11
+place $v $al at $x $z ground sit yaw=$yaw scale=$scale
+place Loot_Crate $crate at {$x+6} $z ground sit yaw={$yaw+20}
+end
+#
+# sk_zone: a quest zone (Zone_Trigger, id, radius r, a message on entering) on the ground at x z
+macro sk_zone x=0 z=0 al=zone id=zone r=4 msg="" h=0
+place Zone_Trigger $al at $x $z ground y=$h
+prop $al zone.id=$id
+prop $al zone.radius=$r
+prop $al zone.message=$msg
+end
+#
+# sk_notebox: a note lying on a small box at x z
+macro sk_notebox x=0 z=0 yaw=0 al=note
+place "Box Small" - at $x $z ground sit yaw=$yaw
+place Note_Paper $al at $x $z ground y=0.7 drop yaw={$yaw+15}
+end
+#
+# sk_reef: a tight reef under water at x z: corals, leaf coral and a silver alga
+macro sk_reef x=0 z=0 r=4 seed=1
+scatter VP_CoralDigitate02 4 at $x $z r=$r seed=$seed wet free=1
+scatter VP_CoralBulb04 3 at $x $z r=$r seed={$seed+1} wet free=1
+scatter LeafCoral_1 3 at $x $z r=$r seed={$seed+2} wet free=1
+scatter "Pickup_Landmark_SilverAlgae" 1 at $x $z r=$r seed={$seed+3} wet
+end
+#
+# sk_dark: a dark stretch (a cave mouth, a trench): thick dark fog and little light - the advanced headlight's place
+macro sk_dark x=0 z=0 h=1 r=9 al=dark
+place Zone_Atmosphere $al at $x $z ground y=$h
+prop $al atmo.fog=#04121a
+prop $al atmo.fogAmount=0.7
+prop $al atmo.lightAmount=0.2
+prop $al zone.radius=$r
+end

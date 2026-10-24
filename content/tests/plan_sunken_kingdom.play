@@ -1,0 +1,65 @@
+# Play test of the plan 'The Sunken Kingdom' (CIPlay plan_sunken_kingdom, in a test world 'CI ...'): no Raft story -
+# each island's WHEN brings the next (a quest, a signal, a zone, a rule, a step); every stop is tuned to and played to
+# its end with its own test, except that the Spire is played to RESTORE and the Hollow then checks the RESTORE answer;
+# then the shuttle wreck, sailed to (km 4).
+plan The Sunken Kingdom
+tune spire
+include spirecrest_roofs.play
+expect chain overpass unlocked
+tune overpass
+include overpass_shoal.play
+expect chain brinelab unlocked
+tune brinelab
+include brinelab_tower.play
+expect chain biome unlocked
+tune biome
+include biome_seven.play
+expect chain thalassa unlocked
+tune thalassa
+include thalassa_mooring.play
+expect chain shelf unlocked
+tune shelf
+include lumen_shelf.play
+expect chain caisson unlocked
+tune caisson
+include caisson_yard.play
+expect chain hadal unlocked
+tune hadal
+include hadal_commons.play
+expect chain sealkeeper unlocked
+tune sealkeeper
+include sealkeeper_spire.play
+expect chain hollow unlocked
+expect story restorechoice 1
+tune hollow
+island The Stalker's Hollow
+offset 0 0
+air chain_air
+zone lip
+read Warden's last entry
+zone alcove_1
+air alcove_1
+zone arena
+kill Angler fish
+wait 3
+expect story stalkerhurt 1
+zone alcove_2
+air alcove_2
+expect story stalker 1
+zone valve
+use valve
+expect shown teal
+expect hidden gatebars
+expect shown lastrestore
+expect hidden plug
+read What the Ringwave means (part 1)
+zone alcove_4
+read The last word
+zone surface_line
+expect done
+# the shuttle rule is km:4 (ahead:450): sail on first, as in plan_gravity_sea
+sail 4
+arrive shuttle
+include shuttlewreck_reef.play
+expect blueprints
+plan end

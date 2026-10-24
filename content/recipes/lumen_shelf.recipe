@@ -1,0 +1,245 @@
+# Lumen Shelf - an island of the library's plan The Sunken Kingdom (sunken 25 m; chapter 6, the glowing shelf)
+# The edge of the continental shelf: a long seabed terrace that drops into the dark, glowing water over it, silver
+# algae and giant clams along it, a survey line of lamps on stone posts running out to the edge. The wind spar stands
+# on the shelf and pokes out of the sea: a hollow pillar of stone walls with a ladder up its inside (air pockets in it),
+# Varuna's wind turbine on a small platform on top - the only part above water. The survey hut (battery plans), the
+# team's mess (the grill plans), the survey sled (the head light plans), a rock arch at the edge with air under it, and
+# anglers hunting the dark below. Quest "The Glowing Shelf" (14 steps).
+#
+# Points (metres over the island's own water line; in the world it all lies 25 m lower): the shelf at 0 (x -26..12),
+# the drop past x 14 down to -14; the spar round -10 -4 (walls 0..26.6, its platform at 26.8, the surface at 25), air in
+# it at 8 and 17; the survey line of five lamps along z 2 from x -16 to 12 (lamp 3 at 0 2, an air pocket there); the
+# survey hut x -6..-1.5, z -14..-11; the mess x 3..7.5, z -13..-9; the arch at 16 8 over the edge (air under it).
+include lib_features
+include lib_sea
+include lib_gravity
+include lib_sl1
+include lib_sunken
+# RESIZE 10-24: Radius 40 -> 85 (Height 4 -> 6), the old content moved 24.8 0 as one frame (push) so its sea side stays at the coast; the island grows behind it.
+new
+gen Trees=0 Bushes=0 Rocks=0.35 Harvest=0 BeachThings=0
+gen Seed=10601 Radius=85 Height=6 Roughness=0.35 Peaks=2 Shape=0 Style=0 BeachWidth=0.1 Cliffs=0.4 PeakShape=0.4
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.4 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0.4
+generate
+elevation -25
+push at 24.8 0
+
+# --- Terrain: the shelf, the drop into the dark --------------------------------------------------------------------------
+# (the strokes 2.5 m west of their places: they run before origin, and the drop cut at 26 0 moves the land's middle 2.5 m,
+# 2026-10-23)
+brush flatten at -9.5 0 r=22 s=20 frames=240 h=0
+brush flatten at 23.5 0 r=12 s=20 frames=240 h=-14
+brush sand at -9.5 0 r=14 s=20 frames=20
+pop
+brush flatten at -28.9 16 r=4 s=8 frames=40
+origin
+clear at -28.9 16 r=5
+push at 24.8 0
+clear at -7 0 r=18
+
+# --- The wind spar: a hollow stone pillar, a ladder inside, air in it, the turbine on top -------------------------------
+push at -10 -4 h=0
+for k 0 10
+place Block_Wall_Tier3 spar at 0 0.75 y={$k*2.42}
+place Block_Wall_Tier3 spar at -0.75 0 y={$k*2.42} yaw=90
+place Block_Wall_Tier3 spar at 0.75 0 y={$k*2.42} yaw=90
+place Block_Ladder_Tier3 - at 0 0.55 y={$k*2.42} yaw=180
+next
+for k 1 10
+place Block_Wall_Tier3 spar at 0 -0.75 y={$k*2.42}
+next
+place Block_Floor_Tier3 spartop at -1.5 -1.5 y=26.8
+place Block_Floor_Tier3 spartop at 0 -1.5 y=26.8
+place Block_Floor_Tier3 spartop at 1.5 -1.5 y=26.8
+place Block_Floor_Tier3 spartop at -1.5 0 y=26.8
+place Block_Floor_Tier3 spartop at 1.5 0 y=26.8
+place Block_Floor_Tier3 spartop at -1.5 1.5 y=26.8
+place Block_Floor_Tier3 spartop at 0 1.5 y=26.8
+place Block_Floor_Tier3 spartop at 1.5 1.5 y=26.8
+place Placeable_WindTurbine - at 1.0 1.6 y=26.8 sit
+place Loot_ChestSmall sparchest at -1.5 1.5 y=26.8 sit yaw=90
+pop
+prop spar tint.color=#6e6a64
+prop spar tint.amount=0.55
+prop spartop tint.color=#5b6266
+prop spartop tint.amount=0.45
+call airpocketat x=-10 z=-4 h=8 id=spar_air1 al=sparair1 bub=sparbub1 r=1.5 msg="Air, trapped in the spar."
+call airpocketat x=-10 z=-4 h=17 id=spar_air2 al=sparair2 bub=sparbub2 r=1.5 msg="Air again, higher up the spar."
+place Zone_Trigger sparfoot at -10 -6.5 h=1.5
+place Placeable_Table_Basic - at -12.5 -7 h=0 sit yaw=20
+place Note_Paper surveynotes at -12.5 -7 h=1.3 drop yaw=30
+
+# --- The survey line: five lamps to the edge, air at lamp 3 -------------------------------------------------------------
+call stonelamp x=-16 z=2
+call stonelamp x=-8 z=2
+call stonelamp x=0 z=2 al=lamp3
+call stonelamp x=6 z=2
+call stonelamp x=12 z=2
+call airpocket x=0 z=4 id=lamp_3 al=lamp3air bub=lamp3bub r=2.5 msg="Lamp 3 - and an air pocket at its foot. Past the last lamps the shelf drops away."
+place Creature_AnglerFish anglers at 18 2 h=-8
+place Zone_Atmosphere glowshelf at -7 0 h=6
+place Zone_Atmosphere darkedge at 24 0 h=-6
+
+# --- The survey hut, the mess, the sled ---------------------------------------------------------------------------------
+push at -6 -14 h=0
+call shed w=3 d=2 door=1
+place Loot_Chest surveyhut at 3.6 2.2 y=0.2 sit yaw=180
+place Placeable_Lantern_Metal - at 0.6 2.3 y=0.2 sit
+pop
+push at 3 -13 h=0
+call shed w=3 d=3 door=1
+place Placeable_Table_Basic - at 2.25 2.6 y=0.2 sit yaw=0
+place Loot_Chest messchest at 3.7 3.7 y=0.2 sit yaw=180
+place Note_Paper lastnote at 2.25 2.6 y=1.5 drop yaw=15
+place "Box Small" - at 0.7 3.8 y=0.2 sit
+pop
+place Loot_SunkenBarrel - at 9 -4 ground sit
+place Loot_Chest sledbox at 8 -6 ground sit yaw=300
+place Antenna_pole - at 7 -5 ground rot=0,0,-80 sy=0.5
+
+# --- The arch at the edge, air under it ---------------------------------------------------------------------------------
+place SmallRock_02 - at 14.5 8 ground sit scale=2.6
+place SmallRock_02 - at 18.5 8.5 ground sit scale=2.4 yaw=120
+place Block_Foundation archtop at 16.5 8 h=2.95 sx=3.2 sz=1.6 yaw=5
+prop archtop tint.color=#56514a
+prop archtop tint.amount=0.75
+call airpocket x=16.5 z=8 id=edge al=edgeair bub=edgebub r=2.5 msg="Under the arch, at the very edge: air. Below, nothing but dark."
+
+# --- Seabed life: algae, clams, ores, reefs, vines, the marker buoy over the spar ----------------------------------------
+scatter Pickup_Landmark_SilverAlgae 6 at -6 0 r=16 seed=10602 free=2
+scatter Pickup_Landmark_GiantClam 3 at 6 6 r=8 seed=10603 free=2
+scatter "Pickup_Landmark_Copper 2" 3 at -18 -12 r=4 seed=10604 free=1
+scatter "Pickup_Landmark_Iron 1" 2 at -67.3 21.25 r=4 seed=10605 free=1
+scatter VP_CoralBulb04 5 at -20 -2 r=3 seed=10606 free=1
+scatter VP_CoralDigitate01 5 at -14 12 r=3 seed=10607 free=1
+scatter TinyCoral 6 at 4 14 r=3 seed=10608 free=1
+scatter VP_CoralFoliose01 4 at -2 -20 r=3 seed=10609 free=1
+scatter SeaVine3 30 at -7 0 r=24 seed=10610 free=2
+scatter SeaVine3_klump 12 at -7 0 r=24 seed=10611 free=2
+place Creature_PufferFish puffers at -18 -6 h=3
+call shallows x=-39.67 z=0 r=106 deep=6 n=1 seed=10612
+pop
+
+# --- DISCOVERIES 10-24 (optional, no quest needs them): diver's cache + slate + air pocket; Van3 + chest; hatch with a chest; buried treasure; viewpoint ---
+place "Box Small" dcampbox at -28.9 16 ground sit
+place Note_Paper dnote at -28.9 16 ground y=0.7 drop yaw=30
+place Loot_ChestSmall dcamp at -26.9 17.5 ground sit yaw=197
+call airpocket x=-31.4 z=14 id=lumen_shelf_dair al=dairzone bub=dairbub r=2.5 msg="Air trapped in a diver's bell-tent. Breathe."
+note dnote Diver's slate | A slate on a lanyard:\n\nLAST DIVE - LIGHTS OUT BELOW 40.\nLeft the spare kit here for whoever comes next.
+note dcamp Diver's cache | A diver's spare kit, wired shut against the current.
+loot dcamp Rope*2;Glass*3;Plastic*4
+prop dcamp loot.refill=0
+place Van3 dvan at 20.1 -33.4 ground yaw=317
+prop dvan tint.color=#6b4a32
+prop dvan tint.amount=0.5
+place Loot_ChestSmall dwreckchest at 16.1 -30.4 ground sit yaw=257
+note dwreckchest Driver's locker | The driver's locker, still dry inside: a torch's glass, plastic, a few bolts.
+loot dwreckchest Glass*2;Plastic*5;Bolt*2
+prop dwreckchest loot.refill=0
+call hatchcache x=18.9 z=34.1 r=4 seed=10691 alias=dhatch chest=dhatchchest items=MetalIngot*2;CopperIngot*2;Bolt*2
+call treasure x=-24.5 z=-30.3 r=6 n=1 seed=10692
+prop treasure10692 treasure.loot=TitaniumOre*2;CopperOre*2
+place Zone_Trigger dview at -7.4 38.3 ground y=1.5
+prop dview zone.id=lumen_shelf_view
+prop dview zone.radius=7
+prop dview zone.repeat=never
+prop dview zone.message=The shelf runs on and on - lamp after lamp - and then just stops, and below it there is only dark.
+
+# --- Areas (10-24: every story island has places all over it and its quest crosses it): on the shelf floor - the coral ridge in the north, the dark cave
+# in the west at the end of the lamp line, the surveyor's hut in the south-east, a sunk caravan in the south-west
+call sk_ridge x1=30 z1=56 x2=46 z2=70 h=4 top=4 r=8
+call sk_reef x=38 z=63 r=6 seed=10661
+call sk_reef x=46 z=70 r=5 seed=10671
+call sk_zone x=38 z=63 al=lu_ridge id=lu_ridge r=7 msg="The coral ridge on the shelf. South, the lamps; north, the drop into the dark."
+call sk_cave x=-68 z=-4 h=2 yaw=0 al=lu_caverock chest=lu_cavechest
+call sk_zone x=-68 z=1 al=lu_cave id=lu_cave r=4 msg="The lamp line ends at this cave. Inside, it is darker than the sea."
+call sk_dark x=-68 z=1 h=1 r=7 al=lu_dark
+call airpocketat x=-65.4 z=0 h=3.6 id=lu_air al=lu_air bub=lu_airbub r=2.2 msg="Air under the rock - breathe."
+call sk_ruin x=40 z=-64 h=2 al=lu_ruin
+call sk_notebox x=42.5 z=-68.5 yaw=10 al=lu_ruinnote
+call sk_wreck x=-50 z=-40 h=2 yaw=70 v=Caravan_Green_01 al=lu_wreck crate=lu_wreckcrate scale=1
+call sk_notebox x=-44 z=-44 yaw=70 al=lu_wrecknote
+
+# --- Unique layer (10-24): the lamp line: five survey lamps lead west to the dark cave, each one keeps the anglers at bay
+# (beh.repel, gaps-1024); the cave itself is dark (a dark hazard zone: the advanced headlight from step 7 sees in it)
+call stonelamp x=-20 z=0 al=lulamp1
+call stonelamp x=-32 z=-1 al=lulamp2
+call stonelamp x=-44 z=-2 al=lulamp3
+call stonelamp x=-54 z=-2 al=lulamp4
+call stonelamp x=-62 z=0 al=lulamp5
+place Zone_Trigger lucavedark at -68 3 ground y=1
+
+# --- Settings, notes, behaviours, quest ---------------------------------------------------------------------------------
+info title=Lumen Shelf
+info author=Custom Islands
+info description=A glowing seabed terrace 25 m down, a survey line of lamps to its edge and a stone wind spar breaking the surface. Below the edge, anglers. The sixth island of The Sunken Kingdom.
+island on.arrive=message||A wind turbine standing on the sea, on a stone pillar that goes straight down into green light.
+
+note surveynotes Survey line notes | SURVEY LINE - NOTES\n\nFive lamps, shelf foot to the edge. Lamp 3 has air.\nThe turbine on the spar charges the lamps. Climb inside the spar - it holds air in two places.\nBatteries in the hut. The mess is the round-roofed one.\nPast lamp 5 the shelf drops 14 m. Don't go down there alone.
+note lastnote Last survey note | LAST SURVEY NOTE\n\nLights off below the edge. It comes to the lights.\nWe've turned the line down to half. Ines says it's only anglers.\nIt isn't only anglers.
+note sparchest Spar platform chest | A chest on the spar's platform: wind turbine plans.
+note surveyhut Survey hut chest | The survey hut's chest: advanced battery plans and spare lamp wicks.
+note sledbox Survey sled box | The survey sled's box, half buried: advanced head light plans.
+note messchest Mess chest | The mess chest: electric grill plans, two clean plates.
+loot sparchest Blueprint_WindTurbine*1;Bolt*2
+prop sparchest loot.refill=0
+loot surveyhut Blueprint_BatteryAdvanced*1;CopperIngot*1
+prop surveyhut loot.refill=0
+loot sledbox Blueprint_HeadLight_Advanced*1;Scrap*2
+prop sledbox loot.refill=0
+loot messchest Blueprint_ElectricGrill*1;Plank*2
+prop messchest loot.refill=0
+
+prop sparfoot zone.id=spar_foot
+prop sparfoot zone.radius=3.5
+prop sparfoot zone.message=The foot of the wind spar. A door in its south side, a ladder inside.
+prop lamp3 obj.name=lamp3
+prop anglers creature.count=3
+prop anglers creature.respawn=0
+prop anglers creature.zone=lamp_3
+prop glowshelf atmo.particles=fireflies
+prop glowshelf atmo.fog=#2f8f86
+prop glowshelf atmo.fogAmount=0.25
+prop glowshelf zone.radius=20
+prop darkedge atmo.fog=#04121a
+prop darkedge atmo.fogAmount=0.7
+prop darkedge atmo.lightAmount=0.2
+prop darkedge zone.radius=12
+prop puffers creature.count=2
+
+note lu_cavechest Lamp-man's box | The lamp-man's box: wicks, lamp glass, copper wire.
+loot lu_cavechest Glass*2;Copper*2;Rope*2;Battery*1
+prop lu_cavechest loot.refill=0
+note lu_ruinnote Surveyor's hut note | SURVEYOR'S HUT\n\nThe anglers keep out of the lamplight. So we lit a line of lamps west to the cave, and we walked inside the light.\nPast the lamps we never went without a headlight.
+note lu_wrecknote Caravan logbook | CARAVAN LOGBOOK\n\nThe survey team's caravan, lowered on the crane from Thalassa. Bunks for four.\nWe slept in it the first week. Then the lights started going out.
+note lu_wreckcrate Survey team's crate | The survey team's crate: a spare battery and the team's rope.
+loot lu_wreckcrate Battery*1;Rope*3;Copper*2;Scrap*2
+prop lu_wreckcrate loot.refill=0
+prop lulamp1 beh.repel=8
+prop lulamp2 beh.repel=8
+prop lulamp3 beh.repel=8
+prop lulamp4 beh.repel=8
+prop lulamp5 beh.repel=8
+prop lucavedark zone.radius=5
+prop lucavedark zone.hazard=dark
+prop lucavedark zone.hazardMsg=Pitch dark. A headlight would show the way.
+quest title=The Glowing Shelf
+quest intro=Survey lamps on the Receiver, 25 m down. Find the wind spar's foot.
+step reach|spar_foot|1|Dive to the foot of the wind spar
+step read|Survey line notes|1|Read the survey line notes
+step blueprint|Blueprint_WindTurbine|1|Climb the spar from inside: wind turbine plans on its platform
+step reach|lamp_3|1|Follow the survey line to lamp 3
+step kill|Angler fish|3|Fight off the three anglers from the dark
+step blueprint|Blueprint_BatteryAdvanced|1|Find the battery plans in the survey hut
+step blueprint|Blueprint_HeadLight_Advanced|1|Dig out the survey sled's box: head light plans
+step reach|edge|1|Reach the air under the arch at the edge
+step blueprint|Blueprint_ElectricGrill|1|Open the mess chest: electric grill plans
+step reach|lu_ridge|1|Swim to the coral ridge in the north-east
+step reach|lu_cave|1|Follow the lamp line to the cave in the west
+step read|Surveyor's hut note|1|Read the note in the surveyor's hut in the south-east
+step read|Caravan logbook|1|Read the logbook at the sunk caravan in the south-west
+step read|Last survey note|1|Read the last survey note
+quest done=Something comes to the lights. The team ran to a construction yard over the trench - the Receiver finds it on band 1000.
+quest reward=Battery*1;CopperIngot*2
+
+save Lumen Shelf

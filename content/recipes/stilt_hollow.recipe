@@ -1,0 +1,160 @@
+# Stilt Hollow - a small/medium island of the library (inspired by Raft's Caravan Town)
+# Sea stacks in a desert reef, a trailer town on their flat tops joined by rope bridges, hyenas on the stacks and a
+# white screecher on the mayor's roof. The town's pump is dead: follow the red water pipe down into the reef to the
+# air pocket where its valve lies, start the pump - it opens the gate to the mayor's trailer.
+#
+# Built by the recipe player (CIRecipe stilt_hollow) through the editor's own operations.
+
+include lib_sea
+new
+# (nature: desert, Like Raft with half the grass tufts of Raft's wild desert islets - Raft's islands as the generator's Like Raft has them, CIGenLikeRaft)
+gen Trees=0.19 Bushes=0.5 Rocks=0.42 Harvest=0.2 BeachThings=0.3
+gen Seed=611 Radius=26 Height=9 Roughness=0.35 Peaks=3 Shape=3 Style=2 BeachWidth=0.3 Cliffs=0.8 PeakShape=0.3
+gen SeaFloor=1 Seabed=2
+# (sea: Raft's finds and corals as dense as around Raft's islands - Like Raft 0.5 - the review, 2026-10-03)
+gen Water=0.6 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.2 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# --- The stacks' tops levelled (the landing 4.45 m, the pump stack 6.2 m, the mayor's rock 8.9 m) -------------------
+brush flatten at 7.5 -13 r=4 s=20 frames=20
+brush flatten at 16.5 0.5 r=4 s=20 frames=20
+brush flatten at -2.5 2.5 r=4 s=20 frames=20
+clear at 7.5 -13 r=6
+clear at 16.5 0.5 r=6
+clear at -2.5 2.5 r=6
+
+# --- The landing stack: a ladder up from the reef, the dock trailer, crates; hyenas lurk in the trailer -------------
+place LandmarkLadder_6m ladder at 7.5 -16.9 h=-1.8 rot=0,0,0
+place Caravan_Blue_01 docktrailer at 6.4 -12.2 h=4.45 yaw=15
+place Crate_Big_01 - at 5.5 -14.5 h=4.45 sit yaw=40
+place Crate_Big_02 - at 5.2 -13.6 h=4.45 sit yaw=10
+place Cableroll_01 - at 9.8 -15 h=4.45 sit
+# (on the landing's top: at 6.3 its end reached over the stack's edge and sit set it down the slope, its middle buried,
+# CIGroundIslands)
+place "Sign_02" - at 6.9 -15.8 h=4.45 sit yaw=180
+place Zone_Trigger town at 7.5 -13.5 h=5.5
+place Creature_Hyena hyenas at 7.5 -10.6 h=4.8
+
+# --- From the landing up to the pump stack: a scaffold walkway; on the pump stack the pump, the notice, the well ---
+ramp Scaffolding_6x4m from 10 -11.8 4.45 to 15 -1.3 6.2
+place Pump pump at 16.6 0.6 h=6.2 sit yaw=90
+# (the handle's mesh is 1.05 m above its pivot: it stands on the pump's top, not 0.65 m over it)
+place Pump_Handle - at 16.6 0.46 h=6.15 yaw=90
+place Note_Board notice at 18.8 -1.6 h=7.2 yaw=200
+place Well - at 18.2 2.6 sit
+place Zone_Sound pumpsound at 16.6 0.6 h=7
+# (the banner's rope was tied to nothing and the chair stood half over the stack's south-east drop: the banner across the
+# stack's north side on a wooden post at each end (its rope spans x -2.55..2.37, 3.2 m over its bottom), the chair inside)
+push at 16.6 3.9 yaw=180 ground
+place Banner_01 - at 0 0 ground sit
+place Block_Pillar_Wood - at -2.5 0 ground sy=2.5
+place Block_Pillar_Wood - at 2.32 0 ground sy=2.5
+pop
+place PlasticChair_01 - at 17.8 -0.4 h=6.2 sit yaw=220
+
+# --- The red pipe: from the pump over the edge, down the cliff and east over the reef to the divers' air pocket ----
+# (follow: end to end over the ground, down the wall too - laid level, the pieces hung over the slope as steps)
+line WaterPipe_Long_2 from 17 0.6 to 21.4 0.8 follow y=0.12
+line WaterPipe_Long_2 from 21.4 0.8 to 25.5 3.2 follow y=0.12
+place AirPocket_1 airpocket at 26.5 3.6 sit
+place Loot_ChestSmall valvebox at 26.5 3.6 y=0.4 sit yaw=200
+
+# --- From the pump stack up to the mayor's rock: a scaffold ramp behind a gate the pump opens -----------------------
+ramp Scaffolding_6x4m from 13.6 1.2 6.2 to 0.6 2.5 8.9
+place Block_Wall_Tier3 gate1 at 13.4 -0.5 h=6.2 yaw=90
+place Block_Wall_Tier3 gate2 at 13.4 1.06 h=6.2 yaw=90
+place Block_Wall_Tier3 gate3 at 13.4 2.62 h=6.2 yaw=90
+
+# --- The mayor's rock: his trailer, an awning over his chest, the town's flag, the white screecher ---------------
+place Caravan_Yellow_01 mayortrailer at -3.6 4.6 h=8.9
+# (the awning on four posts, all on the rock's flat top - within 3 m of its middle; Raft's long beam is 3.6 m along its
+# own x and stands upright: shortened to reach the awning's high and low edge)
+place MetalSheet_2 - at -2.5 1.4 h=11.3 tilt=8
+place Beam_Long_01 - at -4.7 0.6 h=8.7 sx=0.755
+place Beam_Long_01 - at -0.3 0.6 h=8.4 sx=0.84
+place Beam_Long_01 - at -4.7 2.2 h=8.9 sx=0.62
+place Beam_Long_01 - at -0.3 2.2 h=8.9 sx=0.62
+place MayorsChest mayorchest at -2.5 1.5 h=8.9 sit yaw=90
+place PulauKafilahFlag - at -5.6 0.2 h=8.9 sit yaw=110
+place BenchTable_01 - at -0.5 4 h=8.9 sit yaw=10
+place Zone_Trigger mayor at 0 2.5 h=10
+place Creature_StoneBird whitescreecher at -3 3 h=13
+
+# --- Settings, story item, notes, behaviours, quest -----------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): melons, pineapples ----------
+scatter "Pickup_Landmark_WatermelonLandmark" 3 at 0 0 r=18.2 seed=4271 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 3 at 0 0 r=18.2 seed=4348 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=46 deep=5 n=1
+
+info title=Stilt Hollow
+info author=Custom Islands
+info description=A trailer town on sandstone stacks in a desert reef, joined by scaffold walkways. Its pump is dead and its mayor's rock locked: follow the red pipe down the reef wall. Hyenas and a white screecher. Inspired by Raft's Caravan Town.
+island on.arrive=message||Trailers on top of sea stacks, a flag flapping on the highest one. Something laughs in the dock trailer.
+
+story valve|Pump valve wheel|quest:Caravan_KeyInfirmary|The valve wheel of Stilt Hollow's water pump.
+
+note notice Water warden's notice | STILT HOLLOW WATER BOARD\n\nThe pump is DOWN. The storm tore the valve wheel off and it rolled down the pipe channel.\n\nFollow the red pipe east and down the reef wall - there is an air pocket at the bottom, Pedro rigged it for the divers. Put the valve back and the pump will run.\n\nWhen the water runs, the gate to the mayor's rock opens. Not before. Mayor's orders.
+note valvebox Divers' box | A rusty box wedged under the air pocket. The valve wheel is jammed inside, with a diver's scrawl: "GOT IT - GO UP BEFORE YOUR LUNGS DO".
+loot valvebox story:valve*1;Rope*2
+prop valvebox loot.refill=0
+note mayorchest Mayor's chest | The mayor's own chest: a gold-painted hat, trade tokens and a list of every debt in town. Your name isn't on it. Yet.
+loot mayorchest Hat_Mayor*1;TradeToken*5;MetalIngot*3
+prop mayorchest loot.refill=0
+
+prop pump obj.name=pump
+prop pump beh.use=Fit the valve wheel
+prop pump if.use=take|story:valve|1
+prop pump on.use=message||The pump coughs, then thumps. Water runs - and the gate to the mayor's rock grinds open.\nopen|gate\nshow|pumpsound\nsound||event:/exploring/obstacles/tangaroa/generator_placepart
+prop pump else.use=message||The pump is dead. Its valve wheel is missing.
+prop pumpsound obj.name=pumpsound
+prop pumpsound beh.hidden=1
+prop pumpsound sound.event=event:/exploring/obstacles/tangaroa/generator_on
+prop pumpsound sound.volume=0.5
+prop pumpsound zone.radius=8
+prop gate1 obj.name=gate
+prop gate1 beh.move=0,2.6,0
+prop gate1 beh.moveTime=2.5
+prop gate1 beh.moveMode=switch
+prop gate2 obj.name=gate
+prop gate2 beh.move=0,2.6,0
+prop gate2 beh.moveTime=2.5
+prop gate2 beh.moveMode=switch
+prop gate3 obj.name=gate
+prop gate3 beh.move=0,2.6,0
+prop gate3 beh.moveTime=2.5
+prop gate3 beh.moveMode=switch
+
+prop town zone.id=town
+prop town zone.radius=4
+prop town zone.message=Hyenas burst out of the dock trailer!
+prop hyenas creature.count=2
+prop hyenas creature.zone=town
+prop mayor zone.id=mayor
+prop mayor zone.radius=3
+prop mayor zone.message=A white screecher screams from the mayor's roof!
+prop whitescreecher creature.count=1
+prop whitescreecher creature.size=1.35
+prop whitescreecher creature.health=2.5
+prop whitescreecher creature.damage=1.3
+prop whitescreecher creature.respawn=0
+prop whitescreecher creature.zone=mayor
+prop whitescreecher tint.color=#f4f1ea
+prop whitescreecher tint.amount=0.85
+
+quest title=Water for Stilt Hollow
+quest intro=A trailer town on sea stacks, dry and silent. Get its water running again.
+step kill|Hyena|2|Climb to the trailer town and drive the hyenas out of the dock trailer
+step read|Water warden's notice|1|Read the notice at the pump
+step collect|story:valve|1|Follow the red pipe down to the valve
+step reach|mayor|1|Start the pump and cross to the mayor's rock
+step kill|Screecher|1|Drive off the white screecher
+step open|Mayor's chest|1|Open the mayor's chest
+quest done=The pump thumps, the town has water, and the mayor's hat is yours.
+quest reward=Glass*3;Clay*6
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=20 n=1 seed=8855
+prop treasure8855 treasure.loot=TitaniumOre*2
+
+save Stilt Hollow

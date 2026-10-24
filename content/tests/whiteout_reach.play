@@ -1,0 +1,87 @@
+# Play test of Whiteout Reach (CIPlay whiteout_reach, in a test world 'CI ...'). Points as in its recipe: the camp's shelf
+# (11.5 m) with the domes (the mess, the commander's), the boiler house, the snowmobile shed and the store; the Kestrel in
+# the north shore's ice (her deck 5.5 m, her hold's crate 2.5 m down by her stern); the crevasse in the hill's west side
+# (4 m) with the den at its end; the radio hut on the summit (21 m).
+island Whiteout Reach
+expect step 0
+expect title Do Not Come in Winter
+wait 5
+
+# The camp: the commander's order and the locker in the mess dome
+at 14 18 h=12.8
+walk 14 18 to 19.5 22 to 19.5 30 to 15 32 h=11.5
+zone camp
+expect step 1
+at 3.6 33.8 h=12.6
+read Commander's order
+open Mess dome locker
+expect step 3
+
+# The Kestrel in the north shore's ice: her manifest on deck
+at 25 87.5 h=2.4
+zone kestrel
+expect step 4
+at 25 92.6 h=6.8
+read Ship's manifest
+expect step 5
+
+# The snowmobile shed (a step; its zone 4 m, so the walk up to the camp passes outside it), its bear, the store key;
+# the store's boiler part
+at 21 21 h=12.6
+zone shed
+expect step 6
+kill Polar bear
+expect step 7
+walk 21 21 to 25.5 20.5 to 26.8 20.2 h=11.5 below=16
+open Shed box
+expect story storekey 1
+wait 1
+expect step 8
+walk -0.25 29 to -0.25 26.2 to -1.4 24.6 h=11.7 below=14
+open Camp store
+expect story heatpart 1
+# (no exact step here: the Kestrel's step may be counted already from the first visit)
+
+# Back to the Kestrel (a step), down by her stern: her hold's crate
+at 25 87.5 h=2.4
+zone kestrel
+expect step 11
+at 29 100.3 h=-1.4
+open Kestrel's hold crate
+expect story heatpart 2
+expect step 12
+
+# The crevasse: the matriarch, the survey pack in her den
+walk -46 5 to -40 5 to -36 5 h=4
+zone icecaves
+expect step 13
+kill Polar bear
+expect step 14
+walk -36 5 to -24 5 to -16 5.4 h=4
+open Survey pack
+expect story heatpart 3
+expect step 15
+
+# The boiler: the radio's crystal; the two goats; up to the radio hut on the summit
+at 14 23 h=12.6
+use boiler
+expect message burner catches
+expect story heatpart 0
+expect story radiocrystal 1
+expect step 16
+catch Goat 2
+expect step 17
+walk 14 22 to 8 10 to 3.5 5 h=21
+walk 3.5 5 to 3.5 1 to 2.5 -2 h=21 below=23.5
+zone radiohut
+expect step 18
+read Last transmission
+expect step 19
+use hutradio
+expect message crystal clicks home
+
+# The commander's chest in his dome, warm now
+at 24 36.4 h=12.6
+open Commander's chest
+expect item Battery_Advanced 2
+expect done

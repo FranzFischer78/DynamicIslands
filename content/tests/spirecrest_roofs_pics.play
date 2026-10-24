@@ -1,0 +1,14 @@
+﻿# Guide pictures of Spirecrest Roofs (CIPlay spirecrest_roofs_pics): Raft's camera, midday, calm
+island Spirecrest Roofs
+offset 0 0
+hour 11
+weather Calm
+at 0 0 h=5
+wait 3
+picture sl10_spirecrest_island 30 14 -30 0 4 0
+picture sl10_spirecrest_beacon 6 7 -9 0 6.5 0
+picture sl10_spirecrest_garden -6 7 24 0 5.5 16
+picture sl10_spirecrest_roofs_ridge 51 22 -2 65 13 -3
+picture sl10_spirecrest_roofs_cave -32 13 1 -46 4 1
+picture sl10_spirecrest_roofs_ruin -6 13 -52 -8 4 -66
+picture sl10_spirecrest_roofs_plane -37 13 47 -46 4 58

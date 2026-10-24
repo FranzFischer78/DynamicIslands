@@ -1,0 +1,215 @@
+# Bramblehive Knoll - a new island of the library, normal size
+# A beekeeper's knoll on a green round island: the hill cut into three ring terraces of hives and brambles, one above the
+# other, with the bee-mother skep on the summit; the mead shed on the north plain by the landing.
+# Old Bram kept bees here for forty years. He left the island the summer his knees gave out, and the custom with it:
+# the first mead of the season goes back up the hill to the bee-mother, or the hives sulk all year.
+# Quest "First Mead" (6 steps, a delivery): a comb from each terrace's marked hive - each terrace has its swarm, which
+# can't be beaten, only outrun - pressed into the season's first mead, carried up every ramp to the summit, into the
+# bee-mother's chest.
+#
+# Built by the recipe player (CIRecipe bramblehive_knoll) through the editor's own operations. Points: the knoll's middle
+# at 0 0; the plain round it at 2.6 m; the ring terraces at 4.5 m (r 17..25), 7 m (r 10..17), 9.5 m (r 4..10) and the
+# summit at 12 m (r 4); the ramps north (plain - low ring), east (low - middle), south (middle - high), west (high -
+# summit); the mead shed (a relay house) on the north plain, x -2.47..8, z 29.5..40, its door on the veranda.
+include lib_relay
+include lib_sea
+include lib_features
+new
+gen Trees=0.21 Bushes=0.38 Rocks=0.4 Harvest=0.1 BeachThings=0.15
+gen Seed=9111 Radius=45 Height=16 Roughness=0.3 Peaks=1 Shape=0 Style=3 BeachWidth=0.4 Cliffs=0.1 PeakShape=0.4
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== The knoll: three ring terraces and the summit, the ramps between them =========================================
+macro dabs x1 z1 h1 x2 z2 h2 n=8 r=2.6
+for i 0 $n
+brush flatten at {$x1+($x2-$x1)*$i/$n} {$z1+($z2-$z1)*$i/$n} r=$r s=20 frames=25 h={$h1+($h2-$h1)*$i/$n}
+next
+end
+# (each ring drawn as strokes round its band, the next ring up over its inner edge: crisp steps 2.5 m high)
+brush flatten at 0 0 r=24 s=20 frames=80 h=4.5
+for a 0 345 15
+brush flatten at {21.5*cos($a)} {21.5*sin($a)} r=4.6 s=20 frames=30 h=4.5
+next
+for a 0 340 20
+brush flatten at {13.5*cos($a)} {13.5*sin($a)} r=4.2 s=20 frames=30 h=7
+next
+for a 0 330 30
+brush flatten at {7*cos($a)} {7*sin($a)} r=3.4 s=20 frames=30 h=9.5
+next
+for a 0 315 45
+brush flatten at {4.5*cos($a)} {4.5*sin($a)} r=2.6 s=20 frames=30 h=9.5
+next
+brush flatten at 0 0 r=3.8 s=20 frames=40 h=12
+brush flatten from -4 35 to 10 35 r=7 s=20 frames=60 h=2.7
+call dabs 0 30 2.7 0 22 4.5
+call dabs 22 0 4.5 13 0 7
+call dabs 0 -15 7 0 -7 9.5
+call dabs -9 0 9.5 -2.5 0 12 n=6 r=2.2
+brush grass at 0 0 r=27 s=20 frames=30
+clear at 0 0 r=27
+clear from -4 35 to 10 35 r=8
+clear from 0 30 to 0 22 r=3
+
+# ===== The mead shed on the north plain: the press, the casks, old Bram's note on the table ==========================
+push at 8 40 h=2.75 yaw=0
+call relay_house
+pop
+place Placeable_Juicer press at -0.8 37.6 h=2.75 sit yaw=90
+place TP_Moontown_Barrel02 casks at -1.6 31 h=2.75 sit
+place TP_Moontown_Barrel02 casks at -0.8 31 h=2.75 sit yaw=40
+place TP_Moontown_Barrel02 casks at -1.2 31 h=3.87 sit yaw=10
+place Table_Common_01 - at 0.8 31.6 h=2.75 sit yaw=0
+place Note_Book bramsnote at 0.8 31.6 h=4 drop yaw=20
+place "Box Small" shedbox at 3.6 30.4 h=2.75 sit yaw=15
+place Zone_Trigger knoll at 4 26 h=4
+place Creature_Chicken hens at 12 24 ground
+
+# ===== The terraces: rows of hives in the brambles, a marked hive with the comb on each; the swarms; smoke pots ========
+# (the low ring, its south arc)
+for a 225 315 15
+place Placeable_BeeHive - at {21*cos($a)} {21*sin($a)} h=4.5 sit yaw={-90-$a}
+next
+place Placeable_BeeHive comb1 at 0 -21.5 h=4.5 sit yaw=180 scale=1.25
+place Pickup_Landmark_BerryBush - at -9 -19.5 h=4.5 sit
+place Pickup_Landmark_BerryBush - at 9 -19.5 h=4.5 sit
+place Placeable_CookingPot - at 4 -20.5 h=4.5 sit yaw=30
+place Note_Sign lowsign at -3 -19.3 h=4.5 sit yaw=180
+place Creature_BugSwarm_Bee swarm1 at 3 -22 h=6
+place Zone_Trigger lowterrace at 0 -21 h=5.5
+# (the middle ring, its west arc)
+for a 150 210 15
+place Placeable_BeeHive - at {13.5*cos($a)} {13.5*sin($a)} h=7 sit yaw={-90-$a}
+next
+place Placeable_BeeHive comb2 at -14 0 h=7 sit yaw=270 scale=1.25
+place Pickup_Landmark_BerryBush - at -12 9.5 h=7 sit
+place Placeable_CookingPot - at -15 -4 h=7 sit yaw=-20
+place Note_Sign midsign at -12.2 5 h=7 sit yaw=270
+place Creature_BugSwarm_Bee swarm2 at -14 3 h=8.5
+place Zone_Trigger midterrace at -13.5 0 h=8
+# (the high ring, its north arc)
+for a 60 120 20
+place Placeable_BeeHive - at {7*cos($a)} {7*sin($a)} h=9.5 sit yaw={-90-$a}
+next
+place Placeable_BeeHive comb3 at 0 7.5 h=9.5 sit yaw=0 scale=1.25
+place Placeable_CookingPot - at 5.6 3.4 h=9.5 sit yaw=80
+place Creature_BugSwarm_Bee swarm3 at 3 7.5 h=11
+place Zone_Trigger highterrace at 0 7 h=10.5
+# (the summit: the bee-mother skep - a great hive on a stone - and Bram's chest beside it)
+place BigRock_3 - at 0 0 h=11.6 scale=0.12
+place Placeable_BeeHive beemother at 0 0 h=12.3 sit scale=2
+place Loot_Chest beemotherchest at 2.2 -1 h=12 sit yaw=270
+place Zone_Trigger summit at 0 0 h=13
+# (brambles and birch round the plain)
+place Pickup_Landmark_BerryBush - at -26 18 ground
+place Pickup_Landmark_BerryBush - at 27 -16 ground
+place Pickup_Landmark_BerryBush - at -24 -28 ground
+place Zone_Atmosphere hivehaze at 0 0 h=8
+# (birch round the plain; brambles along the rings' outer edges, between the hive rows)
+for a 20 340 40
+place BirchTree_Big1_LodGroup - at {31*cos($a)} {31*sin($a)} ground yaw={$a*3}
+next
+for a 200 340 35
+place "Balboa_Bush_01 Variant" - at {16.5*cos($a+10)} {16.5*sin($a+10)} ground yaw=$a
+next
+for a 10 170 32
+place "Balboa_Bush_03 Variant" - at {23.5*cos($a)} {23.5*sin($a)} ground yaw=$a
+place "Balboa_BigBush_02 Variant" - at {16*cos($a+16)} {16*sin($a+16)} ground yaw=$a
+next
+for a 200 330 40
+place "Balboa_Bush_02 Variant" - at {8.6*cos($a)} {8.6*sin($a)} ground yaw=$a
+next
+
+# ===== Friendly animals outside, Raft's finds in the shallows ==========================================================
+place Creature_Dolphin dolphins at 55 -30 h=-3
+call shallows r=58 deep=5 n=1
+prop hens creature.count=4
+prop dolphins creature.count=2
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): pines, flowers, birches ----------
+scatter "Pickup_Landmark_Tree_Pine" 3 at 0 0 r=31.5 seed=4485 free=5
+scatter "Pickup_Landmark_Flower_Blue" 2 at 0 0 r=31.5 seed=4495 free=3
+scatter "Pickup_Landmark_Flower_White" 2 at 0 0 r=31.5 seed=4496 free=3
+scatter "Pickup_Landmark_Tree_Birch" 3 at 0 0 r=31.5 seed=4505 free=5
+
+# ===== Settings, story items, notes, behaviours, quest (6 steps) ==========================================================
+info title=Bramblehive Knoll
+info author=Custom Islands
+info description=A beekeeper's knoll: three ring terraces of hives among the brambles, a mead shed by the landing and a great old skep on the summit. Take a comb from each terrace - the swarms can't be beaten, only outrun - press the season's first mead and carry it up the hill, the way old Bram always did.
+island on.arrive=message||A round green hill cut into terraces like a wedding cake, every ring lined with white boxes. The air hums. Somewhere a little shed smells of honey.
+
+story comb|Honeycomb|HoneyComb|A dripping comb from one of Bram's marked hives.
+story mead|First mead|Jar_Honey|The season's first mead, pressed from three terraces' combs - for the bee-mother on the summit.
+
+note bramsnote Old Bram's note | To whoever keeps the knoll after me,\n\nThe custom is older than me and I won't be the one to break it. First mead of the season goes back up the hill to the bee-mother, or the hives sulk all year.\n\nOne comb from each terrace - the marked hive, the big one, on each ring. The low ring's bees are gentle, the middle ring's are not, the high ring's are mad as kettles. Take it and keep walking. Don't stop to argue: you can't win an argument with a swarm.\n\nPress the three in the press here - it knows the job - and carry the jar up. Set it in the bee-mother's chest on the summit.\n\nMy knees are done. The hill isn't.\n- Bram
+note lowsign Low terrace | LOW RING - the gentle ones. Smoke them anyway.
+note midsign Middle terrace | MIDDLE RING - mind your ears.
+note comb1 Marked hive on the low terrace | The marked hive on the low ring, heavy with honey. One frame comes out clean - a full comb.
+loot comb1 story:comb*1;HoneyComb*1
+prop comb1 loot.refill=0
+note comb2 Marked hive on the middle terrace | The middle ring's marked hive. The bees come up the moment the lid moves - one comb, quick.
+loot comb2 story:comb*1;HoneyComb*1
+prop comb2 loot.refill=0
+note comb3 Marked hive on the high terrace | The high ring's marked hive, its bees already in the air. A comb dark as amber.
+loot comb3 story:comb*1;Jar_Bee*1
+prop comb3 loot.refill=0
+note beemotherchest Bee-mother's chest | Bram's chest by the bee-mother skep. Inside, under the cloth, his spare hives, his honey - and a note: "Thank you. Same again next year."
+loot beemotherchest Placeable_BeeHive*2;Jar_Honey*3;HoneyComb*4;Jar_Bee*2;TradeToken*5
+prop beemotherchest loot.refill=0
+prop beemotherchest if.open=has|story:mead|1\ntake|story:mead|1
+prop beemotherchest else.open=message||The chest by the bee-mother skep, its lid carved with a bee. Bram's note said: the first mead goes in here.
+note shedbox Mead shed box | A box of the shed's tools: a smoker, a veil, a bundle of rags.
+loot shedbox Rope*2;Wool*2;Plank*4
+prop shedbox loot.refill=0
+
+prop press obj.name=press
+prop press beh.use=Press the three combs into mead
+prop press if.use=has|story:comb|3\ntake|story:comb|3
+prop press on.use=message||The press creaks, the combs give, and a slow gold thread runs into the jar. The season's first mead.\ngive||story:mead*1\nsound||event:/crafting/juicer
+prop press else.use=message||Bram's mead press, scrubbed and waiting. It wants a comb from each of the three terraces.
+
+prop knoll zone.id=knoll
+prop knoll zone.radius=7
+prop knoll zone.message=Bramblehive Knoll: a mead shed, a ramp up into the terraces - and the hum of a whole hill of bees.
+prop lowterrace zone.id=lowterrace
+prop lowterrace zone.radius=6
+prop lowterrace zone.message=The low terrace. The bees here only grumble.
+prop midterrace zone.id=midterrace
+prop midterrace zone.radius=6
+prop midterrace zone.message=The middle terrace - the swarm is up before you reach the hive.
+prop highterrace zone.id=highterrace
+prop highterrace zone.radius=4
+prop highterrace zone.message=The high terrace, close under the summit. The bees here are as mad as Bram said.
+prop summit zone.id=summit
+prop summit zone.radius=4
+prop summit zone.message=The summit: the bee-mother skep, three times the size of any hive, and the whole island spread out below.
+prop swarm1 creature.count=1
+prop swarm1 creature.respawn=0
+prop swarm1 creature.zone=lowterrace
+prop swarm2 creature.count=1
+prop swarm2 creature.respawn=0
+prop swarm2 creature.zone=midterrace
+prop swarm3 creature.count=1
+prop swarm3 creature.respawn=0
+prop swarm3 creature.zone=highterrace
+prop hivehaze atmo.fog=#e8d8a0
+prop hivehaze atmo.fogAmount=0.12
+prop hivehaze atmo.particles=fireflies
+prop hivehaze zone.radius=26
+
+# --- Raft's special features (the user, 2026-10-05: every Raft feature on at least one island): wild beehives gone feral round the knoll -
+# Bram's honey for anyone who takes it, three combs each, filling up again
+call hives x=0 z=0 r=30 n=3 seed=111
+
+quest title=First Mead
+quest intro=A hill of hives, its keeper gone, and a custom older than him. His note is on the table in the mead shed by the landing.
+step reach|knoll|1|Land at the foot of the beekeeper's knoll
+step read|Old Bram's note|1|Read old Bram's note in the mead shed
+step collect|story:comb|3|Take a comb from the marked hive on each of the three terraces - and keep walking
+step collect|story:mead|1|Press the three combs into the season's first mead
+step reach|summit|1|Carry the mead up every ramp to the bee-mother skep on the summit
+step open|Bee-mother's chest|1|Set the mead in the bee-mother's chest, the way Bram always did
+quest done=The first mead is in the bee-mother's chest and the hill hums a little louder. Bram's custom holds for another year.
+quest reward=Jar_Honey*2;Rope*3;Plank*6
+
+save Bramblehive Knoll

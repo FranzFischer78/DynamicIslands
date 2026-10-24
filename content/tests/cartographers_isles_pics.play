@@ -1,0 +1,20 @@
+# Guide pictures of The Cartographer's Isles (CIPlay cartographers_isles_pics): Raft's camera, morning, calm
+island The Cartographer's Isles
+offset 0.2268 0.4458
+hour 10
+weather Calm
+open Map piece I
+read Map piece II
+read Map piece III
+read Map piece IV
+use digmound
+at -40.8 -11.6
+wait 3
+picture cartographers_isles_island -60 35 45 5 0 0
+picture cartographers_isles_hut -32 5 -10 -39 4 -5
+picture cartographers_isles_trig 4 14 -11 10 13 -16
+picture cartographers_isles_tower 40 9 12 50 10 20
+picture cartographers_isles_sandbar 26 5 28 18 1.5 35
+at 34 18 h=-3
+wait 2
+picture cartographers_isles_post 30 -3 18 34 -4 22

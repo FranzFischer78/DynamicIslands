@@ -1,0 +1,31 @@
+# Play test of Kingsrest Isle (CIPlay kingsrest_isle, in a test world 'CI ...'). No quest: up the ramp through the
+# castle's gate to the lord's hall, the village and its huts, up the path to the idol on the west peak and over the rope
+# bridge to the column ring on the east peak, the buried tin. Points as in its recipe.
+island Kingsrest Isle
+offset 0 0
+expect animals Bear 1
+expect animals Warthog 2
+expect animals Screecher 2
+expect animals Dolphin 2
+wait 5
+kill Screecher
+walk -40 -28 to -40 -20 to -40 -12 to -40 -4 h=12
+read Stone by the gate
+walk -40 0 to -41.5 5 to -41.5 8 to -41.5 10 h=12.1
+read The lord's book
+open The lord's chest
+open Barrel in the courtyard
+kill Warthog
+walk 33 -46 to 33 -40 to 33 -37 to 33 -35 h=3.1
+open Headman's chest
+read The villagers' notice
+open Barrel in the village
+walk 6 -5 to 6 5 to 6 15 to 6 25 to 6 32 to 6 37 h=22
+read Sign by the idol
+walk 9 40 to 13.5 40 to 21 40 to 28.5 40 to 30.5 41.4 to 32.6 41.4 to 33.6 41 h=22
+expect stand 33.6 41 h=22 below=24
+open Offering chest
+kill Bear
+dig
+expect animals Bear 0
+expect animals Warthog 0

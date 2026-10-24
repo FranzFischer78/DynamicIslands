@@ -1,0 +1,218 @@
+# Pneumatic Heights - an island of the library's plan The Last Post (the Coastal Post's route, the fourth stop, day 10)
+# A steep hill town of the Coastal Post's pneumatic mail tubes: a harbour stair on the south shore, two terraces of
+# houses on stilts, the brick exchange on the hilltop with the tube valves, the tube connector and the crank of the
+# second tube outside it, its vault inside behind a keypad; the linesman's signal hut on the top's west edge.
+# Quest "By Tube" (19 steps): the harbour steps, the exchange instructions, three tube valves, tube A connected at the
+# exchange, capsule 1, house 4's letterbox (engine controls blueprint) and the rats it lets out, tube B's crank,
+# capsule 2 (the vault code), the exchange vault (metal detector), the festival crate (fireworks), the linesman's locker
+# (zipline) - done-when step:16 - then the telegraphist's letter down the exchange chute, the reply, the signal hut.
+#
+# Built by the recipe player (CIRecipe pneumatic_heights) through the editor's own operations.
+include lib_sea
+include lib_features
+include lib_huts
+include lib_post
+new
+# (nature: a steep green hill, Like Raft's hill islands)
+gen Trees=0.28 Bushes=0.3 Rocks=0.35 Harvest=0.25 BeachThings=0.12
+gen Seed=4401 Radius=64 Height=20 Roughness=0.5 Peaks=1 Shape=0 Style=0 PeakShape=0.5 Cliffs=0.3 BeachWidth=0.35
+gen Water=0.5 SeaRocks=0.35 SeaFinds=0.15 Sunken=0.2 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+
+# --- Terrain: the harbour stair (1.5 m), terrace 1 (6 m), terrace 2 (11 m), the hilltop (16 m), a path up between ----
+brush flatten from 0 -44 to 0 -54 r=4 s=20 frames=80 h=1.5
+brush flatten from -20 -32 to 14 -32 r=6 s=20 frames=160 h=6
+brush flatten from -22 -14 to 18 -14 r=6 s=20 frames=160 h=11
+brush flatten at 0 6 r=12 s=20 frames=160 h=16
+brush flatten at -11.5 8.5 r=5 s=20 frames=80 h=16
+brush smooth from 0 -50 to 0 -6 r=5 s=8 frames=40
+brush smooth from -22 -32 to 18 -14 r=8 s=5 frames=20
+origin
+clear from 0 -40 to 0 -58 r=4
+clear from -20 -32 to 14 -32 r=6
+clear from -22 -14 to 18 -14 r=6
+clear at 0 6 r=12
+clear at -11.5 8.5 r=5
+clear from 0 -40 to 0 0 r=3
+
+# --- The harbour: a short pier, the harbour steps -----------------------------------------------------------------------
+call pier x=0 z1=-54 z2=-66 h=1.45
+place Zone_Trigger harbourzone at 0 -48 h=2
+place Placeable_Lantern_Metal - at 1.2 -64 h=1.6 sit drop
+
+# --- Terrace 1: houses 3 and 4 (4: the letterbox), the tube cellar's rats (hidden: let out by the letterbox) ------------
+push at -18 -31 h=6
+call stilt_hut y=2.6 foot=1.5
+place Loot_ChestSmall letterbox at 2.25 3.6 y=2.7 sit yaw=180
+pop
+push at 8 -31 h=6
+call stilt_hut y=2.6 w1=ReefHuts_PlasticWall4
+pop
+place Creature_Rat rats at -12 -34 ground
+
+# --- Terrace 2: houses 2 and 5, the three tube valves on posts along the terrace ----------------------------------------
+push at -20 -13 h=11
+call stilt_hut y=2.6 w2=ReefHuts_Wall2 foot=2.5
+pop
+push at 12 -13 h=11
+call stilt_hut y=2.6 w3=ReefHuts_Wall3 foot=1.5
+pop
+macro valve al=valve1 x=0 z=0 yaw=0
+place RT_Pillar - at $x $z ground sy=0.5
+place WaterPipe_BigCurve_1 $al at $x $z ground y=1.5 yaw=$yaw
+end
+call valve al=valve1 x=-12 z=-16 yaw=0
+call valve al=valve2 x=-3 z=-17 yaw=90
+call valve al=valve3 x=8 z=-16 yaw=180
+
+# --- The hilltop: the exchange (4 x 4 cells, door south), the tube connector, tube B's crank, the chute --------------
+push at -4.5 3 h=16
+call posthall w=6 d=4 al=exchange
+place "Table Office" - at 2.25 2 y=1.3 sit drop yaw=0
+place Note_Paper instructions at 2.25 2 y=2.2 sit drop yaw=8
+place Note_Paper capsule1 at 1.2 5.2 y=2 sit drop yaw=-6
+place Placeable_Cupboard_Small - at 1.2 5.2 y=1.3 sit drop yaw=180
+place Note_Paper capsule2 at 2.6 5.2 y=2 sit drop yaw=4
+place Placeable_Cupboard_Small - at 2.6 5.2 y=1.3 sit drop yaw=180
+place RT_PowerBox vaultpad at 8.85 3 y=1.4 yaw=270
+place Loot_Chest exchvault at 7.9 5 y=1.3 sit drop yaw=180
+place Loot_Chest festival at 6.2 5.3 y=1.3 sit drop yaw=180
+place Loot_ChestSmall linesman at 7.9 1 y=1.3 sit drop yaw=270
+call mailsack x=4.5 z=1 yaw=30 al=sacks
+pop
+place UT_ElectricCableHub01 tubehub at -6.2 6 ground sit yaw=90
+place RT_Pillar - at 6.2 5 ground sy=0.6
+push at 6.2 5 yaw=90
+place TP_Selene_DoorCrankWheel tubeb at 0 -0.09 ground y=1.2 rot=0,0,0
+pop
+place TP_IcePillar04_Snow chute at -6.5 1.5 ground sit scale=0.42
+place Lamp - at -6.5 1.5 h=19.5 sit drop scale=0.9
+place Note_Paper reply at -6.5 1.5 h=19.6 sit drop yaw=0
+
+# --- The linesman's signal hut on the top's west edge (tower_roof: its deck) -----------------------------------------
+push at -14 6 h=16
+call stilt_hut y=2.6 foot=2
+place Zone_Trigger roofzone at 2.25 2.25 y=2.8
+pop
+
+# --- Nature: fruit, dirt, hives, the reefs ------------------------------------------------------------------------------
+scatter "Pickup_Landmark_Tree_Mango" 2 at 0 -20 r=40 seed=4411 free=4
+scatter "Pickup_Landmark_PineappleLandmark" 2 at 0 -10 r=40 seed=4412 free=3
+call dirt x=24 z=20 r=12 n=3 seed=4413
+call hives x=-28 z=22 r=12 n=1 seed=4414
+call treasure x=30 z=-24 r=10 n=1 seed=4415 kind=0
+call shallows r=82 deep=5 n=3
+
+# --- Settings, notes, behaviours, quest --------------------------------------------------------------------------------
+info title=Pneumatic Heights
+info author=Custom Islands
+info description=A steep hill town of the Coastal Post's pneumatic mail tubes: houses on stilts up the terraces, tube valves along the paths and the brick exchange on the top, its vault behind a keypad. Route the tubes by hand. The fourth stop of The Last Post, open from the tenth day.
+island on.arrive=message||A hill town of houses on stilts, and on the top a brick building with pipes running into it from every side.
+
+prop exchange tint.color=#8a4436
+prop exchange tint.amount=0.55
+prop sacks tint.color=#b8a478
+prop sacks tint.amount=0.75
+prop chute tint.color=#b3221c
+prop chute tint.amount=0.85
+
+story valve|Tube valve|Note_Paper|A tube valve of Pneumatic Heights turned to the exchange.
+story tubea|Tube A|Note_Paper|Tube A of the exchange runs again.
+story tubeb|Tube B|Note_Paper|Tube B of the exchange runs again.
+story telegraphdelivered|Letter for the telegraphist|Note_Paper|The telegraphist's letter, sent down the exchange chute.
+
+note instructions Exchange instructions | PNEUMATIC HEIGHTS EXCHANGE - IF THE TUBES STOP\n\n1. Turn the three valves on the middle terrace to EXCHANGE.\n2. Connect tube A at the connector by the west wall. The capsule comes up in the rack.\n3. Tube B runs off the crank by the east wall.\n\nThe vault code goes by tube B. Never write it on a wall.
+macro valveuse al=valve1
+prop $al obj.name=$al
+prop $al beh.use=Turn the valve to EXCHANGE
+prop $al if.use=!signal|$al
+prop $al on.use=switch|\nsignal||$al\ngive||story:valve*1\nmessage||The valve clunks round. Air hisses up the hill.
+prop $al else.use=message||This valve is already turned to EXCHANGE.
+end
+call valveuse al=valve1
+call valveuse al=valve2
+call valveuse al=valve3
+prop tubehub obj.name=tubehub
+prop tubehub beh.use=Connect tube A
+prop tubehub if.use=has|story:valve|3\n!signal|tubea
+prop tubehub on.use=open|\nsignal||wire\nsignal||tubea\ngive||story:tubea*1\nshow|capsule1\nmessage||A thump inside the exchange: a capsule drops into the rack.
+prop tubehub else.use=message||The connector hisses and nothing comes. The three valves on the terrace below are not all turned to EXCHANGE.
+note capsule1 Capsule 1 | (A brass capsule. Inside, a note:)\n\nHouse 4 on the lower terrace never collected its post. The letterbox is full - and something has been living in the tube cellar under it.
+prop capsule1 obj.name=capsule1
+prop capsule1 beh.hidden=1
+note letterbox House 4 letterbox | House 4's letterbox, stuffed full: a mechanic's catalogue with the engine controls' plans folded inside.
+loot letterbox Blueprint_EngineControls*1;Bolt*2;Nail*6
+prop letterbox loot.refill=0
+prop letterbox on.open=show|rats\nmessage||The letterbox lid squeals - and under the stilts the tube cellar's rats come pouring out.
+prop rats obj.name=rats
+prop rats beh.hidden=1
+prop rats creature.count=6
+prop rats creature.respawn=0
+prop tubeb obj.name=tubeb
+prop tubeb beh.use=Crank tube B
+prop tubeb if.use=has|story:tubea|1\n!signal|tubeb
+prop tubeb on.use=signal||crank\nsignal||tubeb\ngive||story:tubeb*1\nshow|capsule2\nmessage||The crank turns with a long groan. Somewhere inside, a second capsule thumps into the rack.
+prop tubeb else.use=message||The crank won't turn while tube A is dead - or it has turned as far as it goes.
+note capsule2 Capsule 2 | (A second capsule, sealed with red wax:)\n\nVault code 3 1 0 9 - the exchange opened on the 10th of the 3rd month, 1909, and so it opens still.
+prop capsule2 obj.name=capsule2
+prop capsule2 beh.hidden=1
+prop vaultpad obj.name=vaultpad
+prop vaultpad beh.use=Type the vault code
+prop vaultpad lock.code=3109
+prop vaultpad on.use=sound||event:/exploring/obstacles/keypad/keypad_correct\nmessage||The keypad chirps; the vault and the cupboards by it unbolt.\nsignal||vault
+note exchvault Exchange vault | The exchange vault: registered post, and the Coastal Post's metal detector plans "for lost parcels".
+loot exchvault Blueprint_MetalDetector*1;MetalIngot*2;CopperIngot*2
+prop exchvault loot.refill=0
+prop exchvault if.open=signal|vault
+prop exchvault else.open=message||The vault is bolted from the keypad on the wall. Four digits.
+note festival Festival crate | The Heights' tube festival crate: bunting, and the plans for the fireworks they fired down the hill each spring.
+loot festival Blueprint_Firework*1;Rope*3;Plank*4
+prop festival loot.refill=0
+prop festival if.open=signal|vault
+prop festival else.open=message||Bolted from the same keypad as the vault.
+note linesman Linesman's locker | The linesman's locker: a zipline harness and its plans, for the wires to the Narrows.
+loot linesman Blueprint_ZiplineBase*1;Rope*4;Bolt*2
+prop linesman loot.refill=0
+prop linesman if.open=signal|vault
+prop linesman else.open=message||Bolted from the same keypad as the vault.
+prop chute obj.name=chute
+prop chute beh.use=Send the letter down the chute
+prop chute if.use=take|story:dl_telegraph|1
+prop chute on.use=message||The capsule shoots away down the tube with a whoomp. A minute later another comes back up.\ngive||story:telegraphdelivered*1\nshow|reply
+prop chute else.use=message||The exchange chute. "OUTGOING - TELEGRAPHIST". You have nothing for it.
+note reply Telegraphist's reply | You sent my letter up from the Dead Letter Office? Then the route works again.\n\nI'm not at the exchange any more - I went down to the Narrows with Holger, to keep the telegraph wires up. If you come by the stacks, he'll want a hand.\n\n- M., telegraphist
+prop reply obj.name=reply
+prop reply beh.hidden=1
+
+prop harbourzone zone.id=harbour_steps
+prop harbourzone zone.radius=4
+prop harbourzone zone.message=The harbour steps: a stair up the hill, pipes running beside it.
+prop roofzone zone.id=tower_roof
+prop roofzone zone.radius=3
+prop roofzone zone.message=From the signal hut you see the whole tube network: valves, pipes and the exchange, and far to the east the stacks of the Narrows.
+
+quest title=By Tube
+quest intro=A hill town of mail tubes. Climb the harbour steps.
+step reach|harbour_steps|1|Climb the harbour steps
+step read|Exchange instructions|1|Read the exchange instructions on the hilltop
+step collect|story:valve|3|Turn the three tube valves on the middle terrace to EXCHANGE
+step collect|story:tubea|1|Connect tube A at the exchange's west wall
+step read|Capsule 1|1|Read the capsule that comes up tube A
+step open|House 4 letterbox|1|Open House 4's letterbox on the lower terrace
+step blueprint|Blueprint_EngineControls|1|Take the engine controls plans from the letterbox
+step kill|Rat|6|Deal with the rats from the tube cellar
+step collect|story:tubeb|1|Crank tube B by the exchange's east wall
+step read|Capsule 2|1|Read the second capsule
+step open|Exchange vault|1|Open the exchange vault with the code
+step blueprint|Blueprint_MetalDetector|1|Take the metal detector plans from the vault
+step open|Festival crate|1|Open the festival crate
+step blueprint|Blueprint_Firework|1|Take the firework plans from the festival crate
+step open|Linesman's locker|1|Open the linesman's locker
+step blueprint|Blueprint_ZiplineBase|1|Take the zipline plans from the linesman's locker
+step collect|story:telegraphdelivered|1|Send the telegraphist's letter down the exchange chute
+step read|Telegraphist's reply|1|Read the telegraphist's reply
+step reach|tower_roof|1|Climb to the linesman's signal hut and look out over the tubes
+quest done=The tubes hiss with post again. From the signal hut you can see the telegraph poles of the Narrows to the east.
+quest reward=MetalIngot*4;CopperIngot*2;Bolt*4
+
+save Pneumatic Heights

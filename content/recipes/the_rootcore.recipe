@@ -1,0 +1,290 @@
+# The Rootcore - the tenth island of the library's plan The Last Green World (SL11, Verdance), finale part 2
+# The rock under the Heart, risen out of the sea: a green meadow on its north shore and, in the hill, Raft's bear cave
+# turned into the dome of the Rootcore. Inside, the organism - purple coral grown on land - round the oldest root, the
+# Ringwave cut deep into it, and the Blightmother (a big blighted bear) with her brood. Two core valves: the one that
+# matches the Heart's choice works (BURN fills the dome with embers, SPREAD makes the growth glow green). Quest "The
+# Core" (12 steps): the mouth, the expedition sign, the dome, the brood, the Blightmother, the old root, the Ringwave
+# root, the core valve, the closing note, the heart seed, Oda's camp, Oda Fenn's farewell. Buried in the meadow: titanium.
+#
+# Built by the recipe player (CIRecipe the_rootcore) through the editor's own operations. Points (metres over the
+# sea): the hill round 0 -12, the cave mouth 0 10 (the cave runs south into the hill, to z -24), the meadow round 0 24,
+# Oda's camp 22 20, the landing beach 0 46.
+include lib_sea
+include lib_features
+include lib_gravity
+include lib_verdance
+# RESIZE 10-24: Radius 60 -> 100 (Height 26 -> 26), the old content moved 0 22 as one frame (push) so its sea side stays at the coast; the island grows behind it.
+new
+gen Trees=0.25 Bushes=0.3 Rocks=0.45 Harvest=0.25 BeachThings=0.3
+gen Seed=11111 Radius=100 Height=26 Roughness=0.4 Peaks=1 Shape=0 Style=0 BeachWidth=0.5 Cliffs=0.3 PeakShape=0.45
+gen SeaFloor=0 Shelf=0.5 Seabed=1
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.4 Sunken=0.2 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+brush flatten at 0.7 -39 r=5 s=8 frames=40
+clear at 0.7 -39 r=6
+push at 0 22
+
+# --- The hill over the dome, the meadow, the landing beach ----------------------------------------------------------
+brush raise at 0 -12 r=32 s=20 frames=12
+brush rock at 0 -12 r=20 s=10 frames=40
+brush flatten at 0 26 r=12 s=20 frames=200 h=1.6
+brush grass at 0 26 r=12 s=6 frames=30
+brush flatten at 22 20 r=6 s=20 frames=150 h=1.8
+brush flatten at 0 46 r=7 s=20 frames=120 h=1.2
+brush sand at 0 46 r=9 s=10 frames=30
+clear at 0 26 r=10
+clear at 22 20 r=5
+clear at 0 46 r=6
+
+# --- The dome: Raft's bear cave under the hill; the organism (purple coral on land) round the oldest root ---------
+push at 0 10
+brush flatten from 0 0 to 0 -34 r=6 s=20 frames=70
+brush flatten from 0 0 to 0 10 r=9 s=20 frames=30
+clear from 0 6 to 0 -34 r=8
+brush sand from 0 2 to 0 -34 r=7 s=10 frames=40
+place BalboaCave_Bear domecave at 1.2 -18.4 y=5.2 scale=1.15
+place Zone_Trigger mouthzone at 0 3 y=1.5
+place Zone_Trigger domezone at 1 -8 y=1.5
+place Zone_Trigger oldrootzone at 1 -22 y=1.5
+place Creature_MamaBear blightmother at 1 -17 y=0.8
+place Creature_Boar brood at 2 -12 y=0.8
+place Log oldroot at 1 -25 sit yaw=90 scale=2.2
+place Note_Sign ringwave at -1.5 -23 sit yaw=60
+# (RESIZE 10-24 retest: three corals moved 1.5 m in toward the dome's middle - on the bigger hill their spots were over the cave's roof)
+place LeafCoral_2 organism at -3 -21 sit scale=2
+place CylinderCoral_2 organism at 3 -20 sit scale=2.2
+place CauliCoral organism at -2.5 -26 sit scale=1.6
+place LeafCoral_1 organism at 3.5 -25.5 sit scale=1.8
+place CylinderCoral_1 organism at -3 -15 sit scale=2
+place LeafCoral_2 glowgrowth at -4 -18 sit scale=2.4
+place CylinderCoral_2 glowgrowth at 6 -16 sit scale=2.4
+place LeafCoral_1 glowgrowth at 3 -28 sit scale=2.2
+place campfire_1 embers at -3 -19 sit
+place campfire_1 embers at 4 -23 sit
+place campfire_1 embers at 0 -14 sit
+place RT_Pillar - at -2 -20 sit sy=0.6
+place TP_Selene_DoorCrankWheel coreburn at -2 -20 y=1.3 drop
+place RT_Pillar - at 3.5 -22 sit sy=0.6
+place TP_Selene_DoorCrankWheel coreopen at 3.5 -22 y=1.3 drop
+place Note_Sign coreburnnote at -3.6 -12 sit yaw=90
+place Note_Sign coreopennote at 5.2 -12 sit yaw=270
+place "Box Small" heartseed at 1 -21 sit yaw=15
+place Loot_Crate mushroomring at -4 -9 sit yaw=60
+place "Pickup_Landmark_Iron 1" - at 5.5 -9 sit
+place "Pickup_Landmark_Copper 1" - at -5 -24 sit
+place Zone_Atmosphere domeair at 1.2 -18 y=4
+# REDO 10-24: the dome was too dark - Oda's expedition left fire baskets burning along the walls
+place Placeable_Lantern_FireBasket - at -4.5 -10 sit
+place Placeable_Lantern_FireBasket firebasket1 at 5.5 -15 sit
+place Placeable_Lantern_FireBasket firebasket2 at -5.5 -23 sit
+place Placeable_Lantern_FireBasket - at 5.5 -27 sit
+pop
+# REDO 10-24: the cave mouth stood on a sheer grass pillar over the meadow - now a wide ramp climbs the hill's west
+#     flank to the mouth's ledge (island frame z=41, from 9 m at x=-45 to 24.6 m at the mouth; about 1:2.6), smoothed
+for i 0 27 1
+brush flatten at {-45+$i*1.5} 19 r=5 s=20 frames=20 h={9+$i*0.58}
+next
+brush smooth from -45 19 to -4 19 r=3.5 s=10 frames=12
+brush smooth from -48 19 to -42 19 r=4.5 s=10 frames=20
+brush grass from -45 19 to -4 19 r=4 s=6 frames=20
+clear from -45 19 to -4 19 r=5
+# (optional, zipline from Tracker's Rise) a line from the mouth's ledge down to the east meadow - the quick way out
+place ZiplinePath_Landmark domezip at 4.5 21 ground
+zipto domezip 26 42
+
+# --- The meadow: the expedition sign; Oda's camp to the east with her farewell -----------------------------------
+place Note_Sign expedition at 3 22 ground sit yaw=180
+place campfire_1 - at 20 18 ground sit
+place Crate_Big_01 - at 24 21 ground sit yaw=30
+place Note_Sign farewell at 21 22.5 ground sit yaw=200
+place Zone_Trigger odacamp at 22 20 ground
+# REDO 10-24 (optional): Oda's own locker at her camp - the ranger key from Ranger Landing opens it
+place "Box Big" rangerlock at 18 23.5 ground sit yaw=200
+beside Loot_ChestSmall rangercache rangerlock d=0.3
+
+# --- Mango, berries, flowers, clay; titanium buried in the meadow; the shallows -------------------------------------
+scatter Pickup_Landmark_Tree_Mango 2 at -22 22 r=8 seed=11112 free=3
+scatter Pickup_Landmark_BerryBush 3 at -20 30 r=8 seed=11113 free=2
+scatter Pickup_Landmark_Flower_Yellow 4 at 0 28 r=9 seed=11114 free=2
+scatter "Pickup_Landmark_Clay 1" 2 at 10 44 r=6 seed=11115 free=2
+call treasure x=0 z=22 r=10 n=1 seed=11054
+prop treasure11054 treasure.loot=TitaniumOre*3
+call shallows x=0 z=-22 r=120 deep=5 n=2 seed=11116
+pop
+
+# --- DISCOVERIES 10-24 (optional, no quest needs them): camp + note; Van_1 + chest; vine-hidden chest; buried treasure; viewpoint ---
+place campfire_1 - at 0.7 -39 ground sit
+place Balboa_DecorationPrefabBase_SimpleTent - at 3.7 -37 ground sit yaw=347
+place "Box Small" - at -1.3 -36.5 ground sit
+place Note_Paper dnote at -1.3 -36.5 ground y=0.7 drop yaw=20
+note dnote Hunter's note | Boar sign everywhere. Hyena sign at the edge of the dark trees.\nI hid the good chest behind the vines - cut them if you need it more than I do.
+place Van_1 dvan at 34 29.5 ground yaw=107
+prop dvan tint.color=#5a4a32
+prop dvan tint.amount=0.5
+place Loot_ChestSmall dwreckchest at 30 32.5 ground sit yaw=47
+note dwreckchest Overgrown chest | A chest the green has half swallowed: rope, nails, and a warm shard of green wood the brood dragged off.
+loot dwreckchest Rope*3;Nail*8;Stone*3;story:shard*1
+prop dwreckchest loot.refill=0
+call vinecache x=-39.4 z=21.8 r=15 seed=11201 chest=dvinechest vines=dvines items=Rope*3;Nail*10;Leather*2;story:shard*1
+call treasure x=42.5 z=-14.7 r=15 n=1 seed=11202
+prop treasure11202 treasure.loot=CopperOre*2;Clay*3
+place Zone_Trigger dview at -38.6 -23.2 ground
+prop dview zone.id=the_rootcore_view
+prop dview zone.radius=7
+prop dview zone.repeat=never
+prop dview zone.message=The hill over the Rootcore is warm underfoot, and from here the whole Verdance chain lies green on the sea.
+
+# --- FILL 10-24 (RESIZE rework): the bigger island's whole area at Raft-like density - trees, bushes, rocks; free= keeps them
+#     off the quest's objects and paths
+scatter "Pickup_Landmark_Tree_Palm 1" 10 at 0 0 r=90 seed=11220 free=5
+scatter "Pickup_Landmark_Tree_Palm 2" 10 at 0 0 r=90 seed=11221 free=5
+scatter "Pickup_Landmark_Tree_Palm 4" 6 at 0 0 r=90 seed=11222 free=5
+scatter "Pickup_Landmark_Tree_Mango" 6 at 0 0 r=90 seed=11223 free=5
+scatter "Balboa_Bush_01 Variant" 30 at 0 0 r=90 seed=11224 free=2.5
+scatter "Balboa_Bush_03 Variant" 30 at 0 0 r=90 seed=11225 free=2.5
+scatter CaravanIsland_SmallRock_1 14 at 0 0 r=90 seed=11226 free=3 ground y=-0.6
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=90 seed=11227 free=3
+scatter "Pickup_Landmark_Flower_Red" 8 at 0 0 r=90 seed=11228 free=2
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=The Rootcore
+info author=Custom Islands
+info description=The rock under the Heart: Raft's bear cave become the dome of the Rootcore, the organism round the oldest root, the Ringwave cut into it, and the Blightmother on guard. The finale of The Last Green World, part 2.
+island on.arrive=message||A rock out of the sea, warm to the touch. In its side, a cave mouth breathing green air.
+
+story core|Core finished|Note_Paper|The Rootcore, finished the way the Heart was set.
+story shard|Heart shard|Note_Paper|A shard of the oldest root, green and warm. The brood tore three of them off and carried them away.
+story rootlit|Root awake|Note_Paper|The three shards are back in the oldest root. The valves have pressure.
+story heartseed|Heart seed|Note_Paper|A seed from the oldest root, hard as a stone and warm. The last of the Heart.
+
+prop blightmother obj.name=blightmother
+prop blightmother creature.count=1
+prop blightmother creature.respawn=0
+prop blightmother creature.zone=dome
+prop blightmother creature.size=1.5
+prop blightmother creature.health=10
+prop blightmother creature.damage=1.5
+prop blightmother boss.phase=0.5
+prop firebasket1 obj.name=firebasket1
+prop firebasket1 beh.use=Tip the fire basket onto the growth
+prop firebasket1 if.use=!signal|basket1
+prop firebasket1 on.use=signal||basket1\nhit|blightmother|25\nmessage||Burning coals spill over the Blightmother. She screams and the growth on her back shrivels.
+prop firebasket2 obj.name=firebasket2
+prop firebasket2 beh.use=Tip the fire basket onto the growth
+prop firebasket2 if.use=!signal|basket2
+prop firebasket2 on.use=signal||basket2\nhit|blightmother|25\nmessage||Burning coals spill over the Blightmother. She screams and the growth on her back shrivels.
+prop blightmother boss.summon=3
+prop blightmother boss.summonKind=Creature_Boar
+prop blightmother tint.color=#8a3ac0
+prop blightmother tint.amount=0.6
+prop blightmother on.defeat=signal||mother\nmessage||The Blightmother falls. Behind her, the oldest root - and something cut into it.
+prop brood creature.count=3
+prop brood creature.respawn=0
+prop brood tint.color=#8a3ac0
+prop brood tint.amount=0.45
+prop oldroot tint.color=#4a3424
+prop oldroot tint.amount=0.5
+prop oldroot obj.name=oldroot
+prop oldroot beh.use=Set the heart shards into the oldest root
+prop oldroot if.use=take|story:shard|3
+prop oldroot on.use=give||story:rootlit*1\nmessage||The shards slide into the torn wood and hold. A hum runs down the root to the two valves.
+prop oldroot else.use=message||Three shards are torn out of the root. The brood carried them off - one in the dome, one east by the wreck, one west behind the vines.
+prop rangercache obj.name=rangercache
+prop rangercache beh.hidden=1
+loot rangercache TitaniumIngot*2;Battery*1;Rope*3
+prop rangercache loot.refill=0
+note rangercache Oda's locker | Oda's last locker: two titanium ingots, a battery and rope. A tag: FOR WHOEVER GOES IN.
+prop rangerlock obj.name=rangerlock
+prop rangerlock beh.use=Open Oda's locker
+prop rangerlock if.use=has|story:rangerkey
+prop rangerlock on.use=hide|\nshow|rangercache\nmessage||Oda's key fits her last locker.
+prop rangerlock else.use=message||A locker stencilled RANGER - O. FENN. Her key would open it.
+prop organism tint.color=#8a3ac0
+prop organism tint.amount=0.7
+prop glowgrowth tint.color=#60ff70
+prop glowgrowth tint.amount=0.8
+prop glowgrowth beh.hidden=1
+prop embers beh.hidden=1
+prop coreburnnote beh.hidden=1
+prop coreopennote beh.hidden=1
+prop heartseed beh.hidden=1
+prop farewell beh.hidden=1
+
+prop domeair atmo.fog=#6a5080
+prop domeair atmo.fogAmount=0.12
+prop domeair atmo.light=#f0e0ff
+prop domeair atmo.lightAmount=0.2
+prop domeair atmo.particles=fireflies
+prop domeair zone.radius=14
+
+prop coreburn obj.name=coreburn
+prop coreburn beh.use=Turn the core valve to BURN
+prop coreburn if.use=signal|mother\nhas|story:rootlit|1\n!has|story:spreadway|1\n!signal|core
+prop coreburn on.use=signal||core\ngive||story:core*1\nshow|embers\nhide|organism\nshow|coreburnnote\nshow|heartseed\nshow|farewell\nmessage||Fire runs down the root. The purple coral blackens and crumbles. In the ash, one seed, still warm.
+prop coreburn else.use=message||The valve will not turn. The Blightmother first, then the root's three shards back in place - and the Heart was set the other way, or the core is done.
+prop coreopen obj.name=coreopen
+prop coreopen beh.use=Turn the core valve to SPREAD
+prop coreopen if.use=signal|mother\nhas|story:rootlit|1\n!has|story:burnway|1\n!signal|core
+prop coreopen on.use=signal||core\ngive||story:core*1\nshow|glowgrowth\nshow|coreopennote\nshow|heartseed\nshow|farewell\nmessage||The core opens. The coral lights up green and climbs the walls. Out of the root drops one seed, warm as a hand.
+prop coreopen else.use=message||The valve will not turn. The Blightmother first, then the root's three shards back in place - and the Heart was set the other way, or the core is done.
+prop heartseed obj.name=heartseed
+prop heartseed beh.use=Take the heart seed
+prop heartseed on.use=give||story:heartseed*1\nhide|\nmessage||The Heart seed. Whatever Verdance becomes, it starts again from this.
+
+note expedition Expedition sign | ROOTCORE - EXPEDITION 3\n\nCave mouth north side. The dome is hers now. Do not go in alone.\nThe oldest root lies at the back.\n\n- Aki, root gate
+note ringwave The Ringwave root | THE OLDEST ROOT\n\nCut deep into the wood: a ring of waves round a single line.\n\nThe same sign as the sea people's doors. It was here before the Seedkeepers - before the trees.
+note coreburnnote The core | THE CORE - BURNT\n\nThe organism is ash. Verdance will grow back slowly, from seeds, the old way.\nThe network is gone; the land is safe.
+note coreopennote The core | THE CORE - OPEN\n\nThe organism is loose on the wind. Every coast it reaches will green - or be eaten.\nThe network is the world now.
+note farewell Oda Fenn's farewell | To whoever finished it -\n\nI watched from here. I did not dare go in.\n\nKeep the seed. Plant it somewhere the sea cannot reach. Whatever we did to Verdance, the next garden is yours.\n\n- Oda Fenn
+note mushroomring Mushroom ring | A ring of pale cave mushrooms by the dome's wall - and in it a shard of green wood, warm.
+loot mushroomring CaveMushroom*4;story:shard*1
+prop mushroomring loot.refill=0
+
+prop mouthzone zone.id=mouth
+prop mouthzone zone.radius=4
+prop mouthzone zone.message=The cave mouth. Warm green air breathes out of it.
+prop domezone zone.id=dome
+prop domezone zone.radius=4
+prop domezone zone.message=The dome. Purple coral on the walls - and something big moving in the dark.
+prop oldrootzone zone.id=old_root
+prop oldrootzone zone.radius=3
+prop oldrootzone zone.message=The oldest root. Two valves stand by it on posts.
+prop odacamp zone.id=oda_camp
+prop odacamp zone.radius=4
+prop odacamp zone.message=Oda's camp. A cold fire and a sign.
+
+quest title=The Core
+quest intro=The Rootcore, under the Heart. Find the cave mouth.
+step reach|mouth|1|Go to the cave mouth
+step read|Expedition sign|1|Read the expedition sign in the meadow
+step reach|dome|1|Go into the dome
+step kill|Warthog|3|Drive off the Blightmother's brood
+step kill|Mama bear|1|Defeat the Blightmother
+step reach|old_root|1|Go to the oldest root
+step read|The Ringwave root|1|Read the Ringwave root
+step collect|story:shard|3|Find the three heart shards the brood carried off
+step collect|story:rootlit|1|Set the shards into the oldest root
+step collect|story:core|1|Turn the core valve the way the Heart was set
+step read|The core|1|Read what the core became
+step collect|story:heartseed|1|Take the heart seed
+step reach|oda_camp|1|Go to Oda's camp east of the meadow
+step read|Oda Fenn's farewell|1|Read Oda Fenn's farewell
+quest done=The Last Green World is finished. Verdance keeps one seed - and so do you.
+quest reward=TitaniumOre*2;Seed_Flower_Yellow*2
+
+# names for the show/hide actions (actions find objects by obj.name)
+prop coreburnnote obj.name=coreburnnote
+prop coreopennote obj.name=coreopennote
+prop embers obj.name=embers
+prop farewell obj.name=farewell
+prop glowgrowth obj.name=glowgrowth
+prop organism obj.name=organism
+# RESIZE 10-24 retest: the bigger island's generator rocks that floated over slopes (ground check)
+clear at -12.51 6.44 r=1.5 only=SmallBoulder
+clear at 2.10 74.59 r=1.5 only=SmallBoulder
+clear at -11.65 -6.82 r=1.5 only=SmallBoulder
+clear at 28.12 39.72 r=1.5 only=BigBoulder
+clear at -11.74 46.03 r=1.5 only=SmallBoulder
+clear at -13.33 34.59 r=1.5 only=SmallBoulder
+
+save The Rootcore

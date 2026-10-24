@@ -1,0 +1,296 @@
+# Tiki Lagoon - a themed island, normal size (x1)
+# Inspiration: holiday-resort films (a beach club left in a hurry before a storm: a tiki bar, bungalows over a lagoon, a
+#   diving board, a jukebox that only needs power, a petting zoo's runaway goats) - the mood only, never named.
+# Island type: Shape 5 (Marsh), Style 0 (tropical). Low sandy keys with lagoon pools between them - the resort's "pools";
+#   bungalows on stilts over the water, boardwalks between the keys.
+# The Lagoon Club sent its guests and staff away before a storm and never reopened. The last can of generator fuel went
+# down with the pedal boat in the deep pool, the petting zoo's goats ran off in the wind, and the manager's safe is on the
+# generator's circuit. A light, sunny island after the dark ones around it.
+# Quest "End of the Season" (5 steps): the bar, the manager's memo, two runaway goats (a catch), the fuel can (a dive), the
+# generator - lights, music, the safe (large crop plot blueprint, a pop tape, a tiki mask, sunglasses).
+#
+# Built by the recipe player (CIRecipe tiki_lagoon) through the editor's own operations.
+include lib_huts
+include lib_sea
+new
+# (nature: tropical, Like Raft - the generator's marsh grows bamboo only and few bushes: more bushes and rocks here, palms
+# planted on the keys below - CIIslandDensity against Raft's small tropical islands)
+gen Trees=0.28 Bushes=0.8 Rocks=0.9 Harvest=0.5 BeachThings=0.3
+gen Seed=9010 Radius=45 Height=5 Roughness=0.35 Peaks=1 Shape=5 Style=0 BeachWidth=0.8 Cliffs=0 PeakShape=0.2
+gen SeaFloor=0 Shelf=0.5 Seabed=0
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the lagoon cut across the island's middle (1.5 m deep, two strokes for a wide flat floor) between the main
+# key (south) and the north key, the deep pool at its east end (4 m); pads on the main key for the bar and its terrace,
+# the office, the generator shed, the zoo and the towel hut; the lagoon painted sand ----------------------------------------
+brush flatten from -28 18 to 24 18 r=6 s=20 frames=200 h=-1.5
+brush flatten from -28 22 to 24 22 r=6 s=20 frames=200 h=-1.5
+brush flatten from -28 26 to 24 26 r=6 s=20 frames=200 h=-1.5
+brush smooth from -30 22 to 26 22 r=10 s=10 frames=12
+brush flatten from 5 9.5 to 21 9.5 r=5 s=20 frames=80 h=2
+brush flatten from 5 13 to 21 13 r=5 s=20 frames=80 h=2
+brush flatten at 22.25 6.25 r=6 s=20 frames=80 h=2
+brush flatten at 23.75 13 r=4 s=20 frames=60 h=2
+# (where the walkway leaves the main key: the shore at its deck's height)
+brush flatten at -11.5 9 r=3 s=20 frames=40 h=1
+# (the terrace out to the water's edge for the diving board; the deep pool last - the lagoon's smoothing and the pads'
+# edges filled it in when it came before them)
+brush flatten from 14 16.5 to 21 16.5 r=3.5 s=20 frames=60 h=2
+brush flatten from 16 27.5 to 20 27.5 r=4.5 s=20 frames=120 h=-4.2
+brush flatten at -15 -6 r=7 s=20 frames=60 h=2.4
+brush flatten from -20 8.5 to -15.5 8.5 r=4.5 s=20 frames=60 h=1.6
+brush flatten from -20 11.5 to -15.5 11.5 r=4.5 s=20 frames=60 h=1.6
+brush sand from -30 22 to 26 22 r=10 s=20 frames=30
+# (no "origin" here: the frame stays the generated land's exact middle, the one the strokes above used - the lagoon moved
+# the land's middle 3 m south, and an "origin" taken from it put every set piece 3 m off the pads and the pool cut for
+# them; "origin 501 501", the middle as the log rounds it, still put them up to half a metre off)
+clear from -30 24 to 26 24 r=10
+clear from 5 11 to 21 11 r=7
+clear at 22.25 6.25 r=6
+clear at 23.75 13 r=4
+clear at -15 -6 r=8
+clear at -17.75 9.75 r=5.5
+clear from -10 12 to -10 20 r=3
+
+# --- The tiki bar on the main key's lagoon side, its front to the lagoon: a deck of Raft's floor blocks (5 x 3) on the
+# sand, its posts (the corners and every 3 m along the front and back), a thatch hip roof on them; the bar, its stools and
+# shelf, the jukebox, the manager's memo behind the bar, the lockbox; string lights along the front eave (dark until the
+# generator runs), tiki poles at the front corners, the bees' hive by its back corner -------------------------------------
+push at 13.5 15 h=2.2 yaw=180
+call floors w=5 d=3
+place Block_Pillar_Wood - at 0 0 y=0.1
+place Block_Pillar_Wood - at 3 0 y=0.1
+place Block_Pillar_Wood - at 4.5 0 y=0.1
+place Block_Pillar_Wood - at 7.5 0 y=0.1
+place Block_Pillar_Wood - at 0 4.5 y=0.1
+place Block_Pillar_Wood - at 3 4.5 y=0.1
+place Block_Pillar_Wood - at 4.5 4.5 y=0.1
+place Block_Pillar_Wood - at 7.5 4.5 y=0.1
+place Block_Pillar_Wood - at 0 2.25 y=0.1
+place Block_Pillar_Wood - at 7.5 2.25 y=0.1
+roof 5 3 at 0 0 y=0.1
+place VG_LoungeBar2 - at 3.3 3.4 y=0.1 sit
+place VG_LoungeBarShelf - at 3.75 4.3 y=0.6 sit yaw=180
+place Note_Paper memo at 3.75 4.3 y=1.2 drop yaw=8
+place Loot_ChestSmall lockbox at 6.6 3.9 y=0.1 sit yaw=180
+place VG_LoungeBarStool - at 2.2 1.9 y=0.1 sit
+place VG_LoungeBarStool - at 3.4 1.9 y=0.1 sit
+place VG_LoungeBarStool - at 4.6 1.9 y=0.1 sit
+place VG_LoungeBarStool - at 5.8 1.9 y=0.1 sit
+place "VG_DecorationPrefabBase_Speaker Variant" jukebox at 0.7 3.9 y=0.1 sit yaw=90
+place Placeable_StringLight_Horizontal stringlights at 1.5 0 y=2.52
+place Placeable_StringLight_Horizontal stringlights at 3.75 0 y=2.52
+place Placeable_StringLight_Horizontal stringlights at 6 0 y=2.52
+place Zone_Sound music at 3.75 2.25 y=1.5
+place Zone_Trigger bar at 3.75 2.25 y=1.2
+place Placeable_TikiPole_Complete - at -0.6 -0.6 ground
+place Placeable_TikiPole_Complete - at 8.1 -0.6 ground
+place Placeable_BeeHive - at 8.4 5.3 ground yaw=200
+place Creature_BugSwarm_Bee bees at 8.4 5.3 y=1.8
+pop
+
+# --- The pool terrace east of the bar on the lagoon's edge: the diving board out over the water towards the deep pool,
+# loungers and an umbrella, a surfboard stood in the sand ------------------------------------------------------------------
+place VG_PoolTrampoline - at 17.5 18.1 h=1.82 yaw=90
+place "VG_DecorationPrefabBase_WideStationarySunbed Variant" - at 16.2 11.6 ground yaw=0
+place "VG_DecorationPrefabBase_WideStationarySunbed Variant" - at 19.8 11.6 ground yaw=0
+place RestaSunshadeGround - at 18 8.8 ground
+place Placeable_Surfboard - at 25 9.6 ground yaw=30
+
+# --- The bungalows: three huts on stilts over the lagoon (decks 1.1 m), fronts to a walkway along them, the walkway to the
+# main key's shore; a hammock or a bed in each, the minibar in the east one -----------------------------------------------
+# (its first two blocks without the rail on the shore side: the walkway from the shore comes in there)
+push at -13 21.5 h=-1.5
+call boardwalk n=2 wide=1 y=2.6 rs=none rn=none
+pop
+push at -10 21.5 h=-1.5
+call boardwalk n=13 wide=1 y=2.6 rn=none
+pop
+push at -10.75 9.5 h=-1.5 yaw=270
+call boardwalk n=8 wide=1 y=2.6
+pop
+push at -13 23 h=-1.5
+call stilt_hut y=2.6 ladder=none
+place Placeable_Bed_Hammock - at 2.25 3.3 y=2.6 sit
+pop
+push at -4 23 h=-1.5
+call stilt_hut y=2.6 ladder=none w2=ReefHuts_PlasticWall4
+place Placeable_Bed_Wood - at 2.25 3.4 y=2.6 sit
+pop
+push at 5 23 h=-1.5
+call stilt_hut y=2.6 ladder=none w1=ReefHuts_PlasticWall1
+place Placeable_Bed_Hammock - at 2.25 3.3 y=2.6 sit
+place Placeable_Fridge minibar at 0.7 3.6 y=2.6 sit yaw=90
+pop
+
+# --- The deep pool (4 m) by the bungalows: the pedal boat sunk on its side, its box with the fuel can, the guests' lost
+# things on the sand, the barrel they went into --------------------------------------------------------------------------
+place RT_PlasticBoat pedalboat at 17.8 27.9 h=-4.2 sit yaw=40 roll=70
+place "Box Small" pedalbox at 16.6 26.9 h=-4.2 sit yaw=15
+place "VG_DecorationPrefabBase_Tray1 Variant" - at 18.8 26.9 h=-4.2 sit yaw=60
+place WBottle_01 - at 17 28.9 h=-4.2 sit
+place Bottles_01 - at 19.2 28.5 h=-4.2 sit
+place Loot_SunkenBarrel lostbarrel at 16.2 28.7 h=-4.2 sit
+place Zone_Trigger deeppool at 18 27.5 h=-3.2
+
+# --- The generator shed beside the pool terrace: two cells of Raft's floor, its walls on three sides (open to the terrace),
+# its corner posts and a wooden roof; the generator and the empty fuel tank inside ---------------------------------------
+push at 23 14.5 h=2 yaw=90
+call floors w=2 d=1
+place Block_Wall_Wood - at 0.75 1.5 y=0.1
+place Block_Wall_Wood - at 2.25 1.5 y=0.1
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 3 0.75 y=0.1 yaw=90
+call corners w=2 d=1
+roof 2 1 at 0 0 y=0.1 wood
+place Balboa_DecorationPrefabBase_Generator generator at 1.1 0.9 y=0.1 sit
+place Placeable_FuelTank - at 2.4 0.85 y=0.1 sit scale=0.6
+pop
+# --- Raft's special features (lib_features; the user, 2026-10-10: every Raft feature on more than one island): two
+# cable hubs on the generator shed's south wall: cabled in turn (the cable in the electrician's box on the beach),
+# they wake the bar's old cold box (hidden)
+place UT_ElectricCableHub01 tlhubA at 23.4 11.35 h=3.0 yaw=180
+prop tlhubA obj.name=tlhubA
+prop tlhubA on.use=open|\nsignal||tlwire1\nmessage||The cable snaps into the first hub. A relay clicks inside the shed.
+prop tlhubA else.use=message||No cable runs to this hub. The electrician's box on the beach had spare cable.
+place UT_ElectricCableHub02 tlhubB at 24.1 11.35 h=3.0 yaw=180
+prop tlhubB obj.name=tlhubB
+prop tlhubB if.use=state|tlhubA|open\n!state||open\ntake|story:raft-Temperance_ElectricalCable|1
+prop tlhubB on.use=open|\nsignal||tlwire2\nshow|tlcoldbox\nmessage||The second cable goes in, the generator hums - and the bar's old cold box lights up beside the shed.
+prop tlhubB else.use=message||This hub wants a cable too - and the first hub cabled before it.
+place Loot_ChestSmall tlcoldbox at 23.7 10.2 ground sit yaw=180
+prop tlcoldbox obj.name=tlcoldbox
+prop tlcoldbox note.title=The bar's cold box
+prop tlcoldbox beh.hidden=1
+loot tlcoldbox Battery*2;CopperIngot*2;Rope*2
+scatter Loot_ChestSmall 1 at 21 6 r=6 seed=391 free=4 as=tlcablebox
+note tlcablebox Electrician's box | Two lengths for the shed hubs. Do the left one first or the relay trips. - Kai
+loot tlcablebox story:raft-Temperance_ElectricalCable*2;Nail*4
+
+# --- The manager's office: a hut on stilts on the main key with its ladder; his desk, his chair, the safe, the staff room's
+# chest --------------------------------------------------------------------------------------------------------------------
+push at 20 4 h=2
+call stilt_hut y=2.6
+place "VG_DecorationPrefabBase_Desk Variant" - at 2.25 3.9 y=2.6 sit yaw=180
+place "VG_DecorationPrefabBase_OfficeChair Variant" - at 2.25 3.1 y=2.6 sit
+place VG_Safe mgrsafe at 3.8 3.7 y=2.6 sit yaw=180
+place Loot_Chest staffchest at 0.8 3.6 y=2.6 sit yaw=90
+pop
+
+# --- The towel hut where the walkway leaves the shore: a hut on low stilts, the towel box -------------------------------
+push at -20 7.5 h=1.6
+call stilt_hut y=1.2 ladder=Block_HalfStair
+place "Box Small" towelbox at 2.25 3.6 y=1.2 sit yaw=-5
+place Placeable_Lantern_Metal - at 0.7 3.7 y=1.2 sit
+pop
+
+# --- The petting zoo on the main key: a pen of Raft's plank fence with a gap for a gate, troughs, the goat figurine on its
+# sign post - the pen empty: its two goats ran to the north key -----------------------------------------------------------
+line Block_Wall_Fence_Plank from -21 -12 to -9 -12 step=1.455 y=0
+line Block_Wall_Fence_Plank from -9 -12 to -9 0 step=1.455 y=0
+line Block_Wall_Fence_Plank from -9 0 to -13.5 0 step=1.455 y=0
+line Block_Wall_Fence_Plank from -16.5 0 to -21 0 step=1.455 y=0
+line Block_Wall_Fence_Plank from -21 0 to -21 -12 step=1.455 y=0
+place TangaroaBucket - at -18.5 -9 ground
+place TangaroaBucket - at -17.4 -9.6 ground
+place Placeable_Figurine_Goat - at -12 1.3 ground yaw=180
+place Balboa_DirectionSign - at -17.8 1.4 ground yaw=180
+place Placeable_Flower_Hibiscus - at -8 2.5 ground
+place Placeable_Flower_Hibiscus - at -22 2.2 ground
+
+# --- Animals: the petting zoo's two goats on the north key (to catch); hens round the bar; turtles in the lagoon; dolphins
+# off the east shore --------------------------------------------------------------------------------------------------------
+place Creature_Goat goats at 0 37
+place Creature_Chicken hens at 2 6
+prop hens creature.count=3
+place Creature_Turtle turtles at -22 24 h=-1
+prop turtles creature.count=2
+place Creature_Dolphin dolphins at 62 0 h=-3
+prop dolphins creature.count=2
+# --- Palms on the keys where nothing is built (the generator's marsh has bamboo only) -----------------------------------
+scatter "Pickup_Landmark_Tree_Palm 1" 4 at -6 -22 r=7 seed=51
+scatter "Pickup_Landmark_Tree_Palm 2" 4 at 14 -18 r=7 seed=52
+scatter "Pickup_Landmark_Tree_Palm 3" 4 at 28 -6 r=5 seed=53
+scatter "Pickup_Landmark_Tree_Palm 4" 4 at -16 35 r=6 seed=54
+scatter "Pickup_Landmark_Tree_Palm 1" 4 at 14 36 r=6 seed=55
+scatter "Pickup_Landmark_Tree_Palm 2" 3 at -30 0 r=5 seed=56
+scatter BigPalm2 1 at -26 -20 r=4 seed=57
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): pineapples, bananas, melons ----------
+scatter "Pickup_Landmark_PineappleLandmark" 3 at 0 0 r=31.5 seed=4519 free=3
+scatter "Banana_Bush_2" 3 at 0 0 r=31.5 seed=4529 free=3
+scatter "Pickup_Landmark_WatermelonLandmark" 3 at 0 0 r=31.5 seed=4539 free=3
+
+# --- Raft's finds in the shallows round the island (sand, clay, stones, ores, scrap - every Raft island has them): lib_sea
+call shallows r=60 deep=5
+
+# ===== Settings, story items, notes, behaviours, quest (5 steps) ==========================================================
+info title=Tiki Lagoon
+info author=Custom Islands
+info description=A beach club on low sandy keys, left in a hurry before a storm: a tiki bar, bungalows on stilts over the lagoon, a diving board, a jukebox with no power - and two goats from the petting zoo still running loose. Get the generator going and the season starts again.
+island on.arrive=message||Sandy keys and turquoise pools, a thatched bar, bungalows on stilts. A goat stares at you from the dunes. Somebody's sunglasses lie on the boardwalk.
+
+story fuelcan|Can of generator fuel|BioFuel|The resort's last can of generator fuel, out of the sunken pedal boat.
+
+note memo Manager's last memo | THE LAGOON CLUB - STAFF MEMO\n\nStorm warning. Guests leave on the four o'clock boat, staff on the six.\n\n1. The last can of generator fuel went into the pedal boat for the guests' farewell tour. The pedal boat sank in the deep pool by the bungalows, can and all. Thank you, Mr. Dabney.\n2. The petting zoo goats got out in the wind. Net them before you go - the net gun is in the bar's lockbox.\n3. The office safe is on the generator's circuit. No power, no safe.\n\nWe'll be back for the season. Keep the music on.\n- Benny Sorrel, Manager
+note lockbox Bar lockbox | The bar's lockbox: the petting zoo's net gun and its canisters, a bottle opener, a stack of drinks tokens.
+loot lockbox NetGun*1;NetCanister*4;TradeToken*2
+prop lockbox loot.refill=0
+note pedalbox Pedal boat's box | The pedal boat's box: the farewell tour's picnic (soggy), a pair of sunglasses - and the can of generator fuel.
+loot pedalbox story:fuelcan*1;Coconut*2
+prop pedalbox loot.refill=0
+note mgrsafe Manager's safe | The manager's safe: the season's tips, the gardener's plans for the big vegetable beds, the jukebox's spare tape, a carved tiki mask from the gift shop and his own sunglasses.
+loot mgrsafe Blueprint_Cropplot_Large_Tier3*1;Cassette_Pop*1;Hat_Tiki*1;Hat_Glasses_Aviator*1;TradeToken*6
+prop mgrsafe loot.refill=0
+prop mgrsafe if.open=signal|power
+prop mgrsafe else.open=message||The safe's panel is dark. "No power, no safe," said the memo.
+note towelbox Towel hut box | The towel hut's box: beach towels, sun cream, coconuts for the welcome drinks.
+loot towelbox Coconut*3;PlasticBottle_Water*2;Banana*2
+prop towelbox loot.refill=0
+note staffchest Staff room chest | The staff room's chest: spare thatch for the bar, rope, plastic cups.
+loot staffchest Thatch*6;Rope*3;Plastic*4
+prop staffchest loot.refill=0
+note minibar Bungalow minibar | The bungalow's minibar, still faintly cold: two cocktails nobody drank.
+loot minibar DrinkingGlass_StrawberryColada*1;DrinkingGlass_CoconutBeat*1;Watermelon*1
+prop minibar loot.refill=0
+note lostbarrel Lost things barrel | A barrel in the deep pool, full of what the guests dropped off the boardwalks all season.
+loot lostbarrel Plastic*4;Scrap*2;Glass*2
+prop lostbarrel loot.refill=0
+
+prop generator obj.name=generator
+prop generator beh.use=Fill the generator and start it
+prop generator if.use=quest|4\ntake|story:fuelcan|1
+prop generator on.use=message||The generator coughs, catches and roars. String lights blink on round the bar, the jukebox crackles into a song about summer - and somewhere in the office, a lock clicks.\nsignal||power\nshow|stringlights\nshow|music\nsound||event:/exploring/obstacles/tangaroa/generator_on
+prop generator else.use=message||The generator's tank is dry. The memo said the last can went down with the pedal boat.
+prop stringlights obj.name=stringlights
+prop stringlights beh.hidden=1
+prop music obj.name=music
+prop music beh.hidden=1
+prop music sound.event=event:/raft/radio/cassette/cassette02
+prop music sound.volume=0.5
+prop music zone.radius=14
+
+prop bar zone.id=bar
+prop bar zone.radius=7
+prop bar zone.message=The tiki bar: stools stacked, a memo pinned behind the bar, the jukebox dark.
+prop deeppool zone.id=deeppool
+prop deeppool zone.radius=5
+prop deeppool zone.message=The deep pool: a pedal boat on its side in the sand, and everything the guests ever dropped.
+prop goats creature.count=2
+prop goats creature.respawn=0
+prop bees creature.count=1
+prop bees creature.respawn=0
+
+quest title=End of the Season
+quest intro=A beach club on a lagoon, closed for a storm and never opened again. The memo behind the bar says what's left to do.
+step reach|bar|1|Wade ashore at the resort's tiki bar
+step read|Manager's last memo|1|Read the manager's memo pinned behind the bar
+step catch|Goat|2|Catch the petting zoo's two runaway goats (the net gun is in the bar's lockbox)
+step collect|story:fuelcan|1|Dive for the fuel can in the pedal boat sunk in the deep pool
+step open|Manager's safe|1|Start the generator - lights, music - and open the manager's safe
+step blueprint|Blueprint_Cropplot_Large_Tier3|1|Take the large crop plot plans from the manager's safe
+quest done=The lights are on, the jukebox is playing, the goats are safe. The season is open - and you're the only guest.
+quest reward=Pineapple*2;Coconut*4;Plastic*8
+
+save Tiki Lagoon

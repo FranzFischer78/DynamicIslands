@@ -1,0 +1,194 @@
+# The Bell Stack - a new island of the library, normal size
+# Three snowy sea stacks in a row over a shallow shelf (Shape 3, Style 1): the landing stack in the south (top 5 m) with
+# the pilgrims' hut and a cairn, a rope bridge up to the chapel stack in the middle (top 9 m) with the little chapel and
+# the bell tower - and the cell stack in the north (top 9 m), the hermit's cell on it, with no bridge to it at all.
+# Quest "The Torn Chant" (4 steps, pages): the hermit tore his chant into six pages and left them over the stacks; read
+# all six, ring the bell as the chant says, and the bridge to his cell is there.
+#
+# Built by the recipe player (CIRecipe bell_stack) through the editor's own operations. Points: the landing beach at
+# -12 -38 (0.6 m), its ramp up the stack's west side to its top (5 m, r 8 round 0 -26); the rope bridge x 0 from z -16.5
+# (5 m) to z -7 (9 m); the chapel stack's top (9 m, r 7 round 0 0); the bell tower at 0 2.5; the cell bridge (shown when
+# the bell rings) x 0 from z 7 to z 16 at 9 m; the cell stack's top (9 m, r 7 round 0 24).
+include lib_huts
+include lib_sea
+new
+gen Trees=0.1 Bushes=0.2 Rocks=0.3 Harvest=0.05 BeachThings=0.2
+gen Seed=9114 Radius=45 Height=22 Roughness=0.4 Peaks=3 Shape=3 Style=1 BeachWidth=0.3 Cliffs=0.8 PeakShape=0.45
+gen SeaFloor=0 Shelf=0.45 Seabed=1
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== The stacks: the generator's needles taken down to the shelf, three stacks raised in a row ======================
+macro dabs x1 z1 h1 x2 z2 h2 n=8 r=2.6
+for i 0 $n
+brush flatten at {$x1+($x2-$x1)*$i/$n} {$z1+($z2-$z1)*$i/$n} r=$r s=20 frames=25 h={$h1+($h2-$h1)*$i/$n}
+next
+end
+for sx -28 28 14
+for sz -28 28 14
+brush flatten at $sx $sz r=10 s=20 frames=40 h=-2.5
+next
+next
+brush flatten at 0 -26 r=10 s=20 frames=80 h=5
+brush flatten at 0 0 r=10 s=20 frames=80 h=9
+brush flatten at 0 24 r=10 s=20 frames=80 h=9
+brush flatten at 0 -18 r=2.5 s=20 frames=30 h=5
+brush flatten at 0 -6 r=2.5 s=20 frames=30 h=9
+brush flatten at 0 6.5 r=2.5 s=20 frames=30 h=9
+brush flatten at 0 17.5 r=2.5 s=20 frames=30 h=9
+brush flatten at -12 -38 r=4 s=20 frames=40 h=0.6
+call dabs -12 -37 0.6 -6 -29 5 n=10
+brush grass at 0 -26 r=9 s=20 frames=20
+brush grass at 0 0 r=8 s=20 frames=20
+brush grass at 0 24 r=8 s=20 frames=20
+clear at 0 0 r=40
+
+# ===== The landing stack: the pilgrims' hut, a cairn, the beach's mooring post ========================================
+push at -6 -29 h=5
+call floors w=2 d=2 y=0.1
+place Block_Wall_Wood - at 0.75 0 y=0.1
+place Block_Wall_Wood - at 2.25 0 y=0.1
+place Block_Wall_Wood - at 0.75 3 y=0.1
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 3 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 3 2.25 y=0.1 yaw=90
+call corners w=2 d=2
+roof 2 2 at 0 0 y=0.1 wood
+place Note_Papers page2 at 1.2 1.2 y=0.2 drop yaw=30
+place Pickup_Landmark_Plastic3_Land - at 2.1 0.9 y=0.4 drop yaw=37
+place Pickup_Landmark_Plastic3_Land - at 0.9 2.0 y=0.4 drop yaw=211
+pop
+place VP_RubblePile_Small03 cairn at 5 -25 ground yaw=40
+place Note_Papers page3 at 4.6 -24.2 h=5.6 drop yaw=-20
+place ReefHuts_Pillar1 - at -10.5 -40 ground
+place Note_Papers page1 at -10.5 -39 h=1 drop yaw=10
+place Zone_Trigger landing at -12 -38 h=1.6
+place Creature_Goat goats at 3 -29 ground
+
+# ===== The rope bridge up to the chapel stack: planks with rope rails ==================================================
+ramp Block_Floor_Wood from 0 -16.5 5 to 0 -7 9 len=1.5 top=0
+ramp Block_Wall_Fence_Rope from -0.75 -16.5 5 to -0.75 -7 9 len=1.5 top=-0.1
+ramp Block_Wall_Fence_Rope from 0.75 -16.5 5 to 0.75 -7 9 len=1.5 top=-0.1
+
+# ===== The chapel stack: the little chapel, the bell tower, the shrine on the ledge ===================================
+push at -5.5 -4 h=9
+call floors w=2 d=3 y=0.1
+place Block_Wall_Wood - at 0.75 4.5 y=0.1
+place Block_Wall_Wood - at 2.25 4.5 y=0.1
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 3.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 3 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 3 3.75 y=0.1 yaw=90
+call corners w=2 d=3
+roof 2 3 at 0 0 y=0.1 wood
+place Placeable_Candelabra - at 1.5 4 y=0.1 sit
+place Note_Papers page4 at 1.5 2.5 y=0.2 drop yaw=15
+place Pickup_Landmark_Plank_Land - at 0.9 1.3 y=0.4 drop yaw=68
+pop
+# (the bell tower: four thick pillars, a slab and a pyramid roof on them, the bell hung under the slab)
+place RT_PillarThick - at -1.4 1.1 h=9
+place RT_PillarThick - at 1.4 1.1 h=9
+place RT_PillarThick - at -1.4 3.9 h=9
+place RT_PillarThick - at 1.4 3.9 h=9
+place RT_Floor - at 1.7 3.8 h=15 sx=0.56 sz=0.36
+place Block_Roof_Wood_Pyramid - at 0 2.5 h=15.05 scale=2.4
+place TangaroaBucket bell at 0 2.5 h=14.9 rot=180,0,0 scale=2.6
+place Note_Papers page5 at 0.8 3.2 h=9.2 drop yaw=40
+# (the wayside shrine at the stack's east edge)
+place Note_Sign - at 5 -1 h=9 sit yaw=90
+place Note_Papers page6 at 4.6 0.2 h=9.2 drop yaw=-30
+place Zone_Trigger chapelstack at 0 -4 h=10
+
+# ===== The cell bridge (shown when the bell rings) and the hermit's cell on the north stack ===========================
+for bz 6.25 17.75 1.5
+place Block_Floor_Wood cellbridge at 0 $bz h=9
+place Block_Wall_Fence_Rope cellbridge at -0.75 $bz h=9 yaw=90
+place Block_Wall_Fence_Rope cellbridge at 0.75 $bz h=9 yaw=90
+next
+push at -2.25 26 h=9
+call floors w=3 d=2 y=0.1
+place Block_Wall_Wood - at 0.75 3 y=0.1
+place Block_Wall_Wood - at 2.25 3 y=0.1
+place Block_Wall_Wood - at 3.75 3 y=0.1
+place Block_Wall_Wood - at 0 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.1 yaw=90
+place Block_Wall_Wood - at 4.5 0.75 y=0.1 yaw=90
+place Block_Wall_Wood - at 4.5 2.25 y=0.1 yaw=90
+call corners w=3 d=2
+roof 3 2 at 0 0 y=0.1 wood
+place Placeable_Bed_Basic - at 1.15 1.5 y=0.1 sit yaw=90
+place Loot_Chest hermitschest at 3.6 2.2 y=0.1 sit yaw=180
+place Placeable_Candelabra - at 2.25 2.5 y=0.1 sit
+place "Pickup_Landmark_Scrap 2_Land" - at 2.8 0.9 y=0.4 drop yaw=150
+pop
+place Zone_Trigger cellstack at 0 24 h=10
+
+# ===== Snow, wind, friendly animals, Raft's finds in the shallows ======================================================
+place Zone_Atmosphere snowfall at 0 0 h=10
+place Zone_Sound wind at 0 0 h=10
+place Creature_Dolphin dolphins at 30 -30 h=-2
+call shallows r=50 deep=5 n=1
+prop goats creature.count=2
+prop dolphins creature.count=2
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): pines, flowers, berries ----------
+scatter "Pickup_Landmark_Tree_Pine" 3 at 0 0 r=31.5 seed=4242 free=5
+scatter "Pickup_Landmark_Flower_White" 2 at 0 0 r=31.5 seed=4252 free=3
+scatter "Pickup_Landmark_Flower_Blue" 2 at 0 0 r=31.5 seed=4253 free=3
+scatter "Pickup_Landmark_BerryBush" 3 at 0 0 r=31.5 seed=4262 free=3
+
+# ===== Settings, story items, notes, behaviours, quest (4 steps) ==========================================================
+info title=The Bell Stack
+info author=Custom Islands
+info description=Three snowy sea stacks: a landing, a chapel with a bell tower - and a hermit's cell on the third stack with no bridge to it. The hermit tore his chant into six pages and scattered them over the stacks. Read them all, ring the bell as the chant says, and the bridge is there.
+island on.arrive=message||Three white stacks in a row, a rope bridge between the first two, a bell tower on the middle one. On the third, a little hut with smoke-blackened walls - and nothing joining it to anything.
+
+story rung|The bell's note|Placeable_Candelabra|The hermitage bell's note, still ringing in the rock.
+
+note page1 Chant, first page | (a torn page, tied to the mooring post)\n\nI.\nWhoever comes by sea, come up.\nThe stacks are three: the one you stand on, the one that rings, the one that listens.
+note page2 Chant, second page | II.\nThe pilgrims slept here and went home.\nThe hermit stayed.\nHe crossed to the listening stack every evening, and every morning he came back.
+note page3 Chant, third page | III.\nThe cairn counts the pilgrims: one stone each.\nThe cairn is very small.
+note page4 Chant, fourth page | IV.\nIn the chapel, nobody prays out loud.\nThe bell does that.
+note page5 Chant, fifth page | V.\nThe bridge to the listening stack is not a bridge you can see.\nIt is a bridge you can hear.
+note page6 Chant, sixth page | VI.\nWhen you have all of it - all six - ring the bell once, and listen.\nWhat answers is the way across.
+note hermitschest Hermit's chest | The hermit's chest under his window: a blanket, a candle stub, his winter stores - and a bell rope's end, plaited out of his own sail.
+loot hermitschest Wool*4;Cooked_GenericMeat*3;Rope*4;Placeable_Candelabra*1;TradeToken*4
+prop hermitschest loot.refill=0
+
+prop bell obj.name=bell
+prop bell beh.use=Ring the bell
+prop bell if.use=quest|2
+prop bell on.use=sound||event:/exploring/obstacles/bicyclebell\nmessage||The bell rings out over the stacks - and from the north stack something answers: a creak of rope, and planks swinging into place across the gap.\nshow|cellbridge\ngive||story:rung*1
+prop bell else.use=sound||event:/exploring/obstacles/bicyclebell\nmessage||The bell rings, and the sound goes out over the sea and doesn't come back. The chant isn't whole yet.
+prop cellbridge obj.name=cellbridge
+prop cellbridge beh.hidden=1
+prop snowfall atmo.fog=#d0d8de
+prop snowfall atmo.fogAmount=0.15
+prop snowfall atmo.particles=snow
+prop snowfall zone.radius=40
+prop wind sound.event=event:/amb/temperance
+prop wind sound.volume=0.5
+prop wind zone.radius=40
+
+prop landing zone.id=landing
+prop landing zone.radius=4
+prop landing zone.message=The landing at the foot of the stacks. A mooring post - and a torn page tied to it.
+prop chapelstack zone.id=chapelstack
+prop chapelstack zone.radius=6
+prop chapelstack zone.message=The chapel stack: a chapel the size of a shed, a bell tower, and across the gap to the north, the hermit's cell.
+prop cellstack zone.id=cellstack
+prop cellstack zone.radius=6
+prop cellstack zone.message=The listening stack. The hermit's cell, its door open, the snow inside undisturbed.
+
+quest title=The Torn Chant
+quest intro=Three stacks, a bell, and a cell no bridge reaches. A torn page is tied to the mooring post at the landing.
+step reach|landing|1|Land at the foot of the Bell Stack
+step pages||6|Gather the six torn pages of the hermit's chant over the stacks
+step collect|story:rung|1|Ring the bell as the chant says - and listen
+step open|Hermit's chest|1|Cross to the hermit's cell and open his chest
+quest done=The bell's note is still in the rock, the bridge is still there, and the hermit's chant is whole again.
+quest reward=Wool*3;Rope*3;Plank*6
+
+save The Bell Stack

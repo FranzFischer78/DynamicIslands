@@ -1,0 +1,37 @@
+# The Iron Whale - Bow (CIPlay iron_whale_bow): the ramp, the roster, the water plant, the zipline to the crane, the crane
+# box, the captain's log, the galley, the mess safe (keypad 4127), the cargo office (uncovers the hatch), the hatch.
+island The Iron Whale - Bow
+offset 0 0
+expect step 0
+expect title Boarding the Whale
+expect hidden hatchzone
+zone ramp
+expect step 1
+read Iron Whale: crew roster
+expect step 2
+open Water plant
+wait 3
+expect step 3
+zone crane
+expect step 4
+open Crane box
+wait 3
+expect step 5
+read Captain's log, day 1
+expect step 6
+open Galley locker
+wait 3
+expect step 7
+open Mess safe
+expect message locked
+code messpad 4127
+expect story messcode 1
+open Mess safe
+wait 3
+expect step 8
+open Cargo office
+wait 3
+expect shown hatchzone
+expect step 9
+zone hatch
+expect done

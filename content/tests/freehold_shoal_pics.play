@@ -1,0 +1,12 @@
+# Guide pictures of Freehold Shoal (CIPlay freehold_shoal_pics): Raft's camera, midday, calm; the new huts, the well and the boats
+# offset 0 0 is a placeholder: phase 2 sets it from the recipe's save log (PLAY_FORMAT: Coordinates).
+island Freehold Shoal
+offset 0 0
+hour 11
+weather Calm
+at 5.3 -13.3
+wait 3
+picture sl13_freehold_shoal_island 27.3 12 -45.3 5.3 2 -13.3
+picture sl13_freehold_dune -20 14 20 -20 7 38
+picture sl13_freehold_van 30 7 -20 42 2 -8
+picture sl13_freehold_shack -28 7 -30 -40 3 -16

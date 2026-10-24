@@ -1,0 +1,17 @@
+# Guide pictures of Primeval Park (CIPlay primeval_park_pics): Raft's camera, midday, calm. Points as in its recipe ("offset").
+island Primeval Park
+offset -1.155 0.7575
+hour 11
+weather Calm
+at -5 -12 h=9
+wait 3
+picture primeval_park_bay 75 30 15 5 5 5
+picture primeval_park_dock 42 7 -6 30 3 -22
+picture primeval_park_centre 2 13 -24 -12 8 2
+picture primeval_park_paddock 14 13 22 -8 5 37
+picture primeval_park_river 72 9 -30 58 0 -50
+picture primeval_park_aviary 22 24 -62 0 16 -45
+picture primeval_park_lagoon 34 13 38 8 2 22
+picture primeval_park_gate -12 11 40 -12 6 56
+picture primeval_park_lodge -10 9 72 2 5 84
+picture primeval_park_cage -6 9 33 -16 5.5 42

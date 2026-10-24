@@ -1,0 +1,71 @@
+# Play test of Starfall Crater (CIPlay starfall_crater, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The crater lake in a ring round 2 28 (floor 8 m down, out to 18 m), the star's islet in it (2 m, star 11 m across, its east
+# halves at 9.4 26.5 / 29.5, the ladder up its south face at 2 22); the camp on the south rim round 2 -6 (14 m) and the
+# path down from it (2 -1 > -18 8 > -8 11.8 at the shore); the gullies on the east slope (z -5, 8, 21; their ends at 47).
+island Starfall Crater
+offset -0.0563 -0.7543
+expect step 0
+expect title Twelve Fragments
+wait 5
+expect animals Llama 3
+expect animals Dolphin 2
+at 2 -12 h=15
+walk 2 -12 to 2 -6 h=14
+zone camp
+expect step 1
+read Dr. Sato's field notes
+expect step 2
+use frag1
+expect message Too cold to touch
+open Instrument crate
+expect story tongs 1
+expect step 3
+use frag1
+use frag2
+use frag3
+expect story fragment 3
+expect step 4
+use frag4
+expect story fragment 4
+zone badlands
+expect message Hyenas
+kill Hyena
+expect step 5
+use frag5
+use frag6
+expect story fragment 6
+expect step 6
+at 2 -1 h=15
+walk 2 -1 to -18 8 h=7.5
+walk -18 8 to -8 11.8 h=1
+at -6 15 h=0
+zone lakebed
+expect step 7
+use frag7
+use frag8
+use frag9
+expect story fragment 9
+expect step 8
+use cradle
+expect message all twelve
+at 2 26 h=9
+use frag10
+use frag11
+use frag12
+expect story fragment 12
+expect step 9
+use cradle
+expect shown core
+wait 6
+at 9.4 26.6 h=3.5
+walk 9.4 26.6 to 7.6 26.6 h=2
+zone core
+expect step 10
+read Sato's last entry
+expect step 11
+open The star's heart
+expect done
+open Camp food box
+open Abandoned sample bag
+open Sunk sample case
+open Supply boat barrel

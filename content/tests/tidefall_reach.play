@@ -1,0 +1,29 @@
+# Play test of Tidefall Reach (CIPlay tidefall_reach, in a test world 'CI ...'). No quest: down the drowned street into
+# the sunken town, its temple's offerings, a house's barrel, the east wreck's barrel past the stingrays; the tribe's camp
+# and its chest and barrel, the hot springs, the buried tin. Points as in its recipe.
+island Tidefall Reach
+offset 0.6696 20.9889
+expect animals Screecher 2
+expect animals Warthog 2
+expect animals Stingray 2
+expect animals Dolphin 2
+wait 5
+where TangaroaFounderStatue
+read Stone at the street's head
+kill Stingray
+walk 0 -12 to 0 -16 to 0 -18 h=1
+expect stand 0 -38 h=-8
+open Temple offerings
+open Barrel in a drowned house
+open Barrel by the east wreck
+kill Warthog
+walk 40 20 to 34 26 to 33.5 29 to 33.5 31.5 h=4.1
+open Tribe's chest
+open Barrel in the camp
+walk -54 12 to -58 14 h=1.5
+read Sign at the springs
+open Barrel by the springs
+kill Screecher
+dig
+expect animals Stingray 0
+expect animals Warthog 0

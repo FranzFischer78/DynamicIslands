@@ -1,0 +1,39 @@
+# Glacier Mouth (CIPlay glacier_mouth): the depot, the orders, the bears, the drill rig, the leader's chest, the
+# Ringwave (camera) and its note, the cave mouth chest.
+island Glacier Mouth
+# RESIZE 10-24: the recipe moved this island's old content by 0 -24.8; the points below are in the old frame
+offset 0 24.8
+expect step 0
+expect title The Glacier
+zone depot
+expect step 1
+read Expedition orders
+expect step 2
+kill Polar bear
+expect step 3
+expect hidden drillrig
+use drillhead
+expect story drilled 0
+open Depot stores
+open Torn sled
+open Old camp crate
+wait 3
+expect story drillbit 3
+expect step 4
+use drillhead
+expect story drillbit 0
+expect shown drillrig
+expect step 5
+open Drill rig chest
+wait 3
+expect step 6
+open Leader's chest
+wait 3
+expect step 7
+zone ringwave
+wait 6
+read Carving note
+expect step 8
+open Cave mouth chest
+wait 3
+expect done

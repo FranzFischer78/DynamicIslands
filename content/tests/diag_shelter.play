@@ -1,0 +1,4 @@
+# Dev aid: the player inside Shelter Atoll's main hall (for CIAtmoInfo)
+island Shelter Atoll keep
+at 0 1.5 h=1.9
+wait 2

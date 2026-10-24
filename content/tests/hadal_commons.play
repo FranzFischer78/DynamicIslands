@@ -1,0 +1,57 @@
+# Hadal Commons (CIPlay hadal_commons): the chain's air platforms, the plaza, the minutes, house 1 and its air, four
+# anglers, the toolmaker's chest, house 2, the last broadcast, the broadcast room chest (the cage key), house 3, Ines
+# freed (her bag opens only then), her account, the warden's chest, the doors.
+island Hadal Commons
+offset 0 0
+expect step 0
+expect title The City Below
+zone surface_buoy
+air chain_air1
+air chain_air2
+zone plaza
+expect step 1
+read Commons council minutes
+expect step 2
+zone house_1
+air house_1
+expect step 3
+kill Angler fish
+expect step 4
+open Toolmaker's chest
+wait 3
+expect step 5
+zone house_2
+air house_2
+expect step 6
+read The last broadcast
+expect step 7
+open Broadcast room chest
+wait 3
+expect story cagekey 1
+expect step 8
+zone house_3
+air house_3
+expect step 9
+open Ines's bag
+wait 2
+expect step 9
+use inescage
+expect survivor sunken_ines
+open Ines's bag
+wait 3
+expect step 10
+read Ines Marlowe's account
+expect step 11
+open Door warden's chest
+wait 3
+expect step 12
+zone hc_ridge
+expect step 13
+zone hc_cave
+expect step 14
+read Warden's lodge note
+expect step 15
+read Wagon driver's chit
+expect step 16
+zone doors
+expect done

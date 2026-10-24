@@ -1,0 +1,28 @@
+﻿# Spirecrest Roofs (CIPlay spirecrest_roofs): the beacon roof, the distress card, the screechers, the beacon hut's chest
+# (Receiver), the mast toolbox (Antenna), the caretaker's diary.
+island Spirecrest Roofs
+offset 0 0
+expect step 0
+expect title The Rooftops
+zone beacon
+expect step 1
+read Pelagic Network distress card
+expect step 2
+kill Screecher
+expect step 3
+open Beacon hut chest
+wait 3
+expect step 4
+open Mast toolbox
+wait 3
+expect step 5
+zone sc_ridge
+expect step 6
+zone sc_cave
+expect step 7
+read Pump-man's slate
+expect step 8
+read Courier's logbook
+expect step 9
+read Rooftop caretaker's diary
+expect done

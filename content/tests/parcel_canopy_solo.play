@@ -1,0 +1,7 @@
+# Parcel Canopy on its own (CIPlay parcel_canopy_solo): Eskil's dead letter taken at The Dead Letter Office first,
+# then the island's test
+island The Dead Letter Office
+offset 0 0
+read Dead letter: Eskil
+expect story dl_eskil 1
+include parcel_canopy.play

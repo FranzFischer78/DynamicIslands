@@ -1,0 +1,17 @@
+# Rope Bridge Gorge - the side quest "The Idol's Bridge" played through (plan Relic of the Seventh Tide, side B)
+# Two halves at 4 m, the gorge x -6..6; the bridge along z 0 from x -9.2 to 9.2; the porch 20..26 x -3..3 at 4.
+island Rope Bridge Gorge
+offset 0 0
+expect title The Idol's Bridge
+walk -24 0 to -12 0 h=4
+zone bridge_lip
+read Idol warning
+walk -12 0 to 0 0 to 10 0 to 14 0 h=4
+zone temple_ground
+kill Warthog
+expect step 3
+walk 19 0 to 22 0 h=4
+open Idol's offering
+expect item TradeToken 6
+zone far_porch
+expect done

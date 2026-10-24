@@ -1,0 +1,23 @@
+# The Stair of Hours (CIPlay stair_of_hours): a sky island 30 m up; the hours walked (1, 3, 7 - then 12 shows), the
+# sundial instructions, the telescope (the vault opens), the vault's three plans, Halvard's last log.
+island The Stair of Hours
+offset 0 0
+expect step 0
+expect title Walking the Hours
+zone hour_1
+expect step 1
+read Sundial instructions
+expect step 2
+zone hour_3
+zone hour_7
+zone hour_12
+expect step 3
+use telescope
+expect story sighted 1
+expect step 4
+open Telescope vault
+wait 3
+expect step 7
+read Halvard's last log
+storespot 0 -18
+expect done

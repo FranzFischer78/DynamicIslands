@@ -1,0 +1,60 @@
+# Play test of The Ice Organ (CIPlay ice_organ, in a test world 'CI ...'). Points as in its recipe: the beach at -6 0.8
+# (the bay zone at -14 1); the hut on the east ridge's slope (pad 3 m, deck 4.2 m, ladder at 11 10.4); the ramp from
+# the beach up to the organ cave's mouth at -15 -3, its floor about 2.5 m; the pipes along its west side (x -19.6); the
+# score on the east wall; the crypt gate across the cave at z -23, the crypt behind it (floor 2.4 m)
+island The Ice Organ
+expect step 0
+expect title The Frozen Score
+expect animals Goat 3
+expect animals Dolphin 2
+wait 5
+
+# The bay; up to Halvard's hut: his letter, the mallet in his chest; the woodpile and snowmobile boxes
+walk -3 2 to -6 0.8 h=0.4
+zone bay
+expect step 1
+walk 11 7.8 to 11 9.2 h=3
+climb 11 10.4 h=3
+expect stand 11 12.5 h=4.2 below=6
+read Halvard's letter
+expect step 2
+open Organist's chest
+expect story mallet 1
+expect step 3
+open Woodpile box
+open Snowmobile box
+expect step 4
+
+# The organ cave: the score, the cache behind the snow bank; a wrong pipe first; then the five in the score's order - the key
+walk -6 0.6 to -12.5 -2.5 to -15 -5 to -15 -9 h=2.5
+zone organcave
+expect step 5
+walk -15 -10 to -15 -14 h=2.5 below=5
+read The frozen score
+expect step 6
+open Cave cache
+expect step 7
+use cryptgate
+expect message frozen over
+use pipegreat
+expect message sour clang
+use pipethin
+use pipecracked
+use pipegreat
+use pipebent
+use pipeblue
+expect story icekey 1
+expect step 8
+
+# The crypt: the gate sinks; in - the bear wakes; the last page, the coffer
+use cryptgate
+wait 4
+walk -14 -20 to -14 -24 to -14 -26.5 h=2.5 below=5
+zone crypt
+expect step 9
+kill Polar bear
+expect step 10
+read Halvard's last page
+expect step 11
+open Halvard's coffer
+expect done

@@ -1,0 +1,10 @@
+# Play test of Castaway Knoll (CIPlay castaway_knoll, in a test world 'CI ...'): a sunken island, 11 m under the sea. No
+# quest: the lost raft in the kelp, her crate and chest. Points as in its recipe (heights over the island's own water line).
+island Castaway Knoll
+offset 0 0
+expect animals Turtle 1
+wait 3
+at -2.6 -0.5 h=6
+open The lost raft's crate
+at 2.2 5.2 h=6
+open The castaway's chest

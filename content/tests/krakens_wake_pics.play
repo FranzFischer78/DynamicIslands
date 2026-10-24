@@ -1,0 +1,17 @@
+# Guide pictures of The Kraken's Wake (CIPlay krakens_wake_pics): Raft's camera, midday, calm. The pictures above the
+# water first (a player under water makes Raft draw every picture as seen under water), the wake's wrecks last
+island The Kraken's Wake
+offset 0.6508 -0.4589
+hour 12
+weather Calm
+at -86 -22
+wait 3
+picture krakens_wake_islands -110 45 -95 0 0 -20
+picture krakens_wake_lookout -76 13 -40 -86 9 -30
+picture krakens_wake_battery 74 12 -2 66 8 -13
+picture krakens_wake_hut 0 5 -40 -6 3 -32
+at -70 -50 h=-4
+wait 2
+picture krakens_wake_sparrowhawk -62 -3.5 -46 -72 -6.5 -52
+picture krakens_wake_corsair 8 -8 -50 -10 -11 -52
+picture krakens_wake_sovereign 34 -14 -47 52 -16 -44

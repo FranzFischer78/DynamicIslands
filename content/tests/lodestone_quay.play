@@ -1,0 +1,21 @@
+# Lodestone Quay (CIPlay lodestone_quay): the quay apron on the south shore at 1.5 m (round 0 -28), the sliced hilltop
+# behind it at 12 m (round 0 12); the compass ring's lever, the instrument hut, the builders' store by the crane.
+island Lodestone Quay
+offset 0 0
+expect step 0
+expect title Lift Day
+zone quay
+expect step 1
+read Institute notice
+expect step 2
+use lever
+expect story needles 1
+expect step 3
+open Instrument hut
+wait 3
+expect step 5
+read Dr. Halvard's log 1
+expect step 6
+open Builders' store
+wait 3
+expect done

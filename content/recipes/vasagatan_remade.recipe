@@ -1,0 +1,234 @@
+# Vasagatan Remade - an island of the library's plan Raft Remade (in place of Raft's Vasagatan)
+# Raft's Vasagatan made anew: its island remade with the generator's "Randomize existing" - a long ridge between two
+# sandbank arms - and a ship broken in two on the reef of its west lagoon: her bow run up on a sandbar, sand to the
+# rails and full of rats, her stern sunk in the bay below the reef, the captain's cabin torn open; the crew's camp in
+# the dunes of the west arm, their distress flag on the dune's top. Quest "Two Halves of a Ship" (10 steps): the camp,
+# the first mate's diary, the tool chest and its crowbar, the sunk stern, its cabin locker and the captain's key, the
+# beached bow, the rats and their king, the bow's jammed wheelhouse door and the captain's safe (the motor wheel's and
+# steering wheel's blueprints, as Raft's Vasagatan has them).
+#
+# Built by the recipe player (CIRecipe vasagatan_remade) through the editor's own operations.
+include lib_sea
+new
+# (nature and the life under water as on Raft's island itself: its counts - 81 trees, 23 bushes, 53 rocks and 42
+# harvestables on its 5744 m2 of land; Randomize existing's own sliders gave 17, 13, 16 and 2 on this steeper ridge,
+# the review 2026-10-03. The sliders go with randomize - a gen line before it doesn't count)
+randomize Vasagatan Seed=7102 Hostiles=0 Friendly=0 SeaLife=0.3 Trees=0.3 Bushes=0.12 Rocks=0.4 Harvest=0.47
+
+# --- Terrain: a sandbar raised at the lagoon's reef edge (1.1 m), a ledge on the bay's floor below it (13 m down), the
+# camp's ground levelled on the west arm's dune shoulder (4 m) ---------------------------------------------------------
+brush flatten from -22.5 -23.5 to -29 -27 r=6 s=20 frames=60
+brush flatten from -26 -27 to -27 -31 r=4 s=20 frames=40
+brush flatten from -24 -38.5 to -24 -42.5 r=5 s=20 frames=60 h=-13.3
+brush flatten at -37.2 -17.6 r=4 s=20 frames=40
+# the crew's path up the dune from the lagoon's shore to the camp: a ramp cut into it, 2 m up over 3.5 m (the dune rose
+# 2 m in under 2 m there - a player couldn't climb it, the play test 2026-10-03)
+for i 0 5 1
+brush flatten at {-31.5-$i*0.7} -17.3 r=1.4 s=20 frames=30 h={2+$i*0.4}
+next
+brush smooth from -31.5 -17.3 to -35 -17.4 r=1.6 s=20 frames=30
+# the sand dug out of the bow's aft deck in front of the wheelhouse door, down to her cabin's floor (the sand stood
+# 0.5 m over it: a player's head met the top of the doorway)
+brush flatten at -26.6 -26.5 r=1.6 s=20 frames=30 h=1.45
+origin
+clear at -26.5 -24 r=12
+clear from -26 -31 to -24 -46 r=8
+clear at -37.2 -17 r=6
+clear at -38.2 -8 r=4
+
+# --- The bow on the sandbar: Raft's stranded boat, sand to her rails, her wheelhouse door jammed shut (the door hinged
+# at its pivot, turned out when forced), the captain's safe bolted just inside it (the boat's doorway is 1.4 m high over
+# its cabin floor - no player walks in: the safe is opened from the doorway, within Raft's 2.5 m reach, the play test
+# 2026-10-03); the papers and a lantern by the wheel further in; the rats in the sand of her open deck,
+# torn plating and spilled cargo where she broke, in the surf at the reef's edge ------------------------------------
+push at -26.5 -23.5 h=1.1 yaw=10
+place BoatStranded bowhull at 0 0 y=0
+place DoorMetal chartdoor at 0.55 -1.75 y=0.98 rot=-90,0,0
+place VG_SignBridge - at 0 -1.98 y=2.4
+place VG_Safe safe at 0 -0.9 y=0.39 sit yaw=180
+place "VG_DecorationPrefabBase_Paper_BigPile Variant" - at 0.9 3.75 y=1.14 sit yaw=20
+place Placeable_Lantern_Metal - at -1.0 3.7 y=1.14 sit
+place Zone_Trigger bow at 0 -4.5 y=1
+place Creature_Rat rats at 0.6 -5.5 y=0.3
+place Creature_Rat ratking at -1.2 -6.5 y=0.3
+place RT_WallWindowBroken2 - at 2.8 -9.6 ground tilt=65 yaw=15
+place "VG_DecorationPrefabBase_WoodenBoxes_ShortRect Variant" - at -2.8 -9.4 ground yaw=35
+place Reef_Barrel2 - at 1.0 -10.8 ground tilt=80 yaw=60
+place VG_DoorPlastic_Broken - at -4.3 -6 ground tilt=80 yaw=200
+place FishingNets_02 - at 4.2 -3 ground yaw=40
+pop
+# the sandbar: palms, what the sea brought ashore
+place "Pickup_Landmark_Tree_Palm 2" - at -31.2 -21.2
+place "Pickup_Landmark_Tree_Palm 4" - at -21.4 -28.3
+place "Box Small" - at -30.4 -28.4 yaw=20
+place Reef_Barrel4 - at -29.4 -29.0
+place Reef_Barrel5 - at -32.2 -24.6 tilt=85 yaw=10
+place "VG_DecorationPrefabBase_Lockers_Open Variant" - at -21.4 -21.6 yaw=250
+
+# --- The stern on the ledge in the bay: her deck settled upright, the captain's cabin torn open where she broke (no
+# roof, no front), the engine and the ensign on her aft deck, the propeller broken off on the sand, cargo down the slope
+push at -27 -40 h=-13.2 yaw=180
+place RT_Floor sterndeck at 0 4.5
+place RT_WallWindowBroken - at -6.04 -4.5 yaw=90
+place RT_Wall1 - at -6.04 -1.5 yaw=90
+place RT_WallWindow1 - at 0 -4.5 yaw=90
+place RT_WallWindowBroken1 - at 0 -1.5 yaw=90
+place RT_Wall1 - at -3 1.5
+place RT_WallDoor1 - at 0 1.5
+place Bed_Simple - at -5.2 -3.2 sit
+place "Table Office" - at -3.4 0.85 sit yaw=180
+place "Chair Office" - at -3.4 -0.1 sit yaw=200
+place "VG_DecorationPrefabBase_Paper_BigPile Variant" - at -3.0 0.85 y=1.08 sit
+place Painting_Captain - at -4.8 1.42 y=1.6 yaw=180
+place VG_SignCaptainsQuarters - at -1.5 1.42 y=2.45 yaw=180
+place Locker sterncabin at -0.5 -3.3 sit yaw=270
+place "VG_DecorationPrefabBase_Carpet_Rectangle Variant" - at -3 -1.6 y=0.02
+place Zone_Trigger stern at -3 -1.5 y=1.5
+place Creature_PufferFish puffers at -3 -6.5 y=2.5
+place "VG_DecorationPrefabBase_Engine Variant" wreckengine at -4 3 sit yaw=90
+# (scenery: the wreck's engine went down with her; without this it wanted a gas tank no island of the plan gives first - the ready piece's lock taken off)
+prop wreckengine beh.use=
+prop wreckengine if.use=
+prop wreckengine else.use=
+prop wreckengine on.use=
+line RT_Fence from 0 4.5 to -6 4.5 step=1.5 ends y=0
+place RT_Fence - at -6 1.5 y=0 yaw=90
+place RT_Fence - at -6 3 y=0 yaw=90
+place RT_Fence - at 0 1.5 y=0 yaw=90
+place RT_Fence - at 0 3 y=0 yaw=90
+place Placeable_Flag_03 - at -0.6 4.1 sit roll=18
+pop
+place "VG_DecorationPrefabBase_Pipe_ThickToThin Variant" - at -22.5 -47.2 ground scale=3
+place PropellerBlade - at -22.5 -45.87 ground rot=90,0,0 scale=2.5
+place PropellerBlade - at -21.35 -47.87 ground rot=90,120,0 scale=2.5
+place PropellerBlade - at -23.65 -47.87 ground rot=90,240,0 scale=2.5
+place Reef_Container - at -31.5 -42.5 ground yaw=65
+place Reef_Barrel1 - at -25 -33.5 ground
+place Reef_Barrel3 - at -22.8 -34.6 ground tilt=80 yaw=40
+place "Box Small" - at -27.6 -34.2 ground yaw=30
+place "VG_DecorationPrefabBase_WoodenBoxes_TallRect Variant" - at -30 -37.5 ground yaw=15
+place Loot_SunkenBarrel - at -29.5 -46 ground
+place SeaVine3 - at -30.5 -35.5 ground yaw=20
+place SeaVine3 - at -31.2 -39.6 ground yaw=140
+place SeaVine3 - at -29.6 -44.4 ground yaw=260
+place SeaVine3 - at -19.6 -38.2 ground yaw=75
+place SeaVine3 - at -19.2 -42.8 ground yaw=200
+place SeaVine3 - at -25.2 -48.6 ground yaw=310
+place Zone_Atmosphere murk at -24 -40 h=-8
+place Zone_Sound creaks at -24 -40 h=-8
+
+# --- The crew's camp in the dunes above the lagoon: two tents, a cold fire, the tool chest, the diary on a crate, the
+# stores they saved under a tarp, a flag at the camp's edge - and their distress flag on the dune's top ---------------
+# (the levelled ground is only 4 x 5 m - the dune drops 2-6 m west of x -39 and south of z -19.5: the first tent a size
+# smaller on its west half, door to the east; the crate with the diary and the firewood rack east of the fire, the
+# lantern by the tent's door. At -39.4 -16.2 the tent reached over the west drop and was set down at its foot, buried
+# 1.5 m; the rack and the crate stood on the south and west drops, buried - CIGroundIslands. The walk up from the
+# lagoon ends at -36.6 -17.6: kept clear)
+place Balboa_DecorationPrefabBase_SimpleTent tent1 at -37.55 -16.3 yaw=90 scale=0.75
+place Balboa_DecorationPrefabBase_SimpleTent tent2 at -37.6 -13.9 yaw=175
+place campfire_1 - at -37.4 -18.8
+place Firewood_1 - at -36.4 -19.4
+place Placeable_FirewoodRack - at -35.2 -18.7 yaw=10
+place Loot_Chest campchest at -35.3 -16.0 yaw=250
+place "Box Small" - at -36.35 -18.6 yaw=0
+place Note_Paper diary at -36.35 -18.6 y=1.3 drop yaw=15
+place TP_Moontown_TarpCrate01 - at -35.0 -13.6 yaw=35
+place Placeable_Lantern_Metal - at -36.35 -15.7
+place Placeable_Flag_03 - at -34.4 -19.8 yaw=90
+place Zone_Trigger camp at -37.2 -17.6 y=1
+place BoatLandmark_Flag distressflag at -38.2 -8 yaw=150
+
+# --- Settings, notes, behaviours, quest ------------------------------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): melons, pineapples, bananas ----------
+scatter "Pickup_Landmark_WatermelonLandmark" 6 at 0 0 r=42.0 seed=4113 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=42.0 seed=4123 free=3
+scatter "Banana_Bush_2" 6 at 0 0 r=42.0 seed=4133 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=80 deep=5 n=2
+
+info title=Vasagatan Remade
+info author=Custom Islands
+info description=Raft's Vasagatan, made anew: a ship broke in two on the reef of the island's lagoon - her bow run up on a sandbar and full of rats, her stern sunk in the bay below, her crew's camp in the dunes above. The captain's safe still holds the ship's papers and two blueprints the raft needs. Raft Remade's second island.
+island on.arrive=message||A broken ship: her bow run up on a sandbar, her stern gone under the bay. In the dunes above, a camp's tents - and no one.
+
+story crowbar|Crowbar|quest:Vasagatan_Crowbar|The crew's crowbar, from their camp's tool chest: it opens what is jammed.
+story capkey|Captain's key|quest:Vasagatan_RedKey|The captain's key on a red cord, from the sunk stern's cabin.
+note diary First mate's diary | FIRST MATE - VASAGATAN\n\nDay 1 ashore: She broke in two on the reef. The bow ran up the sandbar, the stern went down in the bay with the captain's cabin.\nDay 3: The captain's key is in his cabin - in the stern. The safe is in the wheelhouse, behind a door that jammed in the wreck. Our crowbar is in the camp chest.\nDay 9: Rats in the bow. Lots of them, and one the size of a dog. We are leaving on the lifeboat.
+note campchest Camp tool chest | The crew's tool chest by the cold fire: a crowbar, rope, nails - and the diver's headlamp and air bottle, for the dark down in the bay.
+loot campchest story:crowbar*1;Rope*2;Nail*8;HeadLight*1;OxygenBottle*1
+prop campchest loot.refill=0
+note sterncabin Captain's cabin locker | A locker in the sunk captain's cabin: his key on a red cord, a waterlogged logbook.
+loot sterncabin story:capkey*1;Scrap*4
+prop sterncabin loot.refill=0
+note safe Captain's safe | The captain's safe: the ship's papers, the engine's spare drawings - and two blueprints.
+loot safe Blueprint_MotorWheel*1;Blueprint_SteeringWheel*1;MetalIngot*3;Bolt*6
+prop safe loot.refill=0
+prop safe if.open=has|story:capkey|1
+prop safe else.open=message||The safe is locked. The captain's key went down with the stern.
+
+prop chartdoor obj.name=chartdoor
+prop chartdoor beh.use=Force the jammed door
+prop chartdoor if.use=has|story:crowbar|1
+prop chartdoor on.use=message||The crowbar bites, the frame groans - and the wheelhouse door swings free.\nopen|chartdoor\nsound||event:/exploring/obstacles/door_breakopen
+prop chartdoor else.use=message||The door is jammed tight in its bent frame. It needs a crowbar.
+prop chartdoor beh.turn=-140
+prop chartdoor beh.moveTime=1.5
+prop chartdoor beh.moveMode=switch
+
+prop camp zone.id=camp
+prop camp zone.radius=6
+prop camp zone.message=The crew's camp in the dunes: tents, a cold fire, a tool chest - and a diary left on a crate.
+prop bow zone.id=bow
+prop bow zone.radius=8
+prop bow zone.message=The bow: sand to her rails, the wheelhouse door jammed shut - and squeaking, everywhere.
+prop stern zone.id=stern
+prop stern zone.radius=8
+prop stern zone.message=The stern lies on the bay's floor, the captain's cabin open to the fish.
+prop rats creature.count=4
+prop rats creature.respawn=0
+prop rats creature.zone=bow
+prop ratking creature.count=1
+prop ratking creature.size=2.2
+prop ratking creature.health=4
+prop ratking creature.damage=1.5
+prop ratking creature.respawn=0
+prop ratking creature.zone=bow
+prop ratking tint.color=#3b302a
+prop ratking tint.amount=0.5
+prop puffers creature.count=3
+prop puffers creature.respawn=0
+prop puffers creature.zone=stern
+prop murk atmo.fog=#0b2a33
+prop murk atmo.fogAmount=0.45
+prop murk atmo.light=#2c4a5a
+prop murk atmo.lightAmount=0.6
+prop murk atmo.particles=mist
+prop murk zone.radius=13
+prop creaks sound.event=event:/amb/wreck_creaks
+prop creaks sound.volume=0.7
+prop creaks zone.radius=12
+
+quest title=Two Halves of a Ship
+quest intro=A broken ship on a reef: her bow on a sandbar, her stern under the bay. The crew's camp in the dunes is the place to start.
+step reach|camp|1|Find the crew's camp in the dunes
+step read|First mate's diary|1|Read the first mate's diary
+step open|Camp tool chest|1|Open the crew's tool chest by the cold fire
+step collect|story:crowbar|1|Take the crowbar - it opens what is jammed
+step reach|stern|1|Dive to the sunk stern on the bay's floor below the reef
+step open|Captain's cabin locker|1|Search the locker in the captain's torn-open cabin
+step collect|story:capkey|1|Bring up the captain's key on its red cord
+step reach|bow|1|Wade out to the beached bow on the sandbar
+step kill|Rat|5|Clear the rats - and their king - out of the bow's sand
+step open|Captain's safe|1|Force the wheelhouse door and open the captain's safe
+step blueprint|Blueprint_MotorWheel|1|Take the engine plans from the captain's safe
+step blueprint|Blueprint_SteeringWheel|1|Take the steering wheel plans from the captain's safe
+quest done=The ship's papers are yours, and with them the drawings of an engine and a steering wheel. Her last log names a ranger station on a jungle mountain.
+quest reward=Plank*10;Rope*4;Nail*12
+
+# the generator's rocks that floated over the slope (VI4 ground check, 2026-10-24)
+clear at 13.34 -1.89 r=1.5 only=BigBoulder4_Low
+clear at 15.02 6.14 r=1.5 only=BigBoulder1_Low
+clear at -11.95 -18.54 r=1.5 only=BigBoulder4_Low
+clear at 13.57 32.11 r=1.5 only=SmallBoulder1
+
+save Vasagatan Remade

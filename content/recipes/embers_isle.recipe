@@ -1,0 +1,270 @@
+# Embers Isle - a themed island, normal size (x1). Inspiration: cannibal-island horror films (castaways caught by a
+# village round a fire, cages, a great pot, an escape to a hidden boat before the hunters come back) - the mood only,
+# kept non-graphic: the "tribe" is a shipwrecked whaling crew gone feral, no real people or cultures pictured.
+# A black volcanic crescent round a bay (Shape 6, Style 4): the landing on the bay's south shore, the whalers' village of
+# stilt huts round a fire on the east horn above the bay, a black crag on the ridge, and under the east headland's cliff
+# a vine-hung sea cave where a botanist hid her boat. Quest "Before They Come Back" (5 steps): the village, her journal,
+# the fire-keeper's key - then run the shore path round the headland, snatching her dropped satchel on the way, to the
+# cave before the hunters and their boars catch up.
+#
+# Built on the land as generated (lower and gentler than the draft's - Height 14, Cliffs 0.2 - so the trails can climb
+# it); every position below is m from the recipe's origin (play tests: 'offset' as the save logs it).
+include lib_huts
+include lib_sea
+new
+gen Trees=0.2 Bushes=0.3 Rocks=0.5 Harvest=0.25 BeachThings=0.3
+gen Seed=9008 Radius=45 Height=14 Roughness=0.5 Peaks=2 Shape=6 Style=4 BeachWidth=0.5 Cliffs=0.2 PeakShape=0.45
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.25 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== The land ==========================================================================================================
+# (Balboa's vine cave is a cliff of rock 28 m wide with the mouth at its foot, a winding passage and a plug of rock at
+# its far end 19.5 m high: the ground covers what isn't meant to show - the crag on the ridge over the plug, a knoll on
+# the south slope over its light shaft, the ridge raised over the passage, the headland's cliff-top behind the cliff -
+# and the passage's first 9 m, through the cliff, is open to walk in)
+brush flatten from 3 -20 to 3 1 r=6 s=20 frames=60 h=21.5
+brush flatten from 8 -20 to 8 1 r=6 s=20 frames=60 h=21.5
+brush flatten from 13 -12.5 to 16 -9.5 r=3 s=20 frames=40 h=13
+brush flatten from 19 -18 to 18.5 -14 r=4.5 s=20 frames=40 h=15
+brush flatten from 35 -23 to 35 3 r=3 s=20 frames=60 h=14.5
+brush flatten from 40 -22 to 40 3 r=2.5 s=20 frames=60 h=9
+brush flatten from 37.5 -24 to 37.5 -15 r=2 s=20 frames=40 h=12
+# (the passage through the cliff, at its floor; the shelf at the cliff's foot round from the headland's north side)
+brush flatten from 48 -10.5 to 39.5 -11.8 r=4 s=20 frames=60 h=-0.5
+brush flatten from 49.5 7 to 49.5 -9 r=3 s=20 frames=40 h=-0.2
+brush flatten from 43 9 to 49.5 7 r=3 s=20 frames=30 h=0.3
+
+# (the village terrace on the east horn, 3.5 m over the bay)
+brush flatten from 17 1 to 31 1 r=6 s=20 frames=60 h=3.5
+brush flatten from 17 6 to 31 6 r=5 s=20 frames=60 h=3.5
+
+# (the landing trail: from the beach under the crag's east side up to the terrace; the shore path:
+# from the terrace's east end down round the headland's north side to the shelf - stepped strokes, then smoothed)
+brush flatten at 12 8.5 r=4 s=20 frames=30 h=0.6
+for i 0 5
+brush flatten at {12+1.3*$i} {7.4-0.15*$i} r=3 s=20 frames=12 h={0.7+0.56*$i}
+next
+for i 0 8
+brush flatten at {31+1.5*$i} {7+0.25*$i} r=3 s=20 frames=12 h={3.5-0.375*$i}
+next
+brush smooth from 12 7.4 to 18.5 6.6 r=4 s=10 frames=10
+brush smooth from 31 7 to 43 9 r=4 s=10 frames=10
+
+# (the whaler Bountiful's grave in the bay: a hollow 9 m down)
+brush flatten at 4 20 r=8 s=20 frames=50 h=-9
+
+# (paint: the crag and the cut cliffs rock)
+brush rock from 5.5 -20 to 5.5 1 r=8 s=10 frames=20
+brush rock from 35 -23 to 35 3 r=4 s=10 frames=20
+clear from 12 7.4 to 18.5 6.6 r=3
+clear from 31 7 to 49 7 r=3
+clear from 14 3.5 to 31 3.5 r=7
+clear at 12 8.5 r=4
+clear from 48 -10.5 to 39.5 -11.8 r=4
+
+# ===== The sea cave under the headland ==================================================================================
+place BalboaCave_Vines vinecave at 21.6 -10 h=5.2 yaw=90 scale=1.1
+place RT_PlasticBoat boat at 44.2 -9.5 h=0.15 yaw=95
+place ReefHuts_Pillar1 ringpost at 42.4 -9.0 h=-0.5
+place SmallBoulder3 - at 40.6 -12.4 h=-0.6 scale=0.3 yaw=40
+place "Box Big" seachest at 40.6 -12.4 h=0.12 yaw=90
+# (her lantern on the chest, still burning)
+place Placeable_Lantern_Metal - at 40.5 -12.2 h=1.17
+place Zone_Trigger seacave at 44 -11.2 h=1
+place Zone_Atmosphere cavedark at 42 -11.5 h=1.5
+
+# ===== The whalers' village on the east horn (the terrace 3.5 m up, x 15-32, z -2..8) ==================================
+# (three huts on posts round the fire - the fire-keeper's the north-east one - and a fourth out over the bay's edge on
+# longer posts, its front a step from the terrace)
+push at 19.5 -2 h=3.5 yaw=-90
+call stilt_hut y=2.6
+pop
+push at 27.5 2.5 h=3.5 yaw=90
+call stilt_hut y=2.6 w1=ReefHuts_Wall3 w2=ReefHuts_PlasticWall4 w4=ReefHuts_Wall3
+pop
+push at 27.5 8 h=3.5 yaw=90
+call stilt_hut y=2.6 w1=ReefHuts_PlasticWall4 w3=ReefHuts_Wall2 w6=ReefHuts_Wall3
+pop
+push at 19 9.5 h=-2.6 yaw=0
+call stilt_hut y=6.1 ladder=none w2=ReefHuts_PlasticWall4 w5=ReefHuts_Wall2
+pop
+place Block_Floor_Wood - at 20.5 8.75 h=3.5
+place Block_Floor_Wood - at 22.0 8.75 h=3.5
+# (the fire-keeper's carved chest in his hut, on the deck by the back wall)
+place "Box Big" keeperchest at 30.9 5.75 h=6.12 yaw=-90
+# (the fire that never goes out: a ring of stones, the great pot, fire baskets, firewood; embers over it)
+place campfire_1 - at 23.5 3 h=3.5 sit scale=1.4
+for a 0 300 60
+place SmallBoulder4 - at {23.5+2*cos($a)} {3+2*sin($a)} ground scale=0.35 yaw={$a*3}
+next
+place Placeable_CookingPot - at 23.5 0.2 ground yaw=90
+place Placeable_FirewoodRack - at 26.4 7.4 ground yaw=90
+place Placeable_FirewoodRack - at 26.4 6.6 ground yaw=90
+place Placeable_Lantern_FireBasket - at 16 7.4 ground
+place Placeable_Lantern_FireBasket - at 26.6 -1.6 ground
+place Placeable_Lantern_FireBasket - at 20.4 -1.6 ground
+place Placeable_Lantern_FireBasket - at 33.2 7 ground
+place Zone_Atmosphere embers at 23.5 3 h=5
+# (two cages by the fire; in the open one the botanist's journal)
+place UT_DogCage_Medium02 shutcage at 24.6 6.8 ground yaw=180
+# (the chained one is scenery: nothing inside, and Raft's bolt cutters come only on islands met later in a plan - as a
+# ready piece it would be a lock players meet before its key, TODO 4c)
+prop shutcage beh.use=
+prop shutcage if.use=
+prop shutcage else.use=
+prop shutcage on.use=
+place UT_DogCage_Medium02 opencage at 21.4 6.8 ground yaw=150
+# (the dog cage as a ready piece is chained shut and wants Raft's bolt cutters: this is the open one, the journal inside - the ready piece's settings taken off)
+prop opencage beh.use=
+prop opencage if.use=
+prop opencage else.use=
+prop opencage on.use=
+place Note_Book journal at 21.4 6.9 h=3.6 yaw=20
+# (effigies dressed in sailcloth at the village's edges, a charm post with dangling charms by the trail, an old whaling
+# harpoon stuck in the ground, barrels, the hunters' store)
+place Placeable_Scarecrow - at 15.2 5 ground yaw=250
+place Placeable_Scarecrow - at 33.6 5.4 ground yaw=80
+place Placeable_Scarecrow - at 23.8 -2.6 ground yaw=0
+place ReefHuts_Pillar3 - at 17.0 4.6 ground sy=0.5
+place Placeable_Utopia_DanglyDecoration_2 - at 17.15 4.6 h=5.9
+# (a sailcloth curtain over half the fire-keeper's doorway, its hem on the deck: at 27.42 it hung 8 cm out past the deck's
+# edge over the terrace 2.6 m down, CIGroundIslands)
+place ReefHuts_Cloths - at 27.58 4.55 h=7.34 yaw=90
+place RT_Spear - at 17.2 4.4 h=3.3 rot=-75,30,0
+place Reef_Barrel1 - at 19.2 3.2 ground yaw=20
+place Reef_Barrel1 - at 26.6 -0.4 ground yaw=80
+place Reef_Barrel1 - at 26.4 0.6 ground yaw=140
+place "Box Small" hunterstore at 18.2 3.4 ground yaw=90
+place Creature_Chicken hens at 17 4.5 ground
+place Zone_Trigger village at 23.5 3 h=4.5
+# (the hunters: four boars at the far end of the ridge, west of the crag, hidden until the fire-keeper's key is taken;
+# their chase music over the village and the shore path)
+place Creature_Boar hunters at -6 -10 ground
+place Zone_Sound chase at 30 0 h=6
+
+# ===== The landing in the bay, the whaler Bountiful's wreck ==============================================================
+place SmallBoulder3 - at 11.8 10.4 ground scale=0.4 yaw=30
+place "Box Small" landingbox at 10.6 9.4 ground yaw=200
+place BoatStranded - at 4 20 h=-6 rot=0,30,40
+place Loot_SunkenBarrel bountifulbarrel at 9.5 15.5 ground sit
+scatter FL_Plank1 3 at 4 20 r=9 seed=81 wet
+scatter FL_Plywood 2 at 4 20 r=9 seed=82 wet
+
+# ===== The shore path round the headland: the botanist's satchel by the way ============================================
+place "Box Small" satchel at 37.6 7.4 ground yaw=110
+
+# ===== Nature: scrub and a few trees on the ash (more on the bay side), rocks; friendly animals ==========================
+scatter SmallBushyTree_1 5 at -20 10 r=10 seed=91
+scatter SmallBushyTree_2 5 at -10 -12 r=9 seed=92
+scatter Pickup_Landmark_Tree_Mango 3 at -18 16 r=7 seed=93
+scatter Pickup_Landmark_Tree_Mango 2 at 26 -8 r=4 seed=94
+scatter SmallBushyTree_1 3 at 14 -20 r=6 seed=95
+# (the crag's sheer faces broken with fallen rock and scrub, a few trees on its top)
+scatter CaravanIsland_SmallRock_1 8 at 5.5 -9 r=12 seed=96
+scatter SmallBushyTree_2 4 at 5.5 -9 r=6 seed=98
+place Creature_Turtle turtles at 8 26 h=-1.5
+place Creature_Dolphin dolphins at -40 -4 h=-3
+
+# ===== Raft's finds in the shallow sea round the island (sand, clay, stones, ores, scrap, a giant clam) ================
+call shallows r=60 deep=5
+# (none in the cave's passage)
+clear from 48 -10.5 to 39.5 -11.8 r=4 all only=Pickup_Landmark_(Sand|Clay|Rock|Iron|Copper|Scrap|Giant)
+
+where keeperchest
+where journal
+where seachest
+where landingbox
+where satchel
+where hunterstore
+where bountifulbarrel
+where boat
+
+# --- Settings, story items, notes, behaviours, quest (5 steps) ---------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): flowers, pineapples, palms ----------
+scatter "Pickup_Landmark_Flower_Black" 2 at 0 0 r=31.5 seed=4541 free=3
+scatter "Pickup_Landmark_Flower_Red" 2 at 0 0 r=31.5 seed=4542 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 3 at 0 0 r=31.5 seed=4551 free=3
+scatter "Pickup_Landmark_Tree_Palm 3" 3 at 0 0 r=31.5 seed=4561 free=5
+
+info title=Embers Isle
+info author=Custom Islands
+info description=A black volcanic crescent with a fire that never goes out above its bay. The crew of a whaler wrecked in the bay eleven years ago live up there still - and hunt anything that lands. A botanist they caught left her journal in her cage, and her boat in a sea cave. Take the key and run.
+island on.arrive=message||A black crescent of hills. Smoke goes up from huts above the bay, and on the wind there's a smell of woodsmoke and something cooking.
+
+story chainkey|Boat chain key|quest:Vasagatan_RedKey|An iron key on a sinew cord: it unlocks the chain on the botanist's hidden boat.
+
+note journal Botanist's journal | (a field journal, the last pages written in the cage)\n\nThey are not natives of anywhere. They are the crew of the whaler Bountiful, wrecked in the bay eleven years ago, and they have forgotten they were ever anything else.\n\nThey keep the fire burning above the bay. Every night they go out with their boars, and come back with whatever they found.\n\nThey took my samples and the key to my boat's chain. The fire-keeper wears it round his neck; when he sleeps it goes in the carved chest in his hut.\n\nMy boat is hidden in the sea cave under the east headland, behind the vines.\n\nIf you find this cage open, I got out. If you find this book: take the key and follow the shore path round the headland to the cave. Don't stop. They hear everything.\n\n- I. Wray
+note keeperchest Fire-keeper's chest | A carved chest, warm from the fire: an iron key on a sinew cord, a whaler's knife, a bag of salt. As you lift the key, a horn blows on the ridge.
+loot keeperchest story:chainkey*1;Leather*2;Feather*3
+prop keeperchest loot.refill=0
+prop keeperchest on.open=show|hunters\nshow|chase\nsound||event:/crafting/horns/bugle\nmessage||A horn on the ridge - and the grunting of boars, coming fast. The hunters are back. RUN - the shore path, round the headland!
+note seachest Botanist's sea chest | The botanist's sea chest under the boat's thwart: her seed collection in labelled jars, plans for raised growing beds, salves - and a note: "I swam for it. Take my boat. Tell the mainland the Bountiful's men are alive."
+loot seachest Blueprint_Cropplot_Medium_Tier3*1;Seed_Mango*2;Seed_Banana*2;Seed_Pineapple*2;HealingSalve_Good*2
+prop seachest loot.refill=0
+prop seachest if.open=has|story:chainkey|1
+prop seachest else.open=message||The boat is chained to an iron ring and the chest under its thwart is padlocked with the same lock. The key is up in the village above the bay.
+note landingbox Box under the rocks | A box under the rocks by the landing, from some boat that landed before you: planks, nails.
+loot landingbox Plank*5;Nail*8;Rope*2
+prop landingbox loot.refill=0
+note bountifulbarrel The Bountiful's barrel | A barrel from the whaler's hold, still tight: oil, iron, a coil of line.
+loot bountifulbarrel Scrap*3;MetalOre*2;Rope*2
+prop bountifulbarrel loot.refill=0
+note hunterstore Hunters' store | The hunters' store: feathers, hides, flints - and a ship's compass nobody here can read any more.
+loot hunterstore Feather*4;Leather*2;Stone*4
+prop hunterstore loot.refill=0
+note satchel Botanist's satchel | Her satchel, dropped by the trail: pressed flowers, a trowel, a dry biscuit.
+loot satchel Flower_Blue*2;Flower_Red*2;HealingSalve*1
+prop satchel loot.refill=0
+
+prop hunters obj.name=hunters
+prop hunters beh.hidden=1
+prop hunters creature.count=4
+prop hunters creature.size=1.2
+prop hunters creature.speed=1.2
+prop hunters creature.respawn=0
+prop hunters tint.color=#3a2a20
+prop hunters tint.amount=0.5
+prop chase obj.name=chase
+prop chase beh.hidden=1
+prop chase sound.event=event:/music/music_boss
+prop chase sound.volume=0.6
+prop chase zone.radius=40
+
+prop village zone.id=village
+prop village zone.radius=10
+prop village zone.message=A village of huts on stilts round a fire that has never gone out. Nobody here - for now.
+prop seacave zone.id=seacave
+prop seacave zone.radius=6
+prop seacave zone.message=Under the vines, a little boat on a chain - and the sound of the sea outside.
+prop embers atmo.fog=#3a1e10
+prop embers atmo.fogAmount=0.2
+prop embers atmo.light=#ff8a40
+prop embers atmo.lightAmount=0.3
+prop embers atmo.particles=embers
+prop embers zone.radius=12
+prop cavedark atmo.fog=#0a0c08
+prop cavedark atmo.fogAmount=0.35
+prop cavedark atmo.light=#4a5a3c
+prop cavedark atmo.lightAmount=0.4
+prop cavedark zone.radius=9
+prop hens creature.count=3
+prop turtles creature.count=2
+prop dolphins creature.count=2
+
+quest title=Before They Come Back
+quest intro=Smoke over the huts of a black island, and nobody at the fire. Whoever lives here is out hunting. Be quick.
+step reach|village|1|Climb from the landing to the village above the bay
+step read|Botanist's journal|1|Read the journal left in the open cage by the fire
+step collect|story:chainkey|1|Take the boat chain's key from the fire-keeper's hut
+step open|Botanist's satchel|1|Run the shore path round the headland - snatch up her dropped satchel, don't stop
+step open|Botanist's sea chest|1|On to the sea cave and open her sea chest before the hunters catch you
+step blueprint|Blueprint_Cropplot_Medium_Tier3|1|Take the medium crop plot plans from the botanist's sea chest
+quest done=The chain falls away and the little boat rocks free. Behind you the horn blows on the ridge, again and again - but you're already gone.
+quest reward=Plank*6;Rope*4;Leather*2
+
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=36 n=1 seed=8844
+prop treasure8844 treasure.loot=TitaniumOre*2
+
+save Embers Isle

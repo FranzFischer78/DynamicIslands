@@ -1,0 +1,58 @@
+# Play test of Tiki Lagoon (CIPlay tiki_lagoon, in a test world 'CI ...'). Points as in its recipe - its frame is the
+# generated land's middle, so the "offset" below. The main key south of the lagoon: the tiki bar (deck 2.3 m) at its shore,
+# the terrace and the generator shed east of it, the manager's office on stilts (deck 4.6 m) behind them, the towel hut
+# and the walkway out to the three bungalows (decks 1.1 m) over the lagoon (1.5 m deep); the deep pool (4.2 m) at the
+# lagoon's east end; the north key across the lagoon, where the petting zoo's goats ran.
+island Tiki Lagoon
+offset 0.7206 -4.2301
+expect step 0
+expect title End of the Season
+wait 3
+# (the island's friendly animals as it arrives: hens by the bar, turtles in the lagoon, dolphins off the east shore)
+expect animals Chicken 3
+expect animals Turtle 2
+expect animals Dolphin 2
+
+# Ashore at the tiki bar (in from the terrace on its east side): the memo behind the bar, the lockbox with the net launcher
+walk 16 13.8 to 14 13.8 to 12.5 13.8 h=2.3 below=4
+zone bar
+expect step 1
+read Manager's last memo
+expect step 2
+open Bar lockbox
+expect item NetGun 1
+
+# The walkway out to the bungalows, the minibar
+walk -11.5 7.5 to -11.5 11 to -11.5 21 to -11.5 22.2 to -6 22.2 to 6 22.2 h=1.1
+open Bungalow minibar
+
+# Across the lagoon to the north key: the two goats
+at 0 36 h=1.8
+catch Goat 2
+expect step 3
+
+# The deep pool: the pedal boat's box with the fuel can, the lost things barrel
+at 17 27.5 h=-3.2
+zone deeppool
+open Pedal boat's box
+expect story fuelcan 1
+expect step 4
+open Lost things barrel
+
+# The generator in its shed: lights and music; up the office's ladder to the manager's safe
+walk 15 17 to 21.5 16.6 to 22.3 13.2 h=2.1 below=4
+use generator
+expect message coughs, catches and roars
+expect shown stringlights
+expect story fuelcan 0
+climb 22.25 3.88 h=2
+expect stand 22.25 6.25 h=4.6 below=6.5
+at 22.25 6.25 h=5.7
+open Manager's safe
+wait 2
+expect done
+
+# The towel hut's box and the staff room's chest
+open Staff room chest
+at -17.75 8 h=3.9
+open Towel hut box

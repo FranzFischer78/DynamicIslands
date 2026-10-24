@@ -1,0 +1,292 @@
+# Thunderhead Array - an island of the library's plan The Rainmakers (Nimbus Works' sixth station)
+# A cliff island of black basalt with a flat plateau on top, and on the plateau a grid of forty lightning rods (Balboa's
+# antenna poles with their cones pointing at the sky) on concrete pads, a wire from rod to rod along each row of rods. Behind the
+# grid the generator hall and the control bunker behind a keycard door, between them a cage the array engineer locked
+# herself in when the storms came. A path climbs from the landing beach; a zipline runs from the plateau's edge back
+# down to the shore. Quest "Storm Grid" (11 steps): the landing, the safety rules, the plateau (the storm comes in), the
+# three generators, the wire connectors and the grid board, the screechers the rods draw, the bunker (the keycard in
+# the generator hall chest), its lockers (the power blueprints), the engineer's diary, Ingrid freed from the cage (her
+# zipline handle), the zipline down to the beach.
+#
+# Built by the recipe player (CIRecipe thunderhead_array) through the editor's own operations.
+include lib_sea
+include lib_features
+include lib_huts
+new
+# (nature: bare basalt, rocks; low bushes, few trees; Harvest 0.2)
+gen Trees=0.1 Bushes=0.15 Rocks=0.5 Harvest=0.2 BeachThings=0.3
+gen Seed=9801 Radius=64 Height=18 Roughness=0.35 Peaks=1 Shape=0 Style=4 PeakShape=0.1 Cliffs=0.85 BeachWidth=0.4
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.12 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+
+# --- Terrain: the plateau flattened at 14 m, the landing beach on the south side, the path up to the plateau in
+# steps, the zipline's beach east of the landing ----------------------------------------------------------------------
+brush flatten at 0 8 r=30 s=20 frames=200 h=14
+brush flatten at 0 -57 r=7 s=20 frames=60 h=1
+brush flatten at 22 -55 r=6 s=20 frames=60 h=1
+brush flatten at 0 -50 r=4 s=20 frames=50 h=2.5
+brush flatten at 0 -44 r=4 s=20 frames=50 h=5
+brush flatten at 0 -38 r=4 s=20 frames=50 h=7.5
+brush flatten at 0 -32 r=4 s=20 frames=50 h=10
+brush flatten at 0 -27 r=4 s=20 frames=50 h=12.5
+brush smooth from 0 -54 to 0 -22 r=3 s=6 frames=20
+origin
+clear at 0 8 r=31
+clear from 0 -58 to 0 -22 r=5
+clear at 22 -55 r=6
+clear from 14 -16 to 22 -54 r=3
+
+# --- The landing: the safety rules on a crate at the foot of the path ------------------------------------------------
+place Zone_Trigger landing at 0 -55 h=2
+place "Box Small" - at 3 -52 ground sit yaw=20
+place Note_Paper safetyrules at 3 -52 ground y=1.5 sit drop yaw=30
+place Zone_Trigger beachzone at 22 -54 h=2
+
+# --- The rod grid: forty lightning rods (8 x 5, 6 m apart) on concrete pads, a wire from rod to rod along each row ------------
+for rx -21 21 6
+for rz 2 26 6
+place Block_Floor_Tier3 rodpads at $rx $rz ground y=0.06
+place Antenna_pole rods at $rx $rz ground y=0.08
+place Antenna_cone rodcones at $rx $rz ground y=6.38 rot=-90,0,0
+next
+next
+for rx -21 15 6
+for rz 2 26 6
+place Antenna_pole wires at $rx $rz ground y=5.9 rot=0,0,-90 sx=0.22 sz=0.22 sy=0.95
+next
+next
+prop rodcones tint.color=#c9a24a
+prop wires tint.color=#3a3a3a
+
+# --- The wire connectors at the rows' west ends, the grid board, its "Grid restored" sheet ---------------------------
+place TP_CablePoint wire1 at -24.5 8 ground sit yaw=90
+place TP_CablePoint wire2 at -24.5 14 ground sit yaw=90
+place TP_CablePoint wire3 at -24.5 20 ground sit yaw=90
+place UT_ElectricCableHub01 gridboard at -24.5 0 ground sit yaw=90
+place "Box Small" - at -24.5 -2 ground sit yaw=10
+place Note_Paper gridnote at -24.5 -2 ground y=0.8 sit drop yaw=80
+
+# --- The storm over the plateau (shown when you climb up) and the screechers the rods draw ---------------------------
+place Zone_Trigger plateau at 0 -17 h=15
+place Zone_Atmosphere storm at 0 8 h=16
+place Zone_Sound stormsound at 0 8 h=16
+place Creature_StoneBird screechers at 0 14 h=26
+
+# --- The generator hall (north-west of the grid): three generators along its back wall, the hall chest --------------
+push at -12 30 h=14
+for fx 0.75 5.25 1.5
+for fz 0.75 3.75 1.5
+place Block_Floor_Tier3 - at $fx $fz y=0.05
+next
+next
+place Block_Wall_Tier3 - at 0.75 0 y=0.2
+place Block_Wall_Door_Tier3 - at 2.25 0 y=0.2
+place Block_Wall_Tier3 - at 3.75 0 y=0.2
+place Block_Wall_Tier3 - at 5.25 0 y=0.2
+place Block_Wall_Tier3 - at 0.75 4.5 y=0.2
+place Block_Wall_Tier3 - at 2.25 4.5 y=0.2
+place Block_Wall_Tier3 - at 3.75 4.5 y=0.2
+place Block_Wall_Tier3 - at 5.25 4.5 y=0.2
+place Block_Wall_Tier3 - at 0 0.75 y=0.2 yaw=90
+place Block_Wall_Tier3 - at 0 2.25 y=0.2 yaw=90
+place Block_Wall_Tier3 - at 0 3.75 y=0.2 yaw=90
+place Block_Wall_Tier3 - at 6 0.75 y=0.2 yaw=90
+place Block_Wall_Tier3 - at 6 2.25 y=0.2 yaw=90
+place Block_Wall_Tier3 - at 6 3.75 y=0.2 yaw=90
+place Block_Pillar_Tier3 - at 0 0 y=0.2
+place Block_Pillar_Tier3 - at 6 0 y=0.2
+place Block_Pillar_Tier3 - at 0 4.5 y=0.2
+place Block_Pillar_Tier3 - at 6 4.5 y=0.2
+roof 4 3 at 0 0 y=0.2
+place Balboa_DecorationPrefabBase_Generator gen1 at 1.2 3.7 y=0.25 sit yaw=0
+place Balboa_DecorationPrefabBase_Generator gen2 at 3 3.7 y=0.25 sit yaw=0
+place Balboa_DecorationPrefabBase_Generator gen3 at 4.8 3.7 y=0.25 sit yaw=0
+place Loot_Chest hallchest at 5.2 1 y=0.25 sit yaw=270
+place Placeable_Lantern_Metal - at 0.8 0.8 y=0.25 sit
+pop
+
+# --- The control bunker (north-east of the grid) behind Tangaroa's keycard door: the lockers, the diary -------------
+push at 4 30 h=14
+for fx 0.75 5.25 1.5
+for fz 0.75 3.75 1.5
+place Block_Floor_Tier3 - at $fx $fz y=0.05
+next
+next
+place Block_Wall_Tier3 - at 0.75 0 y=0.2
+place PlantationDoor bunkerdoor at 2.25 0 y=0.2 sit yaw=0
+place Block_Wall_Tier3 - at 3.75 0 y=0.2
+place Block_Wall_Tier3 - at 5.25 0 y=0.2
+place Block_Wall_Tier3 - at 0.75 4.5 y=0.2
+place Block_Wall_Tier3 - at 2.25 4.5 y=0.2
+place Block_Wall_Tier3 - at 3.75 4.5 y=0.2
+place Block_Wall_Tier3 - at 5.25 4.5 y=0.2
+place Block_Wall_Tier3 - at 0 0.75 y=0.2 yaw=90
+place Block_Wall_Tier3 - at 0 2.25 y=0.2 yaw=90
+place Block_Wall_Tier3 - at 0 3.75 y=0.2 yaw=90
+place Block_Wall_Tier3 - at 6 0.75 y=0.2 yaw=90
+place Block_Wall_Tier3 - at 6 2.25 y=0.2 yaw=90
+place Block_Wall_Tier3 - at 6 3.75 y=0.2 yaw=90
+place Block_Pillar_Tier3 - at 0 0 y=0.2
+place Block_Pillar_Tier3 - at 6 0 y=0.2
+place Block_Pillar_Tier3 - at 0 4.5 y=0.2
+place Block_Pillar_Tier3 - at 6 4.5 y=0.2
+roof 4 3 at 0 0 y=0.2
+place Locker bunkerlockers at 5.3 2.25 y=0.06 sit yaw=270
+place "Box Big" - at 1.2 3.6 y=0.06 sit
+place Note_Paper ingriddiary at 1.2 3.6 y=2 sit drop yaw=15
+place Placeable_Lantern_Metal - at 4.8 3.9 y=0.06 sit
+pop
+place Zone_Trigger bunkerzone at 7 32.5 h=15
+
+# --- Between the two: the cage Ingrid locked herself in (a Faraday cage, she says), her tool bag by it --------------
+place Survivor_Cage ingridcage at -1 32 ground sit yaw=0
+place Loot_Chest ingridbag at -1 28.5 ground sit yaw=180
+
+# --- The zipline off the plateau's south-east edge down to the beach -------------------------------------------------
+# (a fixed height: on "ground" Raft's piece hung its near floor (5.72 m west, 0.97 m north of the pivot, 1.35 m under it)
+# 12.4 m over the plateau's edge - now it stands on the plateau, 13.9)
+place ZiplinePath_Landmark arrayzip at 14.22 -14.47 h=15.25
+zipto arrayzip 22 -54
+
+# --- Things to gather, reefs ----------------------------------------------------------------------------------------
+scatter "Pickup_Landmark_PineappleLandmark" 2 at 0 -40 r=20 seed=9811 free=3
+scatter "Pickup_Landmark_Flower_Blue" 2 at 30 -30 r=20 seed=9812 free=3
+call dirt x=-30 z=-30 r=10 n=3 seed=9813
+call shallows r=86 deep=5 n=2
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Thunderhead Array
+info author=Custom Islands
+info description=Nimbus Works' sixth station: a black basalt cliff island with a grid of forty lightning rods on its plateau, a generator hall, a control bunker behind a keycard door and a zipline down to the shore. The sixth island of The Rainmakers.
+island on.arrive=message||A black cliff island. On its flat top stands a forest of thin metal rods, row on row, all pointing at the sky.
+
+story power|Generator running|Battery|One of the array's three generators is running.
+story link|Wire connected|Battery|One of the rod rows is wired to the grid board.
+story cagekey|Cage key|Placeable_Lantern_Metal|The key of the cage between the generator hall and the bunker.
+
+note safetyrules Array safety rules | THUNDERHEAD ARRAY - SAFETY RULES\n\n1. Start all THREE generators before you touch the grid.\n2. Then wire every row of rods at its connector, west end of the grid.\n3. Then the grid board. Never the other way round.\n4. The rods draw lightning - and screechers. Keep your head down.\n5. Bunker keycard: in the generator hall chest. Return it.\n\n- Ingrid Vale, Array Engineer
+note gridnote Grid restored | GRID RESTORED\n\nAll rows live. Charge going to the bunker.\n\n(printed by the grid board)
+note hallchest Generator hall chest | The generator hall's chest: the bunker's keycard on a lanyard, a coil of wire, spare bolts.
+loot hallchest story:raft-Tangaroa_KeyCard*1;CopperIngot*2;Bolt*3
+prop hallchest loot.refill=0
+note bunkerlockers Bunker lockers | The bunker's lockers: Nimbus Works' power plans - a wind turbine, a better battery, a headlamp, an electric grill - tins, water, and a small key on a hook, CAGE.
+loot bunkerlockers Blueprint_WindTurbine*1;Blueprint_BatteryAdvanced*1;Blueprint_HeadLight_Advanced*1;Blueprint_ElectricGrill*1;story:cagekey*1;Cooked_GenericMeat*2;PlasticBottle_Water*2
+prop bunkerlockers loot.refill=0
+prop bunkerlockers if.open=signal|bunker
+prop bunkerlockers else.open=message||The lockers are behind the bunker's keycard door.
+note ingriddiary Array engineer's diary | INGRID VALE - ARRAY DIARY\n\nDay 90: The rods were meant to pull the lightning OUT of the clouds so the rain would fall gently. They pull it down on us instead.\n\nDay 96: Dagny says hold on. Hold on to what? The boats have gone.\n\nDay 97: Storm all night. The cage outside is the only place the lightning can't touch me. I've locked myself in and thrown the key in the lockers - so I don't run out into it in a panic.\n\nIf you read this: the key's in the lockers. Please.
+note ingridbag Ingrid's tool bag | Ingrid's tool bag: her zipline handle, her climbing rope and her good gloves.
+loot ingridbag ZiplineTool*1;Rope*3;Bolt*2
+prop ingridbag loot.refill=0
+prop ingridbag if.open=signal|ingridfree
+prop ingridbag else.open=message||The tool bag is clipped to the inside of the cage. The engineer won't let go of it.
+
+prop gen1 obj.name=gen1
+prop gen1 beh.use=Start the generator
+prop gen1 if.use=!signal|gen1
+prop gen1 on.use=message||The generator coughs, catches and settles into a hum.\nsignal||gen1\ngive||story:power*1\nsound||event:/raft/engine/controller_on
+prop gen1 else.use=message||This generator is running.
+prop gen2 obj.name=gen2
+prop gen2 beh.use=Start the generator
+prop gen2 if.use=!signal|gen2
+prop gen2 on.use=message||The second generator turns over and runs.\nsignal||gen2\ngive||story:power*1\nsound||event:/raft/engine/controller_on
+prop gen2 else.use=message||This generator is running.
+prop gen3 obj.name=gen3
+prop gen3 beh.use=Start the generator
+prop gen3 if.use=!signal|gen3
+prop gen3 on.use=message||The third generator roars. The lights in the hall flicker on.\nsignal||gen3\ngive||story:power*1\nsound||event:/raft/engine/controller_on
+prop gen3 else.use=message||This generator is running.
+prop wire1 obj.name=wire1
+prop wire1 beh.use=Connect the row's wire
+prop wire1 if.use=has|story:power|3\n!signal|wire1
+prop wire1 on.use=message||You clamp the row's cable onto the connector. A spark - and the rods along the row hum.\nsignal||wire1\ngive||story:link*1\nsound||event:/raft/radar/lever
+prop wire1 else.use=message||The connector is dead - or wired already. The safety rules: all three generators first.
+prop wire2 obj.name=wire2
+prop wire2 beh.use=Connect the row's wire
+prop wire2 if.use=has|story:power|3\n!signal|wire2
+prop wire2 on.use=message||The second row's cable clamps on. The rods hum.\nsignal||wire2\ngive||story:link*1\nsound||event:/raft/radar/lever
+prop wire2 else.use=message||The connector is dead - or wired already. The safety rules: all three generators first.
+prop wire3 obj.name=wire3
+prop wire3 beh.use=Connect the row's wire
+prop wire3 if.use=has|story:power|3\n!signal|wire3
+prop wire3 on.use=message||The third row's cable clamps on. The whole grid hums now.\nsignal||wire3\ngive||story:link*1\nsound||event:/raft/radar/lever
+prop wire3 else.use=message||The connector is dead - or wired already. The safety rules: all three generators first.
+prop gridboard obj.name=gridboard
+prop gridboard beh.use=Switch on the grid board
+prop gridboard if.use=has|story:link|3
+prop gridboard on.use=message||The grid board clunks, its needles swing up - and it prints a sheet.\nsignal||wire\nshow|gridnote\nsound||event:/exploring/obstacles/keypad/keypad_correct
+prop gridboard else.use=message||The board's needles lie at zero. The rows aren't wired to it yet.
+prop gridnote obj.name=gridnote
+prop gridnote beh.hidden=1
+prop bunkerdoor obj.name=bunkerdoor
+prop bunkerdoor on.use=hide|\nsignal||bunker\nmessage||The reader blinks green and the bunker door swings away.
+
+prop storm obj.name=storm
+prop storm beh.hidden=1
+prop storm atmo.fog=#4a5260
+prop storm atmo.fogAmount=0.5
+prop storm atmo.light=#7d8798
+prop storm atmo.lightAmount=0.45
+prop storm atmo.particles=mist
+prop storm zone.radius=45
+prop stormsound obj.name=stormsound
+prop stormsound beh.hidden=1
+prop stormsound sound.event=event:/amb/rain_ocean
+prop stormsound sound.volume=0.7
+prop stormsound zone.radius=45
+
+prop screechers creature.count=3
+prop screechers creature.respawn=0
+prop screechers creature.zone=plateau
+
+prop ingridcage obj.name=ingridcage
+prop ingridcage survivor.name=Ingrid
+prop ingridcage survivor.id=rainmakers_ingrid
+prop ingridcage survivor.key=cagekey
+prop ingridcage survivor.signal=ingridfree
+prop ingridcage survivor.line=Is it over? ... It's never over, is it. I'm Ingrid. I built this array. Take my bag - the zipline's the quick way down - and take me with you.
+
+prop landing zone.id=landing
+prop landing zone.radius=5
+prop landing zone.message=A beach under black cliffs, and a path cut up into them.
+prop beachzone zone.id=beach
+prop beachzone zone.radius=5
+prop beachzone zone.message=Down on the shore again, the rods humming high above you.
+prop plateau zone.id=plateau
+prop plateau zone.radius=6
+prop plateau zone.message=The plateau. Forty rods - and over them the sky goes dark.
+prop plateau on.enter=show|storm\nshow|stormsound
+prop bunkerzone zone.id=bunker
+prop bunkerzone zone.radius=2
+prop bunkerzone zone.message=The control bunker: lockers, a desk, a diary.
+
+quest title=Storm Grid
+quest intro=A black cliff island with a forest of rods on top. Land on the beach.
+step reach|landing|1|Land on the beach under the cliffs
+step read|Array safety rules|1|Read the safety rules at the foot of the path
+step reach|plateau|1|Climb the path to the plateau
+step collect|story:power|3|Start the three generators in the generator hall
+step read|Grid restored|1|Wire the three rows of rods at their connectors and switch on the grid board
+step kill|Screecher|3|Drive off the screechers the rods drew in
+step reach|bunker|1|Open the control bunker (its keycard is in the generator hall chest)
+step open|Bunker lockers|1|Open the bunker lockers
+step blueprint|Blueprint_WindTurbine|1|Take the wind turbine plans from the bunker lockers
+step blueprint|Blueprint_BatteryAdvanced|1|Take the advanced battery plans from the bunker lockers
+step blueprint|Blueprint_HeadLight_Advanced|1|Take the advanced headlamp plans from the bunker lockers
+step blueprint|Blueprint_ElectricGrill|1|Take the electric grill plans from the bunker lockers
+step read|Array engineer's diary|1|Read the array engineer's diary
+step open|Ingrid's tool bag|1|Free Ingrid from the cage and take her tool bag
+step reach|beach|1|Ride the zipline down to the beach
+quest done=Ingrid is coming with you, and the array is humming again. The next station answers on 1100 too.
+quest reward=MetalIngot*6;CopperIngot*2;Bolt*4
+
+# --- Raft's vehicles (VI4, 2026-10-23): parked on open ground, clear of paths and quest objects ---
+place VP_Forklift - at -6 -8 ground sit yaw=30
+# the generator's rocks that floated over the slope (VI4 ground check, 2026-10-24)
+clear at 48.06 33.63 r=1.5 only=CaravanIsland_SmallRock
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=48 n=1 seed=8860
+prop treasure8860 treasure.loot=TitaniumOre*2
+
+save Thunderhead Array

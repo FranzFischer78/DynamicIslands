@@ -1,0 +1,15 @@
+# Guide pictures of Hadal Commons (CIPlay hadal_commons_pics): Raft's camera, midday, calm
+island Hadal Commons
+offset 0 0
+hour 11
+weather Calm
+at 24.8 2 h=0.3
+wait 3
+picture sl10_hadal_city 36.8 6 -6 16.8 7 12
+picture sl10_hadal_doors 24.8 3 -3 24.8 4 -13
+picture sl10_hadal_house3 30.8 13 16 26.8 13 21
+picture sl10_hadal_vehicles 39.8 +4 -9 33.8 +1 -2
+picture sl10_hadal_commons_ridge -2 21 -57 -2 12 -71
+picture sl10_hadal_commons_cave -46 12 -5 -60 3 -7
+picture sl10_hadal_commons_ruin 50 12 46 60 3 56
+picture sl10_hadal_commons_wreck -37 12 40 -46 3 50

@@ -1,0 +1,198 @@
+# lib_features - Raft's special features for the library's islands ("include lib_features"). The user, 2026-10-05: "I want
+# all raft special features to be included in at least 1 island. So that we have a pool of islands that utilize
+# everything that raft offers" - vines for the machete, ziplines, treasure for the metal detector, dirt, wild honey.
+#
+# vinecache: a chest hidden behind Balboa's choppable vines, somewhere free within r of x z: the chest only shows once a
+# player cuts the vines with Raft's machete (they keep the machete for the next vines)
+macro vinecache x=0 z=0 r=20 seed=1 chest=vinechest vines=vinechestvines items=Rope*4;Nail*10
+scatter Loot_Chest 1 at $x $z r=$r seed=$seed free=5 as=$chest
+prop $chest obj.name=$chest
+prop $chest note.title=Behind the vines
+prop $chest beh.hidden=1
+loot $chest $items
+beside ChoppableVines $vines $chest d=1.6
+prop $vines on.use=hide|\nshow|$chest\nmessage||The machete bites through the vines. Something was hidden behind them.
+end
+#
+# treasure: n buried treasures for Raft's metal detector and shovel, free spots within r of x z (nothing shows above ground)
+macro treasure x=0 z=0 r=20 n=1 seed=1 kind=0
+scatter Treasure_Buried $n at $x $z r=$r seed=$seed free=4 as=treasure$seed
+prop treasure$seed treasure.kind=$kind
+end
+#
+# dirt: n of Raft's dirt spots (the shovel digs them) within r of x z
+macro dirt x=0 z=0 r=20 n=4 seed=1
+scatter "Pickup_Landmark_DirtPickup" $n at $x $z r=$r seed=$seed free=3
+end
+#
+# hives: n wild beehives (three honeycombs each, filling up again after the island's regrow days) within r of x z
+macro hives x=0 z=0 r=20 n=2 seed=1
+scatter Loot_WildHive $n at $x $z r=$r seed=$seed free=3 as=hives$seed
+loot hives$seed HoneyComb*3
+prop hives$seed note.title=Wild beehive
+end
+#
+# --- Raft's story machinery (the ready pieces, ReadyPieces - the user, 2026-10-06): placed, each already works as in Raft
+# (a door wants Raft's own quest item, a cage the bolt cutters, a generator its part, the engine a gas tank). Each macro
+# puts one where the island wants it, a small payoff behind it (a chest shown, a lock let go) and the quest item it needs
+# in a chest on the same island. Their checks are the ready ones; only what they set off is the island's (on.use).
+#
+# keydoor: a strongroom door at x z (h: its sill over the sea; yaw) - one of Raft's keycard or key doors (door; key: the
+# quest item it wants, Raft's own: Tangaroa_KeyCard for the PlantationDoor) - the strongroom chest (vault, at vx vz vh)
+# hidden until the door goes, and the keycard in a chest scattered within kr of kx kz (keytitle, keyitems)
+macro keydoor x=0 z=0 h=0 yaw=0 door=PlantationDoor key=Tangaroa_KeyCard alias=keydoor vault=keyvault vx=0 vz=0 vh=0 vyaw=0 items=TradeToken*4;MetalIngot*2 kx=0 kz=0 kr=20 seed=1 keychest=keychest keytitle="Dropped keycard" keyitems=Rope*2
+place "$door" $alias at $x $z h=$h sit yaw=$yaw
+prop $alias obj.name=$alias
+prop $alias on.use=hide|\nshow|$vault\nmessage||The reader blinks green and the door swings away. Behind it: a strongroom chest.
+place Loot_Chest $vault at $vx $vz h=$vh sit yaw=$vyaw
+prop $vault obj.name=$vault
+prop $vault note.title=Strongroom chest
+prop $vault beh.hidden=1
+loot $vault $items
+scatter Loot_Chest 1 at $kx $kz r=$kr seed=$seed free=5 as=$keychest
+prop $keychest note.title=$keytitle
+loot $keychest story:raft-$key*1;$keyitems
+end
+#
+# hatchcache: one of Raft's hatches on the ground somewhere free within r of x z, a chest under it (hidden until the
+# hatch is opened)
+macro hatchcache x=0 z=0 r=20 seed=1 hatch=TangaroaHatchRoom_Hatch alias=hatch chest=hatchchest items=Rope*3;Bolt*2
+scatter "$hatch" 1 at $x $z r=$r seed=$seed free=4 as=$alias
+prop $alias obj.name=$alias
+prop $alias on.use=hide|\nshow|$chest\nmessage||The hatch lifts on a dark hole. A chest was stowed in it.
+beside Loot_ChestSmall $chest $alias d=0.01
+prop $chest obj.name=$chest
+prop $chest note.title=Under the hatch
+prop $chest beh.hidden=1
+loot $chest $items
+end
+#
+# crankcache: Raft's crank wheel (Temperance's) on the side of a post at x z, its shaft in the post's face, facing yaw; turned once, it sends its signal (sig) and
+# shows a chest (chest, at cx cz) - a crate a shutter let go, a box a sluice uncovered
+macro crankcache x=0 z=0 yaw=0 crank=TP_Selene_DoorCrankWheel alias=crank sig=crank chest=crankchest cx=0 cz=0 cyaw=0 items=Rope*2;Bolt*2 title="Crank wheel crate"
+place RT_Pillar - at $x $z ground sy=0.6
+push at $x $z yaw=$yaw
+place "$crank" $alias at 0 -0.09 ground y=1.2 rot=0,0,0
+pop
+prop $alias obj.name=$alias
+prop $alias if.use=!signal|$sig
+prop $alias on.use=message||The wheel turns with a long groan - and somewhere close a shutter rattles up.\nsignal||$sig\nshow|$chest
+prop $alias else.use=message||The wheel is turned as far as it goes.
+place Loot_Chest $chest at $cx $cz ground sit yaw=$cyaw
+prop $chest obj.name=$chest
+prop $chest note.title=$title
+prop $chest beh.hidden=1
+loot $chest $items
+end
+#
+# leverchest: Raft's lever (Temperance's laser panel lever, made as big as a hand lever) on a post at x z, facing yaw;
+# pulled, it sends its signal (sig), and a chest at cx cz that was bolted shut opens
+macro leverchest x=0 z=0 yaw=0 lever=TP_LaserControlPanel_lever alias=lever sig=lever chest=leverchest cx=0 cz=0 cyaw=0 items=Nail*10;Scrap*3 title="Bolted chest"
+place RT_Pillar - at $x $z ground sy=0.4
+place "$lever" $alias at $x $z ground y=1.25 scale=3 yaw=$yaw
+prop $alias obj.name=$alias
+prop $alias on.use=message||Clunk. Somewhere close a bolt slides back.\nsignal||$sig
+place Loot_Chest $chest at $cx $cz ground sit yaw=$cyaw
+prop $chest obj.name=$chest
+prop $chest note.title=$title
+prop $chest if.open=signal|$sig
+prop $chest else.open=message||The chest is bolted shut - the bolt runs into the ground. A lever somewhere must draw it.
+loot $chest $items
+end
+#
+# lift: Varuna Point's scissor lift (VP_Skylift) standing at x z (the foot of a rise; yaw): used, it rides rise metres up
+# (4.7: as far as its scissors reach) carrying whoever stands on it, and at the top it is Raft's extended lift (upalias,
+# shown in its place) - used again, it rides down. A chest up on the high ground beside its top (tx tz).
+macro lift x=0 z=0 yaw=0 rise=4.7 time=5 lift=VP_Skylift up=VP_Skylift_Extended alias=lift upalias=liftup chest=liftchest tx=0 tz=0 items=Rope*2;Feather*3 title="Lookout's chest"
+place "$lift" $alias at $x $z ground sit yaw=$yaw
+prop $alias obj.name=$alias
+prop $alias beh.move=0,$rise,0
+prop $alias beh.moveTime=$time
+prop $alias on.use=switch|\nwait|$time\nshow|$upalias\nhide|
+place "$up" $upalias at $x $z ground sit yaw=$yaw
+prop $upalias obj.name=$upalias
+prop $upalias beh.move=
+prop $upalias beh.carry=
+prop $upalias beh.hidden=1
+prop $upalias on.use=show|$alias\nhide|\nclose|$alias
+place Loot_Chest $chest at $tx $tz ground sit
+prop $chest obj.name=$chest
+prop $chest note.title=$title
+loot $chest $items
+end
+#
+# cagecache: a chest locked in one of Raft's cages (cage; Utopia's dog cage) at x z - the cage opens (goes) for a player
+# with Raft's bolt cutters, sending its signal (sig) that lets the chest open - and the bolt cutters in a chest
+# scattered within kr of kx kz
+macro cagecache x=0 z=0 yaw=0 cage=UT_DogCage_Medium02 alias=cage sig=cage chest=cagechest items=Rope*2;Leather*2 title="Chest in the cage" kx=0 kz=0 kr=20 seed=1 keychest=cutterchest keytitle="Keeper's tool chest" keyitems=Rope*2 free=5
+place "$cage" $alias at $x $z ground sit yaw=$yaw
+prop $alias obj.name=$alias
+prop $alias on.use=message||The bolt cutters bite through the chain and the cage door swings open.\nhide|\nsignal||$sig
+place Loot_ChestSmall $chest at $x $z ground sit yaw=$yaw
+prop $chest obj.name=$chest
+prop $chest note.title=$title
+prop $chest if.open=signal|$sig
+prop $chest else.open=message||The chest is inside the cage, and the cage is chained shut. Bolt cutters would get through the chain.
+loot $chest $items
+scatter Loot_Chest 1 at $kx $kz r=$kr seed=$seed free=$free as=$keychest
+prop $keychest note.title=$keytitle
+loot $keychest story:raft-Vasagatan_BoltCutter*1;$keyitems
+end
+#
+# camera: Raft's security camera (the radio tower's) at x z, h over the sea, sweeping from its yaw 70 degrees round and back
+macro camera x=0 z=0 h=5 yaw=0 alias=camera
+place RT_Camera $alias at $x $z h=$h yaw=$yaw
+prop $alias obj.name=$alias
+end
+#
+# powerradio: a generator at x z (gen; it wants Raft's generator part and sends "power") and a radio at rx rz rh (h over
+# the sea, set down on what is there - a table) that works once the power is on: its voice gives away a supply drop
+# hidden within cr of cx cz; the generator part in a mechanic's toolbox scattered within kr of kx kz
+macro powerradio x=0 z=0 yaw=0 gen="VG_DecorationPrefabBase_EmergencyGenerator Variant" alias=generator radio=RT_CommRadio ralias=radio rx=0 rz=0 rh=3 ryaw=0 cache=supplydrop cx=0 cz=0 cr=20 cseed=1 items=Battery*2;CopperIngot*2 kx=0 kz=0 kr=20 seed=2 toolbox=mechanicsbox free=5
+place "$gen" $alias at $x $z ground sit yaw=$yaw
+prop $alias obj.name=$alias
+place "$radio" $ralias at $rx $rz h=$rh drop yaw=$ryaw
+prop $ralias obj.name=$ralias
+prop $ralias on.use=message||Static crackles... then a voice, far away, reading a bearing over and over - a supply drop on this very island.\nsignal||radio\nshow|$cache
+scatter Loot_Chest 1 at $cx $cz r=$cr seed=$cseed free=$free as=$cache
+prop $cache obj.name=$cache
+prop $cache note.title=Supply drop
+prop $cache beh.hidden=1
+loot $cache $items
+scatter Loot_Chest 1 at $kx $kz r=$kr seed=$seed free=$free as=$toolbox
+prop $toolbox note.title=Mechanic's toolbox
+loot $toolbox story:raft-Tangaroa_GeneratorPart*1;Bolt*2
+end
+#
+# enginecache: Vasagatan's engine at x z (it wants Raft's gas tank and sends "engine"); started, it shakes open the
+# locker beside it (hidden till then); the gas tank in a fuel crate scattered within kr of kx kz
+macro enginecache x=0 z=0 yaw=0 engine="VG_DecorationPrefabBase_Engine Variant" alias=engine locker=enginelocker items=MetalIngot*3;Bolt*4 kx=0 kz=0 kr=20 seed=3 crate=fuelcrate free=5
+place "$engine" $alias at $x $z ground sit yaw=$yaw
+prop $alias obj.name=$alias
+prop $alias on.use=message||The engine sputters, then roars - and the rusted locker beside it shakes its door open.\nsignal||engine\nshow|$locker
+beside Loot_ChestLarge $locker $alias d=2.8 yaw=90
+prop $locker obj.name=$locker
+prop $locker note.title=Engine room locker
+prop $locker beh.hidden=1
+loot $locker $items
+scatter Loot_Chest 1 at $kx $kz r=$kr seed=$seed free=$free as=$crate
+prop $crate note.title=Fuel crate
+loot $crate story:raft-Vasagatan_GasTank*1;Plastic*2
+end
+#
+# mirrors: two of Temperance's turning mirrors at x1 z1 and x2 z2 (each use turns one a quarter round and sends its
+# signal, a1 / a2) and a sun-locked chest at cx cz that opens once both have been turned
+macro mirrors x1=0 z1=0 yaw1=0 x2=0 z2=0 yaw2=0 mirror=TP_MirrorHousing_Rotating a1=mirror1 a2=mirror2 chest=sunchest cx=0 cz=0 cyaw=0 items=Glass*3;Seed_Flower_Red*2 title="Sun-locked chest"
+place "$mirror" $a1 at $x1 $z1 ground sit yaw=$yaw1
+prop $a1 obj.name=$a1
+prop $a1 on.use=switch|\nsignal||$a1\nmessage||The mirror grinds round a quarter turn and a bar of sunlight swings across the ground.
+place "$mirror" $a2 at $x2 $z2 ground sit yaw=$yaw2
+prop $a2 obj.name=$a2
+prop $a2 on.use=switch|\nsignal||$a2\nmessage||The mirror grinds round a quarter turn and a bar of sunlight swings across the ground.
+place Loot_Chest $chest at $cx $cz ground sit yaw=$cyaw
+prop $chest obj.name=$chest
+prop $chest note.title=$title
+prop $chest if.open=signal|$a1\nsignal|$a2
+prop $chest else.open=message||A sun-lock: a glass eye in the lid, dark. It wants the light of both mirrors.
+loot $chest $items
+end

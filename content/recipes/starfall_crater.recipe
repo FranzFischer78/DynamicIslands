@@ -1,0 +1,299 @@
+# Starfall Crater - a new island of the library, four times the size (x4)
+# A round desert island whose high middle was punched in by a falling star: a crater with a lake dug below the sea's
+# level, and on an islet in the lake the star itself - a dark rock with violet veins, closed like a clam since its twelve
+# fragments broke off. The scientists' camp on the south rim, the badland gullies on the east slope.
+# Quest "Twelve Fragments" (12 steps): a collection hunt in four places - the rim, the gullies (hyenas), the lake floor
+# (an air pocket in a cleft), the star's crown - then the cradle opens the star.
+#
+# Built by the recipe player (CIRecipe starfall_crater) through the editor's own operations.
+include lib_sea
+new
+# (nature: desert, Like Raft - acacias, cacti and scrub on the outer slopes; the crater's inside bare and stony)
+gen Trees=0.38 Bushes=0.5 Rocks=0.55 Harvest=0.25 BeachThings=0.3
+gen Seed=9216 Radius=90 Height=26 Roughness=0.45 Peaks=1 Shape=0 Style=2 BeachWidth=0.4 Cliffs=0.35 PeakShape=0.3 Valleys=0.4
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: the crater lake dug 8 m under the sea's level in a ring round the island's high middle (centre 2 28, out to
+# 18 m), its walls the hill's own slopes; the hill's top in the middle cut down to the star's islet (2 m); the camp's pad on the south rim (14 m) and the
+# path down from it to the lake's south shore in two legs; three badland gullies cut into the east slope ----------------
+for a 0 330 30
+brush flatten at {2+13*cos($a)} {28+13*sin($a)} r=5.5 s=20 frames=400 h=-8
+next
+brush smooth at 2 28 r=22 s=10 frames=4
+for a 0 345 15
+brush smooth at {2+21*cos($a)} {28+21*sin($a)} r=7 s=10 frames=10
+next
+brush flatten at 2 -6 r=7 s=20 frames=150 h=14
+for i 0 20 1
+brush flatten at {2-20*$i/20} {-1+9*$i/20} r=2.2 s=20 frames=150 h={14-6.5*$i/20}
+next
+for i 0 14 1
+brush flatten at {-18+10*$i/14} {8+3.8*$i/14} r=2.2 s=20 frames=150 h={7.5-6.5*$i/14}
+next
+brush flatten at 2 28 r=9.5 s=20 frames=400 h=2
+for gz -5 21 13
+brush lower from 46 $gz to 70 $gz r=2.2 s=20 frames=14
+next
+brush rock at 2 28 r=24 s=20 frames=20
+clear at 2 28 r=26
+clear at 2 -6 r=9
+clear from 2 -1 to -18 8 r=3
+clear from -18 8 to -8 11.8 r=3
+clear from 46 -5 to 70 -5 r=3
+clear from 46 8 to 70 8 r=3
+clear from 46 21 to 70 21 r=3
+
+# --- The camp on the south rim: three tents, the lab table with its instruments and Sato's notes, the generator, the
+# radio mast with its dish, the instrument crate (the tongs), a food box; the telescope aimed down at the star; the llamas
+place Balboa_DecorationPrefabBase_SimpleTent - at -3 -9 ground sit yaw=20
+place Balboa_DecorationPrefabBase_SimpleTent - at 7 -10 ground sit yaw=-15
+place Balboa_DecorationPrefabBase_SimpleTent - at 2 -5.5 ground sit yaw=0
+place TP_FoldingTable_Large labtable at 2 -4 ground sit yaw=0
+place TP_LaboratoryMachine_Small01 - at 1.2 -4 y=0.93 drop
+place TP_Laptop01 - at 2.6 -4 y=0.93 drop yaw=170
+place Note_Book fieldnotes at 3.3 -4 y=0.93 drop yaw=20
+place Balboa_DecorationPrefabBase_Generator - at -4 -4 ground sit yaw=90
+place Antenna_pole - at -6 -6 ground sit
+place Antenna_dish - at -6 -6 y=6.2 yaw=200
+place Loot_Crate instruments at 5.5 -5 ground sit yaw=10
+place "Box Small" foodbox at -1.5 -7 ground sit yaw=30
+place TP_Telescope - at 6 -1.5 ground sit scale=0.4 yaw=0
+place Zone_Trigger camp at 2 -6 y=1.5
+place Creature_Llama llamas at 0 -14 ground
+
+# --- The fragments: twelve shards of dark rock, each with a violet light in it - three on the rim (the north rim's top,
+# the west rim's edge, in the splash of rocks on the east rim), three at the gullies' ends, three on the lake's floor
+# round the islet, three on the star's crown (dropped onto it after it is placed, below) -----------------------------------
+macro frag name x z
+place SmallBoulder1 $name at $x $z ground sit scale=0.4
+place UT_LightBottle03 $name at $x $z ground sit scale=0.3
+end
+# (one on the star's crown: dropped onto the rock)
+macro fragtop name x z
+place SmallBoulder1 $name at $x $z h=12 drop scale=0.4
+place UT_LightBottle03 $name at $x $z h=12.5 drop scale=0.3
+end
+call frag frag1 0 58
+call frag frag2 -20 30
+place BigSharpRock_1 - at 30 32 ground centred sit scale=0.12 yaw=40
+place BigSharpRock_3 - at 34 26 ground centred sit scale=0.18 yaw=110
+call frag frag3 31 27
+call frag frag4 47 -5
+call frag frag5 47 8
+call frag frag6 47 21
+call frag frag7 14 28
+call frag frag8 -4 38.4
+call frag frag9 -4 17.6
+place "VG_DecorationPrefabBase_WoodenBoxes_ShortSquare Variant" - at 52 8 ground sit yaw=20
+place "Box Small" gullybox at 53 9 ground sit yaw=40
+place Zone_Trigger badlands at 58 8 y=1.5
+place Creature_Hyena hyenas at 62 8 ground
+
+# --- The lake: its floor zone, the cleft by the islet (two boulders leaning together, air between them), a sunk sample
+# case; the star's glow over the crater, the crater's hush --------------------------------------------------------------
+place Zone_Trigger lakebed at 2 28 h=-6
+place SmallBoulder3 - at 12 35 h=-8 sit scale=1.2 rot=0,0,25
+place SmallBoulder3 - at 14.5 35 h=-8 sit scale=1.2 rot=0,0,-25
+place Zone_Trigger cleftair at 13.2 35 h=-6.5
+place Zone_Atmosphere cleftbubbles at 13.2 35 h=-6.5
+place Loot_SunkenBarrel sunkcase at -11 26 h=-7 drop
+place Zone_Atmosphere starglow at 2 28 h=6
+place Zone_Sound craterhush at 2 28 h=4
+
+# --- The star on its islet: a great grey-blue rock with violet veins (light bottles pressed into it), the two halves at its
+# east face that slide apart, the niche behind them with Sato's clipboard and the star's heart; the ladder up its south
+# face to the crown; the cradle - a ring of stones round a hollow - at its foot -------------------------------------------
+place BigRock_1 star at 2 28 h=2 centred sit scale=0.2
+place UT_LightBottle01 starveins at 0.5 25 h=10 drop scale=0.6 yaw=10
+place UT_LightBottle01 starveins at -1.5 28 h=10 drop scale=0.6 yaw=90
+place UT_LightBottle01 starveins at 1 31 h=10 drop scale=0.6 yaw=170
+place UT_LightBottle01 starveins at 4.5 30 h=10 drop scale=0.6 yaw=250
+place TP_BigRock03 starleft at 9.4 26.5 h=2 centred sit scale=0.2
+place TP_BigRock03 starright at 9.4 29.5 h=2 centred sit scale=0.2 yaw=180
+place Loot_ChestLarge heart at 8.2 28 h=2 sit yaw=270
+place RT_Clipboard - at 8 26.6 h=2.6 drop
+place Note_Paper lastentry at 8 29.4 h=2.6 drop yaw=80
+place Zone_Trigger core at 8.4 28 h=3
+place LandmarkLadder_6m - at 2 22 h=2 yaw=0
+call fragtop frag10 1 27
+call fragtop frag11 3.5 29.5
+call fragtop frag12 0 30
+place VP_ConcretePipe02 cradle at 4.5 23.5 h=2 sit scale=0.5 rot=0,0,90
+for k 0 5 1
+place SmallBoulder1 - at {4.5+1.6*cos(60*$k)} {23.5+1.6*sin(60*$k)} h=2 sit scale=0.45 yaw={40*$k}
+next
+
+# --- The landing on the south beach: the beached supply boat with its barrel, palms; dolphins off it ------------------------
+place RT_PlasticBoat - at 4 -78 h=0.3 yaw=15
+place Loot_Barrel boatbarrel at 8 -74 ground sit
+scatter "Pickup_Landmark_Tree_Palm 2" 2 at 0 -70 r=8 seed=1601
+place Creature_Dolphin dolphins at 10 -100 h=-3
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): flowers, melons, pineapples ----------
+scatter "Pickup_Landmark_Flower_Yellow" 4 at 0 0 r=63.0 seed=4520 free=3
+scatter "Pickup_Landmark_Flower_Red" 4 at 0 0 r=63.0 seed=4521 free=3
+scatter "Pickup_Landmark_WatermelonLandmark" 6 at 0 0 r=63.0 seed=4530 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=63.0 seed=4540 free=3
+
+# --- Raft's finds in the shallows round the island (lib_sea) ------------------------------------------------------------
+call shallows r=110 deep=5 n=1
+
+# ===== Settings, story items, notes, behaviours, quest (12 steps) =========================================================
+info title=Starfall Crater
+info author=Custom Islands
+info description=A desert island with a crater lake where a star fell: a great grey-blue rock with violet veins on an islet, its twelve fragments scattered over the rim, the badlands and the lake floor. The scientists left their notes - and the star opens when all twelve are back.
+island on.arrive=message||A round desert island with its middle punched in. Over the crater's rim, a faint violet glow - even in daylight.
+
+story tongs|Fragment tongs|quest:Vasagatan_CarJack|Long ceramic tongs from the instrument crate: the fragments are too cold to touch.
+story fragment|Star fragment|Placeable_Utopia_LightBottleWhite|A shard of grey-blue rock with a violet light moving inside it, cold as ice.
+
+note fieldnotes Dr. Sato's field notes | STARFALL - FIELD NOTES, M. SATO\n\nDay 3. It's hollow. The impact broke twelve fragments off it and it CLOSED - the halves at the front sealed like a clam.\nDay 5. The fragments want to go back. Laid one near the star and it rolled towards it. Theory: all twelve in the cradle at its foot and it opens again.\nDay 6. Three fragments on the rim, three in the east gullies (hyenas - careful), three on the lake floor round the islet, three on the star's own crown.\nDay 7. Hyenas in camp. We're leaving. Tongs in the instrument crate - DON'T touch them bare-handed.
+note instruments Instrument crate | The instrument crate: a magnetometer, spare batteries, sample jars - and the long ceramic tongs.
+loot instruments story:tongs*1;Battery*1;Glass*2
+prop instruments loot.refill=0
+note lastentry Sato's last entry | (on a clipboard inside the star - in Sato's handwriting)\n\nI came back alone. I couldn't leave it.\n\nInside, it is warm. There is a kind of chest in here, grown, not made. It opens for whoever brings it home. I didn't have all twelve; you do.\n\nLeave the cradle full. I think it likes it.\n- M. S.
+note heart The star's heart | The star's heart opens like a flower: titanium as pure as glass, the plans for the camp's battery charger in Sato's handwriting, her spare batteries, and a fragment of something that is not rock at all.
+loot heart TitaniumIngot*4;Blueprint_BatteryCharger*1;Battery*2;TradeToken*6
+prop heart loot.refill=0
+note foodbox Camp food box | The camp's food box: tins, crackers, water.
+loot foodbox Cooked_GenericMeat*2;PlasticBottle_Water*2;Plastic*2
+prop foodbox loot.refill=0
+note gullybox Abandoned sample bag | A sample bag dropped in the gully when the hyenas came: rock hammers and ore.
+loot gullybox MetalOre*2;CopperOre*2;Stone*3
+prop gullybox loot.refill=0
+note sunkcase Sunk sample case | A sample case lost in the lake: jars of crater mud, and good clay.
+loot sunkcase Clay*3;Sand*3;Scrap*2
+prop sunkcase loot.refill=0
+note boatbarrel Supply boat barrel | A barrel in the beached supply boat: rope and planks for the camp.
+loot boatbarrel Rope*3;Plank*4;Nail*6
+prop boatbarrel loot.refill=0
+
+prop frag1 obj.name=frag1
+prop frag1 beh.use=Pick up the fragment with the tongs
+prop frag1 if.use=has|story:tongs|1\n!signal|f1
+prop frag1 on.use=hide|frag1\ngive||story:fragment*1\nsignal||f1\nsound||event:/exploring/utopia/metal_pickup
+prop frag1 else.use=message||Too cold to touch - it burns like ice. Sato's notes mention tongs.
+prop frag2 obj.name=frag2
+prop frag2 beh.use=Pick up the fragment with the tongs
+prop frag2 if.use=has|story:tongs|1\n!signal|f2
+prop frag2 on.use=hide|frag2\ngive||story:fragment*1\nsignal||f2\nsound||event:/exploring/utopia/metal_pickup
+prop frag2 else.use=message||Too cold to touch - it burns like ice. Sato's notes mention tongs.
+prop frag3 obj.name=frag3
+prop frag3 beh.use=Pick up the fragment with the tongs
+prop frag3 if.use=has|story:tongs|1\n!signal|f3
+prop frag3 on.use=hide|frag3\ngive||story:fragment*1\nsignal||f3\nsound||event:/exploring/utopia/metal_pickup
+prop frag3 else.use=message||Too cold to touch - it burns like ice. Sato's notes mention tongs.
+prop frag4 obj.name=frag4
+prop frag4 beh.use=Pick up the fragment with the tongs
+prop frag4 if.use=has|story:tongs|1\n!signal|f4
+prop frag4 on.use=hide|frag4\ngive||story:fragment*1\nsignal||f4\nsound||event:/exploring/utopia/metal_pickup
+prop frag4 else.use=message||Too cold to touch - it burns like ice. Sato's notes mention tongs.
+prop frag5 obj.name=frag5
+prop frag5 beh.use=Pick up the fragment with the tongs
+prop frag5 if.use=has|story:tongs|1\n!signal|f5
+prop frag5 on.use=hide|frag5\ngive||story:fragment*1\nsignal||f5\nsound||event:/exploring/utopia/metal_pickup
+prop frag5 else.use=message||Too cold to touch - it burns like ice. Sato's notes mention tongs.
+prop frag6 obj.name=frag6
+prop frag6 beh.use=Pick up the fragment with the tongs
+prop frag6 if.use=has|story:tongs|1\n!signal|f6
+prop frag6 on.use=hide|frag6\ngive||story:fragment*1\nsignal||f6\nsound||event:/exploring/utopia/metal_pickup
+prop frag6 else.use=message||Too cold to touch - it burns like ice. Sato's notes mention tongs.
+prop frag7 obj.name=frag7
+prop frag7 beh.use=Pick up the fragment with the tongs
+prop frag7 if.use=has|story:tongs|1\n!signal|f7
+prop frag7 on.use=hide|frag7\ngive||story:fragment*1\nsignal||f7\nsound||event:/exploring/utopia/metal_pickup
+prop frag7 else.use=message||Too cold to touch - it burns like ice. Sato's notes mention tongs.
+prop frag8 obj.name=frag8
+prop frag8 beh.use=Pick up the fragment with the tongs
+prop frag8 if.use=has|story:tongs|1\n!signal|f8
+prop frag8 on.use=hide|frag8\ngive||story:fragment*1\nsignal||f8\nsound||event:/exploring/utopia/metal_pickup
+prop frag8 else.use=message||Too cold to touch - it burns like ice. Sato's notes mention tongs.
+prop frag9 obj.name=frag9
+prop frag9 beh.use=Pick up the fragment with the tongs
+prop frag9 if.use=has|story:tongs|1\n!signal|f9
+prop frag9 on.use=hide|frag9\ngive||story:fragment*1\nsignal||f9\nsound||event:/exploring/utopia/metal_pickup
+prop frag9 else.use=message||Too cold to touch - it burns like ice. Sato's notes mention tongs.
+prop frag10 obj.name=frag10
+prop frag10 beh.use=Pick up the fragment with the tongs
+prop frag10 if.use=has|story:tongs|1\n!signal|f10
+prop frag10 on.use=hide|frag10\ngive||story:fragment*1\nsignal||f10\nsound||event:/exploring/utopia/metal_pickup
+prop frag10 else.use=message||Too cold to touch - it burns like ice. Sato's notes mention tongs.
+prop frag11 obj.name=frag11
+prop frag11 beh.use=Pick up the fragment with the tongs
+prop frag11 if.use=has|story:tongs|1\n!signal|f11
+prop frag11 on.use=hide|frag11\ngive||story:fragment*1\nsignal||f11\nsound||event:/exploring/utopia/metal_pickup
+prop frag11 else.use=message||Too cold to touch - it burns like ice. Sato's notes mention tongs.
+prop frag12 obj.name=frag12
+prop frag12 beh.use=Pick up the fragment with the tongs
+prop frag12 if.use=has|story:tongs|1\n!signal|f12
+prop frag12 on.use=hide|frag12\ngive||story:fragment*1\nsignal||f12\nsound||event:/exploring/utopia/metal_pickup
+prop frag12 else.use=message||Too cold to touch - it burns like ice. Sato's notes mention tongs.
+prop cradle obj.name=cradle
+prop cradle beh.use=Lay the twelve fragments in the cradle
+prop cradle if.use=quest|9\ntake|story:fragment|12
+prop cradle on.use=message||One by one the fragments slide out of the tongs and into the cradle, clicking together - and the violet light runs up the star's veins like water up a wick. With a long grinding sigh, the two halves at its front slide apart.\nopen|starleft\nopen|starright\nshow|core\nsound||event:/exploring/temperence/selene/gate_open
+prop cradle else.use=message||A ring of stones round a hollow, the hollow fitted for twelve pieces. Sato's notes: all twelve.
+prop starleft obj.name=starleft
+prop starleft beh.move=0,0,-3
+prop starleft beh.moveTime=5
+prop starleft beh.moveMode=switch
+prop starright obj.name=starright
+prop starright beh.move=0,0,3
+prop starright beh.moveTime=5
+prop starright beh.moveMode=switch
+
+prop camp zone.id=camp
+prop camp zone.radius=9
+prop camp zone.message=The scientists' camp on the rim: tents, a lab table, a telescope aimed down into the crater - and the llamas, very glad to see someone.
+prop badlands zone.id=badlands
+prop badlands zone.radius=12
+prop badlands zone.repeat=never
+prop badlands zone.message=The badland gullies - and the laughing starts. Hyenas, three of them!
+prop hyenas creature.count=3
+prop hyenas creature.respawn=0
+prop hyenas creature.zone=badlands
+prop lakebed zone.id=lakebed
+prop lakebed zone.radius=14
+prop lakebed zone.message=The crater lake's floor: dark glassy sand, and small violet lights round the star's islet.
+prop cleftair zone.id=cleftair
+prop cleftair zone.radius=2.5
+prop cleftair zone.repeat=1
+prop cleftair zone.air=1
+prop cleftbubbles atmo.particles=bubbles
+prop cleftbubbles zone.radius=3
+prop core obj.name=core
+prop core beh.hidden=1
+prop core zone.id=core
+prop core zone.radius=1.5
+prop core zone.message=Inside the star: warm, violet, humming. A clipboard - and something like a chest, grown out of the rock.
+prop starglow atmo.fog=#2a1a3a
+prop starglow atmo.fogAmount=0.2
+prop starglow atmo.light=#a080ff
+prop starglow atmo.lightAmount=0.3
+prop starglow atmo.particles=fireflies
+prop starglow zone.radius=20
+prop craterhush sound.event=event:/exploring/temperence/selene/cryotube_monitor
+prop craterhush sound.volume=0.3
+prop craterhush zone.radius=25
+prop llamas creature.count=3
+prop dolphins creature.count=2
+
+quest title=Twelve Fragments
+quest intro=A crater lake with a fallen star in it, and a scientists' camp abandoned on the rim. Dr. Sato's notes are on the lab table.
+step reach|camp|1|Climb to the scientists' camp on the south rim
+step read|Dr. Sato's field notes|1|Read Dr. Sato's field notes
+step open|Instrument crate|1|Take the fragment tongs from the instrument crate
+step collect|story:fragment|3|Gather the three fragments on the crater's rim
+step kill|Hyena|3|Drive the hyenas out of the badland gullies
+step collect|story:fragment|6|Gather the three fragments at the gullies' ends
+step reach|lakebed|1|Dive to the crater lake's floor
+step collect|story:fragment|9|Gather the three fragments round the star's islet (breathe in the cleft)
+step collect|story:fragment|12|Climb the star and gather the three on its crown
+step reach|core|1|Lay the twelve fragments in the cradle and enter the star
+step read|Sato's last entry|1|Read Sato's last entry inside the star
+step open|The star's heart|1|Open the star's heart
+quest done=Twelve fragments home and the star open, humming to itself in its crater. Whatever it is, it seems content.
+quest reward=TitaniumOre*2;MetalOre*4;Rope*3
+
+save Starfall Crater

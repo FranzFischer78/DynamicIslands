@@ -1,0 +1,29 @@
+# Guide pictures of Ironreef Caverns (CIPlay ironreef_caverns_pics): Raft's camera and water at midday; the caves
+# from outside and in, the Bear Hall after the rockfall is blown
+island Ironreef Caverns
+hour 11
+weather Calm
+at 84 -2
+wait 2
+picture ironreef_caverns_island 95 52 -92 0 14 -2
+picture ironreef_caverns_camp 102 11 -22 72 8 -8
+at 9 -57
+wait 2
+picture ironreef_caverns_irongate 9 26.5 -68 8 25.5 -50
+picture ironreef_caverns_mine 9.5 25.6 -51 7 24.6 -30
+at 52 4
+wait 2
+picture ironreef_caverns_vinecrawl 55 11.2 4.5 42 10.2 4
+at -4 58
+wait 2
+picture ironreef_caverns_rockfall -4 9.5 64 -4 8 46
+at -62 -8
+wait 2
+picture ironreef_caverns_drowned -92 6 -12 -60 2 -8
+open Powder crate
+open Sunken powder box
+use rockface
+wait 3
+at -4 40
+wait 2
+picture ironreef_caverns_bearhall -4 7.4 42 -4 6.5 20

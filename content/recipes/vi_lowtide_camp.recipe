@@ -1,0 +1,48 @@
+# Lowtide Camp - a vehicle island (VI1, no quest, no banner)
+# A sandy tropical island with a long low beach where a group of friends drove their vans and caravan into a circle
+# above the tide line and stayed for the summer: two vans and a caravan round a fire pit, a plastic boat pulled up on
+# the sand, a model boat left on a box for the kids, nets drying by the boat.
+#
+# Points (metres from the land centre): the camp circle round 0 -6 (h 1.6), the boat on the beach 6 -20, the palms
+# north of the camp.
+include lib_sea
+new
+gen Trees=0.26 Bushes=0.25 Rocks=0.35 Harvest=0.24 BeachThings=0.4
+gen Seed=15110 Radius=26 Height=3.5 Roughness=0.3 Peaks=1 Shape=0.4 Style=0 PeakShape=0.3 Cliffs=0 BeachWidth=0.9
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.4 Sunken=0.1 Hostiles=0 Friendly=0.1 SeaLife=0.4
+generate
+
+# --- Terrain: the camp circle on the sand, the beach ---------------------------------------------------------------
+brush flatten at 0 -6 r=11 s=20 frames=150 h=1.6
+brush sand at 0 -6 r=11 s=8 frames=30
+brush flatten at 6 -20 r=5 s=20 frames=100 h=1.0
+origin
+clear at 0 -6 r=11
+clear at 6 -20 r=4
+
+# --- The circle: two vans and a caravan round the fire pit -------------------------------------------------------------
+place Van_5 - at -6 -4 ground y=-0.95 sit yaw=70
+place Van3 - at 5 -2 ground y=-0.4 sit yaw=300
+place Caravan_Green_02 - at 0 3 ground sit yaw=180
+place campfire_1 - at 0 -6 ground sit
+place TreeLog_02 - at -2.5 -8 ground y=-0.25 sit yaw=60
+place TreeLog_02 - at 2.5 -8.5 ground y=-0.2 sit yaw=120
+place PlasticChair_01 - at 2 -4 ground sit yaw=220
+place BenchTable_01 - at -4 -10 ground sit yaw=20
+place "Box Small" - at 4 -9 ground sit yaw=30
+place BoatMini - at 4.22 -8.62 ground y=0.97 yaw=40 scale=4
+place Loot_ChestSmall coolbox at -3 -1 ground sit yaw=160
+loot coolbox Watermelon*1;Mango*2;PlasticBottle_Water*2
+
+# --- The boat on the beach and the palms ---------------------------------------------------------------------------
+place RT_PlasticBoat - at 6 -20 ground sit rot=0,0,0 yaw=160
+place FishingNets_02 - at 4 -17 ground sit yaw=20
+scatter "Pickup_Landmark_Tree_Palm 4" 3 at -6 10 r=6 seed=15201 free=3
+scatter "Pickup_Landmark_Tree_Palm 2" 2 at 10 8 r=4 seed=15202 free=3
+scatter Pickup_Landmark_BerryBush 2 at -14 -2 r=4 seed=15203 free=2
+call shallows x=0 z=0 r=34 deep=5 n=1 seed=15204
+
+info title=Lowtide Camp
+info description=A sandy island with a long low beach where friends drove two vans and a caravan into a circle round a fire pit and stayed for the summer, a plastic boat pulled up on the sand beside them.
+info author=Custom Islands
+save Lowtide Camp

@@ -1,0 +1,25 @@
+# Guide pictures of Lanternfall (CIPlay lanternfall_pics): Raft's camera at dusk, calm; the lanterns lit, the finale set off
+island Lanternfall
+hour 18
+weather Calm
+open Lamplighter's box
+use lantern1
+use lantern2
+use lantern3
+use lantern4
+use lantern5
+use lantern6
+use lantern7
+use lantern8
+use lantern9
+use lantern10
+use lantern11
+use lantern12
+use rocketrack
+at 0.25 3
+wait 4
+picture lanternfall_island 0 30 45 0 4 -5
+picture lanternfall_pier 6 3.5 14 0 1.5 3
+picture lanternfall_square -4 4 12 -13 1.5 5
+picture lanternfall_path 28 22 34 38 9 12
+picture lanternfall_stage 3 18.5 -9 3 16.5 -18

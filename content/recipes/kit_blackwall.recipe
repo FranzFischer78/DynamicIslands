@@ -1,0 +1,13 @@
+# Kit check (not content): pieces for Blackwall - the elevator shaft frame, the winding wheel, the radio tower stairs, the
+# stairwell gate
+new
+gen Seed=1 Radius=60 Height=4 Shape=4 Roughness=0.1 ObjectDensity=0 Trees=0 Bushes=0 Rocks=0 BeachThings=0 Harvest=0
+gen Hostiles=0 Friendly=0 SeaLife=0 Water=0 SeaRocks=0 SeaFinds=0 Sunken=0
+generate
+brush flatten at 0 0 r=60 s=20 frames=80 h=1
+place VP_ElevatorShaft shaft at 0 0 h=1
+place UT_WaterChallengeWheel3 wheel at 15 0 h=5
+place RT_Stair stair at 30 0 h=1
+place RT_Stair_Broken bstair at 30 8 h=1
+place Stairwell_Gate gate at 15 10 h=1
+save CI Kit Blackwall

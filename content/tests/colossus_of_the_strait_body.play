@@ -1,0 +1,40 @@
+# Colossus of the Strait - the island's own part of its test (the plan test includes this one; colossus_of_the_strait.play
+# fetches the three gears from the earlier islands first, then includes it).
+island Colossus of the Strait
+offset 0 0
+expect title The Giant's Heart
+walk -66 0 to -52 0 h=5
+zone west_headland
+read Syndicate camp orders
+zone syndicate_camp
+kill Hyena
+expect step 3
+open Syndicate strongbox
+expect story raft-Tangaroa_KeyCard 1
+walk -36 -4 to -30 0 to -28 0 h=5
+zone heel_door
+use heeldoor
+expect hidden heeldoor
+expect step 6
+walk -27 0 to -23 0 h=5
+use lift
+wait 6
+expect story heelride 1
+expect height 18.3
+zone chest_chamber
+read Builders' inscription
+kill Mama bear
+expect step 10
+use gearwheel
+expect story gear1 0
+expect story gear3 0
+expect shown eyes
+expect shown headladder
+use headladder
+expect height 22.4
+zone head
+open Crown vault
+expect story kettshat 1
+expect item TitaniumIngot 3
+read Kett's note
+expect done

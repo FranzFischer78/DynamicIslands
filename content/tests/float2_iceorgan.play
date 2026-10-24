@@ -1,0 +1,8 @@
+# FLOAT2 close side pictures: the great icicle under its roof
+island The Ice Organ
+hour 12
+weather Calm
+at -14 1
+wait 3
+picture f2_ice_icicle_e -13 10.5 -16.4 -18.1 11.2 -16.4
+picture f2_ice_icicle_n -18.1 10.5 -11.4 -18.1 11.2 -16.4

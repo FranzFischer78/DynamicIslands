@@ -1,0 +1,57 @@
+# Mudlock - a vehicle island (VI1, no quest, no banner)
+# A low swamp island of reed pools and dead trees. A fishing boat ran aground on the mud flat in a storm and never got
+# off; its crew pulled two plastic boats up beside it and built a stilt hut on the bank. Nets drying, a crate of floats,
+# a cold fire, mist over the pools.
+#
+# Points (metres from the land centre): the beached boat on the mud flat round 8 -12 (h 1.0), the hut pad round
+# -8 2 (h 1.8), the boats at 2 -16 and 4 -19, the reed pools to the north.
+include lib_sea
+include lib_huts
+new
+gen Trees=0.2 Bushes=0.35 Rocks=0.35 Harvest=0.1 BeachThings=0.3
+gen Seed=15106 Radius=30 Height=4 Roughness=0.3 Peaks=1 Shape=0.5 Style=3 PeakShape=0.2 Cliffs=0 BeachWidth=0.5 Lakes=0.6
+gen Water=0.6 SeaRocks=0.2 SeaFinds=0.3 Sunken=0.2 Hostiles=0 Friendly=0 SeaLife=0.2
+generate
+
+# --- Terrain: the mud flat under the boat, the hut pad --------------------------------------------------------------
+brush flatten at 8 -12 r=9 s=20 frames=150 h=1.0
+brush sand at 8 -12 r=9 s=6 frames=20
+brush flatten at -8 2 r=6 s=20 frames=120 h=1.8
+brush grass at -8 2 r=6 s=6 frames=20
+origin
+clear at 8 -12 r=9
+clear at -8 2 r=6
+
+# --- The beached boat and the two plastic boats ---------------------------------------------------------------------
+place BoatStranded - at 9 -11 ground sit yaw=65 roll=6 scale=0.7
+place RT_PlasticBoat - at 2 -16 ground sit rot=0,0,0 yaw=20
+place RT_PlasticBoat - at 4.5 -18.5 ground sit rot=0,0,0 yaw=200 roll=4
+place Reef_Barrel3 - at 3 -11 ground sit
+place FishingNets_02 - at 5 -8 ground sit yaw=40
+
+# --- The stilt hut on the bank and the crew's camp ------------------------------------------------------------------
+push at -10.25 0 h=1.8
+call stilt_hut y=2.6
+pop
+place campfire_1 - at -5 -3 ground sit
+place Loot_Crate floats at -4 -1 ground sit yaw=30
+loot floats Rope*2;Plastic*3;Raw_Pomfret*2
+place TreeLog_01 - at -3 -4.5 ground sit yaw=70
+place FishingNets_02 - at -12 -3 ground sit yaw=160
+
+# --- The swamp: dead trees, bamboo, mist ----------------------------------------------------------------------------
+scatter DeadTree1 2 at -2 12 r=8 seed=15161 free=3
+scatter DeadTree2 2 at 14 6 r=6 seed=15162 free=3
+scatter Bamboo_2 3 at -14 12 r=5 seed=15163 free=1.5
+scatter Bamboo_1 2 at 16 -2 r=4 seed=15164 free=1.5
+place Zone_Atmosphere mudmist at 0 0 y=3
+prop mudmist atmo.fog=#a8b4a0
+prop mudmist atmo.fogAmount=0.18
+prop mudmist atmo.particles=mist
+prop mudmist zone.radius=30
+call shallows x=0 z=0 r=38 deep=5 n=1 seed=15165
+
+info title=Mudlock
+info description=A low swamp island of reed pools and dead trees where a fishing boat ran aground on the mud in a storm and never got off: its crew's plastic boats beside it, a stilt hut on the bank, nets drying.
+info author=Custom Islands
+save Mudlock

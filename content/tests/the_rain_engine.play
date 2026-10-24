@@ -1,0 +1,110 @@
+# The Rain Engine (CIPlay the_rain_engine): the plan The Rainmakers' finale, quest "The Rain Engine"
+# The Foot (0 -60, 3 m) with the salt caves west of it (-26 -61) and the lift; the crown (28 m) with the four arms on their
+# spurs (N 0 34, E 34 0, S 24 -24, W -34 0), the master board (0 -6), the drum hall (-20 0), the laser court (-9..6 8..18)
+# and the Heart (6 -4, its door west).
+island The Rain Engine
+offset 0 0
+expect step 0
+expect title The Rain Engine
+wait 5
+expect shown storm
+expect hidden clearsky
+expect shown gatedoor
+zone foot
+expect step 1
+read Engine visitor sign
+expect step 2
+zone salt_caves
+kill Bear
+expect step 3
+open Bear den chest
+expect story gatekey 1
+open Gatehouse
+expect hidden gatedoor
+expect step 4
+use lift stay
+wait 7
+expect story liftride 1
+expect step 5
+read Operator's last shift
+expect step 6
+open Operator's locker
+expect item ZiplineTool_Electric 1
+zone arm_north
+expect step 7
+use masterboard
+expect message some of them still burn green
+use lever
+expect step 8
+zone arm_east
+expect step 9
+use crank
+expect step 10
+zone arm_south
+expect step 11
+use claw
+expect step 12
+zone arm_west
+expect step 13
+use power
+expect step 14
+expect hidden armsnote
+use masterboard
+expect shown armsnote
+read Arms offline
+expect step 15
+zone storm_crown
+wait 3
+kill Screecher
+expect step 16
+open Arm West locker
+expect step 17
+zone drum_hall
+expect step 18
+read Seeding chemistry
+expect step 19
+use cutoff
+expect message cutoff is dead
+beam emitter
+use mirror1
+wait 1
+beam emitter
+use mirror2
+wait 1
+beam emitter
+use mirror3
+wait 2
+beam emitter
+expect story beamset 1
+expect step 20
+use cutoff
+expect hidden drumspin
+expect shown drumstop
+expect hidden cagebars
+expect step 21
+open Drum cage
+expect story masterkey 1
+expect step 22
+open Engine room
+expect hidden enginedoor
+expect step 23
+read Dagny's first design
+expect step 24
+use masterswitch
+expect message won't let you near
+zone heart
+expect step 25
+kill Polar bear
+expect step 26
+use masterswitch
+expect hidden storm
+expect shown clearsky
+expect story enginestopped 1
+expect step 27
+open Engine vault
+expect item TitaniumIngot 4
+expect step 28
+read Last broadcast
+expect step 29
+zone summit
+expect done

@@ -1,0 +1,14 @@
+# Guide pictures of Hollow Mountain (CIPlay hollow_mountain_pics): Raft's camera, midday, calm. Points as in its recipe
+# ("offset").
+island Hollow Mountain
+offset 1.0471 -0.0008
+hour 11
+weather Calm
+at -37 -90 h=5.5
+wait 3
+picture hollow_mountain_island 60 90 -170 -20 20 0
+picture hollow_mountain_gate -37 9 -100 -37 6 -76
+picture hollow_mountain_balcony 40 30 10 15 26 0
+picture hollow_mountain_entry -36 6.5 -71 -44 5 -66
+picture hollow_mountain_lake -63 3 2 -88 2 0
+picture hollow_mountain_throne -88.5 3 -2.5 -93 2 0.5

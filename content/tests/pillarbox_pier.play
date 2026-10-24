@@ -1,0 +1,27 @@
+# Pillarbox Pier (CIPlay pillarbox_pier_solo; in the plan after The Dead Letter Office): quest "The Ferry Master's Wife"
+# (it needs the Ferry Master's dead letter from The Dead Letter Office: pillarbox_pier_solo.play reads it first)
+island Pillarbox Pier
+offset 0 0
+expect step 0
+expect title The Ferry Master's Wife
+expect hidden ferryreply
+walk 0 -34 to 0 -42 to 0 -52 h=1.6
+zone pier_head
+expect step 1
+read Ferry timetable
+expect step 2
+use pbox3
+expect message seaweed
+use pbox7
+expect story ferrydelivered 1
+expect shown ferryreply
+expect step 3
+read Ferry Master's reply
+expect step 4
+open Waiting room locker
+wait 3
+expect item Blueprint_MotorWheel 1
+expect item Blueprint_SteeringWheel 1
+expect step 7
+zone sorting
+expect done

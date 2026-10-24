@@ -1,0 +1,27 @@
+# Play test of Longpier Haven (CIPlay longpier_haven, in a test world 'CI ...'). No quest: along the pier, the harbour
+# master's chest, over the bridge to the stack and the watch hut's chest, the sunk boat's chest, the smugglers' cave, the
+# boars and the puffers. Points as in its recipe.
+island Longpier Haven
+offset 0.9253 0.0291
+expect animals Warthog 2
+expect animals Puffer fish 2
+expect animals Turtle 2
+wait 3
+kill Warthog
+kill Puffer fish
+# Along the pier to its head
+walk 0 -42 to 0 -48 to 0 -55 h=1.5 below=4
+# Into the harbour master's cabin, his chest
+walk -6.75 -36 to -6.75 -34 to -6.75 -32 h=1.7 below=4
+open Harbour master's chest
+# Over the bridge to the stack, into the watch hut
+walk 40 2 to 46 2 to 52 2 to 57.5 2 h=3.1 below=5
+walk 60.75 -1.5 to 60.75 0 to 60.75 2 h=3.2 below=5
+open Chest in the watch hut
+# Down to the boat sunk in the bay
+at 24.5 -60
+open The sunk boat's chest
+# Into the smugglers' cave
+walk -29 34 to -29 28 to -29 23 h=2.1 below=3
+open Smugglers' chest
+dig

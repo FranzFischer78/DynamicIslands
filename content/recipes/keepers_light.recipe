@@ -1,0 +1,392 @@
+# Keeper's Light - a themed island of the library, normal size (x1). Inspiration: lighthouse horror films (two keepers
+# alone on a rock in the fog, each sure the other has gone mad, and something in the water) - the mood only.
+# Six sea stacks in a cold grey sea, three of them the light station's, joined by rope bridges: the landing stack in the
+# middle (a jetty and a stair up its side), the keepers' cottage on the stack to its south-west, the lighthouse on the
+# northern one facing the open sea; under the cottage stack, on a rock shelf at its foot, the flooded cistern under a
+# concrete slab. The light has been dark for three nights; the two keepers' diaries contradict each other - each says the
+# other hid the last can of lamp oil and talks at night to something in the cistern. Both are gone. The oil is at the
+# bottom of the cistern, and so is the thing with a lamp on its head. Quest "The Dark Light" (6 steps): the landing, the
+# head keeper's diary, the assistant's diary, the screechers on the gallery, the thing in the cistern, the lamp lit, the
+# foghorn sounded and the lamp room's locker (the head light blueprint, batteries, glass).
+#
+# Built by the recipe player (CIRecipe keepers_light) through the editor's own operations.
+include lib_rt
+include lib_relay
+include lib_huts
+include lib_sea
+new
+# (nature: forest, Like Raft - pines clinging to the stacks' tops; Height 14 instead of the draft's 24: the stacks stand
+# 8-14 m out of the sea, low enough to join with bridges and stairs)
+gen Trees=0.21 Bushes=0.38 Rocks=0.42 Harvest=0.1 BeachThings=0.3
+gen Seed=9003 Radius=45 Height=14 Roughness=0.5 Peaks=3 Shape=3 Style=3 BeachWidth=0.3 Cliffs=0.85 PeakShape=0.5
+gen SeaFloor=0 Shelf=0.4 Seabed=1
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.4 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain ------------------------------------------------------------------------------------------------------------
+# (the land's heights lie on a grid every 1.953125 m and the ground runs straight between them; on this island the grid's
+# columns are at x 19.852 + k*1.953125 and its rows at z 2.125 + k*1.953125 (found with CIStandOn: the kinks in the
+# cliffs). A stroke narrower than 1.95 m drawn along a grid line touches that line only: the stacks' tops are levelled
+# and the cistern is dug line by line, so the cliffs stay sheer and the slab's edges meet the rock)
+# The stacks: the landing stack B (x 12..20, z 4..12, 7.7 m, already level), the cottage stack D (x 0.3..8.1, z -7.6..0.2,
+# its top lowered from 14 to 9.8 m), the light stack C (x 12..20, z 21.7..33.4, 8.5 m); wild stacks A (-8 17), E (-18 -16)
+# and F (-6 -30)
+brush flatten from 0.320 -7.641 to 0.320 -1.781 r=1.9 s=20 frames=60 h=9.8
+brush flatten from 2.274 -7.641 to 2.274 0.172 r=1.9 s=20 frames=60 h=9.8
+brush flatten from 4.227 -7.641 to 4.227 0.172 r=1.9 s=20 frames=60 h=9.8
+brush flatten from 6.180 -7.641 to 6.180 0.172 r=1.9 s=20 frames=60 h=9.8
+brush flatten from 8.133 -5.688 to 8.133 -1.781 r=1.9 s=20 frames=60 h=9.8
+# (the cistern's shelf at the cottage stack's south foot, 3.9 m: from the stack's foot (z -9.59) to z -27.17, x -1.63 to
+# 15.95; the pit in it 7 m deep - its floor on the lines x 2.27..12.04, z -23.27..-15.45, its rim (the slab's edges) on
+# x 0.32 and 13.99, z -25.22 and -13.50)
+for pz -27.172 -9.5 1.953125
+brush flatten from -1.633 $pz to 15.946 $pz r=1.9 s=20 frames=160 h=3.9
+next
+for px -9 -4 1
+brush flatten from {19.852+$px*1.953125} -23.266 to {19.852+$px*1.953125} -15.453 r=1.9 s=20 frames=120 h=-7
+next
+# (the shelf's corners and some of its outer edge worn down, its top and sides painted rock, a few boulders on it)
+brush flatten at -1.633 -27.172 r=1.9 s=20 frames=40 h=1.0
+brush flatten at 15.946 -27.172 r=1.9 s=20 frames=40 h=1.0
+brush flatten at 15.946 -9.594 r=1.9 s=20 frames=40 h=1.2
+brush flatten at -1.633 -9.594 r=1.9 s=20 frames=40 h=2.0
+brush flatten at 4.227 -27.172 r=1.9 s=20 frames=40 h=2.6
+brush flatten at 10.086 -27.172 r=1.9 s=20 frames=40 h=2.9
+brush flatten at -1.633 -21.313 r=1.9 s=20 frames=40 h=2.8
+brush flatten at 15.946 -15.453 r=1.9 s=20 frames=40 h=3.0
+brush flatten at 15.946 -21.313 r=1.9 s=20 frames=40 h=2.5
+brush rock from -2 -18 to 16 -18 r=11 s=20 frames=40
+clear from 0 -19 to 14 -19 r=10
+clear at 16 8 r=5
+clear at 16 27 r=7
+clear at 4 -4 r=6
+# (the stacks' tops levelled on their grid lines: the landing stack at 7.75 m, the light stack at 8.5 m - its south-east
+# and north-east corners brought up to it, room for the tower and the oil store)
+brush flatten from 12.040 6.031 to 12.040 9.938 r=1.9 s=20 frames=60 h=7.75
+for px 13.993 17.9 1.953125
+brush flatten from $px 4.078 to $px 11.891 r=1.9 s=20 frames=60 h=7.75
+next
+brush flatten from 19.852 6.031 to 19.852 9.938 r=1.9 s=20 frames=60 h=7.75
+brush flatten from 12.040 21.656 to 12.040 27.516 r=1.9 s=20 frames=60 h=8.5
+brush flatten from 13.993 21.656 to 13.993 29.469 r=1.9 s=20 frames=60 h=8.5
+brush flatten from 15.946 21.656 to 15.946 29.469 r=1.9 s=20 frames=60 h=8.5
+brush flatten from 17.899 21.656 to 17.899 27.516 r=1.9 s=20 frames=60 h=8.5
+brush flatten from 19.852 21.656 to 19.852 27.516 r=1.9 s=20 frames=60 h=8.5
+
+# --- The landing: a jetty of Balboa's decking on posts east of the landing stack, a stair of two flights up the
+# stack's side to a deck at its top; the mooring post, the box under the stair ------------------------------------------
+place Relay_Floor_deck - at 25.23 -6.37 h=1.65
+place Relay_Floor_deck - at 25.23 -11.6 h=1.65
+for jz -6.7 -16.6 -4.95
+place Relay_support_beam_wood - at 20.3 $jz h=-3 rot=0,0,-90 sx=0.479
+place Relay_support_beam_wood - at 24.9 $jz h=-3 rot=0,0,-90 sx=0.479
+next
+place Relay_stairs_30_tall - at 22.2 -6.24 h=1.8 yaw=180
+place Relay_stairs_30_tall - at 22.2 0.18 h=4.75 yaw=180
+place Relay_support_beam_wood - at 22.2 -0.1 h=-3 rot=0,0,-90 sx=0.81
+place Relay_support_beam_wood - at 23.35 -0.1 h=-3 rot=0,0,-90 sx=0.81
+place Relay_Floor_deck - at 24.73 11.73 h=7.6
+place Relay_support_beam_wood - at 24.4 6.8 h=-3 rot=0,0,-90 sx=1.11
+place Relay_support_beam_wood - at 24.4 11.4 h=-3 rot=0,0,-90 sx=1.11
+place Relay_support_beam_wood - at 22.2 6.8 h=-3 rot=0,0,-90 sx=1.11
+place ReefHuts_Pillar1 - at 24.6 -16.4 h=1.8
+place "Box Small" landingbox at 21.0 -8.4 h=1.8 sit yaw=15
+place Zone_Trigger landing at 21.5 9 h=8.5
+
+# --- The rope bridges: the landing stack north to the light stack, south-west to the cottage stack - a lane of floor
+# planks with rope rails --------------------------------------------------------------------------------------------------
+ramp Block_Floor_Wood from 17.75 10.6 7.75 to 17.75 22.4 8.5 len=1.5 top=0
+ramp Block_Wall_Fence_Rope from 17.0 10.6 7.75 to 17.0 22.4 8.5 len=1.5 top=0
+ramp Block_Wall_Fence_Rope from 18.5 10.6 7.75 to 18.5 22.4 8.5 len=1.5 top=0
+ramp Block_Floor_Wood from 12.8 7.2 7.75 to 7.0 -2.5 9.8 len=1.5 top=0
+ramp Block_Wall_Fence_Rope from 13.444 6.815 7.75 to 7.644 -2.885 9.8 len=1.5 top=0
+ramp Block_Wall_Fence_Rope from 12.156 7.585 7.75 to 6.356 -2.115 9.8 len=1.5 top=0
+
+# --- The keepers' cottage on the cottage stack: Raft's wooden walls on a floor of planks, 4.5 x 4.5 m, its door to the
+# bridge (east), a wooden roof; inside two beds, the table with the head keeper's diary, the stove, the clock, the
+# cupboard ------------------------------------------------------------------------------------------------------------
+push at 1.6 -5.1 h=9.8
+call floors w=3 d=3 y=0.05
+place Block_Wall_Wood - at 0.75 0 y=0.05
+place Block_Wall_Window_Wood - at 2.25 0 y=0.05
+place Block_Wall_Wood - at 3.75 0 y=0.05
+place Block_Wall_Wood - at 0.75 4.5 y=0.05
+place Block_Wall_Window_Wood - at 2.25 4.5 y=0.05
+place Block_Wall_Wood - at 3.75 4.5 y=0.05
+place Block_Wall_Wood - at 0 0.75 y=0.05 yaw=90
+place Block_Wall_Window_Wood - at 0 2.25 y=0.05 yaw=90
+place Block_Wall_Wood - at 0 3.75 y=0.05 yaw=90
+place Block_Wall_Wood - at 4.5 0.75 y=0.05 yaw=90
+place Block_Wall_Wood - at 4.5 3.75 y=0.05 yaw=90
+call corners w=3 d=3 y=0.05
+roof 3 3 at 0 0 y=0.05 wood
+place Bed_Simple - at 0.8 3.3 y=0.05 sit
+place Bed_Simple - at 2.3 3.3 y=0.05 sit
+place Placeable_Table_Basic - at 1.6 1.0 y=0.05 sit yaw=90
+place Placeable_Chair_Wood - at 0.35 1.0 y=0.05 sit yaw=90
+place Placeable_Chair_Wood - at 2.85 1.0 y=0.05 sit yaw=-90
+place Note_Book shalediary at 1.4 1.0 y=0.85 sit drop yaw=10 rot=0,0,0
+place "Balboa_DecorationPrefabBase_Old Stove" - at 3.9 0.6 y=0.05 sit yaw=180
+place Placeable_Cupboard_Medium cupboard at 3.7 4.1 y=0.05 sit yaw=180
+place Placeable_Clock_Basic - at 4.15 3.5 y=0.05 sit yaw=-90
+place Zone_Trigger cottage at 2.25 2.25 y=1
+place Pickup_Landmark_Plastic3_Land - at 3.3 2.4 y=0.4 drop yaw=140
+place "Pickup_Landmark_Scrap 1_Land" - at 1.6 2.0 y=0.4 drop yaw=75
+pop
+
+# --- The stair from the cottage stack down to the cistern's slab: two flights on posts --------------------------------
+place Relay_stairs_30_tall - at 3.0 -13.9 h=6.85 yaw=180
+place Relay_stairs_30_tall - at 3.0 -20.32 h=3.9 yaw=180
+place Relay_support_beam_wood - at 3.0 -14.0 h=3.96 rot=0,0,-90 sx=0.29
+place Relay_support_beam_wood - at 4.15 -14.0 h=3.96 rot=0,0,-90 sx=0.29
+
+# --- The cistern: its slab of the radio tower's floor over the pit, a hatch hole with the lid lying open beside it and
+# the ladder down into the black water; the iron oil box at the bottom, the thing in the water, darkness and drips -----
+place RT_Floor - at 7.155 -13.5 h=3.9 sx=1.1316 sz=1.3022
+place RT_Floor - at 13.993 -19.5 h=3.9 sx=1.1316 sz=0.6356
+place RT_Floor - at 13.993 -13.5 h=3.9 sx=1.1316 sz=0.5
+place RT_Floor - at 13.993 -18.0 h=3.9 sx=0.8833 sz=0.1667
+place TangaroaHatchRoom_Hatch - at 7.9 -20.4 h=3.96 yaw=10
+place TangaroaHatchLadder hatchladder at 7.9 -18.1 h=-3.44 yaw=180
+place "Box Small" oilbox at 7.2 -19.4 ground yaw=25
+place Creature_AnglerFish cisternthing at 7.2 -19.4 h=-3.5
+place Zone_Trigger cistern at 7.9 -18.75 h=0
+place Zone_Atmosphere cisterndark at 7.2 -19.4 h=0
+place Zone_Sound cisternsound at 7.2 -19.4 h=1
+scatter SmallRock_02 2 at 7 -26.2 r=2.5 seed=31
+scatter SmallRock_01 2 at 15 -18 r=1.5 seed=32
+
+# --- The lighthouse on the light stack: a round tower of three concrete pipes (grey, red, grey - warm tints: the world lights
+# their concrete blue), Balboa's ladders up its south side, a gallery of planks on its top with rope rails, a lamp house on
+# four posts with a wooden roof; the lamp, its light and turning beam (dark until lit), the foghorn, the lamp room locker;
+# the screechers on the gallery ------------------------------------------------------------------------------------------
+place VP_ConcretePipe02 tower1 at 14.3 25.0 h=11.3 rot=90,0,0 scale=1.4
+place VP_ConcretePipe02 tower2 at 14.3 25.0 h=17.08 rot=90,0,0 scale=1.4
+place VP_ConcretePipe02 tower3 at 14.3 25.0 h=22.86 rot=90,0,0 scale=1.4
+place LandmarkLadder_6m towerladder at 14.3 23.1 h=8.5 sy=0.884
+place LandmarkLadder_6m towerladder at 14.3 23.1 h=14.5 sy=0.884
+place LandmarkLadder_6m towerladder at 14.3 23.1 h=20.5 sy=0.884
+push at 12.05 23.25 h=26.03
+for gx 0.75 3.75 1.5
+for gz 0.75 3.75 1.5
+place Block_Floor_Wood - at $gx $gz y=0
+next
+next
+place Block_Wall_Fence_Rope - at 0.75 0 y=0
+place Block_Wall_Fence_Rope - at 3.75 0 y=0
+place Block_Wall_Fence_Rope - at 0.75 4.5 y=0
+place Block_Wall_Fence_Rope - at 2.25 4.5 y=0
+place Block_Wall_Fence_Rope - at 3.75 4.5 y=0
+place Block_Wall_Fence_Rope - at 0 0.75 y=0 yaw=90
+place Block_Wall_Fence_Rope - at 0 2.25 y=0 yaw=90
+place Block_Wall_Fence_Rope - at 0 3.75 y=0 yaw=90
+place Block_Wall_Fence_Rope - at 4.5 0.75 y=0 yaw=90
+place Block_Wall_Fence_Rope - at 4.5 2.25 y=0 yaw=90
+place Block_Wall_Fence_Rope - at 4.5 3.75 y=0 yaw=90
+place Block_Pillar_Wood - at 1.5 1.5 y=0
+place Block_Pillar_Wood - at 3 1.5 y=0
+place Block_Pillar_Wood - at 1.5 3 y=0
+place Block_Pillar_Wood - at 3 3 y=0
+roof 1 1 at 1.5 1.5 y=0 wood
+place Placeable_Lantern_Basic lamp at 2.25 2.25 y=0 sit
+place RT_Floodlight lamplight at 0.75 2.25 y=0 sit yaw=270
+place RT_Spotlight beam at 3.75 2.25 y=0.66
+place Placeable_HonkHorn_3 foghorn at 4.0 3.75 y=0 sit yaw=90
+place Locker lamplocker at 0.6 3.8 y=0 sit yaw=90
+place Zone_Trigger lamptop at 2.25 2.25 y=1
+place Creature_StoneBird gulls at 2.25 2.25 y=4
+pop
+prop tower1 tint.color=#ffd2a0
+prop tower1 tint.amount=1
+prop tower3 tint.color=#ffd2a0
+prop tower3 tint.amount=1
+prop tower2 tint.color=#ff3a22
+prop tower2 tint.amount=1
+
+# --- The oil store at the tower's foot: a shed of Raft's walls, 3 x 3 m, its door to the bridge; shelves, barrels, the
+# assistant keeper's diary on a barrel, the crate ----------------------------------------------------------------------
+push at 16.4 23.2 h=8.5
+call floors w=2 d=2 y=0.05
+place Block_Wall_Wood - at 2.25 0 y=0.05
+place Block_Wall_Wood - at 0.75 3 y=0.05
+place Block_Wall_Window_Wood - at 2.25 3 y=0.05
+place Block_Wall_Wood - at 0 0.75 y=0.05 yaw=90
+place Block_Wall_Wood - at 0 2.25 y=0.05 yaw=90
+place Block_Wall_Window_Wood - at 3 0.75 y=0.05 yaw=90
+place Block_Wall_Wood - at 3 2.25 y=0.05 yaw=90
+call corners w=2 d=2 y=0.05
+roof 2 2 at 0 0 y=0.05 wood
+place TP_Shelf01 - at 1.5 2.7 y=0.05 sit yaw=180
+place TP_Moontown_Barrel01 - at 2.5 0.6 y=0.05 sit
+place TP_Moontown_Barrel01 - at 2.5 1.4 y=0.05 sit
+place Note_Book luskdiary at 2.5 1.4 y=1.2 sit drop yaw=-20 rot=0,0,0
+place "Box Small" storecrate at 0.7 1.4 y=0.05 sit yaw=80
+place Zone_Trigger oilstore at 1.5 1.5 y=1
+place Pickup_Landmark_Plank_Land - at 1.6 0.8 y=0.4 drop yaw=15
+pop
+
+# --- Under water off the light stack, 6 m down: the supply boat that never got home, on her side, her barrel ----------
+place RT_PlasticBoat - at 27.3 29.0 ground yaw=40 roll=80
+place Loot_SunkenBarrel supplybarrel at 25.6 30.4 ground sit
+
+# --- Nature like Raft's forest islands where the generator left the stacks bare: small pines and bushes on the wild
+# stacks' tops (A west, E south-west), bushes beside the cottage and on the landing stack's edge; rocks and Raft's
+# sunken barrels on the sea floor round the stacks -------------------------------------------------------------------
+scatter Pickup_Landmark_Tree_Pine 2 at -8 17 r=2.5 seed=41
+scatter Pickup_Landmark_Tree_Pine 2 at -18 -16 r=2.5 seed=42
+scatter "Balboa_Bush_01 Variant" 3 at -8 17 r=3.5 seed=43
+scatter "Balboa_Bush_02 Variant" 3 at -18 -16 r=3.5 seed=44
+scatter "Balboa_Bush_03 Variant" 3 at -6 -30 r=3 seed=45
+scatter "Balboa_BigBush_02 Variant" 2 at -8 17 r=3 seed=46
+place "Balboa_Bush_02 Variant" - at 1.0 -0.4 ground yaw=40
+place "Balboa_Bush_03 Variant" - at 7.4 -6.6 ground yaw=200
+place "Balboa_Bush_01 Variant" - at 13.0 4.6 ground yaw=120
+scatter SmallRock_01 8 at 6 10 r=14 seed=47 wet
+scatter SmallRock_03 7 at -12 -4 r=12 seed=48 wet
+scatter Reef_Barrel1 6 at 22 2 r=18 seed=50 wet
+scatter Reef_Barrel3 6 at -12 4 r=18 seed=50 wet
+
+# --- Raft's finds in the shallow sea round the stacks (sand, clay, stones, ores, scrap, a giant clam) -------------------
+call shallows x=2 z=0 r=55 deep=5
+
+# --- Friendly animals: two wild goats on the western stack, turtles in the channel between the stacks, dolphins off the
+# light stack -----------------------------------------------------------------------------------------------------------
+place Creature_Goat goats at -7 17 ground
+place Creature_Turtle turtles at 6 14 h=-1.2
+place Creature_Dolphin dolphins at 10 55 h=-3
+
+# --- Fog over the rock, rain on the sea ---------------------------------------------------------------------------------
+place Zone_Atmosphere fog at 8 4 h=10
+place Zone_Sound rain at 8 4 h=6
+
+where landing
+where landingbox
+where shalediary
+where cupboard
+where luskdiary
+where storecrate
+where lamp
+where foghorn
+where lamplocker
+where hatchladder
+where oilbox
+where cisternthing
+where supplybarrel
+where goats
+
+# --- Settings, story items, notes, behaviours, quest (6 steps) ---------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): flowers, birches, berries ----------
+scatter "Pickup_Landmark_Flower_Blue" 2 at 0 0 r=31.5 seed=4403 free=3
+scatter "Pickup_Landmark_Flower_White" 2 at 0 0 r=31.5 seed=4404 free=3
+scatter "Pickup_Landmark_Tree_Birch" 3 at 0 0 r=31.5 seed=4413 free=5
+scatter "Pickup_Landmark_BerryBush" 3 at 0 0 r=31.5 seed=4423 free=3
+
+info title=Keeper's Light
+info author=Custom Islands
+info description=Sea stacks in a grey sea, a lighthouse dark for three nights, and two keepers' diaries that can't both be true. The last can of lamp oil is at the bottom of the flooded cistern - with the thing that lives there.
+island on.arrive=message||Grey stacks in the fog and a lighthouse with no light. A gull screams. Something in the water under the rocks glows for a moment - and is gone.
+
+story lampoil|Last can of lamp oil|BioFuel|The light's last can of oil, from the iron box at the bottom of the cistern.
+
+note shalediary Head Keeper Shale's diary | HEAD KEEPER O. SHALE\n\nDay 31. Lusk drinks the lamp oil. Found him at the cistern hatch past midnight, talking down into the water.\nDay 34. I've put the last can where he'll never reach it.\nDay 38. The light must burn. If I go strange before he does, Lusk - the oil is where you'd never look.\nDay 40. Something answered him from the water tonight. A light, under the water, swinging like a lantern on a pole.
+note luskdiary Keeper Lusk's diary | ASSISTANT KEEPER J. LUSK\n\nHe says I drink the oil. He's the one who hid it.\nI heard him singing at the cistern hatch, night after night - singing to something down there with a lamp on its head.\nDay 39. He climbed down the ladder with the last can. He came back up without it, and without his boots.\nDay 41. The light has been dark three nights. Ships will break on these stacks.\nI'm going down for the can. If I don't come back up, it's in the iron box at the bottom.
+note oilbox Iron oil box | An iron box at the bottom of the cistern, rusted shut but for the latch: the last can of lamp oil - and a pair of boots.
+loot oilbox story:lampoil*1;Leather*2
+prop oilbox loot.refill=0
+prop oilbox tint.color=#2c2a28
+prop oilbox tint.amount=0.8
+note cupboard Cottage cupboard | The keepers' cupboard: hard tack, salt fish, a bottle with no label.
+loot cupboard Cooked_Herring*2;Raw_Potato*2;PlasticBottle_Water*1
+prop cupboard loot.refill=0
+note storecrate Oil store crate | Wicks, glass chimneys, rope - everything the light needs except oil.
+loot storecrate Rope*2;Glass*2;Nail*6
+prop storecrate loot.refill=0
+note landingbox Landing box | A box by the landing stair: what the supply boat left last time.
+loot landingbox Plank*6;Rope*2;Raw_Herring*2
+prop landingbox loot.refill=0
+note supplybarrel Supply boat's barrel | The supply boat's barrel, wedged under her gunwale: stores that never reached the rock.
+loot supplybarrel Scrap*3;MetalOre*2;Nail*8
+prop supplybarrel loot.refill=0
+note lamplocker Lamp room locker | The lamp room locker, its key on a nail beside it: the station's spare head lamp plans, batteries for the foghorn's compressor, and the keepers' proper log - in a third hand. "Relieving keeper: both men gone. The light is yours."
+loot lamplocker Blueprint_HeadLight*1;Battery*2;Glass*4;CopperIngot*2
+prop lamplocker loot.refill=0
+prop lamplocker if.open=signal|horn
+prop lamplocker else.open=message||The locker is wired to the foghorn's switch - a keeper's rule: no logbook until the light burns and the horn has sounded.
+
+prop lamp obj.name=lamp
+prop lamp beh.use=Fill the lamp and light it
+prop lamp if.use=quest|5\ntake|story:lampoil|1
+prop lamp on.use=message||The oil glugs in, the wick catches, the lens begins to turn - and the light sweeps out over the fog for the first time in three nights.\nshow|lamplight\nshow|beam\nsignal||lit\nsound||event:/crafting/torch
+prop lamp else.use=message||The lamp's tank is bone dry. The last can of oil is somewhere on this rock - and whatever keeps it.
+prop lamplight obj.name=lamplight
+prop lamplight beh.hidden=1
+prop beam obj.name=beam
+prop beam beh.hidden=1
+prop beam beh.spin=45
+prop foghorn obj.name=foghorn
+prop foghorn beh.use=Sound the foghorn
+prop foghorn if.use=signal|lit
+prop foghorn on.use=message||The horn's voice rolls out over the fog. Far off, a ship's bell answers - and turns away from the rocks.\nsignal||horn\nsound||event:/crafting/horns/viking
+prop foghorn else.use=message||The horn is for when the light burns. Light the lamp first.
+
+prop landing zone.id=landing
+prop landing zone.radius=6
+prop landing zone.message=The keepers' rock: a cottage on the stack to the south-west, the dark lighthouse on the northern one - and nobody on the bridges.
+prop cottage zone.id=cottage
+prop cottage zone.radius=4
+prop oilstore zone.id=oilstore
+prop oilstore zone.radius=3
+prop cistern zone.id=cistern
+prop cistern zone.radius=5
+prop cistern zone.message=Black water, the cold of a church - and far down, a light swinging, coming up.
+prop lamptop zone.id=lamptop
+prop lamptop zone.radius=4
+prop lamptop zone.message=The gallery. Gulls - no, screechers - burst off the lamp house!
+prop cisternthing creature.count=1
+prop cisternthing creature.size=1.4
+prop cisternthing creature.health=2
+prop cisternthing creature.respawn=0
+prop cisternthing creature.zone=cistern
+prop cisternthing tint.color=#2a3442
+prop cisternthing tint.amount=0.5
+prop gulls creature.count=2
+prop gulls creature.respawn=0
+prop gulls creature.zone=lamptop
+prop goats creature.count=2
+prop turtles creature.count=2
+prop dolphins creature.count=2
+prop cisterndark atmo.fog=#050708
+prop cisterndark atmo.fogAmount=0.85
+prop cisterndark atmo.light=#141c20
+prop cisterndark atmo.lightAmount=0.9
+prop cisterndark zone.radius=8
+prop cisternsound sound.event=event:/amb/cave
+prop cisternsound sound.volume=0.6
+prop cisternsound zone.radius=8
+prop fog atmo.fog=#6c747c
+prop fog atmo.fogAmount=0.35
+prop fog atmo.light=#8a929a
+prop fog atmo.lightAmount=0.3
+prop fog atmo.particles=mist
+prop fog zone.radius=45
+prop rain sound.event=event:/amb/rain_ocean
+prop rain sound.volume=0.5
+prop rain zone.radius=40
+
+quest title=The Dark Light
+quest intro=A lighthouse on a rock in the fog, dark for three nights. Two keepers kept it. Start at the landing.
+step reach|landing|1|Climb the landing stair onto the keepers' rock
+step read|Head Keeper Shale's diary|1|Read the head keeper's diary in the cottage
+step read|Keeper Lusk's diary|1|Read the assistant keeper's diary in the oil store under the lighthouse
+step kill|Screecher|2|Climb to the dark lamp gallery and drive the screechers off it
+step kill|Angler fish|1|Go down into the flooded cistern and face what lives in it
+step open|Lamp room locker|1|Bring up the oil, light the lamp, sound the foghorn - and open the lamp room's locker
+step blueprint|Blueprint_HeadLight|1|Take the headlamp plans from the lamp room locker
+quest done=The light turns and the horn sounds over the fog. Whatever the two keepers saw in each other, the ships see the light again.
+quest reward=Plank*6;Rope*3;Cooked_Herring*3
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=25 n=1 seed=8848
+prop treasure8848 treasure.loot=TitaniumOre*2
+
+save Keeper's Light

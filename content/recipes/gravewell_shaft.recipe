@@ -1,0 +1,148 @@
+# Gravewell Shaft - an island of the library's plan The Gravity Sea (a sunken island, 45 m under the sea)
+# The deepest root: a round well shaft cut into the seabed - smooth stone walls round a pit, a spiral stair of wooden
+# floors on stone pillars down its side, two galleries cut into the wall halfway down (air pockets), and at the bottom
+# the pump hall, its roof on stone pillars. Varuna Point's skylift on the rim is the cage elevator down. The shaft is
+# dark; anglers hunt in it. Coral reefs round the rim. Quest "The Gravewell" (12 steps): the rim, the entry permit, the
+# cage elevator, gallery 1, the anglers, the gallery logbook, gallery 2 (the pump key), the pump hall, the three smelter
+# store blueprints and Halvard's log 7.
+#
+# Built by the recipe player (CIRecipe gravewell_shaft) through the editor's own operations. Points (metres over the
+# island's own water line; in the world it all lies 45 m lower, under the sea): the rim at 10 m (r 20 round 0 0); the
+# pit r 7 round 0 0, its floor at 1 m; the spiral stair r 5.5 from 9.5 m (north) down to 2 m; gallery 1 at 5 m round
+# 0 -9, gallery 2 at 3 m round 9 0; the pump hall x -3..1.5, z -2..2.5 on the pit floor; the elevator on the rim at
+# 0 11.
+include lib_sea
+include lib_huts
+include lib_gravity
+new
+gen Trees=0 Bushes=0 Rocks=0.35 Harvest=0 BeachThings=0
+gen Seed=9631 Radius=34 Height=14 Roughness=0.35 Peaks=1 Shape=0 Style=0 BeachWidth=0.1 Cliffs=0.6 PeakShape=0.2
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+elevation -45
+
+# --- Terrain: the rim at 10 m, the pit to 1 m, the two galleries cut into its wall ------------------------------------
+brush flatten at 0 0 r=20 s=20 frames=200 h=10
+brush flatten at 0 0 r=7 s=20 frames=300 h=1
+brush flatten at 0 -9 r=2.5 s=20 frames=120 h=5
+brush flatten at 9 0 r=2.5 s=20 frames=120 h=3
+origin
+clear at 0 0 r=14
+clear at 0 11 r=3
+
+# --- The spiral stair: wooden floors on stone pillars down the pit's side ----------------------------------------------
+for a 0 300 30
+place RT_PillarThick stairposts at {5.5*sin($a)} {5.5*cos($a)} h=1 sy={(8.4-$a/40)/6}
+place Block_Floor_Wood - at {5.5*sin($a)} {5.5*cos($a)} h={9.5-$a/40}
+next
+prop stairposts tint.color=#6a6660
+prop stairposts tint.amount=0.6
+
+# --- The rim: the entry permit, the cage elevator (Varuna Point's skylift); the shaft's dark ----------------------
+place Zone_Trigger rimzone at 0 14 ground
+place Note_Sign permit at 3 13 ground sit yaw=180
+place VP_Skylift cage at 0 10.5 ground sit yaw=0
+place Zone_Trigger pitzone at 0 3 h=1.5
+place Zone_Atmosphere shaftdark at 0 0 h=5
+place Zone_Trigger shaftzone at 0 0 h=4
+
+# --- Gallery 1 (an air pocket, the logbook) and gallery 2 (an air pocket, the pump key) -------------------------------
+call airpocket x=0 z=-9 id=gallery_1 al=gallery1 bub=gallery1bub r=2.2 msg="Gallery 1 - an Institute air pocket. Breathe."
+place "Box Small" - at 1.4 -9.6 ground sit
+place Note_Paper logbook at 1.4 -9.6 ground y=0.7 drop yaw=20
+call airpocket x=9 z=0 id=gallery_2 al=gallery2 bub=gallery2bub r=2.2 msg="Gallery 2 - air. Something glints on a crate."
+place Loot_ChestSmall pumpkeybox at 9.6 1.4 ground sit yaw=270
+
+# --- The pump hall on the pit floor (roof on stone pillars): the pump hall chest, the smelter store, Halvard's log 7 --
+push at -3 -2 h=1
+place RT_PillarThick - at 0 0 y=0 sy=0.5
+place RT_PillarThick - at 4.5 0 y=0 sy=0.5
+place RT_PillarThick - at 0 4.5 y=0 sy=0.5
+place RT_PillarThick - at 4.5 4.5 y=0 sy=0.5
+call floors w=3 d=3 y=0.1
+roof 3 3 at 0 0 y=0.1 wood
+place Loot_Chest pumphall at 1 3.6 y=0.1 sit yaw=180
+place Loot_ChestLarge smelterstore at 3.4 3.6 y=0.1 sit yaw=180
+place "Box Small" - at 3.6 1 y=0.1 sit
+place Note_Paper log7 at 3.6 1 y=0.8 drop yaw=10
+place "VG_DecorationPrefabBase_Engine Variant" - at 1.8 1.5 y=0.1 sit yaw=90
+pop
+place Creature_AnglerFish anglers at 0 0 h=4
+
+# --- Reefs round the rim in three tight clusters, kelp ----------------------------------------------------------------
+scatter VP_CoralBulb06 5 at 14 8 r=3 seed=9641 free=1
+scatter VP_CoralFoliose01 4 at 14 8 r=3 seed=9642 free=1
+scatter VP_CoralDigitate02 5 at -14 6 r=3 seed=9643 free=1
+scatter TinyCoral 6 at -14 6 r=3 seed=9644 free=1
+scatter VP_CoralBulb04 5 at 4 -15 r=3 seed=9645 free=1
+scatter VP_CoralFoliose03 4 at 4 -15 r=3 seed=9646 free=1
+scatter SeaVine3 26 at 0 0 r=28 seed=9647 free=2
+scatter SeaVine3_klump 8 at 0 0 r=28 seed=9648 free=2
+call shallows x=0 z=0 r=46 deep=8 n=1 seed=9649
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Gravewell Shaft
+info author=Custom Islands
+info description=The deepest root, 45 m down: a round well shaft cut into the seabed, a spiral stair down its side, galleries with air, anglers in the dark and a pump hall at the bottom. The seventh island of The Gravity Sea - dive deep.
+island on.arrive=message||Deep down, 45 m under the keel: a round black hole in the seabed, and lights in its walls.
+
+story cagedown|Cage elevator ridden|Placeable_Lantern_Metal|You rode the Institute's cage elevator down the gravewell.
+story pumpkey|Pump hall key|Placeable_Lantern_Metal|The pump hall's key, from the crate in gallery 2.
+
+note permit Shaft entry permit | GRAVEWELL - ENTRY PERMIT\n\nThe bearer may enter the shaft.\nThe cage takes you to the floor. The galleries have air (bells, 2).\nThe pump hall is LOCKED - its key is in gallery 2.\nThe anglers came after Lift Day. Carry a light. Carry a spear.
+note logbook Gallery logbook | GALLERY LOGBOOK\n\nDay 1: the pumps hold.\nDay 4: the field pulls DOWN here as hard as it lifts up there. Halvard's numbers were right; his sign was wrong.\nDay 9: Halvard has gone up to the Stair of Hours, to watch the Array through the telescope. I left the pump key in gallery 2.
+note pumphall Pump hall | The pump hall's chest: the shift's last pay and a spare coil of wire.
+note smelterstore Smelter store | The smelter store: Halvard's heavy plans - an electric smelter, an advanced biofuel extractor and an advanced anchor - "for the Array's foundations".
+note log7 Halvard's log 7 | HALVARD - LOG 7\n\nThe Array hangs 35 m over the sea, on the field it makes itself. Its root is on the seabed under it. To stop it, both must be shut off - the crown above and the root below.\n\nI am going up to the Stair of Hours. From there the telescope sees the crown. Band 1100.
+note pumpkeybox Gallery crate | A crate in gallery 2, the pump hall's key on top of it.
+loot pumphall MetalIngot*2;CopperIngot*2;Bolt*2
+prop pumphall loot.refill=0
+prop pumphall if.open=has|story:pumpkey|1
+prop pumphall else.open=message||The pump hall is locked. Its key is up in gallery 2.
+loot smelterstore Blueprint_SmelterElectric*1;Blueprint_BiofuelExtractorAdvanced*1;Blueprint_AnchorStationaryAdvanced*1;MetalIngot*2
+prop smelterstore loot.refill=0
+prop smelterstore if.open=has|story:pumpkey|1
+prop smelterstore else.open=message||The smelter store is locked with the pump hall. Its key is up in gallery 2.
+loot pumpkeybox story:pumpkey*1;Rope*2
+prop pumpkeybox loot.refill=0
+
+prop cage obj.name=cage
+prop cage beh.use=Ride the cage elevator down
+prop cage on.use=give||story:cagedown*1\nmessage||The cage rattles down the shaft, past the galleries' lights, to the floor.\nteleport|pitzone
+prop pitzone obj.name=pitzone
+prop pitzone zone.id=pit_floor
+prop pitzone zone.radius=2
+prop shaftdark atmo.fog=#030405
+prop shaftdark atmo.fogAmount=0.8
+prop shaftdark atmo.light=#101418
+prop shaftdark atmo.lightAmount=0.85
+prop shaftdark zone.radius=9
+prop shaftzone zone.id=shaft
+prop shaftzone zone.radius=8
+prop shaftzone zone.repeat=never
+prop shaftzone zone.message=Lights in the dark - and teeth under them. Anglers!
+prop anglers creature.count=4
+prop anglers creature.respawn=0
+prop anglers creature.zone=shaft
+prop rimzone zone.id=rim
+prop rimzone zone.radius=6
+prop rimzone zone.message=The rim of the gravewell. Below: a spiral stair into the dark.
+
+quest title=The Gravewell
+quest intro=A shaft in the seabed, 45 m down. Swim to its rim.
+step reach|rim|1|Swim to the rim of the gravewell
+step read|Shaft entry permit|1|Read the shaft's entry permit
+step collect|story:cagedown|1|Ride the cage elevator down the shaft
+step reach|gallery_1|1|Breathe in gallery 1
+step kill|Angler fish|4|Fight off the anglers in the dark
+step read|Gallery logbook|1|Read the gallery logbook
+step reach|gallery_2|1|Breathe in gallery 2 and take the pump key
+step open|Pump hall|1|Open the pump hall with its key
+step blueprint|Blueprint_SmelterElectric|1|Take the electric smelter plans from the smelter store
+step blueprint|Blueprint_BiofuelExtractorAdvanced|1|Take the advanced biofuel extractor plans from the smelter store
+step blueprint|Blueprint_AnchorStationaryAdvanced|1|Take the advanced anchor plans from the smelter store
+step read|Halvard's log 7|1|Read Halvard's log 7
+quest done=Both halves must be shut off - the Array's crown and its root. Halvard went up to the Stair of Hours: band 1100.
+quest reward=MetalIngot*4;CopperIngot*2
+
+save Gravewell Shaft

@@ -1,0 +1,97 @@
+# Ashdig - a vehicle island (VI1, quest island)
+# A volcanic island of black rock where a small mine dug for ore on a terrace above the sea: an ore train of three
+# wagons on a sleeper track, an excavator at the cut face, a light crane over the spoil heap and screechers nesting
+# on the peak. Three sample boxes stand by the cut. Quest "The Last Load" (6 steps): the dig, the foreman's tally,
+# two screechers, three ore samples, the samples loaded on the lead wagon, the assay box that drops from the crane.
+#
+# Points (metres from the land centre): the terrace round 6 0 (h 4), the track along z -3 from -2 to 12, the
+# excavator 13 5, the crane -2 6, the peak round -10 8, the landing beach 4 -24.
+include lib_sea
+new
+gen Trees=0.1 Bushes=0.18 Rocks=0.5 Harvest=0.1 BeachThings=0.2
+gen Seed=15105 Radius=30 Height=14 Roughness=0.55 Peaks=1 Shape=0.4 Style=4 PeakShape=0.6 Cliffs=0.6 BeachWidth=0.35
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.2 Sunken=0.1 Hostiles=0 Friendly=0 SeaLife=0.2
+generate
+
+# --- Terrain: the terrace, the track down, the landing ------------------------------------------------------------
+brush flatten at 6 0 r=11 s=20 frames=150 h=4
+brush flatten at 5 -9 r=4 s=20 frames=80 h=3.2
+brush flatten at 4 -15 r=4 s=20 frames=80 h=2.2
+brush flatten at 4 -24 r=6 s=20 frames=100 h=1.1
+brush sand at 4 -24 r=6 s=10 frames=30
+origin
+clear at 6 0 r=10
+clear at 4 -24 r=5
+
+# --- The ore train on its sleepers, the excavator, the crane ------------------------------------------------------
+line FL_Plank1 from -2 -3 to 12 -3 step=1.2 yaw=90 sit
+place VP_Wagon01 leadwagon at 10 -3 ground sit yaw=90
+place VP_Wagon02 - at 7.6 -3 ground sit yaw=90
+place VP_Wagon02 - at 4.8 -3 ground sit yaw=90
+place VP_Excavator - at 13 5 ground sit yaw=250
+place UT_ElectricityIsland_Crane02 - at -1 6 ground y=-1.5 sit scale=0.45 yaw=200
+place Loot_ChestSmall assaybox at 1 3 ground sit yaw=160
+
+# --- The cut: sample boxes, the tally, the ore -------------------------------------------------------------------
+place Loot_ChestSmall sample1 at 8 2 ground sit yaw=180
+place Loot_ChestSmall sample2 at 10 1.5 ground sit yaw=170
+place Loot_ChestSmall sample3 at 12 1 ground sit yaw=190
+place Note_Board tally at 3 -6 ground sit yaw=180
+place Placeable_Lantern_Metal - at 2 -6 ground sit
+place VP_MetalCrate02 - at -1 -1 ground sit yaw=15
+place VP_ExplosiveBarrel_Pile - at 15 -2 ground sit yaw=40
+scatter "Pickup_Landmark_Iron 1" 3 at 12 8 r=4 seed=15151 free=1.5
+scatter "Pickup_Landmark_Copper 1" 2 at -12 -4 r=5 seed=15152 free=2
+place Creature_StoneBird screechers at -10 8 ground
+prop screechers creature.count=2
+prop screechers creature.respawn=0
+place Zone_Trigger digzone at 5 -5 ground
+call shallows x=0 z=0 r=38 deep=5 n=1 seed=15153
+
+# --- Settings, notes, quest ---------------------------------------------------------------------------------------
+info title=Ashdig
+info author=Custom Islands
+info description=A small ore mine on a black volcanic island: an ore train of three wagons, an excavator at the cut, a light crane and screechers on the peak.
+island on.arrive=message||Black rock and the smell of sulphur. On a terrace above the beach, three ore wagons wait on a track that goes nowhere.
+
+story oresample|Ore sample|Bolt|A bagged ore sample from the boxes by the cut.
+story loaded|Last load|Bolt|The three ore samples, loaded on the lead wagon.
+
+note tally Foreman's tally | ASHDIG - FOREMAN'S TALLY\n\nThree samples left to send. They are in the boxes by the cut.\nLoad them on the lead wagon, then the assay box comes down off the crane hook - that is how the crew got paid.\nMind the screechers on the peak. They take anything that shines.
+note sample1 First sample box | One bagged ore sample.
+loot sample1 story:oresample*1;Stone*2
+prop sample1 loot.refill=0
+note sample2 Second sample box | One bagged ore sample.
+loot sample2 story:oresample*1;Clay*2
+prop sample2 loot.refill=0
+note sample3 Third sample box | One bagged ore sample.
+loot sample3 story:oresample*1;Sand*2
+prop sample3 loot.refill=0
+note assaybox Assay box | The assay box: the crew's pay in metal.
+loot assaybox MetalIngot*4;CopperIngot*2;TitaniumOre*1
+prop assaybox loot.refill=0
+prop assaybox obj.name=assaybox
+prop assaybox beh.hidden=1
+
+prop leadwagon obj.name=leadwagon
+prop leadwagon beh.use=Load the ore samples
+prop leadwagon if.use=take|story:oresample|3
+prop leadwagon on.use=message||The three sample bags thump into the wagon. Up on the crane, the hook slips its catch and the assay box drops onto the rock below it.\ngive||story:loaded*1\nshow|assaybox
+prop leadwagon else.use=message||The lead wagon waits for its load: three ore samples. The tally says where they are.
+
+prop digzone zone.id=dig
+prop digzone zone.radius=5
+prop digzone zone.message=The dig on Ashdig. An ore train, an excavator, a crane - and a tally board by the track.
+
+quest title=The Last Load
+quest intro=Somebody dug for ore on Ashdig. Find the dig.
+step reach|dig|1|Climb to the dig on the terrace
+step read|Foreman's tally|1|Read the foreman's tally
+step kill|Screecher|2|Drive off the two screechers
+step collect|story:oresample|3|Collect the three ore samples by the cut
+step collect|story:loaded|1|Load the samples on the lead wagon
+step open|Assay box|1|Open the assay box under the crane
+quest done=The last load is on the wagon. The crew's pay is yours.
+quest reward=MetalIngot*2;ExplosivePowder*2
+
+save Ashdig

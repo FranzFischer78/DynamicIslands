@@ -1,0 +1,120 @@
+# Lodestone Quay - the first island of the library's plan The Gravity Sea (the Halvard Institute's harbour)
+# A green island with a stone quay apron on its south shore: the Institute's harbour crane, its instrument hut (the roof
+# on corner posts), the builders' store, and in the middle of the quay a ring of six compass needles - antenna cones
+# lying on stone plinths - round a lever. The hill behind is cut flat as if sliced off: its top is the Upfall Orchard,
+# 30 m up in the sky. Quest "Lift Day" (7 steps): the quay, the Institute's notice, the compass ring's lever (the needles
+# swing up), the two blueprints in the instrument hut, Halvard's first log and the builders' store for the climb.
+#
+# Built by the recipe player (CIRecipe lodestone_quay) through the editor's own operations. Points (metres over the
+# sea): the quay apron at 1.5 m (x -18..18, z -36..-18), the compass ring round 0 -24 (r 4), the instrument hut
+# x -15..-12, z -24..-21, the crane at 12 -32, the sliced hilltop at 12 m round 0 12.
+include lib_sea
+include lib_features
+include lib_huts
+include lib_gravity
+new
+gen Trees=0.12 Bushes=0.35 Rocks=0.3 Harvest=0.3 BeachThings=0.3
+gen Seed=9501 Radius=42 Height=15 Roughness=0.3 Peaks=1 Shape=0 Style=0 PeakShape=0.5 Cliffs=0.8 BeachWidth=0.6
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the quay apron on the south shore, the sliced hilltop behind it ----------------------------------------
+brush flatten from -16 -28 to 16 -28 r=7 s=20 frames=200 h=1.5
+brush flatten from 0 -30 to 0 -18 r=7 s=20 frames=120 h=1.5
+brush flatten at -13.5 -22.5 r=5 s=20 frames=200 h=1.5
+brush flatten from -16 -35 to 16 -35 r=4 s=20 frames=200 h=1.2
+brush flatten at 0 12 r=12 s=20 frames=200 h=12
+brush smooth from -18 -38 to 18 -38 r=4 s=6 frames=20
+origin
+clear from -18 -28 to 18 -28 r=8
+clear from 0 -30 to 0 -16 r=7
+clear at 0 12 r=12
+
+# --- The compass ring: six stone plinths round the lever, a needle lying on each; the same needles standing up (shown
+# when the lever is pulled) ---------------------------------------------------------------------------------------------
+for a 0 300 60
+place RT_PillarThick plinths at {4*sin($a)} {-24+4*cos($a)} ground sy=0.2
+place Antenna_cone needlesflat at {4*sin($a)} {-24+4*cos($a)} ground y=1.25 drop rot=0,{$a},90 scale=0.5
+place Antenna_cone needlesup at {4*sin($a)} {-24+4*cos($a)} ground y=1.25 drop yaw={$a} scale=0.5
+next
+prop plinths tint.color=#8a8577
+prop plinths tint.amount=0.6
+prop needlesflat tint.color=#9a3b2e
+prop needlesflat tint.amount=0.6
+prop needlesup tint.color=#9a3b2e
+prop needlesup tint.amount=0.6
+place RT_Pillar - at 0 -24 ground sy=0.4
+place TP_LaserControlPanel_lever lever at 0 -24 ground y=1.25 scale=3 yaw=180
+place Zone_Trigger quayzone at 0 -30 ground
+
+# --- The Institute's notice board facing the sea; the harbour crane and the builders' store beside it ---------------
+place Note_Sign notice at 4 -33 ground sit yaw=180
+place UT_ElectricityIsland_Crane02 - at 13 -31 ground sit scale=0.45 yaw=180
+place Loot_ChestLarge buildstore at 8.5 -27 ground sit yaw=180
+place "Box Big" - at 10.5 -26 ground sit yaw=15
+place "Box Small" - at 10.5 -26 ground y=1.1 drop yaw=30
+place "Box Small" - at 7 -25.5 ground sit yaw=-20
+place Placeable_Lantern_Metal - at 7 -25.5 ground y=0.7 drop
+
+# --- The instrument hut (roof on its corner posts): the chest with the plans, Halvard's first log on a box ----------
+push at -15 -24 h=1.5
+call hut w=2 d=2 y=0.1
+place Loot_Chest hutchest at 2.2 2.4 y=0.1 sit yaw=180
+place "Box Small" - at 0.8 2.4 y=0.1 sit
+place Note_Paper log1 at 0.8 2.4 y=0.8 drop yaw=15
+pop
+
+# --- Things to gather; Raft's finds in the shallows ----------------------------------------------------------------
+call shallows x=0 z=0 r=56 deep=5 n=1 seed=9511
+call dirt x=-6 z=6 r=10 n=3 seed=9512
+scatter "Pickup_Landmark_PineappleLandmark" 2 at 6 10 r=6 seed=9513 free=2
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Lodestone Quay
+info author=Custom Islands
+info description=The Halvard Institute's harbour: a stone quay with its crane, an instrument hut and a ring of compass needles - and a hill cut flat behind it, its top torn up into the sky. The first island of The Gravity Sea.
+island on.arrive=message||A quay with a crane, and a hill behind it cut off flat as a table. Somewhere above, gulls are crying - very high up.
+
+story needles|Compass needles up|Placeable_Lantern_Metal|You pulled the compass ring's lever: every needle on the quay swung round to point straight up.
+
+note notice Institute notice: Lift Day | HALVARD INSTITUTE - NOTICE\n\nLIFT DAY. The Lodestone Array will be switched on at noon.\nAll staff to the quay. Do not stand on the hill.\nThe compass ring will show the field: when the needles point UP, the lift has begun.\n\n- Dr. E. Halvard, Director
+note log1 Dr. Halvard's log 1 | HALVARD - LOG 1\n\nIt worked. It worked too well. The hill tore off at the cellar line and went up like a cork. The orchard is 30 m over the quay now, and the Kristens' house with it. Their cellar stayed below, under the sea.\n\nAnyone who reads this: the orchard is 30 m up. Bring planks. The builders' store by the crane has what you need for the climb. The orchard's band is 700.
+note hutchest Instrument hut | The Institute's instrument chest: a radio set's plans and an aerial's, rolled in oilcloth.
+note buildstore Builders' store | The builders' store: planks, nails and rope, stacked for a climb that never happened.
+loot hutchest Blueprint_Reciever*1;Blueprint_Antenna*1;Battery*1;Scrap*3
+prop hutchest loot.refill=0
+loot buildstore Plank*24;Nail*24;Rope*6;Scrap*4
+prop buildstore loot.refill=0
+
+prop needlesup obj.name=needlesup
+prop needlesup beh.hidden=1
+prop needlesflat obj.name=needlesflat
+prop lever obj.name=lever
+prop lever beh.use=Pull the compass ring's lever
+prop lever if.use=!signal|needles
+prop lever on.use=signal||needles\nhide|needlesflat\nshow|needlesup\ngive||story:needles*1\nmessage||With a grinding of iron every needle on the quay swings round - and points straight up at the sky.\nsound||event:/exploring/obstacles/keypad/keypad_correct
+prop lever else.use=message||The needles already point up. Whatever pulls them is up there.
+
+prop quayzone zone.id=quay
+prop quayzone zone.radius=6
+prop quayzone zone.message=The Institute's quay. A crane, a hut, a ring of iron needles on stone plinths - all lying down.
+
+quest title=Lift Day
+quest intro=A harbour with a hill sliced flat behind it. Go up onto the quay.
+step reach|quay|1|Go onto the quay
+step read|Institute notice: Lift Day|1|Read the Institute's notice by the water
+step collect|story:needles|1|Pull the compass ring's lever
+step blueprint|Blueprint_Reciever|1|Take the Receiver plans from the instrument hut
+step blueprint|Blueprint_Antenna|1|Take the antenna plans from the instrument hut
+step read|Dr. Halvard's log 1|1|Read Dr. Halvard's log in the instrument hut
+step open|Builders' store|1|Open the builders' store by the crane - planks for the climb
+quest done=The needles point up. 30 m up, the orchard waits - build your way up from the raft. Its band is 700.
+quest reward=Plank*10;Rope*4;Nail*10
+
+# A boar on the hilltop (leather)
+place Creature_Boar boars at -6 16 ground
+prop boars creature.count=1
+
+# --- Raft's vehicles (VI4, 2026-10-23): parked on open ground, clear of paths and quest objects ---
+place VP_Forklift - at -6 -33 ground sit yaw=90
+save Lodestone Quay

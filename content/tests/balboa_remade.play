@@ -1,0 +1,85 @@
+# Play test of Balboa Remade (CIPlay balboa_remade, in a test world 'CI ...'). Points as in its recipe: the rangers'
+# station on the east terrace (5 m), the den's mouth on the west plateau facing east (8.9 m), the summit (50 m).
+# Quest "The Rangers' Last Call", 20 steps: station (1-9), den (10-15), summit (16-19), the strongbox (20).
+island Balboa Remade
+expect step 0
+expect title The Rangers' Last Call
+
+# Up from the east beach to the station: the flag post, the logbook, the crates round the shack, the machete, the
+# ration box and the woodpile - seven pages
+at 110 3
+walk 110 3 to 100 3 to 93 4 h=5
+zone station
+expect step 1
+read Flag post
+expect step 2
+read Ranger's logbook
+expect step 3
+open Crate under the window
+expect step 4
+open Rangers' supply crate
+expect step 5
+open Tool locker
+expect story machete 1
+wait 2
+expect step 7
+open Rangers' ration box
+expect step 8
+open Woodpile
+wait 2
+expect step 9
+
+# The strongbox stays shut without its key
+open Ranger's strongbox
+expect message The strongbox is locked
+expect step 9
+
+# The den on the west plateau: the warning sign, the vines over the barricade cut with the machete, in to the Mama bear
+at -52 -9.5
+walk -52 -9.5 to -62 -9.5 h=8.9
+read Warning sign
+expect step 10
+use vinewall
+expect message machete bites
+expect hidden vinewall
+# (to the mouth, then in: Balboa's cave rock has a low ridge across its floor 1.3 m inside the mouth that the walker
+# sticks on now and then (a player steps or jumps over it); CIRaySlice shows it - SL6 plan run, 2026-10-19)
+walk -62 -9.5 to -67.8 -9.5
+at -69.5 -9.5 h=6.6
+walk -69.5 -9.5 to -78 -9.5
+zone den
+expect step 11
+read Scrawled on a crate
+expect step 12
+kill Bear
+expect step 13
+open Hendricks' pack
+expect story stationkey 1
+wait 2
+expect step 15
+
+# The summit: the plate on the mast, the spare parts box, the radio called, its desk opened
+at 26 -18
+walk 26 -18 to 22 -17 h=50
+zone summit
+expect step 16
+read Mast plate
+expect step 17
+open Spare parts box
+expect step 18
+open Radio desk
+expect message Call out first
+expect step 18
+use mastradio
+expect message We hear you
+open Radio desk
+expect step 19
+
+# Back at the station: the strongbox on the terrace north of the shack
+at 82 15
+expect step 19
+open Ranger's strongbox
+wait 5
+expect item Blueprint_Machete 1
+expect item Blueprint_Fueltank 1
+expect done

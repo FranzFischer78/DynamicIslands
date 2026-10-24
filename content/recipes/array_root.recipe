@@ -1,0 +1,184 @@
+# The Array Root - an island of the library's plan The Gravity Sea (finale part 2, a sunken island 35 m under the sea)
+# The Lodestone Array's foundation on the seabed, straight under the crown: a ring of four anchor pylons (Varuna Point's
+# motherlode pillars) round the reverse core pit, two of them with a control (pylon A's lever, pylon B's crank); two
+# air-pocket chambers (open pavilions under wooden roofs); the root cutoff at the pit's edge and the root vault beside
+# it; kelp forests and three tight reefs. Anglers guard it, and in the pit the Root's guardian, a giant angler. At the
+# surface over it, a buoy. Quest "The Root" (12 steps): the pylon ring, the crew notice, chamber 1, the anglers, pylon A,
+# chamber 2, pylon B, the guardian, the root cutoff (the pylons burst; a camera looks up them), the root vault, Halvard's
+# apology, the surface buoy (a camera looks down at the root). Then the ending and the credits.
+#
+# Built by the recipe player (CIRecipe array_root) through the editor's own operations. Points (metres over the
+# island's own water line; in the world it all lies 35 m lower, under the sea): the ring at 4 m (r 18 round 0 0); the pit
+# r 6 at 0 m; the pylons A 12 0, B -12 0, C 0 12, D 0 -12 (sunk); chamber 1 x 6..9, z -15..-12, chamber 2 x -9..-6,
+# z 12..15; the cutoff at 5 -5, the vault at -5 -5; the buoy at 8 -20, on the surface (35 m up).
+# (The design's Temperance domes are Tangaroa's 100 m domes; the chambers are built of Raft's wooden blocks instead.)
+include lib_sea
+include lib_huts
+include lib_gravity
+new
+gen Trees=0 Bushes=0 Rocks=0.35 Harvest=0 BeachThings=0
+gen Seed=9701 Radius=34 Height=8 Roughness=0.35 Peaks=1 Shape=0 Style=0 BeachWidth=0.1 Cliffs=0.6 PeakShape=0.3
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+elevation -35
+
+# --- Terrain: the ring at 4 m, the reverse core pit at 0 m -----------------------------------------------------------
+brush flatten at 0 0 r=18 s=20 frames=200 h=4
+brush flatten at 0 0 r=6 s=20 frames=300 h=0
+brush flatten at 7.5 -13.5 r=3.5 s=20 frames=200 h=4
+brush flatten at -7.5 13.5 r=3.5 s=20 frames=200 h=4
+origin
+clear at 0 0 r=16
+
+# --- The four anchor pylons (whole; their burst copies hidden), the pylon controls ------------------------------------
+place VP_MotherlodePillar1_Stage1 pylons at 12 0 ground sit scale=0.3 yaw=90
+place VP_MotherlodePillar1_Stage1 pylons at -12 0 ground sit scale=0.3 yaw=270
+place VP_MotherlodePillar1_Stage1 pylons at 0 12 ground sit scale=0.3 yaw=0
+place VP_MotherlodePillar1_Stage1 pylons at 0 -12 ground sit scale=0.3 yaw=180
+place VP_MotherlodePillar1_Exploded pylonsburst at 12 0 ground sit scale=0.3 yaw=90
+place VP_MotherlodePillar1_Exploded pylonsburst at -12 0 ground sit scale=0.3 yaw=270
+place VP_MotherlodePillar1_Exploded pylonsburst at 0 12 ground sit scale=0.3 yaw=0
+place VP_MotherlodePillar1_Exploded pylonsburst at 0 -12 ground sit scale=0.3 yaw=180
+prop pylons tint.color=#4a5560
+prop pylons tint.amount=0.6
+place RT_Pillar - at 9.5 -2 ground sy=0.4
+place TP_LaserControlPanel_lever pylona at 9.5 -2 ground y=1.25 scale=3 yaw=90
+place RT_Pillar - at -9.5 2 ground sy=0.4
+place TP_LaserControlPanel_lever pylonb at -9.5 2 ground y=1.25 scale=3 yaw=270
+place Zone_Trigger ringzone at 0 -17 ground y=1
+place Note_Sign crewnotice at 3 -16 ground sit yaw=180
+place Placeable_Lantern_Metal rootcam at 4 -3 ground y=0.05 sit
+
+# --- The two air-pocket chambers (open pavilions under a roof) ----------------------------------------------------
+push at 6 -15 h=4
+call floors w=2 d=2 y=0.1
+call corners w=2 d=2 y=0.1
+roof 2 2 at 0 0 y=0.1 wood
+pop
+call airpocket x=7.5 z=-13.5 id=dome_1 al=dome1air bub=dome1bub r=2.5 msg="Chamber 1 - an Institute air pocket. Breathe."
+push at -9 12 h=4
+call floors w=2 d=2 y=0.1
+call corners w=2 d=2 y=0.1
+roof 2 2 at 0 0 y=0.1 wood
+pop
+call airpocket x=-7.5 z=13.5 id=dome_2 al=dome2air bub=dome2bub r=2.5 msg="Chamber 2 - air. Pylon B's crank is just west."
+
+# --- The pit: the guardian; the root cutoff and the root vault at its edge; Halvard's apology ---------------------------
+place Zone_Trigger pitzone at 0 0 ground y=1
+place Creature_AnglerFish rootguard at 0 0 ground y=3
+place RT_Pillar - at 5 -5 ground sy=0.4
+place TP_LaserControlPanel_lever rootcutoff at 5 -5 ground y=1.25 scale=3 yaw=225
+place Loot_ChestLarge rootvault at -5 -5 ground sit yaw=45
+place "Box Small" - at -6.5 -3.8 ground sit
+place Note_Paper apology at -6.5 -3.8 ground y=0.7 drop yaw=30
+place Zone_Trigger anglerzone at 4 -10 ground y=2
+place Creature_AnglerFish anglers at 4 -10 ground y=3
+
+# --- The buoy on the surface over the root ----------------------------------------------------------------------------
+# (moored on a chain of six posts from the seabed, as Cradle Reef's buoy)
+for k 0 5
+place Antenna_pole - at 8 -20 ground y={$k*5.2} sy=0.82
+next
+place Reef_Buoy buoy at 8 -20 h=35
+place Zone_Trigger buoyzone at 8 -20 h=35
+
+# --- Kelp forests and three tight reefs -------------------------------------------------------------------------------
+scatter VP_CoralBulb06 5 at 15 12 r=3 seed=9711 free=1
+scatter VP_CoralFoliose02 4 at 15 12 r=3 seed=9712 free=1
+scatter VP_CoralDigitate02 5 at -15 -10 r=3 seed=9713 free=1
+scatter TinyCoral 6 at -15 -10 r=3 seed=9714 free=1
+scatter VP_CoralBulb03 5 at 16 -12 r=3 seed=9715 free=1
+scatter VP_CoralDigitate01 4 at 16 -12 r=3 seed=9716 free=1
+scatter SeaVine3 36 at 0 0 r=30 seed=9717 free=2
+scatter SeaVine3_klump 12 at 0 0 r=30 seed=9718 free=2
+call shallows x=0 z=0 r=46 deep=8 n=1 seed=9719
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=The Array Root
+info author=Custom Islands
+info description=The Lodestone Array's foundation, 35 m under the sea: four anchor pylons round a pit, air chambers, anglers and the Root's guardian. Throw the root cutoff and the gravity sea is still. The finale of The Gravity Sea - dive deep.
+island on.arrive=message||Straight under the dark crown, 35 m down: four iron-grey pylons round a pit, humming through the water.
+
+story pylonaoff|Pylon A off|Bolt|You pulled pylon A's lever.
+story pylonboff|Pylon B off|Bolt|You turned pylon B's crank.
+story rootguard|Root guardian defeated|Bolt|You defeated the giant angler that guarded the root pit.
+story rootoff|Root shut off|Placeable_Lantern_Metal|You threw the root cutoff: the pylons burst and the field let go.
+
+note crewnotice Root crew notice | ROOT CREW - NOTICE\n\nThe root holds the crown up. To stop it: pylon A's lever (east), pylon B's crank (west), then the cutoff by the pit.\nAir in chambers 1 and 2.\nSomething big lives in the pit since Lift Day. Do not go down alone.
+note rootvault Root vault | The root vault: the Institute's last pay chest, and Halvard's own instruments.
+note apology Halvard's apology | E. HALVARD - TO WHOEVER THREW THE SWITCHES\n\nI wanted to lift the land out of the rising sea. I lifted it out of reach instead, and drowned the half I left behind.\nThe islands up there will stay up - the field that is left holds them. But the sea will be quiet now, and the compasses will point north.\n\nI am sorry. Thank you.\n\n- Eskil Halvard
+loot rootvault TitaniumIngot*4;MetalIngot*4;CopperIngot*3;Battery*2;Bolt*4
+prop rootvault loot.refill=0
+prop rootvault if.open=signal|rootoff
+prop rootvault else.open=message||The vault is held shut by the field. Throw the root cutoff first.
+
+prop ringzone zone.id=pylon_ring
+prop ringzone zone.radius=5
+prop ringzone zone.message=The pylon ring. The water hums.
+prop anglerzone zone.id=root_anglers
+prop anglerzone zone.radius=9
+prop anglerzone zone.repeat=never
+prop anglerzone zone.message=Lights in the kelp - anglers!
+prop anglers creature.count=3
+prop anglers creature.respawn=0
+prop anglers creature.zone=root_anglers
+
+prop pylona obj.name=pylona
+prop pylona beh.use=Pull pylon A's lever
+prop pylona if.use=!signal|lever
+prop pylona on.use=signal||lever\ngive||story:pylonaoff*1\nmessage||Pylon A groans. Its hum drops an octave.
+prop pylona else.use=message||Pylon A is off.
+prop pylonb obj.name=pylonb
+prop pylonb beh.use=Turn pylon B's crank
+prop pylonb if.use=!signal|crank
+prop pylonb on.use=signal||crank\ngive||story:pylonboff*1\nmessage||Pylon B's crank turns, stiff. Its hum drops - and in the pit, something wakes.
+prop pylonb else.use=message||Pylon B is off.
+
+prop pitzone zone.id=root_pit
+prop pitzone zone.radius=8
+prop rootguard creature.count=1
+prop rootguard creature.respawn=0
+prop rootguard creature.zone=root_pit
+prop rootguard creature.size=3
+prop rootguard creature.health=12
+prop rootguard creature.damage=2
+prop rootguard boss.phase=0.5
+prop rootguard boss.summon=4
+prop rootguard boss.summonKind=Creature_AnglerFish
+prop rootguard on.defeat=signal||guardian\ngive||story:rootguard*1\nmessage||The Root's guardian sinks into the pit. By its edge, the cutoff.
+
+prop pylons obj.name=pylons
+prop pylonsburst obj.name=pylonsburst
+prop pylonsburst beh.hidden=1
+prop rootcam obj.name=rootcam
+prop rootcutoff obj.name=rootcutoff
+prop rootcutoff beh.use=Throw the root cutoff
+prop rootcutoff if.use=signal|lever\nsignal|crank\n!signal|rootoff
+prop rootcutoff on.use=signal||rootoff\nhide|pylons\nshow|pylonsburst\ngive||story:rootoff*1\ncamera|rootcam|pylons|6|40\nmessage||The cutoff slams down. One after another the pylons burst - and the hum stops. For the first time in years, the sea is quiet.
+prop rootcutoff else.use=message||The cutoff is locked while the pylons are on: pylon A's lever and pylon B's crank first.
+
+prop buoy obj.name=buoy
+prop buoyzone zone.id=surface_buoy
+prop buoyzone zone.radius=4
+prop buoyzone zone.repeat=never
+prop buoyzone zone.message=At the buoy, on the surface. Far above, the torn islands hang still - and the compass points north.
+prop buoyzone on.enter=camera|buoy|rootcam|6|40
+
+quest title=The Root
+quest intro=The Array's root, 35 m under the sea. Dive to its pylon ring.
+step reach|pylon_ring|1|Dive to the pylon ring
+step read|Root crew notice|1|Read the root crew's notice
+step reach|dome_1|1|Breathe in chamber 1
+step kill|Angler fish|3|Fight off the anglers in the kelp
+step collect|story:pylonaoff|1|Pull pylon A's lever
+step reach|dome_2|1|Breathe in chamber 2
+step collect|story:pylonboff|1|Turn pylon B's crank
+step collect|story:rootguard|1|Defeat the Root's guardian in the pit
+step collect|story:rootoff|1|Throw the root cutoff
+step open|Root vault|1|Open the root vault
+step read|Halvard's apology|1|Read Halvard's apology
+step reach|surface_buoy|1|Swim up to the buoy on the surface
+quest done=The crown is dark and the root is still. The gravity sea is calm.
+quest reward=TitaniumIngot*4;MetalIngot*5;Battery*2
+
+save The Array Root

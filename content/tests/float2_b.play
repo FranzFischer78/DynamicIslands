@@ -1,0 +1,29 @@
+# FLOAT2 round 3c: Tangaroa's deck south-west end (ledge from x 51), and close low side shots of the zipline floors
+# (Thunderhead, Pendulum) and the iron post under Altitude Market's, heights over the surface ("+")
+island Tangaroa Remade
+hour 11
+weather Calm
+at 60 -4
+wait 3
+picture f2b_tang_west 52 +1.6 -12 56 +0.4 -17.5
+island Thunderhead Array
+hour 11
+weather Calm
+at 0 -30
+wait 3
+picture f2b_thunder_zip 2 +1.4 -9 8.5 +0.3 -13.5
+picture f2b_thunder_zip2 8.5 +1.4 -6 8.5 +0.3 -13.5
+island Altitude Market
+hour 11
+weather Calm
+at 0 0
+wait 3
+picture f2b_alt_post 1.5 +1.2 6 5.78 +0.5 8.97
+picture f2b_alt_post2 5.78 +1.2 4 5.78 +0.5 8.97
+island Pendulum Isle
+hour 11
+weather Calm
+at 0 0
+wait 3
+picture f2b_pend_zip -21 +1.4 -4 -26 +0.3 0
+picture f2b_pend_zip2 -26 +1.4 -6 -26 +0.3 0

@@ -1,0 +1,8 @@
+# Raft's objects the randomizer builds with (CIMeasureProps, raft=1.1.01)
+# prop	<name>	<scene>	<size x,y,z>	<centre x,y,z>	<bottom below the pivot>	<solid colliders>   (at the scale the object spawns with)
+# cave	<name>	<axis of the passage 0=x 2=z>	<floor above the pivot>	<headroom>	<width>	<open at +axis>	<open at -axis>	<a point in the passage, from the pivot>	<room from it towards +axis>	<and towards -axis> (99 = open)
+prop	Zone_Atmosphere		12,12,12	0,0,0	-6	0
+prop	Helper_Ramp		4,3.018,7.62	0,1.368,0	-0.141	0
+prop	Helper_Wall		4,3,0.3	0,1.5,0	0	0
+prop	Zone_Sound		12,12,12	0,0,0	-6	0
+prop	Zone_Trigger		12,12,12	0,0,0	-6	0

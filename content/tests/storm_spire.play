@@ -1,0 +1,47 @@
+# Play test of Storm Spire (CIPlay storm_spire, in a test world 'CI ...'). Points as in its recipe: the landing on the
+# west beach (3 m) with the shed and the tapes, the lift tower at the needle's west foot (its pad 9.5 m, ladders from
+# 9.5, 15.5, 21.5 and 27.5 m, the landing 21.5 m, the top 33.5 m), the bridge to the station (33.5 m), the north cove
+# (3.8 m down). Walks and stands on Raft's floor blocks start off their seams (a ray down slips between two blocks).
+island Storm Spire
+expect step 0
+expect title Eye of the Storm
+wait 5
+
+# The landing: the tapes, the shed's rod
+walk -42 4 to -36.5 4 to -31 4.5 to -31 8 h=3
+zone spirefoot
+expect step 0
+walk -32 8 to -30.9 8.9 h=3
+read Meteorologist's tapes
+expect step 1
+walk -31 7.75 to -33 7.75 to -34.2 7.6 h=3.2 below=5
+open Shed box
+expect story rod 1
+
+# Up the lift tower: the landing's rod halfway, then the top and the bridge to the station - and the storm bird
+walk -32 8 to -20 8.5 to -13.4 9 h=9.5
+climb -12.45 9 h=9.5
+climb -12.45 9 h=15.5
+expect stand -11.5 8.45 h=21.5 below=24
+open Landing box
+expect story rod 2
+climb -12.45 9 h=21.5
+climb -12.45 9 h=27.5
+expect stand -10.6 8.4 h=33.5 below=36
+walk -10.2 9.3 to -6 9.3 to -2.6 9.3 h=33.5
+zone spiretop
+expect step 2
+kill Screecher
+expect step 3
+
+# The north cove: the third rod on its floor (the cove's box, then all three rods); then the station's locker
+at -30 56 h=-2.2
+open Cove box
+expect story rod 3
+expect step 5
+at 2.9 10.6 h=34.6
+open Station locker
+wait 4
+expect story rod 0
+expect item Blueprint_SmelterElectric 1
+expect done

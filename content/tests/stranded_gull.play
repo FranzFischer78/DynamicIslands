@@ -1,0 +1,40 @@
+# Play test of The Stranded Gull (CIPlay stranded_gull, in a test world 'CI ...'). Points as in its recipe.
+island The Stranded Gull
+expect step 0
+expect title The Gull's Safe
+
+# The camp and the deckhand's note
+walk -12 -4 to -4 0.6
+zone camp
+expect step 0
+expect message couches and bar stools
+read Deckhand's note
+expect step 1
+
+# The safe without its key stays shut
+open Ship's safe
+expect message Locked tight
+expect step 1
+
+# The tender: up its boarding ladder, rats, the captain's locker with the key
+walk -4 0.6 to 9.5 -8.5
+climb 10.66 -10.52 h=0.5
+zone aboard
+expect message Rats pour out
+kill Rat
+expect animals Rat 0
+expect step 2
+open Captain's locker
+expect story capkey 1
+expect step 3
+read Captain's locker
+
+# The angler fish in the sunken stern, then the safe
+kill Angler fish
+expect step 4
+expect animals Angler fish 0
+open Ship's safe
+expect story capkey 0
+expect item Hat_Captain 1
+expect done
+read Ship's safe

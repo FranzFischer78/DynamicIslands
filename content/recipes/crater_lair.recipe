@@ -1,0 +1,384 @@
+# Crater Lair - a themed island of the library, normal size (x1). Inspiration: spy films' volcano lairs (a hangar door
+# hidden in a mountain's flank, a control room over a pool with something in it, a doomsday machine in the crater, a
+# countdown and a getaway boat) - the mood only, never named on the island.
+# A black volcanic cone on a plateau, a crater on its top with the Storm Engine's dish in it; in the plateau's west bluff
+# over the sea a concrete wall with a garage door - the Chief's hangar, dug into the rock under a concrete roof: a dock
+# pool running out under the door, his seaplane on the floor, and at the back the control room and his office behind a
+# blast door, with a window onto his pet's pool. A jetty outside, his getaway boat moored to it. Quest "Storm Engine"
+# (7 steps): the hidden door, the engineer's memo, the service rats by the hangar crates, the pet, the codes from the safe
+# (its keycard a dive in the pet's pool), burn them and get out before the blast door seals (45 s), the getaway locker
+# (zipline tool blueprint, disguise glasses).
+#
+# Built by the recipe player (CIRecipe crater_lair) through the editor's own operations.
+include lib_rt
+include lib_relay
+include lib_sea
+include lib_features
+new
+# (nature: volcanic - few trees, scrub on the ash, black beaches; as Raft 2's volcanic islands have it)
+gen Trees=0.2 Bushes=0.3 Rocks=0.5 Harvest=0.25 BeachThings=0.3
+gen Seed=9007 Radius=45 Height=30 Roughness=0.4 Peaks=1 Shape=0 Style=4 BeachWidth=0.4 Cliffs=0.5 PeakShape=0.55
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.25 Sunken=0.4 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the hangar dug into the west plateau (7.5 m) from its bluff over the sea; the crater on the cone's top -----
+# (the land's heights lie on a grid every 1.953125 m, the ground straight between them; here its columns are at
+# x -42.0 + k*1.953125 and its rows at z 1.30 + k*1.953125 (found with CIStandOn: the kinks in the bluff and in a test
+# dig). Strokes narrower than 1.95 m drawn along the lines touch only their own: the hangar's floor (1 m) on the lines
+# x -42.0..-26.38, z -10.42..7.16; the roof slab's edges on the rim lines x -24.42, z -12.37 and 9.11 (7.5 m); the dock
+# pool (6 m deep) on x -43.95..-36.14, z 5.21..7.16, running out under the door to the sea; the pet pool (7 m below the
+# floor) on x -32.23..-26.38, z -10.42..-2.61)
+for px -42.0 -26.3 1.953125
+brush flatten from $px -10.419 to $px 7.159 r=1.9 s=20 frames=120 h=1.0
+next
+# (the north and south rims run on one column past the facade: stopped at x -42.0, the ground fell away between it and
+# the facade at -42.6, and the sky showed in the hangar's two front corners under the slab - X7, 2026-10-13)
+brush flatten from -43.953 -12.372 to -24.422 -12.372 r=1.9 s=20 frames=120 h=7.5
+brush flatten from -43.953 9.113 to -24.422 9.113 r=1.9 s=20 frames=120 h=7.5
+brush flatten from -24.422 -12.372 to -24.422 9.113 r=1.9 s=20 frames=120 h=7.5
+brush flatten from -43.953 1.3 to -43.953 3.253 r=1.9 s=20 frames=40 h=1.0
+for px -43.953 -36.1 1.953125
+brush flatten from $px 5.206 to $px 7.159 r=1.9 s=20 frames=60 h=-6
+next
+for px -32.234 -26.3 1.953125
+brush flatten from $px -10.419 to $px -2.606 r=1.9 s=20 frames=100 h=-6
+next
+# (the crater: the summit levelled to a broad top at 26 m, a bowl 6 m deep sunk into it, smoothed, painted rock)
+brush flatten at -3 -3 r=9 s=20 frames=60 h=26
+brush smooth at -3 -3 r=12 s=10 frames=20
+brush flatten at -3 -3 r=5 s=20 frames=80 h=20
+brush smooth at -3 -3 r=6 s=10 frames=8
+brush rock at -3 -3 r=9 s=20 frames=30
+clear from -46 -1.5 to -24 -1.5 r=12
+clear at -50 1 r=5
+clear at -3 -3 r=9
+
+# --- The facade at the bluff: a concrete wall from the sea to the roof, the garage door in its frame over the dock pool and
+# the walkway beside it (the door lifts 4.8 m: a mover; its foot in the water); the roof slab of four of the radio
+# tower's floors over the whole hangar, level with the plateau; boulders round its edges ------------------------------
+# (each piece 1.5 cm thicker than the one on it: of the same thickness, the ground check's rays down the upper piece's
+# faces grazed the lower one's edge and read the ground through it - CIGroundIslands)
+# (the first stack's second piece stretched down to 0.1 m, where the ground is: its base stood up to 0.73 m over the bank at
+# its middle, the footing under it only 7.5 mm thicker per side, which the ground check's rays didn't read - IG2, 2026-10-12)
+# (now footing and wall as one piece from -2 m to 4 m, as at the north end: with the south rim run past the facade, the
+# footing's top lay 1.1 m under the rock - X7, 2026-10-13)
+place RT_Wall1 - at -42.6 -12.372 h=-2 yaw=90 sx=1.0725 sy=2 sz=1.3
+place RT_Wall1 - at -42.6 -12.372 h=4 yaw=90 sx=1.0725
+place RT_Wall1 - at -42.6 -12.372 h=7 yaw=90 sx=1.0725 sy=0.17
+for fz -9.1545 -2.7 3.2175
+place RT_Wall1 - at -42.6 $fz h=-2 yaw=90 sx=1.0725 sz=1.2
+place RT_Wall1 - at -42.6 $fz h=1 yaw=90 sx=1.0725 sz=1.1
+place RT_Wall1 - at -42.6 $fz h=4 yaw=90 sx=1.0725
+place RT_Wall1 - at -42.6 $fz h=7 yaw=90 sx=1.0725 sy=0.17
+next
+# (the north end piece over the dock pool's bank: footing and wall as one piece from -2 m to 4 m, 30% thicker than the
+# one on it. The footing's top stood 0.66 m under the ground at its middle, the wall on it over the bank 2.7 m up, and
+# the one above it 3 m up - the ground check, IG2, 2026-10-12)
+place RT_Wall1 - at -42.6 7.5 h=-2 yaw=90 sx=0.538 sy=2 sz=1.3
+place RT_Wall1 - at -42.6 7.5 h=4 yaw=90 sx=0.538
+place RT_Wall1 - at -42.6 7.5 h=7 yaw=90 sx=0.538 sy=0.17
+place RT_Wall1 - at -42.6 0.5 h=6.5 yaw=90 sx=2.3333 sy=0.34
+place VP_GarageDoor_Frame - at -42.6 0.5 h=-0.5 yaw=-90
+place VP_GarageDoor hangardoor at -42.6 4.0 h=-0.6 yaw=-90
+place RT_Floor - at -33.51 9.113 h=7.5 sx=1.505 sz=1.1937
+place RT_Floor - at -24.422 9.113 h=7.5 sx=1.5046 sz=1.1937
+place RT_Floor - at -33.51 -1.63 h=7.5 sx=1.505 sz=1.1936
+place RT_Floor - at -24.422 -1.63 h=7.5 sx=1.5046 sz=1.1936
+place SmallBoulder2 - at -38.5 -16 h=6.6 yaw=30 scale=0.6
+place SmallBoulder2 - at -20.8 -6 ground yaw=100 scale=0.45
+place SmallBoulder2 - at -36 12.6 ground yaw=200 scale=0.55
+
+# --- The hidden panel: on the facade beside the door, behind a boulder in the water ---------------------------------
+place SmallBoulder2 - at -44.6 -5.2 ground yaw=80 scale=0.5
+# (its back on the facade's sea face: at -42.85 it hung 9 cm off it, CIGroundIslands)
+place TP_LaserControlPanel doorpanel at -42.77 -3.3 h=1.2 yaw=-90
+
+# --- The hangar: the walkway along the dock pool, the floor (1 m) with the Chief's seaplane on its slip, crates, the
+# engineer's memo on a board, floodlights; the rats in the corner by the crates ---------------------------------------
+place Airplane - at -38.0 -4.6 h=2.4 scale=0.7 rot=0,200,0
+place "Box Big" hangarcrate at -35.6 -9.4 h=1.0 sit yaw=10
+place VP_StorageCrate01 - at -37.4 -9.3 h=1.0 sit yaw=5
+place VP_StorageCrate01 - at -39.9 -9.4 h=1.0 sit yaw=-8
+place "Box Small" planebox at -40.9 -2.2 h=1.0 sit yaw=30
+place Note_Board memo at -42.3 -8.2 h=1.0 yaw=90
+place RT_Floodlight - at -41.6 -1.0 h=1.0 sit yaw=120
+place RT_Floodlight - at -35.0 -0.4 h=1.0 sit yaw=240
+place Creature_Rat_Tangaroa servicerats at -40.5 -8.6 h=1.3
+place Zone_Trigger hangar at -37.6 -4.0 h=2
+
+# --- The control wing at the hangar's back: concrete walls two storeys high under the roof - the control room (the
+# console, its screens, the incinerator, lockers, the alarm light, the escape hatch in its floor) and through a gap in
+# the partition the Chief's office (desk, globe, lucky cat, carpet, painting, the safe); windows in its south wall onto
+# the pet's pool; its doorway in the west wall, the blast door parked open beside it -------------------------------------
+place RT_Floor - at -26.2 7.3 h=1.08 sx=1.3576 sz=0.9111
+for wh 1.06 4.06 3
+place RT_Wall1 - at -34.4 2.35 h=$wh yaw=90
+place RT_Wall1 - at -34.4 5.35 h=$wh yaw=90 sx=0.6533
+place RT_Wall1 - at -26.2 -0.9 h=$wh yaw=90 sx=0.8167
+place RT_Wall1 - at -26.2 1.55 h=$wh yaw=90 sx=0.8167
+place RT_Wall1 - at -26.2 4.0 h=$wh yaw=90 sx=1.1
+place RT_Wall1 - at -30.4 7.3 h=$wh sx=1.3333
+place RT_Wall1 - at -26.2 7.3 h=$wh sx=1.4
+place RT_Wall1 - at -30.3 -0.9 h=$wh yaw=90
+place RT_Wall1 - at -30.3 4.6 h=$wh yaw=90 sx=0.9
+next
+place RT_Wall1 - at -34.4 -0.65 h=4.06 yaw=90
+# (a hair thicker than the walls on them, as the facade's pieces)
+place RT_WallWindow1 - at -31.4 -0.9 h=1.06 sz=1.1
+place RT_WallWindow1 - at -28.4 -0.9 h=1.06 sz=1.1
+place RT_Wall1 - at -26.2 -0.9 h=1.06 sx=0.7333
+# (a lintel band of the tower's floor, 24 cm wide, under each wall over a window, its top at the wall's foot: the window
+# pieces' tops didn't carry the faces of the wall on them - the east one stood on the partition's top alone and the rest
+# of its foot hung 2.9 m over the floor, the ground check, IG2, 2026-10-12)
+place RT_Floor - at -31.4 -0.78 h=4.0535 sx=0.4967 sz=0.02667
+place RT_Floor - at -28.4 -0.78 h=4.0535 sx=0.4967 sz=0.02667
+place RT_Wall1 - at -31.4 -0.9 h=4.06
+place RT_Wall1 - at -28.4 -0.9 h=4.06
+place RT_Wall1 - at -26.2 -0.9 h=4.06 sx=0.7333
+place RT_Wall1 - at -30.3 2.1 h=4.06 yaw=90 sx=0.8333
+place TP_SeleneEntranceGate blastdoor at -34.0 3.85 h=1.14 yaw=90 sx=0.42 sy=0.56
+place VG_ControlBoard - at -32.4 6.4 h=1.06 sit scale=0.35 yaw=180
+place Balboa_DecorationPrefabBase_Flatscreen - at -33.3 6.65 h=2.2 drop sit yaw=180
+place Balboa_DecorationPrefabBase_Flatscreen - at -32.4 6.65 h=2.2 drop sit yaw=180
+place Balboa_DecorationPrefabBase_Flatscreen - at -31.5 6.65 h=2.2 drop sit yaw=180
+place "Chair Office" - at -32.4 4.6 h=1.06 sit yaw=0
+place Placeable_CookingStand_Smelter furnace at -31.0 0.1 h=1.06 sit yaw=-90
+place Locker stafflocker at -30.75 5.6 h=1.14 sit yaw=-90
+place Locker - at -30.75 6.5 h=1.14 sit yaw=-90
+place TP_RotatingRedLight alarm at -33.6 6.5 h=2.1 sit
+place TangaroaHatchRoom_Hatch escapehatch at -31.6 1.9 h=1.15 yaw=0
+place "VG_DecorationPrefabBase_BigOfficeDesk Variant" - at -28.4 3.4 h=1.06 sit yaw=90
+place "VG_DecorationPrefabBase_OfficeChair Variant" - at -27.2 3.4 h=1.06 sit yaw=-90
+place Placeable_LuckyCat - at -28.6 3.0 h=1.97 drop sit yaw=-90
+place Placeable_WorldGlobe - at -29.4 6.4 h=1.06 sit
+place "VG_DecorationPrefabBase_Carpet_Circle Variant" - at -28.4 3.4 h=1.15
+place Placeable_Painting_Crafted_2 - at -26.28 5.6 h=2.4 yaw=-90
+place VG_Safe chiefsafe at -27.0 6.5 h=1.06 sit yaw=180
+place Zone_Trigger controlwing at -30.3 3.2 h=2
+
+# --- The pet's pool behind bars, under the control room's windows: the Chief's angler, the keycard's box on the floor
+# (a gap at the bars' north end lets a swimmer in) ---------------------------------------------------------------
+place TP_Selene_Int_Room_Bars - at -34.45 -6.47 h=1.0 yaw=90
+place TP_Selene_Int_Room_Bars - at -34.45 -1.82 h=1.0 yaw=90
+place Creature_AnglerFish pet at -29.3 -6.5 h=-3.5
+place "Box Small" poolbox at -29.3 -6.5 ground yaw=40
+place Zone_Trigger petpool at -32.8 -3.6 h=0.5
+
+# --- The getaway jetty outside the door: Balboa's decking on posts, level with the hangar's walkway; the Chief's speedboat
+# moored to its post, his getaway locker; the jetty's zone (hidden until the codes burn: landing there first doesn't
+# finish the escape step), a barrel sunk beside it ------------------------------------------------------------------------
+place Relay_Floor_deck - at -42.6 3.0 h=1.0
+place Relay_Floor_deck - at -47.83 3.0 h=1.0
+for jx -43.0 -52.6 -4.8
+place Relay_support_beam_wood - at $jx -2.0 h=-16 rot=0,0,-90 sx=1.79
+place Relay_support_beam_wood - at $jx 2.7 h=-16 rot=0,0,-90 sx=1.79
+next
+place RT_PlasticBoat - at -50.4 5.2 h=0.15 yaw=95
+place ReefHuts_Pillar1 dockexit at -52.6 2.6 h=1.15
+place Balboa_DecorationPrefabBase_SmallLocker getawaylocker at -52.6 -1.7 h=1.15 sit yaw=90
+place Zone_Trigger dock at -49.6 0.4 h=2
+place Loot_SunkenBarrel dockbarrel at -50 -7 ground sit
+
+# --- The Storm Engine in the crater: the great dish on its steel frame, its generator and cables, its lights (they die
+# when the codes burn) and its hum ------------------------------------------------------------------------------------
+place RT_SatteliteDisc - at -3 -3 ground scale=2.5 yaw=300
+place VP_SteelBeam03 - at -5.2 -1.4 ground yaw=30
+place VP_SteelBeam03 - at -0.8 -1.6 ground yaw=150
+place VP_SteelBeam03 - at -3 -5.6 ground yaw=270
+place UT_Generator01 lairgenerator at 2.8 -3.5 ground scale=0.35 yaw=200
+# (scenery: a small dead generator by the beams - the ready piece's lock taken off)
+prop lairgenerator beh.use=
+prop lairgenerator if.use=
+prop lairgenerator else.use=
+prop lairgenerator on.use=
+# (the radio tower's floodlights, not Varuna Point's spotlights: those shoot a player they see - a player on the hangar's
+# roof died, and Raft saved the world with them down)
+place RT_Floodlight dishlights at -7.4 -5 sit yaw=60
+place RT_Floodlight dishlights at 1.4 0.8 sit yaw=220
+place Zone_Sound enginehum at -3 -3 h=23
+
+# --- Raft's special features (lib_features; the user, 2026-10-10: every Raft feature on more than one island): the roof
+# laser - the emitter's beam runs north along the roof, the turning mirror sends it east onto a door panel,
+# and the panel lets go the roof safe (hidden); a security camera on the west facade, watching the jetty
+# (the beam leaves 0.8 m east of the emitter's pivot, from its arm: the emitter set that much west of the mirror; the
+# mirror's and the panel's own colliders are low or none, the beam went over them - a box round each, 2026-10-10)
+place TP_LaserEmitter lairemitter at -39.8 -9 h=7.5 sit yaw=0
+prop lairemitter obj.name=lairemitter
+# (the beam turns at the mirror's centre since 2026-10-18: the mirror in line with the panel's centre)
+place TP_MirrorHousing_Rotating lairmirror at -39 -1.2 h=7.5 sit yaw=0
+prop lairmirror obj.name=lairmirror
+prop lairmirror col.mode=box
+prop lairmirror on.use=switch|\nmessage||The mirror grinds round a quarter turn and the red beam jumps off it at a new angle.
+place TP_LaserDoorPanel lairpanel at -31 -1.2 h=7.5 sit scale=2 yaw=-90
+prop lairpanel obj.name=lairpanel
+prop lairpanel col.mode=box
+prop lairpanel on.laser=message||The panel drinks the beam and hums. A plate in the roof slides back - the roof safe.\nsignal||lairlaser\nshow|lairvault
+place Loot_Chest lairvault at -33 -6 h=8.5 drop yaw=90
+prop lairvault obj.name=lairvault
+prop lairvault note.title=Roof safe
+prop lairvault beh.hidden=1
+loot lairvault Battery*2;CopperIngot*3;TradeToken*4
+place Note_Paper lairmemo at -37.5 -8 h=8.5 drop yaw=20
+note lairmemo Roof crew memo | ROOF - SAFE ACCESS\n\nThe roof safe opens on the beam only. Emitter stays ON.\nMirror turned a quarter for access, turned back after.\nAnyone leaving it pointed at the sky again cleans the dish.
+# (its mount flat on the facade's sea face: at -43.0, turned -120, it hung 0.3 m off it, CIGroundIslands)
+call camera x=-42.68 z=-4.5 h=6.9 yaw=-90 alias=bluffcam
+prop bluffcam beh.use=Look into the camera
+prop bluffcam on.use=message||The lens follows you, whirring. Somewhere inside the cone, a screen shows your face to nobody.
+
+# --- Nature like Raft's volcanic islands where the generator left it thin: mango and bushy trees on the north plain and
+# the south plateau, stones on the plateau and the plain, a few of Raft's sunken barrels off the shore ---------------
+scatter Pickup_Landmark_Tree_Mango 8 at -5 28 r=13 seed=61
+scatter SmallBushyTree_1 8 at 9 24 r=11 seed=62
+scatter SmallBushyTree_2 7 at -20 21 r=9 seed=63
+scatter SmallBushyTree_1 4 at -12 -32 r=8 seed=64
+scatter CaravanIsland_SmallRock_1 8 at -22 -26 r=10 seed=65
+scatter CaravanIsland_SmallRock_2 8 at 14 12 r=10 seed=66
+scatter Reef_Barrel2 3 at 0 0 r=58 seed=67 wet
+
+# --- Friendly animals: goats grazing the ash of the north plain, turtles in its shallows, dolphins off the west bluff --
+place Creature_Goat goats at -8 28 ground
+place Creature_Turtle turtles at -10 45 h=-1.2
+place Creature_Dolphin dolphins at -66 -4 h=-3
+
+# --- Raft's finds in the shallow sea round the island (sand, clay, stones, ores, scrap, a giant clam) -----------------
+call shallows r=62 deep=5
+# (none in the hangar's pools - a giant clam lay on its side on the pet pool's bank, under the bars: the clam in the north bay)
+clear from -33 -8 to -33 5 r=11 all only=Pickup_Landmark_(Sand|Clay|Rock|Iron|Copper|Scrap|Giant)
+scatter "Pickup_Landmark_GiantClam" 1 at -10 46 r=8 seed=91 wet deep=5
+
+where hangardoor
+where doorpanel
+where memo
+where hangarcrate
+where planebox
+where blastdoor
+where furnace
+where escapehatch
+where chiefsafe
+where stafflocker
+where poolbox
+where pet
+where getawaylocker
+where dockexit
+where dockbarrel
+
+# --- Settings, story items, notes, behaviours, quest (7 steps) ---------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): pineapples, palms, flowers ----------
+scatter "Pickup_Landmark_PineappleLandmark" 3 at 0 0 r=31.5 seed=4232 free=3
+scatter "Pickup_Landmark_Tree_Palm 3" 3 at 0 0 r=31.5 seed=4242 free=5
+scatter "Pickup_Landmark_Flower_Black" 2 at 0 0 r=31.5 seed=4252 free=3
+scatter "Pickup_Landmark_Flower_Red" 2 at 0 0 r=31.5 seed=4253 free=3
+
+info title=Crater Lair
+info author=Custom Islands
+info description=A black volcanic cone with a dish in its crater and a hangar hidden in its flank: the lair of a man who wanted to steer storms onto the shipping lanes. His codes are in his safe, his keycard in his pet's pool - and his incinerator seals the control wing forty-five seconds after it runs.
+island on.arrive=message||A black cone of a mountain. On its top, something huge and metal sits in the crater - and the waves at its foot slap against a wall that is not rock.
+
+story keycard|Chief's keycard|quest:Tangaroa_KeyCard|The Chief's own keycard, fished out of his pet's pool.
+story codes|Storm Engine launch codes|quest:Vasagatan_FourDigitCode|A sealed sheet of launch codes for the Storm Engine in the crater.
+
+note memo Chief engineer's memo | TO ALL STAFF - FROM THE CHIEF ENGINEER\n\nThe tremors are not the generators. The mountain is waking. I am taking my people off tonight on the north boat.\n\nThe Chief stays. He says the Storm Engine fires at the next new moon, whatever the mountain does.\n\nIf anyone left here has a conscience: the launch codes are in his office safe. His keycard went into his pet's pool when he threw his drink at the screens. The incinerator in the control room takes paper.\n\nKnow this: his "security" seals the control wing forty-five seconds after the incinerator runs. The escape hatch in the control room's floor drops you straight down to his getaway boat.\n\n- T. Lind, Chief Engineer
+note poolbox Box in the pet's pool | A waterproof box on the pool's floor, scratched by teeth: the Chief's keycard, and a gold cufflink.
+loot poolbox story:keycard*1;TradeToken*2
+prop poolbox loot.refill=0
+note chiefsafe Chief's office safe | The Chief's safe: a sealed sheet of launch codes, a velvet tray of cufflinks, and a photograph of him shaking hands with nobody you know.
+loot chiefsafe story:codes*1;TradeToken*4;Glass*2
+prop chiefsafe loot.refill=0
+prop chiefsafe if.open=has|story:keycard|1
+prop chiefsafe else.open=message||A card reader blinks red on the safe's door. The memo said his keycard went into the pet's pool.
+note hangarcrate Hangar crate | A crate of parts for the seaplane: bolts, steel, wire.
+loot hangarcrate Bolt*4;MetalIngot*2;Scrap*4
+prop hangarcrate loot.refill=0
+note stafflocker Staff locker | A staff locker, left in a hurry: a jacket, bandages, a half-eaten sandwich.
+loot stafflocker HealingSalve*2;Leather*2;Rope*2
+prop stafflocker loot.refill=0
+note planebox Seaplane's cockpit box | The seaplane's cockpit box: a flare, a flask, a map with the shipping lanes circled in red.
+loot planebox Placeable_Firework*1;PlasticBottle_Water*1;Plastic*3
+prop planebox loot.refill=0
+note dockbarrel Barrel by the jetty | A barrel sunk by the jetty: fuel for the speedboat, and scrap.
+loot dockbarrel BioFuel*1;Scrap*3;MetalOre*2
+prop dockbarrel loot.refill=0
+note getawaylocker Getaway boat locker | The Chief's getaway locker: his escape kit - a zipline launcher's plans, dark glasses, a battery that never runs flat, spare circuits and titanium for the road.
+loot getawaylocker Blueprint_ZiplineTool*1;Hat_Glasses_Disguise*1;Battery_Advanced*1;CircuitBoard*2;TitaniumIngot*2
+prop getawaylocker loot.refill=0
+prop getawaylocker if.open=signal|burned
+prop getawaylocker else.open=message||The locker has the same red light as the safe - it opens when the Storm Engine is disarmed. Burn the codes first.
+
+prop doorpanel obj.name=doorpanel
+prop doorpanel beh.use=Press the hidden panel
+prop doorpanel on.use=message||A rock that isn't a rock hides a panel. You press it - and with a groan of motors, a slab of the mountain lifts away: a hangar door.\nopen|hangardoor\nsound||event:/exploring/obstacles/varuna/garagedoor_open
+prop hangardoor obj.name=hangardoor
+prop hangardoor beh.move=0,4.8,0
+prop hangardoor beh.moveTime=4
+prop hangardoor beh.moveMode=switch
+# (Varuna Point's garage door as a ready piece wants Raft's motherlode key and goes when used: this hangar door only lifts from the hidden door panel - the ready piece's settings taken off)
+prop hangardoor beh.use=
+prop hangardoor if.use=
+prop hangardoor else.use=
+prop hangardoor on.use=
+prop furnace obj.name=furnace
+prop furnace beh.use=Feed the launch codes to the incinerator
+prop furnace if.use=quest|5\ntake|story:codes|1
+prop furnace on.use=message||The codes curl, blacken and are gone. Up in the crater the dish whines down and its lights die. Then a siren: SECURITY SEAL IN FORTY-FIVE SECONDS.\nsignal||burned\nhide|dishlights\nhide|enginehum\nshow|alarm\nshow|dockzone\nsound||event:/exploring/temperence/selene/reactor_alarm\nwait|45\nopen|blastdoor\nmessage||The blast door slams across the control wing.
+prop furnace else.use=message||An incinerator with its door hanging open. The memo said it takes paper - the launch codes are in the Chief's safe.
+prop blastdoor obj.name=blastdoor
+prop blastdoor beh.move=0,0,-3.0
+prop blastdoor beh.moveTime=3
+prop blastdoor beh.moveMode=switch
+prop alarm obj.name=alarm
+prop alarm beh.hidden=1
+prop alarm beh.spin=180
+prop escapehatch obj.name=escapehatch
+prop escapehatch beh.use=Drop through the escape hatch
+prop escapehatch on.use=message||A chute, black water, a gasp - and you surface beside the Chief's getaway boat.\nteleport|dockexit
+prop dockexit obj.name=dockexit
+prop dishlights obj.name=dishlights
+prop enginehum obj.name=enginehum
+prop enginehum sound.event=event:/exploring/relaystation/electricity
+prop enginehum sound.volume=0.6
+prop enginehum zone.radius=16
+
+prop hangar zone.id=hangar
+prop hangar zone.radius=4
+prop hangar zone.message=A hangar inside the mountain: a seaplane on its slip, a pool of black water, and at the back the lit windows of a control room.
+prop controlwing zone.id=controlwing
+prop controlwing zone.radius=3
+prop petpool zone.id=petpool
+prop petpool zone.radius=5
+prop petpool zone.message=Bars round a pool under the control room's windows - and in the pool, a lamp coming up from the dark.
+prop dock zone.id=dock
+prop dock obj.name=dockzone
+prop dock beh.hidden=1
+prop dock zone.radius=6
+prop dock zone.message=The getaway jetty, out in the open air. Behind you, the mountain rumbles.
+prop pet creature.count=1
+prop pet creature.size=1.6
+prop pet creature.health=2.5
+prop pet creature.respawn=0
+prop pet creature.zone=petpool
+prop pet tint.color=#3a2a4a
+prop pet tint.amount=0.4
+prop servicerats creature.count=3
+prop servicerats creature.respawn=0
+prop goats creature.count=2
+prop turtles creature.count=2
+prop dolphins creature.count=2
+
+quest title=Storm Engine
+quest intro=A black cone with a dish in its crater and a wall at its foot that is not rock. Somewhere in its west bluff there's a door.
+step reach|hangar|1|Find the hangar door hidden in the cone's west bluff and get inside
+step read|Chief engineer's memo|1|Read the chief engineer's memo on the hangar's board
+step kill|Tangaroa rat|3|Clear the service rats out from among the hangar crates
+step kill|Angler fish|1|Deal with the Chief's pet in the pool under the control room
+step collect|story:codes|1|Dive for his keycard in the pet's pool, then open his office safe for the codes
+step reach|dock|1|Burn the codes in the incinerator - and get out before the blast door seals
+step open|Getaway boat locker|1|Open the locker by the Chief's getaway boat
+step blueprint|Blueprint_ZiplineTool|1|Take the zipline tool plans from the getaway boat locker
+quest done=The dish in the crater stands dead and the storms will blow where they like. The Chief's getaway kit is yours - and his boat, if you can start it.
+quest reward=MetalIngot*6;Bolt*8;Glass*4
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=35 n=1 seed=8841
+prop treasure8841 treasure.loot=TitaniumOre*2
+
+save Crater Lair

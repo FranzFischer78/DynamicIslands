@@ -1,0 +1,392 @@
+# The General Post Office - an island of the library's plan The Last Post (the Coastal Post's route, the finale)
+# A grand post office on a half-drowned square: the raised plaza with the arcade (hyenas in it), the news kiosk and the
+# clock tower (Raft's Tier 3 blocks, Raft's clocks on its faces, a crank on a post by its foot); the post office itself
+# behind a white colonnade (the radio tower's thick pillars, cut to a storey and tinted white) under hipped roofs, the
+# sorting hall inside (scales, the pneumatic router, the vault keypad and the registered mail vault); behind it the
+# archive on the upper terrace, reached by Varuna Point's scissor lift (staff letters, rats, Postman Arvid in a cage, the
+# archive claw and the crate of the letters of the world), and the roof terrace above by a second lift (the screechers'
+# brood mother, the semaphore mast, Ada, the post-horn and the flag). The drowned south of the square crossed by plank
+# streets on posts with lamps. A Raft store and a vending machine on the plaza.
+# Quest "The Last Post" (26 steps) in four areas: the Square, the Sorting Hall, the Upper Floors, the Roof.
+#
+# Built by the recipe player (CIRecipe general_post_office) through the editor's own operations.
+include lib_sea
+include lib_features
+include lib_post
+new
+# (nature: a stone city island, few trees, Like Raft's rocky islands)
+gen Trees=0.08 Bushes=0.2 Rocks=0.1 Harvest=0.1 BeachThings=0.3
+gen Seed=4901 Radius=78 Height=10 Roughness=0.3 Peaks=1 Shape=0 Style=1 PeakShape=0.4 Cliffs=0.2 BeachWidth=0.4
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.15 Sunken=0.25 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+
+# --- Terrain: the plaza (2.5 m), the drowned south of the square (under the sea), the archive terrace (7.2 m) and the
+# roof terrace (11.9 m) behind the post office, each a lift's rise above the last
+brush flatten from 0 -30 to 0 -10 r=16 s=20 frames=260 h=2.5
+brush flatten from -18 -56 to 18 -56 r=9 s=20 frames=200 h=-0.8
+brush flatten at 0 17 r=9 s=20 frames=160 h=7.2
+brush flatten at 0 36 r=8 s=20 frames=160 h=11.9
+brush sand from -18 -56 to 18 -56 r=9 s=8 frames=20
+origin
+clear from 0 -30 to 0 -10 r=16
+clear at 0 17 r=9
+clear at 0 36 r=8
+clear from -18 -56 to 18 -56 r=9
+
+# === Area A: the Square ===================================================================================================
+# the plank streets over the drowned south of the square, lamps on poles beside them
+call pier x=0 z1=-44 z2=-70 h=1.45
+call pier x=-12 z1=-44 z2=-64 h=1.45
+place Antenna_pole - at 2.2 -50 ground sit
+place Antenna_pole - at -2.2 -60 ground sit
+place Antenna_pole - at -9.8 -54 ground sit
+place Placeable_Lantern_Metal - at 1.2 -50 h=1.6 sit drop
+place Placeable_Lantern_Metal - at -1.2 -60 h=1.6 sit drop
+place Placeable_Lantern_Metal - at -11 -54 h=1.6 sit drop
+place Placeable_Lantern_Metal - at 1.2 -69 h=1.6 sit drop
+# the notice of closure on a table in the square
+place Zone_Trigger squarezone at 0 -30 ground
+place "Table Office" - at -3 -31 ground sit yaw=0
+place Note_Paper notice at -2.6 -30.7 ground y=1.2 sit drop yaw=-10
+# the arcade on the square's west side (the hyenas' den)
+push at -15 -26 h=2.5
+call openhall w=6 d=2
+pop
+place Creature_Hyena hyenas at -2.5 -24.5 h=2.6
+# the news kiosk
+push at 8 -28 h=2.5
+call openhall w=2 d=2
+place Loot_Chest kiosk at 1.5 2.4 y=1.3 sit drop yaw=180
+pop
+# the clock tower: three storeys of walls, a hipped roof, clocks on its faces; the crank on a post by its foot
+push at 9 -20 h=2.5
+for fx 0.75 2.25 1.5
+for fz 0.75 2.25 1.5
+place Block_Floor_Tier3 - at $fx $fz y=0.05
+next
+next
+for ty 0.2 5.04 2.42
+place Block_Wall_Tier3 clocktower at 0.75 0 y=$ty
+place Block_Wall_Tier3 clocktower at 2.25 0 y=$ty
+place Block_Wall_Tier3 clocktower at 0.75 3 y=$ty
+place Block_Wall_Tier3 clocktower at 2.25 3 y=$ty
+place Block_Wall_Tier3 clocktower at 0 0.75 y=$ty yaw=90
+place Block_Wall_Tier3 clocktower at 0 2.25 y=$ty yaw=90
+place Block_Wall_Tier3 clocktower at 3 0.75 y=$ty yaw=90
+place Block_Wall_Tier3 clocktower at 3 2.25 y=$ty yaw=90
+place Block_Pillar_Tier3 - at 0 0 y=$ty
+place Block_Pillar_Tier3 - at 3 0 y=$ty
+place Block_Pillar_Tier3 - at 0 3 y=$ty
+place Block_Pillar_Tier3 - at 3 3 y=$ty
+next
+roof 2 2 at 0 0 y=5.04
+place Placeable_Clock_Fine clockface at 1.5 -0.38 y=6 yaw=180 scale=3
+place Placeable_Clock_Fine clockface at -0.38 1.5 y=6 yaw=270 scale=3
+pop
+place RT_Pillar - at 13.5 -21 ground sy=0.4
+place TP_Selene_DoorCrankWheel clockcrank at 13.5 -21.12 ground y=1.1 rot=0,0,0 yaw=180
+
+# === Area B: the post office - the colonnade, the sorting hall ============================================================
+# the colonnade: a porch two cells deep along the front, white columns, a hipped roof resting on them and the front wall
+push at -7.5 -15 h=2.5
+for fx 0.75 14.25 1.5
+for fz 0.75 2.25 1.5
+place Block_Floor_Tier3 - at $fx $fz y=0.05
+next
+next
+for fx 0 15 1.5
+place RT_PillarThick colonnade at $fx 0 y=0.2 sy=0.403
+next
+place RT_PillarThick colonnade at 0 1.5 y=0.2 sy=0.403
+place RT_PillarThick colonnade at 15 1.5 y=0.2 sy=0.403
+roof 10 2 at 0 0 y=0.2
+pop
+# the sorting hall: 10 x 6 cells, the front door padlocked until the clock is set, a back door to the lift
+push at -7.5 -12 h=2.5
+for fx 0.75 14.25 1.5
+for fz 0.75 8.25 1.5
+place Block_Floor_Tier3 - at $fx $fz y=0.05
+next
+next
+for fx 0.75 5.25 1.5
+place Block_Wall_Tier3 gpo at $fx 0 y=0.2
+place Block_Wall_Tier3 gpo at $fx 9 y=0.2
+next
+for fx 8.25 14.25 1.5
+place Block_Wall_Tier3 gpo at $fx 0 y=0.2
+place Block_Wall_Tier3 gpo at $fx 9 y=0.2
+next
+place Block_Wall_Door_Tier3 gpo at 6.75 9 y=0.2
+for fz 0.75 8.25 1.5
+place Block_Wall_Tier3 gpo at 0 $fz y=0.2 yaw=90
+place Block_Wall_Tier3 gpo at 15 $fz y=0.2 yaw=90
+next
+place Block_Pillar_Tier3 - at 0 0 y=0.2
+place Block_Pillar_Tier3 - at 15 0 y=0.2
+place Block_Pillar_Tier3 - at 0 9 y=0.2
+place Block_Pillar_Tier3 - at 15 9 y=0.2
+roof 10 6 at 0 0 y=0.2
+place UT_Skyscraber01PadlockDoor frontdoors at 7.25 0 y=0.2 sit yaw=0
+place Zone_Trigger hallzone at 7.5 4.5 y=0.8
+place Placeable_Cupboard_Small - at 5 0.8 y=1.3 sit drop yaw=0
+place Note_Paper rules at 5 0.8 y=2 sit drop yaw=8
+place "Table Office" - at 2 4.2 y=1.3 sit drop yaw=0
+place "Table Office" - at 4.1 4.2 y=1.3 sit drop yaw=0
+place "Table Office" - at 6.2 4.2 y=1.3 sit drop yaw=0
+place TangaroaScaleModel gposcale1 at 1.6 4.6 y=2.3 sit drop yaw=0
+place TangaroaScaleModel gposcale2 at 3.7 4.6 y=2.3 sit drop yaw=0
+place TangaroaScaleModel gposcale3 at 5.8 4.6 y=2.3 sit drop yaw=0
+place UT_ElectricCableHub01 router at 14.2 2 y=0.2 sit yaw=270
+place WaterPipe_Short_1 - at 13.4 1.2 y=2.4 yaw=0
+place WaterPipe_Short_1 - at 12.4 1.2 y=2.4 yaw=0
+place Placeable_Cupboard_Small - at 12 5.6 y=1.3 sit drop yaw=270
+place Note_Paper capsule at 12 5.6 y=2 sit drop yaw=-4
+place RT_PowerBox vaultpad at 14.85 6.8 y=1.4 yaw=270
+place Loot_Chest regvault at 13 8.3 y=1.3 sit drop yaw=180
+call mailsack x=9.5 z=1 yaw=30 al=sacks
+call mailsack x=10.4 z=7.8 yaw=-60 al=sacks
+call mailsack x=2.2 z=7.8 yaw=15 al=sacks
+pop
+store gposhop at -10 -38 ground
+vending gpovend at 10 -38 ground yaw=0
+place QuestItemPickup_Tangaroa_Token - at 7 -40 ground
+place QuestItemPickup_Tangaroa_Token - at 13 -35 ground
+place QuestItemPickup_Tangaroa_Token - at 5 -34 ground
+
+# === Area C: the Upper Floors - the lift, the archive, Arvid's cage, the claw ============================================
+place Zone_Trigger stairzone at 0 3.5 ground
+call lift x=0 z=5.5 yaw=0 alias=gpolift upalias=gpoliftup chest=liftbox tx=-6 tz=6 items=Rope*2;Bolt*2 title="Porter's box"
+push at -4.5 10.5 h=7.2
+call posthall w=6 d=4 al=archive
+place "Table Office" - at 1.5 4.6 y=1.3 sit drop yaw=0
+place "Table Office" - at 4.5 4.6 y=1.3 sit drop yaw=0
+place Note_Paper staff1 at 1.2 4.9 y=2.2 sit drop yaw=-8
+place Note_Paper staff2 at 2.1 4.9 y=2.2 sit drop yaw=6
+place Note_Paper staff3 at 4.8 4.9 y=2.2 sit drop yaw=-3
+place Placeable_Shelf_Small_Basic - at 8.4 2 y=1.3 sit drop yaw=270
+place Placeable_Storage_Large - at 8.2 4.8 y=1.3 sit drop yaw=270
+place Zone_Trigger archivezone at 4.5 2.5 y=0.8
+place Creature_Rat rats at 6 3.5 y=0.4
+pop
+place Survivor_Cage arvidcage at 6.5 14 ground yaw=270
+place Loot_ChestSmall arvidbag at 6.8 11.2 ground sit yaw=0
+place Claw_ControlBoard claw at 5.5 20.5 ground sit yaw=270
+place Loot_Chest lettercrate at 1.5 21 ground sit yaw=180
+
+# === Area D: the Roof - the second lift, the brood mother, the semaphore mast, Ada, the post-horn, the flag ===============
+call lift x=0 z=24.5 yaw=0 alias=rooflift upalias=roofliftup chest=roofbox tx=-6 tz=22 items=Rope*2;Feather*3 title="Pigeon keeper's box"
+place Zone_Trigger roofzone at 0 31 ground
+place Creature_StoneBird broodmother at 0 38 h=14
+place Antenna_pole semaphore at -5 36 ground sit
+place RT_Pillar - at -4 34 ground sy=0.35
+place TP_LaserControlPanel_lever semlever at -4 34 ground y=1.05 sit yaw=90
+place "Table Office" - at 3 33.5 ground sit yaw=0
+place Note_Paper adawelcome at 3.4 33.8 ground y=1.2 sit drop yaw=-6
+place Placeable_Lantern_Metal flagcam at 3.8 33.3 ground y=1.2 sit drop yaw=180
+place Placeable_HonkHorn_1 posthorn at 2.4 33.8 ground y=1.2 sit drop yaw=0
+place Placeable_Flag_01 flag at 0 42 ground sit yaw=0
+place Zone_Trigger flagzone at 0 40.5 ground
+
+# --- Nature: the reefs in the drowned edge, a few things to gather -------------------------------------------------------
+call shallows r=88 deep=5 n=3
+call dirt x=26 z=6 r=10 n=2 seed=4912
+call hives x=-26 z=4 r=10 n=1 seed=4913
+place Creature_Turtle turtle at 20 -62 h=-3
+
+# --- Settings, notes, behaviours, quest --------------------------------------------------------------------------------
+info title=The General Post Office
+info author=Custom Islands
+info description=The Coastal Post's grand head office on a half-drowned square: a white colonnade, a clock tower, a sorting hall, the archive above and the roof over all. Ada Lind is waiting there with the last of the post. The finale of The Last Post.
+island on.arrive=message||A white colonnade over a drowned square, a clock tower stopped at ten to nine - the General Post Office. On its roof, a flag is still flying.
+
+prop clocktower tint.color=#cfc6b4
+prop clocktower tint.amount=0.5
+prop gpo tint.color=#d8d2c4
+prop gpo tint.amount=0.55
+prop colonnade tint.color=#f2f0ea
+prop colonnade tint.amount=0.85
+prop archive tint.color=#cfc6b4
+prop archive tint.amount=0.5
+prop sacks tint.color=#b8a478
+prop sacks tint.amount=0.75
+prop hyenas creature.count=4
+prop hyenas creature.respawn=0
+prop rats creature.count=6
+prop rats creature.respawn=0
+prop rats creature.zone=archive
+prop broodmother creature.count=1
+prop broodmother creature.respawn=0
+prop broodmother creature.zone=roof
+prop broodmother creature.size=1.8
+prop broodmother creature.health=6
+prop broodmother creature.damage=1.5
+prop broodmother boss.phase=0.5
+prop broodmother boss.summon=4
+prop broodmother boss.summonKind=Creature_StoneBird
+prop broodmother tint.color=#3a3632
+prop broodmother tint.amount=0.6
+prop turtle creature.count=1
+
+story clockset|Clock set|Note_Paper|The General Post Office's clock, wound and set: the doors unbolt.
+story gpoweighed|Parcel weighed|Note_Paper|A registered parcel weighed at the General Post Office.
+story routed|Router set|Note_Paper|The sorting hall's pneumatic router, sending to the vault again.
+story vaultcard|Vault combination card|Note_Paper|The registered mail vault's combination, on a card from the capsule.
+story vaultopen|Vault keypad open|Note_Paper|The vault keypad, unlocked.
+story arvidkey|Arvid's cage key|Placeable_Lantern_Metal|The key of Postman Arvid's cage in the archive, from the registered mail vault.
+story liftridden|Lift ridden|Note_Paper|The porters' lift up to the archive.
+story staffletter|Staff letter|Note_Paper|A letter from the General Post Office's last staff.
+story cratelifted|Crate lifted|Note_Paper|The archive claw has lifted the crate of the letters of the world.
+story lastletter|The Last Letter|Note_Paper|The last letter of the Coastal Post, addressed in Ada's hand: "To whoever carries the post now".
+story semaphore|Semaphore sent|Note_Paper|The roof's semaphore mast has signalled: post delivered.
+story adajoined|Ada joins|Note_Paper|Ada Lind, postmistress, has joined the crew.
+
+note notice Notice of closure | GENERAL POST OFFICE - NOTICE OF CLOSURE\n\nOwing to the rising water this office is closed until further notice. Registered mail is held in the vault.\n\nThe front doors are bolted on the clock: wind the tower's crank and set the clock, and they unbolt as at opening time.\n\nBeware: dogs in the arcade.
+note kiosk Kiosk | The news kiosk's till and its last papers: "POST TO CONTINUE BY BOAT". A few coins of the old money and a tin of biscuits.
+loot kiosk TradeToken*3;Cooked_Potato*2;Rope*2
+prop kiosk loot.refill=0
+prop clockcrank obj.name=clockcrank
+prop clockcrank beh.use=Wind and set the clock
+prop clockcrank if.use=!signal|clockset
+prop clockcrank on.use=sound||event:/raft/radar/lever\nmessage||The crank grinds round and round; up on the tower the hands swing to nine o'clock and a bell strikes. Across the square, the post office doors unbolt.\nsignal||crank\nsignal||clockset\ngive||story:clockset*1
+prop clockcrank else.use=message||The clock is set and running.
+prop frontdoors obj.name=frontdoors
+prop frontdoors beh.use=Open the front doors
+prop frontdoors if.use=signal|clockset
+prop frontdoors on.use=hide|\nmessage||The bolts are drawn back: the front doors swing open on the sorting hall.
+prop frontdoors else.use=message||The front doors are bolted. A brass plate: "OPENS AT NINE BY THE TOWER CLOCK".
+
+note rules Sorting hall rules | GENERAL POST OFFICE - SORTING HALL\n\n1. Every registered parcel is weighed before it goes to the vault. Three were waiting at closing.\n2. The router sends the weighed parcels' slip to the vault by tube - throw it once the scales are done.\n3. The vault sends its combination back by capsule. Destroy the card after use. (Nobody ever does.)
+macro scaleuse al=gposcale1
+prop $al obj.name=$al
+prop $al beh.use=Weigh a registered parcel
+prop $al if.use=!signal|$al
+prop $al on.use=message||The scales tip, sway and settle. Weighed and logged.\nsignal||scales\nsignal||$al\ngive||story:gpoweighed*1
+prop $al else.use=message||This scale's parcel is weighed already.
+end
+call scaleuse al=gposcale1
+call scaleuse al=gposcale2
+call scaleuse al=gposcale3
+prop router obj.name=router
+prop router beh.use=Throw the pneumatic router
+prop router if.use=has|story:gpoweighed|3\n!signal|routed
+prop router on.use=open|\nsignal||wire\nsignal||routed\ngive||story:routed*1\nshow|capsule\nmessage||The router clacks over. Tubes hiss along the ceiling - and a minute later a capsule drops into the rack by the vault.
+prop router else.use=message||The router won't throw: three parcels must be weighed first. Or it is thrown already.
+note capsule Capsule from the vault | (A brass capsule from the vault's tube. Inside, a card:)\n\nREGISTERED MAIL VAULT - COMBINATION\n1 8 4 0\n(the year of the first stamp)
+prop capsule obj.name=capsule
+prop capsule beh.hidden=1
+prop capsule on.read=give||story:vaultcard*1
+prop vaultpad obj.name=vaultpad
+prop vaultpad beh.use=Type the vault combination
+prop vaultpad lock.code=1840
+prop vaultpad if.use=has|story:vaultcard|1
+prop vaultpad on.use=sound||event:/exploring/obstacles/keypad/keypad_correct\nmessage||The keypad chirps and the registered mail vault unbolts.\nsignal||regvault\ngive||story:vaultopen*1
+prop vaultpad else.use=message||The keypad wants the vault's combination. The vault sends it by capsule.
+note regvault Registered mail vault | The registered mail vault: parcels never collected, insured letters - and a key on a tag: ARCHIVE, CAGE 2.
+loot regvault story:arvidkey*1;TradeToken*6;MetalIngot*3;Battery*1;TitaniumIngot*3
+prop regvault loot.refill=0
+prop regvault if.open=signal|regvault
+prop regvault else.open=message||The registered mail vault is bolted from the keypad by it.
+
+prop gpolift on.use=switch|\nwait|5\nshow|gpoliftup\nhide|\ngive||story:liftridden*1
+note staff1 Staff letter: Night porter | To whoever is left - I've gone home. The archive is full of rats and the lift jams at the top. Arvid went up after the crate and hasn't come down. - Porter Nils
+prop staff1 on.read=give||story:staffletter*1
+note staff2 Staff letter: Head sorter | The letters of the world are in the big crate - everything we never delivered. The claw can lift it, if anyone still knows how to run it. I locked Arvid in for his own good; the key is in the vault. - Head sorter Greta
+prop staff2 on.read=give||story:staffletter*1
+note staff3 Staff letter: Postman Arvid | I'm in the cage by the claw. Greta locked it for my own good - the rats, she says. The last letter is in the crate, on top. Bring the key. - Arvid
+prop staff3 on.read=give||story:staffletter*1
+prop archivezone zone.id=archive
+prop archivezone zone.radius=4
+prop archivezone zone.repeat=never
+prop archivezone zone.message=The archive: shelves, letters everywhere - and in the dark between the shelves, rats. Lots of rats.
+prop arvidcage obj.name=arvidcage
+prop arvidcage survivor.name=Arvid
+prop arvidcage survivor.id=lastpost_arvid
+prop arvidcage survivor.key=arvidkey
+prop arvidcage survivor.signal=arvidfree
+prop arvidcage survivor.line=Ada sent you? Then it's nearly done. The claw's controls are by the crate - the last letter's on top. She's up on the roof.
+note arvidbag Arvid's satchel | Postman Arvid's satchel: his cap, his route book and a flask of cold tea.
+loot arvidbag Bolt*3;Rope*2;Cooked_Potato*2
+prop arvidbag loot.refill=0
+prop arvidbag if.open=signal|arvidfree
+prop arvidbag else.open=message||Arvid's satchel - and Arvid is still in the cage beside it.
+prop claw obj.name=claw
+prop claw beh.use=Run the archive claw
+prop claw if.use=signal|arvidfree\n!signal|cratelifted
+prop claw on.use=sound||event:/raft/radar/lever\nmessage||The claw swings out over the archive, drops, grips and lifts the great crate down on to the terrace.\nsignal||claw\nsignal||cratelifted\ngive||story:cratelifted*1\nshow|lettercrate
+prop claw else.use=message||Arvid knows how to run the claw - and Arvid is in the cage. Or the crate is down already.
+note lettercrate Letters of the world | The crate of the letters of the world: everything the Coastal Post never delivered. On top, one letter in Ada's handwriting.
+loot lettercrate story:lastletter*1;Rope*2;TradeToken*4
+prop lettercrate obj.name=lettercrate
+prop lettercrate beh.hidden=1
+prop lettercrate loot.refill=0
+
+prop semlever obj.name=semlever
+prop semlever beh.use=Work the semaphore
+prop semlever if.use=!signal|semaphore
+prop semlever on.use=sound||event:/raft/radar/lever\nmessage||The semaphore arms swing: POST - DELIVERED. From behind the flag, someone laughs.\nsignal||semaphore\ngive||story:semaphore*1\nshow|adawelcome
+prop semlever else.use=message||The semaphore says it already: POST DELIVERED.
+note adawelcome Ada's welcome | So you came. Every letter, every stop - I knew the post would get through.\n\nI'm Ada Lind. I kept the Coastal Post running as long as there was water to row on, and then I waited up here for whoever would carry it on.\n\nYou have the last letter? Sound the post-horn, then, and I'll come with you. There's a whole sea that wants its post.
+prop adawelcome obj.name=adawelcome
+prop adawelcome beh.hidden=1
+prop posthorn obj.name=posthorn
+prop posthorn beh.use=Sound the post-horn
+prop posthorn if.use=signal|semaphore\ntake|story:lastletter|1
+prop posthorn on.use=sound||event:/raft/radar/lever\nmessage||The post-horn rings out over the drowned square. Ada takes the last letter, reads it, smiles - and picks up her bag. Ada Lind has joined the crew.\ncharacter||Mayu\ngive||story:adajoined*1\nsignal||adajoined
+prop posthorn else.use=message||The post-horn. Ada's welcome first - and you'll need the last letter from the archive's crate.
+
+prop squarezone zone.id=square
+prop squarezone zone.radius=6
+prop squarezone zone.message=The square: drowned to the south, a stopped clock tower, and the post office behind its white colonnade.
+prop hallzone zone.id=main_hall
+prop hallzone zone.radius=3
+prop hallzone zone.message=The sorting hall: tables, scales, the tubes along the ceiling, and the vault at the back.
+prop stairzone zone.id=stair
+prop stairzone zone.radius=3
+prop stairzone zone.message=The porters' lift to the archive terrace.
+prop roofzone zone.id=roof
+prop roofzone zone.radius=4
+prop roofzone zone.repeat=never
+prop roofzone zone.message=The roof. A flag, a semaphore mast - and the screechers' brood mother rising off her nest.
+prop flagzone zone.id=flag
+prop flagzone zone.radius=3
+prop flagzone on.enter=camera|flagcam||6|50
+prop flagcam obj.name=flagcam
+
+quest title=The Last Post
+quest intro=The General Post Office, on its drowned square. Walk into the square.
+step reach|square|1|Walk into the square
+step read|Notice of closure|1|Read the notice of closure
+step kill|Hyena|4|Drive the dogs out of the arcade
+step open|Kiosk|1|Open the news kiosk
+step collect|story:clockset|1|Wind the clock tower's crank
+step reach|main_hall|1|Go into the sorting hall
+step read|Sorting hall rules|1|Read the sorting hall rules
+step collect|story:gpoweighed|3|Weigh the three registered parcels
+step collect|story:routed|1|Throw the pneumatic router
+step read|Capsule from the vault|1|Read the capsule from the vault
+step collect|story:vaultcard|1|Keep the vault combination card
+step collect|story:vaultopen|1|Open the vault keypad
+step open|Registered mail vault|1|Open the registered mail vault
+step reach|stair|1|Go out the back to the porters' lift
+step collect|story:liftridden|1|Ride the lift up to the archive
+step collect|story:staffletter|3|Read the three staff letters in the archive
+step kill|Rat|6|Clear the rats from the archive
+step open|Arvid's satchel|1|Free Postman Arvid from his cage and open his satchel
+step collect|story:cratelifted|1|Run the archive claw
+step collect|story:lastletter|1|Take the last letter from the crate
+step reach|roof|1|Ride the second lift to the roof
+step kill|Screecher|1|Defeat the screechers' brood mother
+step collect|story:semaphore|1|Work the semaphore mast
+step read|Ada's welcome|1|Read Ada's welcome
+step collect|story:adajoined|1|Sound the post-horn with the last letter
+step reach|flag|1|Go to the flag
+quest done=The last post is delivered. Ada Lind sails with you now - and there is a whole sea that wants its post.
+quest reward=MetalIngot*4;Battery*2;TradeToken*8
+
+# Buried treasure (one of the story line's last islands): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=40 n=1 seed=8820
+prop treasure8820 treasure.loot=TitaniumOre*3
+
+# --- Raft's vehicles (VI4, 2026-10-23): parked on open ground, clear of paths and quest objects ---
+place VP_Forklift - at 6 -37 ground sit yaw=90
+save The General Post Office

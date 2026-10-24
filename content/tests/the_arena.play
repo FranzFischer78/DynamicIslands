@@ -1,0 +1,75 @@
+# Play test of The Arena (CIPlay the_arena, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The south plain: the beach trail up from 15 -68, the meadow levelled at 3.5 m round the great canopy (15 -38), the ring of
+# plates 12 m round it, the rules at 15 -55; the lake x -36..-8 z -55..-33 with its islet (-22 -44); the lean-to at
+# -50 -30; the control room in the south-west peak's east flank (floor 7 m, x -10..-4 z -27..-15, its door at -4 -24
+# opening on a cutting down to the meadow); the champion in the valley at 15 -17.
+island The Arena
+offset 0.4541 0.9109
+expect step 0
+expect title The Games Run On
+wait 5
+expect animals Goat 3
+expect animals Dolphin 2
+
+# Up from the beach: the shore, a sponsor's gift in a hollow, the rules at the meadow's edge
+walk 15 -72 to 15 -66 to 15 -63 h=3
+zone shore
+expect step 1
+open Sponsor's gift by the trail
+walk 15 -62 to 15 -57 h=3.5
+read Rules of the Arena
+expect step 2
+
+# Onto a plate: round one, the boars; the canopy's crate
+walk 15 -56 to 13.5 -52 to 12.5 -48.5 h=3.5
+zone ring
+expect step 3
+expect shown round1
+open Canopy supply crate
+expect message The crate is chained
+kill Warthog
+expect step 4
+open Canopy supply crate
+expect step 5
+
+# Round the lake's south shore to the lean-to in the woods: the diary, Pia's box
+walk 15 -50 to 5 -58 to -10 -60 to -25 -60 to -40 -54 to -48 -44 to -50 -35 to -50 -32 h=3
+read A contestant's diary
+expect step 6
+open Lean-to box
+
+# Round two: the hounds
+wait 5
+expect shown round2
+kill Hyena
+expect step 7
+expect shown supplydrop
+
+# Out to the islet: the last gift and the warden's pass; the final round
+at -22 -41 h=1.5
+zone islet
+open Supply drop
+expect story wardenpass 1
+expect step 8
+wait 10
+expect shown champion
+kill Bear
+expect step 9
+
+# Up the cutting to the door in the peak; the control room
+walk 13 -24 to 6 -24 to 0 -24 to -3 -24 h=7
+walk -3 -24 to -5 -23 to -6 -21 h=7
+zone controlroom
+expect step 10
+read Gamewarden's log
+expect step 11
+use console
+expect story prizekey 1
+expect step 12
+open Prize vault
+wait 2
+expect done
+
+# The other gifts: on the upland, sunk in the lake
+open Sponsor's gift on the upland
+open Sunk gift

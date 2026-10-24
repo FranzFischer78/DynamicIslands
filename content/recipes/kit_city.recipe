@@ -1,0 +1,11 @@
+# Kit check (not content): city pieces for a drowned metropolis - Utopia's skyline towers, Tangaroa's tower parts
+new
+gen Seed=1 Radius=60 Height=3 Shape=0 Roughness=0.1 ObjectDensity=0 Trees=0 Bushes=0 Rocks=0 BeachThings=0 Harvest=0
+gen Hostiles=0 Friendly=0 SeaLife=0 Water=0 SeaRocks=0 SeaFinds=0 Sunken=0
+generate
+place UT_Set_Tower01 t1 at 0 140 centred h=-71
+place UT_Set_Tower02 t2 at 80 140 centred h=-90
+place UT_Set_Tower03 t3 at 170 140 centred h=-100
+place Balcony01 b1 at -80 140 centred h=-80
+place CockpitExt c1 at -150 140 centred h=-120
+place UT_Set_TowerDeco01 d1 at -230 140 centred h=-111

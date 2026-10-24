@@ -1,0 +1,41 @@
+# The Isobar Club (CIPlay the_isobar_club): the plan The Rainmakers' eighth island, quest "Members Only"
+# The upper shelf (6.2 m) round 0 -2 r 24: the pavilion x -7.5..7.5 z -10..-1, its colonnade to z -14.5; the lower
+# terrace (1.5 m) z -38..-26 with the tidal pools east, the wine cellar x -20..-14 z -35..-27.5; the funicular at 0 -28.3.
+island The Isobar Club
+offset 0 0
+expect step 0
+expect title Members Only
+wait 3
+zone terrace
+expect step 1
+read Members' book
+expect step 2
+at 0 -28.3 h=1.5
+use clublift stay
+wait 7
+expect shown clubliftup
+zone club
+expect step 3
+read Board minutes
+expect step 4
+open Secretary's safe
+expect message locked from the keypad
+code safekeypad 1111 wrong
+code safekeypad 6206
+open Secretary's safe
+expect story cabinetkey 1
+expect step 5
+open Secretary's cabinet
+wait 3
+expect item Blueprint_TitaniumTools 1
+expect item Blueprint_BackpackAdvanced 1
+expect item Blueprint_ZiplineToolElectric 1
+expect story cellarkey 1
+expect step 9
+zone cellar
+open Dagny's case
+expect message under the engineer's hand
+use dagnycage
+expect survivor rainmakers_dagny
+open Dagny's case
+expect done

@@ -1,0 +1,89 @@
+# Play test of The Aqueduct (CIPlay the_aqueduct, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The harbour's quay at 86-95 22 (1.6 m), the city gate at 81 22, the road up (78 24 > 55 38 > 38 30) to the square round
+# the fountain at 22 22 (16 m); the spring house x -24..-15, z -17..-11 (18 m, its door east at z -17..-14) and the path up
+# from the west beach (-55 -5 > -30 -28 > -23 -17); the cistern at -25 5 (floor 4 m under the sea); the aqueduct from
+# -14 -14 to 12 22 (deck 18 m, the valve tower at -1.7 3.0); the sluice house x 11..17, z -12.5..-3.5 (4 m, door south);
+# the watch house x 19..25, z 27.5..36.5; the treasury x 26.5..35.5, z 11..17 (door west at z 20..23); the castellum at 12 22.
+island The Aqueduct
+offset 0 0
+expect step 0
+expect title Water to the City
+wait 5
+expect animals Goat 3
+expect animals Chicken 3
+expect animals Turtle 2
+expect animals Dolphin 2
+at 91 22 h=3
+walk 90 22 to 81 22 h=2.6
+zone citygate
+expect step 1
+at 78 24 h=4
+walk 78 24 to 55 38 h=9
+walk 55 38 to 38 30 h=16
+walk 38 30 to 26 26 h=16
+read The water-master's decree
+expect step 2
+at -55 -5 h=4
+walk -55 -5 to -30 -28 h=13.6
+walk -30 -28 to -23 -17 h=18
+walk -23 -17 to -13 -15.5 to -18 -15.5 h=18.05
+zone source
+expect step 3
+open Water-master's box
+expect story valvekey 1
+expect step 4
+use valve2
+expect message won't budge
+use valve1
+expect story tally 1
+expect step 6
+at -25 5 h=1
+zone cistern
+expect step 6
+use valve2
+expect story tally 2
+expect step 7
+at -6.98 -4.27 h=19.5
+zone arches
+expect message screechers
+kill Screecher
+expect step 8
+use valve3
+expect story tally 3
+expect step 9
+at 12.5 -16 h=6
+walk 12.5 -16 to 12.5 -8 h=4.05
+zone sluice
+use valve4
+expect story tally 4
+expect step 10
+open Watch house chest
+expect story castellumkey 1
+expect step 11
+use castellumdoor
+expect message swings in
+use valve5
+expect story tally 5
+expect step 12
+expect shown fountain
+zone fountain
+expect step 13
+wait 5
+at 24 21.5 h=17
+walk 24 21.5 to 29 21.5 h=16.05
+zone treasury
+expect step 14
+open The city treasury
+expect done
+open Quay barrel
+open Market stall box
+open Sluice house box
+open Sunk amphora
+# the cistern wheels: middle, setting sun (west), rising sun (east)
+use aqwheelC
+expect message will not budge
+use aqwheelB
+use aqwheelA
+use aqwheelC
+expect shown aqcistern
+open Cistern chest

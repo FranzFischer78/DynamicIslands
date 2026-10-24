@@ -1,0 +1,91 @@
+# The Wandering Sorting Barge - a side island of the library's plan The Last Post (met while sailing, again and again)
+# A long sandbar with the Coastal Post's sorting barge beached on it (Raft's stranded boat hull, heeled over on the sand),
+# its sorting deck built against the hull's side on posts (Raft's Tier 3 floor plates and pillars, a hipped roof): the
+# barge clerk's desk and log, the barge's scales, the strongbox; mail sacks spilled on the sand, a lamp on a pole.
+# Quest "The Sorting Barge" (5 steps): the deck, the clerk's log, the scales, the strongbox, the clerk's thanks.
+#
+# Built by the recipe player (CIRecipe wandering_sorting_barge) through the editor's own operations.
+include lib_sea
+include lib_features
+include lib_post
+new
+# (nature: a low sandbar at Raft's density - a few low palms and bushes, beach things; one reef)
+gen Trees=0.12 Bushes=0.3 Rocks=0.2 Harvest=0.3 BeachThings=0.45
+gen Seed=5001 Radius=44 Height=3 Roughness=0.2 Peaks=1 Shape=0 Style=0 PeakShape=0.2 Cliffs=0.1 BeachWidth=0.9
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.15 Sunken=0.3 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the sandbar flat at 1.4 m where the barge lies and its deck stands ---------------------------------------
+brush flatten from -12 2 to 12 2 r=10 s=20 frames=200 h=1.4
+origin
+clear from -12 2 to 12 2 r=11
+
+# --- The barge, beached and heeled over; the sorting deck against its north side ----------------------------------------
+place BoatStranded barge at 0 -2 ground yaw=90 roll=-6
+push at -6 4 h=1.4
+call openhall w=4 d=2
+place Zone_Trigger deckzone at 3 1.5 y=0.8
+place "Table Office" - at 1.5 1.6 y=0.2 sit drop yaw=0
+place Note_Paper clerklog at 1.8 1.8 y=1.1 sit drop yaw=-8
+place "Table Office" - at 3.6 1.6 y=0.2 sit drop yaw=0
+place TangaroaScaleModel scales at 3.4 2 y=1.1 sit drop yaw=0
+place Loot_Chest strongbox at 5.4 2.3 y=0.2 sit drop yaw=180
+place Note_Paper clerkthanks at 5.4 0.9 y=0.2 sit drop yaw=15
+call mailsack x=0.8 z=0.6 yaw=40 al=sacks
+pop
+call mailsack x=-8 z=10 yaw=-30 al=sacks
+call mailsack x=-5.5 z=11.2 yaw=70 al=sacks
+place Antenna_pole - at 2 10 ground sit
+place Placeable_Lantern_Metal - at 1 10 ground sit
+place Placeable_BirdsNest - at 9 8 ground sit
+
+# --- Nature: the reef, a few things to gather ------------------------------------------------------------------------
+call dirt x=14 z=14 r=8 n=1 seed=5012
+call shallows r=56 deep=5 n=2
+place Creature_Dolphin dolphins at 30 -36 h=-3
+prop dolphins creature.count=2
+
+# --- Settings, notes, behaviours, quest --------------------------------------------------------------------------------
+info title=The Wandering Sorting Barge
+info author=Custom Islands
+info description=A sandbar with the Coastal Post's sorting barge beached on it, its deck still set for sorting. It turns up again and again while you sail the post's route - until its last parcel is weighed. A side island of The Last Post.
+island on.arrive=message||A sandbar - and on it, heeled over, a barge with a mail flag. Its sorting deck is still laid out, as if the clerk just stepped away.
+
+prop sacks tint.color=#b8a478
+prop sacks tint.amount=0.75
+
+story bargeweighed|Barge parcel weighed|Note_Paper|The last parcel on the sorting barge, weighed and stamped.
+note clerklog Barge clerk's log | SORTING BARGE No. 3 - CLERK'S LOG\n\nAground again. The tide drops us on a different bar every week; the post comes to us wherever we are.\n\nOne parcel left on the scales, unweighed. The strongbox opens when the scales are clear - Head Office rule.\n\nIf I've gone ashore, weigh it for me. - J. Ek, clerk
+prop scales obj.name=scales
+prop scales beh.use=Weigh the last parcel
+prop scales if.use=!signal|bargeweighed
+prop scales on.use=message||The scales tip and settle. Weighed, stamped - and the strongbox's catch clicks open.\nsignal||scales\nsignal||bargeweighed\ngive||story:bargeweighed*1\nshow|clerkthanks
+prop scales else.use=message||The scales are clear.
+note strongbox Barge strongbox | The barge's strongbox: the clerk's float and the barge's spare batteries.
+loot strongbox Battery*2;MetalIngot*3;TradeToken*4;Bolt*2
+prop strongbox loot.refill=0
+prop strongbox if.open=signal|bargeweighed
+prop strongbox else.open=message||The strongbox is locked until the scales are clear. One parcel still waits on them.
+note clerkthanks Clerk's thanks | Thank you, whoever you are. A barge with clear scales can float off on the next high tide.\n\nThe General Post Office is at the end of the route. Ada will be there. - J. Ek
+prop clerkthanks obj.name=clerkthanks
+prop clerkthanks beh.hidden=1
+
+prop deckzone zone.id=barge_deck
+prop deckzone zone.radius=3
+prop deckzone zone.message=The barge's sorting deck: a desk, a log, a scale with one parcel on it.
+
+quest title=The Sorting Barge
+quest intro=A mail barge aground on a sandbar. Climb on to its sorting deck.
+step reach|barge_deck|1|Climb on to the sorting deck
+step read|Barge clerk's log|1|Read the barge clerk's log
+step collect|story:bargeweighed|1|Weigh the last parcel on the scales
+step open|Barge strongbox|1|Open the barge strongbox
+step read|Clerk's thanks|1|Read the clerk's thanks
+quest done=The barge's scales are clear. On the next high tide it will float off - and turn up somewhere else.
+quest reward=Battery*2;MetalIngot*2;TradeToken*4
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=30 n=1 seed=8862
+prop treasure8862 treasure.loot=TitaniumOre*2
+
+save The Wandering Sorting Barge

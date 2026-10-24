@@ -1,0 +1,17 @@
+# Guide pictures of The Kite Meadow (CIPlay the_kite_meadow_pics): Raft's camera, midday, calm
+island The Kite Meadow
+offset 0 0
+hour 11
+weather Calm
+at 0 -18
+wait 3
+picture the_kite_meadow_island 70 55 -120 0 12 0
+picture the_kite_meadow_masts 0 26 -14 0 22 16
+picture the_kite_meadow_shed 4 24 8 0 21 26
+picture the_kite_meadow_hut 18 12 -58 8 9 -50
+picture the_kite_meadow_vines 0 18 -30 0 15 -38
+picture the_kite_meadow_underwater 0 -3 -96 0 -5 -80
+open Winch fuel can
+use winchengine
+wait 2
+picture the_kite_meadow_kitesup -10 26 -10 0 25 16

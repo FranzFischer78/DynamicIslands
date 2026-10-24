@@ -1,0 +1,11 @@
+# Guide pictures of Firedance Isle (CIPlay firedance_isle_pics): Raft's camera, evening, calm (the fires lit)
+island Firedance Isle
+offset 0 0
+hour 19
+weather Calm
+at -12 -16
+wait 3
+picture ni7_firedance_isle_island 60 28 -60 0 5 0
+picture ni7_firedance_isle_village -12 8 -34 -12 4 -12
+picture ni7_firedance_isle_shrine 12 13 2 12 13 16
+picture ni7_firedance_isle_cave 21 6 2 22 4 -20

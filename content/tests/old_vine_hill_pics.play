@@ -1,0 +1,15 @@
+# Guide pictures of Old Vine Hill (CIPlay old_vine_hill_pics): Raft's camera, midday, calm. Points as in its recipe ("offset").
+island Old Vine Hill
+offset 0 0
+hour 11
+weather Calm
+at -1 -6 h=9
+wait 3
+picture old_vine_hill_island 60 40 -60 -2 8 0
+picture old_vine_hill_press 10 12 -14 -1 9 3
+picture old_vine_hill_terraces 26 18 40 12 9 28
+picture old_vine_hill_cellar -34 10 -8 -47 7 0
+picture old_vine_hill_grave 0 27 10 8 24 20
+at -60 0 h=-3
+wait 6
+picture old_vine_hill_vault -58 -3 -6 -66 -4 0

@@ -1,0 +1,103 @@
+# Slipway Meadow - a new medium island of the library (ROADMAP 3e VI2), a vehicle island, no quest
+# A green meadow island with a small boatyard on its south shore: a stranded trawler hauled up the slipway on its
+# sleepers, two plastic boats turned over on trestles of pallets, a rowing boat in the grass, the forklift and the cart
+# that moved the timber, the yard's van and the yellow caravan the boatwright lived in. A boat shed, goats on the
+# meadow, a lookout over the slip, a cave in the north.
+#
+# Built by the recipe player (CIRecipe vi_slipway_meadow) through the editor's own operations. Points: the yard (3 m,
+# r 15 round 0 -20); the slipway x 0, z -46..-30, the trawler at 0 -36 (bow up the slip); the boat shed x -15..-10.5
+# z -18..-15 (door south); the caravan at 12 -12; the meadow round 0 12; the lookout x 14..17 z -30..-27 (3 m), its
+# ladder at 14.75 -30.2; the cave rock at -6 26, floor 2.45 m, mouth north.
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+include lib_ni8
+include lib_vi
+new
+# (nature: a green meadow - grass, some palms and bushes, berries)
+gen Trees=0.35 Bushes=0.5 Rocks=0.4 Harvest=0.7 BeachThings=0.8
+gen Seed=8626 Radius=52 Height=9 Roughness=0.25 Peaks=1 Shape=0 Style=0 BeachWidth=0.5 Cliffs=0.2 PeakShape=0.3
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0.3 SeaLife=0.3
+generate
+
+# ===== Terrain: the yard, the slipway down the beach, the meadow, the lookout pad, the cave ================================
+brush flatten at 0 -20 r=15 s=20 frames=140 h=3
+brush grass at 0 -14 r=12 s=20 frames=20
+brush smooth from 0 -30 to 0 -50 r=4 s=10 frames=80
+brush sand from 0 -30 to 0 -50 r=3.5 s=20 frames=20
+brush grass at 0 12 r=20 s=20 frames=20
+brush flatten at 15.5 -28.5 r=4.5 s=20 frames=80 h=3
+# (the boat shed's pad: the shed stands at the yard's west edge)
+brush flatten at -12.75 -16.5 r=4.5 s=20 frames=80 h=3
+call ni8cave x=-6 z=26 h=2 yaw=0 al=meadowcave
+clear at 0 -20 r=16
+clear from 0 -28 to 0 -52 r=5
+clear at 15.5 -28.5 r=5
+clear at -12.75 -16.5 r=5
+
+# ===== The slipway and the trawler hauled up it ==============================================================================
+call sleepersz z1=-48 z2=-28 x=0
+place BoatStranded trawler at 0 -38 ground sit yaw=180 scale=0.7
+place RopeFence_Short - at -4 -30 ground sit yaw=90
+place RopeFence_Short - at 4 -30 ground sit yaw=90
+place Cableroll_01 - at 5 -27 ground sit
+
+# ===== The yard: boats on pallet trestles, the rowing boat, the forklift, the cart, the van ==================================
+place Pallet - at -8 -24 ground sit
+place Pallet - at -8 -26.5 ground sit
+place RT_PlasticBoat - at -8 -25.2 ground y=0.25 sit rot=0,0,0 yaw=0 roll=180
+place Pallet - at 8 -24 ground sit
+place Pallet - at 8 -26.5 ground sit
+place RT_PlasticBoat - at 8 -25.2 ground y=0.25 sit rot=0,0,0 yaw=0
+place BoatMini - at -3 -10 ground sit scale=14 yaw=40
+place VP_Forklift - at 5 -18 ground sit yaw=200
+place VP_Wagon02 - at -4 -20 ground sit yaw=90
+place TreeLog_02 - at -2 -16 ground sit yaw=0
+place Van_5 - at 10 -4 ground sit yaw=160
+place Caravan_Yellow_01 - at 12 -13 ground sit yaw=0
+place Bench_01 - at 9 -16 ground sit yaw=180
+place campfire_1 - at 9 -19 ground sit
+
+# ===== The boat shed and its chest ===========================================================================================
+push at -15 -18 h=3
+call cabin w=3 d=2 al=boatshed
+place CaravanWorkbench - at 3.2 1.5 y=0.1 sit yaw=270
+place Loot_ChestSmall shedchest at 1 2.2 y=0.1 sit yaw=10
+pop
+
+# ===== The lookout over the slip, the meadow's goats and hens, the cave ======================================================
+call lookout x=14 z=-30 h=3 al=lookoutchest
+place Placeable_Scarecrow - at -6 10 ground sit yaw=200
+call dirt x=-6 z=12 r=4 n=2 seed=8671
+place Creature_Goat goats at 6 14 ground
+prop goats creature.count=2
+place Creature_Chicken hens at 4 -6 ground
+prop hens creature.count=2
+call cavein x=-6 z=26 h=2 yaw=0 al=meadowcavechest
+
+# ===== Palms, bushes, berries (sparing); things to gather; Raft's finds in the shallows ======================================
+scatter "Pickup_Landmark_Tree_Palm 3" 3 at 0 10 r=34 seed=8672 free=6
+scatter "Pickup_Landmark_BerryBush" 3 at 0 10 r=30 seed=8673 free=3
+scatter Banana_Bush_1 2 at 18 10 r=10 seed=8674 free=4
+scatter SmallBush_3 3 at 0 0 r=36 seed=8675 free=4
+call hives x=10 z=20 r=20 n=2 seed=8676
+call treasure x=0 z=0 r=38 n=1 seed=8626
+call shallows r=76 deep=5 n=2 seed=867
+
+info title=Slipway Meadow
+info author=Custom Islands
+info description=A green meadow island with a boatyard on its south shore: a trawler hauled up the slipway, two plastic boats on pallet trestles, a rowing boat in the grass, the forklift and cart that moved the timber, the van and the boatwright's yellow caravan.
+
+note shedchest Boatwright's chest | Her tools, oiled and wrapped. A plan of the trawler pinned to the lid, with one word across it in red: NEVER.
+loot shedchest Nail*12;Plank*8;Rope*3;Hinge*2
+prop shedchest loot.refill=0
+note lookoutchest Chest on the lookout | From up here she watched the tide come up the slip. A spyglass with a cracked lens, a rope.
+loot lookoutchest Rope*3;Glass*1;Plank*4
+prop lookoutchest loot.refill=0
+note meadowcavechest Chest in the north cave | Brass fittings off the trawler, kept back for a better boat.
+loot meadowcavechest CopperIngot*2;MetalIngot*2;Bolt*2;Scrap*2
+prop meadowcavechest loot.refill=0
+
+save Slipway Meadow

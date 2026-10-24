@@ -1,0 +1,31 @@
+# FLOAT2 round 4: Raft's zipline boarding floor on Thunderhead, Pendulum and Altitude Market, and Altitude's iron post -
+# where the pieces really are (logged), then low side shots 4-6 m off at the floor's feet + 1 m
+# (the near floor: 5.72 m west, 0.97 m north of the pivot, 1.35 m under it)
+island Thunderhead Array
+hour 11
+weather Calm
+at 0 -30
+wait 3
+where ZiplinePath
+picture f2d_thunder_w 3.5 +1 -13.5 8.5 14.2 -13.5
+picture f2d_thunder_n 8.5 +1 -8.5 8.5 14.2 -13.5
+picture f2d_thunder_nw 4.5 +2 -9.5 8.5 14.2 -13.5
+island Altitude Market
+hour 11
+weather Calm
+at 0 0
+wait 3
+where ZiplinePath
+where RT_Pillar
+picture f2d_alt_w 0.8 +1 9 5.8 6 9
+picture f2d_alt_s 5.8 +1 4 5.8 5.8 9
+picture f2d_alt_sw 2 +1.5 5 5.8 5.8 9
+island Pendulum Isle
+hour 11
+weather Calm
+at 0 0
+wait 3
+where ZiplinePath
+picture f2d_pend_e -21 +1 0 -26 6.3 0
+picture f2d_pend_n -26 +1 5 -26 6.3 0
+picture f2d_pend_ne -22 +2 4 -26 6.3 0

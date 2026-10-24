@@ -1,0 +1,31 @@
+# Play test of Dunecrown Isle (CIPlay dunecrown_isle, in a test world 'CI ...'). No quest: across the plaza and up the
+# great pyramid's stair to the king's chest, into the tomb past its rats, the oasis and the caravan's tents, the barrel
+# on the black ridge, the wreck's barrel, the buried tins. Points as in its recipe.
+island Dunecrown Isle
+offset 0 0
+expect animals Hyena 3
+expect animals Rat 2
+expect animals Screecher 1
+wait 5
+where BalboaCave
+kill Hyena
+walk 0 -27 to 0 -23 h=5.5
+read Stone at the stair
+walk 0 -20 to 0 -12 to 0 -4 to 0 4 to 0 7 to 1.4 9 to 1.4 11 to 0 13 h=19
+expect stand 0 13 h=19 below=21
+open The king's chest
+kill Rat
+walk 34 -4 to 34 -9 to 34 -14 to 35 -17 h=4.1 below=7
+expect stand 35 -17 h=4 below=7
+read Tomb tablet
+open Sealed coffer
+walk -26 -48 to -28 -44 h=1.3
+read The caravan master's ledger
+open Caravan chest
+kill Screecher
+open Barrel on the ridge
+open Barrel by the wreck
+expect hidden vinechest
+dig
+expect animals Hyena 0
+expect animals Rat 0

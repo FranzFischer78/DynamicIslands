@@ -1,0 +1,13 @@
+# Guide pictures of Sargasso Town (CIPlay sargasso_town_pics): Raft's camera, afternoon, calm
+island Sargasso Town
+offset 0.0553 1.1623
+hour 15
+weather Calm
+at 0 -20 h=2
+wait 3
+picture sargasso_town_island 0 45 -95 0 2 0
+picture sargasso_town_quay 6 5 -30 0 2 -10
+picture sargasso_town_council -7 5 -12 0 2 0
+picture sargasso_town_galley 8 4 -4 16 2 2
+picture sargasso_town_barge 30 4 -8 22 1 -15
+picture sargasso_town_lookout 42 9 4 51 9 -4

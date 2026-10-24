@@ -1,0 +1,37 @@
+# Signalstack Rock (CIPlay signalstack_rock): the shelf, the relay log, the Receiver's plans (relay desk), the mast top,
+# the antenna's plans (mast box), the fourth fragment. The shelf's stores chest has pine seeds.
+island Signalstack Rock
+offset 0 0
+expect step 0
+expect title The Fragments
+zone shelf
+expect step 1
+read Relay log: fragments
+expect step 2
+open Relay desk
+wait 3
+expect step 3
+open Relay stores
+wait 2
+expect item Seed_Pine 2
+walk 6 -10 to 8.5 -6 to 8.5 -2 to 7.5 1.5 to 6 4.5 to 3.5 5 to 1 3 h=9
+zone mast_top
+expect step 4
+# REDO 10-24: the mast box is in the ice until the three guy clamps are on the winch
+expect hidden mastbox
+use mastwinch
+expect story mastfixed 0
+open Ledge chest
+open Drift chest
+wait 2
+expect story clamp 3
+expect step 5
+use mastwinch
+expect story clamp 0
+expect shown mastbox
+expect step 6
+open Mast box
+wait 3
+expect step 7
+read Fragment 4
+expect done

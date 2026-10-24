@@ -1,0 +1,166 @@
+# Radio Tower Remade - an island of the library's plan Raft Remade (in place of Raft's Radio Tower)
+# Raft's radio tower made anew: its rock remade with the generator's "Randomize existing" (bigger and steeper), and on it
+# a tower of three storeys of the radio tower's pieces climbing the rock: the landing at the sea, the generator room
+# halfway up, the radio room at the top with its roof. The storm took the battery bank into the sea by the old shark
+# cage; a screecher, Old Beak, has taken the roof. Quest "Back on the Air" (7 steps): the landing, the keeper's note, the
+# battery bank from the cage, the roof and its nest, Old Beak, the radio room, the radio on the air and the keeper's locker.
+#
+# Built by the recipe player (CIRecipe radio_tower_remade) through the editor's own operations.
+include lib_sea
+include lib_rt
+new
+# (nature and the life under water: as on Raft's island itself - Randomize existing measures them)
+gen Friendly=0 SeaLife=0.3
+# (harvestables at Like Raft: "like" Raft's Radar island scaled its handful of plants on its tiny land up to the slider's
+# top - 62 pineapples, 19 sand piles and 16 berry bushes on 3500 m2, twelve times Raft's - the review, 2026-10-03)
+randomize Radar like Seed=7101 Radius=34 Height=28 Cliffs=0.6 Peaks=1 PeakShape=0.7 Hostiles=0 Harvest=0.24
+
+# --- Terrain: the tower's footing levelled on the south terrace, a dock's beach below it -----------------------------
+brush flatten at -1 -18 r=7 s=20 frames=40
+clear at -1 -16 r=9
+clear from -1 -22 to -1 -30 r=4
+origin
+
+# --- The tower: four legs of the radio tower's thick pillars, three decks, ladders up its front, the radio room on top
+# (its top deck reaches north over the peak). Frame on the levelled terrace, its floor the ground (2.7 m).
+push at 2 -18 h=2.7
+for lx -5.9 -0.1 5.8
+for lz -4.4 4.4 8.8
+for ly 0 12 6
+place RT_PillarThick - at $lx $lz y=$ly
+next
+# (the last piece cut to end under the top deck)
+place RT_PillarThick - at $lx $lz y=18 sy=0.383
+next
+next
+# decks (each floor spans 6 m west and 9 m south of its corner)
+place RT_Floor deck1 at 0 4.5 y=6.3
+place RT_Floor deck2 at 0 4.5 y=13.3
+place RT_Floor deck3 at 0 4.5 y=20.3
+place RT_Floor - at 0 13.5 y=20.3
+# ladders up the front, from the ground to each deck in turn
+place LandmarkLadder_6m ladder0 at -1.5 -4.62 y=0
+place LandmarkLadder_6m ladder1 at -4.5 -4.62 y=6.3
+place LandmarkLadder_6m ladder2 at -1.5 -4.62 y=13.3
+# railings on the decks' backs and sides
+for d 6.3 13.3 7
+line RT_Fence from 0 4.5 to -6 4.5 step=1.5 ends y=$d
+place RT_Fence - at -6 -3 y=$d yaw=90
+place RT_Fence - at -6 0 y=$d yaw=90
+place RT_Fence - at -6 3 y=$d yaw=90
+place RT_Fence - at 0 -3 y=$d yaw=90
+place RT_Fence - at 0 0 y=$d yaw=90
+place RT_Fence - at 0 3 y=$d yaw=90
+next
+# the radio room on the top deck's north half (its door faces the ladder's arrival)
+push at 0 9 y=20.3
+call rt_storey f2=RT_WallDoor1 l2=RT_WallWindow1 r2=RT_WallWindow1 b1=RT_WallWindow2 b2=RT_WallWindow2
+place "Table Office" - at -3 3.5 sit
+place RT_CommRadio radio at -3.3 3.9 y=1.08 sit
+place Note_Paper - at -2.3 3.85 y=1.08 sit
+place RT_RadarScreen - at -5.45 -0.5 sit yaw=90
+place Locker radiolocker at -0.6 2.5 sit yaw=270
+place "Chair Office" - at -3 2.7 sit yaw=170
+place RT_RoofLamp - at -3 0 y=2.95
+place RT_RoofLamp onairlights at -4.5 3 y=2.95
+place Zone_Trigger radioroom at -3 0 y=1.2
+# its roof: the dish, the floodlights - and Old Beak's nest
+place RT_Floor - at 0 4.5 y=3
+place RT_SatteliteDisc - at -4.6 -2.5 y=3 sit yaw=200
+# (on the roof itself - it has no railing to stand on, at the railing's height it hung 1.35 m over the roof)
+place RT_Floodlight - at -5.5 4.0 y=3 sit yaw=315
+place Bird_Nest - at -2 2 y=3 sit
+place Creature_StoneBird oldbeak at -2 2 y=5
+place Zone_Trigger roofzone at -3 0 y=6.5
+pop
+pop
+
+# --- The landing: a dock on posts below the tower, the keeper's note on the tower's foot, a plastic boat ------------
+for dz -26.5 -31.7 -5.2
+place Relay_Floor_deck - at 1.6 $dz h=1.9
+place Relay_support_beam_wood - at -3.4 {$dz-0.4} h=-15 rot=0,0,-90 sx=1.81
+place Relay_support_beam_wood - at 1.2 {$dz-0.4} h=-15 rot=0,0,-90 sx=1.81
+place Relay_support_beam_wood - at -3.4 {$dz-4.8} h=-15 rot=0,0,-90 sx=1.81
+place Relay_support_beam_wood - at 1.2 {$dz-4.8} h=-15 rot=0,0,-90 sx=1.81
+next
+place RT_PlasticBoat - at 4.5 -34 h=0.3 yaw=15
+place Note_Board keepernote at -2 -23.2 ground yaw=180
+place "Box Big" - at -5.5 -23 ground sit yaw=20
+place "Box Big" - at -5.4 -21.8 ground sit yaw=-10
+place Zone_Trigger landing at -1 -26 h=2.5
+
+# --- The old shark cage on the seabed south-west, the cage locker wedged inside it ----------------------------------
+place RT_SharkCage cage at -13 -33 ground sit yaw=30
+# (the shark cage as a ready piece is chained shut, wants Raft's bolt cutters and goes when used: here it is the old cage the battery bank lies by, open to divers - the ready piece's settings taken off)
+prop cage beh.use=
+prop cage if.use=
+prop cage else.use=
+prop cage on.use=
+place Loot_Chest cagebox at -13 -33 ground sit yaw=30
+
+# --- Settings, notes, behaviours, quest ------------------------------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): palms, melons, bananas ----------
+scatter "Pickup_Landmark_Tree_Palm 1" 2 at 0 0 r=23.8 seed=4282 free=5
+scatter "Pickup_Landmark_Tree_Palm 3" 2 at 0 0 r=23.8 seed=4283 free=5
+scatter "Pickup_Landmark_WatermelonLandmark" 3 at 0 0 r=23.8 seed=4292 free=3
+scatter "Banana_Bush_2" 3 at 0 0 r=23.8 seed=4302 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=54 deep=5 n=1
+
+info title=Radio Tower Remade
+info author=Custom Islands
+info description=Raft's radio tower, made anew: a steeper rock, a tower of three storeys climbing it, the old shark cage on the seabed - and a screecher that has taken the roof. The battery bank fell into the sea in a storm; the radio waits for it. Raft Remade's first island.
+island on.arrive=message||A tower of steel rooms climbs a black rock out of the sea. Its antenna is dead - and something big circles its roof.
+
+story battery|Battery bank|quest:Tangaroa_GeneratorPart|The radio tower's battery bank, salvaged from the old shark cage on the seabed.
+note keepernote Keeper's note | RADIO TOWER - KEEPER'S NOTE\n\nThe storm took the battery bank off the landing and into the sea. It's down by the old shark cage - I saw it go.\nThe screecher has the roof now. It doesn't like visitors.\nBring the bank up to the radio room, plug it in, and the tower talks again: whoever is out there will hear where to go next.
+note cagebox Cage locker | A locker wedged against the old shark cage: the tower's battery bank, still sealed.
+loot cagebox story:battery*1;Battery*1
+prop cagebox loot.refill=0
+note radiolocker Radio room locker | The keeper's locker: everything he kept for whoever came to put the tower back on the air.
+loot radiolocker Blueprint_Reciever*1;Blueprint_Antenna*1;Battery*2;Nail*12;Rope*4;Scrap*6
+prop radiolocker loot.refill=0
+prop radiolocker if.open=signal|onair
+prop radiolocker else.open=message||The locker's lock is wired to the radio. Put the tower on the air first.
+
+prop radio obj.name=radio
+prop radio beh.use=Plug in the battery bank
+prop radio if.use=take|story:battery|1
+prop radio on.use=message||The bank clicks home. Lights run up the panel, the speaker crackles - and the tower talks again, a long call out over the sea.\nshow|onairlights\nsignal||onair\nsound||event:/exploring/obstacles/tangaroa/generator_placepart
+prop radio else.use=message||The radio is dead. Its battery bank is missing.
+prop onairlights obj.name=onairlights
+prop onairlights beh.hidden=1
+
+prop landing zone.id=landing
+prop landing zone.radius=7
+prop landing zone.message=The tower's landing: a plastic boat tied up, crates, and a note nailed to the tower's foot.
+prop radioroom zone.id=radioroom
+prop radioroom zone.radius=2.5
+prop radioroom zone.message=The radio room: a dead panel, a radar screen, an empty battery bay.
+prop roofzone zone.id=roof
+prop roofzone zone.radius=6
+prop roofzone zone.message=The roof - and a nest of wire and bones. Old Beak doesn't share.
+prop oldbeak creature.count=1
+prop oldbeak creature.size=1.6
+prop oldbeak creature.health=4
+prop oldbeak creature.damage=1.5
+prop oldbeak creature.respawn=0
+prop oldbeak creature.zone=roof
+prop oldbeak tint.color=#3a3a46
+prop oldbeak tint.amount=0.5
+
+quest title=Back on the Air
+quest intro=A tower of steel rooms on a black rock, its antenna dead. The landing at its foot is the place to start.
+step reach|landing|1|Land at the tower's landing
+step read|Keeper's note|1|Read the keeper's note on the landing
+step collect|story:battery|1|Dive to the old shark cage for the battery bank
+step reach|roof|1|Climb the tower's three ladders to the nest of wire and bones on its roof
+step kill|Screecher|1|Drive Old Beak off the tower's roof
+step reach|radioroom|1|Climb to the radio room at the top
+step open|Radio room locker|1|Put the tower on the air and open the keeper's locker
+step blueprint|Blueprint_Reciever|1|Take the Receiver plans from the radio room locker
+step blueprint|Blueprint_Antenna|1|Take the antenna plans from the radio room locker
+quest done=The tower talks again: its call goes out over the sea - and somewhere far off, a ship's beacon answers.
+quest reward=Plank*10;Rope*3;Nail*10
+
+save Radio Tower Remade

@@ -1,0 +1,16 @@
+# Guide pictures of Heart of Fire (CIPlay heart_of_fire_pics): Raft's camera, midday, calm. Points as in its recipe ("offset").
+island Heart of Fire
+offset 0 0
+hour 11
+weather Calm
+at -60 90 h=3.5
+wait 3
+picture heart_of_fire_island -150 70 140 0 20 0
+picture heart_of_fire_village -40 12 70 -62 4 96
+picture heart_of_fire_tube -30 22 -86 -35 18 -66
+picture heart_of_fire_temple 22 22 -22 0 14 -30
+picture heart_of_fire_spring 8 12 52 -3 8 42
+picture heart_of_fire_summit 10 66 20 30 61 40
+at -110 95 h=-5
+wait 6
+picture heart_of_fire_wreck -98 -4 88 -110 -6 100

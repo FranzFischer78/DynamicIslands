@@ -1,0 +1,14 @@
+# Pictures of Timberline Haul (CIPlay vi_timberline_haul_pics; vehicle island): Raft's camera, midday, calm
+island Timberline Haul
+offset 0 0
+hour 11
+weather Calm
+at 0 0
+wait 3
+picture vi_timberline_haul_overview 75 59 -75 0 3 0
+picture vi_timberline_haul_wagons 10 +3 -21 10 +1 -12
+picture vi_timberline_haul_haulcrane 21 +5 -40 26 +3 -28
+picture vi_timberline_haul_landing 2 +6 -57 8 +1 -68
+picture vi_timberline_haul_cookcabin -15 +2 -4 -24 +2 4
+picture vi_timberline_haul_lookout 10 +3 40 0 +4 50
+picture vi_timberline_haul_forklifts 10 +4 -36 17 +1 -28

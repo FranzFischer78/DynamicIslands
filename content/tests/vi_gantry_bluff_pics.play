@@ -1,0 +1,12 @@
+# Pictures of Gantry Bluff (CIPlay vi_gantry_bluff_pics; vehicle island): Raft's camera, midday, calm
+island Gantry Bluff
+offset 0 0
+hour 11
+weather Calm
+at 0 6
+wait 3
+picture vi_gantry_bluff_overview 29 26 -29 0 3 0
+picture vi_gantry_bluff_cranes 9 +7.5 -5 -1 +0.5 6
+picture vi_gantry_bluff_edge 26 +2 4 6 +6 8
+picture vi_gantry_bluff_ramp 12 +4 -20 0 +1 -12
+picture vi_gantry_bluff_chkcrane 13 +2 1 5 +2.5 8.5

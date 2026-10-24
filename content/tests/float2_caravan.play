@@ -1,0 +1,17 @@
+# FLOAT2 close side pictures, Caravan Town Remade (round 2): the four cliff spots where Raft's ladders stood in the rock
+# (now cleared - seen from the water, foot to top), the lift's two north legs in their new notches, and the sunk trailer and
+# diver's crate in their hollow out in the bay (above and under water)
+island Caravan Town Remade
+hour 15
+weather Calm
+at -40 -40
+wait 3
+picture f2_car_ladder1 4 2 21 4 8 14
+picture f2_car_ladder2 19 3 -3 22 10 2.5
+picture f2_car_ladder3 46.5 2 -10 46.5 12 -3
+picture f2_car_ladder4 -30.4 2 61.5 -30.4 10 55
+picture f2_car_pillar -14 3.4 -0.5 -16.9 2.4 3.4
+picture f2_car_pillar_e -13.5 3.4 -0.5 -11.1 2.4 3.4
+picture f2_car_trailer_crate -17.5 2.5 -19.5 -21 -1.5 -12.8
+picture f2_car_trailer_west -26 2 -9 -21.5 -2 -13
+picture f2_car_trailer_under -18 -1 -16.5 -22 -2.2 -13.2

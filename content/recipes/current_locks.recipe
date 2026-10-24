@@ -1,0 +1,233 @@
+# Current Locks - the sixth island of The End of the Ocean (SL14, the Concord Engine's canal)
+# A long island cut through by a straight canal with three iron lock gates in it, a crank for each on the east bank. The
+# engine's water ran through here once, lock by lock, south to the ring. The lock keeper's rules still hang on the first
+# gate, anglers have the deep basin under it, a bear has the path to the third. In the keeper's kitchen at the north end
+# a note from Ines: she has seen three rings before. Quest "Three Locks" (15 steps): lock 1, the rules, the lock house's
+# wind turbine plans, crank 1, the anglers in the basin, the advanced battery plans, crank 2, the bear, the headlight
+# plans, crank 3, the keeper's kitchen.
+#
+# Built by the recipe player (CIRecipe current_locks) through the editor's own operations. Points (metres over the sea):
+# the banks at 2 m either side of the canal (x -4..4, bed at -3 m, z -30..30), the basin under lock 1 at -8 m (z -14..-4),
+# the gates at z -16, 0 and 16, the cranks at 6 -18, 6 -2, 6 14, the lock house x 8..11, z -23..-20, the bear's den round
+# 12 8, the keeper's kitchen x -12..-9, z 20..23, the planters round -8 12.
+include lib_sea
+include lib_features
+include lib_huts
+include lib_gravity
+include lib_concord
+include lib_areas
+new
+# (nature 10-24: hills and Raft-like trees over the whole island - the coordinator's check after the resize)
+gen Trees=0.4 Bushes=0.42 Rocks=0.55 Harvest=0.35 BeachThings=0.3
+gen Seed=14121 Radius=92 Height=14 Roughness=0.3 Peaks=2 Shape=0 Style=0 PeakShape=0.4 Cliffs=0.5 BeachWidth=0.6
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.3 Sunken=0.3 Hostiles=0 Friendly=0.2 SeaLife=0.35
+generate
+
+# --- Terrain: the two banks, the canal, the deep basin under lock 1 ------------------------------------------------------
+brush flatten from 8 -57.5 to 8 57.5 r=5 s=20 frames=600 h=2
+brush flatten from -8 -57.5 to -8 57.5 r=5 s=20 frames=600 h=2
+brush flatten at -10.5 36.17 r=4 s=20 frames=120 h=2
+brush flatten from 0 -65.17 to 0 65.17 r=4 s=20 frames=600 h=-3
+brush flatten from 0 -26 to 0 -5 r=4 s=20 frames=600 h=-8
+# RESIZE 10-24: the strokes are twice as long, so twice the frames; a level pad under each gate
+brush flatten at 0 -30.72 r=3.5 s=20 frames=150 h=-3
+brush flatten at 0 0 r=3.5 s=20 frames=150 h=-3
+brush flatten at 0 30.72 r=3.5 s=20 frames=150 h=-3
+brush flatten at -10.5 36.17 r=5.5 s=20 frames=200 h=2
+origin
+clear from 8 -57.5 to 8 57.5 r=5
+clear from -8 -57.5 to -8 57.5 r=5
+clear from 0 -65.17 to 0 65.17 r=4
+clear at -13.5 25.17 r=2
+
+# --- The three lock gates: iron walls across the canal between thick posts, three high, hidden when cranked -------------
+macro lockgate z=0 al=gate1
+place RT_PillarThick lockposts at -4 $z ground
+place RT_PillarThick lockposts at 4 $z ground
+push at 0 $z h=-3
+place RT_Wall1 $al at 0 0 y=0
+place RT_Wall1 $al at 3 0 y=0
+place RT_Wall1 $al at 0 0 y=3
+place RT_Wall1 $al at 3 0 y=3
+pop
+prop $al obj.name=$al
+prop $al tint.color=#5b4a3c
+prop $al tint.amount=0.6
+end
+call lockgate z=-30.72 al=gate1
+call lockgate z=0 al=gate2
+call lockgate z=30.72 al=gate3
+prop lockposts tint.color=#4e5358
+prop lockposts tint.amount=0.6
+call wheel x=6 z=-32.67 yaw=270 al=crank1
+call wheel x=6 z=-2 yaw=270 al=crank2
+call wheel x=6 z=28.67 yaw=270 al=crank3
+call loopsound x=0 z=0 al=canalsound ev=event:/raft/engine/waterwheel r=20 vol=0.3 h=0
+
+# --- Lock 1: its zone, the rules on the gate post, the lock house with the turbine plans -----------------------------------
+call tzone x=7 z=-34.67 al=lock1zone id=lock_1 r=5 msg="Lock 1. An iron gate across the canal, a crank on the bank - and the keeper's rules nailed to the post."
+place Note_Sign lockrules at 5.5 -31.47 ground sit yaw=270
+push at 8 -37.67 h=2
+call hut w=2 d=2 y=0.1
+place Loot_Chest lockhouse at 2.2 2.4 y=0.1 sit yaw=180
+pop
+place Placeable_WindTurbine - at 12 -32.67 ground sit
+
+# --- The basin under lock 1: anglers, the air pocket under the gate, the sunk tool chest ---------------------------------
+place Creature_AnglerFish anglers at 0 -23.67 ground y=2
+prop anglers creature.count=3
+prop anglers creature.respawn=0
+prop anglers creature.zone=lock_basin
+call tzone x=0 z=-23.67 al=basinzone id=lock_basin r=4 h=1 msg="The basin under lock 1, deep and dark - and something with a light on its head."
+call airpocket x=0 z=-28.67 id=gate_air al=gateair bub=gatebub r=2.5 msg="An air pocket trapped under the gate's lip. Breathe."
+place Loot_Chest basinchest at 2 -6 ground sit yaw=270
+
+# --- Lock 2 and the bear's den on the way to lock 3 ---------------------------------------------------------------------
+call tzone x=8 z=-2 al=lock2zone id=lock_2 r=4 msg="Lock 2. The path north goes past a den in the bank."
+place Creature_Bear bear at 12 8 ground
+prop bear creature.count=1
+prop bear creature.respawn=0
+prop bear creature.zone=lock_2
+place Loot_Chest denchest at 13 24.67 ground sit yaw=200
+place "Box Small" - at 9.5 25.17 ground y=0.2 sit yaw=40
+# (the canal builders' crane on the west bank, and the keeper's rowing boat pulled up by lock 1)
+place UT_ElectricityIsland_Crane02 - at -9 -6 ground sit yaw=90
+place RT_PlasticBoat - at -7 -38.67 ground sit yaw=10
+
+# --- Lock 3; Ines's note; the keeper's kitchen and its planters -----------------------------------------------------------
+call tzone x=8 z=28.67 al=lock3zone id=lock_3 r=4 msg="Lock 3, the last. Past it the canal opens to the sea - and far off south, smoke over a dark island."
+call notebox x=9 z=32.67 yaw=200 al=inesnote
+push at -12 34.67 h=2
+call hut w=2 d=2 y=0.1
+place Loot_Chest kitchen at 2.2 2.4 y=0.1 sit yaw=180
+place Placeable_CookingStand_Food_One - at 0.8 0.8 y=0.1 sit
+place Placeable_Table_Basic - at 1.0 1.95 y=0.1 sit
+pop
+place Placeable_Cropplot_Medium - at -10 24.67 ground sit
+place Placeable_Cropplot_Medium - at -8 24.67 ground sit
+place Placeable_Cropplot_Medium - at -6 24.67 ground sit
+place Placeable_Cropplot_Medium - at -10 27.67 ground sit
+place Placeable_Cropplot_Medium - at -8 27.67 ground sit
+place Placeable_Scarecrow - at -6 27.67 ground sit
+place Creature_Chicken hens at -12 28.67 ground
+prop hens creature.count=2
+
+# --- Things to gather; reefs and the shallows -------------------------------------------------------------------------
+scatter Pickup_Landmark_BerryBush 3 at -10 -28.67 r=6 seed=14122 free=2
+scatter "Pickup_Landmark_Tree_Palm 1" 3 at 14 38.67 r=6 seed=14123 free=2
+call hives x=-12 z=-36.67 r=5 n=1 seed=14124
+call reef x=-65 z=-44 r=5 seed=14125
+call reef x=65 z=57 r=5 seed=14129
+call shallows x=0 z=0 r=111.17 deep=5 n=1 seed=14133
+
+# --- Discoveries: things to find off the quest path (not needed for the quest) ---------------------------------
+call tzone x=43.4 z=-15.8 al=locksview id=locksview r=4 msg="A rise above the canal. The water in the canal runs one way - and the sea round the island the other."
+place Loot_Chest keeperspares at -71.6 8.4 ground sit yaw=97
+prop keeperspares loot.refill=0
+call notebox x=28.6 z=60.9 yaw=25 al=lockrota
+place CaravanBarebones1 - at -32.9 -55.4 ground sit yaw=301
+place BoatStranded - at -44.7 75.9 ground sit yaw=60 scale=0.7
+
+# --- Areas (10-24: every story island has places all over it and its quest crosses it): the west ridge with its lookout and a
+# buried treasure, the cave in the north-east bank, the canal diggers' ruined bunkhouse in the south, the plane in the
+# north-west
+call ar_ridge x1=-48 z1=-20 x2=-40 z2=36 h=9 top=7 r=9
+call ar_plants_tropical x=-44 z=8 r=28 seed=14351
+call tzone x=-44 z=8 al=westridge id=locksridge r=7 msg="The top of the west ridge. The canal cuts the island in two below you, straight as a rule, pointing south."
+call treasure x=-44 z=8 r=12 n=1 seed=14361
+call ar_cave x=44 z=36 h=5 yaw=0 al=lockcave chest=lockcavechest
+call tzone x=44 z=41 al=lockcavezone id=lockcave r=4 msg="A cave in the north-east bank. Water marks on the walls - the canal ran through here once, before the locks."
+call ar_ruin x=-16 z=-64 h=3 yaw=0 al=bunkhouse
+call notebox x=-13.5 z=-68.5 yaw=20 al=diggerlist
+call ar_plane x=-36 z=60 h=2.5 yaw=210 al=canalplane crate=canalcrate
+call notebox x=-31.5 z=63.5 yaw=70 al=canalplanelog
+# vine cache placed by hand (scatter found no spot in run25): the chest behind Raft's choppable vines, machete
+place Loot_Chest vinechest14391 at -60 -40 ground sit yaw=0
+prop vinechest14391 obj.name=vinechest14391
+prop vinechest14391 note.title=Behind the vines
+prop vinechest14391 beh.hidden=1
+loot vinechest14391 Rope*3;Bolt*3;Hinge*2
+beside ChoppableVines vinewall14391 vinechest14391 d=1.6
+prop vinewall14391 on.use=hide|
+show|vinechest14391
+message||The machete bites through the vines. Something was hidden behind them.
+call ar_plants_tropical x=-60 z=-40 r=14 seed=14371
+call ar_plants_tropical x=40 z=-56 r=14 seed=14381
+
+# --- Tools in use (10-24: a tool given earlier in the storyline is used again here, for optional finds): the
+# machete from Triangulation Rocks cuts the vines over a hidden chest, and a zipline from the ridge top is the quick way back down
+clear from -37.0 7.7 to -16 6 r=2.5
+place ZiplinePath_Landmark ridgezip at -41 8 ground
+zipto ridgezip -16 6
+
+# --- Unique layer (10-24): current_locks device - see SL14_progress.md UNIQUE ISLANDS
+call enginecache x=-21 z=-69 yaw=0 alias=dredgeengine locker=dredgelocker items=TitaniumOre*2;MetalIngot*3;Bolt*4 kx=-36 kz=60 kr=12 seed=14671 crate=dredgefuel
+prop lockcavechest if.open=has|story:raft-Vasagatan_BoltCutter|1
+prop lockcavechest else.open=message||The old canal chest is chained to a ring in the rock. Bolt cutters would get through the chain.
+loot lockcavechest Bolt*3;Hinge*2;Scrap*3;Rope*2;TitaniumOre*2
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Current Locks
+info author=Custom Islands
+info description=A long island cut by a straight canal with three iron lock gates, a crank for each on the bank: the way the engine's water once ran south. A keeper's rules, a deep basin, a bear's den and a kitchen garden.
+island on.arrive=message||A canal, straight as a rule, through the whole island - and three iron gates across it, shut.
+
+story lock1|Lock 1 open|Hinge|You wound open the first lock on Current Locks.
+story lock2|Lock 2 open|Hinge|You wound open the second lock on Current Locks.
+story lock3|Lock 3 open|Hinge|You wound open the last lock on Current Locks. The canal runs free to the sea.
+
+note lockrules Lock keeper's rules | LOCK KEEPER'S RULES\n\n1. Locks open in order. One, two, three. Never three first.\n2. Keep the basin clear. The anglers come up the canal at night.\n3. Feed the bear nothing. It lives by lock 2 and it thinks it owns lock 2.\n4. The canal carries the engine's water to the ring. When the ring stops asking, close the gates and go home.\n\nThe ring stopped asking.
+note inesnote Ines's note | INES - in neat small letters\n\nThe engine has three rings. I have seen this before. In the Commons.\n\nThe same sign - a ring cut by three waves - was on the doors of the Hearth there. The Commons drew it for luck. I think the people who built this drew it first.\n\nHedda has gone to the smelters. I go to the spire. Teo talks about the ring as if it can hear him.
+note lockhouse Lock house | The lock house chest: a wind turbine's plans, flapping in the draught.
+note basinchest Basin chest | A chest on the basin floor, half buried: an advanced battery's plans, sealed in wax.
+note denchest Bear den | Under the bear's bedding: a headlamp's plans, chewed at one corner.
+note kitchen Keeper's kitchen | The keeper's kitchen chest: an electric grill's plans and a sack of seeds and roots.
+loot lockhouse Blueprint_WindTurbine*1;Scrap*4;Plank*6
+prop lockhouse loot.refill=0
+loot basinchest Blueprint_BatteryAdvanced*1;CopperOre*2;Battery*1
+prop basinchest loot.refill=0
+loot denchest Blueprint_HeadLight_Advanced*1;Leather*2;Scrap*2
+prop denchest loot.refill=0
+loot kitchen Blueprint_ElectricGrill*1;Raw_Beet*2;Raw_Potato*2;Seed_Pineapple*2;Seed_Watermelon*2;Seed_Strawberry*2
+prop kitchen loot.refill=0
+
+prop crank1 beh.use=Wind lock 1's crank
+prop crank1 if.use=!signal|lock1
+prop crank1 on.use=signal||lock1\ngive||story:lock1*1\nhide|gate1\nmessage||The crank turns, chains rattle in the posts and the first gate sinks into the canal. The water starts to move.\nsound||event:/raft/engine/waterwheel
+prop crank1 else.use=message||Lock 1 is open.
+prop crank2 beh.use=Wind lock 2's crank
+prop crank2 if.use=signal|lock1\n!signal|lock2
+prop crank2 on.use=signal||lock2\ngive||story:lock2*1\nhide|gate2\nmessage||The second gate drops. The canal runs faster.\nsound||event:/raft/engine/waterwheel
+prop crank2 else.use=message||Locks open in order - or this one is open already.
+prop crank3 beh.use=Wind lock 3's crank
+prop crank3 if.use=signal|lock2\n!signal|lock3
+prop crank3 on.use=signal||lock3\ngive||story:lock3*1\nhide|gate3\nmessage||The last gate sinks. The whole canal pours south into the sea with a roar - toward the smoke.\nsound||event:/raft/engine/waterwheel
+prop crank3 else.use=message||Locks open in order - or this one is open already.
+
+note keeperspares Lock-keeper's spares | The lock-keepers' spare-parts chest: hinges, bolts, a bar of iron.
+loot keeperspares Hinge*3;Bolt*4;MetalIngot*2;Rope*2
+note lockrota Lock-keepers' rota | ROTA - pinned inside a box lid\n\nGate 1: Mira. Gate 2: Old Jonas. Gate 3: nobody since Jonas's son left.\nOpen all three in order, never together, or the current takes the canal.\nWhoever reads this: the order is on the cranks.
+note lockcavechest Old canal chest | A chest left on a ledge above the old water line: the first lock keeper's tools.
+prop lockcavechest loot.refill=0
+note diggerlist Diggers' roll | CANAL DIGGERS' ROLL - nailed inside the bunkhouse door\n\nForty-one names, crossed out one by one as the crews went home.\nAt the bottom, in a different hand: The canal is not for boats. It carries the current south to the Engine. Do not let the locks rust.\n\nThe dredge engine by the bunkhouse still holds our pay locker. The fuel went on the canal plane.
+note canalplanelog Canal plane log | SURVEY PLANE LOG - the canal run\n\nThe canal points due south to within half a degree. So does the pulse. So did the beacon.\nEvery station on this line is aimed at the same place.\nForced down in the north-west. Walking to the locks.\n\nWe never dug toward the sea. Every cut points at the Engine in the south - the canal was its drain.
+quest title=Three Locks
+quest intro=A canal with three shut gates. Go to the first lock.
+step reach|lock_1|1|Go to lock 1
+step read|Lock keeper's rules|1|Read the lock keeper's rules on the gate post
+step blueprint|Blueprint_WindTurbine|1|Take the wind turbine plans from the lock house
+step collect|story:lock1|1|Wind lock 1's crank
+step kill|Angler fish|3|Clear the anglers out of the basin under lock 1
+step blueprint|Blueprint_BatteryAdvanced|1|Take the battery plans from the chest on the basin floor
+step collect|story:lock2|1|Wind lock 2's crank
+step kill|Bear|1|Drive the bear away from lock 2
+step blueprint|Blueprint_HeadLight_Advanced|1|Take the headlamp plans from the bear's den
+step collect|story:lock3|1|Wind lock 3's crank
+step reach|locksridge|1|Climb the west ridge above the canal
+step read|Canal plane log|1|Read the log at the plane wreck in the north-west
+step open|Fuel crate|1|Find the fuel crate by the canal plane
+step open|Engine room locker|1|Start the dredge engine by the bunkhouse in the south and open its locker
+step blueprint|Blueprint_ElectricGrill|1|Take the electric grill plans from the keeper's kitchen
+quest done=The canal runs free. Down it, south, smoke over a dark island - and the clang of a smelter.
+quest reward=Seed_Mango*2;Scrap*6;Rope*4
+
+save Current Locks

@@ -1,0 +1,14 @@
+# Guide pictures of Sealkeeper Spire (CIPlay sealkeeper_spire_pics): Raft's camera, evening, storm
+island Sealkeeper Spire
+offset 0 0
+hour 18
+weather Calm
+at -11 13 h=2
+wait 3
+picture sl10_spire_tower -14 8 18 0 12 0
+picture sl10_spire_zips -2 9 12 -8 11 -6
+picture sl10_spire_levers 15 4 -2 15 3 4
+picture sl10_sealkeeper_spire_ridge 63 19 0 77 10 0
+picture sl10_sealkeeper_spire_cave -34 13 18 -46 4 25
+picture sl10_sealkeeper_spire_ruin 0 13 -62 0 4 -76
+picture sl10_sealkeeper_spire_plane -57 13 -24 -70 4 -30

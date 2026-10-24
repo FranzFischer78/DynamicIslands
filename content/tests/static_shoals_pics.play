@@ -1,0 +1,14 @@
+# Guide pictures of Static Shoals (CIPlay static_shoals_pics): Raft's camera, midday - the island's own grey sky
+island Static Shoals
+offset 0 0
+hour 11
+weather Calm
+at -4 0
+wait 3
+picture sl14_static_shoals_island 58 41.6 -135.2 0 4 0
+picture sl14_static_shoals_barge 2 5 -8 -4 1 0
+picture sl14_static_shoals_masts -2 4.5 -6 -14 6 6
+picture sl14_static_shoals_ridge -24 18 28 -44 14 42
+picture sl14_static_shoals_cave 62 12 -4 60 9 20
+picture sl14_static_shoals_ruin -2 12 -70 -12 7 -58
+picture sl14_static_shoals_plane 16 12 40 32 8 52

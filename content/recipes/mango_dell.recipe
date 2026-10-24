@@ -1,0 +1,46 @@
+# Mango Dell - a new small island of the library (ROADMAP 3d NI3), no quest
+# A green isle with a sheltered hollow in its middle where somebody once planted mangoes: the grove has run wild, wild
+# bees hang their hives in it, boars root under the trees - and a chest hides behind a curtain of vines (bring a
+# machete). A monster island: mind the boars.
+#
+# Built by the recipe player (CIRecipe mango_dell) through the editor's own operations. Points: the dell (2.5 m, r 8 round
+# 0 0) and its mango grove; the way down into it from the south beach along x 0; the vine cache somewhere within 12 m of
+# 0 0; the hives round 0 0; the boars at 3 4.
+include lib_huts
+include lib_sea
+include lib_features
+include lib_ni34
+new
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=7408 Radius=26 Height=6 Roughness=0.35 Peaks=1 Shape=0 Style=0 BeachWidth=0.6 Cliffs=0.2 PeakShape=0.6
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== Terrain: the dell in the middle, a gentle way down into it from the south ==========================================
+brush flatten at 0 0 r=8 s=20 frames=80 h=2.5
+brush flatten from 0 -6 to 0 -18 r=3 s=12 frames=40 h=2.5
+brush smooth from 0 -6 to 0 -18 r=5 s=10 frames=30
+brush grass at 0 0 r=9 s=20 frames=20
+clear at 0 0 r=9
+
+# ===== The mango grove in the dell, its hives, the vine cache, the boars ==================================================
+place "Pickup_Landmark_Tree_Mango" - at -4 2 ground yaw=10
+place "Pickup_Landmark_Tree_Mango" - at 3.5 -2.5 ground yaw=100
+place "Pickup_Landmark_Tree_Mango" - at 2 5 ground yaw=200
+place "Pickup_Landmark_Tree_Mango" - at -3 -4.5 ground yaw=290
+call hives x=0 z=0 r=8 n=2 seed=7418
+call vinecache x=0 z=0 r=12 seed=7428 items=Rope*3;Nail*8;Seed_Mango*3;HealingSalve*1
+place Creature_Boar boars at 3 4 ground
+prop boars creature.count=2
+
+# ===== Things to gather: pineapples on the rim; a buried treasure; Raft's finds in the shallows ===========================
+scatter "Pickup_Landmark_PineappleLandmark" 2 at 0 0 r=20 seed=7438 free=4
+call treasure x=0 z=0 r=18 n=1 seed=7408
+call shallows r=42 deep=5 n=1 seed=748
+
+info title=Mango Dell
+info author=Custom Islands
+info description=A green isle with a sheltered hollow where an old mango grove has run wild - wild bees in the trees, boars under them, and a chest hidden behind the vines. No quest - an island to explore.
+
+save Mango Dell

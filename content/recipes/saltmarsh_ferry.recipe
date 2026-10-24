@@ -1,0 +1,166 @@
+# Saltmarsh Ferry - an island of the library's plan Raft 2: The Drowned Frontier (station Two of the Frontier Corps)
+# A salt marsh of pools and reed beds cut by a tidal channel; at the channel's end the Corps' ferry, beached on a mud bank
+# when the tide went out for good. Quest "Down the Marsh" (10 steps): the ferry, the captain's notice at the Corps'
+# office, two of its hens netted, the reed cutter's chest out in the marsh and the bilge pump's handle from it, the
+# marsh goats netted, the ferry's hold, the rats and their king, the engineer's locker (after the pump) and the
+# captain's safe (the motor wheel's and the steering wheel's blueprints).
+#
+# Built by the recipe player (CIRecipe saltmarsh_ferry) through the editor's own operations.
+include lib_sea
+include lib_rt
+new
+# (nature: a marsh: reeds and bushes, few trees - Raft's islands as the generator's Like Raft has them, CIGenLikeRaft)
+gen Trees=0.2 Bushes=0.3 Rocks=0.3 Harvest=0.24 BeachThings=0.3
+gen Seed=8102 Radius=90 Height=6 Roughness=0.4 Shape=5 Style=0 BeachWidth=0.8
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.4 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the tidal channel from the north shore into the marsh, the ferry's mud bank at its end (1.4 m), the
+# Corps' office pad, the reed cutter's hummock, a few salt pools ------------------------------------------------------------
+brush flatten from 0 88 to 1.5 31 r=5.5 s=20 frames=60 h=-1.6
+# (the ferry's bed: shallow muddy water under her bow - on the marsh's ground she lay buried to her cabin roof)
+brush flatten from 2 40 to 2 32.5 r=4.5 s=20 frames=50 h=-0.8
+# (her stern beached on the bank, the mud up to her deck - as Vasagatan's boat lies in its sand)
+brush flatten from 2 13 to 2.3 28.5 r=5 s=20 frames=50 h=1.4
+# (the channel's banks eased into slopes - cut straight down they stood as sand walls)
+brush smooth from 0 88 to 1.5 42 r=8 s=10 frames=20
+brush flatten at -14 18 r=7 s=20 frames=60 h=2.15
+# (the way from the ferry's bank to the Corps' office over a dune)
+brush flatten from 2 15.5 to -9 15.5 r=3.5 s=20 frames=40 h=1.6
+brush smooth from 1 15.5 to -11 16 r=3 s=10 frames=20
+brush flatten at -34 -14 r=5 s=20 frames=40 h=3
+brush smooth at -34 -14 r=8 s=10 frames=15
+brush flatten at 22 6 r=4.5 s=20 frames=30 h=-0.9
+brush flatten at -22 40 r=5 s=20 frames=30 h=-0.9
+brush flatten at 30 -30 r=6 s=20 frames=30 h=-0.9
+brush flatten at -40 -40 r=4 s=20 frames=30 h=-0.9
+origin
+clear from 0 88 to 1 37 r=7
+clear at 2 25 r=13
+clear at -14 18 r=8
+clear at -34 -14 r=6
+clear from 2 20 to -12 18 r=3
+clear from -12 16 to -32 -12 r=3
+clear at 0 0 r=120 only=Rock|Boulder on=sand above=0.2
+
+# --- The ferry, beached at the channel's end: Raft's stranded boat, its bow in the channel, its stern on the mud bank;
+# the captain's safe, the engineer's locker and the bilge pump on the bank beside it ------------------------------------------------
+push at 2 31 h=1.0 yaw=10
+place BoatStranded ferryhull at 0 0 y=0
+place Placeable_Lantern_Metal - at -1.0 3.7 y=1.14 sit
+place Zone_Trigger hold at 0 -6 y=1
+place Creature_Rat rats at 0.6 -8 y=0.4
+place Creature_Rat ratking at -1.2 -9 y=0.4
+pop
+place VP_ShopVac bilgepump at 6.5 19.5 ground yaw=-80
+place VP_Cable_Floor01 - at 5 21.5 ground yaw=20
+place Locker engineerslocker at -2.5 17.5 ground yaw=90
+place Crate_Big_01 - at 7.5 16 ground yaw=15
+# (the captain's safe, carried off the ferry onto the bank - the stranded boat's cabin can't be walked into)
+place VG_Safe captainssafe at -1.5 23 ground yaw=90
+place Zone_Trigger ferry at 2 18 h=2.6
+
+# --- The Corps' ferry office on its pad: one of the radio tower's rooms, the captain's notice on a crate by its door -----
+push at -11 21 h=2.3
+call rt_storey f2=RT_WallDoor1 f1=RT_WallWindow1 l2=RT_WallWindow1 r2=RT_WallWindow2
+place RT_Floor - at 0 4.5 y=3.05
+place "Table Office" - at -3 3.4 sit
+place "Chair Office" - at -3 2.5 sit yaw=170
+place "Box Big" - at -5.3 -3.6 sit yaw=10
+place Loot_ChestSmall ferrytools at -5.3 1 sit yaw=90
+pop
+place Crate_Big_01 noticecrate at -9.5 15.4 ground yaw=10
+place Note_Paper captainsnotice at -9.5 15.4 h=5 sit drop yaw=80
+place Placeable_Flag_03 - at -16 13 ground
+
+# --- The reed cutter's camp on its hummock: Balboa's simple tent, a campfire, the pump handle in the cutter's chest (a
+# hut of Raft's thatch walls had a roof of Raft's foundations on it - their floats hung under it: the user, 2026-10-03) --
+push at -34 -14 h=3
+place Balboa_DecorationPrefabBase_SimpleTent reedtent at 0 1 ground yaw=0
+place campfire_1 - at 2.4 -1.6 ground
+place "Box Small" reedchest at -1.6 -1.6 ground yaw=10
+place Crate_Big_02 - at 2.8 1.6 ground yaw=80
+pop
+
+# --- Friendly animals (placed: the generator's Friendly and SeaLife are whole numbers - the 0.2 and 0.3 above gave none;
+# the user, 2026-10-03: "add some friendly animals to some of the islands"): hens by the Corps' office, goats on the marsh, dolphins off
+# the north shore -
+place Creature_Chicken hens at -18 23
+prop hens creature.count=3
+place Creature_Goat marshgoats at 25 -15
+prop marshgoats creature.count=2
+place Creature_Dolphin dolphins at 20 115 h=-3
+prop dolphins creature.count=2
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): mangoes, melons, bananas ----------
+scatter "Pickup_Landmark_Tree_Mango" 6 at 0 0 r=63.0 seed=4587 free=5
+scatter "Pickup_Landmark_WatermelonLandmark" 6 at 0 0 r=63.0 seed=4597 free=3
+scatter "Banana_Bush_2" 6 at 0 0 r=63.0 seed=4607 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=110 deep=5 n=2
+
+info title=Saltmarsh Ferry
+info author=Custom Islands
+info description=Station Two of the Frontier Corps: a salt marsh cut by a tidal channel, and at its end the Corps' ferry, beached on a mud bank - its bilge full, its hold full of rats. The second island of Raft 2: The Drowned Frontier.
+island on.arrive=message||Reeds, salt pools, a channel winding in from the sea - and at its end a ferry, beached on the mud, listing.
+
+story pumphandle|Pump handle|quest:Balboa_BrunosTool_Wrench|The ferry's bilge pump handle, from the reed cutter's camp in the marsh.
+
+note captainsnotice Captain's notice | FRONTIER CORPS - STATION TWO - FERRY NOTICE\n\nThe tide is gone and the ferry is on the mud. Her bilge is full and the rats have the hold.\n\nThe pump's handle is at the reed cutter's camp, out in the marsh - I took it so nobody would run the pump dry.\n\nThe engineer's locker and my safe have what the next crew needs to get a raft moving: the motor wheel, the steering. Station Three is at the foot of the volcano - mind the pressure.
+note reedchest Reed cutter's chest | The reed cutter's chest by his tent: the ferry's pump handle, greased and wrapped in oilcloth.
+loot reedchest story:pumphandle*1;Rope*2;Plank*3
+prop reedchest loot.refill=0
+note engineerslocker Engineer's locker | The ferry engineer's locker, hauled out of the flooded engine room: the motor wheel's plans, his tools.
+loot engineerslocker Blueprint_MotorWheel*1;Bolt*4;Nail*8;Scrap*4
+prop engineerslocker loot.refill=0
+prop engineerslocker if.open=signal|pumped
+prop engineerslocker else.open=message||The locker's still half under the bilge water's mud - pump the ferry dry first.
+note captainssafe Captain's safe | The captain's safe, dragged off the ferry onto the bank: the steering wheel's plans - and the next station's frequency on a slip of paper.
+loot captainssafe Blueprint_SteeringWheel*1;Battery*1
+prop captainssafe loot.refill=0
+# the ferry's bolt cutters (T-4c2): they cut the harbour master's cage at Hightide Harbor (rule 5)
+prop ferrytools obj.name=ferrytools
+note ferrytools Ferry's tool chest | The deck crew's tool chest: a pair of long bolt cutters, tagged in chalk "for the chain locker". A docket under them: "Hightide Harbor - harbour master's stores, cage chained. Bring the cutters on the next run."
+loot ferrytools story:raft-Vasagatan_BoltCutter*1;Rope*2;Bolt*2
+prop ferrytools loot.refill=0
+
+prop bilgepump obj.name=bilgepump
+prop bilgepump beh.use=Fit the handle and work the bilge pump
+prop bilgepump if.use=take|story:pumphandle|1
+prop bilgepump on.use=message||The pump coughs, then gushes - brown bilge water pours off the ferry's deck. The engineer's locker comes clear of the mud.\nsignal||pumped
+prop bilgepump else.use=message||The bilge pump has no handle. The captain's notice said it is at the reed cutter's camp.
+
+prop ferry zone.id=ferry
+prop ferry zone.radius=8
+prop ferry zone.message=The Corps' ferry, beached on the mud - and something scratching in her hold.
+prop hold zone.id=hold
+prop hold zone.radius=5
+prop hold zone.message=Rats boil up out of the ferry's hold - and a big one behind them.
+prop rats creature.count=3
+prop rats creature.respawn=0
+prop rats creature.zone=hold
+prop ratking creature.count=1
+prop ratking creature.size=1.6
+prop ratking creature.health=3
+prop ratking creature.respawn=0
+prop ratking creature.zone=hold
+
+quest title=Down the Marsh
+quest intro=A salt marsh, a channel - and the Corps' ferry stranded at its end. Station Two: start at the ferry.
+step reach|ferry|1|Find the Corps' ferry at the channel's end
+step read|Captain's notice|1|Read the captain's notice by the Corps' office
+step catch|Chicken|2|Net two of the Corps' hens scratching about the office
+step open|Reed cutter's chest|1|Cross the marsh to the reed cutter's camp and open his chest
+step collect|story:pumphandle|1|Take the bilge pump's handle, greased and wrapped in oilcloth
+step catch|Goat|2|Net the two goats grazing the eastern marsh
+step reach|hold|1|Look into the ferry's hold, where something scratches
+step kill|Rat|4|Clear the rats - and their king - out of the ferry's hold
+step open|Engineer's locker|1|Pump the ferry dry and open the engineer's locker
+step blueprint|Blueprint_MotorWheel|1|Take the engine plans from the engineer's locker
+step open|Captain's safe|1|Open the captain's safe on the bank
+step blueprint|Blueprint_SteeringWheel|1|Take the steering wheel plans from the captain's safe
+quest done=The ferry's papers give the next station: Cinderfall, a geothermal plant at the foot of a volcano. With a motor wheel and a steering wheel, the raft can get there under its own power.
+quest reward=Plank*8;Rope*3;Nail*6
+
+save Saltmarsh Ferry

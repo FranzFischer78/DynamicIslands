@@ -1,0 +1,807 @@
+# The Last Kingdom - a new island of the library, twenty times the size (x20)
+# A whole small kingdom on one island, empty since its king died: the harbour town of Elderhaven on the north coast, a
+# river through farmland with a watermill, a dark forest over the northern peak, a lake in the valley with a drowned
+# chapel, and a castle on the southern peak's shoulder. The steward hid the crown in a vault under the castle court and
+# scattered the three royal seals that open it; the Beast of Elderhaven sleeps in the great hall.
+# Quest "The Crown of Elderhaven" (40 steps in 6 chapters): the town (the proclamation, the warehouse's rats, the reeve's
+# writ, the market's hens, the innkeeper, the toll bridge), the farmlands (the mill's seal, the boars, the goats, the
+# forest key), the dark forest (the wolves, the hermit's riddle and the hollow oak's seal, the old bear, the shrine), the
+# lake (the drowned chapel, the pike, the third seal), the castle (the portcullis, the kitchens' rats, the crown vault,
+# the Beast, the throne room) and the coronation.
+#
+# Built by the recipe player (CIRecipe last_kingdom) through the editor's own operations.
+include lib_rt
+include lib_huts
+include lib_relay
+include lib_selene
+include lib_sea
+new
+# (nature: forest, Like Raft's Balboa - birch and pine outside the town, the fields and the castle; the dark forest denser)
+gen Trees=0.21 Bushes=0.38 Rocks=0.42 Harvest=0.1 BeachThings=0.3
+gen Seed=9226 Radius=200 Height=60 Roughness=0.4 Peaks=2 Shape=7 Style=3 BeachWidth=0.45 Cliffs=0.3 PeakShape=0.45 Lakes=0.4 Valleys=0.5
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== THE LAND ===========================================================================================================
+# The kingdom (the map, seed 9226): two peaks - the northern one (53 m at 30 60) under the dark forest, the southern one
+# (57 m at -20 -70) with the castle on its shoulder (-33 -50, 40 m) - a low valley between them on the west, lowland all
+# along the north coast. The lake dug in the valley (-75 5, 9 m down in its middle); the river from the lake north through
+# the lowland to the sea (-75 25 > -70 70 > -57 95 > -45 120 > -25 145 > -20 182, 2 m under the sea's level, a ford at
+# -42 125); the harbour town on the north coast east of the river's mouth (2 m, x -12..36, z 145..178); the toll bridge
+# over the river at -22 150; the mill (west bank, -67 100), the barley fields (-78 125) and the farm (-60 145) west of the
+# river; the forest gate at -20 110 (the palisade along the forest's edge); the woodcutter -8 106, the wolves' clearing
+# 2 98, the hermit 14 80, the glade of oaks 26 98, the shrine on the forest's south edge -30 45; the ferry landing on the
+# lake's east shore -55 12, the castle road's foot -63 -14, its four legs up to the castle's west gate (-46 -50).
+
+# --- Terrain: the town and its quay; the mill's yard, the fields, the farm; the forest's clearings; the shrine's knoll; the
+# lake (a wide bowl, a deep middle); the castle's court, the vault's pit, the castle road; then the river cut through it
+# all (and its ford) -------------------------------------------------------------------------------------------------------
+brush flatten from -12 158 to 30 158 r=14 s=20 frames=300 h=2
+brush flatten from -12 176 to 10 176 r=3 s=20 frames=200 h=1
+brush flatten at -67 100 r=9 s=20 frames=300 h=3
+brush flatten at -78 125 r=14 s=20 frames=300 h=2.5
+brush flatten at -60 145 r=12 s=20 frames=300 h=2.5
+brush flatten from -36 112 to -14 108 r=5 s=20 frames=300 h=4
+brush flatten at -8 106 r=6 s=20 frames=300 h=5
+brush flatten at 2 98 r=10 s=20 frames=300 h=7
+brush flatten at 14 80 r=6 s=20 frames=300 h=12
+brush flatten at 26 98 r=11 s=20 frames=300 h=10
+brush flatten at -30 45 r=5 s=20 frames=300 h=8
+brush flatten at -75 5 r=20 s=20 frames=400 h=-3
+brush flatten at -75 5 r=11 s=20 frames=400 h=-9
+brush flatten at -55 12 r=4 s=20 frames=200 h=1
+brush flatten at -63 -14 r=4 s=20 frames=200 h=2
+brush flatten from -40 -50 to -16 -50 r=12 s=20 frames=400 h=40
+brush flatten at -43 -40 r=6 s=20 frames=300 h=40
+brush flatten at -43 -60 r=6 s=20 frames=300 h=40
+brush flatten from -33 -42 to -33 -45 r=4 s=20 frames=300 h=35
+# (the vault's north corners: the pit above misses them and the hill came through its walls)
+brush flatten at -35 -39 r=2 s=20 frames=300 h=35
+brush flatten at -31 -39 r=2 s=20 frames=300 h=35
+for i 0 8 1
+brush flatten at {-63-2.1*$i} {-14-1.75*$i} r=3 s=20 frames=150 h={2+1.25*$i}
+brush flatten at {-80+3.1*$i} {-28-0.25*$i} r=3 s=20 frames=150 h={12+1.25*$i}
+brush flatten at {-55-2.1*$i} {-30-1.5*$i} r=3 s=20 frames=150 h={22+1.1*$i}
+brush flatten at {-72+3.3*$i} {-42-0.5*$i} r=3 s=20 frames=150 h={31+1.1*$i}
+next
+brush flatten from -75 25 to -70 70 r=3.5 s=20 frames=300 h=-2
+brush flatten from -70 70 to -57 95 r=3.5 s=20 frames=300 h=-2
+brush flatten from -57 95 to -45 120 r=3.5 s=20 frames=300 h=-2
+brush flatten from -45 120 to -25 145 r=3.5 s=20 frames=300 h=-2
+brush flatten from -25 145 to -20 184 r=3.5 s=20 frames=300 h=-2
+brush flatten at -42 125 r=3.5 s=20 frames=200 h=-0.4
+brush sand from -12 158 to 30 158 r=12 s=20 frames=20
+clear from -12 160 to 34 160 r=17
+clear at -67 100 r=10
+clear at -60 145 r=13
+clear from -36 112 to -14 108 r=6
+clear at 2 98 r=11
+clear at 14 80 r=7
+clear at 26 98 r=12
+clear at -30 45 r=6
+clear at -75 5 r=21
+clear from -40 -50 to -16 -50 r=14
+clear from -63 -14 to -45 -46 r=12
+clear from -75 25 to -20 184 r=5
+
+# ===== CHAPTER 1 - THE HARBOUR TOWN =======================================================================================
+# --- The quay along the coast by the river's mouth, posts, boats, crates; the market square with its cross (the
+# proclamation), stalls, the poulterer's crate, the hens, the people's gift (hidden); the guildhall and the inn (relay
+# houses), two houses and two stilt huts, the warehouse on the quay (two radio tower rooms, its rats, its barrel), a well, a
+# cart ----------------------------------------------------------------------------------------------------------------------
+for q 0 14 1
+place Block_Floor_Wood - at {-11.25+1.5*$q} 177.25 h=1.05
+next
+place Pillar_04 - at -10 178.4 h=1.05 drop
+place Pillar_04 - at -2 178.4 h=1.05 drop
+place Pillar_04 - at 6 178.4 h=1.05 drop
+place RT_PlasticBoat - at -6 181 h=0 yaw=90
+place RT_PlasticBoat - at 2 181.5 h=0 yaw=80
+place RT_PlasticBoat - at -16 184 h=0 yaw=10
+place Crate_Big_01 - at 4 176 ground sit yaw=10
+place Crate_Small_02 - at 5.4 175.6 ground sit
+place Pallet - at 7.5 175.5 ground sit
+place Zone_Trigger harbour at -2 176 y=1.5
+place RT_GroundPillarCap - at 8 158 ground sit
+place RT_GroundPillar - at 8 158 h=5.3
+place Note_Board proclamation at 8 155.8 ground yaw=180
+place "Loot_ChestLarge" peoplesgift at 10 156.5 ground sit yaw=200
+for st 0 2 1
+place RestaSunshadeGround - at {0+6*$st} 150 ground sit
+place Placeable_Table_Basic - at {0+6*$st} 150 ground sit
+next
+place UT_MarketBasket01 - at 0 150 y=0.8 drop
+place UT_MarketBasket03_Banana - at 6 150 y=0.8 drop
+place UT_MarketCrateSmall01 - at 12 150 y=0.8 drop
+place UT_MarketStackBox01 - at 13.85 151.5 ground sit
+place Loot_Crate poulterer at 1.6 148.8 ground sit yaw=10
+place Creature_Chicken markethens at 6 160 ground
+place Placeable_Flag_01 - at 18 151 ground sit
+place Placeable_Flag_03 - at -2 162 ground sit
+push at 25 171 h=2.05
+call relay_house
+place Loot_ChestLarge guildhall at -8.5 -5.2 sit yaw=90
+pop
+push at 25 156 h=2.05
+call relay_house
+place VG_LoungeBar1 - at -6.5 -5 sit yaw=90
+place VG_LoungeBarStool - at -4.8 -6 sit
+place VG_LoungeBarStool - at -4.8 -4 sit
+place Loot_Chest innchest at -9 -8.5 sit yaw=90
+place Sign_02 - at 0.6 -7 sit yaw=90
+pop
+push at 35 155 h=2.05
+call rt_storey f1=RT_WallDoor1 l2=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+pop
+push at 35 166 h=2.05
+call rt_storey f1=RT_WallDoor1 r2=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+pop
+push at -11 147 h=2
+call stilt_hut
+pop
+push at -5 145 h=2
+call stilt_hut w2=ReefHuts_PlasticWall4
+pop
+push at -4 168 h=2.05
+call rt_storey f1=RT_WallDoor1 r1=none r2=none r3=none
+place RT_Floor - at 0 4.5 y=3
+place Crate_Big_01 - at -5 3 sit
+place Crate_Big_01 - at -5 1.4 sit yaw=10
+place Loot_Barrel warehousebarrel at -1 3.5 sit
+place Zone_Trigger warehouse at -3 0 y=1.5
+place Creature_Rat_Tangaroa warehouserats at -3 1 y=0.2
+pop
+push at 2 168 h=2.05
+call rt_storey f1=RT_WallDoor1 l1=none l2=none l3=none
+place RT_Floor - at 0 4.5 y=3
+place Crate_Small_02 - at -2 3.5 sit
+place Pallet - at -4 3.3 sit
+pop
+place Well - at 18 146 ground sit
+place VP_Wagon02 - at 13.85 165 ground sit yaw=30
+
+# --- The toll bridge over the river west of the town: planks on posts with rails, the toll gate at its town end (a hinged
+# wall), the tollkeeper's booth and the toll post; the zone at its far end ------------------------------------------------
+push at -27 149 h=-2
+call boardwalk n=6 y=4
+pop
+place RT_Wall1 tollgate at -18 149 h=2 yaw=90
+place Block_Wall_Wood - at -16 151.5 ground sit yaw=90
+place Block_Wall_Wood - at -14.5 152.4 ground sit
+place Pillar_04 tollpost at -16 147.4 ground sit
+place Zone_Trigger tollbridge at -28.5 149.75 y=1.5
+
+# ===== CHAPTER 2 - THE FARMLANDS ==========================================================================================
+# --- The watermill on the river's west bank: the mill house, the wheel (still, and its turning twin hidden), the sluice in
+# its cut and the lever, the hopper, the ledger, the water's sound ----------------------------------------------------------
+push at -62 106 h=3.05
+call relay_house e2=Relay_Wall_door
+place Placeable_Storage_Medium hopper at -6 -5 sit yaw=90
+place Note_Book millerledger at -8.5 -2.5 sit
+pop
+place UT_WaterChallengeWheel3 millwheel at -59.5 100 h=1.6 scale=0.5 rot=0,0,90
+place UT_WaterChallengeWheel3 millwheelturn at -59.5 100 h=1.6 scale=0.5 rot=0,0,90
+place RT_Wall1 millsluice at -52.5 106.5 h=-2 yaw=60
+place TP_LaserControlPanel_lever sluicelever at -60.5 108.5 h=3 drop scale=3 yaw=150
+place Zone_Sound millsound at -58 102 h=2
+place Zone_Trigger mill at -64 100 y=1.5
+
+# --- The barley fields (bushes in rows, crops, scarecrows, fences), the boars waiting; the farm: the farmhouse, the barn,
+# the goat pen with its gate broken, the goats, the farmer's chest, hens, a windmill on the rise, llamas ------------------
+for r 0 5 1
+for c 0 8 1
+place "Balboa_Bush_03 Variant" - at {-88+2.5*$c} {116+3.5*$r} ground sit
+next
+next
+scatter Pickup_Landmark_WatermelonLandmark 5 at -78 110 r=5 seed=3101
+scatter Pickup_Landmark_PineappleLandmark 5 at -86 135 r=5 seed=3102
+place Placeable_Scarecrow - at -82 124 ground sit
+place Placeable_Scarecrow - at -72 130 ground sit yaw=140
+place Placeable_Scarecrow - at -76 115 ground sit yaw=60
+line Balboa_DecorationPrefabBase_Fence_Mid from -92 112 to -64 112 step=2.98
+place Zone_Trigger barley at -78 125 y=1.5
+place Creature_Boar boars at -78 128 ground
+place Balboa_Shack - at -62 150 ground scale=0.6 yaw=180
+push at -48 146 h=2.55
+call relay_house
+place Loot_Chest farmchest at -8.5 -5 sit yaw=90
+pop
+line Balboa_DecorationPrefabBase_Fence_Mid from -70 136 to -61 136 step=2.98
+line Balboa_DecorationPrefabBase_Fence_Mid from -70 136 to -70 142 step=2.98
+place Balboa_DecorationPrefabBase_Fence_EndBroken - at -61 139 ground sit yaw=90
+place Creature_Goat farmgoats at -72 150 ground
+place Creature_Chicken farmhens at -55 140 ground
+place Zone_Trigger farm at -55 145 y=1.5
+place RT_WindMill - at -48 160 ground sit yaw=30
+place Creature_Llama llamas at -80 148 ground
+place "Box Small" fordbox at -38 127 ground sit yaw=40
+
+# --- The forest gate: the palisade along the forest's edge, Utopia's bamboo gate, the lock post; the zone inside it ------
+for p 0 12 1
+place Block_Pillar_Wood - at {-23+0.25*$p} {95+1.15*$p} ground sit sy=1.6
+place Block_Pillar_Wood - at {-20+0.25*$p} {116+1.15*$p} ground sit sy=1.6
+next
+place UT_MainEntranceDoor forestgatedoor at -20.5 110.5 h=4 yaw=-80
+place TP_SeleneEntranceKeyPanel_Base forestlock at -23 106 ground sit yaw=270
+place Zone_Trigger forestgate at -14 108 y=1.5
+
+# ===== CHAPTER 3 - THE DARK FOREST ========================================================================================
+# --- The forest: big pines and firs, trees to cut, vines, the dark and its sound; the woodcutter's hut (the warning, the
+# chopping block, the woodpile and its box) and the wolves' clearing; the hermit's hut and riddle; the glade of four hollow
+# oaks and the old bear; the shrine on the forest's south edge ----------------------------------------------------------------
+scatter PineTree_Big1_LodGroup 6 at 10 90 r=24 seed=3111
+scatter PineTree_Big2_LodGroup 5 at 30 70 r=20 seed=3112
+scatter FirTree_Big1_LodGroup 5 at -5 70 r=18 seed=3113
+scatter Pickup_Landmark_Tree_Pine 8 at 0 60 r=25 seed=3114
+scatter Pickup_Landmark_Tree_Birch 8 at 30 110 r=18 seed=3115
+scatter ChoppableVines 4 at 14 85 r=6 seed=3116
+place Zone_Atmosphere forestdark at 10 95 y=6
+place Zone_Atmosphere forestdark at 25 60 y=6
+place Zone_Atmosphere forestdark at -10 70 y=6
+place Zone_Atmosphere forestdark at 40 90 y=6
+place Zone_Sound forestsound at 15 85 y=4
+push at -10 104 h=5
+call stilt_hut y=0.5 ladder=none
+pop
+place Note_Sign woodcutter at -7.8 103.6 h=5 drop yaw=180
+place Tree_Stump - at -4 102 ground sit
+place "VG_DecorationPrefabBase_Tools_Hammer Variant" - at -4 102 y=0.6 drop
+place Firewood_1 - at -12 102 ground y=0.35 sit
+place "Box Small" woodbox at -12 100.6 ground sit yaw=15
+place Zone_Trigger wolfden at 2 98 y=1.5
+place Creature_Hyena wolves at 4 96 ground
+place Balboa_Shack - at 14 82 ground scale=0.6 yaw=200
+place Note_Sign riddle at 12 76.5 ground sit yaw=180
+place Placeable_Utopia_Herb_2 - at 10 77 ground sit
+place Placeable_Utopia_Herb_4 - at 16.5 77 ground sit
+place Zone_Trigger hermithut at 14 78 y=1.5
+place BirchTree_Big1_LodGroup - at 26 106 ground sit
+place BirchTree_Big2_LodGroup - at 34 98 ground sit
+place BirchTree_Big1_LodGroup - at 26 90 ground sit yaw=120
+place BirchTree_Big2_LodGroup - at 18 98 ground sit yaw=200
+place Tree_Stump oakowl at 26 104.5 ground sit
+place Bird_Nest - at 26 106 y=6 drop
+place Tree_Stump oakfox at 32.5 98 ground sit
+place Tree_Stump oakstag at 26 91.5 ground sit
+place Tree_Stump oakbee at 19.5 98 ground sit
+place Zone_Trigger glade at 26 98 y=1.5
+place Creature_Bear oldbear at 26 98 ground
+place Pillar_04 - at -30.6 44.4 ground sit sy=2
+place Pillar_04 - at -29.4 44.4 ground sit sy=2
+place Pillar_04 - at -30.6 45.6 ground sit sy=2
+place Pillar_04 - at -29.4 45.6 ground sit sy=2
+place Block_Roof_Wood_Pyramid - at -30 45 y=4 drop
+place Placeable_Lantern_Basic - at -30 45 ground sit
+place "Box Small" shrinebox at -31.25 44 ground sit yaw=30
+place Zone_Trigger forestshrine at -30 45 y=1.5
+
+# ===== CHAPTER 4 - THE LAKE ===============================================================================================
+# --- The ferry landing on the east shore (jetty, punt, chart), the drowned chapel in the middle (two Selene cells on the
+# floor, a spire breaking the surface, air under the ceilings, the reliquary on its altar), the pike, the gloom, turtles; the
+# castle road's foot on the south-east shore -------------------------------------------------------------------------------
+for j 0 3 1
+place Block_Floor_Wood - at {-56.75-1.5*$j} 12 h=0.85
+next
+place RT_PlasticBoat - at -60 14.2 h=0 yaw=-10
+place Note_Sign ferrychart at -53.5 13.8 ground sit yaw=270
+place Zone_Trigger lakeshore at -54 12 y=1.5
+push at -81 8 h=-9
+call selene_cell 0 0 e=none s=TP_Selene_Int_Room_Entrance
+call selene_cell 6 0 w=none
+place UT_EndRoom_Table - at 2 -4.5 sit
+place Loot_ChestSmall reliquary at 2 -4.5 y=1 drop yaw=180
+place Zone_Trigger chapelair1 at 3 -3 y=3.6
+place Zone_Atmosphere chapelbubbles1 at 3 -3 y=3.6
+place Zone_Trigger chapelair2 at 9 -3 y=3.6
+place Zone_Atmosphere chapelbubbles2 at 9 -3 y=3.6
+pop
+place Block_Pillar_Wood - at -72 5 h=-4.27
+place Block_Pillar_Wood - at -72 5 h=-1.77
+place Block_Pillar_Wood - at -72 5 h=0.73
+place Block_Roof_Wood_Pyramid - at -72 5 h=3.2
+place Zone_Trigger drownedchapel at -78 1 h=-7
+place Creature_AnglerFish pike at -75 -4 h=-6
+place Zone_Atmosphere lakegloom at -75 5 h=-5
+place Creature_Turtle turtles at -82 18 h=-2
+place Loot_SunkenBarrel lakebarrel at -88 0 h=-3 drop
+place Pillar_04 - at -61.5 -12.5 ground sit
+place Balboa_DirectionSign - at -64.5 -11.5 ground sit yaw=40
+place Zone_Trigger castlepath at -63 -14 y=1.5
+
+# ===== CHAPTER 5 - THE CASTLE =============================================================================================
+# --- The gatehouse on the court's west side: two towers (two radio tower storeys each, a railing on top), the portcullis
+# (Selene's gate, it rises) between them, the winch in the south tower's guard room behind its side door; the zone outside --
+push at -40 -40.5 h=40.05
+call rt_storey l2=RT_WallWindow1 f2=RT_WallWindow1
+pop
+push at -40 -40.5 h=43.05
+call rt_storey l2=RT_WallWindow2 r2=RT_WallWindow2
+place RT_Floor - at 0 4.5 y=3
+call rt_railing y=3
+pop
+push at -40 -59.5 h=40.05
+call rt_storey l2=RT_WallDoor1 b2=RT_WallWindow1
+place TP_Selene_DoorCrankWheel winch at -3 2.5 y=1.2 drop rot=0,0,0
+pop
+push at -40 -59.5 h=43.05
+call rt_storey l2=RT_WallWindow2 r2=RT_WallWindow2
+place RT_Floor - at 0 4.5 y=3
+call rt_railing y=3
+pop
+place TP_SeleneEntranceGate portcullis at -45.5 -50 h=40 yaw=90
+place Zone_Trigger castlegate at -51 -50 h=41.5
+
+# --- The court: the well and the steward's confession; the kitchens (two rooms on the south-west, the stove, benches, the
+# rats, the pantry box); the crown vault in its pit on the north-west (steps down, Selene's sliding doors, the seal locks,
+# the crown's chest, the dark) ----------------------------------------------------------------------------------------------
+place Well - at -30 -46 h=40 drop
+place Note_Sign confession at -28.4 -46 h=40 drop yaw=270
+push at -28 -57 h=40.05
+call rt_storey b1=RT_WallDoor1 r1=none r2=none r3=none
+place RT_Floor - at 0 4.5 y=3
+place TangaroaKitchen_StoveOven - at -5 0 sit yaw=90
+place TangaroaKitchen_Bench4 - at -2 0.5 sit
+place "Box Small" pantrybox at -5.3 3.5 sit yaw=20
+place Zone_Trigger kitchens at -3 0 y=1.5
+place Creature_Rat kitchenrats at -2.5 1 y=0.2
+pop
+push at -22 -57 h=40.05
+call rt_storey l1=none l2=none l3=none
+place RT_Floor - at 0 4.5 y=3
+pop
+push at -36 -38 h=35
+call selene_cell 0 0 s=TP_Selene_Int_Room_Entrance
+place Loot_ChestLarge crownchest at 3 -2 sit yaw=180
+place Zone_Atmosphere vaultdark at 3 -3 y=2
+pop
+# (the leaves close the south wall's doorway: both pivot on its middle, the left one reaching east, the right one west)
+place TP_Selene_Int_DoorLargeL vaultdoorL at -33 -44 h=35 yaw=90 sy=1.051
+place TP_Selene_Int_DoorLargeR vaultdoorR at -33 -44 h=35 yaw=90 sy=1.051
+place RT_Floor - at -30 -38 h=39.75 sx=0.993 sz=0.667
+place TP_SeleneEntranceKeyPanel_Base seallocks at -29.6 -45.2 ground sit yaw=180
+place TP_Moontown_Steps05 - at -33 -50.5 h=35 drop yaw=180
+place Zone_Trigger vaultstair at -33 -45.8 h=36.5
+
+# --- The keep on the court's east side: the great hall below (two radio tower rooms opening into each other: tables,
+# banners, the chandelier; the Beast, hidden, and its music), the throne room above (the throne, Aldric's will, the
+# charter on its lectern - hidden - and the treasury behind the throne), the battlements on its roof; ladders up its west
+# wall --------------------------------------------------------------------------------------------------------------------------
+push at -15 -45.5 h=40.05
+call rt_storey f1=none f2=none l2=RT_WallDoor1
+place "VG_DecorationPrefabBase_DinnerTable Variant" - at -3 1 sit yaw=90
+place Banner_01 - at -3 4.3 y=1.5 yaw=180
+place Tangaroa_BallroomKit_ChandelierOn - at -3 0 y=2.9
+pop
+push at -15 -54.5 h=40.05
+call rt_storey b1=none b2=none
+place "VG_DecorationPrefabBase_DinnerTable Variant" - at -3 -1 sit yaw=90
+place Banner_01 - at -3 -4.3 y=1.5
+pop
+place Creature_MamaBear beast at -18 -50 h=40.3
+place Zone_Sound beastmusic at -18 -50 h=42
+push at -15 -45.5 h=43.05
+call rt_storey f1=none f2=none l2=RT_WallDoor1
+place RT_Floor - at 0 4.5 y=3
+place Zone_Trigger throneroom at -3 -4.5 y=1.5
+pop
+push at -15 -54.5 h=43.05
+call rt_storey b1=none b2=none l2=RT_WallWindow2
+place RT_Floor - at 0 4.5 y=3
+place Placeable_Table_Basic - at -4.5 -2.5 sit
+place Note_Book charter at -4.5 -2.5 y=0.8 drop
+place Loot_ChestLarge treasury at -0.8 -3.5 sit yaw=270
+pop
+place UT_EndRoom_Chair throne at -16.2 -50 h=43.4 drop scale=1.9 yaw=270
+place Note_Sign will at -16.4 -48.4 h=43.05 drop yaw=270
+place RT_Fence - at -21 -59 h=46.05 yaw=90
+place RT_Fence - at -21 -44 h=46.05 yaw=90
+place RT_Fence - at -15 -59 h=46.05 yaw=90
+place RT_Fence - at -15 -44 h=46.05 yaw=90
+place Zone_Trigger battlements at -18 -56 h=47.5
+place LandmarkLadder_6m - at -21.3 -42.8 h=40.05 yaw=90
+place LandmarkLadder_6m - at -21.3 -42.8 h=46.05 yaw=90
+
+# ===== CHAPTER 6 - THE CORONATION (hidden till the crown is on the throne) ================================================
+for f 0 4 1
+place Placeable_Flag_02 coronation at {-44+1.5*$f} -38 h=46.05 drop
+place Placeable_Flag_07 coronation at {-44+1.5*$f} -62 h=46.05 drop
+next
+for g 0 4 1
+place Placeable_Streamer coronation at {-38+4*$g} -42 h=40 drop
+place Placeable_StringLight_Horizontal coronation at {-38+4*$g} -58 h=40.1 drop
+place Placeable_Streamer coronation at {0+5*$g} 162 ground sit
+place Placeable_StringLight_Horizontal coronation at {-8+4*$g} 175 h=1.05 drop
+next
+for b 0 2 1
+place Placeable_Lantern_FireBasket coronation at {-38+6*$b} -39 h=40 drop
+place Placeable_Lantern_FireBasket coronation at {-38+6*$b} -56 h=40 drop
+next
+place Zone_Sound coronationmusic at -30 -50 h=44
+place Zone_Atmosphere coronationglow at -30 -50 h=46
+place Zone_Atmosphere coronationglow at 10 160 y=6
+place Zone_Atmosphere coronationglow at -60 120 y=6
+
+# ===== ROUND THE KINGDOM ==================================================================================================
+scatter Pickup_Landmark_BerryBush 4 at -40 135 r=8 seed=3121
+scatter Pickup_Landmark_BerryBush 4 at -50 30 r=8 seed=3122
+place Creature_Dolphin dolphins at 0 205 h=-2
+place Loot_SunkenBarrel quaycrate at 2 200 h=-0.3 drop
+
+# --- Raft's finds in the shallows round the kingdom (lib_sea; keep this after the terrain and building lines) -----------
+call shallows r=220 deep=5 n=3
+
+# ===== Settings, story items, notes, behaviours, quest (40 steps, 6 chapters) =============================================
+info title=The Last Kingdom
+info author=Custom Islands
+info description=A whole small kingdom on one island - a harbour town, farmland and a mill along a river, a dark forest, a lake with a drowned chapel and a castle on the hill - empty until its crown is found. Gather the three royal seals across the kingdom, open the crown vault, face the Beast in the great hall and crown the empty throne.
+island on.arrive=message||A kingdom: a harbour town with flags on its roofs, fields and a mill along a river, a dark forest over the northern peak - and on the southern one's shoulder, a castle. No smoke from any chimney, no one on the quay.
+
+story writ|Reeve's writ|quest:Tangaroa_Tape|The town reeve's writ, sealed in red: LET THE BEARER PASS THE TOLL.
+story seal|Royal seal|quest:Tangaroa_Token|One of the three royal seals of Elderhaven, a stag in gold on black stone.
+story forestkey|Forest gate key|quest:Caravan_KeyInfirmary|The key to the palisade gate of the dark forest.
+story crown|The crown of Elderhaven|Hat_Mayor|A plain gold crown with a stag on its brow.
+story royalseal|The royal charter|Placeable_PaperBundle|The royal charter of Elderhaven, made out in your name.
+
+note proclamation The herald's proclamation | HEAR YE - THE PEOPLE OF ELDERHAVEN\n\nKing Aldric is dead and has left no heir. His steward has hidden the crown and fled. We go to the mainland until the throne is filled.\n\nWhoever brings the crown out of its hiding and sets it on the empty throne may call this kingdom theirs. We will come home to them.\n\nThe reeve's writ for the toll bridge is in the guildhall.\n- the Herald
+note poulterer Poulterer's crate | The poulterer's crate on the market: feed, egg boxes - and the net launcher she used on runaway hens.
+loot poulterer NetGun*1;NetCanister*8;Egg*2
+prop poulterer loot.refill=0
+note guildhall Guildhall chest | The guildhall's chest: the town's ledgers, wax, and the reeve's writ for the toll bridge.
+loot guildhall story:writ*1;Rope*3;TradeToken*3
+prop guildhall loot.refill=0
+note innchest Innkeeper's thanks | The innkeeper's thanks for catching her hens: a hot pie, ale - and a word: "The steward hid three seals. One went into the mill's hopper, I saw him. One into the dark forest. One into the lake, where the old chapel drowned."
+loot innchest Cooked_GenericMeat*3;PlasticBottle_Water*2;Raw_Potato*2
+prop innchest loot.refill=0
+prop innchest if.open=quest|5
+prop innchest else.open=message||The innkeeper's chest, padlocked. A chalked note: WHOEVER CATCHES MY HENS GETS A PIE.
+note millerledger The miller's ledger | THE MILL - LEDGER\n\nThe steward came at night and dropped something heavy into the hopper - I heard it ring on the stones. The mill race was shut at the time; open the sluice and the wheel turns and the hopper empties. Lever by the race.\n\nAlso: the boars are in the barley again, and the farmer's goats are out.
+note farmchest Farmer's chest | The farmer's chest: a goat bell, a wedge of cheese - and the key to the forest gate, which only the farm keeps.
+loot farmchest story:forestkey*1;Cooked_GenericMeat*2
+prop farmchest loot.refill=0
+prop farmchest if.open=quest|12
+prop farmchest else.open=message||The farmer's chest. A tag: FOR WHOEVER BRINGS MY GOATS IN.
+note woodcutter The woodcutter's warning | (nailed to the hut's door)\n\nWOLVES in the clearing past the hut. The OLD BEAR at the glade of the four oaks. The hermit in the deepest wood knows where the steward went - he saw him dig.\nCut what wood you like. Mind your back.
+note riddle The hermit's riddle | (carved on a board by the hermit's door)\n\nFour oaks in the glade, all hollow.\nThe fox's oak, the stag's oak, the bee's oak lie.\nWhere the owl keeps watch at night, the seal sleeps.\nReach in.
+note ferrychart The ferryman's chart | THE LAKE - FERRYMAN'S CHART\n\nThe old chapel drowned when the dam broke: nine metres, in the lake's middle - you can see its spire at low water. Air under its roof, two pockets.\nTHE PIKE. Big as a boat. Lives round the chapel. I don't swim there.
+note reliquary The chapel's reliquary | The reliquary on the drowned altar: a saint's bone in silver - and the third royal seal.
+loot reliquary story:seal*1;TradeToken*2
+prop reliquary loot.refill=0
+note confession The steward's confession | (left on the castle well's rim, under a stone)\n\nI hid the crown in the vault under the castle court and locked it with the three seals. I scattered them. I was afraid of whoever would want it.\nThe Beast came into the great hall the night the king died. It sleeps until somebody takes the crown. Then it wakes.\nForgive me.\n- Osric, steward
+note crownchest The crown's chest | In the vault, on velvet: the crown of Elderhaven, plain gold, a stag on its brow.
+loot crownchest story:crown*1;CopperIngot*2
+prop crownchest loot.refill=0
+prop crownchest on.open=show|beast\nshow|beastmusic\nmessage||Above you, in the great hall, something huge wakes - and roars.\nsound||event:/wildlife/bear/bear_roar
+note will King Aldric's will | (on the throne's arm)\n\nI leave no heir. I leave a kingdom.\nWhoever sets the crown on this throne after me: be kinder to it than I was. Open the treasury for the people's sake - and call them home.\n- Aldric
+note charter The royal charter | THE ROYAL CHARTER OF ELDERHAVEN\n\nBy the crown set on the empty throne, the kingdom of Elderhaven - its harbour, its fields, its forest, its lake and its castle - is given into the keeping of the one who found the crown.\n\nThe people will come home.
+note treasury The royal treasury | The royal treasury: Aldric's gold, titanium from the old mines, the plans for the kingdom's great planting beds, a king's sword, and the old king's coat.
+loot treasury TradeToken*25;TitaniumIngot*6;Blueprint_Cropplot_Large_Tier3*1;Sword_Titanium*1;Equipment_LeatherChest*1;MetalIngot*6
+prop treasury loot.refill=0
+prop treasury if.open=signal|crowned
+prop treasury else.open=message||The royal treasury opens for the crowned.
+note peoplesgift The people's gift | At the market cross, a chest that wasn't there before, with a ribbon in the kingdom's colours: the people's welcome for their new keeper - seeds of every field, the reeve's spare coin, a captain's hat for the harbour, and the plans for the fishermen's head lamps.
+loot peoplesgift Seed_Watermelon*4;Seed_Pineapple*4;Seed_Birch*4;TradeToken*10;Hat_Captain*1;Blueprint_HeadLight*1
+prop peoplesgift loot.refill=0
+prop peoplesgift obj.name=peoplesgift
+prop peoplesgift beh.hidden=1
+loot warehousebarrel Plank*6;Nail*10;Rope*2
+prop warehousebarrel loot.refill=0
+note woodbox Woodpile box | A box by the woodcutter's pile: wedges, rope, a flask.
+loot woodbox Rope*3;PlasticBottle_Water*1;Plank*4
+prop woodbox loot.refill=0
+note shrinebox Forest shrine box | Offerings at the forest shrine: candles, coins, dried berries.
+loot shrinebox TradeToken*2;Berries_Red*4;Stone*2
+prop shrinebox loot.refill=0
+note pantrybox Castle pantry box | The castle pantry's box, gnawed: tins the rats couldn't open.
+loot pantrybox Cooked_GenericMeat*3;Raw_Potato*3
+prop pantrybox loot.refill=0
+note quaycrate Sunk crate | A crate that fell off the quay: iron and nails.
+loot quaycrate MetalOre*3;Nail*8;Scrap*2
+prop quaycrate loot.refill=0
+note fordbox Box at the ford | A box at the river's ford: a fisher's tackle.
+loot fordbox FishingBait_Simple*3;Rope*2;Cooked_Herring*1
+prop fordbox loot.refill=0
+note lakebarrel Sunk barrel in the lake | A barrel on the lake's floor from the drowned village.
+loot lakebarrel Clay*3;CopperOre*2;Scrap*2
+prop lakebarrel loot.refill=0
+
+prop tollpost obj.name=tollpost
+prop tollpost beh.use=Show the reeve's writ at the toll
+prop tollpost if.use=has|story:writ|1\nstate|tollgate|closed
+prop tollpost on.use=message||The toll gate swings open for the writ's red seal.\nopen|tollgate\nsound||event:/raft/door/door_open
+prop tollpost else.use=message||The toll booth's window: NO PASSAGE WITHOUT THE REEVE'S WRIT.
+prop tollgate obj.name=tollgate
+prop tollgate beh.turn=-95
+prop tollgate beh.moveTime=2
+prop tollgate beh.moveMode=switch
+prop sluicelever obj.name=sluicelever
+prop sluicelever beh.use=Open the mill race's sluice
+prop sluicelever if.use=!signal|milling
+prop sluicelever on.use=message||The sluice board lifts, the river pours into the race - and the great wheel groans and turns.\nsignal||milling\nopen|millsluice\nhide|millwheel\nshow|millwheelturn\nshow|millsound\nsound||event:/exploring/utopia/waterwheel_rotate
+prop sluicelever else.use=message||The race is running.
+prop millsluice obj.name=millsluice
+prop millsluice beh.move=0,2.4,0
+prop millsluice beh.moveTime=3
+prop millsluice beh.moveMode=switch
+prop millwheel obj.name=millwheel
+prop millwheelturn obj.name=millwheelturn
+prop millwheelturn beh.hidden=1
+prop millwheelturn beh.spin=25
+prop millwheelturn beh.spinOwn=1
+prop millsound obj.name=millsound
+prop millsound beh.hidden=1
+prop millsound sound.event=event:/exploring/utopia/water_running
+prop millsound sound.volume=0.5
+prop millsound zone.radius=14
+prop hopper obj.name=hopper
+prop hopper beh.use=Empty the hopper
+prop hopper if.use=signal|milling\n!signal|seal1
+prop hopper on.use=message||The stones grind, the hopper shakes empty - and out of the chute with the old grain falls a black stone with a gold stag on it. The first royal seal.\nsignal||seal1\ngive||story:seal*1\nsound||event:/exploring/utopia/metal_pickup
+prop hopper else.use=message||The hopper is jammed full. The mill must turn first - the miller's ledger says how.
+prop forestlock obj.name=forestlock
+prop forestlock beh.use=Unlock the forest gate
+prop forestlock if.use=has|story:forestkey|1\nstate|forestgatedoor|closed
+prop forestlock on.use=message||The farm's key turns. The bamboo gate sinks and the dark of the forest breathes out.\nopen|forestgatedoor\nsound||event:/exploring/utopia/door_entrance_open
+prop forestlock else.use=message||The forest gate. Only the farm keeps its key.
+prop forestgatedoor obj.name=forestgatedoor
+prop forestgatedoor beh.move=0,-12.8,0
+prop forestgatedoor beh.moveTime=6
+prop forestgatedoor beh.moveMode=switch
+# (Utopia's entrance door as a ready piece wants Raft's entrance key and goes when used: this gate only sinks when the forest lock takes the farm's key - the ready piece's settings taken off)
+prop forestgatedoor beh.use=
+prop forestgatedoor if.use=
+prop forestgatedoor else.use=
+prop forestgatedoor on.use=
+prop oakowl obj.name=oakowl
+prop oakowl beh.use=Reach into the hollow
+prop oakowl if.use=!signal|seal2
+prop oakowl on.use=message||Under the owl's branch, deep in the hollow: cold stone. The second royal seal.\nsignal||seal2\ngive||story:seal*1\nsound||event:/exploring/utopia/metal_pickup
+prop oakowl else.use=message||The hollow is empty now.
+prop oakfox obj.name=oakfox
+prop oakfox beh.use=Reach into the hollow
+prop oakfox on.use=message||Leaves and a fox's old bones. Nothing.\nsound||event:/crafting/plant_harvest
+prop oakstag obj.name=oakstag
+prop oakstag beh.use=Reach into the hollow
+prop oakstag on.use=message||Antler velvet and acorns. Nothing.\nsound||event:/crafting/plant_harvest
+prop oakbee obj.name=oakbee
+prop oakbee beh.use=Reach into the hollow
+prop oakbee on.use=message||Sticky - old honeycomb, and it stings. Nothing else.\nsound||event:/wildlife/beehive
+prop winch obj.name=winch
+prop winch beh.use=Wind the portcullis up
+prop winch if.use=state|portcullis|closed
+prop winch on.use=message||The winch clanks round and round; the portcullis rises into the gatehouse.\nopen|portcullis\nsound||event:/exploring/temperence/selene/handle_spin
+prop winch else.use=message||The portcullis is up.
+prop portcullis obj.name=portcullis
+prop portcullis beh.move=0,5.5,0
+prop portcullis beh.moveTime=5
+prop portcullis beh.moveMode=switch
+prop seallocks obj.name=seallocks
+prop seallocks beh.use=Set the three royal seals in their locks
+prop seallocks if.use=quest|31\ntake|story:seal|3
+prop seallocks on.use=message||Stag, stag, stag - three seals in three locks. The vault's doors slide apart.\nopen|vaultdoor\nsound||event:/exploring/temperence/selene/gate_open
+prop seallocks else.use=message||Three locks shaped like the royal seal.
+prop vaultdoorL obj.name=vaultdoor
+prop vaultdoorL beh.move=2.3,0,0
+prop vaultdoorL beh.moveTime=2
+prop vaultdoorL beh.moveMode=switch
+prop vaultdoorR obj.name=vaultdoor
+prop vaultdoorR beh.move=-2.3,0,0
+prop vaultdoorR beh.moveTime=2
+prop vaultdoorR beh.moveMode=switch
+prop beast obj.name=beast
+prop beast beh.hidden=1
+prop beast creature.count=1
+prop beast creature.size=2.4
+prop beast creature.health=4
+prop beast creature.damage=2.5
+prop beast creature.respawn=0
+prop beast tint.color=#2a2626
+prop beast tint.amount=0.5
+prop beast on.defeat=hide|beastmusic\nmessage||The Beast of Elderhaven falls across the great hall's tables. The castle is silent - and the way up to the throne room is clear.
+prop beastmusic obj.name=beastmusic
+prop beastmusic beh.hidden=1
+prop beastmusic sound.event=event:/music/music_boss
+prop beastmusic sound.volume=0.6
+prop beastmusic zone.radius=35
+prop throne obj.name=throne
+prop throne beh.use=Set the crown on the empty throne
+prop throne if.use=quest|35\nhas|story:crown|1\n!signal|crowned
+prop throne on.use=message||You set the crown on the empty throne. For a moment, nothing - then the castle's bells begin, all of them, and down in the harbour town the church bell answers. Banners unroll on every tower. Somewhere a trumpet. The kingdom has a keeper.\nsignal||crowned\nshow|coronation\nshow|coronationmusic\nshow|coronationglow\nshow|charter\nshow|peoplesgift\ngive||story:royalseal*1\nsound||event:/crafting/horns/bugle
+prop throne else.use=message||The empty throne of Elderhaven. Read the king's will.
+prop coronation obj.name=coronation
+prop coronation beh.hidden=1
+prop coronationmusic obj.name=coronationmusic
+prop coronationmusic beh.hidden=1
+prop coronationmusic sound.event=event:/music/music_final
+prop coronationmusic sound.volume=0.5
+prop coronationmusic zone.radius=50
+prop coronationglow obj.name=coronationglow
+prop coronationglow beh.hidden=1
+prop coronationglow atmo.fog=#f0e0c0
+prop coronationglow atmo.fogAmount=0.06
+prop coronationglow atmo.light=#ffe0a0
+prop coronationglow atmo.lightAmount=0.25
+prop coronationglow zone.radius=50
+prop charter obj.name=charter
+prop charter beh.hidden=1
+
+prop harbour zone.id=harbour
+prop harbour zone.radius=12
+prop harbour zone.message=The harbour of Elderhaven: an empty quay, boats tied up, flags on the roofs - and a market square with a stone cross.
+prop warehouse zone.id=warehouse
+prop warehouse zone.radius=7
+prop warehouse zone.repeat=never
+prop warehouse zone.message=The warehouse - and the sacks are moving. Brown rats from some far port!
+prop warehouserats creature.count=4
+prop warehouserats creature.respawn=0
+prop warehouserats creature.zone=warehouse
+prop markethens creature.count=3
+prop tollbridge zone.id=tollbridge
+prop tollbridge zone.radius=6
+prop tollbridge zone.message=Over the toll bridge: the road runs west and south up the river, past fields and a mill.
+prop mill zone.id=mill
+prop mill zone.radius=8
+prop mill zone.message=The watermill: a still wheel, a dry race, a hopper jammed full - and the miller's ledger on a sack.
+prop barley zone.id=barley
+prop barley zone.radius=14
+prop barley zone.repeat=never
+prop barley zone.message=The barley field - and the boars are in it again!
+prop boars creature.count=4
+prop boars creature.respawn=0
+prop boars creature.zone=barley
+prop farm zone.id=farm
+prop farm zone.radius=9
+prop farm zone.message=The farm: a house, a barn, a windmill - and a goat pen with its gate hanging open.
+prop farmgoats creature.count=3
+prop farmhens creature.count=3
+prop forestgate zone.id=forestgate
+prop forestgate zone.radius=7
+prop forestgate zone.message=Inside the forest gate: pines so tall and close the day goes green and dim.
+prop forestdark atmo.fog=#0e1a10
+prop forestdark atmo.fogAmount=0.35
+prop forestdark atmo.light=#3a5a3a
+prop forestdark atmo.lightAmount=0.35
+prop forestdark atmo.particles=mist
+prop forestdark zone.radius=45
+prop forestsound sound.event=event:/amb/pineforest
+prop forestsound sound.volume=0.5
+prop forestsound zone.radius=45
+prop wolfden zone.id=wolfden
+prop wolfden zone.radius=12
+prop wolfden zone.repeat=never
+prop wolfden zone.message=A clearing - and grey shapes slipping out of the trees all round it. Wolves!
+prop wolves creature.count=3
+prop wolves creature.respawn=0
+prop wolves creature.zone=wolfden
+prop wolves tint.color=#6a6a70
+prop wolves tint.amount=0.5
+prop hermithut zone.id=hermithut
+prop hermithut zone.radius=7
+prop hermithut zone.message=The hermit's hut under the biggest pines, herbs drying in its window, a board carved with a riddle.
+prop glade zone.id=glade
+prop glade zone.radius=12
+prop glade zone.repeat=never
+prop glade zone.message=The glade of the four oaks - and the old bear of the forest rises from the ferns between them.
+prop oldbear creature.count=1
+prop oldbear creature.size=1.6
+prop oldbear creature.health=3
+prop oldbear creature.respawn=0
+prop oldbear creature.zone=glade
+prop forestshrine zone.id=forestshrine
+prop forestshrine zone.radius=6
+prop forestshrine zone.message=The forest shrine on the south edge: below you, the lake - and a church spire standing out of the middle of it.
+prop lakeshore zone.id=lakeshore
+prop lakeshore zone.radius=8
+prop lakeshore zone.message=The ferryman's landing: a punt, a jetty, a chart on a post.
+prop drownedchapel zone.id=drownedchapel
+prop drownedchapel zone.radius=8
+prop drownedchapel zone.message=The drowned chapel on the lake's floor: its door open, its windows green - and something long and dark circling it.
+prop chapelair1 zone.id=chapelair1
+prop chapelair1 zone.radius=2.5
+prop chapelair1 zone.repeat=1
+prop chapelair1 zone.air=1
+prop chapelair2 zone.id=chapelair2
+prop chapelair2 zone.radius=2.5
+prop chapelair2 zone.repeat=1
+prop chapelair2 zone.air=1
+prop chapelbubbles1 atmo.particles=bubbles
+prop chapelbubbles1 zone.radius=3
+prop chapelbubbles2 atmo.particles=bubbles
+prop chapelbubbles2 zone.radius=3
+prop lakegloom atmo.fog=#0a1a14
+prop lakegloom atmo.fogAmount=0.45
+prop lakegloom atmo.light=#2a4a3a
+prop lakegloom atmo.lightAmount=0.5
+prop lakegloom zone.radius=30
+prop pike creature.count=1
+prop pike creature.size=2
+prop pike creature.health=3
+prop pike creature.respawn=0
+prop pike tint.color=#4a6a3a
+prop pike tint.amount=0.5
+prop castlepath zone.id=castlepath
+prop castlepath zone.radius=6
+prop castlepath zone.message=The castle road's foot. High above, on the southern peak, the castle's towers against the sky.
+prop castlegate zone.id=castlegate
+prop castlegate zone.radius=8
+prop castlegate zone.message=The castle gate: towers either side, the portcullis down. A side door into the gatehouse stands ajar.
+prop kitchens zone.id=kitchens
+prop kitchens zone.radius=6
+prop kitchens zone.repeat=never
+prop kitchens zone.message=The castle kitchens - and every rat in the castle came here for the end of the feast.
+prop kitchenrats creature.count=4
+prop kitchenrats creature.respawn=0
+prop kitchenrats creature.zone=kitchens
+prop vaultstair zone.id=vaultstair
+prop vaultstair zone.radius=4
+prop vaultstair zone.message=The foot of the vault stair: two great doors, three locks shaped like the royal seal.
+prop vaultdark atmo.fog=#0a0808
+prop vaultdark atmo.fogAmount=0.6
+prop vaultdark atmo.light=#3a2a20
+prop vaultdark atmo.lightAmount=0.6
+prop vaultdark zone.radius=9
+prop throneroom zone.id=throneroom
+prop throneroom zone.radius=3
+prop throneroom zone.repeat=1
+prop throneroom zone.message=The throne room: tall windows, a long carpet, and at its end the empty throne.
+prop battlements zone.id=battlements
+prop battlements zone.radius=3
+prop battlements zone.repeat=1
+prop battlements zone.message=The battlements of Elderhaven: the whole kingdom below you - town, fields, forest, lake. Yours.
+prop turtles creature.count=2
+prop llamas creature.count=3
+prop dolphins creature.count=3
+
+quest title=The Empty Throne
+quest intro=A kingdom emptied, its crown hidden, its throne bare. The herald's proclamation is on the market cross by the harbour.
+# Chapter 1 - the harbour town
+step reach|harbour|1|Land at the harbour of Elderhaven
+step read|The herald's proclamation|1|Read the herald's proclamation on the market cross
+step kill|Tangaroa rat|4|Clear the rats out of the warehouse on the quay
+step open|Guildhall chest|1|Take the reeve's writ from the guildhall's chest
+step catch|Chicken|3|Catch the market's runaway hens (the poulterer's crate has a net launcher)
+step open|Innkeeper's thanks|1|Open the innkeeper's chest for her thanks - and her gossip
+step reach|tollbridge|1|Show the writ at the toll and cross the river bridge
+# Chapter 2 - the farmlands
+step reach|mill|1|Walk up the river road to the watermill
+step read|The miller's ledger|1|Read the miller's ledger
+step collect|story:seal|1|Open the mill race, let the wheel turn and empty the hopper for the first seal
+step kill|Warthog|4|Drive the boars out of the barley
+step catch|Goat|3|Bring in the farmer's three goats
+step collect|story:forestkey|1|Take the forest gate's key from the farmer's chest
+step reach|forestgate|1|Unlock the gate in the palisade and enter the dark forest
+# Chapter 3 - the dark forest
+step read|The woodcutter's warning|1|Read the warning on the woodcutter's door
+step kill|Hyena|3|Fight off the wolves in the clearing
+step reach|hermithut|1|Find the hermit's hut in the deepest wood
+step read|The hermit's riddle|1|Read the hermit's riddle
+step collect|story:seal|2|Find the right hollow oak in the glade for the second seal
+step kill|Bear|1|Face the old bear of the glade
+step reach|forestshrine|1|Go on to the forest shrine on the south edge
+# Chapter 4 - the lake
+step reach|lakeshore|1|Go down to the ferryman's landing on the lake
+step read|The ferryman's chart|1|Read the ferryman's chart
+step reach|drownedchapel|1|Dive to the drowned chapel (air under its roof)
+step kill|Angler fish|1|Face the lake's great pike
+step collect|story:seal|3|Take the third seal from the chapel's reliquary
+step reach|castlepath|1|Swim or punt across to the castle road's foot
+# Chapter 5 - the castle
+step reach|castlegate|1|Climb the castle road to the gate
+step read|The steward's confession|1|Wind up the portcullis and read the steward's confession in the court
+step kill|Rat|4|Clear the rats out of the castle kitchens
+step reach|vaultstair|1|Go down the stair to the crown vault
+step collect|story:crown|1|Set the three seals in the locks and take the crown
+step kill|Mama bear|1|Face the Beast of Elderhaven in the great hall
+step reach|throneroom|1|Climb the great stair to the throne room
+# Chapter 6 - the coronation
+step read|King Aldric's will|1|Read King Aldric's will on the throne
+step collect|story:royalseal|1|Set the crown on the empty throne
+step reach|battlements|1|Show yourself on the battlements
+step read|The royal charter|1|Read the royal charter on the lectern
+step open|The royal treasury|1|Open the royal treasury behind the throne
+step open|The people's gift|1|Go down to the market cross for the people's gift
+quest done=The crown is on the throne, the bells ring from castle to harbour, and far over the sea, boats are already turning for home. Elderhaven has its keeper.
+quest reward=TitaniumIngot*3;MetalIngot*6;Cooked_GenericMeat*4;Rope*6
+
+save The Last Kingdom

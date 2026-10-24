@@ -1,0 +1,25 @@
+# Rootcellar Deep (CIPlay rootcellar_deep - played after Upfall Orchard, whose four apple baskets it takes; alone:
+# rootcellar_deep_solo): 25 m down; the well bottom, the cellar diary, the cellar hatch (the apples), the cellar's air,
+# the cellar chest, the root cave (puffers) and its cache.
+island Rootcellar Deep
+offset 0 0
+expect step 0
+expect title The Other Half
+zone well_bottom
+expect step 1
+read Cellar diary
+expect step 2
+use cellardoor
+expect story cellaropen 1
+expect step 3
+air cellar
+expect step 4
+open Cellar chest
+wait 3
+expect step 5
+zone root_cave
+kill Puffer fish
+expect step 6
+open Root cave cache
+wait 3
+expect done

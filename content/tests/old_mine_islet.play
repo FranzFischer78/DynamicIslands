@@ -1,0 +1,30 @@
+# Play test of Old Mine Islet (CIPlay old_mine_islet, in a test world 'CI ...'). Points as in its recipe.
+island Old Mine Islet
+expect step 0
+expect title Down the Old Mine
+
+# The yard in front of the mine: the notice, the miner's locker with the head lamp
+walk 20 -10 to 21 -19 h=4.9
+zone minehead
+expect step 1
+read Mine notice
+expect step 2
+open Miner's locker
+expect item HeadLight 1
+expect step 3
+
+# Into the mine along the rails: the beast wakes at the deep end
+walk 20 -17.4 to 12 -17.4 to 2 -17.4 h=5.2
+zone deep
+expect message grunts in the dark
+expect step 4
+kill Warthog
+expect step 5
+expect animals Warthog 0
+
+# To the end of the line: the last ore cart
+walk 2 -17.4 to -8.5 -17.4 h=6.5
+open Last ore cart
+wait 2
+expect item Blueprint_MetalDetector 1
+expect done

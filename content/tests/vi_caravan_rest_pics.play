@@ -1,0 +1,12 @@
+# Pictures of Caravan Rest (CIPlay vi_caravan_rest_pics; vehicle island): Raft's camera, midday, calm
+island Caravan Rest
+offset 0 0
+hour 11
+weather Calm
+at 0 0
+wait 3
+picture vi_caravan_rest_overview 42 36 -42 0 3 0
+picture vi_caravan_rest_ring 0 +8 -19 0 +1 2
+picture vi_caravan_rest_rocket 37 +4 2 26 +3 12
+picture vi_caravan_rest_lookout -3 +3 -21 -13 +2.5 -12
+picture vi_caravan_rest_vans 6 +3 -38 0 +1 -28

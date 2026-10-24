@@ -1,0 +1,58 @@
+# The Iron Whale - Engine Decks (CIPlay iron_whale_decks): 15 m down; the mast and its box, the boiler hall's air, the
+# captain's log, the anglers, the engine store, the chief's locker (keycard), the shaft's air, the captain's door and
+# room, Hedda's cage and account, the galley, the main breaker.
+island The Iron Whale - Engine Decks
+offset 0 0
+expect step 0
+expect title The Engine Decks
+expect hidden captvault
+expect hidden deckslights
+zone stern_mast
+expect step 1
+open Mast box
+wait 3
+expect step 2
+air boiler_hall
+expect step 3
+read Captain's log, day 40
+expect step 4
+kill Angler fish
+expect step 5
+open Engine store
+wait 3
+expect step 6
+open Chief engineer's locker
+wait 3
+expect step 7
+use mainbreaker
+expect story breaker 0
+air shaft
+expect step 8
+open Shaft box
+wait 3
+expect story fuse 3
+use captdoor
+expect hidden captdoor
+expect shown captvault
+open Captain's room
+wait 3
+expect step 9
+air captains_room
+use heddacage
+expect survivor frozen_hedda
+read Hedda Brask's account
+expect step 10
+open Officers' galley
+wait 3
+expect step 12
+open Officers' safe
+expect story galleycode 0
+code galleypad 4127
+expect story galleycode 1
+open Officers' safe
+wait 3
+use mainbreaker
+expect story fuse 0
+expect story breaker 1
+expect shown deckslights
+expect done

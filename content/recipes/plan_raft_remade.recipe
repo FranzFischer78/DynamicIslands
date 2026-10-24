@@ -1,0 +1,23 @@
+# Raft Remade - a world plan of the library: Raft's story with every story island made anew
+# Each of Raft's eight story islands is replaced in Raft's Receiver chain by a remade version of itself: its land made
+# with the generator's "Randomize existing" from Raft's own island (its shape and style), then rebuilt with new set
+# pieces, new missions, other monsters and a boss. Each hands out the blueprints the original island has, so the raft
+# still gets its steering wheel, engine, fuel, machete and the rest; the finale's quest is the ending.
+#
+# Built by the recipe player (CIRecipe plan_raft_remade) in the editor's World plans window. Its play test:
+# content\tests\plan_raft_remade.play. (Its rule ids are not Raft's own island names: a play test's 'expect chain radiotower'
+# read the name as Raft's Radio Tower, and a rule's 'after:' would too.)
+plan new Raft Remade
+plan description Raft's story as you know it - but every story island is made anew: new land, new missions, other monsters and a boss on each. Its blueprints are still there, so the raft gets everything the story needs. Its main islands are about 70% the size of Raft's own big islands.
+plan random on
+plan story on
+plan rule radioremade | island:Radio Tower Remade | start | receiver:600 | The Receiver picks up a radio tower - but not the one you remember. | Radio Tower | instead:RadioTower | quest
+plan rule vasagatanremade | island:Vasagatan Remade | start | receiver:800 | A ship's distress beacon, looping the same three words. | Vasagatan | instead:Vasagatan | quest
+plan rule balboaremade | island:Balboa Remade | start | receiver:900 | A ranger station calls from a jungle mountain. | Balboa | instead:Balboa | quest
+plan rule caravanremade | island:Caravan Town Remade | start | receiver:900 | A trader's jingle, then static: Caravan Town is open - mostly. | Caravan Town | instead:CaravanTown | quest
+plan rule tangaroaremade | island:Tangaroa Remade | start | receiver:1000 | The city of Tangaroa broadcasts its anthem to no one. | Tangaroa | instead:Tangaroa | quest
+plan rule varunaremade | island:Varuna Point Remade | start | receiver:1000 | A construction site's safety recording, still running. | Varuna Point | instead:VarunaPoint | quest
+plan rule temperanceremade | island:Temperance Remade | start | receiver:1000 | A weather report from the far north: snow, snow and a reactor alarm. | Temperance | instead:Temperance | quest
+plan rule utopiaremade | island:Utopia Remade | start | receiver:1200 | Utopia's call - the last frequency on the dial. | Utopia | instead:Utopia | quest
+plan ending Utopia is behind you, and every island of the old story has been walked anew - new land, new bosses, the same long sea.\n\nThe end of Raft Remade.
+plan save

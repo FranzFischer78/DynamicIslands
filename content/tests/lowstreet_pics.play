@@ -1,0 +1,15 @@
+# Guide pictures of Lowstreet (CIPlay lowstreet_pics): Raft's camera, midday, calm; the drowned street and the cinema from above the water
+# offset 0 0 is a placeholder: phase 2 sets it from the recipe's save log (PLAY_FORMAT: Coordinates).
+island Lowstreet
+offset 0 0
+hour 11
+weather Calm
+at 0 0
+wait 3
+picture sl13_lowstreet_island 40 20 -70 0 -12 0
+# the caravan tram and the parked van
+picture sl13_lowstreet_vehicles -20 -15 -10 -34 -19 0
+picture sl13_lowstreet_embankment -7 18 0 -7 11 29
+picture sl13_lowstreet_depot -42 9 34 -55 4 50
+picture sl13_lowstreet_wagons 40 9 -12 40 4 6
+picture sl13_lowstreet_cave 50 9 24 50 6 50

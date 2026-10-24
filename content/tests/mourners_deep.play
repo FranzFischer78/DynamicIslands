@@ -1,0 +1,15 @@
+# Play test of Mourner's Deep (CIPlay mourners_deep, in a test world 'CI ...'): a sunken island, 13 m under the sea. No
+# quest: down to the graveyard, the grave goods, the gravedigger's shack, its box and the air pocket under its roof.
+# Points as in its recipe (heights over the island's own water line).
+island Mourner's Deep
+offset 0 0
+expect animals Angler fish 2
+wait 3
+kill Angler fish
+kill Puffer fish
+at -6 4 h=5
+open Grave goods
+at 4.25 -7.5 h=5
+air shackair
+at 3.2 -5.2 h=5
+open Gravedigger's box

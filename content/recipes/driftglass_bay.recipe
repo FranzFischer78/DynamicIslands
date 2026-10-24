@@ -1,0 +1,208 @@
+# Driftglass Bay - a new island of the library, normal size
+# A beachcomber's desert crescent (Shape 6, Style 2) round a shallow bay that opens to the west: on the crest of the
+# crescent a lighthouse built of glass bottles round a concrete pipe, its lamp dark; on the north horn the beachcomber's
+# hut on low stilts; drift-sculptures of planks and scrap along the shore. Old Pell, the beachcomber, built the light out
+# of what the sea brought him and wrote his last message across eight bottles, then threw them back. Quest "The Bottle
+# Light" (6 steps): the landing by the driftwood man, Pell's diary in his hut, the eight bottles round the bay and under
+# water (read each one: it is kept), up the tower to the lamp, fill the lamp with them, open Pell's chest at its foot.
+#
+# Built by the recipe player (CIRecipe driftglass_bay) through the editor's own operations. Points: the bay's floor at
+# about -4 m round -25 0; the landing beach on the bay's east shore at -1 0 (0.4 m); the crest of the crescent along x 10
+# from z -20 to 20 (6-7 m), its top levelled at 6 m round the tower at 10 0; the way up from the bay's south shore over
+# the south horn (-22 -27, -5 -24) and along the crest; the hut's pad on the north horn at -6 27 (4.8 m), the hut x -8.25..-3.75, z 25..29.5, its deck 1 m up and
+# its ladder on the south side at -6 24.9; the tower's gallery 11.97 m, its ladder at 10 -1.9.
+include lib_huts
+include lib_sea
+new
+gen Trees=0.2 Bushes=0.3 Rocks=0.35 Harvest=0.2 BeachThings=0.35
+gen Seed=9115 Radius=45 Height=7 Roughness=0.3 Peaks=1 Shape=6 Style=2 BeachWidth=0.9 Cliffs=0 PeakShape=0.3
+gen SeaFloor=0 Shelf=0.5 Seabed=2
+gen Water=0.5 SeaRocks=0.4 SeaFinds=0.4 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+# ===== The pads: the tower's on the crest, the crest's path, the hut's on the north horn =====
+brush flatten at 10 0 r=5 s=20 frames=60 h=6
+brush smooth from 4.5 -6 to 4.5 6 r=3 s=10 frames=12
+brush flatten at -1 0 r=3.5 s=20 frames=40 h=0.4
+brush flatten at -6 27 r=5 s=20 frames=60 h=4.8
+brush sand from 6 -20 to 9 -5 r=3 s=20 frames=30
+clear at 10 0 r=6
+clear from 6 -20 to 9 -5 r=2.5
+clear at -1 0 r=4
+clear at -6 27 r=6
+
+# ===== The bottle lighthouse: a concrete pipe on end (tinted bottle-green), rings of glass bottles round it, a ladder on
+# its south side up to a gallery of planks with rope rails, the lamp house on four posts, the lamp (dark until filled)
+place VP_ConcretePipe02 towerpipe at 10 0 h=8.8 rot=90,0,0 scale=1.4
+prop towerpipe tint.color=#6fbf9a
+prop towerpipe tint.amount=0.8
+for a 0 337.5 22.5
+place WBottle_02 - at {10+1.95*cos($a+11)} {1.95*sin($a+11)} h=6 yaw=$a scale=6
+place WBottle_01 - at {10+1.95*cos($a)} {1.95*sin($a)} h=8.1 yaw=$a scale=6
+place WBottle_01 - at {10+1.95*cos($a+11)} {1.95*sin($a+11)} h=9.85 yaw=$a scale=6
+next
+place LandmarkLadder_6m towerladder at 10 -1.9 h=6 sy=0.884
+push at 7.75 -1.75 h=11.97
+for gx 0.75 3.75 1.5
+for gz 0.75 3.75 1.5
+place Block_Floor_Wood - at $gx $gz y=0
+next
+next
+place Block_Wall_Fence_Rope - at 0.75 0 y=0
+place Block_Wall_Fence_Rope - at 3.75 0 y=0
+place Block_Wall_Fence_Rope - at 0.75 4.5 y=0
+place Block_Wall_Fence_Rope - at 2.25 4.5 y=0
+place Block_Wall_Fence_Rope - at 3.75 4.5 y=0
+place Block_Wall_Fence_Rope - at 0 0.75 y=0 yaw=90
+place Block_Wall_Fence_Rope - at 0 2.25 y=0 yaw=90
+place Block_Wall_Fence_Rope - at 0 3.75 y=0 yaw=90
+place Block_Wall_Fence_Rope - at 4.5 0.75 y=0 yaw=90
+place Block_Wall_Fence_Rope - at 4.5 2.25 y=0 yaw=90
+place Block_Wall_Fence_Rope - at 4.5 3.75 y=0 yaw=90
+place Block_Pillar_Wood - at 1.5 1.5 y=0
+place Block_Pillar_Wood - at 3 1.5 y=0
+place Block_Pillar_Wood - at 1.5 3 y=0
+place Block_Pillar_Wood - at 3 3 y=0
+roof 1 1 at 1.5 1.5 y=0 wood
+place Placeable_Lantern_Basic lamp at 2.25 2.25 y=0 sit
+place RT_Floodlight lamplight at 0.75 2.25 y=0 sit yaw=270
+place RT_Floodlight lamplight at 3.75 2.25 y=0 sit yaw=90
+place WBottle_01 - at 0.6 3.9 y=0 scale=4
+place WBottle_02 - at 3.9 3.9 y=0 scale=4
+place Zone_Trigger lamptop at 2.25 2.25 y=1
+pop
+# (at the tower's foot: Pell's chest, a bench of planks, crates of bottles still to be fitted)
+place Loot_Chest pellschest at 12.6 2.6 ground sit yaw=200
+place Loot_Crate - at 7.2 2.4 ground sit yaw=15
+for b 0 4 1
+place WBottle_02 - at {6.8+$b*0.35} 3.4 ground scale=4
+next
+place Zone_Trigger crest at 10 -3.5 h=7
+
+# ===== The beachcomber's hut on the north horn: low stilts, his diary on a table, a hammock of nets, bottles everywhere
+push at -8.25 25 h=4.8
+call stilt_hut y=1
+place Placeable_Table_Square_Small - at 3.4 3.6 y=1 sit
+place Note_Book pellsdiary at 3.4 3.6 y=1.9 drop yaw=20
+place Note_Bottle bottle2 at 1 3.6 y=1 drop yaw=80
+place FishingNets_02 - at 1.2 1.4 y=1 sit yaw=40
+for b 0 5 1
+place WBottle_01 - at {0.5+$b*0.6} 4.1 y=1 scale=3
+next
+pop
+place "Box Small" hutbox at -2.6 26 ground sit yaw=20
+
+# ===== Drift-sculptures along the shore: the driftwood man at the landing, the driftwood whale on the crest's south
+# end, the plank sun on the north beach; the welcome board ==============================================================
+place Zone_Trigger landing at -1 0 h=1
+place Note_Board welcome at 1.2 -2 ground yaw=90
+place ReefHuts_Pillar1 - at -1.5 4 ground
+place FL_Plank1 - at -1.5 4 ground y=2.2 yaw=0
+place FL_Plank3 - at -1.5 4 ground y=1.4 rot=0,0,70
+place FL_Plank3 - at -1.5 4 ground y=1.4 rot=0,0,-70
+place ReefHuts_Stick1 - at 7 -22.6 ground y=0.45 yaw=-34
+for r 0 4 1
+place ReefHuts_Pillar1 - at {5.4+$r*0.8+0.33} {-21.5-$r*0.54+0.48} ground yaw={$r*40} sy={0.45+0.08*(2-abs($r-2))}
+place ReefHuts_Pillar1 - at {5.4+$r*0.8-0.33} {-21.5-$r*0.54-0.48} ground yaw={$r*40+20} sy={0.45+0.08*(2-abs($r-2))}
+next
+for a 0 315 45
+place FL_Plank3 - at {-6+0.9*cos($a)} {37+0.9*sin($a)} ground y=0.1 yaw={-$a}
+next
+
+# ===== The eight bottles: the landing's driftwood man, Pell's hut, the north horn, the south horn, the crest's whale,
+# the bay's floor, the east reef, the shallows off the north-west point =====================================================
+place Note_Bottle bottle1 at -0.6 4.5 ground yaw=30
+place Note_Bottle bottle3 at -10 40 ground yaw=120
+place Note_Bottle bottle4 at -14 -35 ground yaw=200
+place Note_Bottle bottle5 at 6.6 -23.4 ground yaw=60
+place Note_Bottle bottle6 at -25 2 ground yaw=10
+place Note_Bottle bottle7 at 38 5 ground yaw=300
+place Note_Bottle bottle8 at -35 25 ground yaw=150
+
+# ===== Palms on the crescent, animals: turtles in the bay, dolphins outside; Raft's finds in the shallows ============
+for a -75 75 25
+place "Pickup_Landmark_Tree_Palm 2" - at {6+20*cos($a)} {26*sin($a)} ground yaw={$a*3}
+next
+place "Pickup_Landmark_Tree_Palm 4" - at 15 12 ground yaw=40
+place "Pickup_Landmark_Tree_Palm 4" - at 14 -12 ground yaw=200
+place "Pickup_Landmark_Tree_Palm 4" - at -9 32 ground yaw=110
+place "Pickup_Landmark_Tree_Palm 4" - at -8 -30 ground yaw=300
+place Creature_Turtle turtles at -25 -5 h=-2
+place Creature_Dolphin dolphins at -55 0 h=-3
+call shallows r=60 deep=5 n=1
+prop turtles creature.count=2
+prop dolphins creature.count=2
+
+# --- Things to gather, as suits the island (the user, 2026-10-05): flowers, melons, pineapples ----------
+scatter "Pickup_Landmark_Flower_Yellow" 2 at 0 0 r=31.5 seed=4464 free=3
+scatter "Pickup_Landmark_Flower_Red" 2 at 0 0 r=31.5 seed=4465 free=3
+scatter "Pickup_Landmark_WatermelonLandmark" 3 at 0 0 r=31.5 seed=4474 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 3 at 0 0 r=31.5 seed=4484 free=3
+
+# ===== Settings, story items, notes, behaviours, quest (6 steps) ==========================================================
+info title=Driftglass Bay
+info author=Custom Islands
+info description=A desert crescent round a shallow bay, and on its crest a lighthouse built of glass bottles - dark. Old Pell the beachcomber wrote his last message across eight bottles and gave them back to the sea. Find them all, round the bay and under the water, and fill the lamp with them.
+island on.arrive=message||A pale crescent of sand round a green bay. On the crest, a tower glints in the sun - green, brown, clear: it is made of bottles.
+
+story bottle|Pell's bottle|PlasticBottle_Empty|One of the eight bottles of Old Pell's message, the cork pushed back in.
+story lamplit|The bottle light|Placeable_Lantern_Basic|The bottle lighthouse is lit: eight bottles of message in its lamp, and the light coming out green.
+
+note bottle1 Pell's bottle, the driftwood man | (rolled up in a bottle at the driftwood man's feet)\n\nWhoever finds this: I am Pell, and this bay is mine, and now it's yours. There are eight of these. Find them all.
+note bottle2 Pell's bottle, the hut | (in a bottle on the beachcomber's floor)\n\nThe tower is made of everything the sea ever handed me. One bottle for every year. I ran out of years before I ran out of bottles.
+note bottle3 Pell's bottle, the north horn | (half in the sand at the north horn)\n\nThe sea gives back what you throw in. Not always to you.
+note bottle4 Pell's bottle, the south horn | (wedged among the rocks of the south horn)\n\nThe lamp burns on what's written. That's the only fuel I have left: words.
+note bottle5 Pell's bottle, the whale | (in the driftwood whale's ribs on the crest)\n\nI built the whale because one came into the bay once and I was the only one who saw it.
+note bottle6 Pell's bottle, the bay | (on the bay's sandy floor)\n\nUnder the water it is quiet enough to think. I came down here to think most days.
+note bottle7 Pell's bottle, the east reef | (on the reef outside the crescent)\n\nThe ships pass out there and never turn in. Light the lamp and one of them might.
+note bottle8 Pell's bottle, the north-west shallows | (in the shallows off the north-west point)\n\nThat's all of it. Put them in the lamp. Then sit at the top a while. My chest is at the foot - it's yours.
+note pellsdiary Pell's diary | PELL - DRIFTGLASS BAY\n\nThe tower: one more ring of bottles and it's done.\nThe lamp: dry. No oil on this island since the last can.\nBut a lamp needs something to burn. I'll give it what I've got.\n\nI'm writing it out across eight bottles and throwing them back. If someone comes, they'll find them. If no one comes, the bay will keep them for me.
+note welcome Welcome board | DRIFTGLASS BAY\n\nPOP. 1 (BEACHCOMBER)\n\nThe tower is not for sale.\nThe whale is not real.\nThe bottles are not empty.
+note hutbox Pell's box | Pell's box under his hut: twine, a knife, dried fish, and a lot of corks.
+loot hutbox Rope*2;Cooked_GenericMeat*2;Plastic*2
+prop hutbox loot.refill=0
+note pellschest Pell's chest | Pell's sea chest at the tower's foot: the best of forty years of beachcombing, sorted and wrapped in sailcloth.
+loot pellschest TradeToken*5;MetalIngot*3;CopperIngot*2;Placeable_GlassCandle*2;Rope*4
+prop pellschest loot.refill=0
+prop pellschest if.open=has|story:lamplit|1
+prop pellschest else.open=message||The chest is roped shut, and a cork is tied to the knot: "When the light is lit."
+
+prop bottle1 on.read=give||story:bottle*1
+prop bottle2 on.read=give||story:bottle*1
+prop bottle3 on.read=give||story:bottle*1
+prop bottle4 on.read=give||story:bottle*1
+prop bottle5 on.read=give||story:bottle*1
+prop bottle6 on.read=give||story:bottle*1
+prop bottle7 on.read=give||story:bottle*1
+prop bottle8 on.read=give||story:bottle*1
+
+prop lamp obj.name=lamp
+prop lamp beh.use=Fill the lamp with Pell's bottles
+prop lamp if.use=quest|3\ntake|story:bottle|8
+prop lamp on.use=message||One by one the bottles go into the lamp, their messages inside. The wick catches - and the light comes out of the tower green and brown and clear, every bottle in it lit.\nshow|lamplight\ngive||story:lamplit*1\nsound||event:/crafting/torch
+prop lamp else.use=message||The lamp's bowl is lined with bottle-shaped hollows: eight of them. Pell's bottles go here - all eight.
+prop lamplight obj.name=lamplight
+prop lamplight beh.hidden=1
+
+prop landing zone.id=landing
+prop landing zone.radius=4
+prop landing zone.message=The landing beach. A man made of driftwood stands guard - and at his feet, a bottle.
+prop crest zone.id=crest
+prop crest zone.radius=5
+prop crest zone.message=The crest. The bottle tower up close: hundreds of bottles, the wind whistling across their necks.
+prop lamptop zone.id=lamptop
+prop lamptop zone.radius=3
+prop lamptop zone.message=The lamp room. The lamp is dry, and its bowl has eight bottle-shaped hollows.
+
+quest title=The Bottle Light
+quest intro=A lighthouse made of bottles, dark on the crest of a sandy crescent. A bottle lies at the feet of a driftwood man on the beach.
+step reach|landing|1|Land on the beach where the driftwood man keeps watch
+step read|Pell's diary|1|Climb into Pell's hut on the north horn and read his diary
+step collect|story:bottle|8|Find the eight bottles of Pell's message - round the bay, and under the water
+step reach|lamptop|1|Climb the bottle tower to the dark lamp at its top
+step collect|story:lamplit|1|Fill the lamp with the eight bottles
+step open|Pell's chest|1|Open Pell's chest at the tower's foot
+quest done=The bottle light burns over Driftglass Bay, green and brown and clear - and Pell's message burns in it.
+quest reward=TradeToken*3;Rope*3;Plank*6
+
+save Driftglass Bay

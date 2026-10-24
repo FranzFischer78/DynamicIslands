@@ -1,0 +1,419 @@
+# The Drowned Gate - an island of the library's plan Raft 2: The Drowned Frontier (station Nine of the Frontier Corps)
+# Two tropical hills with a strait cut between them from the east, and the Corps' sea wall across its narrows: a walk on
+# its top (5 m), the lock through it - a covered chamber between two steel gates that sink into the strait to open, gate
+# towers with floodlights over both -, the pump house astride the wall (its pump room on the walk, its hall inside the
+# wall flooded, its door in the lock chamber's side), the gate office on the wall's south half, the lock keeper's wooden
+# house on the north pad; behind the wall, a calm basin with a beach. Quest "Locks and Pumps" (10 steps): the wall, the
+# keeper's count, the outer lock's lever and the lock chamber, the keeper's crowbar, the pump hall's jammed door, the
+# angler in the flooded hall and the inner lock's key on its floor, the inner lock's wheel, the gate office and its vault
+# (the titanium tools', the big backpack's and the electric zipline's blueprints).
+#
+# Built by the recipe player (CIRecipe drowned_gate) through the editor's own operations.
+include lib_sea
+include lib_rt
+include lib_features
+new
+# (nature: tropical, Like Raft; no cliffs - the generator's cliffs cut the land into flat sectors)
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.3
+gen Seed=8109 Radius=90 Height=30 Roughness=0.45 Peaks=2 Shape=7 Style=0
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.4 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# Everything up to the "origin" below is in the gate's frame: x out to sea (east-south-east, along the strait), z along
+# the wall (north-north-east), heights above the sea. The lock's middle is at 0 0.
+push at 30 -10 h=0 yaw=19.65
+
+# --- Terrain: the strait cut from the sea through the saddle between the hills (4 m deep), the basin behind the wall
+# with a beach at its back, the floor under the wall, the pads at the wall's ends (5 m) ---------------------------------
+brush flatten from 3 0 to 60 0 r=15 s=20 frames=220 h=-4
+brush flatten from 30 0 to 62 0 r=19 s=20 frames=120 h=-4
+brush flatten at -22 0 r=21 s=20 frames=150 h=-4
+brush flatten at -30 9 r=13 s=20 frames=80 h=-4
+brush flatten from -3 0 to -12 0 r=15 s=20 frames=80 h=-4
+# (the basin's banks into the two hills smoothed from cut walls into steep slopes - away from the wall's ends: a 25 m
+# sheer face of the south hill stood behind the wall)
+for a 215 290 25
+brush smooth at {-22+19*cos($a)} {19*sin($a)} r=8 s=15 frames=40
+next
+for a 75 125 25
+brush smooth at {-22+19*cos($a)} {19*sin($a)} r=7 s=15 frames=40
+next
+# (the pads first, then the floor under the wall: a stroke flattens fully only the inner part of its circle - the pads'
+# strokes reach in to 14 m under the deck's ends, the floor's after them out to 15 m under the faces)
+brush flatten from -3 18 to 3 18 r=6 s=20 frames=60 h=5
+brush flatten from -2 22 to 13 22 r=6 s=20 frames=70 h=5
+brush flatten from -3 -18 to 3 -18 r=6 s=20 frames=60 h=5
+brush flatten from -2 -22 to 9 -22 r=5 s=20 frames=60 h=5
+# (the hills' cut faces behind the pads smoothed into slopes)
+brush smooth from -8.5 12 to -8.5 26 r=4 s=12 frames=40
+brush smooth from -7 30 to 16 30 r=4 s=12 frames=40
+brush smooth from -8.5 -12 to -8.5 -26 r=4 s=12 frames=40
+brush smooth from -7 -27.5 to 12 -27.5 r=4 s=12 frames=40
+brush flatten from -2.5 -12 to -2.5 12 r=6 s=20 frames=90 h=-4
+brush flatten from 2.5 -12 to 2.5 12 r=6 s=20 frames=90 h=-4
+# (the cut banks painted rock: round the strait, the basin and the pads' edges)
+brush rock from 3 15 to 58 17 r=4 s=20 frames=60
+brush rock from 3 -15 to 58 -17 r=4 s=20 frames=60
+for a 0 330 30
+brush rock at {-22+21*cos($a)} {21*sin($a)} r=6 s=20 frames=20
+next
+brush rock at -30 21 r=6 s=20 frames=20
+brush rock at -26 -21 r=6 s=20 frames=20
+brush rock from -6 15 to 6 15 r=4 s=20 frames=30
+brush rock from -6 -15 to 6 -15 r=4 s=20 frames=30
+# (the basin's back: a beach from its floor up to the saddle - stroke after stroke, then smoothed and sanded)
+for i 0 12 1
+brush flatten at {-29-$i*1.5} {1+$i*0.3} r=8 s=20 frames=15 h={-3.4+$i*0.85}
+next
+brush smooth from -29 1 to -47 5 r=9 s=10 frames=20
+brush sand from -27 1 to -47 5 r=9 s=20 frames=40
+brush sand from 4 0 to 58 0 r=12 s=20 frames=60
+brush sand at -20 0 r=18 s=20 frames=40
+clear from 3 0 to 62 0 r=21
+clear at -24 0 r=27
+clear from -29 1 to -47 5 r=10
+clear from -6 0 to 6 0 r=18
+clear from 0 17 to 0 25 r=7
+clear from 3 22 to 13 22 r=6
+clear from 0 -17 to 0 -25 r=7
+clear from 2 -22 to 9 -22 r=5
+
+# --- The sea wall: a deck of the radio tower's floors (5.05 m) on two faces of its walls, three rows each (the sea
+# face at x 3, the basin face at x -3.04), from the south pad to the north pad; railings on its open stretches -------
+# (the south end's lowest course only its north half: its south half lay in the pad's slope, wholly under the ground,
+# and its middle on the slope's line, under it - CIGroundIslands)
+place RT_Wall1 - at 3 -21 y=-3.95 yaw=90 sx=0.5
+place RT_Wall1 - at -3.04 -21 y=-3.95 yaw=90 sx=0.5
+for wy -0.95 2.05 3
+place RT_Wall1 - at 3 -22.5 y=$wy yaw=90
+place RT_Wall1 - at -3.04 -22.5 y=$wy yaw=90
+next
+# (the lowest course at -16.5 only its north half, as the south end's: the whole piece's middle lay in the pad's slope, its
+# top 0.15 m (sea face) and 0.41 m (basin face) under the ground - the ground check, IG2, 2026-10-12)
+place RT_Wall1 - at 3 -19.5 y=-3.95 yaw=90
+place RT_Wall1 - at -3.04 -19.5 y=-3.95 yaw=90
+place RT_Wall1 - at 3 -15 y=-3.95 yaw=90 sx=0.5
+place RT_Wall1 - at -3.04 -15 y=-3.95 yaw=90 sx=0.5
+for wz -13.5 -7.5 3
+place RT_Wall1 - at 3 $wz y=-3.95 yaw=90
+place RT_Wall1 - at -3.04 $wz y=-3.95 yaw=90
+next
+for wz -19.5 -7.5 3
+for wy -0.95 2.05 3
+place RT_Wall1 - at 3 $wz y=$wy yaw=90
+place RT_Wall1 - at -3.04 $wz y=$wy yaw=90
+next
+next
+for wz 4.5 19.5 3
+for wy -3.95 -0.95 3
+place RT_Wall1 - at 3 $wz y=$wy yaw=90
+place RT_Wall1 - at -3.04 $wz y=$wy yaw=90
+next
+next
+# (the pump hall's windows in the top row of its stretch, the plain wall north of it)
+for wz 4.5 10.5 3
+place RT_WallWindow1 - at 3 $wz y=2.05 yaw=90
+place RT_WallWindow1 - at -3.04 $wz y=2.05 yaw=90
+next
+for wz 13.5 19.5 3
+place RT_Wall1 - at 3 $wz y=2.05 yaw=90
+place RT_Wall1 - at -3.04 $wz y=2.05 yaw=90
+next
+# (over the lock's mouths the top row only: the lintels the gates close against)
+for wz -4.5 1.5 3
+place RT_Wall1 - at 3 $wz y=2.05 yaw=90
+place RT_Wall1 - at -3.04 $wz y=2.05 yaw=90
+next
+for dz -13.5 22.5 9
+place RT_Floor - at 3 $dz y=5.05
+next
+for rz -22.5 -15 1.5
+place RT_Fence - at 2.95 $rz y=5.05 yaw=90
+place RT_Fence - at -2.99 $rz y=5.05 yaw=90
+next
+for rz -4.5 3 1.5
+place RT_Fence - at 2.95 $rz y=5.05 yaw=90
+place RT_Fence - at -2.99 $rz y=5.05 yaw=90
+next
+for rz 13.5 21 1.5
+place RT_Fence - at 2.95 $rz y=5.05 yaw=90
+place RT_Fence - at -2.99 $rz y=5.05 yaw=90
+next
+place Zone_Trigger wall at -1.1 18 y=6.2
+
+# --- The lock: a chamber through the wall (9 m wide) between its side walls, under the deck; the outer gate in front of
+# the sea face, the inner gate in front of the basin face (Temperance's sliding gate: they sink into the strait to open);
+# a gate tower on each side of both mouths (the radio tower's thick pillars) with a beam across and floodlights --------
+for wy -3.95 2.05 3
+place RT_Wall1 - at 0 -4.5 y=$wy
+place RT_Wall1 - at 3 -4.5 y=$wy
+place RT_Wall1 - at 3 4.5 y=$wy
+next
+place RT_Wall1 - at 0 4.5 y=-3.95
+place RT_WallDoor1 - at 0 4.5 y=-0.95
+place RT_Wall1 - at 0 4.5 y=2.05
+place TP_SeleneEntranceGate outergate at 3.65 0 y=-3.95 sit scale=1.25 yaw=-90
+place TP_SeleneEntranceGate innergate at -3.69 0 y=-3.95 sit scale=1.25 yaw=90
+for tx -4.74 4.7 9.44
+for tz -4.95 4.95 9.9
+place RT_PillarThick - at $tx $tz y=-3.95
+place RT_PillarThick - at $tx $tz y=2.05
+next
+place RT_BeamThick - at $tx -4.95 y=8.23 yaw=90
+next
+place RT_Floodlight - at 4.7 -4.4 y=8.41 sit yaw=90
+place RT_Floodlight - at 4.7 4.4 y=8.41 sit yaw=90
+place RT_Floodlight - at -4.74 -4.4 y=8.41 sit yaw=-90
+place RT_Floodlight - at -4.74 4.4 y=8.41 sit yaw=-90
+place Zone_Trigger lockgate at 0 0 y=0.5
+# (on the lock's deck: the outer gate's lever by the sea railing, the inner gate's wheel on its post by the basin's)
+place Placeable_EngineControls outerlever at 2.1 2.3 y=5.05 yaw=-90
+place RT_PillarThick - at -2.5 -2.6 y=5.05 sy=0.18
+place TP_Selene_DoorCrankWheel innerwheel at -2.21 -2.6 y=5.9 rot=0,0,0 yaw=-90
+place Zone_Trigger innerlock at -1.5 -2.6 y=6.2
+
+# --- The pump hall inside the wall north of the lock: flooded to the sea's level, its back wall at z 13.5, its floor
+# a radio tower floor on the strait's bed; the drowned pump, the chest with the inner lock's key, the angler; its door
+# (jammed) in the lock chamber's side wall; the pumps' outlets through the sea face ------------------------------------
+for wy -3.95 2.05 3
+place RT_Wall1 - at 0 13.5 y=$wy
+place RT_Wall1 - at 3 13.5 y=$wy
+next
+place RT_Floor - at 3 13.5 y=-3.95
+place TowerDoorL pumpdoor at -0.42 4.5 y=-0.09
+place UT_WaterPump - at -0.8 9.6 y=-3.95 sit centred
+place "Box Big" pumpchest at 1.9 5.7 y=-3.95 sit yaw=10
+place Creature_AnglerFish lurker at 1 10 y=-2
+place Zone_Trigger pumphall at 0 9 y=0.5
+place RT_RoofLamp - at 0 9 y=4.94
+place VP_ConcretePipe01 - at 4.4 7.5 y=-0.4 yaw=90
+place VP_ConcretePipe01 - at 4.4 10.5 y=-0.4 yaw=90
+
+# --- The pump room on the walk over the pump hall (the walk goes through it, door to door) ----------------------------
+push at 3 9 y=5.05
+call rt_storey floor=none b1=RT_WallDoor1 f1=RT_WallDoor1 l1=RT_WallWindow1 l2=RT_Wall1 l3=RT_WallWindow1 r1=RT_WallWindow1 r2=RT_WallWindow2 r3=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3.05
+call rt_railing y=3.05
+place "Table Office" - at -1.0 -1.5 sit yaw=-90
+place RT_RadarScreen - at -1.3 -1.65 y=1.08 sit yaw=-90 scale=0.5
+place "Chair Office" - at -2.2 -1.5 sit yaw=90
+place Cableroll_01 - at -0.7 2.6 sit
+place Placeable_Lantern_Metal - at -1.2 -0.6 y=1.2 sit drop
+place Loot_ChestSmall relayspares at -0.9 0.8 sit yaw=-90
+place "Pickup_Landmark_Scrap 3_Land" - at 0.9 -0.5 y=0.4 drop yaw=64
+pop
+
+# --- The gate office on the walk's south half: its door to the lock's deck bolted to the inner lock's gear; the vault ---
+push at 3 -9 y=5.05
+call rt_storey floor=none b1=RT_WallDoor1 b2=RT_WallWindow1 l1=RT_WallWindow1 l2=RT_WallWindow2 l3=RT_WallWindow1 r1=RT_WallWindow1 r2=RT_WallWindow2 r3=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3.05
+call rt_railing y=3.05
+place TowerDoorL officedoor at -3.42 4.5 y=0.86
+place VG_Safe officevault at -1.2 -3.9 sit yaw=180
+place "Table Office" - at -4.6 -2.6 sit yaw=90
+place "Chair Office" - at -3.7 -2.6 sit yaw=-90
+place RT_Clipboard - at -4.5 -2.4 y=1.2 sit drop yaw=20
+place Placeable_Lantern_Metal - at -4.7 -3.2 y=1.2 sit drop
+place Zone_Trigger gateoffice at -3 0 y=1.2
+pop
+
+# --- The lock keeper's wooden house on the north pad (5 m) by the wall's end, its door to the walk; his count on a board
+# on the deck at the walk's end, by the sea railing (on the pad's edge it stood half in the smoothed slope) -----------
+push at 6 19.5 h=5
+for fx 0.75 3.75 1.5
+for fz 0.75 3.75 1.5
+place Block_Floor_Wood - at $fx $fz y=0.2
+next
+next
+place Block_Wall_Wood - at 0.75 4.5 y=0.2
+place Block_Wall_Wood - at 2.25 4.5 y=0.2
+place Block_Wall_Wood - at 3.75 4.5 y=0.2
+place Block_Wall_Wood - at 0.75 0 y=0.2
+place Block_Wall_Window_Wood - at 2.25 0 y=0.2
+place Block_Wall_Wood - at 3.75 0 y=0.2
+place Block_Wall_Wood - at 0 0.75 y=0.2 yaw=90
+place Block_Wall_Wood - at 0 3.75 y=0.2 yaw=90
+place Block_Wall_Wood - at 4.5 0.75 y=0.2 yaw=90
+place Block_Wall_Window_Wood - at 4.5 2.25 y=0.2 yaw=90
+place Block_Wall_Wood - at 4.5 3.75 y=0.2 yaw=90
+place Block_Pillar_Wood - at 0 0 y=0.2
+place Block_Pillar_Wood - at 4.5 0 y=0.2
+place Block_Pillar_Wood - at 0 4.5 y=0.2
+place Block_Pillar_Wood - at 4.5 4.5 y=0.2
+place Block_Pillar_Wood - at 0 1.5 y=0.2
+place Block_Pillar_Wood - at 0 3 y=0.2
+roof 3 3 at 0 0 y=0.2 wood
+place Locker keeperslocker at 3.95 3.6 y=0.2 sit yaw=270
+place Placeable_Bed_Wood - at 1.6 3.65 y=0.2 sit
+place Table_Common_01 - at 3.2 1.1 y=0.2 sit
+place Placeable_Chair_Wood - at 2.3 1.1 y=0.2 sit yaw=90
+place Placeable_Lantern_Metal - at 3.2 1.1 y=1.2 sit drop
+place Pickup_Landmark_Plastic3_Land - at 0.9 1.5 y=0.6 drop yaw=200
+place "Pickup_Landmark_Scrap 2_Land" - at 3.0 2.6 y=0.6 drop yaw=35
+pop
+place Note_Board keeperscount at 2.2 21.4 y=5.05 yaw=-90
+place Crate_Big_01 - at 12.5 21 ground yaw=20
+place Crate_Big_02 - at 13 23.2 ground yaw=70
+place Crate_Big_01 - at 6.5 -22.5 ground yaw=-15
+
+# --- The years on the wall: ivy down its faces; rocks fallen at the foot of the cut banks, corals in the calm water ----
+# (only where the faces stand in the water: hung over the banks at the wall's ends they were bases over the ground)
+place "overgrowthIvy_long_02 Variant" - at 3.12 -11.5 y=4.3 yaw=90
+place "overgrowthIvy_long_01 Variant" - at 3.12 -14.3 y=3.6 yaw=90
+place "overgrowthIvy_medium Variant" - at 3.12 -8 y=3.9 yaw=90
+place "overgrowthIvy_short" - at 3.12 -6.6 y=-0.2 yaw=90
+place "overgrowthIvy_long_02 Variant" - at -3.16 -11.5 y=4.4 yaw=-90
+place "overgrowthIvy_long_01 Variant" - at -3.16 -7.6 y=3.9 yaw=-90
+place "overgrowthIvy_round Variant" - at -3.16 -14.6 y=1.2 yaw=-90
+place SmallBoulder3 - at -11.7 12.3 ground yaw=40
+place BigBoulder4_Low - at -23.4 16 ground yaw=130
+place SmallBoulder2 - at -36 14 ground yaw=200
+place SmallBoulder3 - at -33.3 -12 ground yaw=75
+place BigBoulder4_Low - at -23.4 -16 ground yaw=290
+place SmallBoulder3 - at 20 -13 ground yaw=15
+place SmallBoulder2 - at 40 13.5 ground yaw=160
+scatter LeafCoral_1 4 at -22 0 r=13 seed=91 wet
+scatter TableCoral_1 4 at -22 0 r=13 seed=92 wet
+scatter Coral2 4 at -22 0 r=13 seed=93 wet
+scatter CylinderCoral_2 3 at -22 0 r=13 seed=94 wet
+scatter SpineCoral_3 3 at -22 0 r=13 seed=95 wet
+scatter LeafCoral_3 4 at 33 0 r=9 seed=96 wet
+scatter TableCoral_2 4 at 33 0 r=9 seed=97 wet
+scatter TinyCoral 4 at 33 0 r=9 seed=98 wet
+scatter CauliCoral 3 at 33 0 r=9 seed=99 wet
+
+# --- Friendly animals (placed, not the generator's: its Friendly and SeaLife take whole numbers, 0.2 and 0.3 gave none -
+# and no stingrays or puffer fish to muddle the angler's fight): the keeper's hens on the plain north-east of his house,
+# off the walk; turtles in the calm basin; dolphins out at sea off the wall's seaward side -----------------------------
+place Creature_Chicken hens at 20 29 ground
+place Creature_Turtle turtles at -20 -3 y=-1.5
+place Creature_Dolphin dolphins at 86 0 y=-3.5
+pop
+
+# (the island's points from its land's middle from here on, as a world spawns it and the play test walks it)
+origin
+# (the beach's logs: the strait took a share of the land, and five logs on what was left were twice Raft's - three away)
+clear at -49.6 24.3 r=2.5 only=Log
+clear at 50.9 -49 r=2.5 only=Log
+clear at 55.7 53.9 r=2.5 only=Log
+
+# --- Settings, story items, notes, behaviours, quest (10 steps) -------------------------------------------------------
+# --- Things to gather, as suits the island (the user, 2026-10-05): palms, flowers, pineapples ----------
+scatter "Pickup_Landmark_Tree_Palm 1" 4 at 0 0 r=63.0 seed=4122 free=5
+scatter "Pickup_Landmark_Tree_Palm 3" 4 at 0 0 r=63.0 seed=4123 free=5
+scatter "Pickup_Landmark_Flower_Red" 4 at 0 0 r=63.0 seed=4132 free=3
+scatter "Pickup_Landmark_Flower_Yellow" 4 at 0 0 r=63.0 seed=4133 free=3
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=63.0 seed=4142 free=3
+# --- Raft's finds in the shallows round the island (lib_sea) ----------------------------------------
+call shallows r=110 deep=5 n=2
+
+info title=The Drowned Gate
+info author=Custom Islands
+info description=Station Nine of the Frontier Corps: a sea wall across the strait between two hills, its locks and its pump house - the outer gate jammed, the pump hall flooded and something with a lamp on its head in its water. The ninth island of Raft 2: The Drowned Frontier.
+island on.arrive=message||A grey wall across the strait between two hills, a steel gate shut in it, a pump house astride its top - and behind it, calm water. Gulls on the gantries; nobody on the wall.
+
+story crowbar|Crowbar|quest:Balboa_BrunosTool_Wrench|The lock keeper's crowbar - for the pump hall's jammed door.
+story lockkey|Inner lock key|quest:Utopia_KeyPrison|The inner lock's key, from the flooded pump hall's floor.
+
+note keeperscount Lock keeper's count | THE DROWNED GATE - LOCK KEEPER'S COUNT\n\nHour 1,204: the outer gate is jammed shut in the mud. Its lever is on the lock's deck - throw it and she'll drop, if she still can.\nHour 1,231: the sea came over the wall in the night. The pump hall is flooded to the brim and the inner lock's key went down with it. The hall's door - in the lock's side wall - is jammed: my crowbar's in my locker.\nHour 1,260: the Corps is through to the Frontier. They left the gate office's plans for whoever comes after. Something lives in the flooded pump hall now. It has a light on its head.
+note keeperslocker Lock keeper's locker | The lock keeper's locker: oilskins, a lamp - and his crowbar.
+loot keeperslocker story:crowbar*1;Rope*2
+prop keeperslocker loot.refill=0
+note pumpchest Pump hall chest | A chest on the flooded pump hall's floor: the inner lock's key on a float, tangled in its chain.
+loot pumpchest story:lockkey*1;Scrap*4;Bolt*3
+prop pumpchest loot.refill=0
+# the relay's spare battery charger part (T-4c2): it brings up the harbour office's radio on The Frontier (rule 10)
+prop relayspares obj.name=relayspares
+note relayspares Relay spares box | The pump room's spares box: a battery charger part for a Corps radio, wrapped in oilcloth, with a label: "For the Frontier harbour office set - its charger burnt out. Next boat." No boat went.
+loot relayspares story:raft-Caravan_BatteryChargerPart*1;CopperIngot*2;Scrap*3
+prop relayspares loot.refill=0
+note officevault Gate office vault | The gate office's vault: titanium tools, a big backpack, an electric zipline - and the Frontier's frequency on a brass plate.
+loot officevault Blueprint_TitaniumTools*1;Blueprint_BackpackAdvanced*1;Blueprint_ZiplineToolElectric*1;TitaniumIngot*2
+prop officevault loot.refill=0
+prop officevault if.open=signal|innerlock
+prop officevault else.open=message||The vault is bolted to the inner lock's gear - and the inner lock is shut.
+
+prop outerlever obj.name=outerlever
+prop outerlever beh.use=Throw the outer lock's lever
+prop outerlever on.use=message||The lever drops, a chain rattles inside the wall - the outer gate shudders and sinks into the strait. The way into the lock is open.\nopen|outergate\nsignal||outerlock\nsound||event:/raft/engine/controller_on
+prop outergate obj.name=outergate
+prop outergate beh.move=0,-7.4,0
+prop outergate beh.moveTime=5
+prop pumpdoor obj.name=pumpdoor
+prop pumpdoor beh.use=Force the jammed door with the crowbar
+prop pumpdoor beh.turn=-95
+prop pumpdoor beh.moveTime=1.5
+prop pumpdoor if.use=has|story:crowbar|1
+prop pumpdoor on.use=message||The crowbar bites, the door screeches open - black water inside, and a glow moving in it.\nopen|pumpdoor
+prop pumpdoor else.use=message||The pump hall's door is jammed shut. The lock keeper's count said his crowbar would open it.
+prop innerwheel obj.name=innerwheel
+prop innerwheel beh.use=Unlock the inner lock and wind it open
+prop innerwheel if.use=take|story:lockkey|1
+prop innerwheel on.use=message||The key turns, the wheel spins - the inner gate sinks into the basin's calm water, the gate office's door swings open, and somewhere below the pumps cough and start to run.\nopen|innergate\nopen|officedoor\nsignal||innerlock\nsound||event:/raft/engine/controller_on
+prop innerwheel else.use=message||The inner lock's wheel is chained and locked. Its key went down with the flooded pump hall.
+prop innergate obj.name=innergate
+prop innergate beh.move=0,-7.4,0
+prop innergate beh.moveTime=5
+prop officedoor obj.name=officedoor
+prop officedoor beh.use=Open the gate office's door
+prop officedoor beh.turn=-95
+prop officedoor beh.moveTime=1.5
+prop officedoor if.use=signal|innerlock
+prop officedoor on.use=open|officedoor
+prop officedoor else.use=message||The gate office's door won't move - it is bolted to the inner lock's gear and opens with the inner lock.
+
+prop wall zone.id=wall
+prop wall zone.radius=4
+prop wall zone.message=The sea wall of the Drowned Gate: a walk along its top, a pump house astride it, steel gates in the strait below.
+prop lockgate zone.id=lockgate
+prop lockgate zone.radius=3
+prop lockgate zone.message=Inside the lock: dark water under the wall, the inner gate shut ahead - and a door in the side wall, jammed.
+prop pumphall zone.id=pumphall
+prop pumphall zone.radius=3.5
+prop pumphall zone.message=The flooded pump hall: a drowned pump, black water - and a lamp moving in the dark below!
+prop innerlock zone.id=innerlock
+prop innerlock zone.radius=2.5
+prop innerlock zone.message=The inner lock's wheel, chained and locked over the basin.
+prop gateoffice zone.id=gateoffice
+prop gateoffice zone.radius=3
+prop gateoffice zone.message=The gate office: charts of the strait, the keeper's desk - and the vault.
+prop lurker creature.count=1
+prop lurker creature.size=1.4
+prop lurker creature.health=3
+prop lurker creature.respawn=0
+prop lurker creature.zone=pumphall
+prop hens creature.count=3
+prop turtles creature.count=2
+prop dolphins creature.count=2
+
+quest title=Locks and Pumps
+quest intro=A sea wall across a strait, its gates shut and its pumps drowned. Station Nine: start on the wall.
+step reach|wall|1|Climb onto the sea wall
+step read|Lock keeper's count|1|Read the lock keeper's count at the wall's north end
+step reach|lockgate|1|Throw the outer lock's lever and swim into the lock
+step open|Lock keeper's locker|1|Take the lock keeper's crowbar from his locker
+step reach|pumphall|1|Force the pump hall's door and swim into its flooded hall
+step kill|Angler fish|1|Face the angler in the pump hall
+step collect|story:lockkey|1|Dive for the inner lock's key on the pump hall's floor
+step reach|innerlock|1|Carry the key to the inner lock's wheel on the wall
+step reach|gateoffice|1|Open the inner lock and go into the gate office
+step open|Gate office vault|1|Open the gate office's vault
+step blueprint|Blueprint_TitaniumTools|1|Take the titanium tools plans from the gate office vault
+step blueprint|Blueprint_BackpackAdvanced|1|Take the advanced backpack plans from the gate office vault
+step blueprint|Blueprint_ZiplineToolElectric|1|Take the electric zipline tool plans from the gate office vault
+quest done=The vault's brass plate has the last frequency: the Frontier. The Corps went through these locks - and so can you.
+quest reward=TitaniumIngot*2;Plank*8;Rope*3
+
+# --- A Raft store on the east hill by the strait: the Corps' canteen, still trading (Raft's goods, and plans the crew missed) --
+store canteen at 66 2 ground
+
+# Buried treasure (one of the story line's last islands): titanium ore on top of Raft's own treasure loot - the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=45 n=1 seed=8802
+prop treasure8802 treasure.loot=TitaniumOre*3
+
+# --- Raft's vehicles (VI4, 2026-10-23): parked on open ground, clear of paths and quest objects ---
+place VP_Excavator - at 5 -23 ground sit yaw=90
+# the generator's rocks that floated over the slope (VI4 ground check, 2026-10-24)
+clear at -15.53 -56.52 r=1.5 only=SmallBoulder1
+
+save The Drowned Gate

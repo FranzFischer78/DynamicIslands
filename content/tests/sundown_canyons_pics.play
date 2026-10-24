@@ -1,0 +1,19 @@
+# Guide pictures of Sundown Canyons (CIPlay sundown_canyons_pics): Raft's camera, midday, calm. The pictures above
+# the water first (a player under water makes Raft draw every picture as seen under water), the river's bed last
+island Sundown Canyons
+offset 0.1194 1.6867
+hour 13
+weather Calm
+at -115 -20
+wait 3
+picture sundown_canyons_island -175 75 -135 -40 12 -35
+picture sundown_canyons_town -92 16 -42 -122 3 -10
+picture sundown_canyons_derailment -30 13 -80 -52 4 -70
+picture sundown_canyons_trestle 25 15 -70 2 3 -76
+picture sundown_canyons_mine 27 20 -77 24 13 -57
+picture sundown_canyons_fort 8 58 -44 -26 44 -24
+picture sundown_canyons_ladders -4 36 22 -24 31 -1
+picture sundown_canyons_ranch 128 27 28 104 14 0
+at 4 -78 h=-4
+wait 2
+picture sundown_canyons_river 12 -3 -86 4 -6.5 -75

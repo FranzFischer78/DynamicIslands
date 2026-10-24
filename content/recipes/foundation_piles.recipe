@@ -1,0 +1,235 @@
+# The Foundation Piles - the tenth island of the library's plan The City That Never Sank (SL13, Highwater, chapter 9, the
+# finale's second part)
+# Under the city: a forest of giant stone piles standing in a basin ten metres down, two of them cracked and leaning,
+# shoring jacks at the feet of four, air trapped round their foot-blocks; a stingray grown huge nests among them. At the
+# city's edge a mudflat lies dry at sea level, with the pile engineer's hut, clay and sand, and something buried. Quest
+# "The Piles" (15 steps): the mudflat, the engineer's note, the first two piles and their jacks, the pile stingray in two
+# phases, the last two jacks, the closing note, back to the mudflat.
+#
+# Points: the mudflat 24 0 (levelled at 0.8, r 12); the pile basin -16 0 (levelled at -10, r 22); piles at -24 -12
+# (pile 1), -8 -12 (pile 2), -8 12 (pile 3), -24 12 (pile 4), more piles between; the jacks 3 m east of each pile;
+# the air pockets beside the jacks; the stingray's nest -16 0; the treasure within 10 of 18 0.
+include lib_sea
+include lib_rt
+include lib_huts
+include lib_features
+include lib_verdance
+include lib_concord
+include lib_highwater
+include lib_areas
+# RESIZE 10-24: Radius 52 -> 100 (Height 2 -> 3), the old content moved 26.4 0 as one frame (push) so its sea side stays at the coast; the island grows behind it.
+new
+gen Trees=0 Bushes=0.1 Rocks=0.4 Harvest=0.1 BeachThings=0.4
+gen Seed=13951 Radius=100 Height=3 Roughness=0.2 Peaks=0 Shape=0 Style=0 PeakShape=0.2 Cliffs=0 BeachWidth=0.9
+gen Water=0.6 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.5 Hostiles=0 Friendly=0 SeaLife=0.4
+generate
+push at 26.4 0
+
+# --- Terrain: the mudflat dry, the pile basin deep ------------------------------------------------------------------
+brush flatten at 24 0 r=12 s=20 frames=300 h=0.8
+brush flatten at -16 0 r=22 s=20 frames=500 h=-10
+pop
+brush flatten at -23.2 38.6 r=5 s=8 frames=40
+origin
+clear at -23.2 38.6 r=6
+push at 26.4 0
+clear at 24 0 r=12
+clear at -16 0 r=23
+
+# --- The storm, still blowing over the city's edge -------------------------------------------------------------------
+call weather x=0 z=0 al=storm r=70 fog=#3a4048 fa=0.4 light=#8a96a2 la=0.3 parts=mist h=3
+place Zone_Sound stormsound at 0 0 ground y=3
+
+# --- The mudflat: the engineer's hut, his note, clay and sand ---------------------------------------------------------
+push at 26 2 h=0.8
+call stilt_hut y=2.6 w4=ReefHuts_PlasticWall4
+place Loot_ChestSmall engineerbox at 2.25 3.5 y=2.7 sit yaw=180
+place Placeable_Lantern_Metal - at 1 3.5 y=2.7 drop
+pop
+place Note_Board enginenote at 22 -3 ground sit yaw=270
+place Zone_Trigger mudzone at 22 0 ground y=1.5
+place Zone_Trigger returnzone at 28 -6 ground y=1.5
+place Note_Sign returnsign at 28.8 -6 ground sit yaw=270
+place "Pickup_Landmark_Clay 1" - at 30 -9 ground sit
+place "Pickup_Landmark_Clay 2" - at 32 -5 ground sit
+place "Pickup_Landmark_Clay 3" - at 18 8 ground sit
+place "Pickup_Landmark_Sand" - at 16 -6 ground sit
+place "Pickup_Landmark_Sand" - at 20 10 ground sit
+place Reef_Barrel2 - at 31 3 ground sit
+place Block_Ladder - at 13 0 ground yaw=270 sy=4
+call dirt x=18 z=0 r=6 n=3 seed=13952
+call treasure x=18 z=0 r=10 n=1 seed=13054
+prop treasure13054 treasure.loot=TitaniumOre*3
+
+# --- The pile forest: four piles with jacks, eight more without; two cracked and leaning -----------------------------
+place RT_Pillar piles at -24 -12 ground scale=3 sy=4 tilt=4
+place RT_Pillar piles at -8 -12 ground scale=3 sy=4
+place RT_Pillar piles at -8 12 ground scale=3 sy=4 roll=5
+place RT_Pillar piles at -24 12 ground scale=3 sy=4
+place RT_Pillar piles at -32 0 ground scale=3 sy=4
+place RT_Pillar piles at -16 -20 ground scale=3 sy=4
+place RT_Pillar piles at -16 20 ground scale=3 sy=4
+place RT_Pillar piles at 0 0 ground scale=3 sy=4
+place RT_Pillar piles at -32 -18 ground scale=3 sy=4
+place RT_Pillar piles at -32 18 ground scale=3 sy=4
+place RT_Pillar piles at 0 -18 ground scale=3 sy=4 tilt=-3
+place RT_Pillar piles at 0 18 ground scale=3 sy=4
+place Block_Foundation - at -24 -12 ground scale=2
+place Block_Foundation - at -8 -12 ground scale=2
+place Block_Foundation - at -8 12 ground scale=2
+place Block_Foundation - at -24 12 ground scale=2
+call crank x=-21 z=-12 yaw=90 alias=jack1
+call crank x=-5 z=-12 yaw=90 alias=jack2
+call crank x=-5 z=12 yaw=90 alias=jack3
+call crank x=-21 z=12 yaw=90 alias=jack4
+call hw_airpocket x=-21 z=-9.5 id=pile_1 al=pile1air bub=pile1bub msg="The first jacked pile. Air, trapped round its foot-block - and the jack, seized with rust."
+call hw_airpocket x=-5 z=-9.5 id=pile_2 al=pile2air bub=pile2bub msg="The second pile. A crack runs up it as wide as your hand."
+call hw_airpocket x=-5 z=9.5 id=pile_3 al=pile3air bub=pile3bub
+call hw_airpocket x=-21 z=9.5 id=pile_4 al=pile4air bub=pile4bub
+place Note_Paper closing at -21 10.5 ground drop
+place Creature_Stingray pileray at -16 0 ground y=2
+place Creature_PufferFish puffers at -28 -4 ground y=2
+call hw_reef x=-12 z=-16 r=3 seed=13953
+call hw_reef x=-20 z=16 r=3 seed=13954
+place "Pickup_Landmark_Copper 1" - at -30 6 ground sit
+place "Pickup_Landmark_Mushroom 2" - at -12 4 ground sit
+call shallows x=-26.4 z=0 r=135 deep=6 n=2 seed=13955
+call hw_skyline x=-100 z=-80 a=skyline
+pop
+
+# --- DISCOVERIES 10-24 (optional, no quest needs them): camp + note; RT_PlasticBoat + chest; hatch with a chest; buried treasure; viewpoint ---
+place campfire_1 - at -23.2 38.6 ground sit
+place Balboa_DecorationPrefabBase_SimpleTent - at -20.2 40.6 ground sit yaw=307
+place "Box Small" - at -25.2 41.1 ground sit
+place Note_Paper dnote at -25.2 41.1 ground y=0.7 drop yaw=20
+note dnote Salvager's note | SALVAGE CLAIM - this side is ours. Union stamp below (smudged).\nGood copper in the roofs off shore. Bad currents at the turn of the tide.\nDon't dive alone.
+place RT_PlasticBoat dvan at 23.2 -38.6 ground yaw=67
+prop dvan tint.color=#4a6b7a
+prop dvan tint.amount=0.5
+place Loot_ChestSmall dwreckchest at 19.2 -35.6 ground sit yaw=7
+note dwreckchest Runner's stash | A runner's stash in the glovebox: plastic, glass, a few nails.
+loot dwreckchest Plastic*5;Glass*2;Nail*8
+prop dwreckchest loot.refill=0
+call hatchcache x=-38.6 z=-23.2 r=4 seed=14041 alias=dhatch chest=dhatchchest items=MetalIngot*2;CopperIngot*2;Bolt*3
+call treasure x=21.8 z=39.4 r=6 n=1 seed=14042
+prop treasure14042 treasure.loot=CopperOre*3;TitaniumOre*1
+place Zone_Trigger dview at -20.7 3.3 ground
+prop dview zone.id=foundation_piles_view
+prop dview zone.radius=7
+prop dview zone.repeat=never
+prop dview zone.message=Down there the city's foundation piles stand in the dark water - everything Highwater stands on.
+
+# --- Areas (10-24: every story island has places all over it and its quest crosses it): the rubble bank in the north-west (buried
+# salvage), the sunk excavator in the south-west, the engineers' hut in the south, the pile-driver's cave in the west,
+# blasting barrels in the pile field (the stingray's armour only gives to their blasts)
+call ar_ridge x1=-60 z1=20 x2=-40 z2=55 h=10 top=6 r=9
+call ar_plants_tropical x=-50 z=38 r=24 seed=14011
+call hw_zone x=-50 z=38 al=rubblebank id=rubble_bank r=7 msg="The rubble bank: what the engineers dug out from under the city, piled up and grown over. The piles are down there, under all of it."
+call treasure x=-50 z=38 r=14 n=2 seed=14061
+prop treasure14061 treasure.loot=TitaniumOre*2;MetalOre*2
+call hw_wreck x=-62 z=-42 h=3 yaw=40 obj=VP_Excavator al=sunkdigger crate=diggercrate r=10
+call ar_ruin x=10 z=-66 h=4 yaw=180 al=engineershut
+call hw_note x=7.5 z=-61.5 yaw=190 al=engineersurvey
+call ar_cave x=-78 z=-5 h=4 yaw=0 al=drivercave chest=driverchest
+call hw_zone x=-78 z=19 al=drivermouth id=driver_cave r=4 msg="A cave in the west cliff: the pile drivers kept their charges here, well away from the city."
+prop pileray boss.shield=1
+place VP_ExplosiveBarrel_Pile blast1 at 12 8 ground sit yaw=0
+place VP_ExplosiveBarrel_Pile blast2 at 8 -6 ground sit yaw=60
+place VP_ExplosiveBarrel_Pile blast3 at 18 -5 ground sit yaw=120
+call ar_plants_tropical x=40 z=-60 r=14 seed=14021
+
+# --- Settings, story items, notes, behaviours, quest ------------------------------------------------------------------
+info title=The Foundation Piles
+info author=Custom Islands
+info description=Under Highwater: a forest of giant stone piles ten metres down, two of them cracked, shoring jacks at their feet, air round their foot-blocks - and a stingray grown huge among them. A dry mudflat at the city's edge. The last of The City That Never Sank.
+island on.arrive=message||A grey mudflat at the city's edge. Beyond it the water goes black - and down there, the piles the whole city stands on.
+
+story jack1|Pile 1 jacked|Bolt|The first pile, shored up.
+story jack2|Pile 2 jacked|Bolt|The second pile, shored up.
+story jack3|Pile 3 jacked|Bolt|The third pile, shored up.
+story jack4|Pile 4 jacked|Bolt|The fourth pile, shored up - the city holds.
+story rayhurt|Pile stingray wounded|Bolt|You wounded the stingray that nests among the piles.
+story raydown|Pile stingray defeated|Bolt|The pile stingray is dead. The piles are yours to mend.
+
+prop piles tint.color=#6e6a60
+prop piles tint.amount=0.5
+prop skyline tint.color=#5a6068
+prop skyline tint.amount=0.5
+prop stormsound sound.event=event:/amb/rain_ocean
+prop stormsound sound.volume=0.6
+prop stormsound zone.radius=70
+prop puffers creature.count=2
+prop pileray creature.count=1
+prop pileray creature.respawn=0
+prop pileray creature.size=3
+prop pileray creature.health=10
+prop pileray boss.phase=0.5
+prop pileray boss.summon=2
+prop pileray tint.color=#3c4a40
+prop pileray tint.amount=0.6
+prop pileray on.phase=give||story:rayhurt*1\nmessage||The stingray thrashes against a pile - and two more come out of the dark to help it.
+prop pileray on.defeat=signal||raydown\ngive||story:rayhurt*1\ngive||story:raydown*1\nmessage||The great stingray drifts down between the piles and lies still. The last two jacks are clear.
+prop closing beh.hidden=1
+prop closing obj.name=closing
+
+prop jack1 beh.use=Wind the first pile's jack
+prop jack1 if.use=!signal|jack1
+prop jack1 on.use=signal||jack1\ngive||story:jack1*1\nsound||event:/raft/radar/lever\nmessage||The jack bites. Above you the pile groans - and stops leaning.
+prop jack1 else.use=message||This pile is shored.
+prop jack2 beh.use=Wind the second pile's jack
+prop jack2 if.use=signal|jack1
+prop jack2 on.use=signal||jack2\ngive||story:jack2*1\nsound||event:/raft/radar/lever\nmessage||The second jack bites. In the dark between the piles, something big turns toward the sound.
+prop jack2 else.use=message||Rusted solid. The engineer's note says: the first pile first.
+prop jack3 beh.use=Wind the third pile's jack
+prop jack3 if.use=signal|raydown
+prop jack3 on.use=signal||jack3\ngive||story:jack3*1\nsound||event:/raft/radar/lever\nmessage||The third pile takes the weight again.
+prop jack3 else.use=message||You can't work the jack with that stingray circling.
+prop jack4 beh.use=Wind the fourth pile's jack
+prop jack4 if.use=signal|jack3
+prop jack4 on.use=signal||jack4\ngive||story:jack4*1\nshow|closing\nsound||event:/raft/radar/lever\nmessage||The last jack bites. All through the water the piles settle. Highwater holds - for now. Tucked behind the jack, a note.
+prop jack4 else.use=message||The third pile first.
+
+note enginenote Pile engineer's note | THE PILES - ENGINEER'S NOTE\n\nFour piles carry the crown, and the storm has cracked them. The jacks are at their feet, three metres east, where the air collects.\n\nThe first pile first, then the second. Then the far two - if the ray lets you. It has nested down there since the Lowstreet flood.
+note engineerbox Engineer's box | The pile engineer's spare tools.
+note closing The city holds | Behind the fourth jack, in a tin, the pile engineer's last words -\n\nThe piles are older than the Authority, the Fleet and the Union. They were here before any of them, and they will carry whoever comes after.\n\nThe brass plate on each one: CONCORD WORKS. Whoever built the pumps built this too. Their signal is still out there, south, on the old band.
+note returnsign Mudflat | High-water mark. The tide comes no further.
+loot engineerbox Rope*2;MetalIngot*2;Bolt*2
+prop engineerbox loot.refill=0
+
+prop mudzone zone.id=mudflat
+prop mudzone zone.radius=4
+prop mudzone zone.message=The mudflat. The engineer's hut, a board, and the black water beyond.
+prop returnzone zone.id=mudflat_return
+prop returnzone zone.radius=3
+prop returnzone zone.message=Back on the mudflat. Up above, the rain is easing off.
+
+prop blast1 on.use=message||The barrel goes up under the pile - the shock rolls the stingray over.\nhit|pileray|40\nhide|\nsignal||blast
+prop blast2 on.use=message||The second barrel bursts - the stingray's hide splits along the old scar.\nhit|pileray|40\nhide|\nsignal||blast
+prop blast3 on.use=message||The last barrel blows - and the pile shudders free of the stingray.\nhit|pileray|40\nhide|\nsignal||blast
+note diggercrate Excavator's toolbox | The excavator that dug the pile field slid off the bank in a storm. Its toolbox stayed bolted to the cab.
+loot diggercrate MetalIngot*3;Bolt*3;Scrap*3
+note engineersurvey Engineers' survey | PILE SURVEY - CROWN FOUNDATIONS\n\nFour piles carry the Crown. All four are cracked. Jacks fitted to all four.\nThe stingrays nest round the piles; the pile drivers keep blasting charges in the west cave. The city must not hear of it.
+note driverchest Pile-driver's stash | Blasting charges, wrapped in oilcloth - and the drivers' pay, never collected.
+loot driverchest ExplosiveGoo*2;TradeToken*3;Rope*2
+prop driverchest loot.refill=0
+quest title=The Piles
+quest intro=The storm has cracked the piles under the city. Land on the mudflat at its edge.
+step reach|mudflat|1|Land on the mudflat
+step read|Pile engineer's note|1|Read the pile engineer's note
+step reach|pile_1|1|Dive to the first pile
+step collect|story:jack1|1|Wind the first pile's jack
+step reach|pile_2|1|Swim to the second pile
+step collect|story:jack2|1|Wind the second pile's jack
+step collect|story:rayhurt|1|Wound the stingray nesting among the piles
+step collect|story:raydown|1|Finish the pile stingray
+step collect|story:jack3|1|Wind the third pile's jack
+step collect|story:jack4|1|Wind the fourth pile's jack
+step read|The city holds|1|Read the note behind the last jack
+step reach|rubble_bank|1|Climb the rubble bank in the north-west
+step read|Engineers' survey|1|Read the engineers' survey in their hut in the south
+step open|Excavator's toolbox|1|Open the toolbox of the sunk excavator in the south-west
+step reach|mudflat_return|1|Go back up to the mudflat
+quest done=Highwater holds. The city that never sank is still standing - and whatever you chose on the Crown, it will have to live with.
+quest reward=TitaniumOre*2;TradeToken*10
+
+save The Foundation Piles

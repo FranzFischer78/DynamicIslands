@@ -1,0 +1,50 @@
+# Coral Runway (CIPlay vi_coral_runway): quest "Wheels Up" (12 steps)
+# The runway zone at -10 0 (3 m); the tower hut x -32..-27.5 z 14..17 with the strip log and radio, the generator at
+# -24 10; the mechanic's chest at -40 11; the warthogs round 20 2; the lagoon jetty zone at 20 25, the fuel log at
+# 23 22.5, the fuel drum at 25 24; the pump at 14.5 11; the hangar locker inside the hangar store x -46..-40 z 14..18.5.
+# offset: set in phase 2.
+island Coral Runway
+offset -0.4637 -0.9763
+expect step 0
+expect title Wheels Up
+wait 5
+expect animals Warthog 4
+expect hidden runwaylights
+expect hidden hangarlocker
+zone runway
+expect step 1
+read Strip log
+expect step 2
+kill Warthog
+expect step 3
+use runwaygen
+expect hidden runwaylights
+open Mechanic's chest
+wait 3
+expect story raft-Tangaroa_GeneratorPart 1
+expect step 4
+use runwaygen
+expect story runwaylit 1
+expect shown runwaylights
+expect step 5
+use towerradio
+expect story radiocall 1
+expect step 6
+zone lagoon_jetty
+expect step 7
+read Fuel log
+expect step 8
+use fuelpump
+expect hidden hangarlocker
+open Fuel drum
+wait 3
+expect story raft-Vasagatan_GasTank 1
+expect step 9
+use fuelpump
+expect story fuelpumped 1
+expect shown hangarlocker
+expect step 10
+open Hangar locker
+wait 3
+expect item Blueprint_HeadLight 1
+expect done

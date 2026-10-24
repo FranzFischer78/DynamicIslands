@@ -1,0 +1,15 @@
+# Guide pictures of Netmender's Harbour (CIPlay netmenders_harbour_pics): Raft's camera, morning, calm
+island Netmender's Harbour
+offset -4.4579 0.0448
+hour 10
+weather Calm
+at 24 0
+wait 3
+picture netmenders_harbour_island 100 35 0 20 4 0
+picture netmenders_harbour_basin 60 6 -16 40 2 0
+picture netmenders_harbour_shed 40 5 18 50 3 10
+picture netmenders_harbour_cabin 26 4 -12 20 3 -1.5
+picture netmenders_harbour_beached -36 6 20 -50 2 10
+picture netmenders_harbour_wreck 56 -4 -22 66 -7 -30
+picture netmenders_harbour_den 4 16 -4 -14 9 -19
+picture netmenders_harbour_hoard -16 8.5 -18 -20.8 7 -14.7

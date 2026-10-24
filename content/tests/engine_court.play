@@ -1,0 +1,101 @@
+# Engine Court (CIPlay engine_court): the court at 4 m round 0 0; the outer ring (plate, Teo, crank, screechers), the
+# middle ring (Hedda, locker, crank), the inner ring (Ines, the drone in two phases, its log, the keypad with a wrong code
+# first, the inner crank), the housing (status, source, three ways, REACTIVATE - the other levers then refuse - the
+# verdict, the gift), the goodbyes, the well stair; the treasure.
+island Engine Court
+offset 0 0
+expect step 0
+expect title The Concord Engine
+expect hidden verdict_re
+expect hidden gift_re
+zone outer_ring
+expect step 1
+read Concord plate
+expect step 2
+read Teo's watch
+expect step 3
+use middlecrank
+expect step 3
+use outercrank
+expect hidden outergate
+expect step 4
+kill Screecher
+expect animals Screecher 0
+expect step 5
+zone middle_ring
+expect step 6
+read Hedda's watch
+expect step 7
+open Crew locker
+wait 3
+expect step 8
+use middlecrank
+expect hidden middlegate
+expect step 9
+zone inner_ring
+expect step 10
+read Ines's watch
+expect step 11
+zone drone_bay
+expect step 12
+# (a play's kill skips the phase: on.defeat gives both story items)
+kill Caravan screecher
+wait 3
+expect story dronehurt 1
+expect story dronedown 1
+expect step 14
+read Drone log
+expect step 15
+use innercrank
+expect step 15
+code courtpad 1111 wrong
+code courtpad 3581
+expect step 16
+use innercrank
+expect hidden housinggate
+expect story inner 1
+expect step 17
+zone housing
+expect step 18
+read Engine status
+expect step 19
+read The source
+expect step 20
+read Three ways
+expect step 21
+use lever_re
+expect shown verdict_re
+expect shown gift_re
+expect hidden verdict_off
+expect hidden gift_off
+expect story reactivateway 1
+expect step 22
+use lever_off
+expect story shutdownway 0
+read The verdict
+expect step 23
+open Engine's gift
+wait 3
+expect step 24
+read Ines's goodbye
+expect step 25
+read Hedda's goodbye
+expect step 26
+read Teo's goodbye
+expect step 27
+zone courtcave
+open Chalk cave chest
+wait 3
+expect step 28
+read Builders' day book
+expect step 29
+code builderpad 247 wrong
+code builderpad 358
+expect story builderscode 1
+expect step 30
+open Builders' strongbox
+wait 3
+expect step 31
+zone well_stair
+dig
+expect done

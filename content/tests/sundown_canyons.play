@@ -1,0 +1,175 @@
+# Play test of Sundown Canyons (CIPlay sundown_canyons, in a test world 'CI ...'). Points as in its recipe: the town on the
+# west shore at 3 m (main street x -115, z -38..12; the wharf's deck at 3 m from x -154 to -133 along z -20; the jail x
+# -133.5..-123, z -16.5..-6, its veranda's south end open, its door at -126.5 -11.2; the saloon's door at -127 -29.7 (floor
+# 3.26 m); the store's door at -123 2.25; the bank x -107..-89, z -20..-14, its front door at -107 -18.5, the vault door at
+# -98 -15.5; the station's platform south of it at z -46); the ranch on the east plain at 13.5 m (the house x 91.5..102, z
+# 5.5..16, in from the veranda's south end through its door at 98.5 10.8; the barn x 106..113.5, z -16..-10, its door at
+# 109.75 -10); the canyon floor at 4 m from the station east (the derailment at -46 -73, the section house x -30..-27, z
+# -84..-81, its door at -27.75 -81; the trestle's decks at 4.15 m, x -8.5..1.96 and 7.19..17.65 along z -75; the river
+# under it); the switchbacks up to the mine's ledge at 11.5 m (the foreman's shack x 29..32, z -63..-60, its door at 29
+# -60.75; the gallery north from 24 -58, its floor 11.5 m); the mesa's top at 42 m (the fort's ring round -26 -24, its gate
+# east-south-east, its zone at -14 -27.5; the cabin's door at -25 -21.7, floor 42.31 m; the watchtower's ladder at -30.4
+# -29.5, its deck 48.5 m); the ladder trail down the north face at x -24 (ladders up the cribbing at z -4.25, 1.75 and
+# 7.75, ledges at 36 and 30 m), its foot at 24 m
+island Sundown Canyons
+offset 0.1194 1.6867
+expect step 0
+expect title The New Sheriff
+expect animals Llama 3
+expect animals Chicken 4
+expect animals Goat 3
+expect animals Turtle 2
+expect animals Dolphin 3
+wait 5
+
+# Chapter 1 - Sundown: up the wharf into town; the jail (in from its veranda); the poster, the drawer, the gun locker
+walk -152 -20.75 to -140 -20.75 to -134 -20.75 h=3
+zone wharf
+expect step 1
+open Wharf crate
+walk -121 -20 to -124.7 -17.5 to -124.7 -11.2 to -129.5 -11.2 h=3.1 below=6
+read Sheriff's last report
+expect step 2
+read Wanted poster
+expect step 3
+open Sheriff's desk drawer
+expect story sheriffkey 1
+expect step 4
+open Sheriff's gun locker
+expect step 5
+expect item Bow 1
+# (the saloon up its porch steps and in at its door; the store in at its door)
+walk -120 -29.7 to -124 -29.7 to -129.5 -29.7 h=3.26 below=6
+open Saloon box
+walk -119 2.25 to -126.5 2.25 h=3.1 below=6
+open General store box
+
+# Chapter 2 - the ranch: the house (in from its veranda), the letter, the pantry; the strongbox refused before the llamas
+zone ranch
+expect step 6
+walk 100.2 2 to 100.2 10.8 to 95.5 10.8 h=13.6 below=17
+read Rancher's letter
+expect step 7
+open Ranch pantry
+open Rancher's strongbox
+expect message net the llamas
+expect step 7
+# (the barn in at its door; the tack chest - the net launcher; the box canyon's llamas; the strongbox now)
+walk 109.75 -5 to 109.75 -12.5 h=13.6 below=17
+open Barn tack chest
+expect item NetGun 1
+expect step 8
+zone boxcanyon
+catch Llama 3
+expect step 9
+open Rancher's strongbox
+expect step 10
+
+# Chapter 3 - the railroad: the station; up the canyon along the rails to the derailment; the vultures
+zone station
+expect step 11
+walk -96 -52.5 to -82 -60 to -64 -67 to -54 -70.6 h=4
+zone derailment
+expect step 12
+kill Screecher
+read Engineer's log
+expect step 13
+open Tool car box
+expect story dynamite 1
+# (the section house up the line, in at its door)
+walk -27.75 -77 to -27.75 -82.5 h=4.05 below=7
+open Section house box
+expect story dynamite 2
+expect step 14
+open Express car safe
+expect story dynamite 1
+expect story silverbar 2
+expect step 15
+# (the trestle: out along its decks to the blown span; the thing in the river; the strongbox on the riverbed)
+walk -14 -75 to -8 -75 to 0.5 -75 h=4.15
+zone trestle
+expect step 16
+kill Angler fish
+expect step 17
+open Fallen strongbox
+expect story silverbar 4
+expect step 18
+
+# Chapter 4 - the mine: up the switchbacks to the ledge; the tally board; the bear; the foreman's strongbox
+# (out of the river first, onto the switchbacks' foot: from the riverbed the walk sometimes set off along the bank -
+# the SL6 plan run, 2026-10-19)
+at 16 -68.5 h=4.2
+walk 16 -69 to 27 -66.8 to 38 -64.5 to 40 -62.5 to 38 -59.6 to 31 -59.5 to 25 -60 h=11.5
+zone mine
+expect step 19
+read Foreman's tally board
+expect step 20
+kill Bear
+expect step 21
+walk 25 -60.75 to 30.4 -60.75 h=11.6 below=15
+open Foreman's strongbox
+expect story dynamite 0
+expect story liftkey 1
+expect step 22
+# (through the gallery to its back: the cache, the lift cage up through the mesa) (round the tub on the rails)
+walk 24 -61 to 24 -50 to 22 -48.5 to 22 -45.5 to 24 -43 to 24 -33 h=11.5 below=20
+open Mine cache
+use liftcage
+expect step 23
+
+# Chapter 5 - the fort: the gate; the hounds; the cabin (in from its porch) - the ledger, the loot chest
+zone fortgate
+expect step 24
+kill Hyena
+expect step 25
+walk -18 -21.7 to -22.5 -21.7 to -27 -21.7 h=42.31 below=46
+read Gang's ledger
+expect step 26
+open Gang's loot chest
+expect story vaultkey 1
+expect story silverbar 6
+expect step 27
+open Gang's tent box
+# (up the watchtower's ladder to its deck; the signal fire)
+climb -30.4 -29.5 h=42
+walk -30.4 -31 to -31 -33.5 h=48.5 below=50
+zone watchtower
+expect step 28
+use signalfire
+expect story allclear 1
+expect shown signalflame
+expect shown proclamation
+expect step 29
+# (down the ladder trail on the mesa's north face to the signpost at its foot)
+climb -24 -4.25 h=36
+walk -24 -3.5 to -24 -0.5 h=36 below=40
+climb -24 1.75 h=30
+walk -24 2.5 to -24 5.5 h=30 below=34
+climb -24 7.75 h=24
+walk -24 8.5 to -23 12 h=24
+zone homeward
+expect step 30
+read Mayor's proclamation
+expect step 32
+
+# Chapter 6 - the bank: in at its door; the teller takes the silver; the letter; the vault door with the gang's key
+walk -112 -18.5 to -106 -18.5 to -101 -18.5 h=3.05 below=6
+zone bank
+expect step 33
+use teller
+expect story silverbar 0
+expect story receipt 1
+expect step 34
+read Bank manager's letter
+expect step 35
+walk -99.5 -18.5 to -99.5 -15.5 to -94 -15.5 h=3.05 below=6 blocked
+use vaultdoor
+wait 3
+walk -99.5 -18.5 to -99.5 -15.5 to -93 -15.5 h=3.05 below=6
+# (a bag full of the whole story by now: room made, or the vault's plans drop to the floor)
+empty
+open Bank vault
+wait 4
+expect item Blueprint_BatteryCharger 1
+wait 3
+expect done

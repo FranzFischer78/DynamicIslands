@@ -1,0 +1,80 @@
+# The Tide Engine - the quest "The Seventh Tide" played through (plan Relic of the Seventh Tide, the finale)
+# The ring at 5 m, the well (the heart) at 2 m, r 13, its ramp from the south rim (0 -22..-10). Landing 0 -44, wheel
+# hall 28.5 0 (sluice channel z -12 from x 36 east, at -3), crane hall 0 28.5 (the crane cab 0 38 at 11), piston
+# hall -28.5 0, the ring's top -42 0 at 9.5. Kett's cage 8 -20 on the south rim. Beam: emitter -6.8 -6, mirrors -6 -2
+# and 6 -2, the reactor panel 6 6.
+island The Tide Engine
+offset 0 0
+expect title The Seventh Tide
+walk 0 -54 to 0 -46 h=5
+zone landing
+read Kett's final camp log
+kill Hyena
+expect step 3
+open Syndicate supply crate
+expect story radiocodes 1
+use radio
+expect story taunt 1
+expect step 6
+walk 6 -38 to 20 -20 to 28.5 -6 to 28.5 0 h=5
+zone wheel_hall
+read Engine diagram
+use sluicelever
+expect message will not move
+use wheel1
+use wheel2
+use wheel3
+expect story wheelturn 3
+expect spinsown wheel1
+use sluicelever
+expect hidden sluicegate
+expect step 10
+zone sluice_gallery
+kill Stingray
+open Sluice cache
+expect item TitaniumIngot 2
+expect step 13
+walk 28.5 6 to 20 20 to 0 22 to 0 26 h=5
+zone crane_hall
+use claw
+expect hidden armlow
+expect shown armhigh
+read The Seventh Tide tablet
+use cabladder
+expect height 11.2
+zone arm_top
+open Crane cab locker
+expect story cagekey 1
+zone heart_rim
+open Kett's satchel
+expect message cage key first
+use kettcage
+expect survivor seventhtide_kett
+open Kett's satchel
+read Kett's warning
+expect step 20
+walk 0 -22 to 0 -12 to 0 -6 h=2
+zone heart
+kill Polar bear
+expect step 22
+use seventhlever
+expect message locked
+beam emitter
+use mirror1
+wait 1
+beam emitter
+use mirror2
+wait 2
+beam emitter
+expect story heartbeam 1
+read Heart inscription
+use seventhlever
+expect hidden coreglow
+expect shown coldlights
+expect story enginestopped 1
+expect step 25
+open Engine treasury
+expect story relic 1
+walk -28.5 -6 to -28.5 0 to -36 0 to -42 0 h=9.5
+zone ring_top
+expect done

@@ -1,0 +1,157 @@
+# Hollins Cannery - the first island of the library's plan The Lullaby Frequency (SL1, horror)
+# A fish cannery on a low tidal shelf: a corrugated hall of Raft's metal walls under a wooden roof, a plank conveyor on
+# posts in the yard, a windowless cold store with a keypad door, barrels and crates stacked on the ground, a concrete
+# slipway down to the south beach between two reefs. The foreman is a doll slumped on a crate at the hall's end. A low
+# hum fills the hall until the cannery boy Pim is freed. Quest "The Night Shift" (6 steps): the slipway, the shift log
+# (the cold-store code 3-1-2), the cold store's keypad, six rats in the dark, the rusted cage key from the foreman's
+# desk, free Pim and open his tin box.
+#
+# Built by the recipe player (CIRecipe hollins_cannery) through the editor's own operations.
+include lib_sea
+include lib_features
+include lib_sl1
+new
+# (nature: a bare concrete shelf - Raft-like, bushes low: Trees 0.06, Bushes 0.15, Rocks 0.35)
+gen Trees=0.06 Bushes=0.15 Rocks=0.35 Harvest=0.12 BeachThings=0.35
+gen Seed=1201 Radius=45 Height=7 Roughness=0.25 Peaks=1 Shape=0 Style=0 PeakShape=0.3 Cliffs=0.05 BeachWidth=0.6
+gen Water=0.5 SeaRocks=0.45 SeaFinds=0.5 Sunken=0.3 Hostiles=0 Friendly=0.1 SeaLife=0.3
+generate
+
+# --- Terrain: the yard levelled at 3 m, the slipway smoothed down to the south beach --------------------------------
+brush flatten from -14 0 to 10 0 r=13 s=20 frames=120 h=3
+brush flatten from -8 -12 to -8 -22 r=5 s=12 frames=60 h=2
+brush smooth from -8 -22 to -8 -38 r=4 s=6 frames=30
+origin
+clear from -14 0 to 10 0 r=14
+clear from -8 -10 to -8 -40 r=4
+
+# --- The hall: 9 x 6 m of Raft's metal walls, a wooden roof on its corner posts, the door to the south ----------------
+push at -12 -3 h=3
+call shed w=6 d=4 door=2
+place "Table Office" logtable at 1.6 4.9 y=1.2 sit drop yaw=0
+place Note_Paper shiftlog at 1.6 4.9 y=2.2 sit drop yaw=20
+place "Chair Office" - at 1.6 3.9 y=0.8 sit drop yaw=180
+place Survivor_Cage pimcage at 7 4.2 y=0.3 sit drop yaw=180
+place Loot_Chest pimbox at 4.6 5.2 y=0.6 sit drop yaw=180
+place Crate_Big_01 - at 8.1 1.3 y=0.6 sit drop yaw=90
+place Balboa_DecorationPrefabBase_Doll_R foreman at 8.1 1.3 y=1.4 sit drop yaw=270
+place Placeable_Lantern_Metal - at 1.1 4.9 y=2.2 sit drop
+place Zone_Sound hallhum at 4.5 3 y=1.5
+pop
+
+# --- The cold store: a windowless metal box east of the hall, fully roofed; its door panel and the keypad ------------
+push at 0 -3 h=3
+call shed w=3 d=3 door=1
+place Block_Wall_Tier3 colddoor at 2.25 0 y=0.2
+place "Table Office" foremantable at 3.3 3.6 y=1.2 sit drop yaw=0
+place Loot_ChestSmall foremandesk at 3.3 3.6 y=2.2 sit drop yaw=180
+place Zone_Trigger coldzone at 2.25 2 y=1
+place Zone_Atmosphere colddark at 2.25 2 y=1.2
+place Creature_Rat rats at 1.2 2.6 y=0.4
+pop
+place Block_Pillar_Wood - at -0.8 -3.6 ground sy=0.5
+place RT_PowerBox coldkeypad at -0.8 -3.6 ground y=1.6 sit drop yaw=180
+
+# --- The yard: the plank conveyor on posts, barrels and crates on the ground --------------------------------------
+push at -1 -9 h=3
+for cx 0.75 8.25 1.5
+place Block_Floor_Wood - at $cx 0 y=1
+next
+for px 0 9 3
+place Block_Pillar_Wood - at $px 0 y=0 sy=0.38
+next
+pop
+for bz -2 2 1
+place TP_Moontown_Barrel01 - at -13 $bz ground sit
+next
+place TP_Moontown_Barrel03 - at -13.8 -1.5 ground sit
+place TP_Moontown_Barrel03 - at -13.8 0.5 ground sit
+place Crate_Big_01 - at 6.5 -1 ground sit yaw=90
+place Crate_Big_01 - at 6.5 1 ground sit yaw=90
+place TP_Moontown_SealedCrate01_Clean - at 7 3 ground sit
+place TP_Moontown_TarpCrate01_Clean - at 4 -6 ground sit yaw=15
+place Pallet - at 9 -6 ground sit yaw=0
+
+# --- The slipway: concrete plates down to the beach, the shift bell's post, the zone ------------------------------
+line Block_Floor_Tier3 from -8 -11 to -8 -34 step=1.6 follow
+place Block_Pillar_Wood - at -10.4 -16 ground
+place Placeable_Lantern_Metal - at -10.4 -16 ground y=2.8 sit drop
+place Zone_Trigger slipway at -8 -26 ground y=1
+
+# --- Things to gather -------------------------------------------------------------------------------------------------
+scatter "Pickup_Landmark_PineappleLandmark" 2 at 0 0 r=34 seed=1211 free=4
+scatter "Pickup_Landmark_Flower_Yellow" 2 at 0 0 r=34 seed=1212 free=4
+call dirt x=12 z=14 r=8 n=2 seed=1213
+call shallows r=60 deep=5 n=2
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Hollins Cannery
+info author=Custom Islands
+info description=A fish cannery on a tidal shelf: a corrugated hall, a plank conveyor, a dark cold store and a cage with a boy in it who will not stop humming. The first island of The Lullaby Frequency.
+island on.arrive=message||A cannery on a concrete shelf. No gulls, no wind - only a hum from the hall, low and steady, like a held breath.
+
+story cagekey|Cage key (rusted)|Placeable_Lantern_Metal|A rusted key on a wire ring, from the foreman's desk in the cold store.
+story coldopen|Cold store open|Placeable_Lantern_Metal|The cold store's keypad took the code 3-1-2.
+
+note shiftlog Shift log - night of the 14th | NIGHT SHIFT, 14th\n\n22:00 Line running. Catch good.\n01:40 Radio in the hall playing something nobody put on. A song. Left it.\n02:55 Half the line humming along. Told them to stop. They didn't.\n03:12 Line stopped. Doors open. They all walked down the slipway into the water, still humming.\n\nI've locked the boy in the cage so he can't follow. Key's in my desk in the cold store.\n\nCold-store code is the night's catch, same as always: 312.
+note foremandesk Foreman's desk | The foreman's desk drawer: pay slips, a whistle, and a rusted key on a wire ring.
+loot foremandesk story:cagekey*1;Rope*2
+prop foremandesk loot.refill=0
+note pimbox Pim's tin box | Pim's tin box from under the bench: the canning line's last tins, and a lantern.
+loot pimbox Cooked_Mackerel*4;Placeable_Lantern_Basic*1;Plank*6;Rope*3;Scrap*3
+prop pimbox loot.refill=0
+prop pimbox if.open=signal|pimfree
+prop pimbox else.open=message||A tin box with PIM scratched on the lid. It's inside the cage with him - free him first.
+prop pimbox on.open=hide|hallhum\nmessage||Pim: "She sings at 3:12. You'll hear it now too."
+
+prop hallhum obj.name=hallhum
+prop hallhum sound.event=event:/raft/radar/radar_humm
+prop hallhum sound.volume=0.55
+prop hallhum zone.radius=12
+
+prop pimcage obj.name=pimcage
+prop pimcage survivor.name=Pim
+prop pimcage survivor.id=lullaby_pim
+prop pimcage survivor.key=cagekey
+prop pimcage survivor.signal=pimfree
+prop pimcage survivor.line=You came in from the sea side. Did you hear her? She sings at night. The others went to her. I'll come with you - just don't let me near the water at 3:12.
+
+prop coldkeypad obj.name=coldkeypad
+prop coldkeypad beh.use=Type the cold store's code
+prop coldkeypad lock.code=312
+prop coldkeypad on.use=sound||event:/exploring/obstacles/keypad/keypad_correct\nhide|colddoor\nshow|colddark\ngive||story:coldopen*1\nmessage||The keypad chirps. The cold store's door slides aside on black air and the smell of old fish. On a hook by the door hangs the night shift's headlight.\ngive||HeadLight*1
+prop colddoor obj.name=colddoor
+prop colddark obj.name=colddark
+prop colddark beh.hidden=1
+prop colddark atmo.fog=#0c1014
+prop colddark atmo.fogAmount=0.7
+prop colddark atmo.light=#1a2026
+prop colddark atmo.lightAmount=0.75
+prop colddark atmo.particles=mist
+prop colddark zone.radius=4
+prop coldzone zone.id=coldstore
+prop coldzone zone.radius=2.5
+prop coldzone zone.repeat=never
+prop coldzone zone.message=Something scrabbles in the dark between the racks. Rats - a lot of them.
+prop rats creature.count=6
+prop rats creature.respawn=0
+prop rats creature.zone=coldstore
+
+prop slipway zone.id=slipway
+prop slipway zone.radius=5
+prop slipway zone.message=The shift bell is still ringing.
+
+quest title=The Night Shift
+quest intro=A cannery, its doors open, its slipway running down into the sea. Walk up the slipway.
+step reach|slipway|1|Walk up the slipway
+step read|Shift log - night of the 14th|1|Read the shift log on the hall's table
+step collect|story:coldopen|1|Open the cold store with its keypad
+step kill|Rat|6|Deal with the rats in the dark cold store
+step collect|story:cagekey|1|Take the rusted cage key from the foreman's desk
+step open|Pim's tin box|1|Free Pim from the cage in the hall, then open his tin box
+quest done=Pim is on his way to your raft, humming. He says the song comes stronger from the north-east - an old sanatorium. Tune the Receiver to 800.
+quest reward=Plank*6;Rope*3;Scrap*4
+
+# --- Raft's vehicles (VI4, 2026-10-23): parked on open ground, clear of paths and quest objects ---
+place VP_Forklift - at 13 0 ground sit yaw=270
+save Hollins Cannery

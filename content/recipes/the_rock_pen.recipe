@@ -1,0 +1,315 @@
+# The Rock Pen - a themed island, normal size (x1)
+# Inspiration: island-prison escape films (a fortress prison on a rock in the fog, a cell with a vent, a spoon, a tunnel
+#   dug for months, a swim to freedom) - the mood only, never named on the island.
+# Island type: Shape 4 (Plateau), Style 3 (forest). A flat-topped granite rock with cliffs all round and the prison road
+#   cut up its side; pines on the ledges below the cliffs, a dock at the road's foot, an outer rock offshore.
+# Granite Point penitentiary closed after the only escape it ever had: inmate 1147 spent fourteen months opening his
+# cell's vent with a sharpened spoon, crawled down an old drain through the rock to the sea and swam to a kit he'd hidden
+# on the outer rock. His notes are still under his mattress in cell 14. Do it his way.
+# Quest "Fourteen Months" (7 steps): the warden's notice at the dock, up to the rats in cell block B, the key ring in the
+# guard tower, cell 14 and his notes, the spoon in the mess hall, down the vent and the drain, the swim to his escape kit
+# on the outer rock (zipline blueprint, rope, plastic).
+#
+# Built by the recipe player (CIRecipe the_rock_pen) through the editor's own operations.
+include lib_rt
+include lib_huts
+include lib_sea
+new
+# (nature: forest, Like Raft - pines and bushes on the ledges and slopes below the plateau; the plateau top is the
+# prison's: its footprint cleared)
+gen Trees=0.21 Bushes=0.38 Rocks=0.42 Harvest=0.1 BeachThings=0.3
+gen Seed=9009 Radius=45 Height=18 Roughness=0.3 Peaks=1 Shape=4 Style=3 BeachWidth=0.4 Cliffs=0.85 PeakShape=0.3
+gen SeaFloor=0 Shelf=0.4 Seabed=1
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.5 Sunken=0.4 Hostiles=0
+generate
+
+# --- Terrain: pads on the rock's top (17.7 m) for the cell block, the mess hall, the office and the tower; the prison
+# road cut along the west face from the shelf at the cliffs' foot (2.6 m) to the top (about 1:2.8, 6 m wide), a landing at
+# each end (the south-west diagonal has no shelf: the rock is round and its shelf ring runs out there); a notch in the north cliff's foot for the drain's mouth; the outer rock raised 22 m off the north beach -----
+brush flatten from -7 10.5 to 7 10.5 r=6 s=20 frames=80 h=17.75
+brush flatten from -17 -1 to -7 -1 r=4.5 s=20 frames=60 h=17.75
+brush flatten from 7 -1 to 17 -1 r=4.5 s=20 frames=60 h=17.75
+brush flatten at 9.5 -12.5 r=3 s=20 frames=40 h=17.75
+for i 0 27 1
+brush flatten at {-32+$i*0.407} {24-$i*1.481} r=4.5 s=20 frames=20 h={2.6+$i*0.556}
+next
+brush flatten from -33 26 to -34 29 r=4 s=20 frames=40 h=2.4
+# (from the jetty's landing on the beach up to the road's foot: a gentle slope, not the landing's bank)
+brush flatten from -38.5 21.5 to -36.5 22 r=2.5 s=20 frames=60 h=1.5
+brush flatten at -35 23.5 r=2.5 s=20 frames=60 h=2
+brush smooth from -38 21.5 to -32 24 r=3 s=10 frames=12
+brush flatten from -21 -16 to -17 -16 r=4.5 s=20 frames=40 h=17.7
+brush smooth from -32 24 to -21 -16 r=4.5 s=10 frames=12
+brush flatten from 5 30.5 to 5 38 r=2.6 s=20 frames=120 h=2.5
+brush flatten at 4 66 r=4 s=20 frames=400 h=2.2
+brush flatten at 4 66 r=7 s=20 frames=200 h=-0.5
+brush flatten at 4 66 r=3.5 s=20 frames=300 h=2.2
+brush rock at 4 66 r=7 s=20 frames=40
+# (no "origin": the set pieces keep the frame the strokes above used, the generated land's exact middle)
+clear at 0 0 r=19
+clear from -32 24 to -21 -16 r=5
+clear from -21 -16 to -12 -14 r=4
+clear from -52 22 to -30 28 r=7
+clear at -41 9 r=8
+clear from 5 30 to 5 40 r=4
+clear at 4 66 r=6
+# (boulders on the cliffs' steep faces, 4-16 m up, looked as if they hung in the air)
+clear at 0 0 r=70 only=Rock|Boulder above=4 below=16
+
+# --- The prison on the rock's top. Frame: x across, z from the yard (the road's side) to the cell block's back (the
+# cliff's edge) -----------------------------------------------------------------------------------------------------------
+push at 0 6 h=17.8
+# (cell block B: two of the radio tower's rooms side by side, one long hall 12 x 9 m; its door from the yard; four cells
+# along the back wall, 3 x 3 m, their fronts of Selene's bars, cell 14 the last)
+push at 0 4.5
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 l2=RT_WallWindow1 r1=none r2=none r3=none
+place RT_Floor - at 0 4.5 y=3
+pop
+push at 6 4.5
+call rt_storey f1=RT_WallWindow1 f2=RT_Wall1 l1=none l2=none r2=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+pop
+place RT_Wall1 - at -3 6 yaw=90
+place RT_Wall1 - at 3 6 yaw=90
+place TP_Selene_Int_Room_Bars - at -6.44 6 sx=0.65
+place TP_Selene_Int_Room_Bars - at -3.44 6 sx=0.65
+place TP_Selene_Int_Room_Bars - at -0.44 6 sx=0.65
+place TP_Selene_Int_Room_Bars cell14 at 2.56 6 sx=0.65
+for cx -4.5 4.5 3
+place Placeable_Bed_Basic - at {$cx-0.6} 7.6 y=0 sit
+place "VG_DecorationPrefabBase_Toilet Variant" - at {$cx+1} 8.9 y=0 sit
+place Placeable_Chair_Stool_Small - at {$cx+0.9} 6.8 y=0 sit
+next
+place Note_Papers escapenotes at 3.9 7.7 y=0.35 drop yaw=20 rot=0,0,0
+place "VG_DecorationPrefabBase_Ventilation_Box Variant" vent at 4.6 8.9 y=1.4
+place "Box Small" laundrybox at 5.2 0.8 y=0 sit yaw=10
+place Creature_Rat rats at 0 3 y=0.3
+place Zone_Trigger cellblock at 0 3 y=1
+# (the mess hall on the yard's west side, its door to the yard: tables and benches, the serving counter, the cutlery
+# drawer with his spoon, the pantry)
+push at -12 -4 yaw=270
+call rt_storey f2=RT_WallDoor1 f1=RT_WallWindow1 l2=RT_WallWindow1 r2=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+place MetalTable_01 - at -2 -1.5 y=0 sit
+place MetalTable_01 - at -2 1.5 y=0 sit
+place Bench_01 - at -1.3 -1.5 y=0 sit yaw=90
+place Bench_01 - at -2.7 -1.5 y=0 sit yaw=90
+place Bench_01 - at -1.3 1.5 y=0 sit yaw=90
+place Bench_01 - at -2.7 1.5 y=0 sit yaw=90
+place TangaroaKitchen_Bench5 - at -5.3 0.4 y=0 sit yaw=90
+place TangaroaKitchen_BenchDrawers_Openable messdrawer at -5.6 -1.6 y=0 sit yaw=90
+place Placeable_Cupboard_Medium messpantry at -5.6 -3.6 y=0 sit yaw=90
+pop
+# (the warden's office on the yard's east side: his desk, the chart cabinets, a bookshelf, a painting, the safe)
+push at 12 -10 yaw=90
+call rt_storey f1=RT_WallDoor1 f2=RT_WallWindow1 l2=RT_WallWindow1 r2=RT_WallWindow1
+place RT_Floor - at 0 4.5 y=3
+place "VG_DecorationPrefabBase_Desk Variant" - at -3 2.6 y=0 sit yaw=180
+place "VG_DecorationPrefabBase_OfficeChair Variant" - at -3 3.5 y=0 sit
+place TP_CabinetCharts01 - at -5.4 3.7 y=0 sit yaw=90
+place TP_CabinetCharts01 - at -5.4 2.3 y=0 sit yaw=90
+place "VG_DecorationPrefabBase_Bookshelf Filled 1 Variant" - at -0.08 3 y=0 sit
+place VG_Safe wardensafe at -1 4 y=0 sit yaw=180
+pop
+# (the yard between them: benches, a sign, the guard tower in its south-east corner - four thick legs, a deck on top
+# with rails, a ladder up one leg, the searchlight sweeping, the guards' box)
+place Bench_01 - at -4 -8 ground yaw=90
+place Bench_01 - at 4 -8 ground yaw=90
+place Placeable_Sign - at -1.5 -2.2 ground yaw=180
+place Zone_Trigger yard at 0 -11 y=1
+push at 8 -20 y=0
+place RT_PillarThick - at 0.3 0.3 y=0
+place RT_PillarThick - at 2.7 0.3 y=0
+place RT_PillarThick - at 0.3 2.7 y=0
+place RT_PillarThick - at 2.7 2.7 y=0
+place RT_Floor - at 3 3 y=6 sx=0.5 sz=0.3333
+place RT_Fence - at 1.5 3 y=6
+place RT_Fence - at 3 3 y=6
+place RT_Fence - at 3 0 y=6 yaw=90
+place RT_Fence - at 3 1.5 y=6 yaw=90
+place RT_Fence - at 0 0 y=6 yaw=90
+place RT_Fence - at 0 1.5 y=6 yaw=90
+place RT_Fence - at 3 0 y=6
+# (the ladder up the south side's west half, its rail left open)
+place LandmarkLadder_6m - at 0.75 -0.12 y=0 rot=0,0,0
+# (Raft's radio tower floodlight, not Varuna Point's spotlight: that one shoots any player it sees, 2026-10-04)
+place RT_Floodlight searchlight at 2.45 2.45 y=6 sit scale=2.2
+place "Box Small" towerbox at 2.3 1 y=6 sit yaw=10
+pop
+pop
+
+# --- The dock at the road's foot on the west beach: a jetty out to sea, the prison ferry beached south of it, the gate
+# of wire across the road's foot with the warden's notice, the sunk skiff's barrel off the jetty --------------------------
+push at -37 22.25 h=-4.6 yaw=180
+call boardwalk n=8 wide=1 y=6.2
+pop
+place BoatStranded - at -42 9 ground yaw=160 roll=7 scale=0.8
+place Balboa_DecorationPrefabBase_Fence_EndL - at -35.5 29 ground yaw=110
+place Balboa_DecorationPrefabBase_Fence_EndL - at -28.5 25.5 ground yaw=290
+place Note_Sign notice at -30.6 27.6 ground yaw=110
+place Zone_Trigger dock at -35 25 y=1
+place Loot_SunkenBarrel dockbarrel at -50 18 ground
+# --- His drain at the foot of the north cliff, behind cell 14: Selene's tunnel pieces set into the cliff's foot, its mouth
+# on the shelf over the beach; rubble on its floor, a lantern where he came out; dark and dripping ------------------------
+push at 2 36 h=2.55
+place TP_Selene_Int_Tunnel_Straight - at 0 0 y=0
+place VP_Rubble_Cement01 - at 2.2 -4.2 y=0.05 sit
+place VP_Rubble_Cement01 - at 3.6 -2.4 y=0.05 sit yaw=50
+place Placeable_Lantern_Metal - at 1.6 -4.8 y=0.05 sit
+place Zone_Trigger tunnelstart at 3 -4.6 y=0.3
+place Zone_Trigger tunnel at 3 -3.5 y=1
+place Zone_Atmosphere tunneldark at 3 -3 y=1.5
+place Zone_Sound tunneldrip at 3 -3 y=1.5
+pop
+
+# --- The outer rock off the north beach: his escape kit under a tarp (shown once you are in his drain), a raft ---------
+place "Box Big" escapekit at 4 66 h=2.2 sit yaw=20
+place ReefHuts_Tarpaulin - at 2.4 65.4 h=2.25 yaw=110
+# (the boat in the shallows at the rock's south foot, on the shelf there: on the rock's east edge it reached over the
+# drop and was set down at the foot of it, buried 1.6 m, CIGroundIslands)
+place RT_PlasticBoat - at 3.55 61.3 h=-0.4 sit yaw=80
+place Zone_Trigger outerrock at 4 66 h=3
+
+# --- Fog round the rock, the sea's sound; animals: turtles in the shallows, dolphins off the south shore -----------------
+place Zone_Atmosphere fog at 0 0 y=4
+place Zone_Sound waves at 0 0 y=4
+place Creature_Turtle turtles at 34 -36 h=-1
+prop turtles creature.count=2
+place Creature_Dolphin dolphins at 0 -70 h=-3
+prop dolphins creature.count=2
+
+# --- The forest the prison left round its walls (its top was cleared): pines and birches on the top's edges, pines and
+# bushes on the shelves at the cliffs' foot ------------------------------------------------------------------------------
+scatter "Pickup_Landmark_Tree_Pine" 4 at 20 18 r=4 seed=31
+scatter PineTree_Big1_LodGroup 3 at -18 19 r=4 seed=32
+scatter BirchTree_Big2_LodGroup 3 at 21 -12 r=3 seed=33
+scatter "Pickup_Landmark_Tree_Pine" 3 at 34 2 r=3 seed=34
+scatter "Pickup_Landmark_Tree_Pine" 3 at 0 -35 r=4 seed=35
+scatter BirchTree_Big1_LodGroup 2 at -14 -24 r=3 seed=36
+scatter "Balboa_Bush_03 Variant" 8 at 0 -34 r=10 seed=41
+scatter "Balboa_Bush_01 Variant" 6 at 33 10 r=6 seed=42
+scatter "Balboa_BigBush_02 Variant" 5 at -14 -24 r=4 seed=43
+scatter "Balboa_Bush_03 Variant" 6 at 20 -20 r=5 seed=44
+scatter "Balboa_Bush_01 Variant" 5 at 24 30 r=5 seed=45
+scatter "Balboa_Bush_03 Variant" 6 at -36 -8 r=3 seed=46
+scatter SmallRock_01 6 at -14 34 r=5 seed=51 rot=0,0,0
+scatter SmallRock_03 5 at 30 -24 r=5 seed=52 rot=0,0,0
+scatter SmallRock_02 4 at 35 14 r=4 seed=53 rot=0,0,0
+# --- Things to gather, as suits the island (the user, 2026-10-05): birches, berries, flowers ----------
+scatter "Pickup_Landmark_Tree_Birch" 3 at 0 0 r=31.5 seed=4235 free=5
+scatter "Pickup_Landmark_BerryBush" 3 at 0 0 r=31.5 seed=4245 free=3
+scatter "Pickup_Landmark_Flower_Blue" 2 at 0 0 r=31.5 seed=4255 free=3
+scatter "Pickup_Landmark_Flower_White" 2 at 0 0 r=31.5 seed=4256 free=3
+
+# --- Raft's finds in the shallows round the island (sand, clay, stones, ores, scrap - every Raft island has them): lib_sea
+call shallows r=60 deep=5
+
+# ===== Settings, story items, notes, behaviours, quest (7 steps) ==========================================================
+info title=The Rock Pen
+info author=Custom Islands
+info description=A prison on a flat granite rock in the fog, closed after the only escape it ever had. Inmate 1147 opened his vent with a sharpened spoon over fourteen months, crawled down a drain through the rock and swam for it. His notes are still in cell 14. Do it his way.
+island on.arrive=message||A granite rock in the fog, walls and a guard tower on its flat top, a searchlight still turning. A ferry lies beached by the dock.
+
+story cellkeys|Cell block key ring|quest:Utopia_KeyPrison|The guards' key ring for cell block B.
+story spoon|Sharpened spoon|Placeable_Cutlery|A mess hall spoon, its handle ground to a screwdriver's edge.
+
+note notice Warden's notice | GRANITE POINT PENITENTIARY\n\nCLOSED BY ORDER.\n\nNo inmate has ever left this rock alive except by the ferry.\nVisitors keep to the road.\n\n(scratched under it, later) except 1147
+note escapenotes Inmate 1147's notes | T. BRASK - CELL 14\n\nFourteen months with a spoon.\n\nThe vent's grille has four screws. The spoon's the only screwdriver on the rock - I put it back in the mess hall's cutlery drawer every night, so nobody ever counts it missing.\n\nBehind the vent: the old drain, down through the rock to the sea. It comes out at the foot of the cliff - from there it's a swim.\n\nOn the outer rock I've hidden a kit: a raft, dry clothes.\n\nTonight. They'll never find this. They never look under a mattress twice.
+note towerbox Guard tower box | The guards' box on the tower deck: the key ring for cell block B, a whistle, a thermos.
+loot towerbox story:cellkeys*1;Rope*2;Nail*6
+prop towerbox loot.refill=0
+note messdrawer Cutlery drawer | The mess hall's cutlery drawer: a hundred dull spoons - and one with its handle ground to an edge.
+loot messdrawer story:spoon*1;Placeable_Cutlery*1
+prop messdrawer loot.refill=0
+note escapekit Escape kit | His kit on the outer rock, wrapped in oilcloth: a folded raft, dry clothes, the plans of a line he meant to run from the cliff if the drain failed - and a postcard from the mainland, unsigned: "Made it."
+loot escapekit Blueprint_ZiplineBase*1;Rope*6;Plastic*8;Plank*6;OxygenBottle*1
+prop escapekit loot.refill=0
+note wardensafe Warden's safe | The warden's safe of confiscated things: cards, coins, a rock-and-roll tape somebody played too loud.
+loot wardensafe TradeToken*5;Cassette_Rock*1;Leather*2
+prop wardensafe loot.refill=0
+prop wardensafe if.open=has|story:cellkeys|1
+prop wardensafe else.open=message||The warden's safe. His key would be on the guards' ring.
+note messpantry Mess hall pantry | The pantry: tins, sacks of potatoes, a crate of hard tack.
+loot messpantry Raw_Potato*3;Cooked_GenericMeat*2;Claybowl_Empty*2
+prop messpantry loot.refill=0
+note laundrybox Laundry box | The cell block's laundry box: grey blankets, rope from a broken washing line.
+loot laundrybox Wool*3;Rope*2
+prop laundrybox loot.refill=0
+note dockbarrel Sunk skiff's barrel | A barrel off the jetty where the guards' skiff went down: tools and scrap.
+loot dockbarrel Scrap*4;Bolt*2;MetalOre*2
+prop dockbarrel loot.refill=0
+
+prop cell14 obj.name=cell14
+prop cell14 beh.use=Unlock cell 14
+prop cell14 beh.move=-2.9,0,0
+prop cell14 beh.moveTime=2
+prop cell14 beh.moveMode=switch
+prop cell14 if.use=has|story:cellkeys|1
+prop cell14 on.use=message||The key turns with a bang that echoes down the block, and the bars of cell 14 roll aside.\nopen|cell14\nsound||event:/exploring/utopia/prison_unlock
+prop cell14 else.use=message||Cell 14 is locked. The guards' key ring would be up in the tower.
+prop vent obj.name=vent
+prop vent beh.use=Unscrew the vent with the spoon and crawl in
+prop vent if.use=has|story:spoon|1
+prop vent on.use=message||Four screws, one by one, with the ground-down spoon. The grille comes away. Behind it a drain, black and narrow, going down - you crawl, and slide, and crawl.\nteleport|tunnelstart\nsound||event:/exploring/obstacles/toolboard_collapse
+prop vent else.use=message||A vent grille with four screws, painted over a hundred times. You'd need a screwdriver - or something like one.
+prop tunnelstart obj.name=tunnelstart
+prop tunnelstart zone.id=tunnelstart
+prop tunnelstart zone.radius=1.5
+prop searchlight beh.spin=20
+
+prop dock zone.id=dock
+prop dock zone.radius=6
+prop dock zone.message=The prison dock, the ferry beached beside it, and a gate in the wire with a notice on it.
+prop yard zone.id=yard
+prop yard zone.radius=9
+prop yard zone.message=The exercise yard. Benches, a guard tower - and its searchlight still sweeping, for nobody.
+prop cellblock zone.id=cellblock
+prop cellblock zone.radius=5
+prop cellblock zone.message=Cell block B. Something runs along the bars - rats, fat ones, and they've been the only inmates for years.
+prop tunnel zone.id=tunnel
+prop tunnel zone.radius=4
+prop tunnel zone.message=His drain: an old drain down through the rock, rubble on its floor and a lantern where he came out - and at its end, the sound of the sea.
+prop tunnel on.enter=show|escapekit
+prop escapekit obj.name=escapekit
+prop escapekit beh.hidden=1
+prop outerrock zone.id=outerrock
+prop outerrock zone.radius=5
+prop outerrock zone.message=The outer rock. A bundle in oilcloth, weighed down with stones.
+prop rats creature.count=3
+prop rats creature.size=1.3
+prop rats creature.respawn=0
+prop rats creature.zone=cellblock
+prop tunneldark atmo.fog=#070706
+prop tunneldark atmo.fogAmount=0.8
+prop tunneldark atmo.light=#1a1a16
+prop tunneldark atmo.lightAmount=0.85
+prop tunneldark zone.radius=6
+prop tunneldrip sound.event=event:/amb/cave
+prop tunneldrip sound.volume=0.6
+prop tunneldrip zone.radius=6
+prop fog atmo.fog=#8a94a0
+prop fog atmo.fogAmount=0.35
+prop fog atmo.particles=mist
+prop fog zone.radius=45
+prop waves sound.event=event:/amb/ocean
+prop waves sound.volume=0.5
+prop waves zone.radius=45
+
+quest title=Fourteen Months
+quest intro=A prison on a rock in the fog, closed after one man left it without the ferry. Start at the dock.
+step read|Warden's notice|1|Land at the dock and read the warden's notice on its gate
+step kill|Rat|3|Climb the road to the yard and clear the rats out of cell block B
+step collect|story:cellkeys|1|Find the cell block's key ring in the guard tower
+step read|Inmate 1147's notes|1|Open cell 14 and read the notes hidden under the mattress
+step collect|story:spoon|1|Find the sharpened spoon he hid in the mess hall
+step reach|tunnel|1|Unscrew the vent in cell 14 and crawl down his drain
+step open|Escape kit|1|Swim from the drain's mouth to the outer rock and open his escape kit
+step blueprint|Blueprint_ZiplineBase|1|Take the zipline plans from the escape kit
+quest done=The postcard says it all: he made it. So did you - the rock's only two escapes.
+quest reward=MetalIngot*4;Nail*15;Bolt*4
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=35 n=1 seed=8858
+prop treasure8858 treasure.loot=TitaniumOre*2
+
+save The Rock Pen

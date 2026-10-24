@@ -1,0 +1,36 @@
+# Breakwater Customs (CIPlay breakwater_customs): the customs house, the entry rules, the radio desk and the watch
+# tower's locker (receiver, antenna), the permit desk refusing until the cargo is weighed, the smuggler's tip.
+# offset 0 0 is a placeholder: phase 2 sets it from the recipe's save log (PLAY_FORMAT: Coordinates).
+island Breakwater Customs
+offset 0 0
+expect step 0
+expect title The Rumour Is True
+zone customs_house
+expect step 1
+read Authority entry rules
+expect step 2
+open Radio desk
+wait 3
+expect item Blueprint_Reciever 1
+expect step 3
+open Watch tower locker
+wait 3
+expect step 4
+use permitstamp
+expect story permit 0
+use weighscale
+expect story weighed 1
+use permitstamp
+expect story permit 1
+expect step 5
+zone signal_hill
+expect step 6
+read Keeper's log
+expect step 7
+zone wreckers_cave
+expect step 8
+open Seized boat's hold
+wait 3
+expect step 9
+read Smuggler's tip
+expect done

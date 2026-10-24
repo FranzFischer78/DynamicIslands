@@ -1,0 +1,254 @@
+# The Iron Whale - Engine Decks - the sixth island of the library's plan The Frozen Horizon (storyline SL12, chapter 6)
+# The Whale's stern, broken off at the ridge and sunk 15 m: a dark-red hull of three flooded rooms on the seabed (the
+# engine room, the boiler hall, the propeller shaft) under two cabins (the captain's room, the officers' galley), and
+# the stern mast standing up out of the sea with the Whale's wind turbine on it - the only part above water. Air
+# pockets in the boiler hall, the shaft and the captain's room; anglers in the dark. Captain Hedda Brask sits in a cage
+# in her own sealed room, on her rations. Quest "The Engine Decks" (12 steps): the mast, the wind turbine's plans, the
+# boiler hall's air, the captain's log, three anglers, the advanced battery's and the advanced headlight's plans, the
+# shaft's air, the captain's room (the keycard is in the chief engineer's locker), Hedda's account (the plan's
+# done-when, step 10), the electric grill's plans (the galley), the main breaker (the bow's lights come on).
+#
+# Built by the recipe player (CIRecipe iron_whale_decks) through the editor's own operations. Points (metres over the
+# island's own water line; in the world it all lies 15 m lower): the seabed under the hull at 4.8; the lower rooms'
+# floors at 5 (engine room x -6..0, boiler hall x 0..6, shaft x 6..12, all z -4.5..4.5; broken windows on the south
+# side to swim in by); the cabins' floors at 8 (captain's room x -6..0, galley x 0..6); the mast platform at 17
+# (2 m over the sea) on legs on the galley's roof, x 0..6, its ladder from the water at 3 -5.
+include lib_gravity
+include lib_features
+include lib_sea
+include lib_rt
+include lib_ni34
+include lib_frozen
+# RESIZE 10-24: Radius 44 -> 85 (Height 6 -> 6), the island grows round the old content, which stays where it was.
+new
+gen Trees=0 Bushes=0 Rocks=0.3 Harvest=0 BeachThings=0
+gen Seed=12601 Radius=85 Height=6 Roughness=0.4 Peaks=2 Shape=0 Style=1 BeachWidth=0.1 Cliffs=0.4 PeakShape=0.4
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.4 Sunken=0.5 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+elevation -15
+
+# --- Terrain: the hull's bed at 4.8 on the ridge -------------------------------------------------------------------
+brush flatten at 3 0 r=14 s=20 frames=300 h=4.8
+brush flatten at 5.6 35.6 r=4 s=8 frames=40
+origin
+clear at 5.6 35.6 r=5
+clear at 3 0 r=12
+
+# --- The lower deck at 5 m: the engine room, the boiler hall, the shaft (one hull, doors between) -------------------
+push at 0 0 h=5
+call rt_storey a=whalehull f1=RT_WallWindowBroken r2=RT_WallDoor1
+place "VG_DecorationPrefabBase_Engine Variant" - at -3.5 0.5 y=0.1 sit yaw=90
+place UT_JumpPuzzle_LiftMechanism_Lever mainbreaker at -5.6 3 y=0.1 sit yaw=90
+place Loot_Chest enginestore at -1.2 3.5 y=0.1 sit yaw=180
+place "Pickup_Landmark_Scrap 2_OceanBottom" - at -5 -3 y=0.1 sit
+pop
+push at 6 0 h=5
+call rt_storey a=whalehull l1=none l2=none l3=none f2=RT_WallWindowBroken r2=RT_WallDoor1
+place UT_Generator01 - at -5 3.2 y=0.1 sit yaw=180
+place Loot_Chest chiefslocker at -1.2 3.5 y=0.1 sit yaw=180
+place Note_Paper captainslog40 at -3.8 3.4 y=0.1 drop yaw=20
+place Placeable_Lantern_Metal - at -2.5 3.8 y=0.1 drop
+pop
+call airpocket x=3 z=-0.5 id=boiler_hall al=boilerair bub=boilerbub r=2.5 msg="The boiler hall. Air under the boilers' hood - breathe."
+push at 12 0 h=5
+call rt_storey a=whalehull l1=none l2=none l3=none r2=RT_WallWindowBroken
+place RT_Floor whalehull at 0 4.5 y=3
+place RT_PillarThick - at -3 0 y=1 rot=0,0,90 sy=0.9
+place Loot_Chest shaftbox at -1.5 3.5 y=0.1 sit yaw=180
+place "Pickup_Landmark_Iron 1" - at -4.8 -3.4 y=0.1 sit
+place "Pickup_Landmark_Iron 2" - at -1.2 -3.4 y=0.1 sit
+pop
+call airpocket x=9 z=2 id=shaft al=shaftair bub=shaftbub r=2.2 msg="The shaft tunnel. A pocket of air up against the deckhead."
+place Zone_Atmosphere hulldark at 6 0 h=6.5
+place Creature_AnglerFish anglers at -3 0 h=6.5
+place Zone_Trigger anglerzone at 3 -0.5 ground y=1.6
+prop anglerzone zone.id=engine_room
+prop anglerzone zone.radius=3
+
+# --- The cabins at 8 m: the captain's room (sealed, a keycard door) and the officers' galley -------------------------
+push at 0 0 h=8
+call rt_storey a=whalehull f2=none
+place RT_Floor whalehull at 0 4.5 y=3
+place PlantationDoor captdoor at -1.5 -4.5 y=0.05 sit yaw=0
+place Survivor_Cage heddacage at -4.2 2.4 y=0.1 sit yaw=135
+place Note_Paper heddasaccount at -2.6 3.6 y=0.1 drop yaw=200
+place Loot_Chest captvault at -1.1 3.5 y=0.1 sit yaw=180
+place Placeable_Lantern_Metal deckslights at -5.4 -3.8 y=0.1 drop
+pop
+call airpocket x=-3 z=0 id=captains_room al=captair bub=captbub r=2.5 msg="The captain's room - dry air, stale and cold. Someone has been breathing it."
+push at 6 0 h=8
+call rt_storey a=whalehull l1=none l2=none l3=none f1=RT_WallWindowBroken
+place RT_Floor whalehull at 0 4.5 y=3
+place Placeable_CookingStand_Food_One - at -4.8 3.6 y=0.1 sit yaw=180
+place Loot_Chest galley at -1.2 3.5 y=0.1 sit yaw=180
+# REDO 10-24: the officers' safe - the Bow's mess code (4127) opens it too [optional]
+place Loot_Chest officersafe at -5.4 1.2 y=0.1 sit yaw=90
+place RT_PowerBox galleypad at -5.95 0 y=1.2 yaw=90
+pop
+prop whalehull tint.color=#5a2a22
+prop whalehull tint.amount=0.55
+
+# --- The stern mast: a platform 2 m over the sea on the galley's roof, the wind turbine, the ladder from the water ----
+push at 6 0 h=17
+call rt_storey f1=none f2=none b1=none b2=none l1=none l2=none l3=none r1=none r2=none r3=none
+call rt_railing y=0 fm=none
+call rt_legs d=6
+place Placeable_WindTurbine - at -3 3 y=0 scale=1.5
+place Loot_Chest mastbox at -1.2 -3 sit yaw=0
+place Zone_Trigger mastzone at -3 0 y=1
+place Placeable_Lantern_Metal deckslights at -5.5 -4 drop
+place Placeable_Lantern_Metal deckslights at -0.5 -4 drop
+pop
+call ladders x=3 z=-5 h=12.16 n=2 yaw=180
+
+# --- The seabed: a reef round the stern, scrap and iron ore spilled from the hull ------------------------------------
+scatter VP_CoralDigitate01 5 at -14 10 r=5 seed=12611 wet free=1
+scatter VP_CoralBulb04 4 at -14 10 r=5 seed=12612 wet free=1
+scatter SeaVine3_klump 5 at 20 -10 r=6 seed=12613 wet free=1
+scatter VP_CoralDigitate01 3 at 20 -10 r=4 seed=12614 wet free=1
+scatter "Pickup_Landmark_Scrap 1_OceanBottom" 3 at 3 -12 r=6 seed=12615 free=1
+scatter "Pickup_Landmark_Iron 3" 3 at 18 6 r=6 seed=12616 free=1
+scatter "Pickup_Landmark_Copper 1" 2 at -12 -10 r=6 seed=12617 free=1
+call shallows x=0 z=0 r=85 deep=5 n=1 seed=12620
+
+# --- DISCOVERIES 10-24 (optional, no quest needs them): diver's cache + slate + air pocket; TP_SnowVehicle01 + chest; hatch with a chest; buried treasure; viewpoint ---
+place "Box Small" dcampbox at 5.6 35.6 ground sit
+place Note_Paper dnote at 5.6 35.6 ground y=0.7 drop yaw=30
+place Loot_ChestSmall dcamp at 7.6 37.1 ground sit yaw=37
+call airpocket x=3.1 z=33.6 id=iron_whale_decks_dair al=dairzone bub=dairbub r=2.5 msg="Air trapped in a diver's bell-tent. Breathe."
+note dnote Diver's slate | A slate tied to a box:\n\nCOLD. TOO COLD FOR LONG DIVES.\nAIR IN THE ROOMS ONLY.\nGET OUT AT THE FIRST SHIVER.
+note dcamp Diver's cache | A diver's spare kit, wired shut against the current.
+loot dcamp Rope*2;Glass*3;Plastic*4
+prop dcamp loot.refill=0
+place TP_SnowVehicle01 dvan at -6.1 -38.5 ground yaw=157
+prop dvan tint.color=#8a9aa6
+prop dvan tint.amount=0.5
+place Loot_ChestSmall dwreckchest at -10.1 -35.5 ground sit yaw=97
+note dwreckchest Frozen chest | A chest frozen to the runner: wool, rope and a tin of nails.
+loot dwreckchest Wool*3;Rope*2;Nail*8
+prop dwreckchest loot.refill=0
+call hatchcache x=38.5 z=-6.1 r=15 seed=12691 alias=dhatch chest=dhatchchest items=MetalIngot*2;Wool*3;Bolt*2
+call vinecache x=-6.1 z=-38.5 r=15 seed=12693 chest=dvinechest vines=dvines items=Rope*3;Wool*2;Bolt*3
+call treasure x=-38.5 z=6.1 r=15 n=1 seed=12692
+prop treasure12692 treasure.loot=TitaniumOre*2;MetalOre*2
+# REDO 10-24 TREASURE2: a second buried treasure on the far side for the detector + shovel
+call treasure x=30.8 z=-4.9 r=12 n=1 seed=12742
+prop treasure12742 treasure.loot=TitaniumOre*1;MetalOre*2;TradeToken*2
+place Zone_Trigger dview at 33.4 20.1 ground y=1.5
+prop dview zone.id=iron_whale_decks_view
+prop dview zone.radius=7
+prop dview zone.repeat=never
+prop dview zone.message=The stern lies on the seabed below, dark red, its rooms full of water and silence.
+
+# --- Settings, story items, notes, behaviours, quest -----------------------------------------------------------------
+# the generator's rocks that floated over the slope (ground check, 2026-10-23)
+clear at -8.2 -10.57 r=1.5 only=TP_BigRock
+clear at -9.41 29.56 r=1.5 only=TP_BigRock
+clear at 6.38 -15.34 r=1.5 only=TP_BigRock
+
+info title=The Iron Whale - Engine Decks
+info author=Custom Islands
+info description=The Whale's stern, broken off and sunk at the ridge: flooded engine rooms, a boiler hall and a shaft tunnel with air under their deckheads, anglers in the dark - and the stern mast standing out of the sea, a wind turbine on it. The captain is still aboard. The sixth island of The Frozen Horizon.
+island on.arrive=message||A mast standing out of the sea, a turbine on it turning slowly. Under you, deep down, the Whale's stern - and a lamp in one of her ports.
+
+story fuse|A breaker fuse|Placeable_Lantern_Metal|A heavy ceramic fuse from the Whale's spares, three of them sit in the main breaker.
+story galleycode|The officers' safe code|Placeable_Lantern_Metal|The mess code opened the officers' safe too.
+story breaker|The main breaker|Placeable_Lantern_Metal|The Whale's main breaker, thrown: her lights burn again from stern to bow.
+story heddakey|Hedda's cage key|Placeable_Lantern_Metal|The key to the cage in the captain's room, from her strongbox.
+
+note captainslog40 Captain's log, day 40 | THE IRON WHALE - CAPTAIN'S LOG\n\nDay 40. The stern went in the night - she broke at the ridge like a biscuit. The crew went forward over the ice to the bow. I stayed: the charts are here, and the vault's bearings with them.\nI've locked myself in my room. There is air, and rations for a while. The keycard is in the chief's locker - whoever comes, come.\n\n- H. Brask
+note heddasaccount Hedda Brask's account | (written small, on the back of a chart)\n\nThe flotilla city went quiet first. Saga Drift - nine ships lashed together, the best radio on the white sea. One day: nothing.\nThen the Whale was ordered north, to the Coldhold - the vault under the glacier. The order came on Saga's band. We followed it, and the ice took us.\nGo to Saga Drift, 900. Find out who gave that order.\n\n- Hedda Brask, master of the Iron Whale
+note enginestore Engine store | The engine room's store: the advanced battery's plans, cells packed in wax.
+note chiefslocker Chief engineer's locker | The chief engineer's locker: the advanced headlight's plans, a spanner set - and the captain's keycard on a lanyard.
+note shaftbox Shaft box | A box bolted to the shaft tunnel's wall: tools for the stern gland, iron for patches.
+note galley Officers' galley | The officers' galley locker: the electric grill's plans, "for when the stove is gone". A card taped inside: SAFE = SAME AS THE MESS.
+note officersafe Officers' safe | The officers' safe: their pay, a spare cell, copper wire.
+loot officersafe TradeToken*5;Battery*1;CopperIngot*3;Bolt*2
+prop officersafe loot.refill=0
+prop officersafe obj.name=officersafe
+prop officersafe if.open=signal|galleycode
+prop officersafe else.open=message||The officers' safe is locked. The keypad beside it wants a code - the same as the mess, says the card.
+prop galleypad obj.name=galleypad
+prop galleypad beh.use=Type the officers' safe code
+prop galleypad lock.code=4127
+prop galleypad on.use=sound||event:/exploring/obstacles/keypad/keypad_correct\nmessage||The keypad beeps. The officers' safe opens.\nsignal||galleycode\ngive||story:galleycode*1
+prop galleypad else.use=message||Four digits. The card in the galley locker says: same as the mess.
+note mastbox Mast box | The mast's box, iced over: the wind turbine's plans, the Whale's own design.
+loot enginestore Blueprint_BatteryAdvanced*1;story:fuse*1;Battery*1;CopperIngot*2
+prop enginestore loot.refill=0
+loot chiefslocker Blueprint_HeadLight_Advanced*1;story:raft-Tangaroa_KeyCard*1;story:fuse*1;Bolt*3
+prop chiefslocker loot.refill=0
+loot shaftbox story:fuse*1;MetalIngot*3;Scrap*4;Hinge*2
+prop shaftbox loot.refill=0
+loot galley Blueprint_ElectricGrill*1;Raw_GenericMeat*2;Bucket*1
+prop galley loot.refill=0
+loot mastbox Blueprint_WindTurbine*1;CircuitBoard*1;Rope*2
+prop mastbox loot.refill=0
+loot captvault story:heddakey*1;TradeToken*4;MetalIngot*2
+prop captvault loot.refill=0
+prop captvault note.title=Captain's room
+prop captvault beh.hidden=1
+
+prop mastzone zone.id=stern_mast
+prop mastzone zone.radius=4
+prop mastzone zone.message=The stern mast. Below you, green-black, the Whale's stern on the ridge.
+prop hulldark atmo.fog=#05090c
+prop hulldark atmo.fogAmount=0.6
+prop hulldark atmo.light=#1a2a30
+prop hulldark atmo.lightAmount=0.5
+prop hulldark atmo.particles=mist
+prop hulldark zone.radius=14
+prop anglers creature.count=3
+prop anglers creature.respawn=0
+prop anglers creature.zone=engine_room
+
+prop captdoor obj.name=captdoor
+prop captdoor on.use=hide|\nshow|captvault\nmessage||The reader blinks green. The captain's door swings in - air, a lamp, a cage.
+prop heddacage obj.name=heddacage
+prop heddacage survivor.name=Hedda
+prop heddacage survivor.id=frozen_hedda
+prop heddacage survivor.key=heddakey
+prop heddacage survivor.signal=heddafree
+prop heddacage survivor.line=I locked myself in against the anglers and threw the key in my strongbox. Foolish. Thank you. Read what I wrote - Saga Drift first.
+prop mainbreaker obj.name=mainbreaker
+prop mainbreaker beh.use=Throw the main breaker
+prop mainbreaker if.use=!signal|power\ntake|story:fuse|3
+prop mainbreaker else.use=message||The breaker is dead - three fuse holders, all empty. The spares were split up: engine store, chief's locker, shaft box.
+prop mainbreaker on.use=message||A thump through the whole hull - and far off, up on the ridge, the bow's lamps come on one by one.\nsignal||power\ngive||story:breaker*1\nshow|deckslights
+prop deckslights beh.hidden=1
+
+quest title=The Engine Decks
+quest intro=A mast out of the sea, a stern on the seabed. Climb to the mast's platform.
+step reach|stern_mast|1|Climb the stern mast out of the sea
+step blueprint|Blueprint_WindTurbine|1|Take the wind turbine's plans from the mast box
+step reach|boiler_hall|1|Dive into the stern and find the air in the boiler hall
+step read|Captain's log, day 40|1|Read the captain's log
+step kill|Angler fish|3|Deal with the three anglers in the engine room
+step blueprint|Blueprint_BatteryAdvanced|1|Take the advanced battery's plans from the engine store
+step blueprint|Blueprint_HeadLight_Advanced|1|Take the advanced headlight's plans from the chief engineer's locker
+step reach|shaft|1|Swim on into the shaft tunnel's air
+step open|Captain's room|1|Open the captain's room with the chief's keycard
+step read|Hedda Brask's account|1|Read Hedda Brask's account
+step blueprint|Blueprint_ElectricGrill|1|Take the electric grill's plans from the officers' galley
+step collect|story:fuse|3|Find the three breaker fuses (engine store, chief's locker, shaft box)
+step collect|story:breaker|1|Throw the main breaker in the engine room
+quest done=The Whale's lights burn again. Hedda says: Saga Drift, 900 - the flotilla city went quiet first.
+quest reward=MetalIngot*3;CopperIngot*2;Battery*1
+
+prop captvault obj.name=captvault
+prop deckslights obj.name=deckslights
+# RESIZE 10-24 retest: the bigger island's generator rocks that floated over slopes (ground check)
+clear at 32.91 -21.96 r=1.5 only=TP_BigRock
+clear at 26.32 -11.11 r=1.5 only=TP_BigRock
+clear at 15.86 19.32 r=1.5 only=TP_BigRock
+clear at -18.41 26.49 r=1.5 only=TP_BigRock
+clear at 31.22 -1.43 r=1.5 only=TP_BigRock
+clear at 4.69 25.80 r=1.5 only=TP_BigRock
+clear at 16.46 -13.99 r=1.5 only=TP_BigRock
+clear at 11.46 9.63 r=1.5 only=TP_BigRock
+clear at 8.04 -26.25 r=1.5 only=TP_BigRock
+clear at 23.50 -21.47 r=1.5 only=TP_BigRock
+clear at -9.92 16.93 r=1.5 only=TP_BigRock
+clear at 12.77 -21.00 r=1.5 only=TP_BigRock
+
+save The Iron Whale - Engine Decks

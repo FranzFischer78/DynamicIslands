@@ -1,0 +1,79 @@
+# Drifting Relay Buoy - the side island of The End of the Ocean (SL14; it comes back every 12 km while sailing)
+# A low sand bar with two palms, and off its end a relay buoy on a raft of floats: a mast, a dish and a lamp that blinks
+# the Ringwave in Morse - long, short, short, long. A box of spares is lashed to the floats. Each time it drifts by it
+# carries a message from the engine's relays, and it takes an answer if you blink one back. Quest "The Relay Buoy"
+# (5 steps): the buoy, the relay message, the buoy box, the lamp, the relay's answer.
+#
+# Built by the recipe player (CIRecipe drifting_relay_buoy) through the editor's own operations. Points (metres over the
+# sea): the sand bar at 1 m round 0 0 (r 10), the palms at -4 2 and 3 -3, the floats round 12 0 at sea level.
+include lib_sea
+include lib_features
+include lib_huts
+include lib_gravity
+include lib_concord
+new
+gen Trees=0 Bushes=0.1 Rocks=0.1 Harvest=0.1 BeachThings=0.5
+gen Seed=14221 Radius=18 Height=2 Roughness=0.2 Peaks=1 Shape=1 Style=0 PeakShape=0.3 Cliffs=0 BeachWidth=1
+gen Water=0.5 SeaRocks=0.2 SeaFinds=0.3 Sunken=0.2 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+
+# --- Terrain: the sand bar ----------------------------------------------------------------------------------------------
+brush flatten at 0 0 r=10 s=20 frames=200 h=1
+brush sand at 0 0 r=12 s=10 frames=60
+origin
+clear at 0 0 r=10
+place "Pickup_Landmark_Tree_Palm 1" - at -4 2 ground sit
+place "Pickup_Landmark_Tree_Palm 1" - at 3 -3 ground sit yaw=120
+
+# --- The relay buoy: floats, a deck, a short mast with a dish, the lamp, the box of spares -----------------------------
+place Reef_Buoy floats at 9.9 -3.1 h=-1.45
+place Reef_Buoy floats at 13.7 3.2 h=-1.45
+place Reef_Buoy floats at 15.3 -2.5 h=-1.45
+place RT_Floor buoydeck at 15 3 h=2.0 sx=0.66 sz=0.5
+place RT_Pillar - at 12 0 h=2.1 sy=0.8
+place RT_SatteliteDisc - at 12 0 h=4.55 scale=0.35 yaw=270
+place Placeable_Lantern_Metal buoylamp at 13 -1 h=2.1 sit
+prop buoylamp obj.name=buoylamp
+place Loot_Chest buoybox at 13.5 1 h=2.1 sit yaw=270
+place Note_Paper relaymsg at 11.5 1 h=2.2 drop yaw=30
+place Note_Paper relayanswer at 11.5 -1 h=2.2 drop yaw=-20
+prop relayanswer obj.name=relayanswer
+prop relayanswer beh.hidden=1
+call tzone x=12 z=0 al=buoyzone id=buoy r=4 h=0.5 msg="The relay buoy. Its lamp blinks: long, short, short, long - the Ringwave, in light."
+call loopsound x=12 z=0 al=buoysound ev=event:/amb/ocean r=10 vol=0.3 h=1
+
+# --- Things to gather; a reef and the shallows --------------------------------------------------------------------------
+scatter Pickup_Landmark_BerryBush 1 at 0 0 r=5 seed=14222 free=2
+call reef x=-14 z=-8 r=4 seed=14224
+call shallows x=0 z=0 r=26 deep=4 n=1 seed=14228
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Drifting Relay Buoy
+info author=Custom Islands
+info description=A sand bar with two palms and, off its end, a relay buoy on a raft of floats whose lamp blinks the Ringwave in Morse. It drifts back every few kilometres with a new message.
+island on.arrive=message||A light blinking on the water: long, short, short, long. A buoy - and it is blinking at you.
+
+story lamp|Relay lamp|Placeable_Lantern_Metal|You blinked an answer back to a drifting relay buoy.
+
+note relaymsg Relay message | RELAY MESSAGE - on a printed strip in the buoy's slot\n\nRELAY 7 TO ANY RAFT.\nENGINE STATUS: STANDBY.\nSTATION 1: NO ANSWER.\nIF YOU READ THIS, BLINK THE LAMP. LONG SHORT SHORT LONG.
+note relayanswer Relay answer | RELAY ANSWER - a new strip, still warm\n\nRAFT HEARD. LOGGED.\nTHE ENGINE COUNTS THE RAFTS THAT ANSWER.\nYOU ARE NOT THE FIRST. YOU ARE NOT THE LAST.\nRELAY 7 DRIFTING ON.
+note buoybox Buoy box | The buoy's box of spares, lashed to the floats.
+loot buoybox Battery*1;Bolt*2;Hinge*2
+prop buoybox loot.refill=0
+
+prop buoylamp beh.use=Blink the lamp: long, short, short, long
+prop buoylamp if.use=!signal|lamp
+prop buoylamp on.use=signal||lamp\ngive||story:lamp*1\nshow|relayanswer\nmessage||Long, short, short, long. The buoy's lamp stops - then blinks it back. The slot prints a new strip.
+prop buoylamp else.use=message||The lamp has its answer.
+
+quest title=The Relay Buoy
+quest intro=A blinking light on the water off a sand bar. Swim out to it.
+step reach|buoy|1|Swim out to the relay buoy
+step read|Relay message|1|Read the relay message
+step open|Buoy box|1|Open the buoy's box of spares
+step collect|story:lamp|1|Blink the buoy's lamp back
+step read|Relay answer|1|Read the relay's answer
+quest done=The relay buoy drifts on. It will be back - with something new to say.
+quest reward=Rope*2;Scrap*3
+
+save Drifting Relay Buoy

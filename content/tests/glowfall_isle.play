@@ -1,0 +1,29 @@
+# Play test of Glowfall Isle (CIPlay glowfall_isle, in a test world 'CI ...'). No quest: up the furrow into the crater,
+# the scorched page and the crate from the pit, the castaway's lean-to in the jungle, the cave on the south shore and its
+# bear, the barrel by the sunken plate, the buried tin. Points as in its recipe.
+island Glowfall Isle
+offset 0 0
+expect animals Bear 1
+expect animals Warthog 2
+expect animals Screecher 1
+expect animals Dolphin 2
+wait 5
+where CaravanRocket
+kill Screecher
+walk 48 -18 to 42 -10 to 36 -2 to 30 6 h=2.5
+expect stand 28 8 h=2.5
+read Scorched page
+open Crate from the pit
+walk -37.75 15 to -37.75 18 to -37.75 21 h=4.1
+read The castaway's book
+open Castaway's chest
+kill Warthog
+kill Bear
+walk -19 -72 to -19 -66 to -19 -60 to -19 -57 h=2.1 below=3
+expect stand -19 -57 h=2 below=3
+open Bear's hoard
+open Barrel by the plate
+expect hidden vinechest
+dig
+expect animals Bear 0
+expect animals Warthog 0

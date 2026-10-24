@@ -1,0 +1,315 @@
+# Shellback - a new island of the library, four times the size (x4)
+# An island like a giant tortoise's shell (Shape 0, Style 0): a high green dome ribbed with terraces, a plain round it, a
+# high plateau on its east side, and a long ridge running north to a headland - the Tortoise's head - with the Shell-
+# keepers' temple on it. Each of her four "legs" has a shrine with its own trial: the Sea shrine on the south-west shore
+# (a dive into a flooded cave off the rocks), the Sky shrine on the north-east plain (a climb up a needle of rock), the
+# Tusk shrine on the plateau's south end (a fight in a ring of stones), the Wing shrine on the north-west plain (a catch:
+# her three sacred hens). Each keeps one scute; the four laid in the sockets at the temple open its gate. Quest "The Four
+# Scutes" (14 steps, four trials of four kinds).
+#
+# Built by the recipe player (CIRecipe shellback) through the editor's own operations. Points: the plain round the dome
+# at about 3 m; the tail beach on the south at 0 -82; the Sea shrine at -64 -62 (on the shore), its cave (Balboa's bear
+# cave, scale 0.6) on the sea floor at -88 -86, its floor -11 m, its mouth to the north-east at about -81 -79; the Wing
+# shrine at -50 50 (2.6 m); the pass over the neck ridge - a ramp from -9 47 (3.5 m) up to 9 50 (10.5 m), the ridge top
+# to 16 50, a ramp down to 31 44 (3.3 m); the ridge path north from 13 52 to the head's terrace at 13 76 (10.5 m), the
+# temple's court x 8.5..17.5, z 72.5..81.5, its gate on the south side at 13 72.5, the altar at 13 69.5; the Sky shrine's
+# needle at 58 46 (top 21 m), its ledges at 8 m (z 36.5..40.5) and 14.5 m (z 40.5..44.5), the ladders at x 58 (z 35.8,
+# 39.7, 43.7); the ramp up to the east plateau from 22 -68 (2.7 m) to 40 -57 (10.9 m); the Tusk shrine's ring at 62 -50.
+include lib_sea
+new
+# (nature: tropical, Like Raft - palms and jungle on the dome; the shrines' grounds and the paths cleared)
+gen Trees=0.28 Bushes=0.28 Rocks=0.43 Harvest=0.24 BeachThings=0.15
+gen Seed=9211 Radius=90 Height=34 Roughness=0.3 Peaks=1 Shape=0 Style=0 BeachWidth=0.5 Cliffs=0.25 PeakShape=0.25 Terraces=0.5
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.4 Hostiles=0 Friendly=0 SeaLife=0
+generate
+
+macro dabs x1 z1 h1 x2 z2 h2 n=8 r=2.6
+for i 0 $n
+brush flatten at {$x1+($x2-$x1)*$i/$n} {$z1+($z2-$z1)*$i/$n} r=$r s=20 frames=50 h={$h1+($h2-$h1)*$i/$n}
+next
+end
+
+# ===== The ground: the pass over the neck ridge, the ridge path, the head's terrace; the needle and its ledges; the ramp
+# up to the plateau; the sea floor round the flooded cave ==================================================================
+call dabs -9 47 3.5 9 50 10.5 n=14
+brush flatten from 9 50 to 16 50 r=2.6 s=20 frames=60 h=10.5
+call dabs 16 50 10.5 31 44 3.3 n=12
+brush flatten from 13 52 to 13 69 r=2.6 s=20 frames=60 h=10.5
+brush flatten at 13 76 r=8.5 s=20 frames=80 h=10.5
+brush flatten at 58 46 r=3.5 s=20 frames=120 h=21
+brush flatten from 56 42.5 to 60 42.5 r=2.2 s=20 frames=100 h=14.5
+brush flatten from 56 38.5 to 60 38.5 r=2.2 s=20 frames=100 h=8
+call dabs 22 -68 2.7 40 -57 10.9 n=14
+brush flatten at 62 -50 r=8 s=20 frames=60 h=10.9
+brush flatten at -88 -86 r=12 s=20 frames=80 h=-11.4
+brush rock at 58 44 r=6 s=20 frames=30
+brush flatten at -64 -62 r=3.5 s=20 frames=60 h=1.2
+brush flatten at -50 50 r=7.5 s=20 frames=60 h=2.6
+clear from -9 47 to 9 50 r=3
+clear from 9 50 to 16 50 r=3
+clear from 16 50 to 31 44 r=3
+clear from 13 52 to 13 69 r=3
+clear at 13 76 r=10
+clear at 58 44 r=7
+clear from 22 -68 to 40 -57 r=3
+clear at 62 -50 r=9
+clear at -64 -62 r=5
+clear at -50 50 r=8
+clear at 0 -80 r=8
+
+# ===== The tail beach: the Shell-keepers' tablet on a standing stone, tiki poles at the path's start, turtles, a beached
+# canoe with a box; an offering jar sunk off the beach ======================================================================
+place BigBoulder4_Low - at -3 -79 ground scale=0.45 yaw=10
+place Note_Sign tablet at -3 -77.6 ground yaw=180
+place Placeable_TikiPole_Complete - at 3 -76 ground yaw=180
+place Placeable_TikiPole_Complete - at -6.5 -73 ground yaw=150
+place Placeable_TikiPole_Complete - at 3 -71 ground yaw=200
+place Placeable_TikiPole_Complete - at -6.5 -68 ground yaw=170
+place RT_PlasticBoat - at 8 -85 ground yaw=40
+place "Box Small" canoebox at 9.6 -83.4 ground sit yaw=20
+place Zone_Trigger tailbeach at 0 -82 h=1.5
+place Creature_Turtle turtles at 6 -90 h=-0.8
+place Loot_SunkenBarrel offeringjar at 0 -100 ground
+
+# ===== The Sea shrine on the south-west shore: an open thatched shrine on four posts; off its rocks under the water the
+# flooded cave - its chamber's air pocket under the roof, the scute's chest on its floor, a dim green light =============
+push at -64.75 -62.75 h=1.2
+place Block_Pillar_Wood - at 0 0 y=0
+place Block_Pillar_Wood - at 1.5 0 y=0
+place Block_Pillar_Wood - at 0 1.5 y=0
+place Block_Pillar_Wood - at 1.5 1.5 y=0
+roof 1 1 at 0 0 y=0
+pop
+place Zone_Trigger diveshrine at -64 -62 h=2
+place BalboaCave_Bear seacavehill at -88 -86 h=-8.27 yaw=45 scale=0.6
+place Loot_ChestSmall seachest at -92.2 -90.2 h=-10.9 yaw=45
+place Zone_Trigger seaair at -91.4 -89.4 h=-7.2
+place Zone_Atmosphere seabubbles at -91.4 -89.4 h=-7.2
+place Zone_Atmosphere seacave at -89 -87 h=-8
+
+# ===== The Wing shrine on the north-west plain: a thatched hut in a pen of planks, the keepers' net basket by the gate,
+# the keeper-box on the hut's step; the sacred hens loose in the trees round it ===========================================
+push at -51.5 48.5 h=2.6
+place Block_Floor_Wood - at 0.75 0.75 y=0.15
+place Block_Floor_Wood - at 2.25 0.75 y=0.15
+place Block_Floor_Wood - at 0.75 2.25 y=0.15
+place Block_Floor_Wood - at 2.25 2.25 y=0.15
+place Block_Wall_Thatch - at 0.75 3 y=0.25
+place Block_Wall_Thatch - at 2.25 3 y=0.25
+place Block_Wall_Thatch - at 0 0.75 y=0.25 yaw=90
+place Block_Wall_Thatch - at 0 2.25 y=0.25 yaw=90
+place Block_Wall_Thatch - at 3 0.75 y=0.25 yaw=90
+place Block_Wall_Thatch - at 3 2.25 y=0.25 yaw=90
+place Block_Wall_Thatch - at 2.25 0 y=0.25
+roof 2 2 at 0 0 y=0.25
+place Loot_ChestSmall wingbox at 0.75 -0.5 y=0 sit yaw=180
+pop
+line Block_Wall_Fence_Plank from -55.5 44.5 to -46.5 44.5 step=1.5 ground
+line Block_Wall_Fence_Plank from -55.5 55.5 to -46.5 55.5 step=1.5 ground
+line Block_Wall_Fence_Plank from -55.5 44.5 to -55.5 55.5 step=1.5 ground
+line Block_Wall_Fence_Plank from -46.5 47.5 to -46.5 55.5 step=1.5 ground
+place UT_MarketBasket01 - at -45.4 45.6 ground yaw=20
+place "Box Small" netbasket at -45 47 ground sit yaw=40
+place Zone_Trigger catchshrine at -50 50 h=3.5
+place Creature_Chicken sacredhens at -58 60 ground
+prop sacredhens tint.color=#f0e0a0
+prop sacredhens tint.amount=0.4
+
+# ===== The head-temple on the north headland: the court's walls of stone blocks, the gate on its south side (it sinks),
+# columns in front, the altar with the sockets before the gate, the carving beside it; inside the court the jade
+# priestess, candles and the Tortoise's treasure =============================================================================
+for wx 9.4 16.7 2.4
+place RT_GroundPillar - at $wx 81.5 h=13.5
+next
+for wz 74.9 79.2 2.4
+place RT_GroundPillar - at 8.5 $wz h=13.5
+place RT_GroundPillar - at 17.5 $wz h=13.5
+next
+place RT_GroundPillar - at 8.2 72.5 h=13.5
+place RT_GroundPillar - at 17.8 72.5 h=13.5
+place TP_SeleneEntranceGate templedoor at 13 72.5 h=10.4 yaw=0
+for cx 9 17.1 2.6
+place Apartment_Int_BasePillar02 - at $cx 70.6 h=10.5
+next
+place UT_EndRoom_Table sockets at 13 68.6 h=10.5 scale=0.35
+place Note_Sign carving at 10.6 71.6 h=10.5 yaw=180
+place Zone_Trigger headtemple at 13 69 h=11.5
+place TangaroaFounderStatue templestatue at 13 80 h=10.5 yaw=180 scale=0.6
+prop templestatue tint.color=#5a8a6a
+prop templestatue tint.amount=0.6
+place Loot_ChestLarge treasure at 13 78.2 h=10.5 sit yaw=180
+place "VG_DecorationPrefabBase_CandleBig Variant" templecandles at 11.4 79.6 h=10.5
+place "VG_DecorationPrefabBase_CandleBig Variant" templecandles at 14.6 79.6 h=10.5
+place Zone_Trigger sanctum at 13 77 h=11.5
+
+# ===== The Sky shrine on the north-east plain: the needle of rock, ladders on posts from the ground to the first ledge,
+# to the second and to the top; tiki poles at its foot; the nest with the scute on the top, a flag; a box on the second
+# ledge ====================================================================================================================
+macro ladders z h n
+for k 0 {$n-1} 1
+place Block_Ladder - at 58 $z h={$h+2.42*$k}
+place Block_Pillar_Wood - at 58 {$z+0.2} h={$h+2.42*$k}
+next
+end
+call ladders 35.8 2.8 3
+call ladders 39.7 8 3
+call ladders 43.7 14.5 3
+place Placeable_TikiPole_Complete - at 55.5 36.5 ground yaw=180
+place Placeable_TikiPole_Complete - at 60.5 36.5 ground yaw=180
+place Placeable_BirdsNest skynest at 58 46.8 h=21 sit
+place Placeable_Flag_06 - at 59.6 47.6 h=21
+place "Box Small" ledgebox at 58.8 42.6 h=14.5 sit yaw=30
+place Zone_Trigger climbshrine at 58 34.5 h=3
+
+# ===== The Tusk shrine on the plateau's south end: a ring of standing stones, tusk posts, the boars waiting for whoever
+# steps in; the stone chest in the middle (hidden until they fall) =======================================================
+for a 0 324 36
+place BigBoulder4_Low - at {62+7.5*cos($a)} {-50+7.5*sin($a)} ground scale=0.4 yaw={$a+90}
+next
+place Placeable_TikiPole_Complete - at 57.5 -44.5 ground yaw=40
+place Placeable_TikiPole_Complete - at 66.5 -55.5 ground yaw=220
+place Zone_Trigger fightshrine at 62 -50 h=12
+place Creature_Boar tuskboars at 70 -40 ground
+place Loot_Chest tuskchest at 62 -50 ground sit yaw=90
+
+# ===== The dome: palms, mangoes, bananas; goats on the top; dolphins off the head; a box by a fallen tiki on the plain ====
+for a 20 60 40
+place "Pickup_Landmark_Tree_Palm 1" - at {13+58*cos($a)} {-5+58*sin($a)} ground yaw=$a
+next
+for a 140 340 40
+place "Pickup_Landmark_Tree_Palm 1" - at {13+58*cos($a)} {-5+58*sin($a)} ground yaw=$a
+next
+place "Pickup_Landmark_Tree_Palm 2" - at -30 -20 ground yaw=40
+place "Pickup_Landmark_Tree_Palm 2" - at -20 30 ground yaw=160
+place Pickup_Landmark_Tree_Mango - at -25 0 ground
+place Pickup_Landmark_Tree_Mango - at 0 -40 ground yaw=90
+place Pickup_Landmark_Tree_Mango - at 35 30 ground yaw=200
+place Banana_Bush_1 - at -40 15 ground
+place Banana_Bush_3 - at -35 -40 ground yaw=60
+place Banana_Bush_1 - at 30 -60 ground yaw=120
+place Creature_Goat goats at 14 -4 ground
+place Creature_Dolphin dolphins at 13 105 h=-3
+place Placeable_TikiPole_Complete - at -40 -42 ground tilt=80 yaw=30
+place "Box Small" pathbox at -38.6 -43.4 ground sit yaw=10
+call shallows r=110 deep=5 n=1
+
+# ===== Settings, story items, notes, behaviours, quest (14 steps) =========================================================
+info title=Shellback
+info author=Custom Islands
+info description=An island shaped like a giant tortoise's shell, with a shrine at each of its four legs and a temple at its head. Each shrine keeps one scute behind its own trial - a dive, a climb, a fight, a catch. Bring all four to the head-temple.
+island on.arrive=message||A great green dome rising out of the sea, ribbed like a shell - and at its north end a headland like a head, with a temple on it. Turtles on the beach look at you as if they knew.
+
+story scute|Scute of the Tortoise|Placeable_GiantClam|A plate of polished shell as big as your hand, carved with a spiral.
+
+note tablet The Shell-keepers' tablet | (carved on the standing stone at the tail beach)\n\nHERE SLEEPS THE GREAT TORTOISE.\n\nFour legs, four shrines, four scutes:\nthe SEA shrine keeps one under the water,\nthe SKY shrine keeps one on the needle,\nthe TUSK shrine keeps one in the ring of stones,\nthe WING shrine keeps one for whoever brings home her hens.\n\nLay the four in the sockets at her head, and she will carry you over every sea.
+note seachest The Sea shrine's scute | In the flooded chamber, in a chest of black wood: the first scute, wrapped in kelp.
+loot seachest story:scute*1;CopperOre*1
+prop seachest loot.refill=0
+prop skynest obj.name=skynest
+prop skynest beh.use=Take the scute from the nest
+prop skynest if.use=!signal|skyscute
+prop skynest on.use=message||On the needle's top, in a nest of sticks: the second scute, warm from the sun.\nsignal||skyscute\ngive||story:scute*1\ngive||Feather*3
+prop skynest else.use=message||Only sticks and feathers now.
+note tuskchest The Tusk shrine's scute | In the ring of stones, a stone chest: the third scute and a boar's tusk.
+loot tuskchest story:scute*1;Leather*2
+prop tuskchest loot.refill=0
+prop tuskchest obj.name=tuskchest
+prop tuskchest beh.hidden=1
+note netbasket The keepers' net basket | A basket at the Wing shrine: the keepers' net launcher, still oiled, and its canisters.
+loot netbasket NetGun*1;NetCanister*6
+prop netbasket loot.refill=0
+note wingbox The Wing shrine's scute | The Wing shrine's keeper-box: the fourth scute, and grain for the hens.
+loot wingbox story:scute*1;Seed_Banana*2
+prop wingbox loot.refill=0
+prop wingbox if.open=quest|10
+prop wingbox else.open=message||The keeper-box is shut with a peg. Carved on it: BRING HOME HER HENS.
+note carving The head-temple's carving | (over the bamboo gate)\n\nFour scutes in the four sockets - Sea, Sky, Tusk and Wing - and the gate of the Tortoise opens.\nWhat she keeps inside is for the one who carried her plates home.
+note treasure The Tortoise's treasure | In the inner room, at the priestess's feet: the keepers' offerings of a hundred years - shell coins, the plans for their lines from the head to the tail, pearls, and a carved turtle that floats.
+loot treasure Blueprint_ZiplineTool*1;TradeToken*12;Placeable_GiantClam*1;Rope*4
+prop treasure loot.refill=0
+note canoebox Canoe box | A box in the beached canoe: a paddle, line, dried fish.
+loot canoebox Cooked_Herring*2;Rope*2;Plank*3
+prop canoebox loot.refill=0
+note ledgebox Ledge box | A box on the needle's middle ledge: a climber's rope and chalk.
+loot ledgebox Rope*3;Plastic*2
+prop ledgebox loot.refill=0
+note offeringjar Sunk offering jar | An offering jar sunk off the tail beach: shells, and scrap the sea gave back.
+loot offeringjar Scrap*3;MetalOre*2;Clay*2
+prop offeringjar loot.refill=0
+note pathbox Path box | A box by a fallen tiki pole on the ring path: fruit and rope for pilgrims.
+loot pathbox Banana*3;Mango*2;Rope*2
+prop pathbox loot.refill=0
+
+prop sockets obj.name=sockets
+prop sockets beh.use=Lay the four scutes in the sockets
+prop sockets if.use=quest|12\ntake|story:scute|4
+prop sockets on.use=message||Sea, Sky, Tusk, Wing: each scute clicks into its hollow. The ground under the temple sighs like something very large breathing out - and the bamboo gate sinks into the earth.\nopen|templedoor\nsound||event:/exploring/utopia/door_entrance_open
+prop sockets else.use=message||Four hollows in the altar stone, each the shape of a scute. Read the carving over the gate.
+prop templedoor obj.name=templedoor
+prop templedoor beh.move=0,-12.8,0
+prop templedoor beh.moveTime=6
+prop templedoor beh.moveMode=switch
+
+prop tailbeach zone.id=tailbeach
+prop tailbeach zone.radius=10
+prop tailbeach zone.message=The tail beach: tiki poles, a standing stone with carving on it, and turtles everywhere.
+prop diveshrine zone.id=diveshrine
+prop diveshrine zone.radius=6
+prop diveshrine zone.message=The Sea shrine, on the rocks of the south-west leg. Below it in the water, the dark mouth of a tunnel.
+prop seaair zone.id=seaair
+prop seaair zone.radius=3
+prop seaair zone.repeat=1
+prop seaair zone.air=1
+prop seabubbles atmo.particles=bubbles
+prop seabubbles zone.radius=3
+prop seacave atmo.fog=#0e3a30
+prop seacave atmo.fogAmount=0.45
+prop seacave atmo.light=#3a9a80
+prop seacave atmo.lightAmount=0.35
+prop seacave zone.radius=12
+prop climbshrine zone.id=climbshrine
+prop climbshrine zone.radius=6
+prop climbshrine zone.message=The Sky shrine: two posts at the foot of a needle of rock, ladders going up and up.
+prop fightshrine zone.id=fightshrine
+prop fightshrine zone.radius=7
+prop fightshrine zone.repeat=never
+prop fightshrine zone.message=The Tusk shrine's ring of stones - and the tusked ones come charging in from the trees!
+prop tuskboars creature.count=4
+prop tuskboars creature.respawn=0
+prop tuskboars creature.zone=fightshrine
+prop tuskboars on.defeat=show|tuskchest\nmessage||The last boar falls. In the ring's middle, a stone chest stands where there was none.
+prop catchshrine zone.id=catchshrine
+prop catchshrine zone.radius=8
+prop catchshrine zone.message=The Wing shrine: a bamboo pen, a little hut, a basket by the gate - and three white-gold hens scratching in the trees.
+prop sacredhens creature.count=3
+prop headtemple zone.id=headtemple
+prop headtemple zone.radius=9
+prop headtemple zone.message=The head-temple on the headland: stone walls, columns, a bamboo gate and an altar with four empty hollows.
+prop sanctum zone.id=sanctum
+prop sanctum zone.radius=4
+prop sanctum zone.message=The Tortoise's inner room: a jade priestess, candles, and a chest at her feet.
+prop turtles creature.count=4
+prop goats creature.count=3
+prop dolphins creature.count=2
+
+quest title=The Four Scutes
+quest intro=An island like a sleeping tortoise, a shrine at each of her legs. The Shell-keepers' tablet stands at the tail beach.
+step read|The Shell-keepers' tablet|1|Land on the tail beach and read the tablet on the standing stone
+step reach|diveshrine|1|Go to the Sea shrine on the south-west leg
+step collect|story:scute|1|Dive through the sea tunnel to the flooded chamber for the Sea scute
+step reach|climbshrine|1|Go to the Sky shrine on the north-east leg
+step collect|story:scute|2|Climb the needle for the Sky scute
+step reach|fightshrine|1|Step into the Tusk shrine's ring of stones
+step kill|Warthog|4|Win the Tusk shrine's fight
+step collect|story:scute|3|Take the Tusk scute from the stone chest
+step reach|catchshrine|1|Go to the Wing shrine on the north-west leg
+step catch|Chicken|3|Net the three sacred hens and bring them home
+step collect|story:scute|4|Take the Wing scute from the keeper-box
+step read|The head-temple's carving|1|Climb to the head-temple on the north headland and read the carving over its gate
+step reach|sanctum|1|Lay the four scutes in the sockets and enter the inner room
+step open|The Tortoise's treasure|1|Open the Tortoise's treasure
+quest done=Four plates of the Great Tortoise home in her head. Somewhere under your feet, something enormous and patient goes back to sleep - and your raft, the keepers would say, will never sink.
+quest reward=Banana*3;Mango*3;Rope*3
+
+save Shellback
+

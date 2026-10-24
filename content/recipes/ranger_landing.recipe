@@ -1,0 +1,221 @@
+# Ranger Landing - the second island of the library's plan The Last Green World (SL11, Verdance)
+# The rangers' forward camp on Verdance's shore: a watch station on stilts over the beach, a hen run, a drying rack and
+# a fire pit; a trail of footprints and broken bushes leads into the birch wood to the rangers' boat shed. Ranger Oda
+# Fenn left her jobs on the board. Quest "The Forgotten Shore" (6 steps): the station, Oda's job board, the trail
+# (three marks in order - each shows the next), the motor wheel and steering wheel plans in the boat shed, Ranger log 3.
+#
+# Built by the recipe player (CIRecipe ranger_landing) through the editor's own operations. Points (metres over the
+# sea): the station pad at 1.4 m round -10 -24 (the stilt hut x -12..-7.5, z -26..-21.5, deck 2.6 m over the pad), the
+# fire pit -2 -18, the trail marks -6 -6, 4 4, -2 14, the boat shed x -5..-0.5, z 18..21.
+include lib_sea
+include lib_features
+include lib_huts
+include lib_gravity
+include lib_verdance
+include lib_ni7a
+include lib_ni8
+# RESIZE 10-24: Radius 46 -> 85 (Height 12 -> 12), the old content moved 0 -21.5 as one frame (push) so its sea side stays at the coast; the island grows behind it.
+new
+# RESIZE 10-24 rework: the bigger island was a wide bare sand plain - now wooded hills at Raft's density, the quest
+# spread out over it (x z * 1.8 in the old frame; the station still on the beach)
+gen Trees=0.28 Bushes=0.3 Rocks=0.35 Harvest=0.3 BeachThings=0.4
+gen Seed=11021 Radius=85 Height=14 Roughness=0.4 Peaks=2 Shape=0 Style=0 PeakShape=0.4 Cliffs=0.2 BeachWidth=0.22
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.2 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+push at 0 -21.5
+
+# --- Terrain: the station pad, the camp, the trail and the boat shed's pad -------------------------------------------
+brush flatten at -17.55 -42.75 r=5 s=20 frames=200 h=1.4
+brush flatten from -16.2 -36 to 7.2 -36 r=5 s=20 frames=120 h=1.4
+pop
+brush flatten at 9.8 28.4 r=5 s=8 frames=40
+origin
+clear at 9.8 28.4 r=6
+push at 0 -21.5
+clear at -17.55 -42.75 r=5
+clear from -16.2 -34.2 to 10.8 -34.2 r=4
+
+# --- The watch station on stilts: Oda's job board on its deck; the camp below ----------------------------------------
+push at -21.6 -46.8 h=1.4
+call stilt_hut y=2.6
+place Note_Sign jobboard at 2.25 3.9 y=2.7 sit
+place "Box Small" - at 3.6 1.2 y=2.7 sit
+place Note_Paper rangerlog2 at 3.6 1.2 y=3.4 drop yaw=20
+pop
+place Zone_Trigger stationzone at -17.1 -36 ground
+place campfire_1 - at -3.6 -32.4 ground sit
+place Log - at -3.6 -28.8 ground sit yaw=90 scale=0.4
+place UT_MarketBasket01 - at 1.8 -37.8 ground sit yaw=40
+place Creature_Chicken hens at 9 -34.2 ground
+prop hens creature.count=3
+
+
+# --- Gathering; the shallows ---------------------------------------------------------------------------------------
+call shallows x=0 z=21.5 r=107 deep=5 n=1 seed=11024
+pop
+
+# --- AREAS 10-24 (explore rule: no dead space, the quest crosses the island) ----------------------------------------
+#     South beach: the station and the camp. West: the old watchtower's ruins on a knoll (the split stone, mark 1).
+#     North-west: a ridge with a bear cave under it (the bent birch, mark 2; a ranger's stash inside). North beach: the
+#     boat shed (the shed path, mark 3; the plans and Ranger log 3). East: a crashed plane under a hill with a view, the
+#     excavator in the wood. Secrets: a cache under a hatch, dirt spots, the cave stash, the Seedkeepers' camp.
+clear at -46 -10 r=17
+brush raise at -46 -10 r=16 s=20 frames=6
+brush flatten at -46 -10 r=9 s=20 frames=80
+clear from -56 40 to -24 56 r=16
+brush raise from -56 40 to -24 56 r=14 s=20 frames=12
+clear at 46 6 r=16
+brush raise at 46 6 r=15 s=20 frames=6
+brush smooth at 46 6 r=15 s=6 frames=10
+call ni8cave x=-38 z=33 h=5 yaw=180 al=bearcave
+brush flatten at 52 -28 r=12 s=20 frames=300 h=4.1
+clear at 52 -28 r=11
+brush flatten at 30 -48 r=7 s=20 frames=60
+clear at 30 -48 r=7
+brush flatten at 8.25 69.5 r=6 s=20 frames=200 h=2.6
+clear at 8.25 69.5 r=7
+for ga 0 315 45
+brush grass at {48*cos($ga)} {48*sin($ga)} r=20 s=20 frames=20
+next
+brush grass at 0 0 r=30 s=20 frames=20
+
+# the old watchtower's ruins (mark 1: the split stone in the middle)
+call ringwall x=-46 z=-10 r=7 a0=20 da=45 n=6 len=5 hgt=3
+place SmallBoulder2 splitstone at -46 -10 ground sit y=-0.4 scale=0.35 yaw=40
+place Zone_Trigger track1 at -46 -10 ground
+# the bear cave (mark 2: the bent birch in front of it); the ranger's stash inside
+place "Pickup_Landmark_Tree_Birch" bentbirch at -33 13 ground sit roll=14
+place Zone_Trigger track2 at -37 13 ground
+place Loot_ChestSmall dcavechest at -35.5 28 h=5.45 sit yaw=200
+place Placeable_Lantern_Metal - at -40.6 29 h=5.45 sit
+# the boat shed on the north beach (mark 3: the shed path)
+place Zone_Trigger track3 at 2 58 ground
+push at 6 68 h=2.6
+call hut w=3 d=2 y=0.1
+place Loot_Chest boatshed at 3.6 2.3 y=0.1 sit yaw=180
+place "Box Small" - at 0.8 2.3 y=0.1 sit
+place Note_Paper rangerlog3 at 0.8 2.3 y=0.8 drop yaw=10
+pop
+# REDO 10-24: the slipway winch (the island's machine): its crank, chain and pawl lie in three zones (bear cave, plane,
+# west ruins); the winch hauls the shed door up, and the shed chest shows
+clear at 11 64 r=1.5
+call crank x=11 z=64 yaw=270 alias=winch
+place Loot_ChestSmall dpawlchest at -43 -7 ground sit yaw=80
+# the broken-bush trail: station - ruins - cave - shed
+call trailbush x=-28 z=-46 yaw=20
+call trailbush x=-40 z=-28 yaw=80
+call trailbush x=-43 z=2 yaw=140
+call trailbush x=-22 z=28 yaw=200
+call trailbush x=-8 z=44 yaw=10
+# the crashed plane under the east hill; the excavator in the east wood; the view from the hill
+place Airplane dplane at 52 -28 h=5.4 rot=4,200,-9 scale=0.8
+place WingBroken - at 49.7 -19.7 ground sit yaw=240
+place BackWingBroken - at 57.6 -18.3 ground sit yaw=310
+place Loot_ChestSmall dwreckchest at 44 -21 ground sit yaw=317
+place VP_Excavator dvan at 30 -48 ground yaw=60
+prop dvan tint.color=#7a6a3a
+prop dvan tint.amount=0.5
+place Zone_Trigger dview at 46 6 ground
+# no metal detector yet (it comes later in the storyline): dirt spots for the shovel instead of a buried treasure
+call dirt x=-58 z=-36 r=10 n=3 seed=11112
+call dirt x=20 z=-20 r=12 n=2 seed=11022
+scatter "Pickup_Landmark_Tree_Birch" 8 at -10 40 r=22 seed=11023 free=4
+
+# --- DISCOVERIES 10-24 (optional, no quest needs them): camp + note; VP_Excavator + chest; hatch cache; dirt spots; viewpoint ---
+place campfire_1 - at 9.8 28.4 ground sit
+place Balboa_DecorationPrefabBase_SimpleTent - at 12.8 30.4 ground sit yaw=257
+place "Box Small" - at 7.8 30.9 ground sit
+place Note_Paper dnote at 7.8 30.9 ground y=0.7 drop yaw=20
+note dnote Seedkeeper's note | SAMPLE RUN - WEST SIDE\n\nJars 1-12 filled. Pollen counts ten times last year's.\nThe vines grew over the trail behind us in one night.\nWe go back by the beach.
+note dwreckchest Pilot's locker | The plane's locker, thrown clear in the crash: plank, rope and a few seeds.
+loot dwreckchest Plank*4;Rope*2;Seed_Pineapple*1;story:winchpart*1
+prop dwreckchest loot.refill=0
+# no machete yet in this storyline (it comes on Riverfork Delta / Steamvent Harbour): a hatch, not vines
+brush flatten at 28 -12 r=3 s=20 frames=60
+clear at 28 -12 r=2.5
+place TangaroaHatchRoom_Hatch dhatch at 28 -12 ground
+prop dhatch obj.name=dhatch
+prop dhatch on.use=hide|\nshow|dhatchchest\nmessage||The hatch lifts on a dark hole. A chest was stowed in it.
+beside Loot_ChestSmall dhatchchest dhatch d=0.01
+prop dhatchchest obj.name=dhatchchest
+prop dhatchchest note.title=Under the hatch
+prop dhatchchest beh.hidden=1
+loot dhatchchest Rope*3;Nail*10;Leather*2
+note dcavechest Ranger's stash | Oda's spare kit, kept dry in the bear cave: rope, scrap and a few nails.
+loot dcavechest Rope*2;Nail*8;Scrap*3;story:winchpart*1
+prop dcavechest loot.refill=0
+prop dview zone.id=ranger_landing_view
+prop dview zone.radius=7
+prop dview zone.repeat=never
+prop dview zone.message=From the hill: the stilt station on the south beach, the old tower's ruins in the west, the ridge and its cave, and the boat shed on the north shore.
+
+# --- FILL 10-24 (RESIZE rework): the bigger island's whole area at Raft-like density - trees, bushes, rocks; free= keeps them
+#     off the quest's objects and paths
+scatter "Pickup_Landmark_Tree_Palm 1" 10 at 0 0 r=74 seed=11291 free=5
+scatter "Pickup_Landmark_Tree_Palm 2" 10 at 0 0 r=74 seed=11292 free=5
+scatter "Pickup_Landmark_Tree_Palm 4" 6 at 0 0 r=74 seed=11293 free=5
+scatter "Pickup_Landmark_Tree_Mango" 6 at 0 0 r=74 seed=11294 free=5
+scatter "Balboa_Bush_01 Variant" 30 at 0 0 r=74 seed=11295 free=2.5
+scatter "Balboa_Bush_03 Variant" 30 at 0 0 r=74 seed=11296 free=2.5
+scatter CaravanIsland_SmallRock_1 14 at 0 0 r=74 seed=11297 free=3 ground y=-0.6
+scatter "Pickup_Landmark_PineappleLandmark" 6 at 0 0 r=74 seed=11298 free=3
+scatter "Pickup_Landmark_Flower_Red" 8 at 0 0 r=74 seed=11299 free=2
+
+# --- Settings, notes, behaviours, quest ----------------------------------------------------------------------------
+info title=Ranger Landing
+info author=Custom Islands
+info description=The rangers' forward camp on Verdance's shore: a watch station on stilts, a hen run, a fire pit and a trail into the birch wood. The second island of The Last Green World.
+island on.arrive=message||A watch station on stilts over the beach, hens scratching under it. Smoke from a fire pit - still warm.
+
+note jobboard Oda's job board | RANGER STATION - JOBS\n\n1. Follow the trail to the boat shed. Three marks: the split stone, the bent birch, the shed path. Walk them in order or you lose it.\n2. The shed winch is stripped - I hid its parts from the scavengers: the crank in the bear cave, the chain with the plane, the pawl in the west ruins. Fit them and the door goes up. The boat's wheels are in the shed. Take them, and my stores key. A raft with a motor goes where the rivers go.\n3. Read my log before you go upriver.\n\n- Oda Fenn, ranger
+note rangerlog2 Ranger log 2 | RANGER LOG 2\n\nThe hens are laying again. The deer did not come to the salt lick. Nothing comes out of the wood any more except the wind.
+note rangerlog3 Ranger log 3 | RANGER LOG 3 - O. FENN\n\nThe delta's river people have not answered in six days. I am going upriver. The machete is at their outpost - the vines grow back faster every week.\n\nIf you read this, you followed the trail. The delta's band is 800.
+note boatshed Ranger boat shed | The rangers' boat shed: the motor wheel's and the steering wheel's plans, oiled and rolled.
+loot boatshed Blueprint_MotorWheel*1;Blueprint_SteeringWheel*1;Bolt*3;Hinge*2;story:rangerkey*1
+prop boatshed loot.refill=0
+prop boatshed obj.name=boatshed
+prop boatshed beh.hidden=1
+note dpawlchest Ruin crate | A crate in the old ruins, a ranger's tag on it: WINCH - SPARE PAWL.
+loot dpawlchest story:winchpart*1;Nail*4
+prop dpawlchest loot.refill=0
+story winchpart|Winch part|Placeable_Lantern_Metal|A piece of the boat shed's slipway winch: a crank, a chain or a pawl.
+story winch|Shed winch|Placeable_Lantern_Metal|The slipway winch runs again; the shed door is up.
+story rangerkey|Oda's ranger key|Placeable_Lantern_Metal|Oda's key on a leather tag: RANGER - STORES. Keep it; the rangers' locks upriver take it.
+prop winch beh.use=Fit the parts to the winch
+prop winch if.use=take|story:winchpart|3
+prop winch on.use=message||Crank, chain, pawl. The winch catches and the shed door grinds up.\ngive||story:winch*1\nshow|boatshed
+prop winch else.use=message||The winch is stripped: no crank, no chain, no pawl. Oda's board says where the parts went.
+
+prop stationzone zone.id=station
+prop stationzone zone.radius=6
+prop stationzone zone.message=The ranger station. A job board on the deck, and nobody home.
+prop track1 zone.id=track_1
+prop track1 zone.radius=3
+prop track1 on.enter=show|track2\nmessage||The split stone - a boot print on the moss beside it. On to the bent birch.
+prop track2 obj.name=track2
+prop track2 beh.hidden=1
+prop track2 zone.id=track_2
+prop track2 zone.radius=3
+prop track2 on.enter=show|track3\nmessage||The bent birch, a ribbon tied round it. The shed path goes north.
+prop track3 obj.name=track3
+prop track3 beh.hidden=1
+prop track3 zone.id=track_3
+prop track3 zone.radius=3
+prop track3 zone.message=The shed path. A boat shed under the birches.
+
+quest title=The Forgotten Shore
+quest intro=A ranger station, empty, and a trail into the wood. Go up to the station.
+step reach|station|1|Go to the ranger station
+step read|Oda's job board|1|Read Oda's job board
+step reach|track_3|1|Follow the trail: the split stone, the bent birch, the shed path
+step collect|story:winchpart|3|Find the winch's three parts: in the bear cave, the plane and the west ruins
+step collect|story:winch|1|Fit the three parts to the slipway winch at the boat shed
+step blueprint|Blueprint_MotorWheel|1|Take the motor wheel plans from the boat shed
+step blueprint|Blueprint_SteeringWheel|1|Take the steering wheel plans from the boat shed
+step read|Ranger log 3|1|Read Ranger log 3
+quest done=Oda went upriver. The delta's band is 800.
+quest reward=Seed_Birch*2;Seed_Pine*2
+
+# a fill rock that floated over the slope (ground check, 2026-10-24)
+clear at 10.56 15.27 r=1.5 only=CaravanIsland_SmallRock all
+save Ranger Landing

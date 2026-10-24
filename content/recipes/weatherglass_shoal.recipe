@@ -1,0 +1,93 @@
+# Weatherglass Shoal - an island of the library's plan The Gravity Sea (a side island at sea level, km 5, ahead)
+# A low sandy shoal with the Institute's weather station: a boardwalk on posts from the beach, the Stevenson screen (a
+# slatted box on four legs), the great glass barometer (a glass-tinted ice pillar) and the station's chest. Quest "The
+# Weatherglass" (5 steps): the station, the weather log, the barometer's reading, the station chest and the twin note -
+# which tells of the station's drowned twin, just north (Weatherglass Deep, near:shoal:600:north).
+#
+# Built by the recipe player (CIRecipe weatherglass_shoal) through the editor's own operations. Points (metres over the
+# water line): the station's flat at 2.5 m (r 7 round 0 2); the boardwalk x -12..-3, z -12..-10.5, deck 1.2 m over the
+# beach shelf at 0.3 m; the screen at 3 4, the barometer at -3 4.
+include lib_sea
+include lib_features
+include lib_huts
+include lib_gravity
+new
+gen Trees=0.05 Bushes=0.25 Rocks=0.2 Harvest=0.3 BeachThings=0.4
+gen Seed=9721 Radius=24 Height=4 Roughness=0.25 Peaks=1 Shape=0 Style=0 PeakShape=0.3 Cliffs=0.2 BeachWidth=0.8
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.2 Hostiles=0 Friendly=0.2 SeaLife=0.3
+generate
+
+# --- Terrain: the station's flat, the beach shelf under the boardwalk -----------------------------------------------
+brush flatten at 0 2 r=7 s=20 frames=200 h=2.5
+brush flatten from -13 -11 to -3 -11 r=2.5 s=20 frames=120 h=0.3
+origin
+clear at 0 2 r=6
+clear at -8 -11 r=4
+
+# --- The boardwalk from the beach towards the station ----------------------------------------------------------------
+push at -12 -12 h=0.3
+call boardwalk n=6 wide=1 y=1.2
+pop
+
+# --- The weather station: the Stevenson screen, the barometer, the log, the chest ----------------------------------
+place RT_Pillar screenlegs at 2.8 3.8 ground sy=0.4
+place RT_Pillar screenlegs at 3.2 3.8 ground sy=0.4
+place RT_Pillar screenlegs at 2.8 4.2 ground sy=0.4
+place RT_Pillar screenlegs at 3.2 4.2 ground sy=0.4
+place "Box Small" screen at 3 4 ground y=0.95 sit
+prop screen tint.color=#e8e4d8
+prop screen tint.amount=0.6
+place TP_IcePillar01 barometer at -3 4 ground sit scale=0.35
+prop barometer tint.color=#bfe4ee
+prop barometer tint.amount=0.6
+place Note_Sign weatherlog at 0 -2 ground sit yaw=180
+place Loot_Chest stationchest at 1 6.5 ground sit yaw=180
+place "Box Small" - at -1.2 6.6 ground sit
+place Note_Paper twinnote at -1.2 6.6 ground y=0.7 drop yaw=20
+place Zone_Trigger stationzone at 0 0 ground y=1
+
+# --- Things to gather ------------------------------------------------------------------------------------------------
+call shallows x=0 z=0 r=36 deep=5 n=1 seed=9731
+call dirt x=8 z=-4 r=5 n=2 seed=9732
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Weatherglass Shoal
+info author=Custom Islands
+info description=A low shoal with the Halvard Institute's weather station: a boardwalk, a Stevenson screen and a great glass barometer. A side island of The Gravity Sea - its twin lies drowned just north.
+island on.arrive=message||A sandbank with a boardwalk, a white box on legs - and a glass column taller than a man, shining.
+
+story reading|Barometer reading|Note_Paper|The great barometer's reading: "FIELD 1.8 - FALLING NORTH".
+
+note weatherlog Weather log | WEATHERGLASS STATION - LOG\n\nWind W 3. Sea slight. Field 1.8, steady.\nSince Lift Day the barometer reads the field, not the weather - Halvard's men rebuilt it.\nTap the glass for a reading.
+note stationchest Station chest | The station's chest: the keeper's rations and a spare battery for the barometer.
+note twinnote Twin note | TO THE TWIN STATION\n\nThere were two stations, one on each sandbank. On Lift Day the north bank went down, station and all - 20 m under, just north of here.\nIf the field ever falls, someone should dive and read the twin's last log.
+loot stationchest Cooked_Mackerel*2;Cooked_Potato*2;Battery*1
+prop stationchest loot.refill=0
+
+prop barometer obj.name=barometer
+prop barometer beh.use=Tap the barometer's glass
+prop barometer if.use=!signal|reading
+prop barometer on.use=signal||reading\ngive||story:reading*1\nmessage||The column shivers and settles: FIELD 1.8 - FALLING NORTH.
+prop barometer else.use=message||The glass reads the same: FIELD 1.8 - FALLING NORTH.
+prop stationzone zone.id=station
+prop stationzone zone.radius=4
+prop stationzone zone.message=The weather station. The glass column hums faintly.
+
+quest title=The Weatherglass
+quest intro=A weather station on a shoal. Walk the boardwalk to it.
+step reach|station|1|Walk to the weather station
+step read|Weather log|1|Read the station's weather log
+step collect|story:reading|1|Take a reading from the great barometer
+step open|Station chest|1|Open the station chest
+step read|Twin note|1|Read the note to the twin station
+quest done=The twin station lies drowned just north of the shoal, 20 m down.
+quest reward=Cooked_Mackerel*2;Battery*1
+
+# Buried treasure (reach audit 10-24: a late island of its story line needs one): the metal detector finds it, the shovel digs it
+call treasure x=0 z=0 r=18 n=1 seed=8863
+prop treasure8863 treasure.loot=TitaniumOre*2
+# Animals (reach audit 10-24: a late island of its story line had none)
+place Creature_Turtle turtles at -21 12 h=-1
+prop turtles creature.count=2
+
+save Weatherglass Shoal

@@ -1,0 +1,20 @@
+# Guide pictures of Whalebone Bay (CIPlay whalebone_bay_pics): Raft's camera, late morning, calm. The cannon spiked first
+# (the whales shown in the bay); the pictures above the water first (a player under water makes Raft draw every picture
+# as seen under water), the sunk catcher last
+island Whalebone Bay
+offset 0.5516 0.197
+hour 11
+weather Calm
+at 22 4
+wait 3
+use cannon
+wait 4
+picture whalebone_bay_island 78 40 -28 15 2 22
+picture whalebone_bay_station 22 11 30 2 3 0
+picture whalebone_bay_quay 22 7 20 6 4 4
+picture whalebone_bay_church -10 12 34 -18 8 47
+picture whalebone_bay_flensing 30 6 18 22 3 4
+picture whalebone_bay_point 61 9 6 32 -2 42
+at 8 24 h=-4
+wait 2
+picture whalebone_bay_skua 14 -2 19 8 -5.5 28

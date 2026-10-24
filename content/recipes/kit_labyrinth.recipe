@@ -1,0 +1,15 @@
+# Kit check (not content): Temperance's underwater cave tunnels for The Drowned Labyrinth - each piece on its own, high
+# over flat ground, to map its passage and openings (rays from above pass the roofs' inner faces and meet the floors)
+new
+gen Seed=1 Radius=150 Height=4 Shape=4 Roughness=0.1 ObjectDensity=0 Trees=0 Bushes=0 Rocks=0 BeachThings=0 Harvest=0
+gen Hostiles=0 Friendly=0 SeaLife=0 Water=0 SeaRocks=0 SeaFinds=0 Sunken=0
+generate
+brush flatten at 0 0 r=80 s=20 frames=80 h=1
+brush flatten at 60 20 r=80 s=20 frames=80 h=1
+place TP_UnderwaterCaveTunnel_Straight straight at 0 0 h=12
+place TP_UnderwaterCaveTunnel_StraightLong straightlong at 25 0 h=12
+place TP_UnderwaterCaveTunnel_Corner corner at 50 0 h=12
+place TP_UnderwaterCaveTunnel_CornerLong cornerlong at 0 40 h=12
+place TP_UnderwaterCaveTunnel_CrossT crosst at 45 40 h=12
+place BalboaCave_DeadEnd hall at 100 20 h=12
+save CI Kit Labyrinth

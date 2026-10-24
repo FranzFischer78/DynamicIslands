@@ -1,0 +1,28 @@
+# Effigy Shoals (CIPlay effigy_shoals): The Lullaby Frequency's third island, quest "Count Them Again". The shoal at
+# 1.2 m; channels on 90/210/330 degrees from 13 m out; effigies on rings of 20 and 28 m round bars on 30/150/270
+# degrees (the south bar's middle ones at 0 -20 and 0 -28: walk up x 2.6); the circle at 0 0, the tallest effigy 0 6;
+# the landing 0 -34, the tide marker -3 -32; the east bar's note on a crate at 22 8.
+island Effigy Shoals
+offset 0 0
+expect step 0
+expect title Count Them Again
+wait 3
+expect shown effin
+expect hidden effout
+walk 2.6 -40 to 2.6 -35
+zone landing
+expect step 1
+read Tide marker
+expect step 2
+walk 2.6 -30 to 2.6 -8 to 0 -2 h=1.2
+zone circle
+expect hidden effin
+expect shown effout
+expect step 3
+read Choir hymn sheet
+expect story hymn 1
+expect step 4
+walk 4 2 to 14 6 to 20 7 h=1.2
+read Who made them
+expect done
+open Choir's offering basket

@@ -1,0 +1,28 @@
+# Pendulum Isle (CIPlay pendulum_isle): a low sky island 12 m up; the top, the hall rules, the buried survey bolt, the
+# pendulum frame (the generator), the generator room's four plans, the zipline's low end, the shaft warning, the keel
+# (zone keel: the plan's done-when, it brings Gravewell Shaft).
+island Pendulum Isle
+offset 0 0
+expect step 0
+expect title The Keel
+zone top
+expect step 1
+read Pendulum hall rules
+expect step 2
+dig
+expect story surveybolt 1
+expect step 3
+use framelever
+expect story power 1
+expect step 4
+open Generator room
+wait 3
+expect step 8
+zone low_end
+expect step 9
+read Keel shaft warning
+expect step 10
+use shaft
+zone keel
+storespot 20 -3
+expect done

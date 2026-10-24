@@ -1,0 +1,57 @@
+# Play test of Floe Reach (CIPlay floe_reach, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The camp on the west islet round -40 -30 (3 m); the Nordlys by its east shore, hull x -17..9, z -45.5..-34.5, bow east, her
+# deckhouse x -7..-1, z -40.5..-31.5 (floor 5.5 m), the ladder up her south side at -2.5 -45.9; the floes round her and the
+# three holes ahead of her bow (14 -30, 14 -50, 19 -29); the plunger on the middle islet at 6 -10; the magazine on the
+# north-east islet at 48 58 (5 m); she slides 35 m east when freed.
+island Floe Reach
+offset 0 0
+expect step 0
+expect title Breaking the Ice
+wait 5
+expect animals Goat 2
+expect animals Dolphin 2
+at -40 -22 h=4
+walk -40 -22 to -40 -29 h=3
+zone camp
+expect step 1
+read Captain's order
+expect step 2
+open Crew's pay chest
+expect message FOR WHOEVER FREES HER
+at -20 -41 h=1
+at -3 -37 h=6.5
+zone bridge
+expect step 3
+open Captain's desk drawer
+expect story magazinekey 1
+expect step 4
+use hole1
+expect message wants a charge
+zone magazinehut
+expect message Two of them
+kill Polar bear
+expect step 5
+open Blasting magazine
+expect story charge 3
+expect step 6
+use hole1
+use hole2
+use hole3
+expect story fuse 3
+expect step 7
+at 6 -15 h=7
+walk 6 -15 to 6 -11 h=6.3
+zone plungerridge
+expect step 8
+use plunger
+wait 20
+expect shown shipfree
+at 28 -37 h=7.5
+zone shipfree
+expect step 9
+read The captain's thanks
+expect step 10
+open Crew's pay chest
+expect done
+open Camp supply box
+open Sunk sledge

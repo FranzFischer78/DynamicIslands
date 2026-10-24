@@ -1,0 +1,196 @@
+# Reefmachine Atoll - the second island of The End of the Ocean (SL14, the Concord Engine's Station 4: its intake reef)
+# A low ring of sand round a lagoon - and in the lagoon four rows of iron frames, half in the water, the reef growing over
+# them. The frames are an intake: the engine drinks the sea here. A sunk service boat lies on the lagoon floor, the pump
+# head under the middle has an air pocket, and on the east islet the old intake cage still holds its water behind a gate.
+# Quest "The Intake" (13 steps): the frame rows, the frame plate (the Ringwave again), the stingrays, the Motor plans in
+# the sunk boat, the puffers, the pump head, the steering plans in it, the frame valve, the service note, the cage.
+#
+# Built by the recipe player (CIRecipe reefmachine_atoll) through the editor's own operations. Points (metres over the
+# sea): the lagoon floor at -5 m (round 0 0, r 12), the frame rows at z -9 -3 3 9 (posts x -9 -3 3 9, beams at 0.5 m),
+# the pump head at 0 0 on the floor, the sunk boat at -6 -6, the north landing round 0 16 at 1 m, the valve at 14 5,
+# the cage islet round 20 0 at 1 m (its gate on the west side).
+include lib_sea
+include lib_features
+include lib_huts
+include lib_gravity
+include lib_concord
+include lib_areas
+new
+# (nature 10-24: hills and Raft-like trees over the whole island - the coordinator's check after the resize)
+gen Trees=0.4 Bushes=0.38 Rocks=0.55 Harvest=0.25 BeachThings=0.45
+gen Seed=14021 Radius=85 Height=12 Roughness=0.25 Peaks=3 Shape=0 Style=0 PeakShape=0.3 Cliffs=0.2 BeachWidth=0.9
+gen Water=0.6 SeaRocks=0.5 SeaFinds=0.4 Sunken=0.4 Hostiles=0 Friendly=0.1 SeaLife=0.5
+generate
+
+# --- Terrain: the lagoon cut into the middle; the north landing, the valve bank, the cage islet --------------------------
+brush flatten at 0.31 -0.7 r=13 s=20 frames=500 h=-5
+brush flatten at -1.01 35.01 r=5 s=20 frames=200 h=1
+brush flatten at 33.97 6.69 r=3 s=20 frames=200 h=1
+brush flatten at 39.97 1.69 r=5 s=20 frames=200 h=1
+brush flatten at -9.19 8.8 r=3 s=20 frames=200 h=-5
+brush flatten at 9.81 8.8 r=3 s=20 frames=200 h=-5
+brush flatten at -9.19 -10.2 r=3 s=20 frames=200 h=-5
+brush flatten at 9.81 -10.2 r=3 s=20 frames=200 h=-5
+brush flatten at -4.01 37.01 r=4 s=20 frames=400 h=1
+brush sand at 0.31 -0.7 r=20 s=10 frames=40
+origin
+clear at 0.31 -0.7 r=14
+clear at 39.97 1.69 r=5
+clear at 33.97 6.69 r=5
+
+# --- The frame rows: thick posts standing on the lagoon floor, their tops out of the water, beams along each row ---------
+for fz -9.7 8.3 6
+for fx -8.69 9.31 6
+place RT_PillarThick frames at $fx $fz ground
+next
+place RT_Beam framebeams at -5.69 $fz h=0.5
+place RT_Beam framebeams at 0.31 $fz h=0.5
+place RT_Beam framebeams at 6.31 $fz h=0.5
+next
+prop frames tint.color=#5a4636
+prop frames tint.amount=0.55
+prop framebeams tint.color=#5a4636
+prop framebeams tint.amount=0.55
+scatter VP_CoralDigitate02 10 at 0.31 -0.7 r=11 seed=14022 wet free=1
+scatter VP_CoralBulb04 8 at 0.31 -0.7 r=11 seed=14023 wet free=1
+scatter SeaVine3 6 at 0.31 -0.7 r=11 seed=14024 wet free=1
+call loopsound x=0.31 z=-0.7 al=intakesound ev=event:/raft/engine/waterwheel r=22 vol=0.35 h=1
+
+# --- The north landing: the frame plate with the Ringwave cut into it ----------------------------------------------------
+call tzone x=-1.01 z=34.01 al=framezone id=frame_row r=5 msg="Rows of iron frames standing in the lagoon, coral grown all over them. The water round them is pulling - slowly, all one way."
+place Note_Sign frameplate at 0.49 36.51 ground sit yaw=180
+call ringwave x=-4.01 z=37.01 r=2 al=ringwave y=0.15
+prop ringwave tint.color=#8a8577
+prop ringwave tint.amount=0.6
+
+# --- The lagoon floor: the sunk service boat and its chest; the rays and the puffers ------------------------------------
+place RT_PlasticBoat - at -5.69 -6.7 ground sit rot=8,35,-14
+place Loot_Chest boatchest at -3.99 -8.3 ground sit yaw=40
+place Creature_Stingray rays at 6.31 -6.7 h=-3
+prop rays creature.count=2
+prop rays creature.respawn=0
+place Creature_PufferFish puffers at 6.31 5.3 h=-2
+prop puffers creature.count=4
+prop puffers creature.respawn=0
+
+# --- The pump head under the middle: a pipe mouth, a pump, its air pocket and its chest -----------------------------------
+place VP_ConcretePipe01 - at 0.31 -0.7 ground sit scale=0.6
+place UT_Generator01 - at 2.11 0.5 ground sit scale=0.6 yaw=90
+place UT_ElectricCableHub01 - at -1.49 0.5 ground sit scale=0.6
+place Loot_Chest pumpchest at 0.31 1.5 ground sit yaw=180
+call airpocket x=0.31 z=-2.3 id=pump_head al=pumpair bub=pumpbub r=2.5 msg="The pump head - a pocket of old air trapped under the pipe mouth. Breathe."
+
+# --- The frame valve on the bank; the service note; the intake cage on its islet ----------------------------------------
+call wheel x=33.97 z=6.69 yaw=270 al=framevalve
+place Note_Sign servicenote at 35.97 4.69 ground sit yaw=250
+for ca 0 330 30
+place RT_Fence cage at {39.97+3*sin($ca)} {1.69+3*cos($ca)} ground sit yaw={$ca+90} sx=0.6
+next
+place RT_Wall1 cagegate at 36.97 0.19 ground sit yaw=90
+prop cage tint.color=#4a5560
+prop cage tint.amount=0.5
+prop cagegate tint.color=#4a5560
+prop cagegate tint.amount=0.5
+prop cagegate obj.name=cagegate
+place Loot_Crate cagecrate at 40.97 2.19 ground sit yaw=30
+call tzone x=39.97 z=1.69 al=cagezone id=cage r=2 msg="Inside the intake cage. The water that stood here is gone; the floor is slick and full of shells."
+
+# --- Things to gather: silver algae and giant clams in the lagoon; four reefs round the atoll; the shallows -------------
+scatter "Pickup_Landmark_SilverAlgae" 3 at 0.31 -0.7 r=10 seed=14025 wet
+scatter "Pickup_Landmark_GiantClam" 3 at -3.69 3.3 r=7 seed=14026 wet
+scatter "Pickup_Landmark_Tree_Palm 2" 3 at -27.22 24.09 r=6 seed=14027 free=2
+scatter "Pickup_Landmark_Tree_Palm 4" 2 at -34 -21.25 r=5 seed=14028 free=2
+call reef x=-63.75 z=21.25 r=5 seed=14031
+call reef x=63.75 z=29.75 r=5 seed=14035
+call reef x=-21.25 z=-68 r=5 seed=14039
+call reef x=25.5 z=68 r=5 seed=14043
+call shallows x=0.31 z=-0.7 r=110.5 deep=5 n=1 seed=14047
+
+# --- Discoveries: things to find off the quest path (not needed for the quest) ---------------------------------
+call tzone x=67.7 z=-0.7 al=atollview id=atollview r=4 msg="The highest rock of the atoll. From up here the iron frames in the lagoon line up like the teeth of a comb - all pointing the same way."
+place Loot_Chest pumplocker at -56 -16.8 ground sit yaw=74
+prop pumplocker loot.refill=0
+call notebox x=0.1 z=55.2 yaw=0 al=intakelog
+place BoatStranded - at 16.1 -79.4 ground sit yaw=258 scale=0.7
+call treasure x=24.7 z=-27.8 r=5 n=1 seed=14048
+
+# --- Areas (10-24: every story island has places all over it and its quest crosses it): the south ridge with its lookout and
+# a buried treasure, the cave in the north bank, the pump keeper's ruined hut in the west, the supply plane in the south-east
+call ar_ridge x1=-24 z1=-50 x2=28 z2=-52 h=9 top=7 r=9
+call ar_plants_tropical x=2 z=-51 r=30 seed=14151
+call tzone x=2 z=-51 al=southridge id=southridge r=7 msg="The top of the south ridge. The lagoon below is a perfect circle - nothing that round grows by itself."
+call treasure x=2 z=-51 r=14 n=1 seed=14161
+call ar_cave x=-24 z=52 h=3 yaw=0 al=reefcave chest=reefcavechest
+call tzone x=-24 z=57 al=reefcavezone id=reefcave r=4 msg="A cave in the north bank. Pipe fittings in a row on the floor, each one labelled in neat paint."
+call ar_ruin x=-52 z=0 h=3 yaw=0 al=keeperhut
+call notebox x=-49.5 z=-4.5 yaw=20 al=pumpdiary
+call ar_plane x=48 z=-32 h=3 yaw=150 al=supplyplane crate=supplycrate
+call notebox x=42.5 z=-36.5 yaw=70 al=supplylog
+call ar_plants_tropical x=-44 z=36 r=16 seed=14171
+call ar_plants_tropical x=48 z=36 r=16 seed=14181
+
+# --- Unique layer (10-24): reefmachine_atoll device - see SL14_progress.md UNIQUE ISLANDS
+call crankcache x=-56.5 z=-4 yaw=0 alias=sluicecrank sig=sluice chest=sluicecrate cx=-47 cz=4.5 cyaw=0 items=story:raft-Vasagatan_BoltCutter*1;TitaniumOre*2;Rope*2 title="Sluice crate"
+prop sluicecrank if.use=has|story:reefhandle|1\n!signal|sluice
+prop sluicecrank else.use=message||The sluice wheel's square socket is empty - or the wheel is turned as far as it goes. Its handle went down with the supply plane.
+prop sluicecrank on.use=message||The handle bites and the old sluice drains with a roar. In the mud where the water was, a crate.\nsignal||sluice\nshow|sluicecrate
+prop supplycrate note.title=Supply plane's crate
+story reefhandle|Sluice handle|Bolt|The square handle for the sluice wheel at the keeper's hut on the Reef Machine.
+loot supplycrate story:reefhandle*1;Plank*4;Nail*6
+prop supplycrate loot.refill=0
+note sluicecrate Sluice crate | The pump keeper's crate, mud to the lid. Inside, wrapped in oilcloth, a pair of bolt cutters with his name on the grip.
+prop sluicecrate loot.refill=0
+prop reefcavechest if.open=has|story:raft-Tangaroa_KeyCard|1
+prop reefcavechest else.open=message||The pump crew's store has a card slot stamped CONCORD. A keycard would open it.
+loot reefcavechest Bolt*3;Scrap*4;MetalIngot*2;TitaniumOre*2
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=Reefmachine Atoll
+info author=Custom Islands
+info description=A low atoll round a lagoon full of iron frames, the reef grown over them and the water pulling one way: the Concord Engine's intake. A sunk service boat, a pump head with air in it, and a cage on the east islet.
+island on.arrive=message||A ring of sand, a lagoon - and rows of rusted frames standing in the water like a fence. The current runs into the lagoon, not out.
+
+story valve|Frame valve turned|Hinge|You wound the frame valve on Reefmachine Atoll. The intake cage on the east islet drained, and its gate dropped.
+
+note frameplate Frame plate | A plate bolted to the first frame, green with age.\n\nCONCORD WORKS - INTAKE 4\nTHE RINGWAVE\n\nUnder the words, the sign again: a ring, cut through by three waves.
+note servicenote Service note | SERVICE NOTE - scratched into a tin plate\n\nStation 4 reef. Feeding the engine's intake.\nKeep the frames clear of shell. Keep the cage full for the inspectors.\nIf the inspectors stop coming, open the valve and go home.
+note boatchest Service boat | The service boat's locker, under a skin of sand: a motor's plans in an oil bag.
+note pumpchest Pump head | A chest bolted inside the pump head, dry in the trapped air: a steering wheel's plans.
+note cagecrate Cage crate | The inspectors' crate, at the bottom of the drained cage: shells, tools, and a tin of goo.
+loot boatchest Blueprint_MotorWheel*1;Scrap*4;Bolt*2
+prop boatchest loot.refill=0
+loot pumpchest Blueprint_SteeringWheel*1;Hinge*2;MetalIngot*1
+prop pumpchest loot.refill=0
+loot cagecrate ExplosiveGoo*2;SilverAlgae*2;CopperOre*2;Bolt*2
+prop cagecrate loot.refill=0
+
+prop framevalve beh.use=Wind the frame valve
+prop framevalve if.use=!signal|valve
+prop framevalve on.use=signal||valve\ngive||story:valve*1\nhide|cagegate\nmessage||The valve fights, then spins. Out on the east islet the cage's water drops away with a long gurgle - and its gate sinks out of sight.\nsound||event:/raft/engine/waterwheel
+prop framevalve else.use=message||The valve is open. The cage is dry.
+
+note pumplocker Pump crew's locker | A pump crew's locker, salt-crusted: spare parts nobody came back for.
+loot pumplocker MetalIngot*2;Bolt*4;Hinge*2;CopperIngot*1
+note intakelog Intake log | INTAKE LOG - page torn from a book\n\nIntake open 06:00. Flow good.\nIntake open 06:00. Flow good.\nIntake open 06:00. The reef keeps growing over the grilles - we scrape them every week.\nNo orders since spring. We keep the valve as we were told.
+note reefcavechest Pipe store | The pump crew's store chest: fittings, a spare gasket, and a tin of grease gone hard.
+prop reefcavechest loot.refill=0
+note pumpdiary Pump keeper's diary | PUMP KEEPER'S DIARY - in a tin by the fallen wall\n\nThe intake drinks the whole lagoon twice a day. Where it goes nobody told us.\nThe pipes run south under the reef, straight as a ruler, the same way the pulse points.\nI asked the engineers. They said: to the Engine. Capital E.\n\nWe never built the frames to hold back the sea. We built them to farm the coral for the Concord's lime. I kept my bolt cutters in the sluice crate - the sluice handle went south on the supply plane.
+note supplylog Supply plane log | SUPPLY PLANE LOG\n\nSpare valves for the Intake, as ordered.\nCould not raise the atoll on the radio - only that pulse, louder every mile south.\nDitching on the south-east shore. The valves are in the crate. Whoever finds them: the frames need them more than I do.\n\nCargo: one sluice handle for the keeper's hut, wrapped in sacking.
+quest title=The Intake
+quest intro=Iron frames in a lagoon, coral over them. Go ashore by the first row.
+step reach|frame_row|1|Go ashore by the frame rows
+step read|Frame plate|1|Read the plate on the first frame
+step kill|Stingray|2|Drive off the two stingrays in the lagoon
+step blueprint|Blueprint_MotorWheel|1|Take the motor plans from the sunk service boat
+step kill|Puffer fish|2|Clear the puffer fish from the frames
+step reach|pump_head|1|Swim down into the pump head's air pocket
+step blueprint|Blueprint_SteeringWheel|1|Take the steering plans from the pump head
+step collect|story:valve|1|Wind the frame valve on the east bank
+step read|Service note|1|Read the service note by the valve
+step collect|story:reefhandle|1|Find the sluice handle in the supply plane's crate on the south-east shore
+step read|Pump keeper's diary|1|Read the pump keeper's diary at the ruined hut in the west
+step open|Sluice crate|1|Turn the sluice by the hut and open what it uncovers
+step reach|cage|1|Go into the drained intake cage
+quest done=The intake is open and the cage is dry. Something on the Receiver answers now - three relays, west of here.
+quest reward=Rope*4;Scrap*6;Nail*10
+
+save Reefmachine Atoll

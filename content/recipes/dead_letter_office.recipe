@@ -1,0 +1,133 @@
+# The Dead Letter Office - an island of the library's plan The Last Post (the Coastal Post's route, the first island)
+# A low granite skerry with the Coastal Post's dead letter office on it: a brick-red hall (Raft's Tier 3 walls tinted)
+# under a hipped roof on its corner pillars, its clock above the door stopped at nine; inside, a sorting counter of
+# office tables, pigeon-holes of small cupboards and shelves along the back wall, canvas mail sacks (Raft's reef
+# container, shrunk and tinted) on the floor; a plank jetty on posts to the south. Quest "Return to Sender" (7 steps):
+# the jetty, the letter addressed to the player's raft (its reading opens the next stop: done-when note), the counter
+# drawer (the Receiver's and the antenna's blueprints), the five dead letters in the pigeon-holes, the route card.
+#
+# Built by the recipe player (CIRecipe dead_letter_office) through the editor's own operations.
+include lib_sea
+include lib_features
+include lib_post
+new
+# (nature: a rocky skerry, Like Raft's small islands, few trees)
+gen Trees=0.1 Bushes=0.22 Rocks=0.45 Harvest=0.18 BeachThings=0.25
+gen Seed=4101 Radius=40 Height=9 Roughness=0.6 Peaks=1 Shape=0 Style=0 PeakShape=0.3 Cliffs=0.5 BeachWidth=0.3
+gen Water=0.5 SeaRocks=0.5 SeaFinds=0.15 Sunken=0.2 Hostiles=0 Friendly=0 SeaLife=0.3
+generate
+
+# --- Terrain: a level pad for the office (2.2 m), a strip down to the jetty's foot (1.4 m) on the south shore ----------
+brush flatten at 0 -12 r=10 s=20 frames=120 h=2.2
+brush flatten from 0 -22 to 0 -30 r=4 s=20 frames=80 h=1.4
+brush smooth from 0 -18 to 0 -30 r=6 s=6 frames=20
+brush rock at 0 -12 r=12 s=6 frames=20
+origin
+clear at 0 -12 r=11
+clear from 0 -20 to 0 -34 r=4
+
+# --- The office: 4 x 3 cells, door to the south, brick-red walls, its clock above the door --------------------------
+push at -3 -15 h=2.2
+call posthall w=4 d=3 al=brick
+place VP_DecorationPrefabBase_Clock officeclock at 2.25 -0.06 y=2.15 yaw=0
+# the sorting counter: two office tables end to end across the room, the letter for the raft on the one by the door
+place "Table Office" counter at 1.7 1.9 y=1.3 sit drop yaw=0
+place "Table Office" - at 4.3 1.9 y=1.3 sit drop yaw=0
+place Note_Paper rafletter at 1.3 1.9 y=2 sit drop yaw=10
+place Loot_ChestSmall drawer at 4.6 1.9 y=2 sit drop yaw=180
+place "Chair Office" - at 2.4 2.9 y=1.3 sit drop yaw=180
+# the pigeon-holes: small cupboards and shelves stacked along the back wall, the dead letters on their tops
+place Placeable_Cupboard_Small - at 0.7 4.15 y=1.3 sit drop yaw=180
+place Placeable_Cupboard_Small - at 1.6 4.15 y=1.3 sit drop yaw=180
+place Placeable_Cupboard_Small - at 2.5 4.15 y=1.3 sit drop yaw=180
+place Placeable_Shelf_Small_Basic - at 3.75 4.15 y=1.3 sit drop yaw=180
+place Placeable_Shelf_Small_Basic - at 5.15 4.15 y=1.3 sit drop yaw=180
+place Placeable_Shelf_Small_Fine - at 3.75 4.15 y=0.78 yaw=180
+place Note_Paper dlferry at 0.7 4.15 y=2 sit drop yaw=5
+place Note_Paper dleskil at 1.6 4.15 y=2 sit drop yaw=-8
+place Note_Paper dltelegraph at 2.5 4.15 y=2 sit drop yaw=12
+place Note_Paper dllise at 5.15 4.15 y=2 sit drop yaw=-4
+place Note_Paper dlada at 3.75 4.15 y=2.4 sit drop yaw=3
+# the route card pinned up by the door
+place Note_Paper routecard at 5.6 0.6 y=2 sit drop yaw=90
+place Placeable_Cupboard_Medium - at 5.6 0.6 y=1.3 sit drop yaw=270
+# mail sacks on the floor
+call mailsack x=0.8 z=0.8 yaw=80 al=sacks
+call mailsack x=0.6 z=2.9 yaw=10 al=sacks
+pop
+
+# --- Outside: more sacks by the door, a lantern, the postbox stand --------------------------------------------------
+call mailsack x=-4.5 z=-16.5 yaw=30 al=sacks
+call mailsack x=-5.2 z=-14.6 yaw=95 al=sacks
+place "Box Big" - at 3.5 -17.5 ground yaw=20
+place "Box Small" - at 4.4 -16.6 ground yaw=-15
+place Placeable_Lantern_Metal - at 3.5 -17.5 h=6 sit drop
+
+# --- The jetty: two plates wide from the shore strip out to sea, a bollard of the radio tower's pillar cap ---------------
+call pier x=0 z1=-30 z2=-52 h=1.45
+place Zone_Trigger jettyzone at 0 -47 h=2.2
+place Placeable_Lantern_Metal - at 1.2 -51 h=1.6 sit drop
+
+# --- Friendly animals and things to gather -------------------------------------------------------------------------
+place Creature_Dolphin dolphins at 30 -60 h=-3
+prop dolphins creature.count=2
+scatter "Pickup_Landmark_Flower_Blue" 2 at 0 10 r=20 seed=4111 free=3
+call dirt x=8 z=8 r=8 n=2 seed=4112
+call shallows r=56 deep=5 n=2
+
+# --- Settings, story items, notes, behaviours, quest ----------------------------------------------------------------
+info title=The Dead Letter Office
+info author=Custom Islands
+info description=The Coastal Post's dead letter office on a granite skerry: a brick-red hall with a stopped clock over the door, a sorting counter, pigeon-holes full of letters nobody could deliver - and one addressed to your raft. The first island of The Last Post.
+island on.arrive=message||A low grey skerry and on it a small red-brick building. Over its door hangs a clock, stopped at nine.
+
+prop brick tint.color=#8a4436
+prop brick tint.amount=0.55
+prop sacks tint.color=#b8a478
+prop sacks tint.amount=0.75
+prop officeclock obj.name=officeclock
+prop officeclock beh.use=Look at the clock
+prop officeclock on.use=message||The clock over the door stopped at nine o'clock. Someone has written under it in chalk: "Last collection".
+
+story deadletter|Dead letters|Note_Paper|Letters the Dead Letter Office could never deliver. Ada Lind's route card says they can be delivered now.
+story dl_ferry|Dead letter (Ferry Master)|Note_Paper|A letter for the ferry master of Pillarbox Pier, in a woman's hand.
+story dl_eskil|Dead letter (Eskil)|Note_Paper|A letter for Eskil Brandt, mail pilot, care of the Parcel Canopy airstrip.
+story dl_telegraph|Dead letter (Telegraphist)|Note_Paper|A letter for the telegraphist of Pneumatic Heights exchange.
+story dl_lise|Dead letter (Sorter Lise)|Note_Paper|A letter for Lise, sorter at Sorting Rock, stamped URGENT three times.
+story dl_ada|Dead letter (Ada)|Note_Paper|A letter for Postmistress Ada Lind, care of the Franking Works.
+
+note rafletter Letter addressed to your raft | To: THE RAFT, wherever it floats.\n\nIf this reaches you, the post still works.\n\nI am Ada Lind, postmistress of the Coastal Post. When the sea rose we kept delivering - by rowing boat, by mail plane, by tube and by wire. Now the letters in this office have nowhere to go, because everyone they were written to is somewhere new.\n\nTake them. Follow the route on my card. We kept a place for everyone.\n\n- A. L.
+prop rafletter obj.name=rafletter
+note drawer Counter drawer | The counter drawer, its key long lost: the office's spare Receiver plans and an antenna drawing, "for the route", in Ada's handwriting.
+loot drawer Blueprint_Reciever*1;Blueprint_Antenna*1;Rope*3;Plank*6;Nail*8
+prop drawer loot.refill=0
+prop drawer obj.name=drawer
+note dlferry Dead letter: Ferry Master | To the Ferry Master, Pillarbox Pier.\n\n(The envelope is sealed. On the back: "Postbox 7 - he'll know.")
+prop dlferry on.read=give||story:dl_ferry*1\ngive||story:deadletter*1\nmessage||You take the letter for the Ferry Master.
+note dleskil Dead letter: Eskil | To Eskil Brandt, Mail Pilot, Parcel Canopy airstrip.\n\n(Sealed. The stamp shows a little red mail plane.)
+prop dleskil on.read=give||story:dl_eskil*1\ngive||story:deadletter*1\nmessage||You take the letter for the mail pilot Eskil.
+note dltelegraph Dead letter: Telegraphist | To the Telegraphist, Exchange Tower, Pneumatic Heights.\n\n(Sealed. Marked: "By tube if possible".)
+prop dltelegraph on.read=give||story:dl_telegraph*1\ngive||story:deadletter*1\nmessage||You take the letter for the telegraphist.
+note dllise Dead letter: Sorter Lise | To Lise Moberg, Sorting Rock. URGENT. URGENT. URGENT.\n\n(Sealed. Someone has weighed it and written 40 g on the corner.)
+prop dllise on.read=give||story:dl_lise*1\ngive||story:deadletter*1\nmessage||You take the urgent letter for Lise the sorter.
+note dlada Dead letter: Postmistress | To Postmistress Ada Lind, c/o The Franking Works.\n\n(Sealed with red wax. The return address is this office.)
+prop dlada on.read=give||story:dl_ada*1\ngive||story:deadletter*1\nmessage||You take the letter for Ada Lind herself.
+note routecard Postmaster's route card | COASTAL POST - ROUTE CARD (A. LIND)\n\n1. Dead Letter Office (here)\n2. Pillarbox Pier - the ferry\n3. Parcel Canopy - Eskil's airstrip\n4. Pneumatic Heights - the exchange (opens the 10th day)\n5. Sorting Rock\n6. Telegraph Narrows\n7. The Franking Works\n8. My house on the round\n9. The General Post Office\n\nDeliver what you carry. Listen on the Receiver for each stop.
+
+prop jettyzone zone.id=jetty
+prop jettyzone zone.radius=4
+prop jettyzone zone.message=The office jetty: grey planks, a lantern, and up the rock a red-brick post office.
+
+quest title=Return to Sender
+quest intro=A post office on a bare skerry. Tie up at its jetty.
+step reach|jetty|1|Tie up at the post office jetty
+step read|Letter addressed to your raft|1|Read the letter on the counter - it is addressed to your raft
+step open|Counter drawer|1|Open the counter drawer
+step blueprint|Blueprint_Reciever|1|Take the Receiver plans from the counter drawer
+step blueprint|Blueprint_Antenna|1|Take the antenna plans from the counter drawer
+step collect|story:deadletter|5|Take the five dead letters from the pigeon-holes
+step read|Postmaster's route card|1|Read the postmaster's route card by the door
+quest done=Five letters to deliver, and a route to follow. Listen on the Receiver for Pillarbox Pier.
+quest reward=Plank*6;Rope*3;Scrap*4;Cooked_Potato*2
+
+save The Dead Letter Office

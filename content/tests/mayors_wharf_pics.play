@@ -1,0 +1,13 @@
+# Guide pictures of Mayor's Wharf (CIPlay mayors_wharf_pics): Raft's camera and water at midday
+island Mayor's Wharf
+hour 11
+weather Calm
+at 15 -6
+wait 2
+picture mayors_wharf_island 46 11 -32 22 2 2
+picture mayors_wharf_wharf 7 3.5 -13 24 2 -4
+picture mayors_wharf_cafe 33 9 22 24 4 12
+picture mayors_wharf_office 22.2 1.9 -3.6 26.5 1.4 3
+at 31 -8 h=-3
+wait 2
+picture mayors_wharf_flooded 32 -3 -9 24 -3.5 0

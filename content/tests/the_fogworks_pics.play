@@ -1,0 +1,14 @@
+# Guide pictures of The Fogworks (CIPlay the_fogworks_pics): Raft's camera, midday, calm
+island The Fogworks
+offset -0.0582 13.6067
+hour 11
+weather Calm
+at 0 -30
+wait 3
+picture the_fogworks_island 0 45 -140 0 6 -30
+picture the_fogworks_street 14 6 -60 -6 3 -44
+picture the_fogworks_towers 0 10 -88 0 12 -62
+picture the_fogworks_mast -22 8 -48 -30 14 -58
+picture the_fogworks_halls 0 10 -32 0 3 -12
+picture the_fogworks_boiler 22 6 -2 27 3 -10
+picture the_fogworks_underwater 10 -1.5 -36 0 -1.5 -52

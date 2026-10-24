@@ -1,0 +1,17 @@
+# Guide pictures of Thunderhead Array (CIPlay thunderhead_array_pics): Raft's camera, midday, calm
+island Thunderhead Array
+offset 0 0
+hour 11
+weather Calm
+at 0 -30
+wait 3
+picture thunderhead_array_island 0 40 -100 0 10 0
+picture thunderhead_array_grid -30 22 -20 0 16 14
+picture thunderhead_array_halls 0 18 18 0 15 32
+picture thunderhead_array_board -32 17 -4 -24 15 8
+picture thunderhead_array_path 10 8 -62 0 8 -30
+picture thunderhead_array_zipline 30 6 -50 14 12 -16
+picture thunderhead_array_underwater 0 -2 -80 0 -3 -60
+zone plateau
+wait 3
+picture thunderhead_array_storm 20 20 -10 0 16 14

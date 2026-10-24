@@ -1,0 +1,58 @@
+# Play test of Caravan Town Remade (CIPlay caravan_town_remade, in a test world 'CI ...'). Points as in its recipe: the
+# market in the inlet (1.6 m), the lift's ladders on its south face, the upper town and the mayor's pillar (21.9 m).
+island Caravan Town Remade
+expect step 0
+expect title The Mayor's Toll
+
+# Into the market: the toll notice, the ledger
+at -9 -1
+zone market
+expect step 1
+read Toll notice
+expect step 2
+read Market ledger
+expect step 3
+
+# The winch has no crank yet
+at -16.5 8
+use winch
+expect message no crank
+expect step 3
+
+# Down into the bay: the air pocket, the diver's crate by the sunken trailer
+at -12.5 -12 h=-1
+air airpocket
+zone airpocket
+expect step 4
+open Diver's crate
+expect story crank 1
+expect step 6
+
+# Up the lift - its three ladders - and out onto the upper town; the bridge wound across, over to the mayor's pillar
+climb -12.5 -5.6 h=1.6
+climb -15.5 -5.6 h=7.9
+climb -12.5 -5.6 h=14.9
+walk -14 -1 to -14 2 to -16 5 to -16.5 8 h=21.9
+use winch
+expect message slides out
+wait 4
+walk -15.5 6.5 to -9.5 6.5 to -3 6.5 to 0 3 h=21.9
+zone mayortower
+expect step 7
+
+# The mayor's hyenas; up the ladder to his roof, where the white screecher rises from her nest
+kill Hyena
+expect step 8
+climb 3 -2.6 h=21.9
+zone roof
+expect step 9
+kill Caravan screecher
+expect step 10
+open Screecher's nest
+expect story mayorkey 1
+expect step 11
+open Mayor's chest
+wait 4
+expect item Blueprint_EngineControls 1
+expect item Blueprint_MetalDetector 1
+expect done

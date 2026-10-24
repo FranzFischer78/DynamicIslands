@@ -1,0 +1,65 @@
+# Play test of Bramblehive Knoll (CIPlay bramblehive_knoll, in a test world 'CI ...'). Points as in its recipe: the
+# knoll's middle at 0 0; the plain at 2.6 m; the ring terraces at 4.5 m (r 18..24), 7 m (r 10..17), 9.5 m (r 4..9) and
+# the summit at 12 m (r 3.8); the ramps north (x 0, plain - low ring), east (z 0, low - middle), south (x 0, middle -
+# high), west (z 0, high - summit); the mead shed x -2.47..8, z 29.5..40 (floor 2.9 m), in from its veranda's south end
+# (x 4.5..8) through its door at 4.5 34.8; the marked hives at 0 -21.5 (low), -14 0 (middle), 0 7.5 (high)
+island Bramblehive Knoll
+expect step 0
+expect title First Mead
+expect animals Chicken 4
+expect animals Dolphin 2
+wait 5
+
+# The landing: up from the north beach to the shed; Bram's note inside; the press wants three combs
+walk 6.3 22 to 6.3 26 h=2.7
+zone knoll
+expect step 1
+walk 6.3 28 to 6.3 31 to 6.3 34.8 to 2.5 34.8 h=2.9 below=5
+read Old Bram's note
+expect step 2
+use press
+expect message three terraces
+open Mead shed box
+
+# Up the north ramp onto the low ring and round to its marked hive in the south
+walk 0 29 to 0 25 to 0 21 h=4.5
+walk 0 21 to -10 19 to -20 9 to -21 -5 to -12 -18 to -2 -19.5 h=4.5
+zone lowterrace
+open Marked hive on the low terrace
+expect story comb 1
+# (up the east ramp onto the middle ring and round to its marked hive in the west)
+walk 2 -19.5 to 12 -17 to 20 -6 to 22 0 h=4.5
+walk 22 0 to 17 0 to 13.5 0 h=7
+walk 13.5 0 to 12 6 to 6 12 to -5 12.5 to -9.5 8 to -10.5 2 h=7
+zone midterrace
+open Marked hive on the middle terrace
+expect story comb 2
+# (up the south ramp onto the high ring and round to its marked hive in the north)
+walk -10.5 -2 to -10 -9 to -3 -13.5 to -4 -14.5 h=7
+walk 0 -14 to 0 -10 to 0 -6.5 h=9.5
+walk 0 -6.5 to -5 -4.5 to -6.5 1.5 to -5.6 3.6 h=9.5
+zone highterrace
+open Marked hive on the high terrace
+expect story comb 3
+expect step 3
+
+# Back to the shed with the combs: the press - the first mead
+at 6.3 27
+walk 6.3 28 to 6.3 31 to 6.3 34.8 to 2.5 34.8 h=2.9 below=5
+use press
+expect story comb 0
+expect story mead 1
+expect step 4
+
+# The delivery: out of the shed and up every ramp to the summit; the bee-mother's chest
+walk 2.5 34.8 to 6.3 34.8 to 6.3 30 to 6.3 27.5 h=2.9 below=5
+walk 2 28.5 to 0 25 to 0 21 to 10 19 to 19 9 to 22 0 h=4.5
+walk 22 0 to 17 0 to 13.5 0 to 11.5 -7 to 5 -12.5 to 4 -14.5 h=7
+walk 0 -14 to 0 -10 to 0 -6.5 to -6 -4 to -8.6 -0.5 h=9.5
+walk -8.6 0 to -4.5 0 to -1.5 0 h=12
+zone summit
+expect step 5
+open Bee-mother's chest
+expect story mead 0
+expect item Placeable_BeeHive 2
+expect done

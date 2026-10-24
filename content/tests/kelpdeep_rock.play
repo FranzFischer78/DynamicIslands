@@ -1,0 +1,41 @@
+# Play test of Kelpdeep Rock (CIPlay kelpdeep_rock, in a test world 'CI ...'). Points as in its recipe ("offset").
+# The survey hut on the north-east islet (13..17.5 27.5..32, floor 5.2 m), the buoy and its recorder at 8 14, the four
+# kelp caves 11-12 m down: north (-6 24), east (30 6), south (2 -22), west (-20 8), their posts 3 m south of each.
+island Kelpdeep Rock
+offset 0 0
+expect step 0
+expect title Under the Kelp
+wait 5
+expect animals Turtle 2
+expect animals Dolphin 2
+at 15.25 29.5 h=6
+zone hut
+expect step 0
+read Survey orders
+expect step 1
+open Survey hut box
+open Survey chest
+expect message Four readings first
+at -6 22 h=-9
+use post1
+air air1
+zone air1
+expect step 2
+at 30 4 h=-9
+use post2
+air air2
+use post2
+expect message You have this cave's reading
+at 2 -24 h=-8
+use post3
+at -20 6 h=-9
+use post4
+expect story reading 4
+expect step 3
+at 8 12.5 h=0.5
+use recorder
+expect message SURVEY COMPLETE
+at 15.25 29.5 h=6
+open Survey chest
+expect done
+open Sunk survey barrel

@@ -1,0 +1,10 @@
+# Rootcellar Deep alone (CIPlay rootcellar_deep_solo): the four apple baskets taken on Upfall Orchard first, then the
+# cellar's own play.
+island Upfall Orchard
+offset 0 0
+use apple1
+use apple2
+use apple3
+use apple4
+expect story upapple 4
+include rootcellar_deep.play

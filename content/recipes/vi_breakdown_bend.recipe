@@ -1,0 +1,95 @@
+# Breakdown Bend - a vehicle island (VI1, quest island)
+# A low grassy island with a sand track round a bend. A van broke down on the bend with its fan belt gone, two
+# caravans made a camp beside it, and an old stripped caravan frame stands where the track ends. Hyenas den by the
+# frame. Quest "Out of Road" (5 steps): the camp, the driver's log, two hyenas, the spare fan belt fitted to the van,
+# the van's roof box.
+#
+# Points (metres from the land centre): camp pad round 0 -4 (h 2), the bend of the track at 4 -2, the frame pad
+# round 13 8 (h 2.4), the hyena den 14 13, the landing beach 0 -22.
+include lib_sea
+new
+gen Trees=0.25 Bushes=0.25 Rocks=0.4 Harvest=0.22 BeachThings=0.3
+gen Seed=15101 Radius=26 Height=4 Roughness=0.35 Peaks=1 Shape=0.3 Style=0 PeakShape=0.4 Cliffs=0.1 BeachWidth=0.5
+gen Water=0.5 SeaRocks=0.3 SeaFinds=0.3 Sunken=0.1 Hostiles=0 Friendly=0.1 SeaLife=0.3
+generate
+
+# --- Terrain: camp pad, the track, the frame pad, the landing ----------------------------------------------------
+brush flatten at 0 -4 r=11 s=20 frames=150 h=2
+brush grass at 0 -4 r=11 s=6 frames=30
+brush flatten at 13 8 r=7 s=20 frames=120 h=2.4
+brush sand from 0 -20 to 4 -2 r=2.5 s=8 frames=20
+brush sand from 4 -2 to 13 8 r=2.5 s=8 frames=20
+brush flatten at 0 -22 r=6 s=20 frames=100 h=1.1
+brush sand at 0 -22 r=7 s=10 frames=30
+origin
+clear at 0 -4 r=10
+clear at 13 8 r=6
+clear at 0 -22 r=5
+clear at -1 8 r=4
+clear at 2 13 r=5
+
+# --- The van on the bend and the caravan camp ---------------------------------------------------------------------
+place Van_2 stuckvan at 4 -2 ground sit yaw=75
+place Caravan_Green_01 - at -5 3 ground sit yaw=200
+place Caravan_Yellow_01 - at -9 -6 ground sit yaw=110
+place campfire_1 - at -3 -3 ground sit
+place Bench_01 - at -5 -1 ground sit yaw=90
+place PlasticChair_01 - at -1 -5 ground sit yaw=300
+place PlasticChair_01 - at -4 -6 ground sit yaw=20
+place "Box Small" logbox at 1 -6 ground sit yaw=15
+place Note_Paper driverlog at 1 -6 y=0.5 drop yaw=10
+place Loot_ChestSmall roofbox at 6 -4 ground sit yaw=75
+place Zone_Trigger campzone at -2 -3 ground
+
+# --- The frame at the end of the track, the spares crate and the den ----------------------------------------------
+place CaravanBarebones1 - at 13 8 ground sit yaw=30
+place Loot_Crate sparescrate at 10 11 ground sit yaw=30
+place Pallet - at 16 5 ground sit yaw=10
+place Scrap_02 - at 11 5 ground sit
+place Creature_Hyena den at 14 13 ground
+prop den creature.count=2
+prop den creature.respawn=0
+scatter "Pickup_Landmark_Tree_Palm 2" 3 at -14 6 r=6 seed=15111 free=2
+scatter Pickup_Landmark_BerryBush 2 at -12 -12 r=5 seed=15112 free=2
+call shallows x=0 z=0 r=34 deep=5 n=1 seed=15113
+
+# --- Settings, notes, quest ---------------------------------------------------------------------------------------
+info title=Breakdown Bend
+info author=Custom Islands
+info description=A van broken down on a sandy bend, two caravans camped beside it and hyenas at the end of the track.
+island on.arrive=message||A van stands crooked on a sandy bend, bonnet up. Two caravans, a cold fire - and something laughing past the trees.
+
+story fanbelt|Fan belt|Rope|A spare fan belt from the crate by the old caravan frame.
+story vanfixed|Van running|Bolt|The van on the bend, its new fan belt fitted.
+
+note driverlog Driver's log | DRIVER'S LOG\n\nThe belt snapped on the bend and the van just stopped. We camped.\nThere is a spare belt in the crate by the old frame at the end of the track, but the hyenas sleep right next to it.\nIf you get it on, the roof box is yours. I could not open it with the van dead.
+note sparescrate Spares crate | A crate of spares: a fan belt, a hinge, some bolts.
+loot sparescrate story:fanbelt*1;Hinge*1;Bolt*3
+prop sparescrate loot.refill=0
+note roofbox Driver's roof box | The driver's roof box: tools and road food.
+loot roofbox Battery*1;MetalIngot*2;Canteen_Water*1;Banana*2
+prop roofbox loot.refill=0
+prop roofbox obj.name=roofbox
+prop roofbox beh.hidden=1
+
+prop stuckvan obj.name=stuckvan
+prop stuckvan beh.use=Fit the fan belt
+prop stuckvan if.use=take|story:fanbelt|1
+prop stuckvan on.use=message||The belt slips over the pulleys. The engine coughs, catches and runs. The roof box pops its catch.\ngive||story:vanfixed*1\nshow|roofbox
+prop stuckvan else.use=message||The engine turns but nothing drives it. The fan belt is gone.
+
+prop campzone zone.id=camp
+prop campzone zone.radius=5
+prop campzone zone.message=The caravan camp. A cold fire, two chairs and a logbook on a box.
+
+quest title=Out of Road
+quest intro=A van broke down on Breakdown Bend. Find the camp.
+step reach|camp|1|Walk up to the caravan camp
+step read|Driver's log|1|Read the driver's log
+step kill|Hyena|2|Drive off the two hyenas at the end of the track
+step collect|story:vanfixed|1|Fit the spare fan belt to the van
+step open|Driver's roof box|1|Open the van's roof box
+quest done=The van runs again. Nobody to drive it now, but the road food was good.
+quest reward=Rope*3;Scrap*4
+
+save Breakdown Bend
